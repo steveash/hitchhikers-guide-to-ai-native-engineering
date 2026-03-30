@@ -310,6 +310,135 @@ contaminating output style.
 
 **Rule**: Use your project's actual language and frameworks in all examples.
 
+### Do not auto-generate your AGENTS.md
+
+This is backed by the strongest quantitative evidence in the guide. The
+ETH Zurich study (Gloaguen et al.) tested four agents across SWE-bench
+and found that LLM-generated AGENTS.md files **reduced success rates
+by ~3%** while **increasing costs by over 20%**. Developer-written
+context files, by contrast, improved success by ~4%.
+[source: blog-addyosmani-code-agent-orchestra, Claim 7] [settled]
+
+The mechanism: auto-generated content is redundant. When documentation
+was stripped from the codebase, auto-generated AGENTS.md files actually
+improved performance by 2.7% — because the content was just restating
+what the agent could discover by reading the code. In a normal codebase
+with intact documentation, this redundancy wastes context budget and
+dilutes the signal from rules the agent truly needs.
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [settled]
+
+Worse, auto-generated content introduces **anchoring effects**: mentioning
+a technology (e.g., tRPC) biases the agent toward using it, even if the
+technology is deprecated or not the right choice for the task.
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1] [emerging]
+
+**Rule**: Never run `/init` or equivalent auto-generation commands for
+your agent config. Write it by hand. Apply the **filter test** to every
+line: Can the agent discover this by reading the code, config files, or
+tool output? If yes, delete it. Keep only what requires human judgment,
+historical context, or knowledge the codebase does not encode.
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1] [emerging]
+
+**Example** — applying the filter test to a hypothetical AGENTS.md:
+
+```markdown
+# BEFORE (auto-generated, fails filter test)
+This is a TypeScript project using React 18 and Next.js 14.    ← Agent can read package.json
+We use ESLint and Prettier for code formatting.                 ← Agent can read .eslintrc
+The test framework is Jest with React Testing Library.          ← Agent can read jest.config.js
+Never commit secrets or API keys.                               ← Keep (judgment call)
+We migrated from tRPC to REST in Q4 2025; do not use tRPC.     ← Keep (historical context)
+Always run `nx affected:test` before commits, not `npm test`.   ← Keep (non-obvious command)
+
+# AFTER (developer-written, passes filter test)
+Never commit secrets or API keys.
+We migrated from tRPC to REST in Q4 2025; do not use tRPC.
+Always run `nx affected:test` before commits, not `npm test`.
+```
+
+Three lines instead of six. Every surviving line carries information
+the agent cannot discover on its own.
+
+---
+
+## The Three-Tier Boundary System
+
+NetPace's MUST NEVER / MUST ALWAYS pattern (shown above in "Prohibitions
+First") is effective but binary: the agent either always does something
+or never does. There is no middle ground for operations that require
+human judgment.
+
+The three-tier boundary system adds an intermediate tier — "Ask First" —
+for operations that are sometimes appropriate and sometimes dangerous.
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [emerging]
+
+```
+Always Do:    "Always run tests before commits"
+Ask First:    "Ask before modifying database schemas"
+Never Do:     "Never commit secrets or API keys"
+```
+
+This framework comes from GitHub's analysis of 2,500+ agent configuration
+files. It is a complementary tool to the MUST NEVER / MUST ALWAYS pattern,
+not a replacement.
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [emerging]
+
+### When to use three tiers vs. two tiers
+
+Use the two-tier pattern (MUST NEVER / MUST ALWAYS) when your project
+is small, your agent operates in a narrow scope, and every operation is
+clearly safe or clearly dangerous. This is NetPace's situation — a solo
+developer on a CLI tool where TDD is the universal rule.
+[source: practitioner-frankray78-netpace] [anecdotal]
+
+Use the three-tier pattern when your project involves operations with
+conditional risk — database migrations, API schema changes, permission
+modifications, dependency upgrades. These are not universally dangerous,
+but they require human judgment about timing and context.
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [emerging]
+
+### Example: three-tier boundaries for a web application
+
+```markdown
+## Agent Boundaries
+
+### Always Do
+- Run the full test suite before committing
+- Include type annotations on all new functions
+- Update CHANGELOG.md with user-facing changes
+
+### Ask First
+- Modifying database migrations (show the migration plan first)
+- Changing API response schemas (show affected consumers)
+- Adding new dependencies (justify why existing deps don't suffice)
+- Modifying authentication or authorization logic
+
+### Never Do
+- Commit secrets, API keys, or credentials
+- Force-push to main or release branches
+- Delete or modify production data access patterns
+- Bypass CI checks or pre-commit hooks
+```
+
+The "Ask First" tier creates natural quality gates: the agent pauses,
+presents its plan, and waits for approval before proceeding. This is
+more practical than listing every possible prohibition, because it
+acknowledges that some operations are fine in context but dangerous
+without it.
+
+### How this maps to existing permission models
+
+tin's per-command tool scoping is a programmatic implementation of the
+three-tier pattern: each command declares exactly which tools it can use.
+A `/checkout` command cannot commit; a `/commit` command cannot checkout.
+The boundaries are enforced by settings.json, not by prose.
+[source: practitioner-dadlerj-tin] [anecdotal]
+
+Sentry's granular allowlist (60+ specific Bash command prefixes) is the
+"Always Do" tier made explicit — the agent can run listed commands without
+asking, and everything else is implicitly forbidden.
+[source: practitioner-getsentry-sentry] [anecdotal]
+
 ---
 
 ## Repetition for Context Resilience
@@ -795,6 +924,7 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 ---
 
 *Sources for this chapter:
+blog-addyosmani-code-agent-orchestra (Claims 7, 11; Linked Sources 1, 4),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
