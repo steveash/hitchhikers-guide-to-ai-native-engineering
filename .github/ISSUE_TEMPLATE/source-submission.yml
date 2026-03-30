@@ -1,0 +1,66 @@
+name: Source Submission
+description: Submit a source for the Hitchhiker's Guide to analyze
+title: "[source] "
+labels: ["new-source", "source-submission"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+      description: Link to the repo, blog post, discussion, or document
+      placeholder: https://github.com/owner/repo or https://example.com/post
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source_type
+    attributes:
+      label: Source Type
+      options:
+        - practitioner-repo (a real project that uses AI coding agents)
+        - failure-report (something that didn't work)
+        - blog-post (practitioner writeup)
+        - discussion (forum thread, Reddit, HN)
+        - documentation (official tool docs)
+        - paper (academic or industry research)
+    validations:
+      required: true
+
+  - type: textarea
+    id: whats_interesting
+    attributes:
+      label: What's interesting about this source?
+      description: |
+        In your own words, what did you find valuable? Be specific.
+        "It's a good CLAUDE.md" is not helpful. "Their CLAUDE.md uses
+        nested files per package with a shared testing convention" is.
+      placeholder: Tell us what caught your eye and why it matters...
+    validations:
+      required: true
+
+  - type: textarea
+    id: relevance
+    attributes:
+      label: Where might this be relevant?
+      description: |
+        Which part of the guide could this affect? Reference specific
+        chapters if you know them, or describe the topic area.
+      placeholder: |
+        e.g., "Chapter 02 on harness engineering — they have an unusual
+        approach to progressive disclosure that might be worth documenting"
+    validations:
+      required: false
+
+  - type: textarea
+    id: key_claims
+    attributes:
+      label: Key claims or patterns you noticed (optional)
+      description: |
+        If you've already identified specific claims or patterns, list them.
+        This helps the extraction agents focus on what matters.
+      placeholder: |
+        - They restart sessions after every 15 turns
+        - Their hook config runs full test suite before commit
+        - They explicitly ban certain tools in .claude/settings.json
+    validations:
+      required: false

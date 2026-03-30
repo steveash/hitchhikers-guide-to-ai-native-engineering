@@ -1,0 +1,9 @@
+.runtime/
+.claude/
+.logs/
+__pycache__/
+state.json
+mail/
+.beads/
+*.pyc
+.env

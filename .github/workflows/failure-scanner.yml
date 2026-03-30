@@ -1,0 +1,41 @@
+name: Weekly Failure Scanner
+
+on:
+  schedule:
+    - cron: '0 9 * * 4'  # Every Thursday 9:00 UTC
+  workflow_dispatch:       # Manual trigger for testing
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Scan Hacker News (Algolia API - no key needed)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/scan-failures.py --source hn
+
+      - name: Scan GitHub Discussions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/scan-failures.py --source github
+
+      # Reddit requires API credentials - uncomment when configured
+      # - name: Scan Reddit
+      #   env:
+      #     REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+      #     REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: python scripts/scan-failures.py --source reddit

@@ -1,0 +1,41 @@
+name: Practitioner Repo Discovery
+description: Flag a GitHub repo with interesting AI agent configuration
+title: "[repo] "
+labels: ["new-repo", "practitioner-repo"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      description: GitHub repo in owner/repo format
+      placeholder: owner/repo
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: config_files
+    attributes:
+      label: AI config files present
+      description: Check all that you've confirmed exist in the repo
+      options:
+        - label: CLAUDE.md (root)
+        - label: CLAUDE.md (nested in subdirectories)
+        - label: .claude/settings.json
+        - label: .claude/commands/ (custom commands)
+        - label: .claude/rules/ (rule files)
+        - label: AGENTS.md
+        - label: .cursorrules or .cursor/ config
+        - label: Other (describe below)
+
+  - type: textarea
+    id: whats_notable
+    attributes:
+      label: What makes this repo worth analyzing?
+      description: |
+        Be specific about what patterns or approaches caught your eye.
+      placeholder: |
+        e.g., "They have 5 custom slash commands for different review
+        workflows, and their CLAUDE.md explicitly bans certain refactoring
+        patterns that most repos encourage"
+    validations:
+      required: true

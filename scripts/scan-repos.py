@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+"""
+Weekly GitHub repo scanner.
+
+Searches for repos with AI agent configuration files (CLAUDE.md, .claude/,
+AGENTS.md) and files GitHub issues for new discoveries.
+
+Uses GitHub Search API (code search). Rate limit: 10 requests/minute.
+"""
+
+import json
+import os
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+import requests
+
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+REGISTRY_PATH = Path(__file__).parent.parent / "registry" / "repos.json"
+REPO_URL = os.environ.get("GITHUB_REPOSITORY", "steveash/hitchhiker-guide")
+
+# Search queries for discovering repos with AI agent configs
+SEARCH_QUERIES = [
+    'filename:CLAUDE.md stars:>=5 pushed:>=2025-12-01 fork:false',
+    'path:.claude/settings.json stars:>=5 pushed:>=2025-12-01 fork:false',
+    'filename:AGENTS.md stars:>=5 pushed:>=2025-12-01 fork:false',
+]
+
+# Repos to always exclude (our own, Anthropic's, known tutorials)
+EXCLUDE_OWNERS = {
+    'anthropics',      # Vendor docs, not practitioner usage
+    'steveash',        # Our own repos
+}
+
+# Keywords in repo name/description that suggest it's ABOUT Claude, not USING it
+TUTORIAL_KEYWORDS = [
+    'awesome-', 'list-of-', 'collection-', 'tutorial', 'guide',
+    'template', 'starter', 'boilerplate', 'example-claude',
+    'claude-tutorial', 'claude-guide', 'claude-template',
+]
+
+
+def github_headers():
+    headers = {"Accept": "application/vnd.github+json"}
+    if GITHUB_TOKEN:
+        headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+    return headers
+
+
+def search_repos(query: str, page: int = 1) -> list[dict]:
+    """Search GitHub code API and return unique repos from results."""
+    url = "https://api.github.com/search/code"
+    params = {"q": query, "per_page": 100, "page": page}
+    resp = requests.get(url, headers=github_headers(), params=params)
+
+    if resp.status_code == 403:
+        print(f"Rate limited. Waiting 60s...", file=sys.stderr)
+        time.sleep(60)
+        resp = requests.get(url, headers=github_headers(), params=params)
+
+    if resp.status_code != 200:
+        print(f"Search failed ({resp.status_code}): {resp.text}", file=sys.stderr)
+        return []
+
+    data = resp.json()
+    repos = {}
+    for item in data.get("items", []):
+        repo = item["repository"]
+        full_name = repo["full_name"]
+        if full_name not in repos:
+            repos[full_name] = {
+                "full_name": full_name,
+                "description": repo.get("description", ""),
+                "html_url": repo["html_url"],
+                "stars": repo.get("stargazers_count", 0),
+                "config_files_found": [item["path"]],
+            }
+        else:
+            repos[full_name]["config_files_found"].append(item["path"])
+
+    return list(repos.values())
+
+
+def is_excluded(repo: dict) -> bool:
+    """Check if repo should be excluded based on heuristics."""
+    full_name = repo["full_name"]
+    owner = full_name.split("/")[0]
+    name = full_name.split("/")[1].lower()
+    desc = (repo.get("description") or "").lower()
+
+    if owner in EXCLUDE_OWNERS:
+        return True
+
+    for kw in TUTORIAL_KEYWORDS:
+        if kw in name or kw in desc:
+            return True
+
+    return False
+
+
+def load_registry() -> dict:
+    """Load existing repo registry."""
+    if REGISTRY_PATH.exists():
+        with open(REGISTRY_PATH) as f:
+            return json.load(f)
+    return {"repos": {}, "last_scan": None}
+
+
+def save_registry(registry: dict):
+    """Save repo registry."""
+    REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(REGISTRY_PATH, "w") as f:
+        json.dump(registry, f, indent=2, default=str)
+
+
+def file_issue(repo: dict, is_update: bool = False):
+    """File a GitHub issue for a discovered repo."""
+    label = "repo-updated" if is_update else "new-repo"
+    title_prefix = "[repo-update]" if is_update else "[repo]"
+
+    title = f'{title_prefix} {repo["full_name"]}'
+    body = f"""## Auto-discovered practitioner repo
+
+**Repository**: [{repo['full_name']}]({repo['html_url']})
+**Stars**: {repo.get('stars', 'unknown')}
+**Description**: {repo.get('description', 'No description')}
+
+### AI config files detected
+{chr(10).join(f'- `{f}`' for f in repo.get('config_files_found', []))}
+
+### Scanner notes
+This repo was automatically discovered by the weekly repo scanner.
+It needs triage by the Prospector agent.
+
+---
+*Filed by repo-scanner.yml*
+"""
+
+    url = f"https://api.github.com/repos/{REPO_URL}/issues"
+    resp = requests.post(url, headers=github_headers(), json={
+        "title": title,
+        "body": body,
+        "labels": [label, "practitioner-repo"],
+    })
+
+    if resp.status_code == 201:
+        print(f"  Filed issue for {repo['full_name']}")
+    else:
+        print(f"  Failed to file issue ({resp.status_code}): {resp.text}",
+              file=sys.stderr)
+
+
+def main():
+    registry = load_registry()
+    known_repos = registry.get("repos", {})
+    all_discovered = {}
+
+    print("Starting weekly repo scan...")
+
+    for query in SEARCH_QUERIES:
+        print(f"\nSearching: {query}")
+        repos = search_repos(query)
+        print(f"  Found {len(repos)} repos")
+
+        for repo in repos:
+            name = repo["full_name"]
+            if name not in all_discovered:
+                all_discovered[name] = repo
+            else:
+                # Merge config files lists
+                existing_files = all_discovered[name]["config_files_found"]
+                new_files = repo["config_files_found"]
+                all_discovered[name]["config_files_found"] = list(
+                    set(existing_files + new_files)
+                )
+
+        # Respect rate limits
+        time.sleep(10)
+
+    # Filter and process
+    new_count = 0
+    update_count = 0
+
+    for name, repo in all_discovered.items():
+        if is_excluded(repo):
+            print(f"  Excluded: {name}")
+            continue
+
+        if name not in known_repos:
+            print(f"  NEW: {name}")
+            file_issue(repo, is_update=False)
+            known_repos[name] = {
+                "first_seen": datetime.now(timezone.utc).isoformat(),
+                "last_scanned": datetime.now(timezone.utc).isoformat(),
+                "config_files": repo["config_files_found"],
+                "stars": repo.get("stars", 0),
+            }
+            new_count += 1
+        else:
+            # Check if config files changed
+            old_files = set(known_repos[name].get("config_files", []))
+            new_files = set(repo["config_files_found"])
+            if new_files != old_files:
+                print(f"  UPDATED: {name} (config files changed)")
+                file_issue(repo, is_update=True)
+                known_repos[name]["last_scanned"] = datetime.now(timezone.utc).isoformat()
+                known_repos[name]["config_files"] = repo["config_files_found"]
+                update_count += 1
+            else:
+                known_repos[name]["last_scanned"] = datetime.now(timezone.utc).isoformat()
+
+    registry["repos"] = known_repos
+    registry["last_scan"] = datetime.now(timezone.utc).isoformat()
+    save_registry(registry)
+
+    print(f"\nScan complete: {new_count} new, {update_count} updated, "
+          f"{len(known_repos)} total tracked")
+
+
+if __name__ == "__main__":
+    main()

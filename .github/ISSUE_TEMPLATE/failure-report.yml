@@ -1,0 +1,52 @@
+name: Failure Report
+description: Submit a "this didn't work" report for analysis
+title: "[failure] "
+labels: ["new-source", "failure-report"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+      description: Link to the discussion, issue, or post describing the failure
+      placeholder: https://...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Where was this reported?
+      options:
+        - GitHub Issue / Discussion
+        - Reddit (r/ClaudeCode, r/ChatGPT, etc.)
+        - Hacker News
+        - Blog post
+        - Twitter/X
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_failed
+    attributes:
+      label: What failed?
+      description: |
+        Brief description of what was attempted and what went wrong.
+        Include the tool/approach if known.
+      placeholder: |
+        e.g., "Author tried using a 500-line CLAUDE.md with detailed
+        coding standards and found Claude Code ignored most of it
+        after the first 50 lines"
+    validations:
+      required: true
+
+  - type: textarea
+    id: why_valuable
+    attributes:
+      label: Why is this failure report valuable?
+      description: What can we learn from it?
+      placeholder: |
+        e.g., "Concrete evidence against long CLAUDE.md files — they
+        actually measured which instructions were followed vs ignored"
+    validations:
+      required: false

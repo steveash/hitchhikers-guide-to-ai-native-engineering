@@ -1,0 +1,32 @@
+name: Source Processing Pipeline
+
+# This workflow is a placeholder for the agent orchestration layer.
+# When a source is triaged, it triggers the appropriate extraction agent.
+#
+# Implementation options:
+# 1. Claude Code CLI invoked from GitHub Actions (requires API key)
+# 2. Manual agent invocation guided by issue labels
+# 3. External orchestrator watching for label changes via webhooks
+#
+# For now, the pipeline is human-triggered: check issues by label
+# and run the appropriate agent manually.
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log pipeline event
+        run: |
+          echo "Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
+          echo "Label added: ${{ github.event.label.name }}"
+          echo ""
+          echo "Pipeline routing (manual for now):"
+          echo "  triaged + practitioner-repo → Run Repo Scout agent"
+          echo "  triaged + blog-post/docs    → Run Miner agent"
+          echo "  triaged + failure-report    → Run Miner agent (failure mode)"
+          echo "  mining-complete             → Run Assayer on linked PR"
+          echo "  integrated                  → Source fully processed"
