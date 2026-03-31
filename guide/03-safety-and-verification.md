@@ -113,8 +113,72 @@ This guarantees conversation tracking regardless of agent behavior.
 
 **Rule**: If a rule is critical enough to state three times in your
 CLAUDE.md, it is critical enough to enforce with a hook. Prose rules
-are suggestions. Hooks are laws.
-[source: practitioner-frankray78-netpace, practitioner-dadlerj-tin] [editorial]
+are suggestions. Hooks are laws -- with a refinement: **blocking hooks
+(exit 2) are laws. Advisory hooks are louder suggestions.** PreToolUse
+hooks that exit with code 2 physically prevent the blocked action at the
+harness level. The agent cannot proceed. But UserPromptSubmit hooks that
+inject reminder text are still advisory -- one practitioner reports
+"Claude occasionally still ignores hooks as well" for guidance-type
+injection.
+[source: practitioner-frankray78-netpace, practitioner-dadlerj-tin,
+failure-claudemd-ignored-compaction, Lesson 3] [emerging]
+
+The distinction matters quantitatively. Christopher Montes measured ~60%
+baseline CLAUDE.md compliance, rising to 90%+ after deploying a
+hook-based enforcement system. That remaining ~10% gap is why blocking
+hooks (exit 2) and settings.json permissions exist: for rules where
+90% is not good enough.
+[source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [emerging]
+
+#### The compaction failure mode
+
+CLAUDE.md rules are summarized during context compaction, losing
+specificity and imperative force. Multiple independent practitioners
+confirm that compliance drops noticeably after Auto Compact fires.
+The compaction summarizer has no mechanism to distinguish critical
+rules from incidental context -- it compresses everything equally.
+[source: failure-claudemd-ignored-compaction, Lesson 2;
+failure-hooks-enforcement-2k, Lesson 2] [emerging]
+
+SessionStart hooks are the architectural answer: they fire on startup,
+resume, clear, AND compact. Use them to re-inject critical rules as
+clean system-reminder messages that bypass the "may or may not be
+relevant" framing the harness applies to CLAUDE.md content:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/inject-rules.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+For per-prompt reinforcement at minimal token cost, add a UserPromptSubmit
+hook that injects a single-line motto (~15 tokens per prompt, ~750 tokens
+over a 50-turn session).
+[source: failure-claudemd-ignored-compaction, Recovery Path, Workaround 1] [emerging]
+
+#### The context recovery pipeline
+
+For long sessions where compaction is inevitable, one practitioner built
+a pipeline that backs up context before Auto Compact fires, reduces the
+7-8MB context dump to a 100-200KB summary using Claude Haiku 4.5, then
+re-injects the summary via a pre-session hook. This is the most robust
+compaction survival strategy documented in our corpus: if compaction
+destroys context, regenerate it externally and re-inject it.
+[source: failure-hooks-enforcement-2k, Recovery Path (auto_compact.py +
+context_recovery_helper.py)] [anecdotal]
 
 ### Layer 3: CI as Verification Backstop (cost: minutes of wall time)
 
@@ -515,6 +579,58 @@ a contractor -- verify everything, approve nothing on faith.
 
 ---
 
+## Known Verification Failure Modes
+
+These are specific failure patterns documented by practitioners. Watch
+for them in your own projects.
+
+### TODO-as-completion
+
+The agent declares a task complete while the code contains TODO, FIXME,
+or placeholder stubs. One practitioner reports: "Claude may claim to have
+implemented something, but many TODO items remain unimplemented." This is
+not a compaction issue -- it occurs within active sessions. The agent's
+self-assessment of completion is unreliable.
+[source: failure-hooks-enforcement-2k, Lesson 4] [anecdotal]
+
+**Mitigation**: Add a Stop hook that scans modified files for
+TODO/FIXME/HACK markers and blocks the session from declaring completion
+if any are found. The practitioner built `no_mock_code.py` for exactly
+this purpose.
+[source: failure-hooks-enforcement-2k, Recovery Path (no_mock_code.py)] [anecdotal]
+
+```bash
+# Example: Stop hook that catches TODO stubs in modified files
+MODIFIED=$(git diff --name-only HEAD 2>/dev/null)
+if [ -n "$MODIFIED" ]; then
+  TODOS=$(echo "$MODIFIED" | xargs grep -l 'TODO\|FIXME\|HACK' 2>/dev/null)
+  if [ -n "$TODOS" ]; then
+    echo "BLOCKED: Unresolved TODO/FIXME markers found in:" >&2
+    echo "$TODOS" >&2
+    exit 2
+  fi
+fi
+exit 0
+```
+
+### Dangerous command execution
+
+Agents execute destructive commands (`rm -rf`), make unauthorized git
+commits, and bypass permission dialogs through repetitive prompting.
+Even when commands are set to "Allow" in Claude Code settings, permission
+behavior can be inconsistent.
+[source: failure-hooks-enforcement-2k, Failure Mode 4] [anecdotal]
+
+**Mitigation**: Use a PreToolUse command restrictor hook that gates all
+command execution with explicit Allow/Deny/Ask differentiation. Block
+`rm -rf` entirely. Enforce commit message format via a validation hook.
+This is more reliable than writing "NEVER run rm -rf" in CLAUDE.md,
+which is subject to the ~70-80% prose compliance ceiling.
+[source: failure-hooks-enforcement-2k, Recovery Path (command_restrictor.py,
+validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [emerging]
+
+---
+
 ## Summary: The Verification Stack
 
 | Layer | Cost | Catches | Example |
@@ -531,6 +647,8 @@ Build all five layers. Each one is a safety net for the layer above it.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
+failure-claudemd-ignored-compaction,
+failure-hooks-enforcement-2k,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,

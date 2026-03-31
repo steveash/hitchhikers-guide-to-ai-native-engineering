@@ -125,6 +125,21 @@ Cursor rules file compensates by inlining the SQL style guide (~100 lines).
 
 ## What to Put in CLAUDE.md
 
+> **Caveat: CLAUDE.md rules are advisory, not mandatory.** The Claude Code
+> harness wraps CLAUDE.md content in a system-reminder that tells the model
+> "this context may or may not be relevant to your tasks." This framing gives
+> the model permission to deprioritize or skip your rules. Compliance is
+> approximately 70-80% under ideal conditions, degrading further with session
+> length, file size, and context compaction. Multiple independent practitioners
+> have confirmed this across Opus and Sonnet models, spanning six months of
+> reports. Everything in this section still matters -- good CLAUDE.md content
+> meaningfully improves agent behavior -- but do not expect 100% compliance
+> from prose alone. For rules that must be followed every time, use
+> settings.json permissions, blocking hooks, or CI gates (see "The Enforcement
+> Hierarchy" below).
+> [source: failure-claudemd-ignored-compaction, Lessons 1, 5, 6;
+> failure-hooks-enforcement-2k, Lesson 1] [emerging]
+
 Six out of six profiled repos share a common priority order. Lead with
 prohibitions, then surgical corrections, then stack context.
 [source: practitioner-getsentry-sentry, practitioner-frankray78-netpace,
@@ -474,6 +489,52 @@ Docker requirements table appears 4 times across 4 files.
 section, and at the bottom. Three placements. The agent encounters it
 regardless of where it starts reading.
 [source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [emerging]
+
+**Caveat**: Repetition improves survival through compaction but does not
+guarantee compliance. One practitioner documented emphatic CLAUDE.md rules
+("DO *NOT* IGNORE THIS MANDATORY INSTRUCTION!!!!!!!!!") that were still
+ignored. For rules that must be followed 100% of the time, repetition is
+necessary but not sufficient -- use hooks (Ch03) or settings.json
+permissions as the enforcement layer.
+[source: failure-claudemd-ignored-compaction, Lesson 4] [emerging]
+
+---
+
+## The Enforcement Hierarchy
+
+Not all enforcement mechanisms are equal. The following hierarchy ranks them
+by reliability, from strongest to weakest. Use it to decide WHERE to put
+each rule -- the higher up the hierarchy, the more certain the enforcement.
+[source: failure-claudemd-ignored-compaction, Lessons 1, 3, 5;
+failure-hooks-enforcement-2k, Lessons 1, 3] [emerging]
+
+```
+1. settings.json permissions     (100% — harness-enforced, immune to compaction and framing)
+2. PreToolUse hooks with exit 2  (100% — harness-enforced blocking, agent cannot proceed)
+3. CI gates                      (100% — catches violations post-hoc on committed code)
+4. Advisory hooks                (~85-90% — SessionStart/UserPromptSubmit injection,
+                                   no "may or may not" framing, but still advisory)
+5. CLAUDE.md prose               (~70-80% — subject to harness framing disclaimer
+                                   and compaction summarization)
+6. Verbal corrections in chat    (~50% — effective in the current turn,
+                                   forgotten after compaction)
+```
+
+**How to use this**: Move every enforceable prohibition as high up the
+hierarchy as possible. "Never run git push --force" belongs in settings.json
+(level 1), not in CLAUDE.md (level 5). "Always use conventional commit
+messages" belongs in a PreToolUse hook that validates format (level 2) or
+CI (level 3). Reserve CLAUDE.md for guidance the model needs to *understand*
+-- the "why" behind decisions, architectural context, and stylistic
+preferences where imperfect compliance is acceptable.
+[source: failure-claudemd-ignored-compaction, Lesson 5;
+failure-hooks-enforcement-2k, Lesson 3] [emerging]
+
+The ~60% baseline CLAUDE.md compliance measured by Christopher Montes rose
+to 90%+ after deploying a hook-based enforcement system. This is the first
+quantitative before/after measurement in our corpus and directly validates
+the hierarchy above.
+[source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [emerging]
 
 ---
 
@@ -882,16 +943,30 @@ Supabase's Docker table appears in 4 files.
 duplication of reference material is a maintenance burden. Know the difference.
 [editorial]
 
-### 3. No Settings.json When You Need One
+### 3. No Settings.json When You Need One — CRITICAL
 
 Three repos have no `.claude/settings.json`. NetPace's "TDD is
 non-negotiable" is entirely prompt-enforced — the agent could skip it.
 [source: practitioner-frankray78-netpace, practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories] [emerging]
 
-**Rule**: If a rule is critical enough to state three times in your
-CLAUDE.md, it is critical enough to enforce with settings.json or a hook.
-[editorial]
+This is now a known structural vulnerability, not just a missed best
+practice. CLAUDE.md prose is followed approximately 70-80% of the time
+(see "The Enforcement Hierarchy" above). These three repos have ZERO
+harness-enforced constraints. Every prohibition, every workflow rule,
+every safety boundary is subject to the model's discretion and will
+degrade further after context compaction. Settings.json permissions are
+the only mechanism that is 100% reliable, immune to compaction, and
+immune to the "may or may not be relevant" framing the harness applies
+to CLAUDE.md content.
+[source: failure-claudemd-ignored-compaction, Lessons 1, 5;
+failure-hooks-enforcement-2k, Lesson 1] [emerging]
+
+**Rule**: If a rule is critical enough to state in your CLAUDE.md at all,
+ask whether it can be enforced with settings.json or a hook instead.
+CLAUDE.md rules are followed ~70-80% of the time. Settings.json
+permissions are followed 100% of the time.
+[source: failure-claudemd-ignored-compaction, Lesson 5] [emerging]
 
 ### 4. Very Long Subdirectory Guides
 
@@ -928,6 +1003,8 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 7, 11; Linked Sources 1, 4),
+failure-claudemd-ignored-compaction,
+failure-hooks-enforcement-2k,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
