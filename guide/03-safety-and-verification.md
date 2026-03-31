@@ -285,10 +285,11 @@ AGENTS.md files that encode project-specific knowledge act as persistent
 gates -- rules the agent loads on every session. But there is an important
 caveat: the content must be developer-written, not auto-generated.
 
-LLM-generated AGENTS.md files offer no benefit and can reduce success
-rates by ~3% while increasing costs over 20%. Developer-written context
-files provide ~4% improvement.
-[source: blog-addyosmani-code-agent-orchestra, Claim 7] [settled]
+LLM-generated AGENTS.md files reduced success rates by 0.5-2% while
+increasing inference costs by over 20%. Developer-written context files
+improved success by ~4% on AGENTbench. (Preprint, Python-only, no
+significance tests on headline numbers.)
+[source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [emerging]
 
 **Rule**: Never let an agent auto-generate your AGENTS.md via `/init`
 or similar commands. Write it yourself. Apply the filter test: can the

@@ -134,17 +134,20 @@ not mechanical enforcement.
 [editorial, see also: Editorial Constitution Tenet #10]
 
 This principle now has quantitative support. The ETH Zurich study
-(Gloaguen et al.) found that LLM-generated AGENTS.md files -- which tend
-to restate what the codebase already encodes in config files, linters, and
-test suites -- reduced agent success rates by ~3% while increasing costs
-by over 20%. The auto-generated content was redundant: agents could discover
-it by reading the code.
-[source: blog-addyosmani-code-agent-orchestra, Claim 7] [settled]
+(Gloaguen et al., arXiv:2602.11988) tested four agents across SWE-bench
+Lite and AGENTbench (138 tasks) and found that LLM-generated AGENTS.md
+files reduced success rates by 0.5-2% while increasing inference costs
+by over 20% (including a 22% reasoning token overhead). The auto-generated
+content was redundant: agents could discover it by reading the code.
+[source: paper-gloaguen-agentsmd-effectiveness, Claim 1] [emerging]
 
-Developer-written context files, by contrast, improved success by ~4%.
+Developer-written context files improved success by ~4% on AGENTbench.
 The difference: developers wrote what the agent could NOT discover on its
 own -- judgment calls, historical context, "we tried X and it broke Y."
-[source: blog-addyosmani-code-agent-orchestra, Claim 7] [settled]
+Note: the paper is a preprint without significance tests on headline
+numbers and covers Python-only repos, so treat as strong directional
+evidence rather than settled fact.
+[source: paper-gloaguen-agentsmd-effectiveness, Claim 2] [emerging]
 
 ### What this looks like in practice
 

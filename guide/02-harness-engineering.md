@@ -312,12 +312,15 @@ contaminating output style.
 
 ### Do not auto-generate your AGENTS.md
 
-This is backed by the strongest quantitative evidence in the guide. The
-ETH Zurich study (Gloaguen et al.) tested four agents across SWE-bench
+The ETH Zurich study (Gloaguen et al., arXiv:2602.11988) tested four
+agents across SWE-bench Lite and AGENTbench (138 tasks from 12 repos)
 and found that LLM-generated AGENTS.md files **reduced success rates
-by ~3%** while **increasing costs by over 20%**. Developer-written
-context files, by contrast, improved success by ~4%.
-[source: blog-addyosmani-code-agent-orchestra, Claim 7] [settled]
+by 0.5-2%** while **increasing inference costs by over 20%** (including
+22% more reasoning tokens). Developer-written context files improved
+success by ~4% on AGENTbench. The paper is a preprint without significance
+tests on headline numbers and covers Python only — treat as strong
+directional evidence.
+[source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [emerging]
 
 The mechanism: auto-generated content is redundant. When documentation
 was stripped from the codebase, auto-generated AGENTS.md files actually
@@ -325,7 +328,7 @@ improved performance by 2.7% — because the content was just restating
 what the agent could discover by reading the code. In a normal codebase
 with intact documentation, this redundancy wastes context budget and
 dilutes the signal from rules the agent truly needs.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [settled]
+[source: paper-gloaguen-agentsmd-effectiveness, Claim 3] [emerging]
 
 Worse, auto-generated content introduces **anchoring effects**: mentioning
 a technology (e.g., tRPC) biases the agent toward using it, even if the
