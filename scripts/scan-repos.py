@@ -26,6 +26,8 @@ from pathlib import Path
 
 import requests
 
+import scan_budget
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REGISTRY_PATH = Path(__file__).parent.parent / "registry" / "repos.json"
 REPO_URL = os.environ.get("GITHUB_REPOSITORY", "steveash/hitchhiker-guide")
@@ -124,7 +126,7 @@ def save_registry(registry: dict):
         json.dump(registry, f, indent=2, default=str)
 
 
-def file_issue(repo: dict, is_update: bool = False):
+def file_issue(repo: dict, is_update: bool = False) -> bool:
     """File a GitHub issue for a discovered repo via `gh issue create`.
 
     Body and labels are aligned with `.github/ISSUE_TEMPLATE/practitioner-repo.yml`
@@ -132,6 +134,9 @@ def file_issue(repo: dict, is_update: bool = False):
     same triage path. Uses `gh` (not the raw REST API) so authentication picks up
     GH_TOKEN/GITHUB_TOKEN from the environment in CI and from the user's local
     `gh auth login` when run by hand.
+
+    Returns True on successful filing, False otherwise. The boolean lets the
+    caller decide whether to count the file against the daily-cap budget.
     """
     if shutil.which("gh") is None:
         print(
@@ -139,7 +144,7 @@ def file_issue(repo: dict, is_update: bool = False):
             "Install GitHub CLI or run inside the GitHub Actions workflow.",
             file=sys.stderr,
         )
-        return
+        return False
 
     label = "repo-updated" if is_update else "new-repo"
     title_prefix = "[repo-update]" if is_update else "[repo]"
@@ -188,12 +193,55 @@ This issue was filed automatically and needs triage by the Prospector agent.
         result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         url_out = result.stdout.strip()
         print(f"  Filed issue for {repo['full_name']}: {url_out}")
+        return True
     except subprocess.CalledProcessError as e:
         print(
             f"  Failed to file issue for {repo['full_name']} "
             f"(exit {e.returncode}): {e.stderr.strip()}",
             file=sys.stderr,
         )
+        return False
+
+
+def drain_queue() -> int:
+    """File repo entries previously queued by this scanner. Returns count filed."""
+    budget = scan_budget.remaining()
+    if budget <= 0:
+        return 0
+    queued_items = scan_budget.pop_queued_for("repos", budget)
+    if not queued_items:
+        return 0
+    print(f"Draining {len(queued_items)} queued repo item(s) from prior runs...")
+    filed = 0
+    for item in queued_items:
+        payload = item.get("payload", {})
+        repo = payload.get("repo")
+        is_update = payload.get("is_update", False)
+        if not repo:
+            print(f"  WARN: skipping malformed queue item: {item}", file=sys.stderr)
+            continue
+        if file_issue(repo, is_update=is_update):
+            filed += 1
+            scan_budget.record_filed(1)
+    return filed
+
+
+def _try_file_or_queue(repo: dict, is_update: bool) -> tuple[bool, bool]:
+    """File a repo issue if budget allows, otherwise queue it for next run.
+
+    Returns (filed, queued) — exactly one will be True. The repo is
+    *always* recorded as known in the registry afterwards (caller's
+    responsibility) so we never re-discover it tomorrow; the queue is now
+    the canonical home for the unfiled work.
+    """
+    if scan_budget.remaining() <= 0:
+        scan_budget.queue_item("repos", {"repo": repo, "is_update": is_update})
+        print(f"  [queued] daily cap reached: {repo['full_name']}")
+        return (False, True)
+    if file_issue(repo, is_update=is_update):
+        scan_budget.record_filed(1)
+        return (True, False)
+    return (False, False)
 
 
 def main():
@@ -201,7 +249,15 @@ def main():
     known_repos = registry.get("repos", {})
     all_discovered = {}
 
-    print("Starting weekly repo scan...")
+    print(f"scan-repos starting: {scan_budget.status_summary()}")
+
+    # Drain repo backlog from prior runs first so the oldest discoveries
+    # become Pipeline 1 issues before we go looking for fresh ones.
+    drained = drain_queue()
+    if drained:
+        print(f"Refiled {drained} item(s) from queue. {scan_budget.status_summary()}")
+
+    print("Starting repo scan...")
 
     for query in SEARCH_QUERIES:
         print(f"\nSearching: {query}")
@@ -226,6 +282,7 @@ def main():
     # Filter and process
     new_count = 0
     update_count = 0
+    queued_count = 0
 
     for name, repo in all_discovered.items():
         if is_excluded(repo):
@@ -234,24 +291,30 @@ def main():
 
         if name not in known_repos:
             print(f"  NEW: {name}")
-            file_issue(repo, is_update=False)
+            filed, queued = _try_file_or_queue(repo, is_update=False)
             known_repos[name] = {
                 "first_seen": datetime.now(timezone.utc).isoformat(),
                 "last_scanned": datetime.now(timezone.utc).isoformat(),
                 "config_files": repo["config_files_found"],
                 "stars": repo.get("stars", 0),
             }
-            new_count += 1
+            if filed:
+                new_count += 1
+            if queued:
+                queued_count += 1
         else:
             # Check if config files changed
             old_files = set(known_repos[name].get("config_files", []))
             new_files = set(repo["config_files_found"])
             if new_files != old_files:
                 print(f"  UPDATED: {name} (config files changed)")
-                file_issue(repo, is_update=True)
+                filed, queued = _try_file_or_queue(repo, is_update=True)
                 known_repos[name]["last_scanned"] = datetime.now(timezone.utc).isoformat()
                 known_repos[name]["config_files"] = repo["config_files_found"]
-                update_count += 1
+                if filed:
+                    update_count += 1
+                if queued:
+                    queued_count += 1
             else:
                 known_repos[name]["last_scanned"] = datetime.now(timezone.utc).isoformat()
 
@@ -260,7 +323,8 @@ def main():
     save_registry(registry)
 
     print(f"\nScan complete: {new_count} new, {update_count} updated, "
-          f"{len(known_repos)} total tracked")
+          f"{queued_count} queued for next run, {len(known_repos)} total tracked")
+    print(f"Final budget: {scan_budget.status_summary()}")
 
 
 if __name__ == "__main__":

@@ -32,6 +32,8 @@ from pathlib import Path
 
 import requests
 
+import scan_budget
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REPO_URL = os.environ.get("GITHUB_REPOSITORY", "steveash/hitchhiker-guide")
 
@@ -256,14 +258,20 @@ Unknown — Prospector to determine.
         return False
 
 
-def scan_feed(feed: dict, state: dict, dry_run: bool = False) -> tuple[int, int]:
-    """Scan one feed. Returns (new_entries_found, issues_filed)."""
+def scan_feed(feed: dict, state: dict, dry_run: bool = False) -> tuple[int, int, int]:
+    """Scan one feed. Returns (new_entries_found, issues_filed, items_queued).
+
+    The third element is items pushed to the global scan-queue.json because
+    the daily-cap budget was exhausted before we got to them. Per-feed cap
+    excess is *not* queued — it stays unread in the per-feed state and
+    drains naturally on subsequent runs (existing behavior).
+    """
     feed_id = feed["id"]
     print(f"\nFetching {feed_id}: {feed['url']}")
 
     xml_text = fetch_feed(feed["url"])
     if xml_text is None:
-        return (0, 0)
+        return (0, 0, 0)
 
     entries = parse_entries(xml_text)
     print(f"  Parsed {len(entries)} entries")
@@ -284,13 +292,27 @@ def scan_feed(feed: dict, state: dict, dry_run: bool = False) -> tuple[int, int]
         print(f"  Capping at {max_per_run}/run; remaining {len(new_entries) - max_per_run} will be picked up next run")
 
     filed = 0
+    queued = 0
     for entry in to_file:
+        # Check the global daily cap before each file. If exhausted, push
+        # to the overflow queue instead of filing — the next daily run will
+        # drain it via pop_queued_for("trusted", ...). We still mark the
+        # entry as seen so the per-feed state doesn't re-discover it; the
+        # queue is now the canonical home for that work item.
+        if not dry_run and scan_budget.remaining() <= 0:
+            scan_budget.queue_item("trusted", {"feed": feed, "entry": entry})
+            queued += 1
+            print(f"  [queued] daily cap reached: {entry['title'][:80]}")
+            seen_set.add(entry["id"])
+            continue
+
         if dry_run:
             print(f"  [DRY-RUN] would file: {entry['title'][:80]}  ({entry['url']})")
             filed += 1
         else:
             if file_issue(feed, entry):
                 filed += 1
+                scan_budget.record_filed(1)
         # Mark seen even if filing failed — we don't want to retry forever
         # against a known-broken entry. The dry-run path also marks seen so
         # repeated dry runs don't duplicate output; pass --reset-state if
@@ -299,7 +321,40 @@ def scan_feed(feed: dict, state: dict, dry_run: bool = False) -> tuple[int, int]
 
     feed_state["seen"] = sorted(seen_set)
     feed_state["last_scan"] = datetime.now(timezone.utc).isoformat()
-    return (len(new_entries), filed)
+    return (len(new_entries), filed, queued)
+
+
+def drain_queue(dry_run: bool = False) -> int:
+    """File items previously queued by this scanner. Returns count filed.
+
+    Called at the start of main(), before any feed fetching, so that
+    backlog from prior days flushes first while there's still budget.
+    """
+    budget = scan_budget.remaining()
+    if budget <= 0:
+        return 0
+
+    queued_items = scan_budget.pop_queued_for("trusted", budget)
+    if not queued_items:
+        return 0
+
+    print(f"Draining {len(queued_items)} queued trusted-feed item(s) from prior runs...")
+    filed = 0
+    for item in queued_items:
+        payload = item.get("payload", {})
+        feed = payload.get("feed", {})
+        entry = payload.get("entry", {})
+        if not feed or not entry:
+            print(f"  WARN: skipping malformed queue item: {item}", file=sys.stderr)
+            continue
+        if dry_run:
+            print(f"  [DRY-RUN] would refile from queue: {entry.get('title', '')[:80]}")
+            filed += 1
+            continue
+        if file_issue(feed, entry):
+            filed += 1
+            scan_budget.record_filed(1)
+    return filed
 
 
 def main():
@@ -325,15 +380,25 @@ def main():
             print(f"ERROR: no feed with id={args.feed} in {FEEDS_PATH}", file=sys.stderr)
             sys.exit(1)
 
+    print(f"scan-trusted starting: {scan_budget.status_summary()}")
+
+    # Drain any backlog this scanner queued in previous runs first, so the
+    # oldest unread entries get filed before we discover anything new today.
+    drained = drain_queue(dry_run=args.dry_run)
+    if drained:
+        print(f"Refiled {drained} item(s) from queue. {scan_budget.status_summary()}")
+
     print(f"Scanning {len(feeds)} trusted feed(s)...")
 
     total_new = 0
     total_filed = 0
+    total_queued = 0
     for i, feed in enumerate(feeds):
         try:
-            new, filed = scan_feed(feed, state, dry_run=args.dry_run)
+            new, filed, queued = scan_feed(feed, state, dry_run=args.dry_run)
             total_new += new
             total_filed += filed
+            total_queued += queued
         except Exception as e:
             # Don't let one bad feed kill the whole scan.
             print(f"  ERROR scanning {feed.get('id', '?')}: {e}", file=sys.stderr)
@@ -346,8 +411,9 @@ def main():
 
     print(
         f"\nScan complete: {total_new} new entries across {len(feeds)} feed(s), "
-        f"{total_filed} issue(s) filed"
+        f"{total_filed} issue(s) filed, {total_queued} queued for next run"
     )
+    print(f"Final budget: {scan_budget.status_summary()}")
 
 
 if __name__ == "__main__":

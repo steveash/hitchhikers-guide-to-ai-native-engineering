@@ -29,6 +29,8 @@ from pathlib import Path
 
 import requests
 
+import scan_budget
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REPO_URL = os.environ.get("GITHUB_REPOSITORY", "steveash/hitchhiker-guide")
 
@@ -158,7 +160,7 @@ PLATFORM_LABELS = {
 }
 
 
-def file_issue(result: dict):
+def file_issue(result: dict) -> bool:
     """File a GitHub issue for a discovered failure report via `gh issue create`.
 
     Body and labels are aligned with `.github/ISSUE_TEMPLATE/failure-report.yml`
@@ -166,6 +168,9 @@ def file_issue(result: dict):
     same Prospector triage path. Uses `gh` (not the raw REST API) so authentication
     picks up GH_TOKEN/GITHUB_TOKEN from the environment in CI and from the user's
     local `gh auth login` when run by hand.
+
+    Returns True on successful filing, False otherwise. The boolean lets the
+    caller decide whether to count the file against the daily-cap budget.
     """
     if shutil.which("gh") is None:
         print(
@@ -173,7 +178,7 @@ def file_issue(result: dict):
             "Install GitHub CLI or run inside the GitHub Actions workflow.",
             file=sys.stderr,
         )
-        return
+        return False
 
     source_label = f"source-{result['source']}"
     platform = PLATFORM_LABELS.get(result["source"], "Other")
@@ -228,12 +233,36 @@ AI agent tooling, and substantive (not just venting).
         proc = subprocess.run(cmd, check=True, capture_output=True, text=True)
         url_out = proc.stdout.strip()
         print(f"  Filed: {title} → {url_out}")
+        return True
     except subprocess.CalledProcessError as e:
         print(
             f"  Failed to file issue for {result['url']} "
             f"(exit {e.returncode}): {e.stderr.strip()}",
             file=sys.stderr,
         )
+        return False
+
+
+def drain_queue() -> int:
+    """File failure-report entries previously queued by this scanner."""
+    budget = scan_budget.remaining()
+    if budget <= 0:
+        return 0
+    queued_items = scan_budget.pop_queued_for("failures", budget)
+    if not queued_items:
+        return 0
+    print(f"Draining {len(queued_items)} queued failure-report item(s) from prior runs...")
+    filed = 0
+    for item in queued_items:
+        payload = item.get("payload", {})
+        result = payload.get("result")
+        if not result:
+            print(f"  WARN: skipping malformed queue item: {item}", file=sys.stderr)
+            continue
+        if file_issue(result):
+            filed += 1
+            scan_budget.record_filed(1)
+    return filed
 
 
 def _engagement_summary(result: dict) -> str:
@@ -251,6 +280,13 @@ def main():
     parser.add_argument("--since", default="2025-12-01",
                         help="Only find content after this date (YYYY-MM-DD)")
     args = parser.parse_args()
+
+    print(f"scan-failures starting: {scan_budget.status_summary()}")
+
+    # Drain failure-report backlog from prior runs first.
+    drained = drain_queue()
+    if drained:
+        print(f"Refiled {drained} item(s) from queue. {scan_budget.status_summary()}")
 
     all_results = []
 
@@ -288,10 +324,22 @@ def main():
     print(f"\n{len(all_results)} total → {len(unique_results)} unique → "
           f"{len(substantial)} substantial")
 
+    filed_count = 0
+    queued_count = 0
     for result in substantial:
-        file_issue(result)
+        # Honor the global daily cap. Anything we can't file goes to the
+        # overflow queue and will be drained at the start of tomorrow's run.
+        if scan_budget.remaining() <= 0:
+            scan_budget.queue_item("failures", {"result": result})
+            queued_count += 1
+            print(f"  [queued] daily cap reached: {result['title'][:80]}")
+            continue
+        if file_issue(result):
+            scan_budget.record_filed(1)
+            filed_count += 1
 
-    print(f"\nDone. Filed {len(substantial)} issues.")
+    print(f"\nDone. Filed {filed_count} issues, queued {queued_count} for next run.")
+    print(f"Final budget: {scan_budget.status_summary()}")
 
 
 if __name__ == "__main__":

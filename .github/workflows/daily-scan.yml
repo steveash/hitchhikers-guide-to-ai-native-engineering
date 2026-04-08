@@ -1,0 +1,94 @@
+name: Daily Scanner
+
+# Runs all three discovery scanners (repos, failures, trusted feeds) once
+# per day. The scanners share a global rate-limit budget via
+# `scripts/scan_budget.py`: at most DAILY_SCAN_CAP issues are filed across
+# all three scanners on any given UTC day. Anything beyond the cap is
+# pushed to `registry/scan-queue.json` and drained on subsequent runs.
+#
+# Replaces the older weekly cadence (repo-scanner.yml, failure-scanner.yml).
+# A separate bead handles retiring those workflows once this one is proven.
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # Every day at 06:00 UTC
+  workflow_dispatch:        # Manual trigger for testing / one-off runs
+
+permissions:
+  issues: write             # `gh issue create` calls from the scanners
+  contents: write           # commit registry/state updates back to main
+
+concurrency:
+  # Don't let two daily runs race on registry/scan-state.json (the rate
+  # limiter's source of truth) — serialize them.
+  group: daily-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    env:
+      # Single knob for the daily issue-filing cap. Bumping this here is
+      # the entire interface for relaxing or tightening Pipeline 1 ingress.
+      DAILY_SCAN_CAP: '5'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      # Scanner order is signal-priority order: trusted feeds first
+      # (curated, highest signal-to-noise, naturally capped to ~3/feed),
+      # then repos (medium), then failures (broadest, noisiest). Whoever
+      # runs first gets first claim on the daily cap; whoever runs last
+      # is most likely to push to the overflow queue.
+
+      - name: Run trusted-feed scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/scan-trusted.py
+
+      - name: Run repo scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/scan-repos.py
+
+      - name: Run failure scanner (Hacker News)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/scan-failures.py --source hn
+
+      - name: Run failure scanner (GitHub Discussions)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/scan-failures.py --source github
+
+      - name: Commit registry + rate-limit state updates
+        run: |
+          git config user.name "hitchhiker-bot"
+          git config user.email "bot@hitchhiker-guide.dev"
+          # Stage every file the scanners may have touched. `git add` is
+          # tolerant of files that don't exist yet (first run before any
+          # state has been written), so we don't have to special-case it.
+          git add registry/repos.json \
+                  registry/trusted-feeds-state.json \
+                  registry/scan-state.json \
+                  registry/scan-queue.json || true
+          if git diff --staged --quiet; then
+            echo "No registry/state changes to commit."
+          else
+            git commit -m "chore: daily scanner registry + rate-limit state"
+            git push
+          fi
