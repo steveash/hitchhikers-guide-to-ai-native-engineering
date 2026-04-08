@@ -7,11 +7,21 @@ and optionally Reddit for failure reports about AI coding agents.
 
 Failure reports = "I tried X and it didn't work" — these are
 first-class sources for the Hitchhiker's Guide.
+
+When a substantial result is discovered the scanner shells out to
+`gh issue create` so the issue is filed against the
+`.github/ISSUE_TEMPLATE/failure-report.yml` template (labels +
+structure stay aligned with what humans submit). This promotes the
+scanner from passive REST poster to active driver of Pipeline 1 —
+auto-filed failure reports flow through Prospector triage the same
+way human submissions do.
 """
 
 import argparse
 import json
 import os
+import shutil
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -139,44 +149,91 @@ def is_substantial(result: dict) -> bool:
     return True
 
 
+# Map our internal source identifier to the human label used by the
+# failure-report.yml template's "Where was this reported?" dropdown.
+PLATFORM_LABELS = {
+    "hn": "Hacker News",
+    "github": "GitHub Issue / Discussion",
+    "reddit": "Reddit (r/ClaudeCode, r/ChatGPT, etc.)",
+}
+
+
 def file_issue(result: dict):
-    """File a GitHub issue for a discovered failure report."""
+    """File a GitHub issue for a discovered failure report via `gh issue create`.
+
+    Body and labels are aligned with `.github/ISSUE_TEMPLATE/failure-report.yml`
+    so auto-filed issues look like the human-submitted ones and flow through the
+    same Prospector triage path. Uses `gh` (not the raw REST API) so authentication
+    picks up GH_TOKEN/GITHUB_TOKEN from the environment in CI and from the user's
+    local `gh auth login` when run by hand.
+    """
+    if shutil.which("gh") is None:
+        print(
+            "  ERROR: `gh` CLI not found — cannot file issue. "
+            "Install GitHub CLI or run inside the GitHub Actions workflow.",
+            file=sys.stderr,
+        )
+        return
+
     source_label = f"source-{result['source']}"
+    platform = PLATFORM_LABELS.get(result["source"], "Other")
+    preview = result.get("snippet") or result.get("body_snippet") or "(no preview available)"
 
     title = f"[failure] {result['title'][:80]}"
-    body = f"""## Auto-discovered failure report
 
-**Source**: {result['source'].upper()}
-**URL**: {result['url']}
-**Author**: {result.get('author', 'unknown')}
-**Date**: {result.get('created_at', 'unknown')}
-**Engagement**: {_engagement_summary(result)}
+    # Body mirrors the failure-report.yml form sections so triage tooling can
+    # treat auto-filed and human-filed issues the same way.
+    body = f"""### Source URL
 
-### Preview
-{result.get('snippet') or result.get('body_snippet', 'No preview available')}
+{result['url']}
 
-### Scanner notes
-This failure report was automatically discovered by the weekly failure scanner.
-It needs triage by the Prospector agent to determine if the failure is:
-- Concrete enough to extract actionable lessons
-- Relevant to current AI agent tooling (not outdated)
-- Substantive (not just venting without details)
+### Where was this reported?
+
+{platform}
+
+### What failed?
+
+Auto-discovered by the weekly failure scanner. Preview of the source content
+below — the Prospector / Miner should fetch the URL above for the full text.
+
+- **Author**: {result.get('author', 'unknown')}
+- **Date**: {result.get('created_at', 'unknown')}
+- **Engagement**: {_engagement_summary(result)}
+
+> {preview}
+
+### Why is this failure report valuable?
+
+Unknown — needs Prospector triage. The scanner only knows that this content
+matched one of the failure-mode search terms with enough engagement to clear
+the noise floor; it has not read the body. The Prospector decides whether the
+failure is concrete enough to extract actionable lessons, relevant to current
+AI agent tooling, and substantive (not just venting).
 
 ---
-*Filed by failure-scanner.yml*
+*Filed by `scripts/scan-failures.py` against `.github/ISSUE_TEMPLATE/failure-report.yml`*
 """
 
-    url = f"https://api.github.com/repos/{REPO_URL}/issues"
-    resp = requests.post(url, headers=github_headers(), json={
-        "title": title,
-        "body": body,
-        "labels": ["new-source", "failure-report", source_label],
-    })
+    cmd = [
+        "gh", "issue", "create",
+        "--repo", REPO_URL,
+        "--title", title,
+        "--body", body,
+        "--label", "new-failure",
+        "--label", "failure-report",
+        "--label", source_label,
+    ]
 
-    if resp.status_code == 201:
-        print(f"  Filed issue: {title}")
-    else:
-        print(f"  Failed ({resp.status_code}): {resp.text}", file=sys.stderr)
+    try:
+        proc = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        url_out = proc.stdout.strip()
+        print(f"  Filed: {title} → {url_out}")
+    except subprocess.CalledProcessError as e:
+        print(
+            f"  Failed to file issue for {result['url']} "
+            f"(exit {e.returncode}): {e.stderr.strip()}",
+            file=sys.stderr,
+        )
 
 
 def _engagement_summary(result: dict) -> str:

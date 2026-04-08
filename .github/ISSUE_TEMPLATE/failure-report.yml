@@ -1,7 +1,7 @@
 name: Failure Report
 description: Submit a "this didn't work" report for analysis
 title: "[failure] "
-labels: ["new-source", "failure-report"]
+labels: ["new-failure", "failure-report"]
 body:
   - type: input
     id: url
