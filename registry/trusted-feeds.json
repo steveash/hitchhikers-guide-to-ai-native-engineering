@@ -1,0 +1,47 @@
+{
+  "_comment": "Curated Atom/RSS feeds for the trusted-source scanner. Hand-edited. Add high-signal sources here (specific authors, vendor changelogs, conference talks). The scanner files a source-submission issue for each new entry. Per-feed scanning state lives in registry/trusted-feeds-state.json so this file stays diff-clean.",
+  "_schema": {
+    "id": "stable short identifier (used as key in state file)",
+    "url": "Atom or RSS feed URL",
+    "source_type": "one of: blog-post, documentation, discussion, paper, practitioner-repo, failure-report (matches source-submission.yml dropdown)",
+    "description": "one-line note about why this source is trusted",
+    "max_per_run": "(optional) cap new entries filed per scan. Default: 3"
+  },
+  "feeds": [
+    {
+      "id": "anthropic-news",
+      "url": "https://www.anthropic.com/news/feed.xml",
+      "source_type": "documentation",
+      "description": "Anthropic announcements (Claude Code releases, model updates)",
+      "max_per_run": 3
+    },
+    {
+      "id": "anthropic-engineering",
+      "url": "https://www.anthropic.com/engineering/feed.xml",
+      "source_type": "blog-post",
+      "description": "Anthropic engineering blog (agent design, evals, infra)",
+      "max_per_run": 3
+    },
+    {
+      "id": "simon-willison",
+      "url": "https://simonwillison.net/atom/everything/",
+      "source_type": "blog-post",
+      "description": "Simon Willison — high-signal LLM tooling commentary and experiments",
+      "max_per_run": 3
+    },
+    {
+      "id": "armin-ronacher",
+      "url": "https://lucumr.pocoo.org/feed.atom",
+      "source_type": "blog-post",
+      "description": "Armin Ronacher — practitioner notes on AI coding workflows",
+      "max_per_run": 2
+    },
+    {
+      "id": "github-changelog",
+      "url": "https://github.blog/changelog/feed/",
+      "source_type": "documentation",
+      "description": "GitHub changelog — Copilot/Actions/Issues changes that affect agent integration surfaces",
+      "max_per_run": 2
+    }
+  ]
+}
