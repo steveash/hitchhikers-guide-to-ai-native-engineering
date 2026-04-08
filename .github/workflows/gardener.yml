@@ -7,8 +7,9 @@ name: Weekly Gardener
 #   3. Open a PR labeled `guide-update` so the Assayer can re-grade the
 #      demoted claims before the changes merge.
 #
-# Sunday slot is intentional: it offsets the failure-scanner (Thursday)
-# and the repo-scanner (Monday) so weekly bot PRs don't all land at once.
+# Sunday slot is intentional: it offsets the daily-scan (06:00 UTC) so the
+# gardener's weekly bot PR doesn't land alongside a fresh batch of scanner
+# issues.
 
 on:
   schedule:
