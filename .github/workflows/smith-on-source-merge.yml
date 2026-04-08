@@ -34,6 +34,7 @@ on:
 permissions:
   contents: write              # smith pushes its feature branch
   pull-requests: write         # smith opens the guide-update PR
+  issues: write                # cap enforcement files chapter-saturated issues
 
 jobs:
   smith:
@@ -45,6 +46,10 @@ jobs:
           # if the merge queue lands a multi-commit batch in one push.
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
       - name: Configure git identity for Smith commits
         run: |
@@ -302,3 +307,148 @@ jobs:
               workflow — the PR must carry it.
           claude_args: |
             --max-turns 60
+
+      - name: Enforce per-chapter source cap
+        if: steps.affected.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # The Smith may have decided no chapter needed updating; in that
+          # case it exits without pushing a branch and there is nothing to
+          # gate. Detect that case and skip cleanly.
+          BRANCH="smith/source-merge-${{ github.run_id }}"
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "No smith branch on origin — Smith made no chapter changes. Cap check not needed."
+            exit 0
+          fi
+
+          # Pull the smith branch and find which chapters changed vs main.
+          # We diff against the merge base instead of `origin/main` directly
+          # so this works even if main has advanced since the smith run.
+          git fetch origin "$BRANCH" main
+          MERGE_BASE=$(git merge-base "origin/$BRANCH" origin/main)
+          CHANGED_CHAPTERS=$(
+            git diff --name-only "$MERGE_BASE" "origin/$BRANCH" -- 'guide/*.md' \
+              | grep -v '^guide/SOURCES\.md$' || true
+          )
+
+          if [ -z "$CHANGED_CHAPTERS" ]; then
+            echo "Smith branch touched no chapters (only SOURCES.md or non-guide files)."
+            exit 0
+          fi
+
+          echo "Smith modified chapters:"
+          printf '  %s\n' $CHANGED_CHAPTERS
+
+          # Run the cap check against the smith branch's view of the
+          # chapters. check_chapter_source_cap.py reads files from disk, so
+          # we point HEAD at the smith branch tip (detached) and let the
+          # script read them from there. We also need source-notes/ to be
+          # in sync so the "is this slug a real source?" filter agrees with
+          # what Smith saw — origin/$BRANCH is rebased on main, so checking
+          # out its tip gives us a consistent view of both.
+          git checkout --detach "origin/$BRANCH"
+
+          # The script exits 1 when any chapter is saturated; the workflow
+          # needs the JSON regardless, so we capture the report and inspect
+          # it with jq instead of branching on the script's exit code.
+          REPORT=$(python3 scripts/check_chapter_source_cap.py --json $CHANGED_CHAPTERS || true)
+          echo "$REPORT"
+
+          SATURATED=$(printf '%s' "$REPORT" \
+            | jq -r '.[] | select(.saturated) | "\(.chapter)\t\(.unique_sources)\t\(.cap)"')
+
+          if [ -z "$SATURATED" ]; then
+            echo "All Smith-modified chapters are under the cap. PR may proceed."
+            exit 0
+          fi
+
+          echo "::warning::One or more chapters would exceed the source cap."
+          echo "$SATURATED"
+
+          # Build the issue body. The Gardener label tags the pruning agent;
+          # the chapter-saturated label is the cross-cutting marker so a
+          # human (or the Smith on its next run) can find blocked work.
+          CAP=$(jq -r '.guide.max_sources_per_chapter' hitchhiker.config.json)
+
+          {
+            echo "The Smith run for commit ${{ github.sha }} produced chapter"
+            echo "updates that would push one or more chapters at or over the"
+            echo "**${CAP}-source cap** configured in \`hitchhiker.config.json\`."
+            echo ""
+            echo "The chapter update PR has been **closed** to enforce the cap."
+            echo "The Gardener must prune stale or low-value sources from the"
+            echo "affected chapters before the Smith re-runs."
+            echo ""
+            echo "## Saturated chapters"
+            echo ""
+            echo "| Chapter | Unique sources | Cap |"
+            echo "|---|---|---|"
+            while IFS=$'\t' read -r ch count cap; do
+              [ -z "$ch" ] && continue
+              echo "| \`$ch\` | $count | $cap |"
+            done <<< "$SATURATED"
+            echo ""
+            echo "## What to do"
+            echo ""
+            echo "1. **Gardener**: review the saturated chapters and prune"
+            echo "   stale, demoted, or low-value source citations until each"
+            echo "   chapter is below the cap. Open a \`guide-update\` PR with"
+            echo "   the prunings."
+            echo "2. After the prune PR merges, the next Smith run on a"
+            echo "   source-notes change will retry the chapter updates."
+            echo ""
+            echo "## Trigger context"
+            echo ""
+            echo "- Trigger commit: ${{ github.sha }}"
+            echo "- Smith branch (closed): \`${BRANCH}\`"
+            echo "- Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo ""
+            echo "Filed by \`.github/workflows/smith-on-source-merge.yml\` per bead \`hi-4yk.16\`."
+          } > /tmp/chapter-saturated-body.md
+
+          # Make sure the labels exist before we try to use them. `gh label
+          # create` is idempotent with `|| true` to swallow "already exists".
+          gh label create chapter-saturated \
+            --color B60205 \
+            --description "Chapter is at the per-chapter source cap; Gardener must prune before new sources can be added." \
+            --repo "${{ github.repository }}" || true
+          gh label create gardener \
+            --color 0E8A16 \
+            --description "Routes work to the Gardener agent." \
+            --repo "${{ github.repository }}" || true
+
+          # Close the Smith PR (if it exists). The PR may not exist if the
+          # Smith hit an error after pushing the branch but before opening
+          # the PR — that's fine, we still file the issue.
+          PR_NUMBER=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr close "$PR_NUMBER" \
+              --repo "${{ github.repository }}" \
+              --comment "Closing: this PR would push one or more chapters at or over the per-chapter source cap. See the chapter-saturated issue for the Gardener handoff." \
+              --delete-branch
+          else
+            echo "No open PR found for $BRANCH; deleting the dangling branch."
+            git push origin --delete "$BRANCH" || true
+          fi
+
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "[chapter-saturated] Smith blocked by source cap on ${{ github.sha }}" \
+            --label chapter-saturated \
+            --label gardener \
+            --body-file /tmp/chapter-saturated-body.md
+
+          # Fail the workflow so the cap-block is visible in the Actions UI.
+          # The Smith run is "successful" in the sense that it did its job;
+          # the *workflow* failed because the cap gate rejected the output.
+          echo "::error::Smith chapter update blocked by per-chapter source cap. See filed chapter-saturated issue."
+          exit 1

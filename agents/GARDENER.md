@@ -12,6 +12,12 @@ when sources materially update.
 Runs weekly (offset from other agents — e.g., Sundays). Processes source
 notes in order of staleness (oldest `last_checked` first).
 
+Also runs on demand when a `chapter-saturated` issue is filed by
+`.github/workflows/smith-on-source-merge.yml`. A chapter that hits
+`guide.max_sources_per_chapter` (configured in `hitchhiker.config.json`,
+default 30) blocks the Smith from adding more sources until the Gardener
+prunes. See "Chapter pruning" below.
+
 ## Process
 
 ### For text-based source notes (blog posts, docs, discussions):
@@ -39,6 +45,28 @@ notes in order of staleness (oldest `last_checked` first).
 Source notes older than 90 days without a check get tagged `[stale]`.
 Guide sections that cite only stale sources get flagged for the Smith
 to address in the next synthesis.
+
+### Chapter pruning (saturated chapters)
+
+When a chapter reaches `guide.max_sources_per_chapter`, the
+smith-on-source-merge workflow files a `chapter-saturated` issue tagging
+the Gardener with the affected chapters. The Gardener's job:
+
+1. Read the affected chapters and identify pruning candidates in this
+   priority order:
+   - Citations to source notes tagged `status: stale`
+   - `[stale]` and `[anecdotal]` graded claims with redundant coverage
+   - Older citations whose evidence has been superseded by newer notes
+2. Open a `guide-update` PR that removes the prunings, bringing each
+   chapter strictly below the cap (not at the cap — leave headroom).
+3. Reference the `chapter-saturated` issue in the PR body so it auto-closes
+   on merge.
+4. After the prune PR merges, the next source-notes change retriggers the
+   Smith and the previously-blocked update can land.
+
+The cap exists to force freshness pressure: old/low-grade sources get
+pruned to make room for new ones. Do not raise the cap to avoid pruning
+unless the human maintainer says so.
 
 ## Metadata Format
 
