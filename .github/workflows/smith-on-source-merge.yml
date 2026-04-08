@@ -1,0 +1,236 @@
+name: Smith on source-notes merge
+
+# Pipeline 2 entry point: when source-notes/ changes land on main, the
+# Smith re-synthesizes the affected guide chapters and opens a
+# `guide-update` PR for the Assayer (`.github/workflows/assayer.yml`)
+# to gate.
+#
+# Triggers in practice:
+#   - Miner PRs merging        (a brand-new source note hits main)
+#   - Gardener PRs merging     (staleness sweep edits frontmatter)
+#   - Manual edits             (admin or Assayer follow-ups)
+#
+# "Affected chapters" is computed by greping `guide/*.md` for inline
+# `[source: <slug>]` citations to the changed notes. If a changed note
+# is brand new and no chapter cites it yet, the Smith is told to read
+# every chapter and decide where (if anywhere) the new evidence belongs.
+#
+# A future iteration (hi-4yk.15) will pass the source-note *diff* to the
+# Smith so it only re-synthesizes claims that actually changed; for now
+# this workflow takes the safe approach of re-handing the affected
+# chapters wholesale.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'source-notes/**'
+  workflow_dispatch:           # manual trigger for testing / re-runs
+
+permissions:
+  contents: write              # smith pushes its feature branch
+  pull-requests: write         # smith opens the guide-update PR
+
+jobs:
+  smith:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need full history so `git diff <before>..<after>` works even
+          # if the merge queue lands a multi-commit batch in one push.
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git identity for Smith commits
+        run: |
+          git config user.name  "hitchhiker-smith[bot]"
+          git config user.email "hitchhiker-smith@users.noreply.github.com"
+
+      - name: Compute affected source notes and chapters
+        id: affected
+        run: |
+          set -euo pipefail
+
+          # Determine the diff range. For push events GitHub gives us
+          # `before` and `after`; for workflow_dispatch we fall back to
+          # the previous commit on main.
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE="HEAD~1"
+          fi
+          if [ -z "$AFTER" ]; then
+            AFTER="HEAD"
+          fi
+          echo "Diff range: $BEFORE..$AFTER"
+
+          # Source notes added or modified in this push. Skip deletes
+          # (Smith can't synthesize from a missing file) and the
+          # template files under `source-notes/.template-*`.
+          CHANGED=$(
+            git diff --name-only --diff-filter=AM "$BEFORE" "$AFTER" \
+              -- 'source-notes/*.md' \
+              | grep -v '^source-notes/\.' || true
+          )
+
+          if [ -z "$CHANGED" ]; then
+            echo "No source-note changes (after excluding templates/deletes). Skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Changed source notes:"
+          printf '  %s\n' $CHANGED
+
+          # Chapters that already cite at least one of the changed notes.
+          # We grep `guide/*.md` (excluding `SOURCES.md`, which is just
+          # an index) for the inline `[source: <slug>` citation pattern.
+          # Slugs in this corpus are unique compounds (no shared
+          # prefixes) so the two-stage `grep -F` filter is safe.
+          AFFECTED=""
+          for note in $CHANGED; do
+            slug=$(basename "$note" .md)
+            for ch in guide/*.md; do
+              [ "$(basename "$ch")" = "SOURCES.md" ] && continue
+              if grep -F "[source:" "$ch" | grep -Fq "$slug"; then
+                AFFECTED="$AFFECTED $ch"
+              fi
+            done
+          done
+          AFFECTED=$(printf '%s\n' $AFFECTED | sort -u | tr '\n' ' ' | sed 's/ $//')
+
+          echo "Affected chapters: ${AFFECTED:-<none — new source, Smith will scan all chapters>}"
+
+          {
+            echo "changed_notes<<NOTES_EOF"
+            echo "$CHANGED"
+            echo "NOTES_EOF"
+          } >> "$GITHUB_OUTPUT"
+          {
+            echo "affected_chapters<<CHAPTERS_EOF"
+            echo "$AFFECTED"
+            echo "CHAPTERS_EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Run Smith synthesis
+        if: steps.affected.outputs.skip != 'true'
+        uses: anthropics/claude-code-action@v1
+        env:
+          # gh CLI needs GH_TOKEN to push the branch and open the PR.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # GitHub-controlled values (run_id, repository, sha) are safe
+          # to interpolate. The changed-notes / affected-chapters lists
+          # are filenames computed by `git diff` and `grep` above — also
+          # safe. The bodies of the source notes are NOT interpolated;
+          # the Smith reads them via the filesystem.
+          prompt: |
+            You are the Smith agent for the hitchhiker-guide repo.
+            Read `agents/SMITH.md` first — that file is your role,
+            synthesis process, citation rules, and quality bar. The
+            Assayer will gate this PR against those same standards.
+
+            ## Trigger
+
+            Source notes changed on main at commit ${{ github.sha }}.
+
+            ## Inputs
+
+            Newly merged or updated source notes:
+            ${{ steps.affected.outputs.changed_notes }}
+
+            Chapters that already cite at least one of those notes
+            (computed by greping `[source: <slug>]` in `guide/*.md`):
+            ${{ steps.affected.outputs.affected_chapters }}
+
+            If the affected-chapters list above is empty, the changed
+            sources are not yet cited anywhere — read every chapter
+            under `guide/` (excluding `guide/SOURCES.md`, which is an
+            index, not a chapter) and decide which one(s), if any, the
+            new evidence belongs in.
+
+            ## Your task
+
+            1. Read `agents/SMITH.md` end-to-end. Follow its synthesis
+               process (§1–§7).
+            2. Read each changed source note listed above.
+            3. Read each affected chapter (or, if empty, every chapter
+               under `guide/` other than `SOURCES.md`).
+            4. Update ONLY the chapters that the new evidence actually
+               touches. For each updated chapter:
+               - Add or revise claims with `[source: <slug>] [grade]`
+                 inline citations per agents/SMITH.md §3.
+               - Re-grade existing claims if the new evidence
+                 strengthens or weakens them per the confidence ladder
+                 in agents/SMITH.md §6.
+               - Surface contradictions explicitly per agents/SMITH.md §5.
+               - Show, don't just tell — every recommendation needs the
+                 concrete example required by agents/SMITH.md §4.
+            5. Do NOT gold-plate. If a changed source note adds nothing
+               actionable to a chapter (e.g. a Gardener-driven
+               `last_checked` bump that does not change any claims),
+               leave the chapter alone. An empty PR is preferable to a
+               churn PR.
+            6. Update `guide/SOURCES.md` only if a brand-new source row
+               is needed; otherwise leave it alone.
+
+            ## Open the PR
+
+            One PR per workflow run. Branch name:
+            `smith/source-merge-${{ github.run_id }}`.
+
+                git checkout -b smith/source-merge-${{ github.run_id }}
+                git add guide/
+
+                # If the Smith decided no chapter actually needed an
+                # update, exit cleanly without opening a PR.
+                if git diff --staged --quiet; then
+                  echo "Smith made no chapter changes — no PR needed."
+                  exit 0
+                fi
+
+                git commit -m "smith: synthesize chapters for updated sources (${{ github.sha }})"
+                git push -u origin smith/source-merge-${{ github.run_id }}
+
+            Then open the PR. Write the body to a file first to avoid
+            shell quoting issues:
+
+                cat > /tmp/smith-pr-body.md <<'PR_BODY_EOF'
+                Smith synthesis triggered by source-note changes on main.
+
+                **Trigger commit**: ${{ github.sha }}
+
+                **Changed source notes**:
+                ${{ steps.affected.outputs.changed_notes }}
+
+                **Chapters reviewed**:
+                ${{ steps.affected.outputs.affected_chapters }}
+
+                Re-synthesized per `agents/SMITH.md`. The Assayer
+                (`.github/workflows/assayer.yml`) will gate this PR on
+                merge.
+                PR_BODY_EOF
+
+                gh pr create \
+                  --repo ${{ github.repository }} \
+                  --base main \
+                  --head smith/source-merge-${{ github.run_id }} \
+                  --title "guide: synthesize updates for source-note changes (${{ github.sha }})" \
+                  --body-file /tmp/smith-pr-body.md \
+                  --label guide-update
+
+            ## Constraints
+
+            - Do NOT edit anything under `source-notes/`, `agents/`,
+              `scripts/`, `.github/`, or any path outside `guide/`.
+              The Smith owns guide content and nothing else.
+            - Do NOT merge your own PR. The Assayer reviews; humans
+              merge.
+            - Do NOT invent claims that aren't in the source notes.
+            - The `guide-update` label is what triggers the Assayer
+              workflow — the PR must carry it.
+          claude_args: |
+            --max-turns 60
