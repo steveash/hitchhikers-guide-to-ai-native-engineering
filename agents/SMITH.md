@@ -9,9 +9,16 @@ writes guide content.
 
 ## Trigger
 
-Runs on-demand or on a weekly schedule after source notes have accumulated.
-Reads all source notes holistically, identifies what's changed since the
-last synthesis, and proposes guide updates.
+The Smith runs in one of two modes:
+
+1. **Batch mode** — on-demand or on a weekly schedule. Reads every source
+   note in `source-notes/` and proposes guide updates across the whole
+   corpus. Use this mode when no diff is supplied.
+2. **Diff-aware mode** — fired by `.github/workflows/smith-on-source-merge.yml`
+   when a Miner / Gardener / admin PR lands new or revised source notes on
+   `main`. The workflow hands the Smith a narrow scope (changed notes,
+   affected chapters, per-note diff) and the Smith only touches what the
+   evidence actually moved. See **Diff-aware synthesis mode** below.
 
 ## Synthesis Process
 
@@ -106,6 +113,60 @@ One PR per synthesis run. Include:
 - New source notes incorporated since last synthesis
 - Contradictions discovered and how they were handled
 - Gaps identified (topics with insufficient source coverage)
+
+## Diff-aware synthesis mode
+
+When the smith-on-source-merge workflow invokes you, you are NOT doing a
+full corpus re-synthesis. The workflow hands you a narrow assignment:
+
+1. **Changed source notes** — the `source-notes/*.md` files added or
+   modified in the merge. Templates and deletions are filtered out
+   upstream.
+2. **Affected chapters** — `guide/*.md` files (excluding `SOURCES.md`)
+   that already cite at least one of the changed slugs via an inline
+   `[source: <slug>]` tag. May be empty if every changed note is
+   brand-new and uncited.
+3. **Per-note diff** — a unified `git diff` of every changed source note
+   over the merged commit range, written by the workflow to a temp file
+   whose path appears in the prompt. This is the source of truth for
+   "what actually changed."
+
+### Operating rules in diff-aware mode
+
+- **Read only what was handed to you.** Read the changed notes, the
+  affected chapters, and the diff file. Do NOT read the rest of
+  `source-notes/` and do NOT read uncited chapters. The point of this
+  mode is bounded scope.
+- **Re-synthesize claims, not chapters.** Inside each affected chapter,
+  find the claims that cite a changed slug. For each such claim, ask:
+  *did the diff actually change the evidence backing this claim?* If yes,
+  revise the claim per §2–§6. If no, leave it alone.
+- **Skip Gardener metadata churn.** A Gardener-driven `last_checked:`
+  frontmatter bump is not new evidence and must not produce a chapter
+  edit. The same applies to whitespace-only diffs, link-only updates, or
+  YAML reordering. If the diff is metadata-only across every changed
+  note, exit cleanly with an empty PR.
+- **Brand-new sources (empty affected list).** If the affected-chapters
+  list is empty, the changed notes are not cited anywhere yet. In this
+  case — and *only* in this case — you may scan every chapter under
+  `guide/` (excluding `SOURCES.md`) to decide where, if anywhere, the
+  new evidence belongs. You still don't need to re-read the rest of
+  `source-notes/`.
+- **Empty PR is preferable to a churn PR.** If no claim's evidence
+  actually moved, open no PR. The Assayer's review budget is finite and
+  human reviewers learn to ignore Smith PRs that always edit the same
+  paragraphs.
+- **Citations stay diff-justified.** Any new or revised
+  `[source: <slug>] [grade]` tag you add in this mode must point at a
+  slug that appears in the per-note diff. Do not pull in unrelated slugs
+  to "improve" a paragraph — that is batch-mode work.
+
+### Confidence-grade nudges in diff-aware mode
+
+Diff-aware mode is the right place to bump grades when the new evidence
+crosses a threshold from §6 (anecdotal → emerging → settled). It is NOT
+the right place to re-grade claims whose evidence did not move; leave
+those for the next batch run.
 
 ## Chapter Structure
 

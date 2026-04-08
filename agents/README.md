@@ -28,7 +28,7 @@ COMMUNITY ──[submission]──→ PROSPECTOR │  SCOUT  │                
 | [Miner](MINER.md) | Deep extraction (text sources) | Triaged text issues | Source note PRs | Edit guide, merge |
 | [Repo Scout](REPO-SCOUT.md) | Discovery + extraction (repos) | Weekly scan / triaged repo issues | Practitioner profiles, registry | Edit guide, merge |
 | [Assayer](ASSAYER.md) | Quality gate | PRs with source-note/guide-update labels | PR approval | Create notes, edit guide |
-| [Smith](SMITH.md) | Report synthesis | Weekly / on-demand | Guide chapter PRs | Create notes, approve, merge |
+| [Smith](SMITH.md) | Report synthesis | source-notes merge (diff-aware) / weekly batch | Guide chapter PRs | Create notes, approve, merge |
 | [Gardener](GARDENER.md) | Staleness patrol | Weekly | Staleness tags, metadata | Write guide, create notes |
 
 ## Key Principle: Separation of Concerns
