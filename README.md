@@ -61,6 +61,18 @@ Every claim in the guide has a confidence tag:
 | `[editorial]` | Our synthesis — not directly from a source. Flagged as opinion. |
 | `[stale]` | Source is >90 days old and hasn't been re-verified. May have drifted. |
 
+## Pipeline Status
+
+Live dashboard for the agent pipeline runs as a native GitHub Project (v2)
+on this repo. It has three views:
+
+- **Source intake** — new sources flagged for triage, grouped by status
+- **PR review queue** — open PRs grouped by Assayer (review agent) check
+- **Chapter health** — open work tagged per guide chapter
+
+Setup runbook: [`docs/PROJECT-SETUP.md`](docs/PROJECT-SETUP.md). Once the
+project is created the URL will be linked here.
+
 ## Architecture
 
 See [`agents/`](agents/) for the full agent pipeline design.
