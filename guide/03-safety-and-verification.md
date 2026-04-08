@@ -649,6 +649,7 @@ Build all five layers. Each one is a safety net for the layer above it.
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
+paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
@@ -656,4 +657,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-03-30*
+*Last updated: 2026-04-08*

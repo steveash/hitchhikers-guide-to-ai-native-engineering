@@ -1005,6 +1005,7 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 blog-addyosmani-code-agent-orchestra (Claims 7, 11; Linked Sources 1, 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
+paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
@@ -1012,4 +1013,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-03-30*
+*Last updated: 2026-04-08*

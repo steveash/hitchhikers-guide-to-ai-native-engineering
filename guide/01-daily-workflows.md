@@ -392,7 +392,10 @@ contradict its own previous work. These are signals, not vibes.
 
 5. **You are past 30+ turns on a single task.** This is not a hard rule
    -- some practitioners report productive 50+ turn sessions. But if you
-   are past 30 turns AND seeing any of the symptoms above, restart.
+   are past 30 turns AND seeing any of the symptoms above, restart. See
+   Chapter 04 (Context Engineering) for more rigorous context-budget
+   guidance grounded in measured compaction triggers and the "smart half"
+   rule.
    [editorial]
 
 ### What to preserve across restarts
@@ -504,4 +507,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-03-30*
+*Last updated: 2026-04-08*

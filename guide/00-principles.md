@@ -278,10 +278,11 @@ you understand, not to help you avoid understanding.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 10; Linked Sources 1, 2, 4, 6),
+paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-03-30*
+*Last updated: 2026-04-08*
