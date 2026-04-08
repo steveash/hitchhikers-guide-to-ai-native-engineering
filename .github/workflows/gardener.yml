@@ -1,0 +1,66 @@
+name: Weekly Gardener
+
+# Wires agents/GARDENER.md to a weekly cron. Runs scripts/gardener.py to:
+#   1. Tag source notes with last_checked > 90 days as `status: stale`.
+#   2. Demote inline confidence grades in guide chapters that cite those
+#      stale sources ([settled] -> [emerging] -> [stale]).
+#   3. Open a PR labeled `guide-update` so the Assayer can re-grade the
+#      demoted claims before the changes merge.
+#
+# Sunday slot is intentional: it offsets the failure-scanner (Thursday)
+# and the repo-scanner (Monday) so weekly bot PRs don't all land at once.
+
+on:
+  schedule:
+    - cron: '0 9 * * 0'    # Every Sunday 9:00 UTC
+  workflow_dispatch:        # Manual trigger for testing
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  garden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run gardener (staleness sweep + claim demotion)
+        run: |
+          mkdir -p .runtime
+          python scripts/gardener.py --report-file .runtime/gardener-pr-body.md
+
+      - name: Detect changes and load PR body
+        id: state
+        run: |
+          if [ -n "$(git status --porcelain source-notes guide)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+          {
+            echo 'body<<GARDENER_PR_BODY_EOF'
+            cat .runtime/gardener-pr-body.md
+            echo 'GARDENER_PR_BODY_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open PR with demotions
+        if: steps.state.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gardener/staleness-sweep
+          delete-branch: true
+          commit-message: "chore(gardener): weekly staleness sweep + claim demotions"
+          title: "[gardener] Weekly staleness sweep + claim demotions"
+          labels: |
+            guide-update
+            gardener
+          body: ${{ steps.state.outputs.body }}
+          add-paths: |
+            source-notes
+            guide
