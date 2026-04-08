@@ -1,0 +1,32 @@
+name: Claude Code Smoke Test
+
+# Verifies the official anthropics/claude-code-action runs successfully
+# with our ANTHROPIC_API_KEY secret. This is a foundation check for
+# Pipeline 1 (Living Guide Automation, hi-4yk) — every other automation
+# task depends on the runner being able to invoke Claude Code.
+#
+# Trigger manually from the Actions tab to validate after key rotation
+# or action upgrades.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Claude Code with a trivial prompt
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Print exactly one line: "hitchhiker smoke test ok".
+            Do not edit any files. Do not run any tools beyond what
+            is needed to print that line. Then exit.
+          claude_args: |
+            --max-turns 2
