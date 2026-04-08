@@ -24,7 +24,12 @@ jobs:
 
       - name: Run repo scanner
         env:
+          # GITHUB_TOKEN is used by the script's REST search calls.
+          # GH_TOKEN is what `gh issue create` reads when filing issues
+          # for newly discovered repos.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-repos.py
 
       - name: Commit registry updates

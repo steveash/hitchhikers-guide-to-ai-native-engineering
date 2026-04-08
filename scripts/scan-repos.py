@@ -6,10 +6,19 @@ Searches for repos with AI agent configuration files (CLAUDE.md, .claude/,
 AGENTS.md) and files GitHub issues for new discoveries.
 
 Uses GitHub Search API (code search). Rate limit: 10 requests/minute.
+
+When a NEW repo is discovered (not already in the registry), the scanner
+shells out to `gh issue create` so the issue is filed against the
+`.github/ISSUE_TEMPLATE/practitioner-repo.yml` template (labels +
+structure stay aligned with what humans submit). The registry update
+still happens — issue filing is an additional side effect that promotes
+the scanner from passive data collector to active driver of Pipeline 1.
 """
 
 import json
 import os
+import shutil
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -116,40 +125,75 @@ def save_registry(registry: dict):
 
 
 def file_issue(repo: dict, is_update: bool = False):
-    """File a GitHub issue for a discovered repo."""
+    """File a GitHub issue for a discovered repo via `gh issue create`.
+
+    Body and labels are aligned with `.github/ISSUE_TEMPLATE/practitioner-repo.yml`
+    so auto-filed issues look like the human-submitted ones and flow through the
+    same triage path. Uses `gh` (not the raw REST API) so authentication picks up
+    GH_TOKEN/GITHUB_TOKEN from the environment in CI and from the user's local
+    `gh auth login` when run by hand.
+    """
+    if shutil.which("gh") is None:
+        print(
+            "  ERROR: `gh` CLI not found — cannot file issue. "
+            "Install GitHub CLI or run inside the GitHub Actions workflow.",
+            file=sys.stderr,
+        )
+        return
+
     label = "repo-updated" if is_update else "new-repo"
     title_prefix = "[repo-update]" if is_update else "[repo]"
-
     title = f'{title_prefix} {repo["full_name"]}'
-    body = f"""## Auto-discovered practitioner repo
 
-**Repository**: [{repo['full_name']}]({repo['html_url']})
-**Stars**: {repo.get('stars', 'unknown')}
-**Description**: {repo.get('description', 'No description')}
+    config_files = repo.get("config_files_found", [])
+    config_files_md = (
+        "\n".join(f"- `{f}`" for f in config_files) if config_files else "- (none detected)"
+    )
 
-### AI config files detected
-{chr(10).join(f'- `{f}`' for f in repo.get('config_files_found', []))}
+    # Body mirrors the practitioner-repo.yml form sections so triage tooling can
+    # treat auto-filed and human-filed issues the same way.
+    body = f"""### Repository
 
-### Scanner notes
-This repo was automatically discovered by the weekly repo scanner.
-It needs triage by the Prospector agent.
+{repo['full_name']}
+
+URL: {repo['html_url']}
+
+### AI config files present
+
+{config_files_md}
+
+### What makes this repo worth analyzing?
+
+Auto-discovered by the weekly repo scanner.
+
+- Stars: {repo.get('stars', 'unknown')}
+- Description: {repo.get('description') or 'No description'}
+
+This issue was filed automatically and needs triage by the Prospector agent.
 
 ---
-*Filed by repo-scanner.yml*
+*Filed by `scripts/scan-repos.py` against `.github/ISSUE_TEMPLATE/practitioner-repo.yml`*
 """
 
-    url = f"https://api.github.com/repos/{REPO_URL}/issues"
-    resp = requests.post(url, headers=github_headers(), json={
-        "title": title,
-        "body": body,
-        "labels": [label, "practitioner-repo"],
-    })
+    cmd = [
+        "gh", "issue", "create",
+        "--repo", REPO_URL,
+        "--title", title,
+        "--body", body,
+        "--label", label,
+        "--label", "practitioner-repo",
+    ]
 
-    if resp.status_code == 201:
-        print(f"  Filed issue for {repo['full_name']}")
-    else:
-        print(f"  Failed to file issue ({resp.status_code}): {resp.text}",
-              file=sys.stderr)
+    try:
+        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        url_out = result.stdout.strip()
+        print(f"  Filed issue for {repo['full_name']}: {url_out}")
+    except subprocess.CalledProcessError as e:
+        print(
+            f"  Failed to file issue for {repo['full_name']} "
+            f"(exit {e.returncode}): {e.stderr.strip()}",
+            file=sys.stderr,
+        )
 
 
 def main():
