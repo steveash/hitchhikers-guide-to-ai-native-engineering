@@ -1,0 +1,20 @@
+# CODEOWNERS — human review gates for the Hitchhiker's Guide
+#
+# The Living Guide is bot-driven (Assayer, Gardener, Miner, Scout, etc.) but
+# the human maintainer remains editor of last resort. Anything that touches
+# the canonical guide prose, sources of truth, or contributor-facing process
+# requires explicit human sign-off before merge.
+#
+# Combine this file with branch protection on `main` requiring CODEOWNER
+# review on matching paths.
+#
+# Syntax: https://docs.github.com/en/repositories/managing-your-repositories-settings-and-customizations/customizing-your-repository/about-code-owners
+
+# Default: no owner. Most paths can be merged by the merge queue without
+# explicit human approval. Add specific rules below for paths that MUST be
+# reviewed by a human.
+
+# The Guide itself — every chapter, plus SOURCES.md.
+# Bots may draft, but a human ships.
+/guide/                 @steveash
+/guide/**               @steveash
