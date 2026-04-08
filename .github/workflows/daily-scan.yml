@@ -75,20 +75,30 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-failures.py --source github
 
-      - name: Commit registry + rate-limit state updates
+      # Regenerate the content-derived dashboard. Reads source-notes/
+      # frontmatter, guide/*.md, and the local git history to compute
+      # per-chapter source counts, oldest sources, staleness, and weekly
+      # line-count deltas. Cheap and pure — runs after the scanners so it
+      # picks up any newly merged sources from the same UTC day. Bead hi-4yk.18.
+      - name: Regenerate DASHBOARD.md
+        run: python scripts/generate_dashboard.py
+
+      - name: Commit registry + rate-limit state + dashboard updates
         run: |
           git config user.name "hitchhiker-bot"
           git config user.email "bot@hitchhiker-guide.dev"
-          # Stage every file the scanners may have touched. `git add` is
-          # tolerant of files that don't exist yet (first run before any
-          # state has been written), so we don't have to special-case it.
+          # Stage every file the scanners or dashboard generator may have
+          # touched. `git add` is tolerant of files that don't exist yet
+          # (first run before any state has been written), so we don't have
+          # to special-case it.
           git add registry/repos.json \
                   registry/trusted-feeds-state.json \
                   registry/scan-state.json \
-                  registry/scan-queue.json || true
+                  registry/scan-queue.json \
+                  DASHBOARD.md || true
           if git diff --staged --quiet; then
-            echo "No registry/state changes to commit."
+            echo "No registry/state/dashboard changes to commit."
           else
-            git commit -m "chore: daily scanner registry + rate-limit state"
+            git commit -m "chore: daily scanner registry + rate-limit state + dashboard"
             git push
           fi
