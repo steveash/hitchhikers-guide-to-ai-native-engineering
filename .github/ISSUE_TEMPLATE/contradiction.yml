@@ -1,0 +1,121 @@
+name: Contradiction
+description: Two sources disagree. File for human resolution and CONTRADICTIONS.md.
+title: "[contradiction] "
+labels: ["contradiction", "needs-resolution"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Filing a contradiction
+
+        Use this template when you (Miner, Smith, or human) find that two
+        sources in the corpus make opposing claims, or when a new source
+        disagrees with an existing source note. Suppressing contradictions
+        is editorial malpractice (see EDITORIAL-CONSTITUTION.md, Tenet 4) —
+        file it, resolve it openly, and log the verdict in
+        [CONTRADICTIONS.md](../../CONTRADICTIONS.md).
+
+        Every field below is required unless marked optional.
+
+  - type: input
+    id: short_title
+    attributes:
+      label: Short title
+      description: One line summarizing the disagreement (will become the C-NNN entry title)
+      placeholder: "CLAUDE.md sizing: brief vs verbose"
+    validations:
+      required: true
+
+  - type: input
+    id: affected_sections
+    attributes:
+      label: Affected guide sections
+      description: Which chapters/sections does this contradiction touch? Use `none yet` if no chapter cites the topic.
+      placeholder: "Ch02 §Harness Engineering"
+    validations:
+      required: true
+
+  - type: textarea
+    id: side_a
+    attributes:
+      label: Side A
+      description: |
+        Identify the first side of the disagreement. Required fields:
+        - **Source**: source-note filename (e.g. `practitioner-foo.md`)
+        - **Claim**: one-sentence statement
+        - **Evidence**: what backs it up
+        - **Confidence**: settled / emerging / anecdotal
+      placeholder: |
+        - **Source**: source-notes/practitioner-foo.md
+        - **Claim**: Concise CLAUDE.md (~30 lines) works best
+        - **Evidence**: Working SQL repo with a 30-line CLAUDE.md
+        - **Confidence**: anecdotal
+    validations:
+      required: true
+
+  - type: textarea
+    id: side_b
+    attributes:
+      label: Side B
+      description: |
+        Identify the opposing side. Same fields as Side A.
+      placeholder: |
+        - **Source**: source-notes/practitioner-bar.md
+        - **Claim**: A 931-line CLAUDE.md is the primary entry point
+        - **Evidence**: Production TS SDK with 931-line CLAUDE.md + 5 supporting docs
+        - **Confidence**: anecdotal
+    validations:
+      required: true
+
+  - type: textarea
+    id: why_contradictory
+    attributes:
+      label: Why is this a contradiction (not just a difference)?
+      description: |
+        Explain why these claims cannot both be the guide's recommendation
+        as-stated. If they're context-dependent variants of the same rule,
+        this might not need to be filed as a contradiction — say so.
+      placeholder: |
+        Both authors are credible, both repos work, but the brevity rule
+        and the verbosity rule cannot both be the guide's prescription
+        without a conditioning variable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: filer_recommendation
+    attributes:
+      label: Filer's recommended verdict (optional)
+      description: |
+        If you have an opinion, name it. Use one of:
+        `accepted-A`, `accepted-B`, `debated`, `superseded`, `unresolved`.
+        The resolver may override.
+      placeholder: |
+        debated — appears to track repo type (single-purpose vs multi-tool)
+    validations:
+      required: false
+
+  - type: textarea
+    id: filer_notes
+    attributes:
+      label: Additional context (optional)
+      description: |
+        Anything else the resolver should know — related contradictions,
+        tertiary sources that lean one way, deadlines tied to chapter work.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        **What happens next:**
+        1. A human (or Smith working with a human) reviews this issue and picks a verdict.
+        2. The resolver appends a full entry to [CONTRADICTIONS.md](../../CONTRADICTIONS.md)
+           using the format documented there, assigns the next `C-NNN` ID, and updates the index table.
+        3. The issue is closed with a link to the CONTRADICTIONS.md entry.
+        4. The Smith treats `debated` and `unresolved` verdicts using the
+           `**Debated:**` block pattern in [SMITH.md](../../agents/SMITH.md#5-handle-contradictions-explicitly).
+
+        A contradiction without a CONTRADICTIONS.md entry is **not resolved** — it is just an open issue.

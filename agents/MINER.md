@@ -57,6 +57,46 @@ Check every extracted claim against existing source notes:
 - **Extends**: Which existing notes does this build on?
 - **Novel**: What here is completely new to our corpus?
 
+### 4a. File contradictions when you find them
+
+When step 4 surfaces a contradiction — a claim in the new source that
+opposes a claim in an existing source note, or two claims inside the same
+source that disagree — you do **not** silently pick a winner in the source
+note. Instead, file a contradiction issue using the
+[contradiction issue template](../.github/ISSUE_TEMPLATE/contradiction.yml).
+
+**When to file:**
+- A new source's claim materially opposes an existing source note's claim
+  on the same topic, and both claims would lead to different guide advice.
+- A source disagrees with itself (e.g., a blog post recommends X in the
+  intro and Y in the conclusion).
+- A source disagrees with a chapter that already cites a different position.
+
+**When NOT to file:**
+- Claims differ only in *context* (e.g., "use approach X for small repos"
+  vs "use approach Y for large repos") — that's not a contradiction, that's
+  a conditioning variable. Capture both in the source note normally.
+- One side is so weakly supported it doesn't rise to a real claim.
+- The contradiction is already filed (check open `contradiction`-labeled
+  issues and existing `C-NNN` entries in
+  [CONTRADICTIONS.md](../CONTRADICTIONS.md) before filing).
+
+**How to file:**
+1. Open an issue using the contradiction template. Fill in: short title,
+   affected guide sections, Side A (source + claim + evidence + confidence),
+   Side B (same), and why it's a real contradiction.
+2. Reference the contradiction issue number prominently in your source note's
+   "Cross-reference" section under a `**Contradicts:**` heading, so the
+   Assayer and Smith see it during review and synthesis.
+3. **Do NOT pick a verdict in the source note.** The verdict gets assigned
+   by a human (or Smith + human) when the issue is resolved and the
+   `C-NNN` entry is appended to CONTRADICTIONS.md.
+
+A contradiction issue you file is high-signal work for the Smith and for
+the editorial constitution — surfacing disagreement openly is the entire
+point of CONTRADICTIONS.md. Filing one is a feature, not a failure of
+extraction.
+
 ### 5. Identify guide impact
 
 Be specific: "Chapter 02 currently recommends X (citing source-note-A).
