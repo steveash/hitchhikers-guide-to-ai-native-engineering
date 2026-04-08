@@ -1,0 +1,97 @@
+name: Assayer (PR Quality Gate)
+
+# Reviews source-note and guide-update PRs against the standards in
+# agents/ASSAYER.md. Posts a review comment with the verdict and
+# pass/fails the check based on whether the Assayer approved.
+#
+# Branch protection should require the "assayer" check to pass before
+# merging any PR with the source-note or guide-update label.
+#
+# Part of Pipeline 1 (Living Guide Automation, hi-4yk). Depends on the
+# Claude Code action wired up by hi-4yk.1.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  assayer:
+    # Only review PRs that carry source-note or guide-update.
+    # When neither label is present the job is skipped (no check posted).
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'source-note') ||
+      contains(github.event.pull_request.labels.*.name, 'guide-update')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Compute PR diff against base
+        run: |
+          git fetch origin "${{ github.event.pull_request.base.ref }}"
+          git diff "origin/${{ github.event.pull_request.base.ref }}...HEAD" > /tmp/pr.diff
+          echo "Diff size: $(wc -l < /tmp/pr.diff) lines"
+
+      - name: Run Assayer review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are the Assayer. Read agents/ASSAYER.md for your role,
+            review standards, and required output format.
+
+            The pull request diff is at /tmp/pr.diff. The PR labels are:
+            ${{ toJSON(github.event.pull_request.labels.*.name) }}
+
+            Pick the review standards that apply:
+            - source-note label  → "Review Standards for Source Note PRs"
+            - guide-update label → "Review Standards for Guide Update PRs"
+
+            You may read any file in the repository to verify citations,
+            cross-references, and contradictions. Do NOT edit any files.
+
+            Write your review to /tmp/assayer-review.md using the exact
+            "Review Output Format" template from agents/ASSAYER.md. The
+            verdict line MUST be one of:
+              **Verdict**: APPROVE
+              **Verdict**: REQUEST CHANGES
+              **Verdict**: REJECT
+
+            Then exit.
+          claude_args: |
+            --max-turns 25
+
+      - name: Post review and set check verdict
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          if [ ! -s /tmp/assayer-review.md ]; then
+            echo "Assayer did not produce a review file. Failing check."
+            {
+              echo "## Assayer Review"
+              echo ""
+              echo "**Verdict**: REJECT"
+              echo ""
+              echo "The Assayer agent failed to produce a review. Check the workflow logs."
+            } > /tmp/assayer-review.md
+            gh pr comment "$PR_NUMBER" --body-file /tmp/assayer-review.md
+            exit 1
+          fi
+
+          gh pr comment "$PR_NUMBER" --body-file /tmp/assayer-review.md
+
+          if grep -Eq '^\*\*Verdict\*\*:[[:space:]]*APPROVE' /tmp/assayer-review.md; then
+            echo "Assayer verdict: APPROVE"
+            exit 0
+          fi
+
+          echo "Assayer verdict: REQUEST CHANGES or REJECT"
+          exit 1
