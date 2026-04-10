@@ -3,25 +3,32 @@
     "simon-willison": {
       "seen": [
         "https://simonwillison.net/2026/Apr/1/datasette-llm-2/#atom-everything",
+        "https://simonwillison.net/2026/Apr/2/gemma-4/#atom-everything",
+        "https://simonwillison.net/2026/Apr/2/lennys-podcast/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/llm-gemini/#atom-everything",
-        "https://simonwillison.net/2026/Apr/2/march-newsletter/#atom-everything"
+        "https://simonwillison.net/2026/Apr/2/march-newsletter/#atom-everything",
+        "https://simonwillison.net/2026/Apr/3/supply-chain-social-engineering/#atom-everything"
       ],
-      "last_scan": "2026-04-09T06:30:22.147097+00:00"
+      "last_scan": "2026-04-10T06:34:01.254216+00:00"
     },
     "armin-ronacher": {
       "seen": [
         "https://lucumr.pocoo.org/2026/1/14/minijinja-go-port/",
-        "https://lucumr.pocoo.org/2026/1/18/agent-psychosis/"
+        "https://lucumr.pocoo.org/2026/1/18/agent-psychosis/",
+        "https://lucumr.pocoo.org/2026/1/27/earendil/",
+        "https://lucumr.pocoo.org/2026/1/31/pi/"
       ],
-      "last_scan": "2026-04-09T06:30:25.557249+00:00"
+      "last_scan": "2026-04-10T06:34:04.109083+00:00"
     },
     "github-changelog": {
       "seen": [
         "https://github.blog/changelog/2026-04-05-dependabot-alerts-are-now-assignable-to-ai-agents-for-remediation",
-        "https://github.blog/changelog/2026-04-05-dependabot-version-updates-now-support-the-nix-ecosystem"
+        "https://github.blog/changelog/2026-04-05-dependabot-version-updates-now-support-the-nix-ecosystem",
+        "https://github.blog/changelog/2026-04-08-code-security-risk-assessment-available-for-organizations",
+        "https://github.blog/changelog/2026-04-08-new-pgp-signing-key-for-github-cli-linux-packages"
       ],
-      "last_scan": "2026-04-09T06:30:28.710415+00:00"
+      "last_scan": "2026-04-10T06:34:06.820517+00:00"
     }
   },
-  "last_scan": "2026-04-09T06:30:28.710440+00:00"
+  "last_scan": "2026-04-10T06:34:06.820543+00:00"
 }
