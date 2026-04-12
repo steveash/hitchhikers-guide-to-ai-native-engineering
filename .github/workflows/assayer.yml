@@ -66,9 +66,9 @@ jobs:
               **Verdict**: REJECT
 
             Then exit.
-          allowed_tools: "Bash(gh:*),Read,Glob,Grep"
           claude_args: |
             --max-turns 25
+            --allowedTools "Bash(gh:*)" "Read" "Glob" "Grep"
 
       - name: Post review and set check verdict
         env:
