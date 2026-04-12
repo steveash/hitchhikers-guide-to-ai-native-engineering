@@ -42,6 +42,7 @@ jobs:
           printf '%s\n' "$ISSUE_BODY" > .runtime/issue-body.txt
           echo "$ISSUE_NUMBER" > .runtime/issue-number.txt
           echo "$ISSUE_TITLE" > .runtime/issue-title.txt
+          date -u +%Y-%m-%d > .runtime/today.txt
 
       - name: Parse sticky notes and prepare PR
         uses: anthropics/claude-code-action@v1
@@ -131,7 +132,7 @@ jobs:
 
             2. Ensure all changes are only in sticky-notes/ files.
 
-            Today's date is: 2026-04-12.
+            Today's date is in .runtime/today.txt — read it for the current date.
           claude_args: |
             --model haiku
             --max-turns 25
@@ -192,14 +193,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          BODY="## Scribe Summary
+          cat > /tmp/no-notes.md <<'SCRIBE_EOF'
+          ## Scribe Summary
 
           No new sticky notes were added. Possible reasons:
           - All notes were duplicates of existing notes
           - No valid chapter tags found in the issue body
           - The issue body could not be parsed
-
-          Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details."
-
-          gh issue comment "$ISSUE_NUMBER" --body "$BODY"
+          SCRIBE_EOF
+          echo "" >> /tmp/no-notes.md
+          echo "Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details." >> /tmp/no-notes.md
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/no-notes.md
           gh issue edit "$ISSUE_NUMBER" --add-label "scribe-complete"
