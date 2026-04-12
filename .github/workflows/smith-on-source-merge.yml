@@ -35,6 +35,7 @@ permissions:
   contents: write              # smith pushes its feature branch
   pull-requests: write         # smith opens the guide-update PR
   issues: write                # cap enforcement files chapter-saturated issues
+  id-token: write              # required by anthropics/claude-code-action OIDC auth
 
 jobs:
   smith:

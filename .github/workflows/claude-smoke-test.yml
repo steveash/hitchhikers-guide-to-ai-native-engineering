@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write              # required by anthropics/claude-code-action OIDC auth
 
 jobs:
   smoke:

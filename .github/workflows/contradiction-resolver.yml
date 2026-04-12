@@ -21,6 +21,7 @@ on:
 permissions:
   contents: read
   issues: write
+  id-token: write              # required by anthropics/claude-code-action OIDC auth
 
 jobs:
   assess:
@@ -123,6 +124,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      id-token: write        # required by anthropics/claude-code-action OIDC auth
     steps:
       - uses: actions/checkout@v4
         with:

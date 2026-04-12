@@ -18,6 +18,7 @@ permissions:
   contents: read
   pull-requests: write
   checks: write
+  id-token: write              # required by anthropics/claude-code-action OIDC auth
 
 jobs:
   assayer:
