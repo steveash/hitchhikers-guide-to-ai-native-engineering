@@ -69,12 +69,10 @@ Two complementary views into the guide's health:
   daily by `scripts/generate_dashboard.py`: per-chapter source counts vs
   cap, oldest cited source, staleness percentage, weekly line-count delta.
   These are things GitHub Projects can't show natively.
-- **GitHub Project (v2)** — workflow status across PRs, issues, and the
+- **GitHub Project**[https://github.com/users/steveash/projects/1] — workflow status across PRs, issues, and the
   scanner queues. Three views: *Source intake* (new sources flagged for
   triage), *PR review queue* (open PRs grouped by Assayer check), and
-  *Chapter health* (open work tagged per guide chapter). Setup runbook:
-  [`docs/PROJECT-SETUP.md`](docs/PROJECT-SETUP.md). Once the project is
-  created the URL will be linked here.
+  *Chapter health* (open work tagged per guide chapter).
 
 ## Architecture
 
