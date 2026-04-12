@@ -1,0 +1,35 @@
+name: Sticky Notes
+description: File editorial sticky notes for the guide (Scribe parses these automatically)
+title: "[sticky-notes] "
+labels: ["sticky-notes"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## How to write sticky notes
+
+        One note per paragraph. Tag each with the chapter in bold, then your note text.
+
+        **Prescriptive notes** state what the text should say:
+        > **Ch02** Harness engineering section should mention progressive disclosure.
+
+        **Conditional notes** flag something that depends on further research:
+        > **Ch05** [conditional] If we confirm the 15-turn pattern holds across repos, add it as a recommended practice.
+
+        The Scribe agent handles parsing, ID assignment, dedup, and formatting — just write naturally.
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: |
+        One note per paragraph. Start each with **ChNN** (e.g. **Ch02**).
+        Prefix with [conditional] if the note depends on unresolved research.
+      placeholder: |
+        **Ch02** The harness engineering chapter should cover .claude/ directory structure as a first-class topic.
+
+        **Ch05** [conditional] If multi-agent coordination patterns stabilize, add a dedicated section on swarm conventions.
+
+        **Ch03** Mention that pre-commit hooks are the most common quality gate in practitioner repos.
+    validations:
+      required: true
