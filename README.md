@@ -74,6 +74,20 @@ Two complementary views into the guide's health:
   triage), *PR review queue* (open PRs grouped by Assayer check), and
   *Chapter health* (open work tagged per guide chapter).
 
+## Editorial Guidance
+
+The [`sticky-notes/`](sticky-notes/) directory contains per-chapter editorial
+guidance notes — prescriptive or conditional rules that synthesis agents must
+respect when updating guide content.
+
+Each note has a unique sequential ID (e.g., `SN-02-001` for the first note in
+chapter 02) that is never reused, even after the note is resolved. Notes can be
+**prescriptive** (always applies) or **conditional** (applies only when a stated
+condition is met). See any chapter file in `sticky-notes/` for the full format.
+
+To file a new sticky note, add it to the appropriate chapter file following the
+note block format documented there, and update the index table at the top.
+
 ## Architecture
 
 See [`agents/`](agents/) for the full agent pipeline design.
