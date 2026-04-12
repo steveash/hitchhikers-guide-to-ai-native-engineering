@@ -7,12 +7,15 @@
         "https://simonwillison.net/2026/Apr/2/lennys-podcast/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/llm-gemini/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/march-newsletter/#atom-everything",
+        "https://simonwillison.net/2026/Apr/3/cognitive-cost/#atom-everything",
         "https://simonwillison.net/2026/Apr/3/daniel-stenberg/#atom-everything",
         "https://simonwillison.net/2026/Apr/3/greg-kroah-hartman/#atom-everything",
         "https://simonwillison.net/2026/Apr/3/supply-chain-social-engineering/#atom-everything",
-        "https://simonwillison.net/2026/Apr/3/test-csp-iframe-escape/#atom-everything"
+        "https://simonwillison.net/2026/Apr/3/test-csp-iframe-escape/#atom-everything",
+        "https://simonwillison.net/2026/Apr/3/vulnerability-research-is-cooked/#atom-everything",
+        "https://simonwillison.net/2026/Apr/3/willy-tarreau/#atom-everything"
       ],
-      "last_scan": "2026-04-11T06:20:43.950944+00:00"
+      "last_scan": "2026-04-12T06:30:25.589473+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -21,9 +24,11 @@
         "https://lucumr.pocoo.org/2026/1/27/earendil/",
         "https://lucumr.pocoo.org/2026/1/31/pi/",
         "https://lucumr.pocoo.org/2026/2/13/the-final-bottleneck/",
-        "https://lucumr.pocoo.org/2026/2/9/a-language-for-agents/"
+        "https://lucumr.pocoo.org/2026/2/9/a-language-for-agents/",
+        "https://lucumr.pocoo.org/2026/3/20/some-things-just-take-time/",
+        "https://lucumr.pocoo.org/2026/3/5/theseus/"
       ],
-      "last_scan": "2026-04-11T06:20:46.693648+00:00"
+      "last_scan": "2026-04-12T06:30:28.646117+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -31,11 +36,21 @@
         "https://github.blog/changelog/2026-04-05-dependabot-version-updates-now-support-the-nix-ecosystem",
         "https://github.blog/changelog/2026-04-08-code-security-risk-assessment-available-for-organizations",
         "https://github.blog/changelog/2026-04-08-new-pgp-signing-key-for-github-cli-linux-packages",
+        "https://github.blog/changelog/2026-04-09-auto-draft",
+        "https://github.blog/changelog/2026-04-09-new-low-quality-option-in-the-hide-comment-menu",
         "https://github.blog/changelog/2026-04-09-new-sort-by-control-added-to-notifications",
         "https://github.blog/changelog/2026-04-09-repository-member-role-labels-now-in-pull-request-list-view"
       ],
-      "last_scan": "2026-04-11T06:20:49.333736+00:00"
+      "last_scan": "2026-04-12T06:30:31.817983+00:00"
+    },
+    "langchain-blog": {
+      "seen": [
+        "69c2b34b57c3f40001c18e52",
+        "69c54956d5b7120001b5bc54",
+        "69c54d10d5b7120001b5bc66"
+      ],
+      "last_scan": "2026-04-12T06:30:35.425819+00:00"
     }
   },
-  "last_scan": "2026-04-11T06:20:49.333767+00:00"
+  "last_scan": "2026-04-12T06:30:35.425953+00:00"
 }
