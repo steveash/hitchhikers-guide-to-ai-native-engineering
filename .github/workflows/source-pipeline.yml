@@ -4,7 +4,9 @@ name: Source Processing Pipeline
 #
 #   stage 1 (prospector) — triage a new source-bearing issue, applying one
 #                          of triaged:text / triaged:repo / triaged:failure
-#                          (or `rejected`).
+#                          (or `rejected`).  For text/failure triages, also
+#                          applies `mining-queued` so the batch Miner picks
+#                          them up (GITHUB_TOKEN can't trigger new runs).
 #   stage 2a (miner)     — extract a source note from triaged:text /
 #                          triaged:failure issues and open a `source-note`
 #                          PR for the Assayer to review.
@@ -43,6 +45,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Ensure mining-queued label exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "mining-queued" \
+            --repo "${{ github.repository }}" \
+            --description "Queued for batch mining by the Miner" \
+            --color "1d76db" \
+            2>/dev/null || true
 
       - name: Run Prospector triage
         uses: anthropics/claude-code-action@v1
@@ -88,6 +100,12 @@ jobs:
                   gh issue edit ${{ github.event.issue.number }} \
                     --repo ${{ github.repository }} \
                     --add-label "<chosen-label>"
+               If the chosen label is `triaged:text` or `triaged:failure`,
+               also apply `mining-queued` to queue the issue for the
+               batch Miner:
+                  gh issue edit ${{ github.event.issue.number }} \
+                    --repo ${{ github.repository }} \
+                    --add-label "mining-queued"
             6. Post a triage assessment comment that follows the format in
                agents/PROSPECTOR.md (Novelty / Type / Relevant chapters /
                Key question / Existing notes that overlap). For rejections,

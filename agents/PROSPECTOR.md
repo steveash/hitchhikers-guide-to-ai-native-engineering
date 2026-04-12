@@ -36,7 +36,18 @@ Read the source (follow the URL). Ask:
 | Low | `triaged`, `priority:low` | Marginally relevant, thin evidence |
 | Reject | `rejected` | Duplicate, marketing, pre-Dec-2025, no substance |
 
-### 4. Enrich the issue
+### 4. Queue for mining
+
+When the triage label is `triaged:text` or `triaged:failure`, also add
+the `mining-queued` label. This queues the issue for the hourly batch
+Miner workflow (`miner-batch.yml`). The label-based queue replaces the
+previous immediate-trigger chain (which broke because `GITHUB_TOKEN`
+cannot fire new workflow runs).
+
+Human maintainers can remove `mining-queued` from a specific issue to
+skip mining for that source.
+
+### 5. Enrich the issue
 
 Add a comment with your triage assessment:
 
