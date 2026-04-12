@@ -29,5 +29,6 @@ jobs:
             Print exactly one line: "hitchhiker smoke test ok".
             Do not edit any files. Do not run any tools beyond what
             is needed to print that line. Then exit.
+          allowed_tools: "Bash(echo:*)"
           claude_args: |
             --max-turns 2

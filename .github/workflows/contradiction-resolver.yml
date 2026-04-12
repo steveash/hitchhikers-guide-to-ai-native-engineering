@@ -107,6 +107,7 @@ jobs:
 
             Do NOT edit any files in the repository. Your only outputs are
             the issue comment and the label.
+          allowed_tools: "Bash(gh:*),Read,Glob,Grep"
           claude_args: |
             --max-turns 25
 
@@ -249,5 +250,6 @@ jobs:
               merge.
             - Match the exact format and style of the existing C-001/C-002/
               C-003 entries. Do not invent new fields or change the layout.
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Write,Edit,Glob,Grep"
           claude_args: |
             --max-turns 30

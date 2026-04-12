@@ -104,6 +104,7 @@ jobs:
 
             Do not edit any source notes, the guide, or the issue body. Your
             output is labels + a comment + (for rejections) issue closure.
+          allowed_tools: "Bash(gh:*),Read,Glob,Grep"
           claude_args: |
             --max-turns 20
 
@@ -269,6 +270,7 @@ jobs:
             - If the source is paywalled, dead, or otherwise unreadable,
               comment on the issue explaining why, add a `miner-blocked`
               label, and exit WITHOUT opening a PR.
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Write,Edit,Glob,Grep"
           claude_args: |
             --max-turns 60
 
@@ -457,5 +459,6 @@ jobs:
               the AI config you need, or otherwise unreadable, comment
               on the issue explaining why, add a `scout-blocked` label,
               and exit WITHOUT opening a PR.
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Write,Edit,Glob,Grep"
           claude_args: |
             --max-turns 60

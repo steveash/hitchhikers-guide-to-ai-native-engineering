@@ -306,6 +306,7 @@ jobs:
             - Do NOT invent claims that aren't in the source notes.
             - The `guide-update` label is what triggers the Assayer
               workflow — the PR must carry it.
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Write,Edit,Glob,Grep"
           claude_args: |
             --max-turns 60
 
