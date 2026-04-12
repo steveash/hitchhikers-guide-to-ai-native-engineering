@@ -7,21 +7,12 @@ with AI coding agents. Updated weekly as new patterns emerge and old ones decay.
 next month. Every recommendation cites its source. Every claim states its confidence
 level. When the landscape shifts, the guide shifts with it.
 
-## What This Is
+---
 
-A practitioner's field guide. Concrete advice: do this, don't do that, here's why,
-here's the evidence. Not a survey of the space. Not a tutorial. Not marketing copy.
-
-The guide is maintained by a pipeline of AI agents that:
-1. **Discover** practitioner repos and community discussions weekly
-2. **Extract** concrete patterns, anti-patterns, and configuration examples
-3. **Analyze** with cross-referencing, contradiction tracking, and evidence grading
-4. **Synthesize** findings into actionable guide chapters with full citations
-5. **Review** every change through structured editorial gates
-
-## Reading the Guide
+## Read the Guide
 
 The guide lives in [`guide/`](guide/). Read in order, or jump to what you need:
+
 - [Principles](guide/00-principles.md) — The mental models that hold up
 - [Daily Workflows](guide/01-daily-workflows.md) — What a good session looks like
 - [Harness Engineering](guide/02-harness-engineering.md) — CLAUDE.md, rules, commands, hooks
@@ -30,26 +21,7 @@ The guide lives in [`guide/`](guide/). Read in order, or jump to what you need:
 - [Team Adoption](guide/05-team-adoption.md) — Scaling from one engineer to a team, measurement, rollout
 - [Sources](guide/SOURCES.md) — Master index of every source the guide cites
 
-## How Sources Work
-
-Every claim in the guide traces back to a source note in [`source-notes/`](source-notes/).
-Source notes come from three pipelines:
-
-| Pipeline | What it finds | Frequency |
-|----------|--------------|-----------|
-| **Repo Scout** | Real CLAUDE.md files, .claude/ configs, and AGENTS.md from active GitHub repos | Weekly |
-| **Failure Scanner** | "I tried X and it broke" reports from HN, Reddit, GitHub Discussions | Weekly |
-| **Community Submissions** | Sources filed by humans via GitHub Issues | Continuous |
-
-## Contributing
-
-**Anyone can submit a source.** See [SUBMISSION.md](SUBMISSION.md) for instructions.
-
-File an issue using the [source submission template](.github/ISSUE_TEMPLATE/source-submission.yml)
-with the URL, what you found interesting, and where you think it's relevant. The agent
-pipeline will process it with the same rigor as any automated discovery.
-
-## Trust Model
+### Trust Model
 
 Every claim in the guide has a confidence tag:
 
@@ -61,35 +33,45 @@ Every claim in the guide has a confidence tag:
 | `[editorial]` | Our synthesis — not directly from a source. Flagged as opinion. |
 | `[stale]` | Source is >90 days old and hasn't been re-verified. May have drifted. |
 
-## Pipeline Status
+---
 
-Two complementary views into the guide's health:
+## Improve the Guide
 
-- [**DASHBOARD.md**](DASHBOARD.md) — content-derived metrics regenerated
-  daily by `scripts/generate_dashboard.py`: per-chapter source counts vs
-  cap, oldest cited source, staleness percentage, weekly line-count delta.
-  These are things GitHub Projects can't show natively.
-- **GitHub Project**[https://github.com/users/steveash/projects/1] — workflow status across PRs, issues, and the
-  scanner queues. Three views: *Source intake* (new sources flagged for
-  triage), *PR review queue* (open PRs grouped by Assayer check), and
-  *Chapter health* (open work tagged per guide chapter).
+Anyone can help improve the guide by submitting feedback. Two ways to contribute:
 
-## Editorial Guidance
+### Submit a Source
 
-The [`sticky-notes/`](sticky-notes/) directory contains per-chapter editorial
-guidance notes — prescriptive or conditional rules that synthesis agents must
-respect when updating guide content.
+Found a practitioner repo, blog post, failure report, or community discussion that
+should inform the guide? File an issue:
 
-Each note has a unique sequential ID (e.g., `SN-02-001` for the first note in
-chapter 02) that is never reused, even after the note is resolved. Notes can be
-**prescriptive** (always applies) or **conditional** (applies only when a stated
-condition is met). See any chapter file in `sticky-notes/` for the full format.
+- [**Source submission**](.github/ISSUE_TEMPLATE/source-submission.yml) — article URL, blog feed, practitioner repo
+- [**Practitioner repo**](.github/ISSUE_TEMPLATE/practitioner-repo.yml) — real CLAUDE.md, .claude/ configs, AGENTS.md from active repos
+- [**Failure report**](.github/ISSUE_TEMPLATE/failure-report.yml) — "I tried X and it broke" reports
 
-To file a new sticky note, add it to the appropriate chapter file following the
-note block format documented there, and update the index table at the top.
+See [SUBMISSION.md](SUBMISSION.md) for full instructions. The agent pipeline processes
+community submissions with the same rigor as automated discoveries.
 
-## Architecture
+### Submit Editorial Feedback
 
-See [`agents/`](agents/) for the full agent pipeline design.
-See [`.github/workflows/`](.github/workflows/) for automation.
-See [`registry/`](registry/) for tracked repos and sources.
+Have opinions on layout, omissions, emphasis, or framing? File a sticky note:
+
+- [**Sticky notes**](.github/ISSUE_TEMPLATE/sticky-notes.yml) — editorial guidance for synthesis agents
+
+Sticky notes are prescriptive or conditional rules that agents must respect when
+updating guide content. They live in [`sticky-notes/`](sticky-notes/) and are
+consulted during every synthesis pass.
+
+---
+
+## How the Automation Works
+
+The guide is maintained by a pipeline of AI agents that discover, extract, review,
+synthesize, and patrol for staleness — so the guide stays current without manual
+curation. For the full pipeline design, see [`agents/README.md`](agents/README.md).
+
+Additional references:
+
+- [**DASHBOARD.md**](DASHBOARD.md) — Content health metrics: per-chapter source counts, oldest cited source, staleness percentage, weekly delta
+- [**CONTRADICTIONS.md**](CONTRADICTIONS.md) — Where sources disagree and how the guide resolves it
+- [**docs/PROJECT-SETUP.md**](docs/PROJECT-SETUP.md) — Development environment and project setup
+- **GitHub Project** [https://github.com/users/steveash/projects/1] — Workflow status across PRs, issues, and scanner queues
