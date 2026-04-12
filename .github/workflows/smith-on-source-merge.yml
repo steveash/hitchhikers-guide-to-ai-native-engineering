@@ -112,6 +112,33 @@ jobs:
 
           echo "Affected chapters: ${AFFECTED:-<none — new source, Smith will scan all chapters>}"
 
+          # Compute the corresponding sticky-notes files for each affected chapter.
+          # Mapping: guide/NN-slug.md → sticky-notes/chNN-slug.md
+          STICKY=""
+          if [ -n "$AFFECTED" ]; then
+            for ch in $AFFECTED; do
+              base=$(basename "$ch" .md)             # e.g. "02-harness-engineering"
+              num=${base%%-*}                         # e.g. "02"
+              slug=${base#*-}                         # e.g. "harness-engineering"
+              sn="sticky-notes/ch${num}-${slug}.md"
+              if [ -f "$sn" ]; then
+                STICKY="$STICKY $sn"
+              fi
+            done
+            STICKY=$(echo "$STICKY" | sed 's/^ //')
+          else
+            # Brand-new source — list all sticky-notes files so the Smith can
+            # consult them when scanning every chapter.
+            STICKY=$(ls sticky-notes/ch*.md 2>/dev/null | tr '\n' ' ' | sed 's/ $//')
+          fi
+          echo "Sticky notes: ${STICKY:-<none>}"
+
+          {
+            echo "sticky_notes<<STICKY_EOF"
+            echo "$STICKY"
+            echo "STICKY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
           {
             echo "changed_notes<<NOTES_EOF"
             echo "$CHANGED"
@@ -208,6 +235,16 @@ jobs:
             Per-note unified diff for the merged commit range:
             ${{ steps.diffs.outputs.diff_file }}
 
+            Sticky notes (editorial directives for affected chapters):
+            ${{ steps.affected.outputs.sticky_notes }}
+
+            **Read the sticky-notes files before editing any chapter.**
+            Prescriptive notes are hard requirements; conditional notes
+            apply only when their stated condition holds. See
+            `agents/SMITH.md` → "Sticky Notes" for the full protocol.
+            If your edits fully resolve a note, mark it resolved in the
+            same PR.
+
             **Read the diff file before deciding what to edit.** It is
             the source of truth for what actually changed. Frontmatter-
             only or whitespace-only diffs (e.g. a Gardener
@@ -223,7 +260,8 @@ jobs:
             ## Your task
 
             1. Read `agents/SMITH.md` end-to-end. Follow its synthesis
-               process (§1–§7) AND the diff-aware operating rules.
+               process (§1–§7), the diff-aware operating rules, AND
+               the Sticky Notes protocol.
             2. Read the per-note diff file above. Identify which
                specific claims (not just which chapters) the diff
                actually touches. If the diff is metadata-only across
@@ -234,6 +272,13 @@ jobs:
             4. Read each affected chapter (or, if the affected list is
                empty, every chapter under `guide/` other than
                `SOURCES.md`).
+            4b. Read the sticky-notes file for each affected chapter.
+               Apply active prescriptive notes as hard requirements.
+               Evaluate conditional notes against the current chapter
+               content — apply if the condition holds, skip if not.
+               If your edits fully resolve a note, update its Status
+               to resolved with a date and reason in the sticky-notes
+               file.
             5. Update ONLY the claims whose backing evidence actually
                moved in the diff. For each revised claim:
                - Add or revise `[source: <slug>] [grade]` inline
@@ -257,7 +302,7 @@ jobs:
             `smith/source-merge-${{ github.run_id }}`.
 
                 git checkout -b smith/source-merge-${{ github.run_id }}
-                git add guide/
+                git add guide/ sticky-notes/
 
                 # If the Smith decided no chapter actually needed an
                 # update, exit cleanly without opening a PR.
@@ -299,8 +344,9 @@ jobs:
             ## Constraints
 
             - Do NOT edit anything under `source-notes/`, `agents/`,
-              `scripts/`, `.github/`, or any path outside `guide/`.
-              The Smith owns guide content and nothing else.
+              `scripts/`, `.github/`, or any path outside `guide/` and
+              `sticky-notes/`. The Smith owns guide content and may
+              update sticky-notes Status fields to mark notes resolved.
             - Do NOT merge your own PR. The Assayer reviews; humans
               merge.
             - Do NOT invent claims that aren't in the source notes.

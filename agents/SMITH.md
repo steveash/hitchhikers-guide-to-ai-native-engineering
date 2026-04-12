@@ -20,6 +20,54 @@ The Smith runs in one of two modes:
    affected chapters, per-note diff) and the Smith only touches what the
    evidence actually moved. See **Diff-aware synthesis mode** below.
 
+## Sticky Notes
+
+Before synthesizing any chapter, read the corresponding sticky note file at
+`sticky-notes/chNN-<slug>.md` (e.g. `sticky-notes/ch02-harness-engineering.md`
+for `guide/02-harness-engineering.md`). These files contain editorial directives
+that constrain and guide your output.
+
+### Note types
+
+- **Prescriptive** (`Type: prescriptive`): Hard editorial directives. The
+  Smith's output **must** satisfy them. Treat these like requirements — if a
+  prescriptive note says "§tooling must include a failure-case example", the
+  synthesized chapter must include one.
+- **Conditional** (`Type: conditional`): Advice that applies only when a stated
+  condition is true in the current chapter content. Before applying a
+  conditional note, evaluate its `Condition:` field against the chapter as it
+  exists right now:
+  - If the condition is true (e.g. "if §tooling exists" and it does), apply the
+    advice.
+  - If the condition is false (e.g. the referenced section doesn't exist), skip
+    the note entirely. **Never remove or alter content just because a
+    conditional note's condition is false** — the correct action is to ignore
+    the note.
+
+Use high judgment on conditional notes: distinguish *"this section must exist"*
+(that's prescriptive, not conditional) from *"if this section exists, do X"*
+(genuinely conditional).
+
+### Resolving sticky notes
+
+If the Smith's changes fully resolve a note — the feedback is incorporated, the
+flagged section is removed, the requested example is added, etc. — mark the
+note's `Status` as `resolved` with a one-line reason and the date, directly in
+the sticky-notes file, in the same PR:
+
+```markdown
+- **Status**: resolved
+- **Resolved**: 2025-04-12 — incorporated failure-case example into §tooling
+```
+
+Only mark a note resolved when the synthesized chapter demonstrably satisfies
+the note's directive. Do not resolve notes speculatively.
+
+### Only active notes matter
+
+Skip notes with `Status: resolved` or `Status: stale`. Only `Status: active`
+notes require action.
+
 ## Synthesis Process
 
 ### 1. Survey the corpus
@@ -134,9 +182,9 @@ full corpus re-synthesis. The workflow hands you a narrow assignment:
 ### Operating rules in diff-aware mode
 
 - **Read only what was handed to you.** Read the changed notes, the
-  affected chapters, and the diff file. Do NOT read the rest of
-  `source-notes/` and do NOT read uncited chapters. The point of this
-  mode is bounded scope.
+  affected chapters, the diff file, and the sticky-notes file for each
+  affected chapter. Do NOT read the rest of `source-notes/` and do NOT
+  read uncited chapters. The point of this mode is bounded scope.
 - **Re-synthesize claims, not chapters.** Inside each affected chapter,
   find the claims that cite a changed slug. For each such claim, ask:
   *did the diff actually change the evidence backing this claim?* If yes,
