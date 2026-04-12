@@ -9,7 +9,8 @@ standards before anything merges.
 
 ## Trigger
 
-Runs when a PR is opened with label `source-note` or `guide-update`.
+Runs when a PR is opened with label `source-note`, `guide-update`, or
+`feed-candidate`.
 
 ## Review Standards for Source Note PRs
 
@@ -43,6 +44,36 @@ Reject if:
 - If the note claims "contradicts source-note-X," verify the contradiction is real
 - Are there obvious cross-references the Miner missed?
   (Search existing notes for overlapping keywords)
+
+## Review Standards for Feed Candidate PRs
+
+### Feed Reachability Check
+
+- Does the feed URL resolve (HTTP 200)?
+- Is the response valid Atom or RSS XML? (Check for `<rss` or `<feed` root element)
+- Does the feed contain recent entries (within the last 90 days)?
+
+### Schema Check
+
+- Does the new entry in `registry/trusted-feeds.json` match the existing schema?
+- Required fields: `id`, `url`, `source_type`, `description`
+- `id` is a short, stable, lowercase-hyphenated identifier
+- `source_type` is one of: `blog-post`, `documentation`, `discussion`, `paper`,
+  `practitioner-repo`, `failure-report`
+- `description` is a concise one-line explanation of why the source is trusted
+- `max_per_run` is present and reasonable (1-5)
+
+### Source Quality Check
+
+- Is the feed from a known author or organization in AI-native engineering?
+- Does the feed have a history of substantive posts (not marketing)?
+- Is the `source_type` appropriate for the feed content?
+- Does the `description` accurately characterize the feed's value?
+
+### Duplication Check
+
+- Is this feed already in `registry/trusted-feeds.json` under a different id?
+- Does the feed URL overlap with an existing entry (same domain, different path)?
 
 ## Review Standards for Guide Update PRs
 

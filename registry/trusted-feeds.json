@@ -42,6 +42,13 @@
       "source_type": "documentation",
       "description": "GitHub changelog — Copilot/Actions/Issues changes that affect agent integration surfaces",
       "max_per_run": 2
+    },
+    {
+      "id": "langchain-blog",
+      "url": "https://blog.langchain.com/rss/",
+      "source_type": "blog-post",
+      "description": "LangChain blog — agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
+      "max_per_run": 3
     }
   ]
 }

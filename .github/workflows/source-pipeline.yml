@@ -83,7 +83,11 @@ jobs:
             Reject if ANY of these apply:
             a) No URL anywhere in the issue body
             b) URL is a tool/product homepage (e.g. example.com, example.com/product),
-               not a specific article, blog post, discussion, or repository
+               not a specific article, blog post, discussion, repository, blog
+               index, or RSS/Atom feed URL. Note: blog root URLs (e.g.
+               blog.example.com/) and feed URLs (/rss, /feed, /atom.xml) are
+               NOT homepages — let them through for Prospector feed-candidate
+               evaluation
             c) Content is dated before 2025-12-01 (check dates in title, URL, or body)
             d) Marketing copy, press release, or changelog with no engineering substance
             e) Tool announcement ("Show HN: X", "Announcing X") with no extractable
@@ -128,10 +132,18 @@ jobs:
     # Tier 2: Run only when Tier 1 pre-screen passes.
     if: needs.pre-screen.outputs.verdict == 'pass'
     runs-on: ubuntu-latest
+    # Job-level permissions: elevated to allow feed-candidate PR creation.
+    # The Prospector needs contents:write + pull-requests:write to create a
+    # feature branch and open a PR when it identifies a feed candidate.
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: Ensure mining-queued label exists
+      - name: Ensure required labels exist
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -139,6 +151,11 @@ jobs:
             --repo "${{ github.repository }}" \
             --description "Queued for batch mining by the Miner" \
             --color "1d76db" \
+            2>/dev/null || true
+          gh label create "feed-candidate" \
+            --repo "${{ github.repository }}" \
+            --description "Blog feed proposed for trusted-feeds.json" \
+            --color "c5def5" \
             2>/dev/null || true
 
       - name: Run Prospector triage
@@ -179,6 +196,8 @@ jobs:
                   - triaged:repo     — practitioner repo for the Repo Scout
                   - triaged:failure  — failure report for the Miner's
                                        failure-report extraction path
+                  - feed-candidate   — blog index, RSS/Atom feed, or blog
+                                       root URL for trusted-feeds routing
                   - rejected         — duplicate, marketing, pre-Dec-2025,
                                        or no substance
             5. Apply the label:
@@ -204,10 +223,31 @@ jobs:
                   gh issue close ${{ github.event.issue.number }} \
                     --repo ${{ github.repository }} \
                     --reason "not planned"
+            8. If you chose `feed-candidate`, create a PR to add the feed
+               to trusted-feeds.json. Follow these steps exactly:
+               a) Discover or infer the RSS/Atom feed URL from the submitted
+                  URL. Try common paths: /rss, /feed, /atom.xml, /feed.xml.
+                  Verify the feed URL is reachable with curl.
+               b) Read registry/trusted-feeds.json to understand the schema.
+               c) Pick a short stable id (lowercase, hyphenated).
+               d) Create a feature branch and add the entry:
+                    git checkout -b feed-candidate/<id>
+                    # Edit registry/trusted-feeds.json to add the new entry
+                    git add registry/trusted-feeds.json
+                    git commit -m "feat: add <id> feed to trusted-feeds.json"
+                    git push origin feed-candidate/<id>
+               e) Open a PR:
+                    gh pr create \
+                      --title "feed-candidate: add <id> to trusted feeds" \
+                      --body-file /tmp/triage-comment.md \
+                      --label "feed-candidate" \
+                      --repo ${{ github.repository }}
+               f) Note the PR number in the issue comment.
 
             Do not edit any source notes, the guide, or the issue body. Your
-            output is labels + a comment + (for rejections) issue closure.
+            output is labels + a comment + (for rejections) issue closure +
+            (for feed-candidates) a PR adding the feed.
           claude_args: |
             --max-turns 20
-            --allowedTools "Bash(*)" "Read" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
 

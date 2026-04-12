@@ -1,11 +1,11 @@
 name: Assayer (PR Quality Gate)
 
-# Reviews source-note and guide-update PRs against the standards in
-# agents/ASSAYER.md. Posts a review comment with the verdict and
-# pass/fails the check based on whether the Assayer approved.
+# Reviews source-note, guide-update, and feed-candidate PRs against the
+# standards in agents/ASSAYER.md. Posts a review comment with the verdict
+# and pass/fails the check based on whether the Assayer approved.
 #
 # Branch protection should require the "assayer" check to pass before
-# merging any PR with the source-note or guide-update label.
+# merging any PR with the source-note, guide-update, or feed-candidate label.
 #
 # Part of Pipeline 1 (Living Guide Automation, hi-4yk). Depends on the
 # Claude Code action wired up by hi-4yk.1.
@@ -26,7 +26,8 @@ jobs:
     # When neither label is present the job is skipped (no check posted).
     if: |
       contains(github.event.pull_request.labels.*.name, 'source-note') ||
-      contains(github.event.pull_request.labels.*.name, 'guide-update')
+      contains(github.event.pull_request.labels.*.name, 'guide-update') ||
+      contains(github.event.pull_request.labels.*.name, 'feed-candidate')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,8 +53,9 @@ jobs:
             ${{ toJSON(github.event.pull_request.labels.*.name) }}
 
             Pick the review standards that apply:
-            - source-note label  → "Review Standards for Source Note PRs"
-            - guide-update label → "Review Standards for Guide Update PRs"
+            - source-note label     → "Review Standards for Source Note PRs"
+            - guide-update label    → "Review Standards for Guide Update PRs"
+            - feed-candidate label  → "Review Standards for Feed Candidate PRs"
 
             You may read any file in the repository to verify citations,
             cross-references, and contradictions. Do NOT edit any files.

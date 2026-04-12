@@ -34,9 +34,45 @@ Read the source (follow the URL). Ask:
 | High | `triaged`, `priority:high` | Novel pattern, concrete evidence, or guide contradiction |
 | Medium | `triaged`, `priority:medium` | Useful but incremental — extends existing source notes |
 | Low | `triaged`, `priority:low` | Marginally relevant, thin evidence |
+| Feed | `feed-candidate` | Blog index, RSS/Atom feed, or blog root URL — route to trusted-feeds |
 | Reject | `rejected` | Duplicate, marketing, pre-Dec-2025, no substance |
 
-### 4. Queue for mining
+### 4. Route feed candidates
+
+When the submitted URL is a blog index page, RSS/Atom feed URL, or blog root
+(e.g. `https://blog.langchain.com/`), assess whether the source qualifies for
+`registry/trusted-feeds.json` instead of triaging a single article.
+
+**Criteria for feed-candidate:**
+- Known author or org in AI-native engineering
+- History of substantive posts (not marketing fluff)
+- Feed URL is discoverable or inferrable from the submitted URL
+
+**If the feed meets the bar:**
+1. Create a feature branch: `feed-candidate/<feed-id>`
+2. Add an entry to `registry/trusted-feeds.json` matching the existing schema
+   (`id`, `url`, `source_type`, `description`, `max_per_run`)
+3. Open a PR labeled `feed-candidate`
+4. Apply the `feed-candidate` label to the issue
+5. Post a comment explaining the assessment (see format below)
+
+**If the feed does NOT meet the bar:**
+Reject as usual with a comment noting it was evaluated as a potential feed but
+didn't meet the quality threshold. Explain why (e.g. "mostly marketing content",
+"infrequent posting", "not focused on AI engineering").
+
+**Feed-candidate comment format:**
+```markdown
+## Triage Assessment — Feed Candidate
+
+**Feed URL**: <discovered RSS/Atom URL>
+**Source type**: blog-post / documentation / discussion
+**Signal quality**: high/medium (must be at least medium to qualify)
+**Reasoning**: Why this feed belongs in trusted-feeds.json
+**PR**: #<number>
+```
+
+### 5. Queue for mining
 
 When the triage label is `triaged:text` or `triaged:failure`, also add
 the `mining-queued` label. This queues the issue for the hourly batch
@@ -47,7 +83,7 @@ cannot fire new workflow runs).
 Human maintainers can remove `mining-queued` from a specific issue to
 skip mining for that source.
 
-### 5. Enrich the issue
+### 6. Enrich the issue
 
 Add a comment with your triage assessment:
 
