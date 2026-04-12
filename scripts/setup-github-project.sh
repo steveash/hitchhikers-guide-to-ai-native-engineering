@@ -88,36 +88,20 @@ gh project field-create "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" \
   2>&1 | grep -v "already exists" || true
 
 # ------------------------------------------------------------------------ views
-# `gh project` does NOT support view creation as of 2026-04. Views must be
-# created via the GraphQL API. The mutations below are best-effort: if your
-# gh version's GraphQL schema lacks createProjectV2View, the script will
-# print the equivalent click-by-click instructions and exit cleanly.
-note "Creating views via GraphQL"
-
-create_view() {
-  local name="$1" layout="$2"
-  gh api graphql -f query='
-    mutation($projectId: ID!, $name: String!, $layout: ProjectV2ViewLayout!) {
-      createProjectV2View(input: {projectId: $projectId, name: $name, layout: $layout}) {
-        projectV2View { id name }
-      }
-    }' \
-    -F projectId="$PROJECT_NODE_ID" \
-    -F name="$name" \
-    -F layout="$layout" 2>&1 || {
-      note "createProjectV2View failed for '$name' — see docs/PROJECT-SETUP.md for manual steps"
-      return 1
-    }
-}
-
-create_view "Source intake"     "TABLE_LAYOUT" || true
-create_view "PR review queue"   "BOARD_LAYOUT" || true
-create_view "Chapter health"    "TABLE_LAYOUT" || true
-
+# GitHub's GraphQL API does not expose a mutation for creating ProjectV2 views.
+# Views must be created manually through the web UI.
 note "Done. Project URL:"
 echo "  https://github.com/users/${PROJECT_OWNER}/projects/${PROJECT_NUMBER}"
 echo
-echo "Next steps (manual — gh CLI cannot configure view filters/groupings):"
-echo "  1. Open each view and apply the filter/group-by described in"
-echo "     docs/PROJECT-SETUP.md §View Configuration."
-echo "  2. Update README.md 'Pipeline Status' section with the project URL above."
+echo "Manual steps required (GitHub API does not support view creation):"
+echo "  1. Open the project URL above in your browser."
+echo "  2. Create three views using the + tab at the top:"
+echo "     a. 'Source intake' (Table layout)"
+echo "        - Filter: label:new-source,new-repo,new-failure,source-submission"
+echo "        - Group by: Triage Status"
+echo "     b. 'PR review queue' (Board layout)"
+echo "        - Filter: is:pr label:source-note,guide-update"
+echo "        - Group by: Assayer Check"
+echo "     c. 'Chapter health' (Table layout)"
+echo "        - Group by: Chapter"
+echo "  3. Update README.md 'Pipeline Status' section with the project URL above."
