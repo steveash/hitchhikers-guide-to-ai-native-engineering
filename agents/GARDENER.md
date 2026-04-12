@@ -46,6 +46,28 @@ Source notes older than 90 days without a check get tagged `[stale]`.
 Guide sections that cite only stale sources get flagged for the Smith
 to address in the next synthesis.
 
+### Sticky note staleness
+
+The Gardener patrols `sticky-notes/` files for stale editorial guidance:
+
+1. **Section-match check** (all active notes): If a note's `§section-name`
+   doesn't match any heading in the corresponding guide chapter, mark the
+   note `stale`. This catches sections that were renamed or removed.
+2. **Age + section check** (active notes >90 days): Verify the referenced
+   section still exists; if gone, mark `stale`. (Subsumed by the
+   section-match check but separately logged for traceability.)
+3. **Archive sweep** (resolved notes >30 days): Move to an `## Archive`
+   section at the bottom of the sticky-notes file. Keeps the active list
+   clean while preserving history.
+4. **Stale alerts** (stale notes surviving across runs): Flag in the PR
+   body so a human can decide whether to update or remove the note. If
+   the originating `sticky-notes` GitHub issue is trackable, a comment is
+   added noting the stale note.
+
+Sticky note checks run alongside the source-note staleness sweep in the
+same weekly pass. Changes to `sticky-notes/` files are included in the
+gardener PR.
+
 ### Chapter pruning (saturated chapters)
 
 When a chapter reaches `guide.max_sources_per_chapter`, the

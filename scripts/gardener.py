@@ -44,9 +44,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCE_NOTES_DIR = REPO_ROOT / "source-notes"
 GUIDE_DIR = REPO_ROOT / "guide"
+STICKY_NOTES_DIR = REPO_ROOT / "sticky-notes"
 
 STALENESS_DAYS = 90
 WEEKLY_TAGGING_BUDGET = 20
+STICKY_STALE_DAYS = 90
+STICKY_ARCHIVE_DAYS = 30
 
 # Demotion ladder. Off-ladder grades (anecdotal, editorial) are passthrough --
 # see module docstring.
@@ -135,6 +138,120 @@ def parse_iso_date(value: str) -> date | None:
 
 def days_old(d: date, today: date) -> int:
     return (today - d).days
+
+
+# ---------------------------------------------------------------------------
+# Sticky-note helpers
+# ---------------------------------------------------------------------------
+
+
+def slugify(heading: str) -> str:
+    """Convert a Markdown heading to a slug for §-reference matching.
+
+    Example: ``'Verification Over Generation'`` → ``'verification-over-generation'``
+    """
+    text = heading.strip().lower()
+    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[\s]+", "-", text)
+    return text.strip("-")
+
+
+def sticky_to_guide_path(sticky_path: Path) -> Path:
+    """Map ``sticky-notes/chNN-name.md`` → ``guide/NN-name.md``."""
+    return GUIDE_DIR / sticky_path.name[2:]
+
+
+def get_chapter_headings(chapter_path: Path) -> set[str]:
+    """Return the set of slugified headings from a guide chapter."""
+    if not chapter_path.exists():
+        return set()
+    headings: set[str] = set()
+    for line in chapter_path.read_text().splitlines():
+        m = re.match(r"^#{1,6}\s+(.+)$", line)
+        if m:
+            headings.add(slugify(m.group(1)))
+    return headings
+
+
+_SN_HEADING_RE = re.compile(r"^##\s+(SN-\d{2}-\d{3}):\s+(.+)$")
+_SN_META_RE = re.compile(r"^-\s+\*\*(\w[\w\s]*?)\*\*:\s*(.+)$")
+
+
+def parse_sticky_file(text: str) -> list[dict]:
+    """Parse individual sticky notes from a chapter file.
+
+    Returns a list of dicts with keys: ``id``, ``title``, ``start_line``,
+    ``end_line``, ``created``, ``status``, ``section``, ``type``,
+    ``resolved_date``, ``in_archive``.
+    """
+    lines = text.splitlines()
+    notes: list[dict] = []
+    current: dict | None = None
+    in_archive = False
+
+    for i, line in enumerate(lines):
+        # Detect ## Archive boundary.
+        if line.strip() == "## Archive":
+            in_archive = True
+            if current is not None:
+                current["end_line"] = i
+                notes.append(current)
+                current = None
+            continue
+
+        heading = _SN_HEADING_RE.match(line)
+        if heading:
+            if current is not None:
+                current["end_line"] = i
+                notes.append(current)
+            current = {
+                "id": heading.group(1),
+                "title": heading.group(2),
+                "start_line": i,
+                "end_line": len(lines),
+                "created": None,
+                "status": None,
+                "section": None,
+                "type": None,
+                "resolved_date": None,
+                "in_archive": in_archive,
+            }
+            continue
+
+        # Any non-SN ## heading terminates the current note.
+        if line.startswith("## ") and current is not None:
+            current["end_line"] = i
+            notes.append(current)
+            current = None
+            continue
+
+        if current is None:
+            continue
+
+        meta = _SN_META_RE.match(line)
+        if meta is None:
+            continue
+
+        key, val = meta.group(1).strip(), meta.group(2).strip()
+        if key == "Created":
+            current["created"] = val
+        elif key == "Status":
+            current["status"] = val
+        elif key == "Section":
+            sec = re.search(r"§([\w-]+)", val)
+            if sec:
+                current["section"] = sec.group(1)
+        elif key == "Type":
+            current["type"] = val
+        elif key == "Resolved":
+            dm = re.match(r"(\d{4}-\d{2}-\d{2})", val)
+            if dm:
+                current["resolved_date"] = dm.group(1)
+
+    if current is not None:
+        notes.append(current)
+
+    return notes
 
 
 # ---------------------------------------------------------------------------
@@ -318,6 +435,153 @@ def demote_guide_claims(
 
 
 # ---------------------------------------------------------------------------
+# Sticky-note staleness pass
+# ---------------------------------------------------------------------------
+
+
+def _apply_archives(
+    lines: list[str], notes_to_archive: list[dict]
+) -> list[str]:
+    """Move archived note blocks to an ``## Archive`` section at the bottom."""
+    archive_blocks: list[list[str]] = []
+    # Process from bottom to top so earlier indices stay valid.
+    ranges = sorted(
+        [(n["start_line"], n["end_line"]) for n in notes_to_archive],
+        reverse=True,
+    )
+    for start, end in ranges:
+        archive_blocks.insert(0, lines[start:end])
+        del lines[start:end]
+
+    # Ensure ## Archive heading exists.
+    if not any(line.strip() == "## Archive" for line in lines):
+        lines.append("")
+        lines.append("## Archive")
+
+    # Append archived notes at the very end.
+    for block in archive_blocks:
+        lines.append("")
+        lines.extend(block)
+
+    return lines
+
+
+def gardener_sticky_pass(
+    today: date, dry_run: bool
+) -> dict[str, list[dict]]:
+    """Run sticky-note staleness checks.
+
+    Checks performed (per ``agents/GARDENER.md``):
+
+    1. Active notes >90 days old whose ``§section-name`` no longer matches a
+       heading in the guide chapter → mark ``stale``.
+    2. Any active note whose ``§section-name`` doesn't match a heading →
+       mark ``stale`` (regardless of age).
+    3. Resolved notes >30 days old → move to ``## Archive``.
+    4. Already-stale notes (from a prior run) → flag for attention.
+
+    Returns ``{"marked_stale": [...], "archived": [...], "stale_alerts": [...]}``.
+    """
+    marked_stale: list[dict] = []
+    archived: list[dict] = []
+    stale_alerts: list[dict] = []
+    result: dict[str, list[dict]] = {
+        "marked_stale": marked_stale,
+        "archived": archived,
+        "stale_alerts": stale_alerts,
+    }
+
+    if not STICKY_NOTES_DIR.exists():
+        return result
+
+    for sn_path in sorted(STICKY_NOTES_DIR.glob("ch*.md")):
+        text = sn_path.read_text()
+        notes = parse_sticky_file(text)
+        if not notes:
+            continue
+
+        guide_path = sticky_to_guide_path(sn_path)
+        headings = get_chapter_headings(guide_path)
+        lines = text.splitlines()
+        changed = False
+        to_archive: list[dict] = []
+        newly_stale_ids: set[str] = set()
+
+        for note in notes:
+            if note["in_archive"]:
+                continue
+
+            status = note["status"]
+            created = parse_iso_date(note["created"] or "")
+
+            if status == "active":
+                # Checks 1 & 2: §section must match a chapter heading.
+                section = note.get("section")
+                if section and section not in headings:
+                    age_str = (
+                        f", {days_old(created, today)}d old" if created else ""
+                    )
+                    reason = f"§{section} not found in {guide_path.name}{age_str}"
+                    for li in range(note["start_line"], note["end_line"]):
+                        if "**Status**:" in lines[li] and "active" in lines[li]:
+                            lines[li] = lines[li].replace("active", "stale")
+                            changed = True
+                            break
+                    newly_stale_ids.add(note["id"])
+                    marked_stale.append(
+                        {
+                            "file": sn_path.name,
+                            "id": note["id"],
+                            "title": note["title"],
+                            "section": section,
+                            "reason": reason,
+                        }
+                    )
+                    print(
+                        f"  STALE: {note['id']} in {sn_path.name} — {reason}"
+                    )
+
+            elif status == "resolved":
+                # Check 3: resolved >30 days → archive.
+                resolved = parse_iso_date(note.get("resolved_date") or "")
+                if resolved and days_old(resolved, today) > STICKY_ARCHIVE_DAYS:
+                    to_archive.append(note)
+                    archived.append(
+                        {
+                            "file": sn_path.name,
+                            "id": note["id"],
+                            "title": note["title"],
+                        }
+                    )
+                    print(
+                        f"  ARCHIVE: {note['id']} in {sn_path.name} "
+                        f"(resolved {note['resolved_date']})"
+                    )
+
+            elif status == "stale" and note["id"] not in newly_stale_ids:
+                # Check 4: already-stale notes → flag for attention.
+                stale_alerts.append(
+                    {
+                        "file": sn_path.name,
+                        "id": note["id"],
+                        "title": note["title"],
+                    }
+                )
+
+        if to_archive:
+            lines = _apply_archives(lines, to_archive)
+            changed = True
+
+        if changed and not dry_run:
+            new_text = "\n".join(lines)
+            if text.endswith("\n") and not new_text.endswith("\n"):
+                new_text += "\n"
+            sn_path.write_text(new_text)
+
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Reporting
 # ---------------------------------------------------------------------------
 
@@ -326,6 +590,7 @@ def write_markdown_summary(
     newly_tagged: dict[str, dict],
     all_stale: dict[str, dict],
     demotions: list[dict],
+    sticky_results: dict[str, list[dict]],
     today: date,
     fp,
 ) -> None:
@@ -372,6 +637,44 @@ def write_markdown_summary(
                 f"`[{d['from']}]` -> `[{d['to']}]` |\n"
             )
         fp.write("\n")
+
+    # Sticky-note staleness results
+    sn_stale = sticky_results.get("marked_stale", [])
+    sn_archived = sticky_results.get("archived", [])
+    sn_alerts = sticky_results.get("stale_alerts", [])
+
+    if sn_stale or sn_archived or sn_alerts:
+        fp.write("### Sticky-note staleness\n\n")
+
+        if sn_stale:
+            fp.write("**Marked stale** (§section no longer in chapter):\n\n")
+            fp.write("| File | ID | Title | Reason |\n")
+            fp.write("|---|---|---|---|\n")
+            for s in sn_stale:
+                fp.write(
+                    f"| `{s['file']}` | {s['id']} | {s['title']} | "
+                    f"{s['reason']} |\n"
+                )
+            fp.write("\n")
+
+        if sn_archived:
+            fp.write("**Archived** (resolved >30 days):\n\n")
+            fp.write("| File | ID | Title |\n")
+            fp.write("|---|---|---|\n")
+            for a in sn_archived:
+                fp.write(f"| `{a['file']}` | {a['id']} | {a['title']} |\n")
+            fp.write("\n")
+
+        if sn_alerts:
+            fp.write(
+                "**Stale notes needing attention** "
+                "(stale from prior run, no human action):\n\n"
+            )
+            fp.write("| File | ID | Title |\n")
+            fp.write("|---|---|---|\n")
+            for a in sn_alerts:
+                fp.write(f"| `{a['file']}` | {a['id']} | {a['title']} |\n")
+            fp.write("\n")
 
     fp.write(
         "---\n"
@@ -437,10 +740,25 @@ def main(argv: list[str] | None = None) -> int:
     demotions = demote_guide_claims(set(all_stale.keys()), args.dry_run)
     print(f"  -> {len(demotions)} citation grade(s) demoted", file=sys.stderr)
 
+    print(
+        f"Scanning {STICKY_NOTES_DIR.relative_to(REPO_ROOT)} for sticky note "
+        f"staleness...",
+        file=sys.stderr,
+    )
+    sticky_results = gardener_sticky_pass(today, args.dry_run)
+    print(
+        f"  -> {len(sticky_results['marked_stale'])} note(s) marked stale; "
+        f"{len(sticky_results['archived'])} archived; "
+        f"{len(sticky_results['stale_alerts'])} alert(s)",
+        file=sys.stderr,
+    )
+
     if args.report_file is not None:
         args.report_file.parent.mkdir(parents=True, exist_ok=True)
         with args.report_file.open("w") as fp:
-            write_markdown_summary(newly_tagged, all_stale, demotions, today, fp)
+            write_markdown_summary(
+                newly_tagged, all_stale, demotions, sticky_results, today, fp,
+            )
         print(f"Report written to {args.report_file}", file=sys.stderr)
 
     return 0

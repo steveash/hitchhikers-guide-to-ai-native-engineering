@@ -38,7 +38,7 @@ jobs:
       - name: Detect changes and load PR body
         id: state
         run: |
-          if [ -n "$(git status --porcelain source-notes guide)" ]; then
+          if [ -n "$(git status --porcelain source-notes guide sticky-notes)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -56,8 +56,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gardener/staleness-sweep
           delete-branch: true
-          commit-message: "chore(gardener): weekly staleness sweep + claim demotions"
-          title: "[gardener] Weekly staleness sweep + claim demotions"
+          commit-message: "chore(gardener): weekly staleness sweep + claim demotions + sticky note checks"
+          title: "[gardener] Weekly staleness sweep + claim demotions + sticky note checks"
           labels: |
             guide-update
             gardener
@@ -65,3 +65,4 @@ jobs:
           add-paths: |
             source-notes
             guide
+            sticky-notes
