@@ -27,6 +27,7 @@ from pathlib import Path
 import requests
 
 import scan_budget
+import scan_dedup
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REGISTRY_PATH = Path(__file__).parent.parent / "registry" / "repos.json"
@@ -220,6 +221,9 @@ def drain_queue() -> int:
         if not repo:
             print(f"  WARN: skipping malformed queue item: {item}", file=sys.stderr)
             continue
+        if scan_dedup.is_url_already_tracked(repo.get("html_url", "")):
+            print(f"  [dedup] already tracked (queued): {repo.get('full_name', '')}")
+            continue
         if file_issue(repo, is_update=is_update):
             filed += 1
             scan_budget.record_filed(1)
@@ -234,6 +238,9 @@ def _try_file_or_queue(repo: dict, is_update: bool) -> tuple[bool, bool]:
     responsibility) so we never re-discover it tomorrow; the queue is now
     the canonical home for the unfiled work.
     """
+    if scan_dedup.is_url_already_tracked(repo.get("html_url", "")):
+        print(f"  [dedup] already tracked: {repo['full_name']}")
+        return (False, False)
     if scan_budget.remaining() <= 0:
         scan_budget.queue_item("repos", {"repo": repo, "is_update": is_update})
         print(f"  [queued] daily cap reached: {repo['full_name']}")

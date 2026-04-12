@@ -33,6 +33,7 @@ from pathlib import Path
 import requests
 
 import scan_budget
+import scan_dedup
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REPO_URL = os.environ.get("GITHUB_REPOSITORY", "steveash/hitchhiker-guide")
@@ -306,6 +307,11 @@ def scan_feed(feed: dict, state: dict, dry_run: bool = False) -> tuple[int, int,
             seen_set.add(entry["id"])
             continue
 
+        if not dry_run and scan_dedup.is_url_already_tracked(entry.get("url", "")):
+            print(f"  [dedup] already tracked: {entry['title'][:80]}")
+            seen_set.add(entry["id"])
+            continue
+
         if dry_run:
             print(f"  [DRY-RUN] would file: {entry['title'][:80]}  ({entry['url']})")
             filed += 1
@@ -346,6 +352,9 @@ def drain_queue(dry_run: bool = False) -> int:
         entry = payload.get("entry", {})
         if not feed or not entry:
             print(f"  WARN: skipping malformed queue item: {item}", file=sys.stderr)
+            continue
+        if not dry_run and scan_dedup.is_url_already_tracked(entry.get("url", "")):
+            print(f"  [dedup] already tracked (queued): {entry.get('title', '')[:80]}")
             continue
         if dry_run:
             print(f"  [DRY-RUN] would refile from queue: {entry.get('title', '')[:80]}")

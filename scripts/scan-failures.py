@@ -30,6 +30,7 @@ from pathlib import Path
 import requests
 
 import scan_budget
+import scan_dedup
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REPO_URL = os.environ.get("GITHUB_REPOSITORY", "steveash/hitchhiker-guide")
@@ -259,6 +260,9 @@ def drain_queue() -> int:
         if not result:
             print(f"  WARN: skipping malformed queue item: {item}", file=sys.stderr)
             continue
+        if scan_dedup.is_url_already_tracked(result.get("url", "")):
+            print(f"  [dedup] already tracked (queued): {result.get('title', '')[:60]}")
+            continue
         if file_issue(result):
             filed += 1
             scan_budget.record_filed(1)
@@ -326,7 +330,13 @@ def main():
 
     filed_count = 0
     queued_count = 0
+    skipped_dedup = 0
     for result in substantial:
+        # Skip URLs already tracked in source-notes or open issues.
+        if scan_dedup.is_url_already_tracked(result["url"]):
+            skipped_dedup += 1
+            print(f"  [dedup] already tracked: {result['title'][:60]}")
+            continue
         # Honor the global daily cap. Anything we can't file goes to the
         # overflow queue and will be drained at the start of tomorrow's run.
         if scan_budget.remaining() <= 0:
@@ -338,7 +348,8 @@ def main():
             scan_budget.record_filed(1)
             filed_count += 1
 
-    print(f"\nDone. Filed {filed_count} issues, queued {queued_count} for next run.")
+    print(f"\nDone. Filed {filed_count} issues, queued {queued_count} for next run, "
+          f"skipped {skipped_dedup} (already tracked).")
     print(f"Final budget: {scan_budget.status_summary()}")
 
 
