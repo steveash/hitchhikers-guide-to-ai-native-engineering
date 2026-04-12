@@ -110,3 +110,102 @@ Comment on the PR with:
 Be specific. "Needs more depth" is not useful feedback. "Claim 3 about hook
 performance has no evidence grade and the quote doesn't appear in the source"
 is useful feedback.
+
+## Contradiction Resolution
+
+When a `contradiction` issue is filed (typically by the Miner), the Assayer
+assesses the evidence on both sides and proposes a verdict for human review.
+
+### Trigger
+
+Runs when an issue receives the `contradiction` label.
+
+### Input
+
+The contradiction issue body follows the
+[contradiction issue template](.github/ISSUE_TEMPLATE/contradiction.yml) and
+contains: short title, affected guide sections, Side A (source, claim,
+evidence, confidence), Side B (same), why this is a contradiction, and
+optionally the filer's recommended verdict.
+
+### Assessment Process
+
+1. **Read both source notes** referenced by Side A and Side B. Verify they
+   exist under `source-notes/` and that the cited claims actually appear in
+   them.
+2. **Evaluate evidence strength** for each side:
+   - Is the confidence grade (settled/emerging/anecdotal) defensible?
+   - Is the evidence primary (direct observation, study, production data) or
+     secondary (opinion, analogy, folk wisdom)?
+   - How broad is the sample? (One repo vs many; one incident vs pattern)
+3. **Check for mediating variables**: Can both claims be true under different
+   conditions? (e.g., repo size, team structure, language ecosystem)
+4. **Review existing CONTRADICTIONS.md entries** for related precedents —
+   has a similar tension already been resolved?
+5. **Consult additional source notes** if relevant evidence exists beyond
+   the two cited sources.
+
+### Verdict Selection
+
+| Verdict | When to use |
+|---------|-------------|
+| `accepted-A` | Side A's evidence is materially stronger, broader, or more recent. Side B is not wrong but is narrower or weaker. |
+| `accepted-B` | Same as above, reversed. |
+| `debated` | Both sides have defensible evidence. The answer is context-dependent or genuinely unresolved by the corpus. |
+| `superseded` | One side's position has been overtaken by newer evidence (a later source note invalidates or updates it). |
+| `unresolved` | Not enough evidence in the corpus to assess. More source notes needed before a verdict is defensible. |
+
+Default to `debated` when in doubt. Picking a winner requires clear
+evidentiary advantage, not just a gut preference.
+
+### Output Format
+
+Post an issue comment with this exact structure:
+
+```markdown
+## Assayer Contradiction Assessment
+
+**Proposed verdict**: accepted-A / accepted-B / debated / superseded / unresolved
+
+### Evidence Assessment
+
+#### Side A: [source-note-name]
+- **Claim verified**: yes/no (does the claim appear in the source note?)
+- **Confidence grade defensible**: yes/no
+- **Evidence type**: primary / secondary
+- **Scope**: [narrow (1 repo/incident) / moderate / broad]
+
+#### Side B: [source-note-name]
+- **Claim verified**: yes/no
+- **Confidence grade defensible**: yes/no
+- **Evidence type**: primary / secondary
+- **Scope**: [narrow / moderate / broad]
+
+### Mediating Variables
+[Can both be true under different conditions? If so, what conditions?]
+
+### Reasoning
+[1–3 paragraphs: why this verdict? What was weighed? What would change the
+verdict if new evidence appeared?]
+
+### Proposed Resolution Entry
+[Draft of the "Resolution" section for CONTRADICTIONS.md — this becomes the
+entry text if the verdict is approved.]
+
+### Proposed Citation Guidance
+[Draft of the "Citation in the guide" section for CONTRADICTIONS.md.]
+```
+
+After posting the comment, add the `assessment-complete` label to the issue.
+
+A human reviews the assessment and adds the `resolution-approved` label to
+accept the verdict, or comments with corrections and re-triggers assessment.
+
+### What the Assayer Does NOT Do
+
+- **Does not edit CONTRADICTIONS.md** — a follow-up automation handles that
+  after `resolution-approved` is applied.
+- **Does not pick a winner when evidence is thin** — `debated` or `unresolved`
+  is the honest answer.
+- **Does not resolve contradictions that require domain expertise beyond the
+  corpus** — mark `unresolved` with a note about what evidence is needed.
