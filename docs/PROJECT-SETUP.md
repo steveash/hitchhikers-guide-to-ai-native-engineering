@@ -13,16 +13,21 @@ Projects v2** — no custom build, no scraper, no separate web app.
 # One-time auth refresh (gh defaults omit this scope)
 gh auth refresh -s project
 
-# Bootstrap script — creates project, custom fields, links to repo, and
-# attempts view creation via GraphQL
+# Bootstrap script — creates project, custom fields, links to repo
 ./scripts/setup-github-project.sh
+
+# Bulk-add all existing issues and PRs to the project
+./scripts/bulk-add-to-project.sh
 
 # Open the project and finish view configuration in the UI (filters/groupings
 # cannot be set via gh CLI as of 2026-04)
 gh project view <NUMBER> --owner steveash --web
 ```
 
-Then update `README.md` "Pipeline Status" with the project URL.
+Then:
+1. Create the three views manually (see [Views](#views) below).
+2. Enable auto-add for new issues (see [Auto-add workflow](#auto-add-workflow) below).
+3. Update `README.md` "Pipeline Status" with the project URL.
 
 ## Prerequisites
 
@@ -148,12 +153,40 @@ The `gh project` command supports project / field / item operations but
 **cannot configure view filters or groupings**. After running the bootstrap
 script, open each view in the UI and apply the filter strings above.
 
-GraphQL `createProjectV2View` is available but does not accept filter strings —
-they must be set with a follow-up `updateProjectV2View` mutation that uses an
-internal undocumented field. For now the simpler path is the click-through.
+GitHub's GraphQL API does not expose a public mutation for creating ProjectV2
+views. View creation and filter/grouping configuration must be done through
+the web UI.
 
-If/when `gh` adds first-class view-configuration support, replace the manual
-step with a script call here.
+## Bulk-adding existing issues
+
+The auto-add workflow (below) only catches new/updated issues. To backfill
+issues that existed before the project was created, run:
+
+```bash
+./scripts/bulk-add-to-project.sh
+```
+
+This iterates all open and closed issues + PRs and adds them to the project.
+Items already in the project are skipped (idempotent). Re-run any time after
+creating new issues outside the auto-add workflow.
+
+## Auto-add workflow
+
+GitHub Projects has a built-in auto-add feature that automatically adds new
+issues and PRs as they are created or updated.
+
+**To enable:**
+1. Open the project in your browser.
+2. Click **⋯** (menu in top-right) → **Workflows**.
+3. Click **Auto-add to project**.
+4. Enable the workflow.
+5. Set repository to `steveash/hitchhikers-guide-to-ai-native-engineering`.
+6. Set filter to `is:issue,pr` (or narrow with labels if desired).
+7. Save.
+
+After this, every new issue and PR in the repo will automatically appear in
+the project. Existing items are **not** retroactively added — use the
+bulk-add script above for those.
 
 ## Verification checklist
 
