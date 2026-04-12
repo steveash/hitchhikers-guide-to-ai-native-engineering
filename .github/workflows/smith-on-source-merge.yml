@@ -308,7 +308,7 @@ jobs:
               workflow — the PR must carry it.
           claude_args: |
             --max-turns 60
-            --allowedTools "Bash(gh:*)" "Bash(git:*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
 
       - name: Enforce per-chapter source cap
         if: steps.affected.outputs.skip != 'true'

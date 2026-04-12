@@ -106,7 +106,7 @@ jobs:
             output is labels + a comment + (for rejections) issue closure.
           claude_args: |
             --max-turns 20
-            --allowedTools "Bash(gh:*)" "Read" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Glob" "Grep"
 
   miner:
     # Stage 2a: Miner extraction.
@@ -272,7 +272,7 @@ jobs:
               label, and exit WITHOUT opening a PR.
           claude_args: |
             --max-turns 60
-            --allowedTools "Bash(gh:*)" "Bash(git:*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
 
   repo-scout:
     # Stage 2b: Repo Scout deep-dive.
@@ -461,4 +461,4 @@ jobs:
               and exit WITHOUT opening a PR.
           claude_args: |
             --max-turns 60
-            --allowedTools "Bash(gh:*)" "Bash(git:*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"

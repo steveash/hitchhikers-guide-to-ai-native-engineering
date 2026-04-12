@@ -31,4 +31,4 @@ jobs:
             is needed to print that line. Then exit.
           claude_args: |
             --max-turns 2
-            --allowedTools "Bash(echo:*)"
+            --allowedTools "Bash(*)"

@@ -109,7 +109,7 @@ jobs:
             the issue comment and the label.
           claude_args: |
             --max-turns 25
-            --allowedTools "Bash(gh:*)" "Read" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Glob" "Grep"
 
   resolve:
     # Trigger when a human approves the Assayer's verdict by adding the
@@ -252,4 +252,4 @@ jobs:
               C-003 entries. Do not invent new fields or change the layout.
           claude_args: |
             --max-turns 30
-            --allowedTools "Bash(gh:*)" "Bash(git:*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"

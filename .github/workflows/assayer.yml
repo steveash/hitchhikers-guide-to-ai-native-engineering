@@ -68,7 +68,7 @@ jobs:
             Then exit.
           claude_args: |
             --max-turns 25
-            --allowedTools "Bash(gh:*)" "Read" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Glob" "Grep"
 
       - name: Post review and set check verdict
         env:
