@@ -1,0 +1,205 @@
+name: Scribe (Sticky Notes Parser)
+
+# Parses sticky-note issues into structured notes in sticky-notes/<chapter>.md.
+# Triggered when the 'sticky-notes' label is applied to an issue.
+#
+# Flow:
+#   1. Read the issue body
+#   2. Parse each note: chapter tag, type, section reference, text
+#   3. Dedup against existing notes in sticky-notes/<chapter>.md
+#   4. Assign SN-IDs (next sequential per chapter)
+#   5. Append new notes to sticky-notes/<chapter>.md
+#   6. Open a PR labeled 'sticky-notes-update'
+#   7. Comment on the issue with a summary + PR link
+#   8. Apply 'scribe-complete' label to the issue
+#
+# Part of the Editorial Sticky Notes system (hi-4od).
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write              # required by anthropics/claude-code-action OIDC auth
+
+jobs:
+  scribe:
+    if: github.event.label.name == 'sticky-notes'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write issue body to file
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          mkdir -p .runtime
+          printf '%s\n' "$ISSUE_BODY" > .runtime/issue-body.txt
+          echo "$ISSUE_NUMBER" > .runtime/issue-number.txt
+          echo "$ISSUE_TITLE" > .runtime/issue-title.txt
+
+      - name: Parse sticky notes and prepare PR
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are the Scribe agent. Your job is to parse sticky-note issues
+            into structured notes in the sticky-notes/ directory.
+
+            ## Input
+
+            The issue body is at .runtime/issue-body.txt.
+            The issue number is in .runtime/issue-number.txt.
+            The issue title is in .runtime/issue-title.txt.
+
+            ## Parsing Rules
+
+            Each note is a separate paragraph in the issue body. Parse each note:
+
+            1. **Chapter tag**: Extract the ChNN tag from the bold prefix (e.g. **Ch02** → chapter 02).
+               Map to file: sticky-notes/ch02-harness-engineering.md (use the existing filenames).
+            2. **Type**: If the note text contains `[conditional]` (case-insensitive) after
+               the chapter tag, the type is `conditional`. Otherwise it is `prescriptive`.
+            3. **Section reference**: If the note mentions a specific section (e.g. "harness
+               engineering section", "in §foo", "the X section"), extract it as the section
+               reference. Format as §kebab-case. If no section is mentioned, use §general.
+            4. **Note text**: The remaining text after removing the chapter tag and [conditional]
+               prefix. Clean up but preserve the author's intent.
+
+            ## Chapter File Mapping
+
+            Read the filenames in sticky-notes/ to map chapter numbers to files:
+            - Ch00 → sticky-notes/ch00-principles.md
+            - Ch01 → sticky-notes/ch01-daily-workflows.md
+            - Ch02 → sticky-notes/ch02-harness-engineering.md
+            - Ch03 → sticky-notes/ch03-safety-and-verification.md
+            - Ch04 → sticky-notes/ch04-context-engineering.md
+            - Ch05 → sticky-notes/ch05-team-adoption.md
+
+            If a note references a chapter that has no file, skip it and report it in
+            the summary.
+
+            ## Dedup Check
+
+            Before adding a note, read the target chapter file and check if a note
+            with the same section AND very similar content already exists. If it does,
+            skip the duplicate and mention it in the summary.
+
+            ## SN-ID Assignment
+
+            Each chapter has its own ID sequence: SN-NN-001, SN-NN-002, etc.
+            Read the existing notes in the chapter file to find the highest existing
+            SN-ID. Assign the next sequential number to each new note.
+
+            ## Appending Notes
+
+            For each new note, append TWO things to the chapter file:
+
+            1. Add the note block BEFORE the Index table's closing (append after
+               the last existing note, or after the Index table if no notes exist yet):
+
+            ```
+            ## SN-NN-XXX: <short title derived from note>
+            - **Created**: <today's date YYYY-MM-DD>
+            - **Type**: prescriptive | conditional
+            - **Status**: active
+            - **Section**: §section-name
+            - **Condition**: <only for conditional notes>
+            - **Note**: <the editorial guidance text>
+            ```
+
+            2. Add a row to the Index table:
+            ```
+            | SN-NN-XXX | Short title | prescriptive/conditional | active | §section |
+            ```
+
+            ## Output
+
+            After making all changes:
+
+            1. Write a summary to .runtime/scribe-summary.md with:
+               - How many notes were parsed
+               - How many were added (and to which chapters)
+               - How many were skipped as duplicates
+               - How many were skipped for unknown chapters
+               - A table of all added notes with their SN-IDs
+
+            2. Ensure all changes are only in sticky-notes/ files.
+
+            Today's date is: 2026-04-12.
+          claude_args: |
+            --model haiku
+            --max-turns 25
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
+
+      - name: Detect changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain sticky-notes)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open PR with new sticky notes
+        if: steps.changes.outputs.changed == 'true'
+        id: pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: scribe/issue-${{ github.event.issue.number }}
+          delete-branch: true
+          commit-message: "feat(scribe): add sticky notes from issue #${{ github.event.issue.number }}"
+          title: "[scribe] Sticky notes from issue #${{ github.event.issue.number }}"
+          labels: |
+            sticky-notes-update
+          body-path: .runtime/scribe-summary.md
+          add-paths: |
+            sticky-notes
+
+      - name: Comment on issue with summary
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
+        run: |
+          {
+            echo "## Scribe Summary"
+            echo ""
+            cat .runtime/scribe-summary.md
+            echo ""
+            echo "---"
+            echo "PR: $PR_URL"
+          } | gh issue comment "$ISSUE_NUMBER" --body-file -
+
+      - name: Apply scribe-complete label
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" --add-label "scribe-complete"
+
+      - name: Comment if no notes parsed
+        if: steps.changes.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          BODY="## Scribe Summary
+
+          No new sticky notes were added. Possible reasons:
+          - All notes were duplicates of existing notes
+          - No valid chapter tags found in the issue body
+          - The issue body could not be parsed
+
+          Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details."
+
+          gh issue comment "$ISSUE_NUMBER" --body "$BODY"
+          gh issue edit "$ISSUE_NUMBER" --add-label "scribe-complete"
