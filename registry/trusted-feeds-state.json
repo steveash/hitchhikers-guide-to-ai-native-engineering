@@ -13,9 +13,12 @@
         "https://simonwillison.net/2026/Apr/3/supply-chain-social-engineering/#atom-everything",
         "https://simonwillison.net/2026/Apr/3/test-csp-iframe-escape/#atom-everything",
         "https://simonwillison.net/2026/Apr/3/vulnerability-research-is-cooked/#atom-everything",
-        "https://simonwillison.net/2026/Apr/3/willy-tarreau/#atom-everything"
+        "https://simonwillison.net/2026/Apr/3/willy-tarreau/#atom-everything",
+        "https://simonwillison.net/2026/Apr/4/kyle-daigle/#atom-everything",
+        "https://simonwillison.net/2026/Apr/5/research-llm-apis/#atom-everything",
+        "https://simonwillison.net/2026/Apr/5/scan-for-secrets-3/#atom-everything"
       ],
-      "last_scan": "2026-04-12T06:30:25.589473+00:00"
+      "last_scan": "2026-04-13T06:41:02.082659+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -26,9 +29,11 @@
         "https://lucumr.pocoo.org/2026/2/13/the-final-bottleneck/",
         "https://lucumr.pocoo.org/2026/2/9/a-language-for-agents/",
         "https://lucumr.pocoo.org/2026/3/20/some-things-just-take-time/",
-        "https://lucumr.pocoo.org/2026/3/5/theseus/"
+        "https://lucumr.pocoo.org/2026/3/5/theseus/",
+        "https://lucumr.pocoo.org/2026/4/4/absurd-in-production/",
+        "https://lucumr.pocoo.org/2026/4/8/mario-and-earendil/"
       ],
-      "last_scan": "2026-04-12T06:30:28.646117+00:00"
+      "last_scan": "2026-04-13T06:41:05.464505+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -39,18 +44,23 @@
         "https://github.blog/changelog/2026-04-09-auto-draft",
         "https://github.blog/changelog/2026-04-09-new-low-quality-option-in-the-hide-comment-menu",
         "https://github.blog/changelog/2026-04-09-new-sort-by-control-added-to-notifications",
-        "https://github.blog/changelog/2026-04-09-repository-member-role-labels-now-in-pull-request-list-view"
+        "https://github.blog/changelog/2026-04-09-repository-member-role-labels-now-in-pull-request-list-view",
+        "https://github.blog/changelog/2026-04-10-copilot-cli-activity-now-included-in-usage-metrics-totals-and-feature-breakdowns",
+        "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster"
       ],
-      "last_scan": "2026-04-12T06:30:31.817983+00:00"
+      "last_scan": "2026-04-13T06:41:08.907846+00:00"
     },
     "langchain-blog": {
       "seen": [
         "69c2b34b57c3f40001c18e52",
         "69c54956d5b7120001b5bc54",
-        "69c54d10d5b7120001b5bc66"
+        "69c54d10d5b7120001b5bc66",
+        "69c6cb0d081c26000199e53f",
+        "69cd8bb56bcada00010164bf",
+        "69cea919c8b3fc00019a0eb8"
       ],
-      "last_scan": "2026-04-12T06:30:35.425819+00:00"
+      "last_scan": "2026-04-13T06:41:12.721391+00:00"
     }
   },
-  "last_scan": "2026-04-12T06:30:35.425953+00:00"
+  "last_scan": "2026-04-13T06:41:12.721503+00:00"
 }
