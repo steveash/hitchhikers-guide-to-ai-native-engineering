@@ -117,6 +117,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          show_full_output: true
           # The issue number and repo slug are GitHub-controlled and safe
           # to interpolate. The issue title and body (which contain the
           # source URL) are NOT interpolated — the Miner reads them via
