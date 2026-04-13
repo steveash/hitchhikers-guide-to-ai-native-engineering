@@ -63,6 +63,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          show_full_output: true
           prompt: |
             You are a fast, cheap pre-screening filter for the hitchhiker-guide
             repo. Decide whether issue #${{ github.event.issue.number }} should
@@ -164,6 +165,7 @@ jobs:
           # gh CLI needs GH_TOKEN to read issue + write labels/comments.
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          show_full_output: true
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # The issue number and repo slug are GitHub-controlled integers /
           # identifiers, so they are safe to interpolate directly. The issue
