@@ -40,6 +40,10 @@ Then:
 3. `jq` is installed (used by the bootstrap script).
 4. Pipeline labels exist on the repo. The bootstrap step is handled separately
    — see [Labels](#labels) below.
+5. A **classic** Personal Access Token (PAT) with `repo` and `project` scopes
+   is stored as the repository secret `PROJECT_PAT`. This is required for
+   pipeline workflows to update the project board fields automatically.
+   See [PROJECT_PAT secret](#project_pat-secret) below for setup instructions.
 
 ## What gets created
 
@@ -187,6 +191,51 @@ issues and PRs as they are created or updated.
 After this, every new issue and PR in the repo will automatically appear in
 the project. Existing items are **not** retroactively added — use the
 bulk-add script above for those.
+
+## PROJECT_PAT secret
+
+The pipeline workflows update the project board as issues move through
+pre-screen → triage → mining → assayer review. GitHub Projects V2
+mutations require a token with the `project` scope, which the default
+`GITHUB_TOKEN` in Actions does not have. Fine-grained PATs also do not
+support Projects V2 — a **classic** token is required.
+
+### Creating the token
+
+1. Go to **github.com → avatar (top right) → Settings → Developer settings
+   → Personal access tokens → Tokens (classic) → Generate new token**.
+2. **Name**: `hitchhiker-project-board` (or similar).
+3. **Expiration**: 90 days (set a calendar reminder to rotate).
+4. **Scopes**: check `repo` and `project`.
+5. Click **Generate token** and copy the value.
+
+### Adding the repository secret
+
+1. Go to the repo → **Settings → Secrets and variables → Actions →
+   New repository secret**.
+2. **Name**: `PROJECT_PAT`
+3. **Value**: paste the classic PAT.
+4. Click **Add secret**.
+
+### What the workflows update
+
+| Pipeline stage | Field updated | Value set |
+|----------------|---------------|-----------|
+| Pre-screen rejects issue | Triage Status | `rejected` |
+| Prospector triages issue | Triage Status | `accepted` or `rejected` |
+| Miner completes extraction | Assayer Check | `pending` |
+| Assayer reviews PR | Assayer Check | `passed` or `failed` |
+
+The update logic lives in `.github/scripts/update-project-field.sh`. It
+exits 0 on any failure (missing token, expired token, GraphQL error) so
+project board issues never break the pipeline itself.
+
+### Token rotation
+
+When the PAT expires, the workflows will log `::warning::PROJECT_PAT not
+configured` and skip board updates. To restore:
+1. Generate a new classic PAT with the same scopes.
+2. Update the `PROJECT_PAT` secret in the repo settings.
 
 ## Verification checklist
 
