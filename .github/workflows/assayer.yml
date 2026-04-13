@@ -72,7 +72,7 @@ jobs:
             Then exit.
           claude_args: |
             --max-turns 25
-            --allowedTools "Bash(*)" "Read" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Glob" "Grep" "WebFetch"
 
       - name: Post review and set check verdict
         env:

@@ -248,4 +248,4 @@ jobs:
               Exit WITHOUT opening a PR.
           claude_args: |
             --max-turns 60
-            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
