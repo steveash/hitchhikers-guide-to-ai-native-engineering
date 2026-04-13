@@ -14,7 +14,7 @@ name: Batch Miner
 
 on:
   schedule:
-    - cron: '17 * * * *'   # Every hour at :17 (offset from top-of-hour load)
+    - cron: '17 */8 * * *'  # Every 8 hours at :17 (offset from top-of-hour load)
   workflow_dispatch:        # Manual trigger for testing / one-off runs
 
 permissions:
