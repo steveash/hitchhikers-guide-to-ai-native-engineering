@@ -100,4 +100,35 @@ jobs:
           fi
 
           echo "Assayer verdict: REQUEST CHANGES or REJECT"
+          echo "assayer_passed=false" >> "$GITHUB_OUTPUT"
           exit 1
+
+      - name: Update project board (assayer verdict)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)$|\1|p')
+
+          if [ -f /tmp/assayer-review.md ] && \
+             grep -Eq '^\*\*Verdict\*\*:[[:space:]]*APPROVE' /tmp/assayer-review.md; then
+            OPTION_ID="a29ada5c"   # passed
+          else
+            OPTION_ID="8de29e84"   # failed
+          fi
+
+          # Update the PR in the project
+          .github/scripts/update-project-field.sh \
+            "${{ github.event.pull_request.number }}" \
+            "PVTSSF_lAHOABIwvc4BUXvuzhBgWzI" \
+            "$OPTION_ID" \
+            pr
+
+          # Update the source issue if extractable from branch name
+          if [ -n "$ISSUE_NUMBER" ]; then
+            .github/scripts/update-project-field.sh \
+              "$ISSUE_NUMBER" \
+              "PVTSSF_lAHOABIwvc4BUXvuzhBgWzI" \
+              "$OPTION_ID"
+          fi

@@ -128,6 +128,16 @@ jobs:
             echo "verdict=pass" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Update project board (pre-screen rejection)
+        if: steps.verdict.outputs.verdict == 'reject'
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        run: |
+          .github/scripts/update-project-field.sh \
+            "${{ github.event.issue.number }}" \
+            "PVTSSF_lAHOABIwvc4BUXvuzhBgWzE" \
+            "4a01c3ba"
+
   prospector:
     needs: [pre-screen]
     # Tier 2: Run only when Tier 1 pre-screen passes.
@@ -252,4 +262,31 @@ jobs:
           claude_args: |
             --max-turns 20
             --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
+
+      - name: Update project board (prospector verdict)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+          GH_READ_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          LABELS=$(GH_TOKEN="$GH_READ_TOKEN" gh issue view "$ISSUE_NUMBER" \
+            --repo "${{ github.repository }}" \
+            --json labels --jq '.labels[].name' 2>/dev/null || echo "")
+
+          if echo "$LABELS" | grep -q "^rejected$"; then
+            OPTION_ID="4a01c3ba"   # rejected
+          elif echo "$LABELS" | grep -qE "^triaged:(text|repo|failure)$"; then
+            OPTION_ID="c0dcbb7b"   # accepted
+          elif echo "$LABELS" | grep -q "^feed-candidate$"; then
+            OPTION_ID="c0dcbb7b"   # accepted
+          else
+            echo "No recognized triage label found; skipping project update."
+            exit 0
+          fi
+
+          .github/scripts/update-project-field.sh \
+            "$ISSUE_NUMBER" \
+            "PVTSSF_lAHOABIwvc4BUXvuzhBgWzE" \
+            "$OPTION_ID"
 

@@ -249,3 +249,24 @@ jobs:
           claude_args: |
             --max-turns 60
             --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
+
+      - name: Update project board (assayer pending)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+          GH_READ_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ matrix.issue }}
+        run: |
+          LABELS=$(GH_TOKEN="$GH_READ_TOKEN" gh issue view "$ISSUE_NUMBER" \
+            --repo "${{ github.repository }}" \
+            --json labels --jq '.labels[].name' 2>/dev/null || echo "")
+
+          if ! echo "$LABELS" | grep -q "^mining-complete$"; then
+            echo "mining-complete label not found; skipping project update."
+            exit 0
+          fi
+
+          .github/scripts/update-project-field.sh \
+            "$ISSUE_NUMBER" \
+            "PVTSSF_lAHOABIwvc4BUXvuzhBgWzI" \
+            "8223d8d9"
