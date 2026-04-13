@@ -45,6 +45,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_bots: "claude[bot]"
           prompt: |
             You are the Assayer. Read agents/ASSAYER.md for your role,
             review standards, and required output format.
