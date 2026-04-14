@@ -68,7 +68,15 @@ jobs:
           BEFORE="${{ github.event.before }}"
           AFTER="${{ github.event.after }}"
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            BEFORE="HEAD~1"
+            # workflow_dispatch: find the most recent commit that touched
+            # source-notes/ and diff from its parent to HEAD.
+            LAST_SOURCE_COMMIT=$(git log --oneline --diff-filter=AM \
+              -- 'source-notes/*.md' -1 --format='%H')
+            if [ -n "$LAST_SOURCE_COMMIT" ]; then
+              BEFORE="${LAST_SOURCE_COMMIT}~1"
+            else
+              BEFORE="HEAD~1"
+            fi
           fi
           if [ -z "$AFTER" ]; then
             AFTER="HEAD"
