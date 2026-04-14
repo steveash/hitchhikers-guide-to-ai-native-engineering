@@ -198,20 +198,18 @@ jobs:
           echo "Wrote per-note diff to $DIFF_FILE ($BYTES bytes, $LINES lines)"
           echo "diff_file=$DIFF_FILE" >> "$GITHUB_OUTPUT"
 
+      - name: Install Claude Code CLI
+        if: steps.affected.outputs.skip != 'true'
+        run: npm install -g @anthropic-ai/claude-code
+
       - name: Run Smith synthesis
         if: steps.affected.outputs.skip != 'true'
-        uses: anthropics/claude-code-action@v1
         env:
-          # gh CLI needs GH_TOKEN to push the branch and open the PR.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          # GitHub-controlled values (run_id, repository, sha) are safe
-          # to interpolate. The changed-notes / affected-chapters lists
-          # are filenames computed by `git diff` and `grep` above — also
-          # safe. The bodies of the source notes are NOT interpolated;
-          # the Smith reads them via the filesystem.
-          prompt: |
+        run: |
+          # Write prompt to file to avoid shell quoting issues
+          cat > /tmp/smith-prompt.txt <<PROMPT_EOF
             You are the Smith agent for the hitchhiker-guide repo.
             Read `agents/SMITH.md` first — that file is your role,
             synthesis process, citation rules, and quality bar. Pay
@@ -352,9 +350,11 @@ jobs:
             - Do NOT invent claims that aren't in the source notes.
             - The `guide-update` label is what triggers the Assayer
               workflow — the PR must carry it.
-          claude_args: |
-            --max-turns 60
-            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
+          PROMPT_EOF
+
+          claude -p "$(cat /tmp/smith-prompt.txt)" \
+            --max-turns 60 \
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
 
       - name: Enforce per-chapter source cap
         if: steps.affected.outputs.skip != 'true'
