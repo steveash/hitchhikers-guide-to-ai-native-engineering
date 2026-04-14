@@ -8,21 +8,7 @@
     "max_per_run": "(optional) cap new entries filed per scan. Default: 3"
   },
   "feeds": [
-    {
-      "id": "anthropic-news",
-      "url": "https://www.anthropic.com/news/feed.xml",
-      "source_type": "documentation",
-      "description": "Anthropic announcements (Claude Code releases, model updates)",
-      "max_per_run": 3
-    },
-    {
-      "id": "anthropic-engineering",
-      "url": "https://www.anthropic.com/engineering/feed.xml",
-      "source_type": "blog-post",
-      "description": "Anthropic engineering blog (agent design, evals, infra)",
-      "max_per_run": 3
-    },
-    {
+{
       "id": "simon-willison",
       "url": "https://simonwillison.net/atom/everything/",
       "source_type": "blog-post",
