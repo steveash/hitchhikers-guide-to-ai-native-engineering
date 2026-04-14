@@ -157,6 +157,33 @@ A team that tries to ship Phase 3 content on day one will overwhelm the agent
 context budget and the engineers' attention. A team that never expands past
 Phase 1 will see usage plateau and engagement decay.
 
+### The demo gap: aspirational workflows require invisible infrastructure
+
+Public demos of high-efficiency multi-agent workflows -- Claude Code
+practitioners running 5-15 parallel sessions, near-zero overhead --
+consistently omit the infrastructure that makes them work.
+
+A practitioner who tried to replicate a public demo of parallel Claude Code
+sessions documented the failure: "He runs multiple sessions in parallel. I
+tried to replicate that. It didn't work." The thread that followed revealed
+why: the demo embedded git worktrees, per-ticket task scoping, and months of
+practiced configuration discipline -- none of it visible in the demo clip.
+The same practitioner later resolved the gap through worktrees and atomic
+task discipline, pushing their ceiling from 2 sessions to 5-10.
+[source: failure-sukit-parallel-session-ceiling, Lesson 4] [anecdotal]
+
+The demo gap is not a tool failure. It is a configuration-and-practice gap.
+The onboarding path from single-session to high-parallelism workflows is
+measured in weeks to months, not hours.
+
+**Rule**: When presenting aspirational AI workflows to your team, list the
+required infrastructure alongside the demo. Showing the output without showing
+the worktree setup, ticket discipline, and planning rituals that enable it
+sets expectations the harness cannot yet meet. Teams that skip the
+infrastructure and try to replicate the output will attribute the failure to
+the tool rather than to the missing setup.
+[source: failure-sukit-parallel-session-ceiling, Lesson 4] [anecdotal]
+
 ### The harness must include quality automation from day one
 
 The Speed at the Cost of Quality study (Miller et al., MSR '26, peer-reviewed,
@@ -966,10 +993,11 @@ research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-faros-claude-code-roi (Claims 1-7),
+failure-sukit-parallel-session-ceiling (Lesson 4),
 practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-14*

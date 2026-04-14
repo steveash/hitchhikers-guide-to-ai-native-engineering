@@ -267,6 +267,84 @@ agents running, you have too many agents running. Reduce until every
 diff gets a real review.
 [editorial]
 
+The 15+ and 4-5 figures apply to background-autonomous sessions with
+worktree isolation, not interactively attended sessions. Practitioners
+who tried to scale interactive sessions without that infrastructure hit
+a cognitive ceiling well below those figures:
+
+| Mode | Practical ceiling | What collapses first |
+|------|------------------|----------------------|
+| Interactive (attended throughout) | 2-3 sessions | Context-switching overwhelm within minutes |
+| Background-autonomous (worktree-isolated) | 5-10 sessions | Atomic task discipline and worktree management |
+
+"Two parallel sessions already feel like my limit. Once I go beyond
+that, my brain starts falling apart within minutes. Context switching
+is painful, I will lose myself in ten minutes." A second independent
+practitioner corroborates: "I can only keep 3 threads like this going
+at once."
+[source: failure-sukit-parallel-session-ceiling, Lessons 2, 3] [anecdotal]
+
+The same practitioner later resolved this by switching modes: "Yes if
+you operate with worktrees, its actually possible to operate up to 5-10
+at least I've succeeded with that multiple times. I think whats important
+is, that you keep atomical small tasks and increments, and whenever
+possible merge things."
+[source: failure-sukit-parallel-session-ceiling, Lessons 2, 3] [anecdotal]
+
+### Git Worktrees: Infrastructure for Background Parallelism
+
+The infrastructure that enables scaling beyond 2-3 active sessions is
+git worktrees -- one worktree per in-flight task, each with its own
+branch and Claude instance.
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+
+The most concrete worktree workflow in the practitioner corpus (adapted
+verbatim from a practitioner running 3 simultaneous threads):
+
+```
+1.  Add a ticket describing the bug or feature, with acceptance criteria
+    (expected unit tests, browser tests).
+2.  In a worktree, create a branch named after the ticket ID.
+3.  Start Claude; tell it to pull the ticket, research, and make a plan.
+4.  Review the plan, ask questions, refine.
+5.  Approve the plan and let Claude execute.
+6.  Have Claude run linters, tests, and quality checks until they pass.
+7.  Start a new Claude instance and ask it to review the changes.
+    Feed feedback back to the first instance.
+8.  Commit and push; create a draft PR.
+9.  Review code changes yourself. Comment on anything wrong.
+10. Get Claude to pull your comments and resolve them; feed back CI failures.
+11. Close resolved comments and push again. Repeat until ready for
+    co-worker review.
+```
+
+Key constraint from the author: "I can only keep 3 threads like this
+going at once. Sometimes it's only 1 or 2, depending on complexity.
+Smaller is better. Try to stay atomic and avoid feature creep in each mr."
+[source: failure-sukit-parallel-session-ceiling, Concrete Artifacts] [anecdotal]
+
+The "atomic tasks" discipline is as important as the worktree isolation.
+A worktree scoped to a sprawling, undefined task produces the same
+cognitive confusion as a sprawling interactive session. The infrastructure
+works because the task scope works.
+
+### Multi-Model Cooperation
+
+Running many instances of the same model is not the only scaling path.
+One practitioner describes routing different task phases to different
+models:
+
+> "Lately I've had a lot more success having Claude generate a plan, send
+> the plan to Codex for co-validation/amendments, have Claude implement the
+> plan, then have Codex PR review the commit."
+[source: failure-sukit-parallel-session-ceiling, Lesson 5] [anecdotal]
+
+This avoids the cognitive overhead of many simultaneous interactive
+sessions. Different models reviewing each other's work surfaces errors
+that a single-model feedback loop would miss. Use this pattern when your
+bottleneck is attention, not compute.
+[source: failure-sukit-parallel-session-ceiling, Lesson 5] [anecdotal]
+
 ### The 15-minute cadence
 
 If an agent has not made significant progress in 15 minutes, it should
@@ -489,7 +567,8 @@ of the sub-task.
 |---------|-------------|----------------|
 | Single-agent loop | Focused tasks, < 30 min | Approve the plan before execution |
 | Ralph Loop | Long tasks, multi-file | Commit after every iteration, explicit stop conditions |
-| Factory Model | 3+ concurrent agents | WIP limits, 15-minute check-ins |
+| Factory Model (interactive) | 2-3 concurrent agents | WIP limits, 15-minute check-ins |
+| Factory Model (worktree) | 5-10 concurrent agents | Atomic task scoping, one worktree per task |
 | Workflow commands | Recurring multi-step processes | Encode constraints, not just steps |
 
 The common thread: every pattern has explicit checkpoints where work
@@ -502,9 +581,10 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5; Concrete Artifacts),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-14*
