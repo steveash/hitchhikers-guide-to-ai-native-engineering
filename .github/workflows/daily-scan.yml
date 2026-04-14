@@ -1,7 +1,7 @@
 name: Daily Scanner
 
-# Runs all three discovery scanners (repos, failures, trusted feeds) once
-# per day. The scanners share a global rate-limit budget via
+# Runs all four discovery scanners (trusted feeds, site-crawl, repos,
+# failures) once per day. The scanners share a global rate-limit budget via
 # `scripts/scan_budget.py`: at most DAILY_SCAN_CAP issues are filed across
 # all three scanners on any given UTC day. Anything beyond the cap is
 # pushed to `registry/scan-queue.json` and drained on subsequent runs.
@@ -68,6 +68,14 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-failures.py --source hn
 
+      - name: Run site-crawl scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/scan-sites.py
+
       - name: Run failure scanner (GitHub Discussions)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -93,6 +101,7 @@ jobs:
           # to special-case it.
           git add registry/repos.json \
                   registry/trusted-feeds-state.json \
+                  registry/site-crawl-state.json \
                   registry/scan-state.json \
                   registry/scan-queue.json \
                   DASHBOARD.md || true
