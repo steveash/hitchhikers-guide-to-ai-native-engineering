@@ -23,11 +23,11 @@
       "max_per_run": 2
     },
     {
-      "id": "github-changelog",
-      "url": "https://github.blog/changelog/feed/",
+      "id": "github-copilot",
+      "url": "https://github.blog/changelog/feed/?label=copilot",
       "source_type": "documentation",
-      "description": "GitHub changelog — Copilot/Actions/Issues changes that affect agent integration surfaces",
-      "max_per_run": 2
+      "description": "GitHub Copilot changelog — Copilot-specific feature changes and updates",
+      "max_per_run": 3
     },
     {
       "id": "langchain-blog",
