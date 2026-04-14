@@ -16,9 +16,12 @@
         "https://simonwillison.net/2026/Apr/3/willy-tarreau/#atom-everything",
         "https://simonwillison.net/2026/Apr/4/kyle-daigle/#atom-everything",
         "https://simonwillison.net/2026/Apr/5/research-llm-apis/#atom-everything",
-        "https://simonwillison.net/2026/Apr/5/scan-for-secrets-3/#atom-everything"
+        "https://simonwillison.net/2026/Apr/5/scan-for-secrets-2/#atom-everything",
+        "https://simonwillison.net/2026/Apr/5/scan-for-secrets-3/#atom-everything",
+        "https://simonwillison.net/2026/Apr/5/scan-for-secrets/#atom-everything",
+        "https://simonwillison.net/2026/Apr/5/syntaqlite/#atom-everything"
       ],
-      "last_scan": "2026-04-13T06:41:02.082659+00:00"
+      "last_scan": "2026-04-14T06:34:07.614910+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -30,10 +33,11 @@
         "https://lucumr.pocoo.org/2026/2/9/a-language-for-agents/",
         "https://lucumr.pocoo.org/2026/3/20/some-things-just-take-time/",
         "https://lucumr.pocoo.org/2026/3/5/theseus/",
+        "https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/",
         "https://lucumr.pocoo.org/2026/4/4/absurd-in-production/",
         "https://lucumr.pocoo.org/2026/4/8/mario-and-earendil/"
       ],
-      "last_scan": "2026-04-13T06:41:05.464505+00:00"
+      "last_scan": "2026-04-14T06:34:10.297318+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -41,14 +45,16 @@
         "https://github.blog/changelog/2026-04-05-dependabot-version-updates-now-support-the-nix-ecosystem",
         "https://github.blog/changelog/2026-04-08-code-security-risk-assessment-available-for-organizations",
         "https://github.blog/changelog/2026-04-08-new-pgp-signing-key-for-github-cli-linux-packages",
+        "https://github.blog/changelog/2026-04-09-actions-workflows-are-limited-to-50-reruns",
         "https://github.blog/changelog/2026-04-09-auto-draft",
         "https://github.blog/changelog/2026-04-09-new-low-quality-option-in-the-hide-comment-menu",
         "https://github.blog/changelog/2026-04-09-new-sort-by-control-added-to-notifications",
         "https://github.blog/changelog/2026-04-09-repository-member-role-labels-now-in-pull-request-list-view",
         "https://github.blog/changelog/2026-04-10-copilot-cli-activity-now-included-in-usage-metrics-totals-and-feature-breakdowns",
-        "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster"
+        "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster",
+        "https://github.blog/changelog/2026-04-10-pausing-new-github-copilot-pro-trials"
       ],
-      "last_scan": "2026-04-13T06:41:08.907846+00:00"
+      "last_scan": "2026-04-14T06:34:13.096588+00:00"
     },
     "langchain-blog": {
       "seen": [
@@ -57,10 +63,13 @@
         "69c54d10d5b7120001b5bc66",
         "69c6cb0d081c26000199e53f",
         "69cd8bb56bcada00010164bf",
-        "69cea919c8b3fc00019a0eb8"
+        "69cea919c8b3fc00019a0eb8",
+        "69cff0914b0a4e0001387412",
+        "69d2d7674b0a4e00013875c4",
+        "69d401c84b0a4e000138776e"
       ],
-      "last_scan": "2026-04-13T06:41:12.721391+00:00"
+      "last_scan": "2026-04-14T06:34:16.365228+00:00"
     }
   },
-  "last_scan": "2026-04-13T06:41:12.721503+00:00"
+  "last_scan": "2026-04-14T06:34:16.365342+00:00"
 }
