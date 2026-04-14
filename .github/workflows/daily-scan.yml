@@ -30,7 +30,7 @@ jobs:
     env:
       # Single knob for the daily issue-filing cap. Bumping this here is
       # the entire interface for relaxing or tightening Pipeline 1 ingress.
-      DAILY_SCAN_CAP: '5'
+      DAILY_SCAN_CAP: '20'
     steps:
       - uses: actions/checkout@v4
 
