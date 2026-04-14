@@ -35,6 +35,34 @@
       "source_type": "blog-post",
       "description": "LangChain blog — agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
       "max_per_run": 3
+    },
+    {
+      "id": "anthropic-engineering",
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+      "source_type": "blog-post",
+      "description": "Anthropic engineering blog — agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
+      "max_per_run": 3
+    },
+    {
+      "id": "claude-blog",
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
+      "source_type": "blog-post",
+      "description": "Claude blog — Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
+      "max_per_run": 3
+    },
+    {
+      "id": "cursor-blog",
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
+      "source_type": "blog-post",
+      "description": "Cursor blog — competing AI coding agent, Composer, model inference techniques",
+      "max_per_run": 3
+    },
+    {
+      "id": "the-batch",
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml",
+      "source_type": "blog-post",
+      "description": "DeepLearning.AI The Batch — weekly AI industry news roundup (Andrew Ng)",
+      "max_per_run": 2
     }
   ]
 }
