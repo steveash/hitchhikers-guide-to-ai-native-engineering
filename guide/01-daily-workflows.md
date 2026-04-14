@@ -256,11 +256,27 @@ Do not run more agents than you can meaningfully review. Start with 3.
 Scale based on your review capacity, not your machine's capacity.
 [source: blog-addyosmani-code-agent-orchestra, Claim 8] [anecdotal]
 
-The number 3 is not sacred. Osmani himself reports running 4-5 background
-agents plus 3-5 human-in-the-loop sessions. Boris Cherny reportedly runs
-15+. The real constraint is your review bandwidth -- which varies by
-codebase familiarity, task complexity, and how much coffee you have had.
-[source: blog-addyosmani-code-agent-orchestra, Claim 8 assessment] [editorial]
+The number 3 is not sacred -- but the **mode** matters. Osmani reports
+running 4-5 background agents plus 3-5 human-in-the-loop sessions; Boris
+Cherny reportedly runs 15+. These figures apply to **background-autonomous**
+sessions in isolated git worktrees, where each agent runs a scoped task
+with no human actively tracking it. For **interactively attended** parallel
+sessions -- where you are watching what each agent is doing and ready to
+redirect it -- two independent practitioners independently hit a wall at 2-3:
+
+> "Two parallel sessions already feel like my limit. Once I go beyond that,
+> my brain starts falling apart within minutes. Context switching is painful,
+> I will lose myself in ten minutes." — sukit
+
+> "I can only keep 3 threads like this going at once. Sometimes it's only
+> 1 or 2, depending on complexity." — dontwannahearit
+
+The ceiling of 2-3 is a human-attention constraint, not a tool constraint.
+With git worktrees and atomic task scoping, the same practitioners report
+reaching 5-10 concurrent sessions (see Chapter 02, §Git Worktrees for
+Parallel Work, for the concrete infrastructure and a reference workflow).
+[source: blog-addyosmani-code-agent-orchestra, Claim 8 assessment;
+failure-sukit-parallel-session-ceiling, Lessons 2, 3] [anecdotal]
 
 **Rule**: If you are rubber-stamping diffs because you have too many
 agents running, you have too many agents running. Reduce until every
@@ -284,6 +300,35 @@ Check-in questions (every 15 minutes):
 If the answer to the last two is yes, kill the agent and reassess the
 task spec. A stuck agent does not unstick itself with more tokens.
 [source: blog-addyosmani-code-agent-orchestra, Claim 12] [anecdotal]
+
+### Multi-Model Cooperation
+
+Running many parallel Claude sessions is not the only path to multi-agent
+throughput. Routing different task phases to different models can deliver
+quality and parallelism without requiring you to track many simultaneous
+in-flight tasks:
+
+```
+1. Claude  →  Generate plan
+2. Codex   →  Co-validate and amend plan
+3. Claude  →  Implement
+4. Codex   →  PR review
+```
+
+> "Lately I've had a lot more success having Claude generate a plan, send
+> the plan to Codex for co-validation/amendments, have Claude implement
+> the plan, then have Codex PR review the commit. I haven't yet found a
+> scenario where many Claudes and many Codexes running simultaneously on
+> 35 concurrent features makes any sense, but I'd definitely encourage
+> people to try multi-model cooperation since they all seem to have
+> different sensibilities." — kevinsync
+[source: failure-sukit-parallel-session-ceiling, Lesson 5] [anecdotal]
+
+This sidesteps the 2-3 interactive-session ceiling: instead of tracking
+three in-flight agents simultaneously, you hand off between two models in
+sequence. The review burden is distributed across models, not across your
+attention budget.
+[editorial]
 
 ---
 
@@ -502,9 +547,10 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-14*
