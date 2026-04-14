@@ -15,7 +15,7 @@ on:
     types: [opened, synchronize, reopened, labeled]
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
   checks: write
   id-token: write              # required by anthropics/claude-code-action OIDC auth
@@ -102,6 +102,40 @@ jobs:
           echo "Assayer verdict: REQUEST CHANGES or REJECT"
           echo "assayer_passed=false" >> "$GITHUB_OUTPUT"
           exit 1
+
+      - name: Auto-merge approved source-note PRs
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          # Only auto-merge source-note PRs, not guide-update or feed-candidate
+          LABELS='${{ toJSON(github.event.pull_request.labels.*.name) }}'
+          if ! echo "$LABELS" | jq -e 'index("source-note")' > /dev/null 2>&1; then
+            echo "Not a source-note PR; skipping auto-merge."
+            exit 0
+          fi
+          if echo "$LABELS" | jq -e 'index("guide-update")' > /dev/null 2>&1; then
+            echo "PR also has guide-update label; requires human review."
+            exit 0
+          fi
+
+          # Extract issue number from branch name (miner/issue-NN)
+          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)$|\1|p')
+
+          echo "Auto-merging source-note PR #$PR_NUMBER (assayer approved)"
+          gh pr merge "$PR_NUMBER" \
+            --repo "${{ github.repository }}" \
+            --squash \
+            --delete-branch
+
+          # Close the linked source issue
+          if [ -n "$ISSUE_NUMBER" ]; then
+            gh issue close "$ISSUE_NUMBER" \
+              --repo "${{ github.repository }}" \
+              --comment "Source note merged via PR #$PR_NUMBER. Closing."
+          fi
 
       - name: Update project board (assayer verdict)
         if: always()
