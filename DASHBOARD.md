@@ -9,11 +9,11 @@ scanner queues) see the GitHub Project linked from README.md.
 | Chapter | Sources | Oldest source | Stale % | Lines (Δ7d) |
 |---|---|---|---|---|
 | `guide/00-principles.md` | 7/30 | 2026-02-12 (`paper-gloaguen-agentsmd-effectiveness`) | 0% | 288 (n/a) |
-| `guide/01-daily-workflows.md` | 5/30 | 2026-03-26 (`blog-addyosmani-code-agent-orchestra`) | 0% | 510 (n/a) |
-| `guide/02-harness-engineering.md` | 10/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 0% | 1016 (n/a) |
+| `guide/01-daily-workflows.md` | 6/30 | 2026-03-26 (`blog-addyosmani-code-agent-orchestra`) | 0% | 556 (n/a) |
+| `guide/02-harness-engineering.md` | 11/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 0% | 1093 (n/a) |
 | `guide/03-safety-and-verification.md` | 10/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 0% | 660 (n/a) |
 | `guide/04-context-engineering.md` | 6/30 | 2025-12-27 (`blog-sankalp-claude-code-20`) | 0% | 861 (n/a) |
-| `guide/05-team-adoption.md` | 6/30 | 2025-11-06 (`paper-miller-speed-cost-quality`) | 0% | 975 (n/a) |
+| `guide/05-team-adoption.md` | 7/30 | 2025-11-06 (`paper-miller-speed-cost-quality`) | 0% | 998 (n/a) |
 
 **Source cap**: 30 per chapter (see `hitchhiker.config.json`). 
 Chapters at the cap are marked ⚠ and block new Smith additions until 

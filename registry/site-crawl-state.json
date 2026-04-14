@@ -1,0 +1,19 @@
+{
+  "github-agentic-workflows": {
+    "urls": {
+      "https://github.github.com/gh-aw/introduction/architecture": {
+        "status": "pending",
+        "screened_at": "2026-04-14T08:04:57.653948+00:00"
+      },
+      "https://github.github.com/gh-aw/introduction/how-they-work": {
+        "status": "pending",
+        "screened_at": "2026-04-14T08:04:57.653967+00:00"
+      },
+      "https://github.github.com/gh-aw/introduction/slides": {
+        "status": "rejected",
+        "screened_at": "2026-04-14T08:04:57.653970+00:00"
+      }
+    },
+    "last_scan": "2026-04-14T08:04:57.653972+00:00"
+  }
+}
