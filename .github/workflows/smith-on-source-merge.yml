@@ -70,8 +70,8 @@ jobs:
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             # workflow_dispatch: find the most recent commit that touched
             # source-notes/ and diff from its parent to HEAD.
-            LAST_SOURCE_COMMIT=$(git log --oneline --diff-filter=AM \
-              -- 'source-notes/*.md' -1 --format='%H')
+            LAST_SOURCE_COMMIT=$(git log -1 --format='%H' --diff-filter=AM \
+              -- 'source-notes/*.md')
             if [ -n "$LAST_SOURCE_COMMIT" ]; then
               BEFORE="${LAST_SOURCE_COMMIT}~1"
             else
