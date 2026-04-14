@@ -868,6 +868,28 @@ review."
 For a team of 20-200 engineers considering a deliberate AI adoption program,
 the operational sequence the evidence supports is:
 
+**A note on the demo gap.** High-efficiency parallel workflows — multiple
+terminal windows, agents running concurrent features in the background —
+embed months of configuration investment (git worktrees, harness tuning,
+planning discipline, tool familiarity) that is invisible in the demo. One
+practitioner documented trying to replicate the Claude Code author's
+parallel-session demo and failing:
+
+> "He runs multiple sessions in parallel. I tried to replicate that.
+> It didn't work." — sukit
+
+The thread's responses revealed the gap: the demonstrator's workflow
+depended on infrastructure and practices the practitioner had not yet set
+up. When those were added (worktrees, ticket-based task scoping, planning
+first), parallel sessions became possible — but the ramp took weeks, not
+hours.
+[source: failure-sukit-parallel-session-ceiling, Lesson 4] [editorial]
+
+Benchmark your team's month-1 results against realistic month-1 baselines,
+not against an expert's year-1 workflow. The playbook below reflects the
+timeline the evidence actually supports.
+[editorial]
+
 **Months 1-3: Prepare the harness.**
 - Audit existing quality automation (lint, format, typecheck, tests, CI).
   Fix gaps before introducing AI tools, not after.
@@ -966,10 +988,11 @@ research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-faros-claude-code-roi (Claims 1-7),
+failure-sukit-parallel-session-ceiling (Lesson 4),
 practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-14*

@@ -920,6 +920,82 @@ NetPace takes a lighter approach — a pre-commit checklist naming specific file
 
 ---
 
+## Git Worktrees for Parallel Work
+
+Git worktrees give each agent session an isolated working directory with
+its own branch, index, and file state. Without them, multiple Claude
+instances running against the same checkout will write to the same files
+and your git state becomes a collision waiting to happen. With them, you
+can run 5-10 concurrent agents without any instance stomping on another.
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+
+**When to add worktrees**: Any time you want more than 2 concurrent agent
+tasks. Below that threshold, a single checkout is fine. Above it, worktrees
+are the difference between productive parallelism and chaotic interleaving.
+[source: failure-sukit-parallel-session-ceiling, Lesson 2] [anecdotal]
+
+### Setup
+
+```bash
+# Create an isolated worktree for feature A on its own branch
+git worktree add ../project-feature-a feature-a
+
+# Start a Claude session inside that worktree
+cd ../project-feature-a && claude
+```
+
+Each `git worktree add` creates a new linked checkout at a separate path.
+The main repo and all worktrees share the same `.git` directory, so you
+can push from any of them. Use one worktree per concurrent agent task.
+
+### The atomic tasks constraint
+
+Worktrees give you isolation; **atomic task scoping** gives you manageable
+merges. A worktree with an open-ended multi-week task becomes a merge
+nightmare. A worktree scoped to one ticket at a time stays clean.
+
+> "Yes if you operate with worktrees, its actually possible to operate up
+> to 5-10 at least I've succeeded with that multiple times. I think whats
+> important is, that you keep atomical small tasks and increments, and
+> whenever possible merge things. to many hanging worktrees can quickly
+> also become a nightmare managing" — sukit
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+
+### Reference: an 11-step concurrent workflow
+
+The most concrete practitioner workflow for parallel agent sessions in our
+corpus (dontwannahearit, self-reported cap of 3 simultaneous worktrees;
+steps adapted from the original GitLab-specific workflow for generality):
+
+```
+1.  Add a ticket in your tracker with as much detail as possible,
+    including acceptance criteria (expected tests, browser tests, etc.).
+2.  In a worktree, create a branch based on the ticket ID.
+3.  Start Claude; tell it to pull the ticket, research, and make a plan.
+4.  Review the plan, ask questions, refine.
+5.  Approve the plan and let Claude implement.
+6.  Have Claude run linters / tests / code-quality checks until they pass.
+7.  Start a new Claude instance; ask it to review the changes. Feed
+    that feedback to the first Claude instance.
+8.  Commit and push; create a draft PR.
+9.  Review the diff yourself in your code host. Comment on anything wrong.
+10. Get Claude to pull those comments and resolve them; feed in CI failures.
+11. Close resolved comments and push. Repeat until ready for co-worker
+    review.
+```
+
+Key constraint from the same practitioner: "I can only keep 3 threads like
+this going at once. Sometimes it's only 1 or 2, depending on complexity.
+Smaller is better. Try to stay atomic and avoid feature creep in each MR."
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+
+Step 7 — spinning up a second Claude instance as a reviewer inside the
+same worktree — is the harness move that makes the workflow self-correcting
+before the human ever opens the diff.
+[editorial]
+
+---
+
 ## Anti-Patterns (With Evidence)
 
 ### 1. Plans That Contain Results
@@ -1005,6 +1081,7 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 blog-addyosmani-code-agent-orchestra (Claims 7, 11; Linked Sources 1, 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
+failure-sukit-parallel-session-ceiling (Lessons 2, 3),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
@@ -1013,4 +1090,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-14*
