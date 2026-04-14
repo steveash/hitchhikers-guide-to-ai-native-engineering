@@ -1,34 +1,28 @@
-name: Smith on source-notes merge
+name: Smith daily synthesis
 
-# Pipeline 2 entry point: when source-notes/ changes land on main, the
-# Smith re-synthesizes the affected guide chapters and opens a
-# `guide-update` PR for the Assayer (`.github/workflows/assayer.yml`)
-# to gate.
+# Pipeline 2 entry point: daily batch synthesis of source-note changes
+# into guide chapters. The Smith reads all source-note changes since its
+# last run (tracked via the `smith-last-run` git tag), synthesizes
+# affected chapters, and opens a `guide-update` PR for the Assayer.
 #
-# Triggers in practice:
-#   - Miner PRs merging        (a brand-new source note hits main)
-#   - Gardener PRs merging     (staleness sweep edits frontmatter)
-#   - Manual edits             (admin or Assayer follow-ups)
+# Runs once daily at 22:17 UTC — 6 hours after the last miner batch
+# (16:17 UTC), giving all three daily miner runs time to complete and
+# merge. Manual dispatch is available for testing / one-off runs.
 #
-# "Affected chapters" is computed by greping `guide/*.md` for inline
-# `[source: <slug>]` citations to the changed notes. If a changed note
-# is brand new and no chapter cites it yet, the Smith is told to read
-# every chapter and decide where (if anywhere) the new evidence belongs.
+# Batch mode: unlike the previous per-push trigger, this processes
+# ALL source-note changes since the last run in a single synthesis
+# pass. This lets the Smith spot trends across multiple sources and
+# apply a materiality threshold before proposing chapter edits.
 #
-# Diff-aware mode (hi-4yk.15): in addition to the file lists, the
-# workflow extracts a unified `git diff` of every changed source note
-# and writes it to `$RUNNER_TEMP/source-notes-diff.txt`. The Smith
-# reads that file and only re-synthesizes claims whose backing
-# evidence actually moved — see `agents/SMITH.md` → "Diff-aware
-# synthesis mode". This turns Gardener `last_checked:` bumps into
-# empty PRs instead of churn PRs, and lets the Smith skip claims
-# whose evidence is unchanged.
+# Diff-aware mode (hi-4yk.15): the workflow extracts a unified diff
+# of every changed source note and writes it to
+# `$RUNNER_TEMP/source-notes-diff.txt`. The Smith reads that file and
+# only re-synthesizes claims whose backing evidence actually moved —
+# see `agents/SMITH.md` → "Diff-aware synthesis mode".
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'source-notes/**'
+  schedule:
+    - cron: '17 22 * * *'    # Daily at 22:17 UTC (6h after last miner batch)
   workflow_dispatch:           # manual trigger for testing / re-runs
 
 permissions:
@@ -62,14 +56,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Determine the diff range. For push events GitHub gives us
-          # `before` and `after`; for workflow_dispatch we fall back to
-          # the previous commit on main.
-          BEFORE="${{ github.event.before }}"
-          AFTER="${{ github.event.after }}"
-          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            # workflow_dispatch: find the most recent commit that touched
-            # source-notes/ and diff from its parent to HEAD.
+          # Determine the diff range using the smith-last-run tag.
+          # This tag is advanced to HEAD after each run (whether or not
+          # a PR was opened). If the tag doesn't exist (first run),
+          # fall back to the most recent commit that touched source-notes.
+          AFTER="HEAD"
+          if git rev-parse "smith-last-run" >/dev/null 2>&1; then
+            BEFORE="smith-last-run"
+            echo "Using smith-last-run tag as baseline"
+          else
+            echo "No smith-last-run tag found — bootstrapping from last source-note commit"
             LAST_SOURCE_COMMIT=$(git log -1 --format='%H' --diff-filter=AM \
               -- 'source-notes/*.md')
             if [ -n "$LAST_SOURCE_COMMIT" ]; then
@@ -77,9 +73,6 @@ jobs:
             else
               BEFORE="HEAD~1"
             fi
-          fi
-          if [ -z "$AFTER" ]; then
-            AFTER="HEAD"
           fi
           echo "Diff range: $BEFORE..$AFTER"
 
@@ -222,23 +215,25 @@ jobs:
             Read `agents/SMITH.md` first — that file is your role,
             synthesis process, citation rules, and quality bar. Pay
             particular attention to the **Diff-aware synthesis mode**
-            section: this run is in diff-aware mode, NOT batch mode.
-            The Assayer will gate this PR against those same standards.
+            section. The Assayer will gate this PR against those same
+            standards.
 
             ## Trigger
 
-            Source notes changed on main at commit ${{ github.sha }}.
+            Daily batch synthesis run at commit ${{ github.sha }}.
+            This run covers ALL source-note changes since the last
+            Smith run — potentially multiple new or updated notes.
 
-            ## Inputs (diff-aware mode)
+            ## Inputs (daily batch mode)
 
-            Newly merged or updated source notes:
+            Source notes changed since last Smith run:
             ${{ steps.affected.outputs.changed_notes }}
 
             Chapters that already cite at least one of those notes
             (computed by greping `[source: <slug>]` in `guide/*.md`):
             ${{ steps.affected.outputs.affected_chapters }}
 
-            Per-note unified diff for the merged commit range:
+            Per-note unified diff for the batch:
             ${{ steps.diffs.outputs.diff_file }}
 
             Sticky notes (editorial directives for affected chapters):
@@ -263,6 +258,37 @@ jobs:
             index, not a chapter) and decide which one(s), if any, the
             new evidence belongs in.
 
+            ## Materiality threshold
+
+            This is a batch run — you may see many new source notes.
+            Not every note warrants a chapter edit. Only propose
+            changes when:
+            - New evidence **materially changes** a recommendation
+              (not just adds another voice saying the same thing)
+            - Multiple sources now **corroborate** something previously
+              marked `[anecdotal]` → upgrade the confidence grade
+            - A **contradiction** is found → must always be surfaced
+            - A **novel finding** has no existing coverage → add it
+            - A **concrete artifact** (workflow, config, code pattern)
+              is more actionable than what the guide currently shows
+
+            Do NOT update the guide just because a new source exists.
+            Three more anecdotal sources saying the same thing as
+            existing content should be noted in SOURCES.md but should
+            NOT produce chapter edits unless they change the confidence
+            grade.
+
+            ## Trend detection
+
+            With multiple notes in one batch, look for patterns:
+            - Do several notes independently report the same failure
+              mode? That may warrant upgrading from anecdotal to
+              practitioner-consensus.
+            - Do notes contradict each other? Surface both sides.
+            - Is there a theme (e.g. "worktree workflows") emerging
+              across sources that the guide doesn't yet cover as a
+              pattern?
+
             ## Your task
 
             1. Read `agents/SMITH.md` end-to-end. Follow its synthesis
@@ -285,8 +311,8 @@ jobs:
                If your edits fully resolve a note, update its Status
                to resolved with a date and reason in the sticky-notes
                file.
-            5. Update ONLY the claims whose backing evidence actually
-               moved in the diff. For each revised claim:
+            5. Apply the materiality threshold above. For each claim
+               that passes the threshold:
                - Add or revise `[source: <slug>] [grade]` inline
                  citations per agents/SMITH.md §3. Any new slug you
                  cite must appear in the diff file — do not pull in
@@ -298,7 +324,8 @@ jobs:
                - Show, don't just tell — every recommendation needs the
                  concrete example required by agents/SMITH.md §4.
             6. Do NOT gold-plate. An empty PR is preferable to a churn
-               PR. If no claim's evidence actually moved, open no PR.
+               PR. If no claim passes the materiality threshold, open
+               no PR — just exit cleanly.
             7. Update `guide/SOURCES.md` only if a brand-new source row
                is needed; otherwise leave it alone.
 
@@ -508,3 +535,15 @@ jobs:
           # the *workflow* failed because the cap gate rejected the output.
           echo "::error::Smith chapter update blocked by per-chapter source cap. See filed chapter-saturated issue."
           exit 1
+
+      - name: Advance smith-last-run tag
+        if: always() && steps.affected.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Advance the tag to HEAD so the next daily run only processes
+          # new changes. We do this whether or not a PR was opened —
+          # "no changes needed" is a valid outcome that shouldn't be
+          # re-evaluated tomorrow.
+          git tag -f smith-last-run HEAD
+          git push origin smith-last-run --force
