@@ -20,6 +20,10 @@ permissions:
   checks: write
   id-token: write              # required by anthropics/claude-code-action OIDC auth
 
+concurrency:
+  group: assayer-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   assayer:
     # Only review PRs that carry source-note or guide-update.
