@@ -141,6 +141,56 @@ jobs:
               --comment "Source note merged via PR #$PR_NUMBER. Closing."
           fi
 
+      - name: Smith rework (one iteration)
+        if: |
+          failure() &&
+          contains(github.event.pull_request.labels.*.name, 'guide-update') &&
+          !contains(github.event.pull_request.labels.*.name, 'rework-attempted')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Guard against loops
+          gh pr edit "$PR_NUMBER" \
+            --repo "${{ github.repository }}" \
+            --add-label "rework-attempted"
+
+          # Configure git for pushing fixes
+          git config user.name "hitchhiker-smith[bot]"
+          git config user.email "hitchhiker-smith@users.noreply.github.com"
+
+          # Checkout the PR branch (not detached HEAD)
+          git checkout "${{ github.event.pull_request.head.ref }}"
+
+          # Install Claude Code CLI
+          npm install -g @anthropic-ai/claude-code
+
+          # Build rework prompt from the assayer review
+          cat > /tmp/smith-rework-prompt.txt <<'REWORK_EOF'
+          You are the Smith agent reworking a guide-update PR based on
+          Assayer feedback. Read agents/SMITH.md for your role and quality bar.
+
+          The Assayer reviewed this PR and requested changes. Their review
+          is at /tmp/assayer-review.md — read it carefully.
+
+          Your task:
+          1. Read /tmp/assayer-review.md to understand what needs fixing.
+          2. Read the files the Assayer flagged and fix ONLY what was flagged.
+          3. Do NOT expand scope beyond the Assayer's feedback.
+          4. Do NOT edit source-notes/, agents/, scripts/, or .github/.
+          5. Commit and push your fixes to the current branch.
+
+          After fixing:
+            git add guide/ sticky-notes/
+            git commit -m "smith: address assayer feedback"
+            git push
+          REWORK_EOF
+
+          claude -p "$(cat /tmp/smith-rework-prompt.txt)" \
+            --max-turns 30 \
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
+
       - name: Update project board (assayer verdict)
         if: always()
         env:
