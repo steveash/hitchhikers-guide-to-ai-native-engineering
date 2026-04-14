@@ -883,7 +883,7 @@ depended on infrastructure and practices the practitioner had not yet set
 up. When those were added (worktrees, ticket-based task scoping, planning
 first), parallel sessions became possible — but the ramp took weeks, not
 hours.
-[source: failure-sukit-parallel-session-ceiling, Lesson 4] [anecdotal]
+[source: failure-sukit-parallel-session-ceiling, Lesson 4] [editorial]
 
 Benchmark your team's month-1 results against realistic month-1 baselines,
 not against an expert's year-1 workflow. The playbook below reflects the

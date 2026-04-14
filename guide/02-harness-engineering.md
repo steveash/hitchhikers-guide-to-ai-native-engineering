@@ -957,14 +957,15 @@ nightmare. A worktree scoped to one ticket at a time stays clean.
 > "Yes if you operate with worktrees, its actually possible to operate up
 > to 5-10 at least I've succeeded with that multiple times. I think whats
 > important is, that you keep atomical small tasks and increments, and
-> whenever possible merge things. too many hanging worktrees can quickly
+> whenever possible merge things. to many hanging worktrees can quickly
 > also become a nightmare managing" — sukit
 [source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
 
 ### Reference: an 11-step concurrent workflow
 
 The most concrete practitioner workflow for parallel agent sessions in our
-corpus (dontwannahearit, self-reported cap of 3 simultaneous worktrees):
+corpus (dontwannahearit, self-reported cap of 3 simultaneous worktrees;
+steps adapted from the original GitLab-specific workflow for generality):
 
 ```
 1.  Add a ticket in your tracker with as much detail as possible,
@@ -991,6 +992,7 @@ Smaller is better. Try to stay atomic and avoid feature creep in each MR."
 Step 7 — spinning up a second Claude instance as a reviewer inside the
 same worktree — is the harness move that makes the workflow self-correcting
 before the human ever opens the diff.
+[editorial]
 
 ---
 
