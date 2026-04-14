@@ -235,6 +235,13 @@ jobs:
                   gh issue close ${{ github.event.issue.number }} \
                     --repo ${{ github.repository }} \
                     --reason "not planned"
+               If you chose `triaged:repo`, also close the issue:
+                  gh issue close ${{ github.event.issue.number }} \
+                    --repo ${{ github.repository }} \
+                    --reason "completed"
+               Repo-triaged issues are low value when discovered outside
+               the Repo Scout pipeline. Keep the label for tracking but
+               close the issue — no further processing needed.
             8. If you chose `feed-candidate`, create a PR to add the feed
                to trusted-feeds.json. Follow these steps exactly:
                a) Discover or infer the RSS/Atom feed URL from the submitted
@@ -257,8 +264,8 @@ jobs:
                f) Note the PR number in the issue comment.
 
             Do not edit any source notes, the guide, or the issue body. Your
-            output is labels + a comment + (for rejections) issue closure +
-            (for feed-candidates) a PR adding the feed.
+            output is labels + a comment + (for rejections and repo triages)
+            issue closure + (for feed-candidates) a PR adding the feed.
           claude_args: |
             --max-turns 20
             --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
