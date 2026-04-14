@@ -22,9 +22,12 @@
         "https://simonwillison.net/2026/Apr/5/scan-for-secrets-3/#atom-everything",
         "https://simonwillison.net/2026/Apr/5/scan-for-secrets/#atom-everything",
         "https://simonwillison.net/2026/Apr/5/syntaqlite/#atom-everything",
-        "https://simonwillison.net/2026/Apr/6/datasette-ports/#atom-everything"
+        "https://simonwillison.net/2026/Apr/6/cleanup-claude-code-paste/#atom-everything",
+        "https://simonwillison.net/2026/Apr/6/datasette-ports-2/#atom-everything",
+        "https://simonwillison.net/2026/Apr/6/datasette-ports/#atom-everything",
+        "https://simonwillison.net/2026/Apr/6/scan-for-secrets/#atom-everything"
       ],
-      "last_scan": "2026-04-14T08:03:42.524557+00:00"
+      "last_scan": "2026-04-14T08:06:50.246481+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -40,7 +43,7 @@
         "https://lucumr.pocoo.org/2026/4/4/absurd-in-production/",
         "https://lucumr.pocoo.org/2026/4/8/mario-and-earendil/"
       ],
-      "last_scan": "2026-04-14T08:03:44.738395+00:00"
+      "last_scan": "2026-04-14T08:06:52.393626+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -72,56 +75,75 @@
         "69d401c84b0a4e000138776e",
         "69d52d89f4b5380001c8028c",
         "69d68699f4b5380001c803f7",
-        "69d6d0d3f4b5380001c804a5"
+        "69d6d0d3f4b5380001c804a5",
+        "69d7a1f1f4b5380001c805b3",
+        "69d7c7e5f4b5380001c805e3",
+        "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-04-14T08:03:50.922980+00:00"
+      "last_scan": "2026-04-14T08:06:57.013802+00:00"
     },
     "github-copilot": {
       "seen": [
         "https://github.blog/changelog/2026-04-08-copilot-reviewed-pull-request-merge-metrics-now-in-the-usage-metrics-api",
         "https://github.blog/changelog/2026-04-08-github-mobile-research-and-code-with-copilot-cloud-agent-anywhere",
-        "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster"
+        "https://github.blog/changelog/2026-04-10-copilot-cli-activity-now-included-in-usage-metrics-totals-and-feature-breakdowns",
+        "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster",
+        "https://github.blog/changelog/2026-04-10-copilot-usage-metrics-now-aggregate-copilot-cloud-agent-active-user-counts",
+        "https://github.blog/changelog/2026-04-10-pausing-new-github-copilot-pro-trials"
       ],
-      "last_scan": "2026-04-14T08:03:48.819948+00:00"
+      "last_scan": "2026-04-14T08:06:54.904976+00:00"
     },
     "anthropic-engineering": {
       "seen": [
         "https://www.anthropic.com/engineering/building-effective-agents",
+        "https://www.anthropic.com/engineering/claude-code-best-practices",
+        "https://www.anthropic.com/engineering/claude-think-tool",
         "https://www.anthropic.com/engineering/contextual-retrieval",
+        "https://www.anthropic.com/engineering/multi-agent-research-system",
         "https://www.anthropic.com/engineering/swe-bench-sonnet"
       ],
-      "last_scan": "2026-04-14T08:03:52.961790+00:00"
+      "last_scan": "2026-04-14T08:06:59.084747+00:00"
     },
     "claude-blog": {
       "seen": [
         "https://claude.com/blog/amazon-bedrock-general-availability",
         "https://claude.com/blog/claude-2-1-prompting",
-        "https://claude.com/blog/claude-2-amazon-bedrock"
+        "https://claude.com/blog/claude-2-amazon-bedrock",
+        "https://claude.com/blog/prompt-generator",
+        "https://claude.com/blog/team-plan-and-ios",
+        "https://claude.com/blog/tool-use-ga"
       ],
-      "last_scan": "2026-04-14T08:03:54.995420+00:00"
+      "last_scan": "2026-04-14T08:07:01.146641+00:00"
     },
     "cursor-blog": {
       "seen": [
         "https://cursor.com/blog/box",
+        "https://cursor.com/blog/new-plugins",
         "https://cursor.com/blog/nvidia",
-        "https://cursor.com/blog/salesforce"
+        "https://cursor.com/blog/planetscale",
+        "https://cursor.com/blog/salesforce",
+        "https://cursor.com/blog/third-era"
       ],
-      "last_scan": "2026-04-14T08:03:57.058125+00:00"
+      "last_scan": "2026-04-14T08:07:03.210964+00:00"
     },
     "the-batch": {
       "seen": [
         "https://www.deeplearning.ai/the-batch/issue-i/",
-        "https://www.deeplearning.ai/the-batch/issue-ii/"
+        "https://www.deeplearning.ai/the-batch/issue-ii/",
+        "https://www.deeplearning.ai/the-batch/issue-iii/",
+        "https://www.deeplearning.ai/the-batch/issue-iv/"
       ],
-      "last_scan": "2026-04-14T08:03:59.101457+00:00"
+      "last_scan": "2026-04-14T08:07:05.319778+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-improvement/",
-        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-documentation/"
+        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-documentation/",
+        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-issue-management/",
+        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-quality-hygiene/"
       ],
-      "last_scan": "2026-04-14T08:04:01.312475+00:00"
+      "last_scan": "2026-04-14T08:07:07.476006+00:00"
     }
   },
-  "last_scan": "2026-04-14T08:04:01.312487+00:00"
+  "last_scan": "2026-04-14T08:07:07.476018+00:00"
 }
