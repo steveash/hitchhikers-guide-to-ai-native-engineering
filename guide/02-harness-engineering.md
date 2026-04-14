@@ -996,6 +996,83 @@ before the human ever opens the diff.
 
 ---
 
+## Two-Plane Orchestration for Multi-Agent Work
+
+As you scale beyond 3-5 worktrees, the management overhead — switching
+terminals, copy-pasting feedback, redirecting stuck workers — becomes the
+bottleneck, not task execution itself. The architectural answer is to
+separate the management concern from the execution concern explicitly.
+
+The **two-plane pattern**: one persistent **Manager plane** that maintains
+strategic state, routes work, and unblocks stuck workers — and ephemeral
+**Worker planes** that execute bounded tasks in isolated worktrees and are
+destroyed on completion.
+
+```
+Manager Plane (persistent):
+  - Long-running; survives session resets across tasks
+  - Maintains task queue, priorities, and unresolved blockers
+  - Routes tasks to appropriate worker types
+  - Unblocks stuck workers rather than timing out silently
+
+Worker Plane (ephemeral, one per task):
+  Lifecycle: task → research → design → implement → review → merge → cleanup
+  - One git worktree + one terminal session per task
+  - Auto-cleanup on completion: destroys worktree and session
+  - State written back to task queue and PR, not held in agent memory
+```
+
+TTal implements this as a Go CLI with named persistent agents (Yuki for
+routing, Athena for research, Inke for planning) and short-lived workers for
+implementation. Addy Osmani's experimental Claude Code Agent Teams
+(persistent Team Lead + ephemeral Teammates in tmux) converges on the same
+pattern from the vendor side. Two independent implementations arriving at the
+same architecture — one from a CLI author, one from Anthropic — is meaningful
+signal that this structure is load-bearing.
+[source: discussion-hn-ttal-multiagent-factory, Claims 2, 9;
+blog-addyosmani-code-agent-orchestra, Claim 4] [anecdotal]
+
+### Cleanup as a first-class lifecycle stage
+
+The lifecycle above names "cleanup" explicitly. This matters: sukit
+identified worktree accumulation as a "nightmare managing" risk — too many
+hanging worktrees from tasks whose workers were never torn down. The Worker
+plane pattern addresses this by making cleanup mandatory at task completion,
+handled by the same worker that created the worktree.
+[source: discussion-hn-ttal-multiagent-factory, Claim 9;
+failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+
+**Rule**: In any autonomous multi-agent harness, the agent that creates the
+worktree is responsible for destroying it. Do not leave cleanup to a manual
+garbage-collection step.
+
+### The stuck-vs-slow open problem
+
+Autonomous orchestration surfaces a detection challenge that attended sessions
+avoid: how do you distinguish a task that is genuinely taking a long time from
+a task stuck in a loop? In attended sessions you notice within 15 minutes (see
+Chapter 01, §Multi-Agent Orchestration — "The 15-minute cadence"). In
+autonomous orchestration, the manager plane may not check for much longer.
+
+Current state of practice (early 2026) has no consensus solution:
+
+- **Timeout-based**: Kill workers after a fixed interval. One practitioner
+  building a parallel multi-agent system uses 30 minutes as a threshold.
+  Simple, but crude — some tasks legitimately take longer.
+- **Self-reporting**: Workers alert the manager when blocked rather than
+  waiting for a timeout. Effective when the worker knows it is stuck; fails
+  if the worker is in an infinite loop and does not self-diagnose.
+- **Progress-signal**: Check whether the worker has committed code or produced
+  meaningful output since the last check. Absence of output is a proxy for
+  stuck — but not a reliable one.
+
+None of these handles infinite loops that produce output without making
+progress. Set explicit timeouts in any autonomous harness and treat them as a
+safety net, not a solution.
+[source: discussion-hn-ttal-multiagent-factory, Claim 8] [anecdotal]
+
+---
+
 ## Anti-Patterns (With Evidence)
 
 ### 1. Plans That Contain Results
@@ -1078,7 +1155,8 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 ---
 
 *Sources for this chapter:
-blog-addyosmani-code-agent-orchestra (Claims 7, 11; Linked Sources 1, 4),
+blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
+discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
 failure-sukit-parallel-session-ceiling (Lessons 2, 3),

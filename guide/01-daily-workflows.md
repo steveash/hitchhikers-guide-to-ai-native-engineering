@@ -503,6 +503,25 @@ study found that conceptual inquiry sessions produced comprehension
 scores above 65%, while pure delegation sessions dropped below 40%.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
 
+### The task-size threshold
+
+The three tiers above are organized by task *type*. There is a separate
+threshold organized by task *size*. For micro-tasks that take seconds to
+execute directly — a one-line regex, a known variable rename, a simple type
+annotation, a two-character typo fix — the overhead of writing the instruction,
+reviewing the output, and applying the result can exceed the time saved.
+
+> "Sometimes it's just faster to do the damn thing yourself instead of writing
+> a whole paragraph to an agent that still might do it wrong."
+> — daringrain32781
+[source: discussion-hn-agentic-coding-jobs, Claim 9] [anecdotal]
+
+Apply by feel: if you can execute in under 10 seconds and you know exactly
+what to type, just type it. Delegation is for judgment calls and things you
+would take more than a minute to figure out yourself, not for mechanical
+one-liners the agent will spend more time explaining than executing.
+[editorial]
+
 ### Example: applying the framework
 
 ```
@@ -547,6 +566,7 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+discussion-hn-agentic-coding-jobs (Claim 9),
 failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
