@@ -17,6 +17,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write                # auto-merge closes linked source issues
   checks: write
   id-token: write              # required by anthropics/claude-code-action OIDC auth
 
