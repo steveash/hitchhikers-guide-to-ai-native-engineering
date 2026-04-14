@@ -63,6 +63,13 @@
       "source_type": "blog-post",
       "description": "DeepLearning.AI The Batch — weekly AI industry news roundup (Andrew Ng)",
       "max_per_run": 2
+    },
+    {
+      "id": "github-agentic-workflows",
+      "url": "https://github.github.com/gh-aw/blog/rss.xml",
+      "source_type": "documentation",
+      "description": "GitHub Agentic Workflows (gh-aw) blog — weekly updates on GitHub's agentic automation CLI",
+      "max_per_run": 2
     }
   ]
 }
