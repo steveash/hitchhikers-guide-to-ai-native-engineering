@@ -78,13 +78,21 @@ def get_base_url(url: str) -> str:
 
 
 def get_site_prefix(url: str) -> str:
-    """Get the URL path prefix for scoping crawls to the same site section."""
+    """Get the URL path prefix for scoping crawls to the same site section.
+
+    Walks up from the seed URL path to find a sensible project root.
+    For https://example.com/gh-aw/introduction/overview/ → /gh-aw
+    For https://example.com/docs/guide/ → /docs
+    Uses the first two non-empty path segments as the root.
+    """
     parsed = urlparse(url)
-    # Use the path up to the last slash as the prefix
-    path = parsed.path.rsplit("/", 1)[0] if "/" in parsed.path else parsed.path
-    # Go up one level to be slightly broader (catch sibling sections)
-    path = path.rsplit("/", 1)[0] if "/" in path else path
-    return f"{parsed.scheme}://{parsed.netloc}{path}"
+    segments = [s for s in parsed.path.split("/") if s]
+    # Use the first path segment as the project root (e.g. "gh-aw")
+    if segments:
+        root = "/" + segments[0]
+    else:
+        root = "/"
+    return f"{parsed.scheme}://{parsed.netloc}{root}"
 
 
 def discover_from_sitemap(seed_url: str) -> list[str] | None:
