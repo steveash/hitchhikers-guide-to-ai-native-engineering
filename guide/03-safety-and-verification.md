@@ -522,6 +522,43 @@ on:
 
 [source: practitioner-frankray78-netpace] [anecdotal]
 
+### Pattern: Hybrid static+LLM security review
+
+Running an LLM alone for security review has a measurable precision/recall
+problem. DeepSource benchmarked Claude Code against OpenSSF CVE test cases
+(JavaScript/TypeScript, vendor-run study) and measured **88.89% precision**
+but only **48.78% recall** — Claude Code is selective when it flags something,
+but it misses roughly half of known vulnerabilities when used as the sole
+scanner.
+[source: discussion-hn-autofix-hybrid-review, Claims 1-2] [anecdotal]
+
+The four failure modes documented for LLM-only security review: (1)
+non-determinism (same code produces different findings across runs), (2) low
+recall (~48.78% on benchmark CVEs), (3) per-PR cost ($48.86 for Claude Code
+vs $21.24 for a hybrid approach across 165 PRs), and (4) distraction from
+valid issues as false positives accumulate.
+[source: discussion-hn-autofix-hybrid-review, Claim 5] [anecdotal]
+
+**Hybrid pattern**: Run static analysis first, then pass its confirmed findings
+to Claude as context anchors. DeepSource's 7-step pipeline: (1) retrieve file
+context, (2) chunk code, (3) run static scan per chunk, (4) aggregate issues,
+(5) pass static findings to LLM, (6) LLM re-ranks and explains, (7) output
+structured findings. The static layer provides the recall; the LLM layer
+provides explanation and triage.
+[source: discussion-hn-autofix-hybrid-review, Claims 3-4] [anecdotal]
+
+**Practical implication**: "Claude Code found no security issues" is a
+necessary but not sufficient quality gate. Pair LLM security review with
+traditional static analysis (CodeQL, Semgrep, Bandit) rather than replacing
+it. The NetPace CodeQL pattern above is the complement to LLM review, not the
+alternative.
+
+**Caveat**: The precision/recall figures come from a vendor-run benchmark (the
+vendor sells a competing product). The structural argument — LLM-only is
+low-recall; hybrid is better — is independently plausible and worth treating
+as directional evidence, but the exact percentages should not be cited as
+independent benchmarks.
+
 ### Pattern: Pre-commit hooks as local CI
 
 pytest-test-categories runs isort, ruff, and mypy as pre-commit hooks.
@@ -629,6 +666,63 @@ which is subject to the ~70-80% prose compliance ceiling.
 [source: failure-hooks-enforcement-2k, Recovery Path (command_restrictor.py,
 validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [emerging]
 
+### Trust-degradation in automated pipelines
+
+AI-driven automation accumulates trust incrementally — passes tests, builds
+confidence, executes progressively higher-stakes operations — then fails
+catastrophically on an edge case that earlier testing did not cover. One
+practitioner (DocTomoe) documented this pattern explicitly for AI-executed
+scripts: systems "pass tests, build trust, then fail catastrophically."
+
+At roughly 97% per-invocation reliability, a 50-step automated pipeline has
+approximately a 22% probability of at least one failure. The risk is not
+random; it tracks with the length of the trust-accumulation chain.
+[source: discussion-hn-airun-executable-markdown, Claim 7] [anecdotal]
+
+**Mitigation**: Do not allow AI automation to escalate to higher-stakes
+operations without a re-verification gate at the escalation boundary. Treat
+each new permission level as a new trust threshold requiring independent
+verification, not an extension of accumulated trust. The same logic applies to
+agentic workflows that escalate from read → write → commit → deploy: each
+boundary should require explicit confirmation.
+
+### Coding-agent self-bias in evaluation
+
+When a coding agent evaluates its own output — or uses access to the
+implementation code to evaluate — it systematically over-reports success.
+The agent's unit tests can all pass while the actual output is wrong in ways
+only a separate evaluator with a different perspective would catch.
+
+One practitioner building an AI game generator solved this by routing
+evaluation to a separate vision-model agent: the evaluator receives only
+screenshots of the running game and evaluates against visual/behavioral
+criteria, with no access to the source code. This breaks the self-referential
+loop and caught failures the code-aware agent had missed.
+[source: failure-htdt-godogen-game-generation, Claim 5] [anecdotal]
+
+**When this matters**: Any task where output quality is not fully captured by
+assertions against return values — UI layout, game behavior, report formatting,
+data visualizations, generated content. For these tasks, self-assessed
+"passing tests" is weak evidence. Route evaluation to a separate agent with a
+different modality (visual, behavioral, or user-facing output) that cannot be
+gamed by making the code pass its own assertions.
+
+### Shell execution attack surface
+
+The Claude Code harness implements 23 shell security checks in
+`bashSecurity.ts`, blocking patterns that could be injected into
+agent-generated shell commands: 18 blocked Zsh built-in substitutions,
+equals-sign variable expansion bypass (`FOO=bar cmd`), Unicode zero-width
+space injection, and IFS null-byte injection.
+[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [anecdotal]
+
+**Why this matters for harness builders**: If you build a harness that passes
+externally sourced text — GitHub PR titles, issue bodies, user names, commit
+messages — into shell commands executed by an agent, these attack vectors apply
+to your harness as well. The Claude Code blocklist is a useful reference for
+the attack surface. Sanitize external input before passing it to any shell
+execution path.
+
 ---
 
 ## Summary: The Verification Stack
@@ -647,8 +741,12 @@ Build all five layers. Each one is a safety net for the layer above it.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
+discussion-hn-autofix-hybrid-review (Claims 1-5),
+discussion-hn-airun-executable-markdown (Claim 7),
+failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
+failure-htdt-godogen-game-generation (Claim 5),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
@@ -657,4 +755,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-15*

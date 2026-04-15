@@ -587,6 +587,23 @@ production issues, 27M events) is a more sophisticated one.
 blog-bvp-shopify-ai-playbook, Claim 6;
 practitioner-getsentry-sentry] [emerging]
 
+### Available measurement primitives
+
+Two enterprise-only fields in the GitHub Copilot API expose Layer 3 data
+directly from the code platform without custom instrumentation:
+`pull_requests.total_merged_reviewed_by_copilot` (count of PRs where Copilot
+reviewed before merge) and `pull_requests.median_minutes_to_merge_copilot_reviewed`
+(median merge time for Copilot-reviewed PRs). These are the first vendor-native
+metrics that let teams compare merge velocity for AI-reviewed vs. non-AI-reviewed
+PRs using existing SCM data.
+[source: docs-github-copilot-pr-review-metrics, Claims 1-2] [anecdotal]
+
+**Caveat**: both metrics require a baseline comparison period to be meaningful.
+The median merge-time number is only informative when compared against the same
+team's pre-Copilot baseline or a matched control group. An absolute number in
+isolation tells you nothing about whether AI review is faster, slower, or
+equivalent to the prior state.
+
 ### Vanity metrics to avoid
 
 Faros enumerates the metrics that look like productivity wins but measure
@@ -988,6 +1005,7 @@ research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-faros-claude-code-roi (Claims 1-7),
+docs-github-copilot-pr-review-metrics (Claims 1-2),
 failure-sukit-parallel-session-ceiling (Lesson 4),
 practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
@@ -995,4 +1013,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-15*

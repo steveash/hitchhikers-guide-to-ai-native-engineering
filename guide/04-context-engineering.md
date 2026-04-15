@@ -473,6 +473,25 @@ re-injects; the conversation is not.
 [source: failure-decker-4hr-session-loss, Lesson 2;
 research-wasnotwas-context-compaction, Claim 5] [emerging]
 
+### Pre-session corpus loading for low-coverage domains
+
+Standard LLM training data covers popular languages and frameworks well. For
+domain-specific tools, niche languages, or heavily versioned APIs, the model's
+internal knowledge is often stale or sparse. One practitioner building an AI
+game generator for GDScript (a language with limited training-data coverage)
+solved this by lazy-loading a custom API reference corpus at session start —
+the agent reads the reference before beginning work, giving it accurate
+function signatures, parameter types, and behavioral documentation that its
+training weights did not encode reliably.
+[source: failure-htdt-godogen-game-generation, Claim 1] [anecdotal]
+
+**Pattern**: If you work in a domain where you regularly see the agent
+hallucinate function names, parameter orders, or API shapes, prepare a compact
+reference file (the API surface you actually use, not the full docs) and have
+the agent read it as part of the Orient phase. This is more efficient than
+repeating corrections session-by-session and more reliable than hoping the
+model's training-data coverage is sufficient for your domain.
+
 ---
 
 ## The Restart Recovery Pattern
@@ -737,6 +756,24 @@ in later versions. The structural argument (sub-agents as context
 firewalls) is independent of which tool implements it best today.
 [source: blog-french-owen-coding-agents-feb-2026, Claim 6] [anecdotal]
 
+### Naming cache-hostile operations
+
+When a section of your system prompt changes per-request — because it
+includes dynamic state, timestamps, or per-call context — it cannot be
+cached, and every turn pays full 1.0x input pricing for that section instead
+of the 0.1x cached rate. The Claude Code harness makes this cost visible
+through a naming convention: functions and config sections that bypass prompt
+caching are prefixed with `DANGEROUS_` (e.g.,
+`DANGEROUS_uncachedSystemPromptSection`). The prefix signals to future
+maintainers that this call is cache-hostile and will impose a per-turn cost
+penalty.
+[source: failure-alex000kim-claudecode-source-leak, Claim 4] [anecdotal]
+
+**Pattern**: In your own harness, mark cache-hostile injections explicitly.
+Whether you use a naming convention, a comment, or a configuration flag, make
+the cost visible at the code level so future maintainers know why it exists
+and avoid inadvertently adding more uncached sections alongside it.
+
 ---
 
 ## Compaction Quality Varies by Harness
@@ -853,9 +890,11 @@ blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
 blog-sankalp-claude-code-20 (Claims 1-7),
 research-wasnotwas-context-compaction (Claims 1-8),
+failure-alex000kim-claudecode-source-leak (Claim 4),
 failure-decker-4hr-session-loss (Lessons 1-5, Recovery Path),
+failure-htdt-godogen-game-generation (Claim 1),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-15*

@@ -540,6 +540,25 @@ the hierarchy above.
 
 ## .claude/settings.json — Permission Models
 
+Claude Code's permission system operates at three levels: **deny** (blocked
+unconditionally — the harness prevents execution regardless of agent intent),
+**check** (the harness validates before executing), and **prompt** (the user
+sees a confirmation dialog). The three levels map directly onto the enforcement
+hierarchy from Chapter 03: deny and check are harness-enforced (100% reliable);
+prompt still relies on a human approval step and can be worn down through
+repeated requests.
+[source: blog-ccunpacked-claude-code-architecture, Claim 3] [anecdotal]
+
+Settings.json declarations sit within a four-tier context hierarchy: global
+settings (shared across all projects) → project settings (`.claude/settings.json`
+in the repo) → session settings (overrides for the current session) → per-call
+settings (individual tool invocations). Lower tiers can narrow permissions
+granted by higher tiers but cannot expand them. The repo-level
+`.claude/settings.json` is therefore the right place to put prohibitions that
+apply to every engineer on the team, regardless of their individual global
+configuration.
+[source: blog-ccunpacked-claude-code-architecture, Claim 4] [anecdotal]
+
 ### The Granular Allowlist (enterprise / high-security)
 
 Sentry's `.claude/settings.json` uses 60+ specific Bash command prefixes.
@@ -1058,6 +1077,23 @@ docs. The high-value workflow rules are in the first ~60 lines.
 Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 [source: practitioner-mikelane-pytest-test-categories] [editorial]
 
+### 6. No circuit breaker on retry loops
+
+When a harness process retries on failure without a consecutive-failure limit,
+a stuck agent compounds errors at machine speed. The documented worst case:
+Claude Code's AutoCompact process entered a runaway loop generating an
+estimated 250,000 API calls per day (worst-case scenario: 3,272 consecutive
+failures) when compaction failed repeatedly without a circuit breaker. The fix
+was a three-strike limit: `MAX_CONSECUTIVE_AUTOCOMPACT_FAILURES = 3`.
+[source: failure-alex000kim-claudecode-source-leak, Claim 1] [anecdotal]
+
+**Rule**: Any automated retry loop in your harness — compaction, polling,
+file-watch triggers — must have a consecutive-failure limit. Three failures on
+the same operation is a reliable signal that something structural has gone
+wrong and human intervention is required. This mirrors the 3-iteration kill
+criterion in Chapter 03 (§Kill Criteria: When to Stop the Agent): the same
+logic that applies to agent task loops applies to harness automation loops.
+
 ---
 
 ## Quick Reference: Harness File Inventory
@@ -1079,6 +1115,8 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 7, 11; Linked Sources 1, 4),
+blog-ccunpacked-claude-code-architecture (Claims 3, 4),
+failure-alex000kim-claudecode-source-leak (Claim 1),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
 failure-sukit-parallel-session-ceiling (Lessons 2, 3),
@@ -1090,4 +1128,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-15*

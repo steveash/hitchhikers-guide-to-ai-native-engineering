@@ -283,6 +283,28 @@ agents running, you have too many agents running. Reduce until every
 diff gets a real review.
 [editorial]
 
+### Quality enforcement in coordinator instructions
+
+When an orchestrator agent hands tasks to worker agents, the coordinator's
+prompt directly shapes whether workers produce quality output or merely output.
+Two directives from a production multi-agent deployment (the Claude Code
+internal Coordinator prompt) illustrate the pattern:
+
+> "Do not rubber-stamp weak work."
+>
+> "Never hand off understanding to another worker."
+
+[source: failure-alex000kim-claudecode-source-leak, Claim 6] [anecdotal]
+
+The first directive prevents sycophantic approval loops where a worker's
+output is accepted without genuine evaluation. The second prevents
+understanding from hollowing out as tasks cascade through workers — the
+"telephone game" failure where each handoff loses fidelity until the final
+output no longer reflects the original intent.
+
+If your coordinator prompt does not explicitly prohibit both behaviors, expect
+both to emerge. Write them as explicit constraints, not implied expectations.
+
 ### The 15-minute cadence
 
 If an agent has not made significant progress in 15 minutes, it should
@@ -547,10 +569,11 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+failure-alex000kim-claudecode-source-leak (Claim 6),
 failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-15*
