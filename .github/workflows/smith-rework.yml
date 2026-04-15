@@ -71,28 +71,53 @@ jobs:
       - name: Install Claude Code CLI
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: Collect all human feedback from PR comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch ALL comments on this PR from human reviewers (not bots).
+          # The reviewer may have left many comments before triggering
+          # /rework — the Smith should address all of them holistically.
+          gh api "repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" \
+            --paginate --jq '.[] |
+              select(.user.type != "Bot") |
+              select(.body | test("/rework") | not) |
+              "### Comment by \(.user.login) at \(.created_at)\n\n\(.body)\n"
+            ' > /tmp/human-feedback.md
+
+          # Append the triggering /rework comment itself (may contain
+          # additional feedback alongside the trigger)
+          REWORK_BODY='${{ github.event.comment.body }}'
+          STRIPPED=$(echo "$REWORK_BODY" | sed 's|/rework||g' | sed '/^[[:space:]]*$/d')
+          if [ -n "$STRIPPED" ]; then
+            echo "### Comment by ${{ github.event.comment.user.login }} at ${{ github.event.comment.created_at }}" >> /tmp/human-feedback.md
+            echo "" >> /tmp/human-feedback.md
+            echo "$STRIPPED" >> /tmp/human-feedback.md
+          fi
+
+          LINES=$(wc -l < /tmp/human-feedback.md)
+          echo "Collected $LINES lines of reviewer feedback"
+
       - name: Run Smith rework
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Write the human feedback to a file for the Smith to read
-          cat > /tmp/human-feedback.md <<'FEEDBACK_EOF'
-          ${{ github.event.comment.body }}
-          FEEDBACK_EOF
-
           cat > /tmp/smith-rework-prompt.txt <<'PROMPT_EOF'
           You are the Smith agent reworking a guide-update PR based on
           human reviewer feedback. Read agents/SMITH.md for your role
           and quality bar.
 
-          A human reviewer commented on this PR with specific feedback.
-          Their comment is at /tmp/human-feedback.md — read it carefully.
+          Human reviewers have left feedback on this PR. ALL of their
+          comments are collected in /tmp/human-feedback.md — read the
+          entire file. Address all feedback points holistically in a
+          single pass. Comments are in chronological order; if later
+          comments contradict earlier ones, prefer the latest.
 
           Your task:
-          1. Read /tmp/human-feedback.md to understand what the reviewer wants.
+          1. Read /tmp/human-feedback.md — every comment, start to finish.
           2. Read the files mentioned or implied by the feedback.
-          3. Make ONLY the changes the reviewer asked for. Do not expand
+          3. Make ONLY the changes the reviewers asked for. Do not expand
              scope, do not refactor, do not "improve" things they didn't
              mention.
           4. Do NOT edit source-notes/, agents/, scripts/, or .github/.

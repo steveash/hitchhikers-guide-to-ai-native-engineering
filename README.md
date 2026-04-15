@@ -69,12 +69,12 @@ When the Smith agent opens a `guide-update` PR, you can review and request chang
 directly:
 
 1. Read the PR diff
-2. Comment with your feedback — what to change, tone down, add, remove
-3. Include `/rework` anywhere in the comment
+2. Leave as many comments as you want — what to change, tone down, add, remove
+3. When you're done, post a comment containing `/rework`
 
-The Smith will read your feedback, push fixes, and the Assayer will re-review
-automatically. You can `/rework` as many times as needed. Only repo collaborators
-can trigger rework.
+The Smith reads **all** your comments holistically in one pass, pushes fixes, and
+the Assayer re-reviews automatically. You can `/rework` as many times as needed.
+Only repo collaborators can trigger rework.
 
 ---
 
