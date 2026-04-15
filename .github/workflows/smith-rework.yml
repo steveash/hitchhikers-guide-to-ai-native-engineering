@@ -11,6 +11,8 @@ name: Smith Rework (Human Feedback)
 on:
   issue_comment:
     types: [created]
+  pull_request_review:
+    types: [submitted]
 
 permissions:
   contents: write
@@ -19,36 +21,50 @@ permissions:
   id-token: write
 
 concurrency:
-  group: smith-rework-pr-${{ github.event.issue.number }}
+  group: smith-rework-pr-${{ github.event.issue.number || github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
   rework:
-    # Only run when:
-    # 1. The comment is on a pull request (not a regular issue)
-    # 2. The comment contains "/rework"
-    # 3. The PR has the guide-update label
-    # 4. The commenter has write access (not just anyone)
+    # Triggers on two event types with different payloads:
+    # 1. issue_comment: regular PR comment containing "/rework"
+    # 2. pull_request_review: submitted review containing "/rework"
     if: |
-      github.event.issue.pull_request &&
-      contains(github.event.comment.body, '/rework') &&
-      contains(github.event.issue.labels.*.name, 'guide-update') &&
-      (github.event.comment.author_association == 'OWNER' ||
-       github.event.comment.author_association == 'COLLABORATOR' ||
-       github.event.comment.author_association == 'MEMBER')
+      (
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request &&
+        contains(github.event.comment.body, '/rework') &&
+        contains(github.event.issue.labels.*.name, 'guide-update') &&
+        (github.event.comment.author_association == 'OWNER' ||
+         github.event.comment.author_association == 'COLLABORATOR' ||
+         github.event.comment.author_association == 'MEMBER')
+      ) || (
+        github.event_name == 'pull_request_review' &&
+        contains(github.event.review.body, '/rework') &&
+        contains(github.event.pull_request.labels.*.name, 'guide-update') &&
+        (github.event.review.author_association == 'OWNER' ||
+         github.event.review.author_association == 'COLLABORATOR' ||
+         github.event.review.author_association == 'MEMBER')
+      )
     runs-on: ubuntu-latest
     steps:
-      - name: Get PR details
+      - name: Resolve PR number and branch
         id: pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_JSON=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.issue.number }})
+          # Normalize across event types
+          if [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+          else
+            PR_NUMBER="${{ steps.pr.outputs.pr_number }}"
+          fi
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+
+          PR_JSON=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER")
           HEAD_REF=$(echo "$PR_JSON" | jq -r '.head.ref')
-          HEAD_SHA=$(echo "$PR_JSON" | jq -r '.head.sha')
           echo "head_ref=$HEAD_REF" >> "$GITHUB_OUTPUT"
-          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
-          echo "PR #${{ github.event.issue.number }} branch: $HEAD_REF"
+          echo "PR #$PR_NUMBER branch: $HEAD_REF"
 
       - uses: actions/checkout@v4
         with:
@@ -61,42 +77,66 @@ jobs:
           git config user.name "hitchhiker-smith[bot]"
           git config user.email "hitchhiker-smith@users.noreply.github.com"
 
-      - name: React to comment
+      - name: React to trigger
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-            -f content="eyes" 2>/dev/null || true
+          if [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            # React to the review comment
+            gh api "repos/${{ github.repository }}/pulls/comments/${{ github.event.review.id }}/reactions" \
+              -f content="eyes" 2>/dev/null || true
+          else
+            gh api "repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions" \
+              -f content="eyes" 2>/dev/null || true
+          fi
 
       - name: Install Claude Code CLI
         run: npm install -g @anthropic-ai/claude-code
 
-      - name: Collect all human feedback from PR comments
+      - name: Collect all human feedback from PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
         run: |
-          # Fetch ALL comments on this PR from human reviewers (not bots).
+          # Collect ALL human feedback from three sources:
+          # 1. Regular PR comments (issue_comment API)
+          # 2. PR review bodies (reviews API)
+          # 3. Inline review comments on the diff (review comments API)
           # The reviewer may have left many comments before triggering
           # /rework — the Smith should address all of them holistically.
-          gh api "repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" \
+
+          > /tmp/human-feedback.md
+
+          # 1. Regular PR comments
+          gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
             --paginate --jq '.[] |
               select(.user.type != "Bot") |
               select(.body | test("/rework") | not) |
               "### Comment by \(.user.login) at \(.created_at)\n\n\(.body)\n"
-            ' > /tmp/human-feedback.md
+            ' >> /tmp/human-feedback.md 2>/dev/null || true
 
-          # Append the triggering /rework comment itself (may contain
-          # additional feedback alongside the trigger)
-          REWORK_BODY='${{ github.event.comment.body }}'
-          STRIPPED=$(echo "$REWORK_BODY" | sed 's|/rework||g' | sed '/^[[:space:]]*$/d')
-          if [ -n "$STRIPPED" ]; then
-            echo "### Comment by ${{ github.event.comment.user.login }} at ${{ github.event.comment.created_at }}" >> /tmp/human-feedback.md
-            echo "" >> /tmp/human-feedback.md
-            echo "$STRIPPED" >> /tmp/human-feedback.md
-          fi
+          # 2. PR review bodies (the top-level review summary)
+          gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER/reviews" \
+            --paginate --jq '.[] |
+              select(.user.type != "Bot") |
+              select(.body != null and .body != "") |
+              select(.body | test("/rework") | not) |
+              "### Review by \(.user.login) at \(.submitted_at) [\(.state)]\n\n\(.body)\n"
+            ' >> /tmp/human-feedback.md 2>/dev/null || true
+
+          # 3. Inline review comments (on specific lines/files)
+          gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER/comments" \
+            --paginate --jq '.[] |
+              select(.user.type != "Bot") |
+              "### Inline comment by \(.user.login) on \(.path):\(.line // .original_line // "?")\n\n\(.body)\n"
+            ' >> /tmp/human-feedback.md 2>/dev/null || true
 
           LINES=$(wc -l < /tmp/human-feedback.md)
           echo "Collected $LINES lines of reviewer feedback"
+          if [ "$LINES" -eq 0 ]; then
+            echo "No feedback found — nothing to rework."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Run Smith rework
         env:
@@ -170,24 +210,20 @@ jobs:
             --max-turns 30 \
             --allowedTools "Bash(*)" "Read" "Edit" "Glob" "Grep" "WebFetch"
 
-      - name: React to comment (done)
+      - name: Notify success
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-            -f content="rocket" 2>/dev/null || true
-          gh pr comment ${{ github.event.issue.number }} \
+          gh pr comment ${{ steps.pr.outputs.pr_number }} \
             --repo ${{ github.repository }} \
             --body "Smith rework complete — pushed fixes based on your feedback. The assayer will re-review automatically."
 
-      - name: React to comment (failed)
+      - name: Notify failure
         if: failure()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-            -f content="confused" 2>/dev/null || true
-          gh pr comment ${{ github.event.issue.number }} \
+          gh pr comment ${{ steps.pr.outputs.pr_number }} \
             --repo ${{ github.repository }} \
             --body "Smith rework failed — check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
