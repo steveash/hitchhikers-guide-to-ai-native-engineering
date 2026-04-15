@@ -74,6 +74,11 @@ jobs:
               **Verdict**: REQUEST CHANGES
               **Verdict**: REJECT
 
+            IMPORTANT: You MUST write the review file using a Bash command
+            (e.g. cat > /tmp/assayer-review.md <<'EOF' ... EOF), NOT the
+            Write tool. The Write tool runs in a sandbox and the file will
+            not be visible to subsequent workflow steps.
+
             Then exit.
           claude_args: |
             --max-turns 25

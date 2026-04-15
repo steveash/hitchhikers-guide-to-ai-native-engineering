@@ -63,6 +63,21 @@ consulted during every synthesis pass.
 
 ---
 
+### Review Guide Updates
+
+When the Smith agent opens a `guide-update` PR, you can review and request changes
+directly:
+
+1. Read the PR diff
+2. Leave as many comments as you want — what to change, tone down, add, remove
+3. When you're done, post a comment containing `/rework`
+
+The Smith reads **all** your comments holistically in one pass, pushes fixes, and
+the Assayer re-reviews automatically. You can `/rework` as many times as needed.
+Only repo collaborators can trigger rework.
+
+---
+
 ## How the Automation Works
 
 The guide is maintained by a pipeline of AI agents that discover, extract, review,

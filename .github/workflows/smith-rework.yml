@@ -1,0 +1,160 @@
+name: Smith Rework (Human Feedback)
+
+# Triggered when a maintainer comments "/rework" on a guide-update PR.
+# The Smith reads the comment as feedback and pushes fixes to the PR branch.
+# The assayer re-triggers automatically on the push.
+#
+# Usage: comment on any open guide-update PR with your feedback and include
+# "/rework" anywhere in the comment. The Smith will address your feedback
+# and push a new commit. You can /rework as many times as needed.
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: smith-rework-pr-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  rework:
+    # Only run when:
+    # 1. The comment is on a pull request (not a regular issue)
+    # 2. The comment contains "/rework"
+    # 3. The PR has the guide-update label
+    # 4. The commenter has write access (not just anyone)
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/rework') &&
+      contains(github.event.issue.labels.*.name, 'guide-update') &&
+      (github.event.comment.author_association == 'OWNER' ||
+       github.event.comment.author_association == 'COLLABORATOR' ||
+       github.event.comment.author_association == 'MEMBER')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR details
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_JSON=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.issue.number }})
+          HEAD_REF=$(echo "$PR_JSON" | jq -r '.head.ref')
+          HEAD_SHA=$(echo "$PR_JSON" | jq -r '.head.sha')
+          echo "head_ref=$HEAD_REF" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+          echo "PR #${{ github.event.issue.number }} branch: $HEAD_REF"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr.outputs.head_ref }}
+          fetch-depth: 0
+          token: ${{ secrets.PROJECT_PAT }}
+
+      - name: Configure git
+        run: |
+          git config user.name "hitchhiker-smith[bot]"
+          git config user.email "hitchhiker-smith@users.noreply.github.com"
+
+      - name: React to comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+            -f content="eyes" 2>/dev/null || true
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Collect all human feedback from PR comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch ALL comments on this PR from human reviewers (not bots).
+          # The reviewer may have left many comments before triggering
+          # /rework — the Smith should address all of them holistically.
+          gh api "repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" \
+            --paginate --jq '.[] |
+              select(.user.type != "Bot") |
+              select(.body | test("/rework") | not) |
+              "### Comment by \(.user.login) at \(.created_at)\n\n\(.body)\n"
+            ' > /tmp/human-feedback.md
+
+          # Append the triggering /rework comment itself (may contain
+          # additional feedback alongside the trigger)
+          REWORK_BODY='${{ github.event.comment.body }}'
+          STRIPPED=$(echo "$REWORK_BODY" | sed 's|/rework||g' | sed '/^[[:space:]]*$/d')
+          if [ -n "$STRIPPED" ]; then
+            echo "### Comment by ${{ github.event.comment.user.login }} at ${{ github.event.comment.created_at }}" >> /tmp/human-feedback.md
+            echo "" >> /tmp/human-feedback.md
+            echo "$STRIPPED" >> /tmp/human-feedback.md
+          fi
+
+          LINES=$(wc -l < /tmp/human-feedback.md)
+          echo "Collected $LINES lines of reviewer feedback"
+
+      - name: Run Smith rework
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > /tmp/smith-rework-prompt.txt <<'PROMPT_EOF'
+          You are the Smith agent reworking a guide-update PR based on
+          human reviewer feedback. Read agents/SMITH.md for your role
+          and quality bar.
+
+          Human reviewers have left feedback on this PR. ALL of their
+          comments are collected in /tmp/human-feedback.md — read the
+          entire file. Address all feedback points holistically in a
+          single pass. Comments are in chronological order; if later
+          comments contradict earlier ones, prefer the latest.
+
+          Your task:
+          1. Read /tmp/human-feedback.md — every comment, start to finish.
+          2. Read the files mentioned or implied by the feedback.
+          3. Make ONLY the changes the reviewers asked for. Do not expand
+             scope, do not refactor, do not "improve" things they didn't
+             mention.
+          4. Do NOT edit source-notes/, agents/, scripts/, or .github/.
+          5. Commit and push your fixes.
+
+          After fixing:
+            git add guide/ sticky-notes/
+            if git diff --staged --quiet; then
+              echo "No changes needed."
+              exit 0
+            fi
+            git commit -m "smith: address reviewer feedback"
+            git push
+          PROMPT_EOF
+
+          claude -p "$(cat /tmp/smith-rework-prompt.txt)" \
+            --max-turns 30 \
+            --allowedTools "Bash(*)" "Read" "Edit" "Glob" "Grep" "WebFetch"
+
+      - name: React to comment (done)
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+            -f content="rocket" 2>/dev/null || true
+          gh pr comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --body "Smith rework complete — pushed fixes based on your feedback. The assayer will re-review automatically."
+
+      - name: React to comment (failed)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+            -f content="confused" 2>/dev/null || true
+          gh pr comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --body "Smith rework failed — check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."

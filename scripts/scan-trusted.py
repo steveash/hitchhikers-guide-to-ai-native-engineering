@@ -27,7 +27,7 @@ import subprocess
 import sys
 import time
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
@@ -50,6 +50,11 @@ INTER_FEED_SLEEP = 2  # seconds between feeds (be polite)
 # Default cap on issues filed per feed per run. Without this, adding a new
 # feed would burst dozens of issues into Pipeline 1 on its first scan.
 DEFAULT_MAX_PER_RUN = 3
+
+# Only consider feed entries published within the last N days. Older entries
+# are marked as seen and skipped. This prevents filing issues for stale
+# content when adding a new feed with years of backlog.
+MAX_AGE_DAYS = 30
 
 # Atom + RSS namespace map for ElementTree.
 NS = {
@@ -286,6 +291,34 @@ def scan_feed(feed: dict, state: dict, dry_run: bool = False) -> tuple[int, int,
     new_entries = [e for e in entries if e["id"] not in seen_set]
     new_entries.reverse()
     print(f"  {len(new_entries)} new since last scan")
+
+    # Filter out entries older than MAX_AGE_DAYS. Mark them as seen so they
+    # don't reappear on subsequent runs.
+    cutoff = datetime.now(timezone.utc) - timedelta(days=MAX_AGE_DAYS)
+    fresh_entries = []
+    stale_count = 0
+    for entry in new_entries:
+        pub = entry.get("published", "")
+        if pub:
+            try:
+                # Handle common date formats (RFC 2822, ISO 8601)
+                from email.utils import parsedate_to_datetime
+                try:
+                    pub_dt = parsedate_to_datetime(pub)
+                except (ValueError, TypeError):
+                    pub_dt = datetime.fromisoformat(pub.replace("Z", "+00:00"))
+                if pub_dt.tzinfo is None:
+                    pub_dt = pub_dt.replace(tzinfo=timezone.utc)
+                if pub_dt < cutoff:
+                    seen_set.add(entry["id"])
+                    stale_count += 1
+                    continue
+            except (ValueError, TypeError):
+                pass  # Can't parse date — let it through
+        fresh_entries.append(entry)
+    if stale_count:
+        print(f"  Skipped {stale_count} entries older than {MAX_AGE_DAYS} days")
+    new_entries = fresh_entries
 
     max_per_run = feed.get("max_per_run", DEFAULT_MAX_PER_RUN)
     to_file = new_entries[:max_per_run]
