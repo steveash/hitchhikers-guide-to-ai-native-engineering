@@ -212,8 +212,172 @@
       "https://github.github.com/gh-aw/reference/environment-variables": {
         "status": "pending",
         "screened_at": "2026-04-14T08:08:07.240767+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/faq": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376151+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/footers": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376170+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/fork-support": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376173+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/frontmatter": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376175+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/gh-aw-as-mcp-server": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376177+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/github-tools": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376179+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/glossary": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376180+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/imports": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376182+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/integrity": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376183+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/markdown": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376185+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/mcp-gateway": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376187+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/mcp-scripts": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376188+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/network": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376190+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/permissions": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376192+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/playwright": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376193+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/rate-limiting-controls": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376195+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/releases": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376197+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/repo-memory": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376198+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/safe-outputs": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376200+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/sandbox": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376201+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/schedule-syntax": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376203+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/staged-mode": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376204+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/supported-languages": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376206+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/templating": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376207+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/threat-detection": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376209+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/tokens": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376211+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/tools": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376212+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/triggering-ci": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376214+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/triggers": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376216+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/workflow-structure": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376217+00:00"
+      },
+      "https://github.github.com/gh-aw/setup/cli": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376219+00:00"
+      },
+      "https://github.github.com/gh-aw/setup/creating-workflows": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376220+00:00"
+      },
+      "https://github.github.com/gh-aw/setup/quick-start": {
+        "status": "rejected",
+        "screened_at": "2026-04-15T06:35:59.376221+00:00"
+      },
+      "https://github.github.com/gh-aw/troubleshooting/common-issues": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376235+00:00"
+      },
+      "https://github.github.com/gh-aw/troubleshooting/debug-ghe": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376237+00:00"
+      },
+      "https://github.github.com/gh-aw/troubleshooting/debugging": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376238+00:00"
+      },
+      "https://github.github.com/gh-aw/troubleshooting/errors": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376240+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/frontmatter-full": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376241+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/mcp-scripts-specification": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376243+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/safe-outputs-pull-requests": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376244+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/safe-outputs-specification": {
+        "status": "pending",
+        "screened_at": "2026-04-15T06:35:59.376246+00:00"
       }
     },
-    "last_scan": "2026-04-14T08:08:07.240769+00:00"
+    "last_scan": "2026-04-15T06:35:59.376248+00:00"
   }
 }

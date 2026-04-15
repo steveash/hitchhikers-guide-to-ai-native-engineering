@@ -25,9 +25,12 @@
         "https://simonwillison.net/2026/Apr/6/cleanup-claude-code-paste/#atom-everything",
         "https://simonwillison.net/2026/Apr/6/datasette-ports-2/#atom-everything",
         "https://simonwillison.net/2026/Apr/6/datasette-ports/#atom-everything",
-        "https://simonwillison.net/2026/Apr/6/scan-for-secrets/#atom-everything"
+        "https://simonwillison.net/2026/Apr/6/google-ai-edge-gallery/#atom-everything",
+        "https://simonwillison.net/2026/Apr/6/scan-for-secrets/#atom-everything",
+        "https://simonwillison.net/2026/Apr/7/project-glasswing/#atom-everything",
+        "https://simonwillison.net/2026/Apr/7/sqlite-wal-docker-containers/#atom-everything"
       ],
-      "last_scan": "2026-04-14T08:06:50.246481+00:00"
+      "last_scan": "2026-04-15T06:34:42.765330+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -43,7 +46,7 @@
         "https://lucumr.pocoo.org/2026/4/4/absurd-in-production/",
         "https://lucumr.pocoo.org/2026/4/8/mario-and-earendil/"
       ],
-      "last_scan": "2026-04-14T08:06:52.393626+00:00"
+      "last_scan": "2026-04-15T06:34:45.038495+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -80,70 +83,86 @@
         "69d7c7e5f4b5380001c805e3",
         "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-04-14T08:06:57.013802+00:00"
+      "last_scan": "2026-04-15T06:34:49.611388+00:00"
     },
     "github-copilot": {
       "seen": [
         "https://github.blog/changelog/2026-04-08-copilot-reviewed-pull-request-merge-metrics-now-in-the-usage-metrics-api",
         "https://github.blog/changelog/2026-04-08-github-mobile-research-and-code-with-copilot-cloud-agent-anywhere",
+        "https://github.blog/changelog/2026-04-09-remote-control-cli-sessions-on-web-and-mobile-in-public-preview",
         "https://github.blog/changelog/2026-04-10-copilot-cli-activity-now-included-in-usage-metrics-totals-and-feature-breakdowns",
         "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster",
         "https://github.blog/changelog/2026-04-10-copilot-usage-metrics-now-aggregate-copilot-cloud-agent-active-user-counts",
-        "https://github.blog/changelog/2026-04-10-pausing-new-github-copilot-pro-trials"
+        "https://github.blog/changelog/2026-04-10-enforcing-new-limits-and-retiring-opus-4-6-fast-from-copilot-pro",
+        "https://github.blog/changelog/2026-04-10-pausing-new-github-copilot-pro-trials",
+        "https://github.blog/changelog/2026-04-13-fix-merge-conflicts-in-three-clicks-with-copilot-cloud-agent"
       ],
-      "last_scan": "2026-04-14T08:06:54.904976+00:00"
+      "last_scan": "2026-04-15T06:34:47.360134+00:00"
     },
     "anthropic-engineering": {
       "seen": [
+        "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
         "https://www.anthropic.com/engineering/building-effective-agents",
         "https://www.anthropic.com/engineering/claude-code-best-practices",
         "https://www.anthropic.com/engineering/claude-think-tool",
         "https://www.anthropic.com/engineering/contextual-retrieval",
+        "https://www.anthropic.com/engineering/desktop-extensions",
         "https://www.anthropic.com/engineering/multi-agent-research-system",
-        "https://www.anthropic.com/engineering/swe-bench-sonnet"
+        "https://www.anthropic.com/engineering/swe-bench-sonnet",
+        "https://www.anthropic.com/engineering/writing-tools-for-agents"
       ],
-      "last_scan": "2026-04-14T08:06:59.084747+00:00"
+      "last_scan": "2026-04-15T06:34:51.657531+00:00"
     },
     "claude-blog": {
       "seen": [
         "https://claude.com/blog/amazon-bedrock-general-availability",
+        "https://claude.com/blog/android-app",
         "https://claude.com/blog/claude-2-1-prompting",
         "https://claude.com/blog/claude-2-amazon-bedrock",
+        "https://claude.com/blog/evaluate-prompts",
+        "https://claude.com/blog/fine-tune-claude-3-haiku",
         "https://claude.com/blog/prompt-generator",
         "https://claude.com/blog/team-plan-and-ios",
         "https://claude.com/blog/tool-use-ga"
       ],
-      "last_scan": "2026-04-14T08:07:01.146641+00:00"
+      "last_scan": "2026-04-15T06:34:53.700679+00:00"
     },
     "cursor-blog": {
       "seen": [
         "https://cursor.com/blog/box",
+        "https://cursor.com/blog/cursorbench",
         "https://cursor.com/blog/new-plugins",
         "https://cursor.com/blog/nvidia",
         "https://cursor.com/blog/planetscale",
         "https://cursor.com/blog/salesforce",
+        "https://cursor.com/blog/security-agents",
+        "https://cursor.com/blog/self-summarization",
         "https://cursor.com/blog/third-era"
       ],
-      "last_scan": "2026-04-14T08:07:03.210964+00:00"
+      "last_scan": "2026-04-15T06:34:55.747388+00:00"
     },
     "the-batch": {
       "seen": [
         "https://www.deeplearning.ai/the-batch/issue-i/",
         "https://www.deeplearning.ai/the-batch/issue-ii/",
         "https://www.deeplearning.ai/the-batch/issue-iii/",
-        "https://www.deeplearning.ai/the-batch/issue-iv/"
+        "https://www.deeplearning.ai/the-batch/issue-iv/",
+        "https://www.deeplearning.ai/the-batch/issue-v/",
+        "https://www.deeplearning.ai/the-batch/issue-vi/"
       ],
-      "last_scan": "2026-04-14T08:07:05.319778+00:00"
+      "last_scan": "2026-04-15T06:34:57.793900+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-improvement/",
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-documentation/",
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-issue-management/",
+        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/",
+        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-operations-release/",
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-quality-hygiene/"
       ],
-      "last_scan": "2026-04-14T08:07:07.476006+00:00"
+      "last_scan": "2026-04-15T06:34:59.921069+00:00"
     }
   },
-  "last_scan": "2026-04-14T08:07:07.476018+00:00"
+  "last_scan": "2026-04-15T06:34:59.921083+00:00"
 }
