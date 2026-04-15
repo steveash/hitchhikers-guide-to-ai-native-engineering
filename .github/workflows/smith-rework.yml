@@ -52,12 +52,14 @@ jobs:
         id: pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUM_REVIEW: ${{ github.event.pull_request.number }}
+          PR_NUM_COMMENT: ${{ github.event.issue.number }}
         run: |
-          # Normalize across event types
-          if [ "${{ github.event_name }}" = "pull_request_review" ]; then
-            PR_NUMBER="${{ github.event.pull_request.number }}"
-          else
-            PR_NUMBER="${{ steps.pr.outputs.pr_number }}"
+          # Normalize across event types — one will be set, one empty
+          PR_NUMBER="${PR_NUM_REVIEW:-$PR_NUM_COMMENT}"
+          if [ -z "$PR_NUMBER" ]; then
+            echo "ERROR: could not determine PR number from event"
+            exit 1
           fi
           echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
