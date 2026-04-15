@@ -505,22 +505,10 @@ scores above 65%, while pure delegation sessions dropped below 40%.
 
 ### The task-size threshold
 
-The three tiers above are organized by task *type*. There is a separate
-threshold organized by task *size*. For micro-tasks that take seconds to
-execute directly — a one-line regex, a known variable rename, a simple type
-annotation, a two-character typo fix — the overhead of writing the instruction,
-reviewing the output, and applying the result can exceed the time saved.
-
-> "Sometimes it's just faster to do the damn thing yourself instead of writing
-> a whole paragraph to an agent that still might do it wrong."
-> — daringrain32781
+If you can execute a task in under 10 seconds and you know exactly what to
+type, just type it. Agent overhead — writing the instruction, reviewing output,
+applying the result — exceeds the time saved for micro-tasks.
 [source: discussion-hn-agentic-coding-jobs, Claim 9] [anecdotal]
-
-Apply by feel: if you can execute in under 10 seconds and you know exactly
-what to type, just type it. Delegation is for judgment calls and things you
-would take more than a minute to figure out yourself, not for mechanical
-one-liners the agent will spend more time explaining than executing.
-[editorial]
 
 ### Example: applying the framework
 

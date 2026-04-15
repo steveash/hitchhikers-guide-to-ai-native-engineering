@@ -693,46 +693,6 @@ slash command would do the same job. If yes, skip the server.
 
 ### The billing window is not the inference window
 
-Tools that maintain session state — conversation history, tool traces,
-codebase scans — typically preserve this as a prompt cache prefix. The
-UI shows you the *inference* context window (what the model reasons over).
-The billing is based on the *cache* prefix, which can differ by orders of
-magnitude and is controlled by the vendor, not you.
-
-A concrete failure case documented in early 2026: a practitioner using
-Cursor Ultra saw a single API call with approximately 4,000 visible user
-input tokens billed as approximately 21 million cache read tokens — a
-5,250:1 ratio. The Cursor UI displayed "200k context window (summarized
-to stay within limits)," creating the impression that context was bounded
-and being managed. It was not. Summarization happens *after* billing:
-Anthropic charges for the cached prefix replay even when the content is
-subsequently truncated or summarized before inference. The 200k figure was
-the inference window; the billing input was the entire cached session state.
-[source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 3] [anecdotal]
-
-Cache breakpoints are determined by the vendor, not the user. Users have
-no mechanism to inspect, cap, or reduce the cached prefix size within the
-product UI; the only diagnostic path is exporting billing CSV data after
-the fact.
-[source: failure-cursor-ultra-billing-cache-explosion, Lesson 4] [anecdotal]
-
-```
-User input tokens:    ~4,000   (what the user typed)
-Cache read tokens:    ~21,000,000  (Cursor's hidden session state)
-Cost per call:        ~$12
-
-Monthly trajectory:   $60-100 (historical) → $500+ actual → ~$1,600 projected
-```
-
-This interacts with the "cache reads are cheap" framing from the MCP overhead
-section above. Bswen's Claim 8 establishes that cache reads cost 0.1x base
-input price.
-[source: blog-bswen-mcp-token-cost, Claim 8] [settled]
-At 21 million tokens, 0.1x of a very large number is still a very large
-number. "Cheap per token" does not mean "cheap overall" when vendor-managed
-session state scales independently of visible conversation length.
-[source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 2] [anecdotal]
-
 **Rule**: Never assume your UI context window display predicts your API bill.
 For tools using agentic or multi-step sessions, billing costs are not
 proportional to the visible conversation — expect superlinear cost growth as

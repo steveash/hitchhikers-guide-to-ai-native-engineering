@@ -923,15 +923,6 @@ timeline the evidence actually supports.
   full-tier licenses to them, not to a representative sample.
   [source: survey-pragmaticengineer-ai-tooling-2026, Claim 3;
   blog-faros-claude-code-roi, Claim 6] [emerging]
-- Before committing to a paid AI tool at team scale, run a 1-2 week billing
-  pilot under representative real workloads. Review the billing CSV — not the
-  product UI — at week's end. Tools using session-state caching can bill for
-  cached tokens that are orders of magnitude larger than the visible context
-  window, with no warning in the product UI. The UI shows the inference
-  window; billing reflects the cached session prefix, which is vendor-
-  controlled and may not be visible until you export data.
-  [source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 5, 6]
-  [anecdotal]
 
 **Months 3-6: Pilot with verification at Rung 1-2.**
 - Pilot users operate at turn-by-turn or action-batch review (no autonomous
