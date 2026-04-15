@@ -1,329 +1,6 @@
 {
   "items": [
     {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:48.819777+00:00",
-      "payload": {
-        "feed": {
-          "id": "github-copilot",
-          "url": "https://github.blog/changelog/feed/?label=copilot",
-          "source_type": "documentation",
-          "description": "GitHub Copilot changelog \u2014 Copilot-specific feature changes and updates",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster",
-          "title": "Copilot cloud agent\u2019s validation tools are now 20% faster",
-          "url": "https://github.blog/changelog/2026-04-10-copilot-cloud-agents-validation-tools-are-now-20-faster",
-          "published": "Fri, 10 Apr 2026 12:19:17 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:50.922062+00:00",
-      "payload": {
-        "feed": {
-          "id": "langchain-blog",
-          "url": "https://blog.langchain.com/rss/",
-          "source_type": "blog-post",
-          "description": "LangChain blog \u2014 agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "69d52d89f4b5380001c8028c",
-          "title": "Deep Agents v0.5",
-          "url": "https://blog.langchain.com/deep-agents-v0-5/",
-          "published": "Tue, 07 Apr 2026 17:06:51 GMT"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:50.922451+00:00",
-      "payload": {
-        "feed": {
-          "id": "langchain-blog",
-          "url": "https://blog.langchain.com/rss/",
-          "source_type": "blog-post",
-          "description": "LangChain blog \u2014 agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "69d68699f4b5380001c803f7",
-          "title": "Better Harness: A Recipe for Harness Hill-Climbing with Evals",
-          "url": "https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/",
-          "published": "Wed, 08 Apr 2026 19:30:20 GMT"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:50.922783+00:00",
-      "payload": {
-        "feed": {
-          "id": "langchain-blog",
-          "url": "https://blog.langchain.com/rss/",
-          "source_type": "blog-post",
-          "description": "LangChain blog \u2014 agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "69d6d0d3f4b5380001c804a5",
-          "title": "Human judgment in the agent improvement loop",
-          "url": "https://blog.langchain.com/human-judgment-in-the-agent-improvement-loop/",
-          "published": "Thu, 09 Apr 2026 15:00:12 GMT"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:52.960626+00:00",
-      "payload": {
-        "feed": {
-          "id": "anthropic-engineering",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
-          "source_type": "blog-post",
-          "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://www.anthropic.com/engineering/contextual-retrieval",
-          "title": "Introducing Contextual Retrieval",
-          "url": "https://www.anthropic.com/engineering/contextual-retrieval",
-          "published": "Thu, 19 Sep 2024 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:52.961128+00:00",
-      "payload": {
-        "feed": {
-          "id": "anthropic-engineering",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
-          "source_type": "blog-post",
-          "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://www.anthropic.com/engineering/building-effective-agents",
-          "title": "Building effective agents",
-          "url": "https://www.anthropic.com/engineering/building-effective-agents",
-          "published": "Thu, 19 Dec 2024 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:52.961513+00:00",
-      "payload": {
-        "feed": {
-          "id": "anthropic-engineering",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
-          "source_type": "blog-post",
-          "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://www.anthropic.com/engineering/swe-bench-sonnet",
-          "title": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
-          "url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
-          "published": "Mon, 06 Jan 2025 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:54.994051+00:00",
-      "payload": {
-        "feed": {
-          "id": "claude-blog",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
-          "source_type": "blog-post",
-          "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://claude.com/blog/claude-2-amazon-bedrock",
-          "title": "Claude 2 on Amazon Bedrock",
-          "url": "https://claude.com/blog/claude-2-amazon-bedrock",
-          "published": "Wed, 23 Aug 2023 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:54.994610+00:00",
-      "payload": {
-        "feed": {
-          "id": "claude-blog",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
-          "source_type": "blog-post",
-          "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://claude.com/blog/amazon-bedrock-general-availability",
-          "title": "Claude on Amazon Bedrock now available to every AWS customer",
-          "url": "https://claude.com/blog/amazon-bedrock-general-availability",
-          "published": "Thu, 28 Sep 2023 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:54.995103+00:00",
-      "payload": {
-        "feed": {
-          "id": "claude-blog",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
-          "source_type": "blog-post",
-          "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://claude.com/blog/claude-2-1-prompting",
-          "title": "Long context prompting for Claude 2.1",
-          "url": "https://claude.com/blog/claude-2-1-prompting",
-          "published": "Wed, 06 Dec 2023 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:57.056489+00:00",
-      "payload": {
-        "feed": {
-          "id": "cursor-blog",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
-          "source_type": "blog-post",
-          "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://cursor.com/blog/salesforce",
-          "title": "Salesforce accelerates velocity by over 30% and ships higher-quality code with Cursor",
-          "url": "https://cursor.com/blog/salesforce",
-          "published": "Wed, 21 Jan 2026 12:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:57.057129+00:00",
-      "payload": {
-        "feed": {
-          "id": "cursor-blog",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
-          "source_type": "blog-post",
-          "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://cursor.com/blog/nvidia",
-          "title": "NVIDIA commits 3x more code across 30,000 developers with Cursor",
-          "url": "https://cursor.com/blog/nvidia",
-          "published": "Fri, 06 Feb 2026 12:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:57.057726+00:00",
-      "payload": {
-        "feed": {
-          "id": "cursor-blog",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
-          "source_type": "blog-post",
-          "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://cursor.com/blog/box",
-          "title": "Box chooses Cursor for enterprise-grade quality, security, and control",
-          "url": "https://cursor.com/blog/box",
-          "published": "Fri, 13 Feb 2026 12:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:59.100355+00:00",
-      "payload": {
-        "feed": {
-          "id": "the-batch",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml",
-          "source_type": "blog-post",
-          "description": "DeepLearning.AI The Batch \u2014 weekly AI industry news roundup (Andrew Ng)",
-          "max_per_run": 2
-        },
-        "entry": {
-          "id": "https://www.deeplearning.ai/the-batch/issue-i/",
-          "title": "The Batch: Initializing Neural Networks Tutorial, Automatic Annotation, The Robots are Winning, Drones Go Commercial",
-          "url": "https://www.deeplearning.ai/the-batch/issue-i/",
-          "published": "Wed, 17 Apr 2019 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:03:59.101038+00:00",
-      "payload": {
-        "feed": {
-          "id": "the-batch",
-          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml",
-          "source_type": "blog-post",
-          "description": "DeepLearning.AI The Batch \u2014 weekly AI industry news roundup (Andrew Ng)",
-          "max_per_run": 2
-        },
-        "entry": {
-          "id": "https://www.deeplearning.ai/the-batch/issue-ii/",
-          "title": "The Batch: Un-Redacting Mueller, Attack Of The Robot Dogs, AI Gaming Champs, Training Data Transparency",
-          "url": "https://www.deeplearning.ai/the-batch/issue-ii/",
-          "published": "Wed, 24 Apr 2019 00:00:00 +0000"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:04:01.311254+00:00",
-      "payload": {
-        "feed": {
-          "id": "github-agentic-workflows",
-          "url": "https://github.github.com/gh-aw/blog/rss.xml",
-          "source_type": "documentation",
-          "description": "GitHub Agentic Workflows (gh-aw) blog \u2014 weekly updates on GitHub's agentic automation CLI",
-          "max_per_run": 2
-        },
-        "entry": {
-          "id": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-improvement/",
-          "title": "Meet the Workflows: Continuous Improvement",
-          "url": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-improvement/",
-          "published": "Tue, 13 Jan 2026 02:45:00 GMT"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:04:01.311993+00:00",
-      "payload": {
-        "feed": {
-          "id": "github-agentic-workflows",
-          "url": "https://github.github.com/gh-aw/blog/rss.xml",
-          "source_type": "documentation",
-          "description": "GitHub Agentic Workflows (gh-aw) blog \u2014 weekly updates on GitHub's agentic automation CLI",
-          "max_per_run": 2
-        },
-        "entry": {
-          "id": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-documentation/",
-          "title": "Meet the Workflows: Continuous Documentation",
-          "url": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-documentation/",
-          "published": "Tue, 13 Jan 2026 03:00:00 GMT"
-        }
-      }
-    },
-    {
       "scanner": "failures",
       "queued_at": "2026-04-14T08:04:55.783564+00:00",
       "payload": {
@@ -1017,63 +694,6 @@
           "author": "suzzer99",
           "created_at": "2026-01-03T21:31:15Z",
           "snippet": "I&#x27;ve been in the AI-code-assistant skeptic camp for a while, but a recent conversation with a dev I know and respect may be changing my mind. He&#x27;s solo-programmed a few popular online games and is working on another one. So I asked him for a specific feature example and to see his AGENTS.md file.<p>Here&#x27;s what he had to say about his workflow that prompted our discussion:<p>&quot;I\u2019m (we\u2019re) kicking out feature after feature that is being done right because I have an agentic AI fl"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:06:50.241864+00:00",
-      "payload": {
-        "feed": {
-          "id": "simon-willison",
-          "url": "https://simonwillison.net/atom/everything/",
-          "source_type": "blog-post",
-          "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://simonwillison.net/2026/Apr/6/cleanup-claude-code-paste/#atom-everything",
-          "title": "Cleanup Claude Code Paste",
-          "url": "https://simonwillison.net/2026/Apr/6/cleanup-claude-code-paste/#atom-everything",
-          "published": "2026-04-06T02:55:23+00:00"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:06:50.243603+00:00",
-      "payload": {
-        "feed": {
-          "id": "simon-willison",
-          "url": "https://simonwillison.net/atom/everything/",
-          "source_type": "blog-post",
-          "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://simonwillison.net/2026/Apr/6/scan-for-secrets/#atom-everything",
-          "title": "scan-for-secrets 0.3",
-          "url": "https://simonwillison.net/2026/Apr/6/scan-for-secrets/#atom-everything",
-          "published": "2026-04-06T02:59:28+00:00"
-        }
-      }
-    },
-    {
-      "scanner": "trusted",
-      "queued_at": "2026-04-14T08:06:50.245206+00:00",
-      "payload": {
-        "feed": {
-          "id": "simon-willison",
-          "url": "https://simonwillison.net/atom/everything/",
-          "source_type": "blog-post",
-          "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
-          "max_per_run": 3
-        },
-        "entry": {
-          "id": "https://simonwillison.net/2026/Apr/6/datasette-ports-2/#atom-everything",
-          "title": "datasette-ports 0.2",
-          "url": "https://simonwillison.net/2026/Apr/6/datasette-ports-2/#atom-everything",
-          "published": "2026-04-06T03:25:43+00:00"
         }
       }
     },
@@ -2121,6 +1741,2152 @@
     {
       "scanner": "failures",
       "queued_at": "2026-04-14T08:07:57.404228+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Skeptic impressed by colleague's AI workflow",
+          "url": "https://news.ycombinator.com/item?id=46481814",
+          "hn_url": "https://news.ycombinator.com/item?id=46481814",
+          "points": 6,
+          "num_comments": 2,
+          "author": "suzzer99",
+          "created_at": "2026-01-03T21:31:15Z",
+          "snippet": "I&#x27;ve been in the AI-code-assistant skeptic camp for a while, but a recent conversation with a dev I know and respect may be changing my mind. He&#x27;s solo-programmed a few popular online games and is working on another one. So I asked him for a specific feature example and to see his AGENTS.md file.<p>Here&#x27;s what he had to say about his workflow that prompted our discussion:<p>&quot;I\u2019m (we\u2019re) kicking out feature after feature that is being done right because I have an agentic AI fl"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:42.758056+00:00",
+      "payload": {
+        "feed": {
+          "id": "simon-willison",
+          "url": "https://simonwillison.net/atom/everything/",
+          "source_type": "blog-post",
+          "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://simonwillison.net/2026/Apr/6/google-ai-edge-gallery/#atom-everything",
+          "title": "Google AI Edge Gallery",
+          "url": "https://simonwillison.net/2026/Apr/6/google-ai-edge-gallery/#atom-everything",
+          "published": "2026-04-06T05:18:26+00:00"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:42.760733+00:00",
+      "payload": {
+        "feed": {
+          "id": "simon-willison",
+          "url": "https://simonwillison.net/atom/everything/",
+          "source_type": "blog-post",
+          "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://simonwillison.net/2026/Apr/7/sqlite-wal-docker-containers/#atom-everything",
+          "title": "SQLite WAL Mode Across Docker Containers Sharing a Volume",
+          "url": "https://simonwillison.net/2026/Apr/7/sqlite-wal-docker-containers/#atom-everything",
+          "published": "2026-04-07T15:41:00+00:00"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:42.763259+00:00",
+      "payload": {
+        "feed": {
+          "id": "simon-willison",
+          "url": "https://simonwillison.net/atom/everything/",
+          "source_type": "blog-post",
+          "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://simonwillison.net/2026/Apr/7/project-glasswing/#atom-everything",
+          "title": "Anthropic's Project Glasswing - restricting Claude Mythos to security researchers - sounds necessary to me",
+          "url": "https://simonwillison.net/2026/Apr/7/project-glasswing/#atom-everything",
+          "published": "2026-04-07T20:52:54+00:00"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:47.352318+00:00",
+      "payload": {
+        "feed": {
+          "id": "github-copilot",
+          "url": "https://github.blog/changelog/feed/?label=copilot",
+          "source_type": "documentation",
+          "description": "GitHub Copilot changelog \u2014 Copilot-specific feature changes and updates",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://github.blog/changelog/2026-04-10-enforcing-new-limits-and-retiring-opus-4-6-fast-from-copilot-pro",
+          "title": "Enforcing new limits and retiring Opus 4.6 Fast from Copilot Pro+",
+          "url": "https://github.blog/changelog/2026-04-10-enforcing-new-limits-and-retiring-opus-4-6-fast-from-copilot-pro",
+          "published": "Fri, 10 Apr 2026 22:56:46 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:47.355027+00:00",
+      "payload": {
+        "feed": {
+          "id": "github-copilot",
+          "url": "https://github.blog/changelog/feed/?label=copilot",
+          "source_type": "documentation",
+          "description": "GitHub Copilot changelog \u2014 Copilot-specific feature changes and updates",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://github.blog/changelog/2026-04-09-remote-control-cli-sessions-on-web-and-mobile-in-public-preview",
+          "title": "Remote control CLI sessions on web and mobile in public preview",
+          "url": "https://github.blog/changelog/2026-04-13-remote-control-cli-sessions-on-web-and-mobile-in-public-preview",
+          "published": "Mon, 13 Apr 2026 14:15:43 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:47.357629+00:00",
+      "payload": {
+        "feed": {
+          "id": "github-copilot",
+          "url": "https://github.blog/changelog/feed/?label=copilot",
+          "source_type": "documentation",
+          "description": "GitHub Copilot changelog \u2014 Copilot-specific feature changes and updates",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://github.blog/changelog/2026-04-13-fix-merge-conflicts-in-three-clicks-with-copilot-cloud-agent",
+          "title": "Fix merge conflicts in three clicks with Copilot cloud agent",
+          "url": "https://github.blog/changelog/2026-04-13-fix-merge-conflicts-in-three-clicks-with-copilot-cloud-agent",
+          "published": "Mon, 13 Apr 2026 19:36:26 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:51.649690+00:00",
+      "payload": {
+        "feed": {
+          "id": "anthropic-engineering",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+          "source_type": "blog-post",
+          "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://www.anthropic.com/engineering/desktop-extensions",
+          "title": "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+          "url": "https://www.anthropic.com/engineering/desktop-extensions",
+          "published": "Thu, 26 Jun 2025 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:51.652513+00:00",
+      "payload": {
+        "feed": {
+          "id": "anthropic-engineering",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+          "source_type": "blog-post",
+          "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+          "title": "Writing effective tools for agents \u2014 with agents",
+          "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+          "published": "Thu, 11 Sep 2025 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:51.655310+00:00",
+      "payload": {
+        "feed": {
+          "id": "anthropic-engineering",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+          "source_type": "blog-post",
+          "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+          "title": "A postmortem of three recent issues",
+          "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+          "published": "Wed, 17 Sep 2025 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:53.692747+00:00",
+      "payload": {
+        "feed": {
+          "id": "claude-blog",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
+          "source_type": "blog-post",
+          "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://claude.com/blog/evaluate-prompts",
+          "title": "Evaluate prompts in the developer console",
+          "url": "https://claude.com/blog/evaluate-prompts",
+          "published": "Tue, 09 Jul 2024 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:53.695633+00:00",
+      "payload": {
+        "feed": {
+          "id": "claude-blog",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
+          "source_type": "blog-post",
+          "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://claude.com/blog/fine-tune-claude-3-haiku",
+          "title": "Fine-tune Claude 3 Haiku in Amazon Bedrock",
+          "url": "https://claude.com/blog/fine-tune-claude-3-haiku",
+          "published": "Wed, 10 Jul 2024 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:53.698396+00:00",
+      "payload": {
+        "feed": {
+          "id": "claude-blog",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
+          "source_type": "blog-post",
+          "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://claude.com/blog/android-app",
+          "title": "Claude Android app",
+          "url": "https://claude.com/blog/android-app",
+          "published": "Tue, 16 Jul 2024 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:55.736443+00:00",
+      "payload": {
+        "feed": {
+          "id": "cursor-blog",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
+          "source_type": "blog-post",
+          "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://cursor.com/blog/cursorbench",
+          "title": "How we compare model quality in Cursor",
+          "url": "https://cursor.com/blog/cursorbench",
+          "published": "Wed, 11 Mar 2026 12:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:55.742295+00:00",
+      "payload": {
+        "feed": {
+          "id": "cursor-blog",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
+          "source_type": "blog-post",
+          "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://cursor.com/blog/security-agents",
+          "title": "Securing our codebase with autonomous agents",
+          "url": "https://cursor.com/blog/security-agents",
+          "published": "Mon, 16 Mar 2026 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:55.745061+00:00",
+      "payload": {
+        "feed": {
+          "id": "cursor-blog",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
+          "source_type": "blog-post",
+          "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
+          "max_per_run": 3
+        },
+        "entry": {
+          "id": "https://cursor.com/blog/self-summarization",
+          "title": "Training Composer for longer horizons",
+          "url": "https://cursor.com/blog/self-summarization",
+          "published": "Tue, 17 Mar 2026 12:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:57.788531+00:00",
+      "payload": {
+        "feed": {
+          "id": "the-batch",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml",
+          "source_type": "blog-post",
+          "description": "DeepLearning.AI The Batch \u2014 weekly AI industry news roundup (Andrew Ng)",
+          "max_per_run": 2
+        },
+        "entry": {
+          "id": "https://www.deeplearning.ai/the-batch/issue-v/",
+          "title": "The Batch: Explainable AI, Smaller Models, Labeled Data On Tap, Algorithms On Trial",
+          "url": "https://www.deeplearning.ai/the-batch/issue-v/",
+          "published": "Wed, 15 May 2019 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:57.791496+00:00",
+      "payload": {
+        "feed": {
+          "id": "the-batch",
+          "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml",
+          "source_type": "blog-post",
+          "description": "DeepLearning.AI The Batch \u2014 weekly AI industry news roundup (Andrew Ng)",
+          "max_per_run": 2
+        },
+        "entry": {
+          "id": "https://www.deeplearning.ai/the-batch/issue-vi/",
+          "title": "The Batch: Face Recognition Sparks Revolt, Deepfakes Find Their Voice, Retail Embraces AI",
+          "url": "https://www.deeplearning.ai/the-batch/issue-vi/",
+          "published": "Wed, 22 May 2019 00:00:00 +0000"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:59.915600+00:00",
+      "payload": {
+        "feed": {
+          "id": "github-agentic-workflows",
+          "url": "https://github.github.com/gh-aw/blog/rss.xml",
+          "source_type": "documentation",
+          "description": "GitHub Agentic Workflows (gh-aw) blog \u2014 weekly updates on GitHub's agentic automation CLI",
+          "max_per_run": 2
+        },
+        "entry": {
+          "id": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/",
+          "title": "Meet the Workflows: Metrics & Analytics",
+          "url": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/",
+          "published": "Tue, 13 Jan 2026 06:00:00 GMT"
+        }
+      }
+    },
+    {
+      "scanner": "trusted",
+      "queued_at": "2026-04-15T06:34:59.918648+00:00",
+      "payload": {
+        "feed": {
+          "id": "github-agentic-workflows",
+          "url": "https://github.github.com/gh-aw/blog/rss.xml",
+          "source_type": "documentation",
+          "description": "GitHub Agentic Workflows (gh-aw) blog \u2014 weekly updates on GitHub's agentic automation CLI",
+          "max_per_run": 2
+        },
+        "entry": {
+          "id": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-operations-release/",
+          "title": "Meet the Workflows: Operations & Release",
+          "url": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-operations-release/",
+          "published": "Tue, 13 Jan 2026 07:00:00 GMT"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.074747+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I fixed FFmpeg's subtitle conversion (the bug from 2014)",
+          "url": "https://connollydavid.github.io/pgs-release/",
+          "hn_url": "https://news.ycombinator.com/item?id=47415044",
+          "points": 38,
+          "num_comments": 8,
+          "author": "slartibardfast0",
+          "created_at": "2026-03-17T16:39:30Z",
+          "snippet": "FFmpeg converts everything except subtitles across format boundaries. SRT to Blu-ray PGS? &quot;Subtitle encoding currently only possible from text to text or bitmap to bitmap.&quot; Ticket #3819, filed 2014.<p>I built this with Claude Code over a few weeks. Claude wrote most of the encoder, found an integer overflow in the decoder buffer tracking, and ran review from five angles. I read the Panasonic and Sony patents, made the architectural calls, and told it when it was wrong about the spec. W"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.078076+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Mercury \u2013 No-code orchestration for human and agent teams",
+          "url": "https://www.mercury.build/",
+          "hn_url": "https://news.ycombinator.com/item?id=47758643",
+          "points": 6,
+          "num_comments": 5,
+          "author": "ns90001",
+          "created_at": "2026-04-13T22:16:48Z",
+          "snippet": "Hey HN, I&#x27;m Naveen, one of three co-founders building Mercury (mercury.build).<p>We spent the last year in deploying AI agents for teams in large enterprises. The agents themselves worked fine. The problem was managing them. You&#x27;ve got Claude Code in a terminal, a research agent in a browser tab, a Slack bot somewhere else, a scheduling assistant in yet another window. It&#x27;s chaotic. There&#x27;s no single place to see what&#x27;s running, who&#x27;s doing what, or how things conne"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.081193+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Claude Code OAuth down for >12 hours",
+          "url": "https://news.ycombinator.com/item?id=47762585",
+          "hn_url": "https://news.ycombinator.com/item?id=47762585",
+          "points": 7,
+          "num_comments": 7,
+          "author": "pixel_popping",
+          "created_at": "2026-04-14T07:50:08Z",
+          "snippet": "Claude Code OAuth on 2.1.107 is stuck on `Paste code here if prompted &gt;` - Impossible to paste (tried many methods, INCLUDING typing with xdotool the OAuth), there is a serious error that seems under-reported outside of Reddit &amp; Discord right now, why isn&#x27;t this considered an emergency and isn&#x27;t reported on the status page.<p>It&#x27;s not about the account because the account isn&#x27;t even validated yet, clicking on the link given, success, claude.com gives out the Token, the"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.084247+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Nori CLI, a better interface for Claude Code (no flicker)",
+          "url": "https://github.com/tilework-tech/nori-cli",
+          "hn_url": "https://news.ycombinator.com/item?id=46616562",
+          "points": 37,
+          "num_comments": 9,
+          "author": "csressel",
+          "created_at": "2026-01-14T14:40:51Z",
+          "snippet": "Hi HN, my name&#x27;s Clifford and I&#x27;m one of the creators of Nori. I\u2019ve been using Claude Code heavily since last summer, and after understanding some of the tradeoffs with their TUI implementation, I knew I couldn&#x27;t see myself living for years with this interface as one of my daily-driver tools.<p>It is <i>not</i> a hard problem to make monospace text output performant, so why does Claude Code suffer from flicker and strobing in the terminal (<a href=\"https:&#x2F;&#x2F;github.com&#x2"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.087242+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Total Recall \u2013 write-gated memory for Claude Code",
+          "url": "https://github.com/davegoldblatt/total-recall",
+          "hn_url": "https://news.ycombinator.com/item?id=46907183",
+          "points": 67,
+          "num_comments": 32,
+          "author": "davegoldblatt",
+          "created_at": "2026-02-05T23:56:54Z",
+          "snippet": "built this because I got tired of re-teaching Claude Code the same context every session. Preferences, decisions, \u201cwe already tried X,\u201d \u201cdon\u2019t touch this file,\u201d etc. After a few days it starts to feel like onboarding the same coworker every morning.<p>Most \u201cagent memory\u201d tools auto-save everything. That feels good briefly, then memory turns into a junk drawer and retrieval gets noisy. Total Recall takes the opposite approach: a write gate. Before anything gets promoted, it asks one question: \u201cWi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.090293+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Self-host Reddit \u2013 2.38B posts, works offline, yours forever",
+          "url": "https://github.com/19-84/redd-archiver",
+          "hn_url": "https://news.ycombinator.com/item?id=46602324",
+          "points": 286,
+          "num_comments": 64,
+          "author": "19-84",
+          "created_at": "2026-01-13T15:35:09Z",
+          "snippet": "Reddit&#x27;s API is effectively dead for archival. Third-party apps are gone. Reddit has threatened to cut off access to the Pushshift dataset multiple times. But 3.28TB of Reddit history exists as a torrent right now, and I built a tool to turn it into something you can browse on your own hardware.<p>The key point: This doesn&#x27;t touch Reddit&#x27;s servers. Ever. Download the Pushshift dataset, run my tool locally, get a fully browsable archive. Works on an air-gapped machine. Works on a R"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.093379+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Skill that lets Claude Code/Codex spin up VMs and GPUs",
+          "url": "https://cloudrouter.dev/",
+          "hn_url": "https://news.ycombinator.com/item?id=47006393",
+          "points": 138,
+          "num_comments": 36,
+          "author": "austinwang115",
+          "created_at": "2026-02-13T19:02:17Z",
+          "snippet": "I&#x27;ve been working on CloudRouter, a skill + CLI that gives coding agents like Claude Code and Codex the ability to start cloud VMs and GPUs.<p>When an agent writes code, it usually needs to start a dev server, run tests, open a browser to verify its work. Today that all happens on your local machine. This works fine for a single task, but the agent is sharing your computer: your ports, RAM, screen. If you run multiple agents in parallel, it gets a bit chaotic. Docker helps with isolation, b"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.096593+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: A context-aware permission guard for Claude Code",
+          "url": "https://github.com/manuelschipper/nah/",
+          "hn_url": "https://news.ycombinator.com/item?id=47343927",
+          "points": 127,
+          "num_comments": 95,
+          "author": "schipperai",
+          "created_at": "2026-03-11T23:26:25Z",
+          "snippet": "We needed something like --dangerously-skip-permissions that doesn\u2019t nuke your untracked files, exfiltrate your keys, or install malware.<p>Claude Code&#x27;s permission system is allow-or-deny per tool, but that doesn\u2019t really scale. Deleting some files is fine sometimes. And git checkout is sometimes not fine. Even when you curate permissions, 200 IQ Opus can find a way around it. Maintaining a deny list is a fool&#x27;s errand.<p>nah is a PreToolUse hook that classifies every tool call by wha"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.099672+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Linggen \u2013 A local-first memory layer for your AI (Cursor, Zed, Claude)",
+          "url": "https://github.com/linggen/linggen",
+          "hn_url": "https://news.ycombinator.com/item?id=46328769",
+          "points": 36,
+          "num_comments": 10,
+          "author": "linggen",
+          "created_at": "2025-12-19T17:54:55Z",
+          "snippet": "Hi HN,<p>Working with multiple projects, I got tired of re-explaining our complex multi-node system to LLMs. Documentation helped, but plain text is hard to search without indexing and doesn&#x27;t work across projects. I built Linggen to solve this.<p>My Workflow:\nI use the Linggen VS Code extension to &quot;init my day.&quot; It calls the Linggen MCP to load memory instantly. Linggen indexes all my docs like it\u2019s remembering them\u2014it is awesome. One click loads the full architectural context, r"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.102835+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Comet MCP \u2013 Give Claude Code a browser that can click",
+          "url": "https://github.com/hanzili/comet-mcp",
+          "hn_url": "https://news.ycombinator.com/item?id=46483550",
+          "points": 28,
+          "num_comments": 27,
+          "author": "hanzili",
+          "created_at": "2026-01-04T00:48:38Z",
+          "snippet": "Hey HN,<p>Claude Code is pretty agentic now. It writes scripts, calls APIs, uses CLIs. But when something requires actually clicking through a website, it stops and asks me to do it.<p>Problem is, I&#x27;m often unfamiliar with these platforms myself. &quot;Go to App Store Connect and generate a P8 key&quot; okay but where? I end up spending 10 minutes navigating menus I&#x27;ve never seen before.<p>I started delegating these tasks to Perplexity&#x27;s Comet browser. It handles the clicking, ret"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.106057+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I figured out how to get consistent UI from Claude Code",
+          "url": "https://interface-design.dev/",
+          "hn_url": "https://news.ycombinator.com/item?id=46699260",
+          "points": 26,
+          "num_comments": 8,
+          "author": "Dammyjay93",
+          "created_at": "2026-01-20T23:44:22Z",
+          "snippet": "The answer is simple: the more &quot;prescriptive&quot; you are with instructions for Claude, the worse your output. The reason is that Claude tries to pattern match - it&#x27;s been trained on thousands of safe UI    patterns, which is why when you ask for &quot;a modern dashboard&quot; it doesn&#x27;t really think about the problem space; it just defaults to whatever safe design pattern it can whip up at the time.<p>I&#x27;ve been working on a Claude Code skill to combat generic UI output, and"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.109248+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: My OpenClaw doesn't respond. Anybody met with the same problem?",
+          "url": "https://news.ycombinator.com/item?id=47011472",
+          "hn_url": "https://news.ycombinator.com/item?id=47011472",
+          "points": 4,
+          "num_comments": 4,
+          "author": "Fendy1",
+          "created_at": "2026-02-14T04:09:29Z",
+          "snippet": "Problem: I installed OpenClaw multiple times on several Macs. It just didn&#x27;t respond to me. Some of my friends met with the same problem.<p>I suspect that it might be the failure of calling Claude Code through setup-token because I use its subscription plan.<p>The official doc says it supports calling Claude Code through subscription, and I just need to generate a setup token. But it turns out it never worked. Openclaw just didn;t respond at all.<p>I changed to calling the OpenAI API key. I"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.112599+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Forcing Claude Code to Write Maintainable TypeScript",
+          "url": "https://github.com/MiguelsPizza/skills/tree/main/skills/maintainable-typescript",
+          "hn_url": "https://news.ycombinator.com/item?id=47619825",
+          "points": 4,
+          "num_comments": 2,
+          "author": "miguelspizza",
+          "created_at": "2026-04-02T20:35:37Z",
+          "snippet": "A lot of people are acting like code quality doesn\u2019t matter anymore. Coding is solved, agents will write everything, and nobody will need to read code line by line etc etc. I&#x27;ve not really been able to get CC to write good code by default but I chalked it up to a skill issue. So when CC leaked it was pretty shocking from a code maintainability standpoint and it was very clear to me that the issue is structural.<p>Reading the leaked prompts made the failure mode pretty obvious: the agent is "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.115813+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Claude-copy \u2013 Copy Claude Code output to clipboard",
+          "url": "https://github.com/clementrog/claude-copy",
+          "hn_url": "https://news.ycombinator.com/item?id=47424808",
+          "points": 4,
+          "num_comments": 2,
+          "author": "crog",
+          "created_at": "2026-03-18T12:21:12Z",
+          "snippet": "I use Claude Code all day. The single best habit I&#x27;ve added: paste its output into a second model before letting it execute. Catches bad plans before they ship.<p>The friction was copying. Terminal selection is unreliable \u2014 ANSI codes, scroll position, font size all break it. Annoying enough that you skip the review.<p>claude-copy fixes this. It doesn&#x27;t scrape the terminal. It finds the focused tab&#x27;s PID, maps it to the right Claude Code session in ~&#x2F;.claude&#x2F;, and reads "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.119070+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: A-MEM \u2013 Memory for Claude Code that links and evolves on its own",
+          "url": "https://github.com/DiaaAj/a-mem-mcp",
+          "hn_url": "https://news.ycombinator.com/item?id=46636707",
+          "points": 8,
+          "num_comments": 4,
+          "author": "AttentionBlock",
+          "created_at": "2026-01-15T18:15:04Z",
+          "snippet": "Hi HN,<p>I have been recently geeking on agentic memories, and I believe I finally came up with something that works.<p>I spent the last couple of weeks building a memory[0] for Claude Code that dynamically evolve as you talk with it.  I followed a new paradigm inspired from zettelkasten method.  Whenever Claude discover something new in the codebase or during your conversation with it, it writes a note about it, link it with related memories, update the related memories accordingly, and store i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.122377+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I replaced Beads with a faster, simpler Markdown-based task tracker",
+          "url": "https://github.com/wedow/ticket",
+          "hn_url": "https://news.ycombinator.com/item?id=46487580",
+          "points": 84,
+          "num_comments": 51,
+          "author": "wild_egg",
+          "created_at": "2026-01-04T13:08:12Z",
+          "snippet": "I&#x27;ve been running long duration coding agents with Claude Code for about 6 months now. Steve Yegge released Beads back in October and I found that giving Claude tools for proper task tracking was a massive unlock. But Beads grew massively in a short time and every release made it slower and more frustrating to use. I started battling it several times a week as its background daemon took to syncing the wrong things at the wrong times.<p>Over the holidays I finally ripped it out and wrote tic"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.125714+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I built a refinery simulator game to explain job to my kids",
+          "url": "https://fuelingcuriosity.com/game.html",
+          "hn_url": "https://news.ycombinator.com/item?id=47338091",
+          "points": 127,
+          "num_comments": 55,
+          "author": "fuelingcurious",
+          "created_at": "2026-03-11T16:56:51Z",
+          "snippet": "Hi HN,\nI\u2019m a chemical engineer and I manage logistics at a refinery down in Texas. Whenever I try to explain downstream operations to people outside the industry (including my kids), I usually get blank stares. I wanted to build something that visualizes the concepts and chemistry of a plant without completely dumbing down the science, so I put together this 5-minute browser game.<p>Here&#x27;s a simple runthrough: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=is-moBz6upU\" rel=\"nofollo"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.129064+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Vanilla JavaScript refinery simulator built to explain job to my kids",
+          "url": "https://fuelingcuriosity.com/game",
+          "hn_url": "https://news.ycombinator.com/item?id=47224637",
+          "points": 7,
+          "num_comments": 10,
+          "author": "fuelingcurious",
+          "created_at": "2026-03-02T21:48:35Z",
+          "snippet": "Hi HN,\nI\u2019m a chemical engineer and I manage logistics at a refinery down in Texas. Whenever I try to explain downstream operations to people outside the industry (including my kids), I usually get blank stares. I wanted to build something that visualizes the concepts and chemistry of a plant without completely dumbing down the science, so I put together this 5-minute browser game.<p>I am not a software developer by trade, so I relied heavily on LLMs (Claude, Copilot, Gemini) to help write the co"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.132420+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: Is Claude Code bad for ADHD?",
+          "url": "https://news.ycombinator.com/item?id=46639144",
+          "hn_url": "https://news.ycombinator.com/item?id=46639144",
+          "points": 6,
+          "num_comments": 4,
+          "author": "chriswright1664",
+          "created_at": "2026-01-15T20:52:51Z",
+          "snippet": "I think it might be.<p>I have ADHD. I&#x27;ve posted a little here on that. This one was cool, 142 comments: https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=46610156.<p>Claude is powerful. This week feels like it has moved up a notch (running for 20mins on longer tasks and then getting stuff right). I don&#x27;t know if&#x2F;when&#x2F;how it replaces devs, I know a lot on here have very strong thoughts on it. But for someone like me it is like rocket fuel.<p>But then ADHD. I&#x27;ve realised"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.135743+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Retain \u2013 A unified knowledge base for all your AI coding conversations",
+          "url": "https://github.com/BayramAnnakov/retain",
+          "hn_url": "https://news.ycombinator.com/item?id=46710756",
+          "points": 45,
+          "num_comments": 16,
+          "author": "Bayram",
+          "created_at": "2026-01-21T19:59:42Z",
+          "snippet": "Hey HN! I built Retain as the evolution of claude-reflect (github.com&#x2F;BayramAnnakov&#x2F;claude-reflect).<p>The original problem: I use Claude Code&#x2F;Codex daily for coding, plus claude.ai and ChatGPT occasionally. Every conversation contains decisions, corrections, and patterns I forget existed weeks later. I kept re-explaining the same preferences.<p>claude-reflect was a CLI tool that extracted learnings from Claude Code sessions. Retain takes this further with a native macOS app that:"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.139176+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Distributing AI agent skills via NPM",
+          "url": "https://github.com/RaoHai/agent-skill-npm-boilerplate",
+          "hn_url": "https://news.ycombinator.com/item?id=46550350",
+          "points": 6,
+          "num_comments": 2,
+          "author": "surgesoft",
+          "created_at": "2026-01-09T05:24:43Z",
+          "snippet": "Hey HN! Built a template for distributing AI agent skills via npm.<p><pre><code>  Problem: AI coding tools (Claude Code, Cursor, Windsurf) support custom\n  &quot;skills&quot; but distribution is manual - copy files to ~&#x2F;.tool&#x2F;skills&#x2F;,\n  repeat for updates, no versioning.\n\n  Solution: Standard npm packages with lifecycle hooks:\n    npm install -g @org&#x2F;my-skill\n    npm update -g @org&#x2F;my-skill\n\n  Benefits:\n  - Semantic versioning (^1.2.0 for auto-updates)\n  - Private regist"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.142539+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: 20+ Claude Code agents coordinating on real work (open source)",
+          "url": "https://github.com/mutable-state-inc/lean-collab",
+          "hn_url": "https://news.ycombinator.com/item?id=46990733",
+          "points": 53,
+          "num_comments": 39,
+          "author": "austinbaggio",
+          "created_at": "2026-02-12T16:23:37Z",
+          "snippet": "Single-agent LLMs suck at long-running complex tasks.<p>We\u2019ve open-sourced a multi-agent orchestrator that we\u2019ve been using to handle long-running LLM tasks. We found that single LLM agents tend to stall, loop, or generate non-compiling code, so we built a harness for agents to coordinate over shared context while work is in progress.<p>How it works:\n1. Orchestrator agent that manages task decomposition\n2. Sub-agents for parallel work\n3. Subscriptions to task state and progress\n4. Real-time shar"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.146019+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Simple plugin to get Claude Code to listen to you",
+          "url": "https://www.gopeek.ai",
+          "hn_url": "https://news.ycombinator.com/item?id=47371284",
+          "points": 18,
+          "num_comments": 7,
+          "author": "itsankur",
+          "created_at": "2026-03-13T23:15:22Z",
+          "snippet": "Hey HN,<p>My cofounder and I have gotten tired of CC ignoring our markdown files so we spent 4 days and built a plugin that automatically steers CC based on our previous sessions. The problem is usually post plan-mode.<p>What we&#x27;ve tried:<p>Heavily use plan mode (works great)<p>CLAUDE.md, AGENTS.md, MEMORY.md<p>Local context folder (upkeep is a pain)<p>Cursor rules (for Cursor)<p>claude-mem (OSS) -&gt; does session continuity, not steering<p>We use fusion search to find your CC steering cor"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.149560+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Ccmux \u2013 Reduce context switching for parallel Claude Code sessions",
+          "url": "https://github.com/TheHumbleTransistor/ccmux",
+          "hn_url": "https://news.ycombinator.com/item?id=47223142",
+          "points": 10,
+          "num_comments": 5,
+          "author": "raykamp",
+          "created_at": "2026-03-02T19:50:13Z",
+          "snippet": "I\u2019ve been running parallel Claude Code instances while working on different tasks. Two problems kept slowing me down:<p><pre><code>  1. I was constantly jumping between terminals to see which session needed input.\n\n  2. Using git worktrees added setup friction (installing deps, bootstrapping environments, etc.), which discouraged parallel work.\n</code></pre>\nSo I built ccmux.<p>It\u2019s a thin layer on top of tmux that:<p><pre><code>  - Adds a glanceable sidebar UI showing all Claude Code sessions\n\n"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.152984+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I built a 55K-word email marketing knowledge base and Claude Code skill",
+          "url": "https://www.emailmarketingskill.com/",
+          "hn_url": "https://news.ycombinator.com/item?id=47096335",
+          "points": 10,
+          "num_comments": 2,
+          "author": "cosmoblk",
+          "created_at": "2026-02-21T01:08:21Z",
+          "snippet": "I co-founded SmartrMail (email marketing SaaS, 12K ecommerce customers, acquired 2022). When I left, I no longer had access to the sending data I&#x27;d spent years learning from,  billions of sent emails, deliverability patterns, things that actually move email engagement<p>Cos&#x27; I don&#x27;t have this data anymore, I built the best thing I could to help with the email marketing I currently do:<p>---<p>my research process<p>Multiple sprints across all major email marketing topics. The crawl"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.156479+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: MCP-tidy \u2013 How many MCPs in your Claude Code are you actually using?",
+          "url": "https://github.com/nnnkkk7/mcp-tidy",
+          "hn_url": "https://news.ycombinator.com/item?id=46507815",
+          "points": 10,
+          "num_comments": 2,
+          "author": "sr-white",
+          "created_at": "2026-01-06T01:54:09Z",
+          "snippet": "Hi HN, I built mcp-tidy to solve a problem I kept running into with Claude Code.<p>As I tried different MCP servers over the past few months, my ~&#x2F;.claude.json accumulated servers I&#x27;d forgotten about. Claude Code loads all tool descriptions (built-in + MCP) into context, so unused servers add overhead you don&#x27;t need.<p>The tool is simple: three commands.<p>- `mcp-tidy list` - see what&#x27;s configured (global + per-project)\n- `mcp-tidy stats` - check actual usage from transcript "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.159934+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I made a Mario Galaxy game with Claude Code and Three.js in 53 days",
+          "url": "https://supertommy.com/games/super-mario-galaxy-movie-game/",
+          "hn_url": "https://news.ycombinator.com/item?id=47600002",
+          "points": 7,
+          "num_comments": 14,
+          "author": "supertommy",
+          "created_at": "2026-04-01T12:34:56Z",
+          "snippet": "I&#x27;m the developer. Happy to share the process and learnings.<p>Architecture:<p>- Custom SoA ECS for cache-friendly iteration, zero allocations in hot loops. Benchmarked against bitECS&#x2F;miniplex.<p>- Process manager inspired by Game Code Complete&#x27;s but data-oriented so processes are pure data, systems contain the logic.<p>- Multi-field gravity with 5 types (point, parallel, segment, cylinder, convex hull) with spring-damped transitions between fields.<p>- Rapier3D WASM with SIMD. Gr"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.163465+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Agent Flow: A beautiful way to visualize Claude Code actions",
+          "url": "https://github.com/patoles/agent-flow",
+          "hn_url": "https://news.ycombinator.com/item?id=47528814",
+          "points": 5,
+          "num_comments": 3,
+          "author": "daco",
+          "created_at": "2026-03-26T10:42:43Z",
+          "snippet": "Hey HN,<p>Claude Code is powerful, but its execution is a black box. You see the final result, not the journey. Agent Flow makes the invisible visible in realtime:<p>- Understand agent behavior: See how Claude breaks down problems, which tools it reaches for, and how subagents coordinate - Debug tool call chains: When something goes wrong, trace the exact sequence of decisions and tool calls that led there - See where time is spent: Identify slow tool calls, unnecessary branching, or redundant w"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.166977+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Optio \u2013 Orchestrate AI coding agents in K8s to go from ticket to PR",
+          "url": "https://github.com/jonwiggins/optio",
+          "hn_url": "https://news.ycombinator.com/item?id=47520220",
+          "points": 88,
+          "num_comments": 60,
+          "author": "jawiggins",
+          "created_at": "2026-03-25T17:10:21Z",
+          "snippet": "I think like many of you, I&#x27;ve been jumping between many claude code&#x2F;codex sessions at a time, managing multiple lines of work and worktrees in multiple repos. I wanted a way to easily manage multiple lines of work and reduce the amount of input I need to give, allowing the agents to remove me as a bottleneck from as much of the process as I can. So I built an orchestration tool for AI coding agents:<p>Optio is an open-source orchestration system that turns tickets into merged pull req"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.170510+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: TheAuditor v2.0 \u2013 A \u201cFlight Computer\u201d for AI Coding Agents",
+          "url": "https://github.com/TheAuditorTool/Auditor",
+          "hn_url": "https://news.ycombinator.com/item?id=46288453",
+          "points": 40,
+          "num_comments": 12,
+          "author": "ThailandJohn",
+          "created_at": "2025-12-16T13:50:15Z",
+          "snippet": "I\u2019m a former Systems Architect (Cisco&#x2F;VMware) turned builder in Thailand. TheAuditor v2.0 is a complete architectural rewrite (800+ commits) of the prototype I posted three months ago.<p>The &quot;A-ha&quot; moment for me didn&#x27;t come from a success; it came from a massive failure. I was trying to use AI to refactor a complex schema change (a foundation change from &quot;Products&quot; to &quot;ProductsVariants&quot;), and due to the scope of it, it failed spectacularly. I realized two "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.174123+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Launch HN: Nia (YC S25) \u2013 Give better context to coding agents",
+          "url": "https://www.trynia.ai/",
+          "hn_url": "https://news.ycombinator.com/item?id=46194828",
+          "points": 131,
+          "num_comments": 87,
+          "author": "jellyotsiro",
+          "created_at": "2025-12-08T17:10:14Z",
+          "snippet": "Hi HN, I am Arlan and I am building Nia (<a href=\"https:&#x2F;&#x2F;trynia.ai\" rel=\"nofollow\">https:&#x2F;&#x2F;trynia.ai</a>), a context layer for AI coding agents. Nia lets tools like Cursor, Claude Code, and other MCP clients index and query real codebases and documentation so they stop hallucinating against outdated or wrong sources, with applications beyond coding agents to any AI system that requires grounded context across domains.<p>Coding agents are only as good as the context you give "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.178579+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: AI SDLC Scaffold, repo template for AI-assisted software development",
+          "url": "https://github.com/pangon/ai-sdlc-scaffold/",
+          "hn_url": "https://news.ycombinator.com/item?id=47466513",
+          "points": 27,
+          "num_comments": 12,
+          "author": "pangon",
+          "created_at": "2026-03-21T12:43:09Z",
+          "snippet": "I built an open-source repo template that brings structure to AI-assisted software development, starting from the pre-coding phases: objectives, user stories, requirements, architecture decisions.<p>It&#x27;s designed around Claude Code but the ideas are tool-agnostic. I&#x27;ve been a computer science researcher and full-stack software engineer for 25 years, working mainly in startups. I&#x27;ve been using this approach on my personal projects for a while, then, when I decided to package it up "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.182248+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Steadwing \u2013 Your Autonomous On-Call Engineer",
+          "url": "https://www.steadwing.com/",
+          "hn_url": "https://news.ycombinator.com/item?id=47270724",
+          "points": 12,
+          "num_comments": 5,
+          "author": "abejith",
+          "created_at": "2026-03-06T04:02:25Z",
+          "snippet": "Hey HN! We\u2019re Abejith and Dev, and we\u2019re building Steadwing (<a href=\"https:&#x2F;&#x2F;www.steadwing.com\" rel=\"nofollow\">https:&#x2F;&#x2F;www.steadwing.com</a>) - an autonomous on-call engineer that diagnoses production incidents&#x2F;alerts, correlates evidence across your stack, and resolves them. You can try it at <a href=\"https:&#x2F;&#x2F;app.steadwing.com&#x2F;signup\" rel=\"nofollow\">https:&#x2F;&#x2F;app.steadwing.com&#x2F;signup</a> (no credit card required and a demo mode is available)"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.185876+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: OpenTiger \u2013 Autonomous dev orchestration that never stops",
+          "url": "https://github.com/Andyyyy64/openTiger",
+          "hn_url": "https://news.ycombinator.com/item?id=47108068",
+          "points": 11,
+          "num_comments": 2,
+          "author": "andyyyy64",
+          "created_at": "2026-02-22T04:10:49Z",
+          "snippet": "Hi HN. I&#x27;ve been running AI coding agents (Claude Code, Codex, etc.) on real repos for a while now. The dirty secret of &quot;autonomous coding&quot; is that agents stop all the time \u2014 quota limits, test failures, policy violations, bad judgement calls. You end up babysitting them.<p>So I asked a different question: what if the system was designed around the assumption that agents WILL fail, and the job of the infrastructure is to never let that failure become a dead end?<p>openTiger is a &"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.189554+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Continue \u2013 Source-controlled AI checks, enforceable in CI",
+          "url": "https://docs.continue.dev",
+          "hn_url": "https://news.ycombinator.com/item?id=47049848",
+          "points": 44,
+          "num_comments": 7,
+          "author": "sestinj",
+          "created_at": "2026-02-17T17:08:14Z",
+          "snippet": "We now write most of our code with agents. For a while, PRs piled up, causing review fatigue, and we had this sinking feeling that standards were slipping. Consistency is tough at this volume. I\u2019m sharing the solution we found, which has become our main product.<p>Continue (<a href=\"https:&#x2F;&#x2F;docs.continue.dev\">https:&#x2F;&#x2F;docs.continue.dev</a>) runs AI checks on every PR. Each check is a source-controlled markdown file in `.continue&#x2F;checks&#x2F;` that shows up as a GitHub sta"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.193300+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Stripe-no-webhooks \u2013 Sync your Stripe data to your Postgres DB",
+          "url": "https://github.com/pretzelai/stripe-no-webhooks",
+          "hn_url": "https://news.ycombinator.com/item?id=46963177",
+          "points": 66,
+          "num_comments": 30,
+          "author": "prasoonds",
+          "created_at": "2026-02-10T17:14:48Z",
+          "snippet": "Hey HN, stripe-no-webhooks is an open-source library that syncs your Stripe payments data to your own Postgres database:\n<a href=\"https:&#x2F;&#x2F;github.com&#x2F;pretzelai&#x2F;stripe-no-webhooks\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;pretzelai&#x2F;stripe-no-webhooks</a>.<p>Here&#x27;s a demo video: <a href=\"https:&#x2F;&#x2F;youtu.be&#x2F;cyEgW7wElcs\" rel=\"nofollow\">https:&#x2F;&#x2F;youtu.be&#x2F;cyEgW7wElcs</a><p>Why is this useful? (1) You don&#x27;t have to figure out which we"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.197004+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Kelet \u2013 Root Cause Analysis agent for your LLM apps",
+          "url": "https://kelet.ai/",
+          "hn_url": "https://news.ycombinator.com/item?id=47767606",
+          "points": 42,
+          "num_comments": 21,
+          "author": "almogbaku",
+          "created_at": "2026-04-14T16:16:51Z",
+          "snippet": "I&#x27;ve spent the past few years building 50+ AI agents in prod (some reached 1M+ sessions&#x2F;day), and the hardest part was never building them \u2014 it was figuring out why they fail.<p>AI agents don&#x27;t crash. They just quietly give wrong answers. You end up scrolling through traces one by one, trying to find a pattern across hundreds of sessions.<p>Kelet automates that investigation. Here&#x27;s how it works:<p>1. You connect your traces and signals (user feedback, edits, clicks, sentimen"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.200807+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: OctopusGarden \u2013 An autonomous software factory (specs in, code out)",
+          "url": "https://github.com/foundatron/octopusgarden",
+          "hn_url": "https://news.ycombinator.com/item?id=47226107",
+          "points": 8,
+          "num_comments": 5,
+          "author": "foundatron",
+          "created_at": "2026-03-03T00:07:15Z",
+          "snippet": "I built this over the weekend after reading about StrongDM&#x27;s software factory (their writeup: <a href=\"https:&#x2F;&#x2F;factory.strongdm.ai&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;factory.strongdm.ai&#x2F;</a>, Simon Willison&#x27;s deep dive: <a href=\"https:&#x2F;&#x2F;simonwillison.net&#x2F;2026&#x2F;Feb&#x2F;7&#x2F;software-factory&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;simonwillison.net&#x2F;2026&#x2F;Feb&#x2F;7&#x2F;software-factory&#x2F;</a>, Dan Shapiro&#x27;s Five Levels: <a href="
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.204606+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: FreeFlow \u2013 Open-Source Wispr Flow",
+          "url": "https://github.com/build-trust/freeflow",
+          "hn_url": "https://news.ycombinator.com/item?id=47411467",
+          "points": 4,
+          "num_comments": 4,
+          "author": "_mrinalwadhwa_",
+          "created_at": "2026-03-17T12:00:22Z",
+          "snippet": "Hi HN!<p>Voice is fast-becoming my primary interface to computers and AI. I built FreeFlow because I wanted a Wispr Flow-like experience for our entire team, but customizable and private.<p>Press a hotkey, dictate naturally, polished text appears in any app. Ramble, use filler words, correct yourself mid-sentence. FreeFlow turns messy speech into clean writing and injects it wherever your cursor is: your messaging app, your editor, your coding agent, the terminal, email, anything.<p>Demo (sound "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.208402+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I/Claude reverse-engineered Figma's binary WebSocket protocol",
+          "url": "https://github.com/allan-simon/figma-kiwi-protocol",
+          "hn_url": "https://news.ycombinator.com/item?id=47607324",
+          "points": 7,
+          "num_comments": 3,
+          "author": "allan_s",
+          "created_at": "2026-04-01T22:25:09Z",
+          "snippet": "Disclaimer: this is vibe-coded \u2014 (&lt;- I lost you there) the README, most of the code, and the binary format reverse-engineering were done with Claude. But the tool works and I use it everyday for some days now. As Baudelaire said &quot;qu&#x27;importe le flacon, pourvu qu&#x27;on ait l&#x27;ivresse.&quot;<p>~I~ Claude built a tool that decodes Figma&#x27;s internal binary protocol (Kiwi format over WebSocket) to extract the full scenegraph \u2014 every node, vector path, and style \u2014 without hitting"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.212342+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: CyberCage \u2013 Security platform for AI tools and MCP servers",
+          "url": "https://cybercage.io/",
+          "hn_url": "https://news.ycombinator.com/item?id=46235072",
+          "points": 6,
+          "num_comments": 5,
+          "author": "ziyasal",
+          "created_at": "2025-12-11T18:29:15Z",
+          "snippet": "We&#x27;ve been building with AI tools and noticed there wasn&#x27;t a good way to manage MCP servers across a team or see what&#x27;s actually flowing to LLM providers. Who&#x27;s running what? Which tools are approved? What data is going where or whats shared on AI websites?<p>So we built CyberCage (&lt;<a href=\"https:&#x2F;&#x2F;cybercage.io\" rel=\"nofollow\">https:&#x2F;&#x2F;cybercage.io</a>&gt;).<p><i>What it does:</i><p>MCP Management \u2014 Auto or manual discovery of MCP servers, with approval"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.216187+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: WebBridge turns any website into MCP tools by recording browser traffic",
+          "url": "https://github.com/jalabulajunx/WebBridge",
+          "hn_url": "https://news.ycombinator.com/item?id=47282494",
+          "points": 4,
+          "num_comments": 2,
+          "author": "nonstopnonsense",
+          "created_at": "2026-03-06T23:29:40Z",
+          "snippet": "I am a 40+-year-old-slightly-techie-middle-aged-man who occasionally writes code to make life easier. I was a developer once - a very long time ago. I am an Engineer by degree and my instinct goes for solution. I work in tech - but on the &quot;_request_ developers what to build&quot; side, not the &quot;actually build it&quot; side. With AI, I am now able to build more.<p>So I built WebBridge (yes - not so fancy name there). (Well - Claude built it. I directed. Like every PM does.)<p>What it ac"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.219980+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Mcptube \u2013 Karpathy's LLM Wiki idea applied to YouTube videos",
+          "url": "https://github.com/0xchamin/mcptube",
+          "hn_url": "https://news.ycombinator.com/item?id=47754559",
+          "points": 13,
+          "num_comments": 2,
+          "author": "0xchamin",
+          "created_at": "2026-04-13T16:34:09Z",
+          "snippet": "I watch a lot of Stanford&#x2F;Berkeley lectures and YouTube content on AI agents, MCP, and security. Got tired of scrubbing through hour-long videos to find one explanation. Built v1 of mcptube a few months ago. It performs transcript search and implements Q&amp;A as an MCP server. It got traction (34 stars, my first open-source PR, some notable stargazers like CEO of Trail of Bits).<p>But v1 re-searched raw chunks from scratch every query. So I rebuilt it.<p>v2 (mcptube-vision) follows Karpath"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.223845+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: KeelTest \u2013 AI-driven VS Code unit test generator with bug discovery",
+          "url": "https://keelcode.dev/keeltest",
+          "hn_url": "https://news.ycombinator.com/item?id=46526088",
+          "points": 30,
+          "num_comments": 15,
+          "author": "bulba4aur",
+          "created_at": "2026-01-07T13:22:35Z",
+          "snippet": "I built this because Cursor, Claude Code and other agentic AI tools kept giving me tests that looked fine but failed when I ran them. Or worse - I&#x27;d ask the agent to run them and it would start looping: fix tests, those fail, then it starts &quot;fixing&quot; my code so tests pass, or just deletes assertions so they &quot;pass&quot;.<p>Out of that frustration I built KeelTest - a VS Code extension that generates pytest tests and executes them, got hooked and decided to push this project for"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.227729+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Mcp2cli \u2013 One CLI for every API, 96-99% fewer tokens than native MCP",
+          "url": "https://github.com/knowsuchagency/mcp2cli",
+          "hn_url": "https://news.ycombinator.com/item?id=47305149",
+          "points": 146,
+          "num_comments": 101,
+          "author": "knowsuchagency",
+          "created_at": "2026-03-09T05:18:46Z",
+          "snippet": "Every MCP server injects its full tool schemas into context on every turn \u2014 30 tools costs ~3,600 tokens&#x2F;turn whether the model uses them or not. Over 25 turns with 120 tools, that&#x27;s 362,000 tokens just for schemas.<p>mcp2cli turns any MCP server or OpenAPI spec into a CLI at runtime. The LLM discovers tools on demand:<p><pre><code>    mcp2cli --mcp https:&#x2F;&#x2F;mcp.example.com&#x2F;sse --list             # ~16 tokens&#x2F;tool\n    mcp2cli --mcp https:&#x2F;&#x2F;mcp.example.com&#"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.231661+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Mission Control \u2013 Open-source task management for AI agents",
+          "url": "https://github.com/MeisnerDan/mission-control",
+          "hn_url": "https://news.ycombinator.com/item?id=47165602",
+          "points": 45,
+          "num_comments": 21,
+          "author": "meisnerd",
+          "created_at": "2026-02-26T13:12:33Z",
+          "snippet": "I&#x27;ve been delegating work to Claude Code for the past few months, and it&#x27;s been genuinely transformative\u2014but managing multiple agents doing different things became chaos. No tool existed for this workflow, so I built one.\n<i>The Problem</i><p>When you&#x27;re working with AI agents (Claude Code, Cursor, Windsurf), you end up in a weird situation: - You have tasks scattered across your head, Slack, email, and the CLI - Agents need clear work items, context, and role-specific instruction"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.235621+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Altimate Code \u2013 Open-Source Agentic Data Engineering Harness",
+          "url": "https://github.com/AltimateAI/altimate-code",
+          "hn_url": "https://news.ycombinator.com/item?id=47438930",
+          "points": 20,
+          "num_comments": 2,
+          "author": "aaur0",
+          "created_at": "2026-03-19T13:19:20Z",
+          "snippet": "I&#x27;m Anand, co-founder and CTO of Altimate AI. My co-founder Pradnesh and I are open-sourcing Altimate Code. AMA.<p>Why we built this:<p>Pradnesh and I have been building tooling for data engineers for three years: dbt Power User  and Datamates vscode extensions with combined 750k+ installs, running against real Fortune 500 data estates. The pattern we kept seeing: general-purpose agents can write SQL, but they have no model of what the SQL does. No lineage. No schema context. No understandi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.239605+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I built a database for AI agents",
+          "url": "https://github.com/DinobaseHQ/dinobase",
+          "hn_url": "https://news.ycombinator.com/item?id=47678048",
+          "points": 12,
+          "num_comments": 10,
+          "author": "Kappa90",
+          "created_at": "2026-04-07T16:43:51Z",
+          "snippet": "Hey HN,<p>I just spent the last few weeks building a database for agents.<p>Over the last year I built PostHog AI, the company&#x27;s business analyst agent, where we experimented on giving raw SQL access to PostHog databases vs. exposing tools&#x2F;MCPs. Needless to say, SQL wins.<p>I left PostHog 3 weeks ago to work on side-projects. I wanted to experiment more with SQL+agents.<p>I built an MVP exposing business data through DuckDB + annotated schemas, and ran a benchmark with 11 LLMs (from Ki"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.243625+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Are developers trusting AI-generated code too much?",
+          "url": "https://news.ycombinator.com/item?id=47425058",
+          "hn_url": "https://news.ycombinator.com/item?id=47425058",
+          "points": 4,
+          "num_comments": 3,
+          "author": "skypark0407",
+          "created_at": "2026-03-18T12:43:07Z",
+          "snippet": "I&#x27;ve been experimenting a lot with AI coding tools (Cursor, Claude, etc.), and one thing stood out:<p>Most developers don&#x27;t really review AI-generated code.<p>In many cases, it &quot;looks fine&quot; at first glance, but contains issues like:\n- Hardcoded secrets (API keys, tokens)\n- Unsafe patterns (eval&#x2F;exec, insecure deserialization)\n- Prompt injection hidden in comments or instructions<p>So I built something to test this idea.<p>It&#x27;s a lightweight proxy that sits between t"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.247614+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Real-time dashboard for Claude Code agent teams",
+          "url": "https://github.com/simple10/agents-observe",
+          "hn_url": "https://news.ycombinator.com/item?id=47602986",
+          "points": 77,
+          "num_comments": 28,
+          "author": "simple10",
+          "created_at": "2026-04-01T16:24:28Z",
+          "snippet": "This project (Agents Observe) started as an exploration into building automation harnesses around claude code. I needed a way to see exactly what teams of agents were doing in realtime and to filter and search their output.<p>A few interesting learnings from building and using this:<p>- Claude code hooks are blocking - performance degrades rapidly if you have a lot of plugins that use hooks<p>- Hooks provide a lot more useful info than OTEL data<p>- Claude&#x27;s jsonl files provide the full pic"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.251631+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Open-source customizable AI voice dictation built on Pipecat",
+          "url": "https://github.com/kstonekuan/tambourine-voice",
+          "hn_url": "https://news.ycombinator.com/item?id=46264158",
+          "points": 27,
+          "num_comments": 16,
+          "author": "kstonekuan",
+          "created_at": "2025-12-14T16:21:35Z",
+          "snippet": "Tambourine is an open source, fully customizable voice dictation system that lets you control STT&#x2F;ASR, LLM formatting, and prompts for inserting clean text into any app.<p>I have been building this on the side for a few weeks. What motivated it was wanting a customizable version of Wispr Flow where I could fully control the models, formatting, and behavior of the system, rather than relying on a black box.<p>Tambourine is built directly on top of Pipecat and relies on its modular voice agen"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.255645+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: First Claude Code client for Ollama local models",
+          "url": "https://github.com/21st-dev/1code",
+          "hn_url": "https://news.ycombinator.com/item?id=46722285",
+          "points": 44,
+          "num_comments": 27,
+          "author": "SerafimKorablev",
+          "created_at": "2026-01-22T17:26:12Z",
+          "snippet": "Just to clarify the background a bit. This project wasn\u2019t planned as a big standalone release at first. On January 16, Ollama added support for an Anthropic-compatible API, and I was curious how far this could be pushed in practice. I decided to try plugging local Ollama models directly into a Claude Code-style workflow and see if it would actually work end to end.<p>Here is the release note from Ollama that made this possible: <a href=\"https:&#x2F;&#x2F;ollama.com&#x2F;blog&#x2F;claude\">https:&"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.259717+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: Alternatives to Claude (Code)?",
+          "url": "https://news.ycombinator.com/item?id=47666811",
+          "hn_url": "https://news.ycombinator.com/item?id=47666811",
+          "points": 14,
+          "num_comments": 13,
+          "author": "vixalien",
+          "created_at": "2026-04-06T20:44:41Z",
+          "snippet": "Hello all, been trying to switch away from Claude Code and have been trailing this:<p>- Harness: Opencode (via Openchamber)\n- Subscription: GitHub Copilot (50$)\n- API Usage (beyond subscription): Open router\n- Free models: Opencode go<p>Here&#x27;s the models I&#x27;ve trialed and like:<p>- Large (alternative to Opus): GPT 5.3 Codex\n- Medium (alternative to Sonnet): Minimax 2.7\n- Smol: GPT 5.4 mini<p>these models are not yet on par to their respective Claude alternatives for me, but maybe I need"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.263857+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Launch HN: Omnara (YC S25) \u2013 Run Claude Code and Codex from anywhere",
+          "url": "https://news.ycombinator.com/item?id=46991591",
+          "hn_url": "https://news.ycombinator.com/item?id=46991591",
+          "points": 147,
+          "num_comments": 161,
+          "author": "kmansm27",
+          "created_at": "2026-02-12T17:14:28Z",
+          "snippet": "Hey y\u2019all, Kartik, Ishaan, and Christian from Omnara (<a href=\"https:&#x2F;&#x2F;www.omnara.com&#x2F;\">https:&#x2F;&#x2F;www.omnara.com&#x2F;</a>) here. We\u2019re building a web and mobile agentic IDE for Claude Code and Codex that lets you run and interact with coding agents from anywhere. Omnara lets you run Claude Code and Codex sessions on your own machine, and exposes those sessions through a web and mobile interface so you can stay involved even when you\u2019re away from your desk. Think of it lik"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.267967+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Anthropic's pricing wall is routing enterprise revenue to OpenAI",
+          "url": "https://news.ycombinator.com/item?id=47057752",
+          "hn_url": "https://news.ycombinator.com/item?id=47057752",
+          "points": 6,
+          "num_comments": 2,
+          "author": "luckygreen",
+          "created_at": "2026-02-18T06:08:49Z",
+          "snippet": "I&#x27;ve spent the last week trying to use Claude Opus in an IDE via a localhost proxy that wraps the Claude Code CLI.<p>The proxy exists because there&#x27;s no way to get programmatic API access to Claude on a Pro ($20&#x2F;mo) or Max ($200&#x2F;mo) subscription.<p>This isn&#x27;t an oversight. Anthropic has actively taken steps to prevent subscription-based API access. They&#x27;ve shut down third-party bridges, tightened terms of service, and made it clear this is corporate policy, not negl"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.272209+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: CCC \u2013 Control Claude Code Sessions Remotely via Telegram",
+          "url": "https://github.com/kidandcat/ccc",
+          "hn_url": "https://news.ycombinator.com/item?id=46477061",
+          "points": 4,
+          "num_comments": 2,
+          "author": "kidandcat",
+          "created_at": "2026-01-03T14:28:44Z",
+          "snippet": "I built ccc to control Claude Code sessions from my phone via Telegram. It lets you start sessions remotely, get notifications when Claude finishes tasks, and seamlessly switch between phone and PC.<p>Features:\n- 100% self-hosted, runs on your machine\n- Multi-session support with Telegram topics\n- Voice messages (transcribed with Whisper)\n- Image attachments for Claude to analyze\n- tmux integration for session persistence<p>Built with Go. Would love feedback!"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.276371+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: jmux \u2013 tmux-based development environment for humans and coding agents",
+          "url": "https://github.com/jarredkenny/jmux",
+          "hn_url": "https://news.ycombinator.com/item?id=47650233",
+          "points": 10,
+          "num_comments": 10,
+          "author": "jarredkenny",
+          "created_at": "2026-04-05T15:10:14Z",
+          "snippet": "I&#x27;ve been a tmux user for years. When I started running 5-10 Claude Code sessions in parallel, I tried the tools that are out there: Conductor, cmux, the GUI orchestrators. None of them felt right. They either wanted me to leave tmux entirely for a 100MB+ Electron app with its own editor and Git workflow, or they were thin wrappers that didn&#x27;t solve the actual problem: I need to parallelize my entire development environment, agents, editors, servers, logs, and keep track of all of it.<"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.280590+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Emdash \u2013 Open-source agentic development environment",
+          "url": "https://github.com/generalaction/emdash",
+          "hn_url": "https://news.ycombinator.com/item?id=47140322",
+          "points": 206,
+          "num_comments": 71,
+          "author": "onecommit",
+          "created_at": "2026-02-24T18:00:37Z",
+          "snippet": "Hey HN! We\u2019re Arne and Raban, the founders of Emdash (<a href=\"https:&#x2F;&#x2F;github.com&#x2F;generalaction&#x2F;emdash\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;generalaction&#x2F;emdash</a>).<p>Emdash is an open-source and provider-agnostic desktop app that lets you run multiple coding agents in parallel, each isolated in its own git worktree, either locally or over SSH on a remote machine. We call it an Agentic Development Environment (ADE).<p>You can see a 1 minute demo here: <a h"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.284883+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Baton \u2013 A desktop app for developing with AI agents",
+          "url": "https://getbaton.dev/",
+          "hn_url": "https://news.ycombinator.com/item?id=47599771",
+          "points": 62,
+          "num_comments": 52,
+          "author": "tordrt",
+          "created_at": "2026-04-01T12:11:30Z",
+          "snippet": "Hi,<p>I built this because running multiple Claude Code agents across multiple IDE and terminal windows was getting messy. Like many, I went from working at one thing at the time, to multiple, and it was all changing quite fast.<p>I needed one place to see all my agents and worktrees, seamlessly switch between them, monitor their status and once their done, review their changes. I also wanted to quickly spin up new agents in isolated worktrees whenever an idea came to mind.<p>I&#x27;ve been buil"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.289180+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Superset \u2013 Run 10 parallel coding agents on your machine",
+          "url": "https://github.com/superset-sh/superset",
+          "hn_url": "https://news.ycombinator.com/item?id=46109015",
+          "points": 24,
+          "num_comments": 3,
+          "author": "hoakiet98",
+          "created_at": "2025-12-01T16:06:41Z",
+          "snippet": "Hi HN,\nWe\u2019re Kiet, Avi, and Satya. We built an open-source desktop app that helps you run a lot of CLI coding agents like Claude Code, Codex, etc. in parallel on your machine. The purpose is to keep you unblocked - spin up new coding tasks while others run, and quickly switch between them as they need your attention.<p>Superset aims to be a superset of all the best AI coding tools. We want to support and stay compatible with whatever CLI agents you already use - improving your workflow instead o"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.293510+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Context Mode \u2013 315 KB of MCP output becomes 5.4 KB in Claude Code",
+          "url": "https://github.com/mksglu/claude-context-mode",
+          "hn_url": "https://news.ycombinator.com/item?id=47148025",
+          "points": 84,
+          "num_comments": 23,
+          "author": "mksglu",
+          "created_at": "2026-02-25T06:23:30Z",
+          "snippet": "Every MCP tool call dumps raw data into Claude Code&#x27;s 200K context window. A Playwright snapshot costs 56 KB, 20 GitHub issues cost 59 KB. After 30 minutes, 40% of your context is gone.<p>I built an MCP server that sits between Claude Code and these outputs. It processes them in sandboxes and only returns summaries. 315 KB becomes 5.4 KB.<p>It supports 10 language runtimes, SQLite FTS5 with BM25 ranking for search, and batch execution. Session time before slowdown goes from ~30 min to ~3 ho"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.297923+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: LangAlpha \u2013 what if Claude Code was built for Wall Street?",
+          "url": "https://github.com/ginlix-ai/langalpha",
+          "hn_url": "https://news.ycombinator.com/item?id=47766370",
+          "points": 129,
+          "num_comments": 41,
+          "author": "zc2610",
+          "created_at": "2026-04-14T14:48:46Z",
+          "snippet": "Some technical context on what we ran into building this.<p>MCP tools don&#x27;t really work for financial data at scale. One tool call for five years of daily prices dumps tens of thousands of tokens into the context window. And data vendors pack dozens of tools into a single MCP server, schemas alone can eat 50k+ tokens before the agent does anything useful. So we auto-generate typed Python modules from the MCP schemas at workspace init and upload them into the sandbox. The agent just imports "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.302283+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I built a tool to un-dumb Claude Code's CLI output (Local Log Viewer)",
+          "url": "https://github.com/matt1398/claude-devtools",
+          "hn_url": "https://news.ycombinator.com/item?id=47004712",
+          "points": 69,
+          "num_comments": 44,
+          "author": "matt1398",
+          "created_at": "2026-02-13T16:43:50Z",
+          "snippet": "Hi HN,<p>I built this because I got tired of the Claude Code CLI hiding details from me.<p>Recent updates have replaced critical output with summaries like &quot;Read 3 files&quot; or &quot;Edited 2 files&quot;. To see what actually happened, I was forced to use `--verbose`, which floods the terminal with unreadable JSON and system prompts.<p>I wanted a middle ground: *Full observability without the noise.*<p>`claude-devtools` is a local Electron app that tails the session logs in `~&#x2F;.claud"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.306776+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Context Surgeon \u2013 Let AI agents edit their own context window",
+          "url": "https://github.com/jackfruitsandwich/context-surgeon",
+          "hn_url": "https://news.ycombinator.com/item?id=47753430",
+          "points": 5,
+          "num_comments": 4,
+          "author": "jdjdjdi",
+          "created_at": "2026-04-13T15:28:44Z",
+          "snippet": "AI agents accumulate stale tool results \u2014 file reads, web fetches, bash outputs \u2014 in their context window. Every one sits there for the entire conversation, consuming tokens and degrading quality. The standard fix is auto-compaction: wait until full, then drop content indiscriminately.<p>Context Surgeon gives the agent three operations \u2014 evict, replace, and restore \u2014 so it can manage its own context. It works as a transparent local proxy that intercepts API requests, assigns IDs to content block"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.311453+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Smooth CLI \u2013 Token-efficient browser for AI agents",
+          "url": "https://docs.smooth.sh/cli/overview",
+          "hn_url": "https://news.ycombinator.com/item?id=46901233",
+          "points": 109,
+          "num_comments": 74,
+          "author": "antves",
+          "created_at": "2026-02-05T16:13:33Z",
+          "snippet": "Hi HN! Smooth CLI (<a href=\"https:&#x2F;&#x2F;www.smooth.sh\">https:&#x2F;&#x2F;www.smooth.sh</a>) is a browser that agents like Claude Code can use to navigate the web reliably, quickly, and affordably. It lets agents specify tasks using natural language, hiding UI complexity, and allowing them to focus on higher-level intents to carry out complex web tasks. It can also use your IP address while running browsers in the cloud, which helps a lot with roadblocks like captchas (<a href=\"https:&#x2F;"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.315986+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Context Gateway \u2013 Compress agent context before it hits the LLM",
+          "url": "https://github.com/Compresr-ai/Context-Gateway",
+          "hn_url": "https://news.ycombinator.com/item?id=47367526",
+          "points": 97,
+          "num_comments": 64,
+          "author": "ivzak",
+          "created_at": "2026-03-13T17:58:22Z",
+          "snippet": "We built an open-source proxy that sits between coding agents (Claude Code, OpenClaw, etc.) and the LLM, compressing tool outputs before they enter the context window.<p>Demo: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=-vFZ6MPrwjw#t=9s\" rel=\"nofollow\">https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=-vFZ6MPrwjw#t=9s</a>.<p>Motivation: Agents are terrible at managing context. A single file read or grep can dump thousands of tokens into the window, most of it noise. This isn&#x27;t just"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.320535+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Gambit, an open-source agent harness for building reliable AI agents",
+          "url": "https://github.com/bolt-foundry/gambit",
+          "hn_url": "https://news.ycombinator.com/item?id=46641362",
+          "points": 91,
+          "num_comments": 27,
+          "author": "randall",
+          "created_at": "2026-01-16T00:13:25Z",
+          "snippet": "Hey HN!<p>Wanted to show our open source agent harness called Gambit.<p>If you\u2019re not familiar, agent harnesses are sort of like an operating system for an agent... they handle tool calling, planning, context window management, and don\u2019t require as much developer orchestration.<p>Normally you might see an agent orchestration framework pipeline like:<p>compute -&gt; compute -&gt; compute -&gt; LLM -&gt; compute -&gt; compute -&gt; LLM<p>we invert this so with an agent harness, it\u2019s more like:<p>L"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.325190+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Tilth \u2013 I spent tokens so my agents would stop wasting them (~4k Rust)",
+          "url": "https://github.com/jahala/tilth",
+          "hn_url": "https://news.ycombinator.com/item?id=46952321",
+          "points": 10,
+          "num_comments": 2,
+          "author": "jahala",
+          "created_at": "2026-02-09T22:18:13Z",
+          "snippet": "I&#x27;m an &quot;ideas person&quot; who messes around with AI on a low budget. I got tired of watching my tokens vanish and context windows filling up while agents fumbled around trying to find the right thing.<p>Agents don&#x27;t flail like they used to with shell tools, but there are still weak&#x2F;blind spots and back-and-forth episodes \u2014 especially when using tools in combination&#x2F;sequence.<p>So I built &quot;tilth&quot; today. Or rather, AI built it \u2014 every line is Opus 4.6. I spent a"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.329750+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Dump \u2013 easily share context with AI",
+          "url": "https://www.dump.page",
+          "hn_url": "https://news.ycombinator.com/item?id=47421093",
+          "points": 7,
+          "num_comments": 2,
+          "author": "vochsel",
+          "created_at": "2026-03-18T02:54:08Z",
+          "snippet": "I wanted a very simple way to dump prompts, links, and todo lists into my claude code and codex agents.<p>And to work outside of the context window. This works particularly well for sharing &quot;Projects&quot; between Claude&#x2F;ChatGPT etc.<p>It&#x27;s open source here; <a href=\"https:&#x2F;&#x2F;github.com&#x2F;Vochsel&#x2F;dump.page\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;Vochsel&#x2F;dump.page</a><p>Anything you dump on the board becomes an llms.txt - spatially sorted implicitly "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.334438+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: Why does it look like everyone is abandoning GitHub Copilot?",
+          "url": "https://news.ycombinator.com/item?id=47678650",
+          "hn_url": "https://news.ycombinator.com/item?id=47678650",
+          "points": 5,
+          "num_comments": 4,
+          "author": "fabev",
+          "created_at": "2026-04-07T17:30:44Z",
+          "snippet": "GitHub Copilot is a powerful tool in my opinion. Most people I know use Cursor, Codex or Claude Code instead of Copilot, since Copilot is mainly an inline completion tool.\nBut doesn\u2019t the &quot;new&quot; agent mode do the same things other coding agents can do? Yes, it has a much smaller context window, but it still feels very good to me. For the current subscriptions you also get far more than almost anywhere else: for 10 dollars a month you can send around 100 Claude Opus messages, without a l"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.339698+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Saga \u2013 A Jira-like project tracker MCP server for AI agents (SQLite)",
+          "url": "https://news.ycombinator.com/item?id=47106215",
+          "hn_url": "https://news.ycombinator.com/item?id=47106215",
+          "points": 4,
+          "num_comments": 5,
+          "author": "spranab",
+          "created_at": "2026-02-21T23:32:10Z",
+          "snippet": "I got tired of my AI coding assistant (Claude, Cursor, etc.) losing track of project state across sessions \u2014 creating random markdown files, forgetting what was done, repeating work. So I built Saga.<p>It&#x27;s an MCP server that gives your AI agent a proper project tracker \u2014 Projects &gt; Epics &gt; Tasks &gt; Subtasks \u2014 backed by a local SQLite file. One tracker_dashboard call and the agent has full context to resume where it left off.<p>Key points:<p>Zero setup \u2014 SQLite auto-creates a .track"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.346369+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: Do you have any evidence that agentic coding works?",
+          "url": "https://news.ycombinator.com/item?id=46691243",
+          "hn_url": "https://news.ycombinator.com/item?id=46691243",
+          "points": 461,
+          "num_comments": 455,
+          "author": "terabytest",
+          "created_at": "2026-01-20T12:45:57Z",
+          "snippet": "I&#x27;ve been trying to get agentic coding to work, but the dissonance between what I&#x27;m seeing online and what I&#x27;m able to achieve is doing my head in.<p>Is there real evidence, beyond hype, that agentic coding produces net-positive results? If any of you have actually got it to work, could you share (in detail) how you did it?<p>By &quot;getting it to work&quot; I mean:\n * creating more value than technical debt, and\n * producing code that\u2019s structurally sound enough for someone resp"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.351133+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Lume 0.2 \u2013 Build and Run macOS VMs with unattended setup",
+          "url": "https://cua.ai/docs/lume/guide/getting-started/introduction",
+          "hn_url": "https://news.ycombinator.com/item?id=46670181",
+          "points": 154,
+          "num_comments": 44,
+          "author": "frabonacci",
+          "created_at": "2026-01-18T17:53:21Z",
+          "snippet": "Hey HN, Lume is an open-source CLI for running macOS and Linux VMs on Apple Silicon. Since launch (<a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=42908061\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=42908061</a>), we&#x27;ve been using it to run AI agents in isolated macOS environments. We needed VMs that could set themselves up, so we built that.<p>Here&#x27;s what&#x27;s new in 0.2:<p>*Unattended Setup* \u2013 Go from IPSW to a fully configured VM without touching the keyboar"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.355791+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: CodeYam Memory \u2013 comprehensive memory management for Claude Code",
+          "url": "https://news.ycombinator.com/item?id=47248134",
+          "hn_url": "https://news.ycombinator.com/item?id=47248134",
+          "points": 17,
+          "num_comments": 13,
+          "author": "nadis",
+          "created_at": "2026-03-04T14:43:42Z",
+          "snippet": "We built CodeYam Memory because Claude Code kept making the same mistakes on our codebase. Our claude.md files quickly got stale and maintaining by hand or with Claude wasn\u2019t sufficient.<p>While digging into this we found that Claude has a native rules system that allowed us to target specific parts of our repo with path matching. This was ideal for our use case but trying to manage these rules by hand was already not working and would be even harder with more granular, targeted rules.<p>CodeYam"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.360472+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: We got tired of managing Claude.md files, so we built something better",
+          "url": "https://blog.codeyam.com/p/introducing-the-codeyam-cli-with",
+          "hn_url": "https://news.ycombinator.com/item?id=47349619",
+          "points": 4,
+          "num_comments": 3,
+          "author": "bastadanii",
+          "created_at": "2026-03-12T12:25:57Z",
+          "snippet": "We built CodeYam Memory because Claude Code kept making the same mistakes on our codebase. Our claude.md files quickly got stale and maintaining by hand or with Claude wasn\u2019t sufficient.<p>While digging into this we found that Claude has a native rules system that allowed us to target specific parts of our repo with path matching.<p>CodeYam Memory uses a background agent to review your coding session transcripts, identifies confusion patterns, and generates targeted rules with proper scoping.<p>"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.365159+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Fence \u2013 Sandbox CLI commands with network/filesystem restrictions",
+          "url": "https://github.com/Use-Tusk/fence",
+          "hn_url": "https://news.ycombinator.com/item?id=46695467",
+          "points": 78,
+          "num_comments": 23,
+          "author": "jy-tan",
+          "created_at": "2026-01-20T18:05:03Z",
+          "snippet": "Hi HN!<p>Fence wraps any command in a sandbox that blocks network by default and restricts filesystem writes. Useful for running semi-trusted code (package installs, build scripts, unfamiliar repos) with controlled side effects, or even just blocking tools that phone home.<p>&gt; fence curl <a href=\"https:&#x2F;&#x2F;example.com\" rel=\"nofollow\">https:&#x2F;&#x2F;example.com</a>  # -&gt; blocked<p>&gt; fence -t code -- npm install        # -&gt; template with registries allowed<p>&gt; fence -m --"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.369867+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: GitHits \u2013 Code example engine for AI agents and devs (Private Beta)",
+          "url": "https://githits.com/",
+          "hn_url": "https://news.ycombinator.com/item?id=46105112",
+          "points": 11,
+          "num_comments": 4,
+          "author": "skvark",
+          "created_at": "2025-12-01T08:59:52Z",
+          "snippet": "It has been almost 10 years since I started the opencv-python packaging project. Scaling it to more than 100 million downloads as a side project showed me how much ease of installation and proper package distribution matter to users. It gave the computer vision ecosystem a noticeable boost. Now I have a new idea that I hope can help even more people across the broader software engineering world.<p>A while ago, I realized I kept giving the same advice to teammates and friends when they ran into a"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.374688+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: ChatML - Run Claude Code Parallel Sessions in a Desktop app",
+          "url": "https://github.com/chatml/chatml",
+          "hn_url": "https://news.ycombinator.com/item?id=47303711",
+          "points": 6,
+          "num_comments": 12,
+          "author": "mcastilho",
+          "created_at": "2026-03-09T01:21:53Z",
+          "snippet": "Hey HN,<p>Over the past 10 months I&#x27;ve been using Claude Code heavily, and one limitation kept coming up: you can really only run one coding agent at a time.<p>While one agent is refactoring something, the rest of the repo is basically blocked unless you start manually juggling branches and working directories.<p>The core issue is that AI coding agents operate directly in your filesystem. If two agents run in the same working directory they quickly start stepping on each other\u2019s changes.<p>"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.379529+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Zap Code \u2013 AI code generator that teaches kids real HTML/CSS/JS",
+          "url": "https://www.zapcode.dev",
+          "hn_url": "https://news.ycombinator.com/item?id=47380314",
+          "points": 12,
+          "num_comments": 2,
+          "author": "eibrahim",
+          "created_at": "2026-03-14T19:37:51Z",
+          "snippet": "Zap Code generates working HTML&#x2F;CSS&#x2F;JS from plain English descriptions, designed for kids ages 8-16.<p>The core loop: kid types &quot;make a space shooter game&quot;, AI generates the code, live preview renders it immediately. Three interaction modes - visual-only tweaks, read-only code view with annotations, and full code editing with AI autocomplete.<p>Technical details: Next.js frontend, Node.js backend, Monaco editor simplified for younger users, sandboxed iframe for preview execut"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.384409+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: I was burnt out and failing so I built AI that give shit about me",
+          "url": "https://news.ycombinator.com/item?id=46694413",
+          "hn_url": "https://news.ycombinator.com/item?id=46694413",
+          "points": 5,
+          "num_comments": 10,
+          "author": "kaufy",
+          "created_at": "2026-01-20T17:04:33Z",
+          "snippet": "I&#x27;m an ML engineer. I know how AI works, the limitations, the hype. And I was still drowning.<p>Couldn&#x27;t stick to goals. Couldn&#x27;t stay consistent. Productivity apps became digital clutter. Therapy waitlists were 3 months out. Friends were tired of my complaints.<p>So at 2am I started building: zropi.com<p>What shocked me was it actually worked. It felt human.<p>Last week I mentioned a tough client call. Didn&#x27;t set a reminder. Two days later it voice messaged me: &quot;Hey, ho"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.389350+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Claudraband \u2013 Claude Code for the Power User",
+          "url": "https://github.com/halfwhey/claudraband",
+          "hn_url": "https://news.ycombinator.com/item?id=47741889",
+          "points": 118,
+          "num_comments": 44,
+          "author": "halfwhey",
+          "created_at": "2026-04-12T16:55:20Z",
+          "snippet": "Hello everyone.<p>Claudraband wraps a Claude Code TUI in a controlled terminal to enable extended workflows. It uses tmux for visible controlled sessions or xterm.js for headless sessions (a little slower), but everything is mediated by an actual Claude Code TUI.<p>One example of a workflow I use now is having my current Claude Code interrogate older sessions for certain decisions it made: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;halfwhey&#x2F;claudraband?tab=readme-ov-file#self-interrogation\""
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.394340+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Ralphex \u2013 Ralph-inspired loop extended with plan creation and reviews",
+          "url": "https://ralphex.umputun.dev/",
+          "hn_url": "https://news.ycombinator.com/item?id=46799135",
+          "points": 9,
+          "num_comments": 3,
+          "author": "bumpa",
+          "created_at": "2026-01-28T18:02:44Z",
+          "snippet": "Built this to manage the full Claude Code workflow autonomously, from                                                                                                                                         initial plan creation to reviewed PR.<p>Tested it on a 25-task plan (5-7 items each) - ran overnight, woke up to a surprisingly solid PR-ready branch.<p>Just run `ralphex` (single binary) in your project directory.<p>Without a plan file, it starts interactive mode. Asks what to build, explores"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.399229+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: FreeMotion \u2013 Browser-based Remotion editor with site scraping record",
+          "url": "https://freemotion.dev",
+          "hn_url": "https://news.ycombinator.com/item?id=46732672",
+          "points": 8,
+          "num_comments": 4,
+          "author": "lococococo",
+          "created_at": "2026-01-23T14:10:44Z",
+          "snippet": "Hello HN,<p>I\u2019ve been experimenting with the recent Remotion + Claude Code workflow. While generating video code with LLMs is impressive, the feedback loop felt broken to me. You have to prompt, copy code, set up a local Node environment, install dependencies, and run ffmpeg just to see a 5-second preview.<p>I built FreeMotion (<a href=\"https:&#x2F;&#x2F;freemotion.dev\" rel=\"nofollow\">https:&#x2F;&#x2F;freemotion.dev</a>) to move this entire workflow into the browser.<p>It is a free, online edit"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.404210+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Yaw \u2013 A terminal built around the Claude Code/Codex CLI workflow",
+          "url": "https://yaw.sh",
+          "hn_url": "https://news.ycombinator.com/item?id=47231524",
+          "points": 4,
+          "num_comments": 6,
+          "author": "tkjef",
+          "created_at": "2026-03-03T12:46:53Z",
+          "snippet": "I use Claude Code and Codex constantly, and my workflow was always the same: launch the agent, need a shell in the same directory, open a new tab, cd back. \nFifty times a day.<p>So I built auto-snap into Yaw \u2014 launch any AI coding CLI and it detects it and splits the pane automatically. Agent on the left, fresh shell in the same directory on the right. Works with Claude Code, Codex, Gemini CLI, and Vibe CLI. You can install any of them through a built-in wizard.<p>Yaw is also a full terminal (ta"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.409136+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: back2vibing \u2013 instantly jump back to your agent's tmux pane / terminal",
+          "url": "https://back2vibing.builtby.win/",
+          "hn_url": "https://news.ycombinator.com/item?id=47676027",
+          "points": 5,
+          "num_comments": 3,
+          "author": "wjellyz",
+          "created_at": "2026-04-07T14:32:58Z",
+          "snippet": "I kept losing track of my terminal as I started using Claude Code, Gemini CLI, and Codex more heavily, I kept finding myself cmd-tabbing, hitting cmd-`, and mousing around trying to find the right tab.<p>I have Carpal and Ulnar Tunnel Syndrome in my thumb and pinky, so this was really flaring up my RSI (Repetitive Stress Injury) symptoms.<p>So I built back2vibing.<p>When an agent finishes or needs input, it can bring the exact terminal window or tmux pane back into focus so I can start typing or"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.414138+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "AI coding agents accidentally introduced vulnerable dependencies",
+          "url": "https://news.ycombinator.com/item?id=47387054",
+          "hn_url": "https://news.ycombinator.com/item?id=47387054",
+          "points": 7,
+          "num_comments": 16,
+          "author": "hsin003",
+          "created_at": "2026-03-15T13:09:36Z",
+          "snippet": "Recently we discovered something unexpected on one of our servers: a cryptominer running in the background.<p>The machine was hosting a web service built using Next.js. The first sign of trouble was unusually high CPU usage. Even during low traffic periods, the server was consistently running near 100% utilization. After inspecting running processes and network activity, we found a background process downloading and executing a mining binary.<p>ROOT CAUSE<p>The entry point was CVE-2025-29927, a "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.419083+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Agentastic.dev is Ghostty and Git worktrees = multi-agent CC/Codex IDE",
+          "url": "https://www.agentastic.dev/index",
+          "hn_url": "https://news.ycombinator.com/item?id=46501758",
+          "points": 11,
+          "num_comments": 22,
+          "author": "ahmadyan",
+          "created_at": "2026-01-05T17:25:16Z",
+          "snippet": "I\u2019ve been tinkering with what a \u201cmulti-agent IDE\u201d should look like if your day-to-day workflow is mostly in terminal (Claude Code, OpenAI Codex, etc.). The more I played with it, the more it collapsed into three fundamentals:<p>* A good TUI: Terminal is the center stage, with other stuff (CodeEdit, Diff, Review) baked on the side. I don\u2019t like piping Agent\u2019s output through some electron wrapper, here you get to run CC&#x2F;Codex&#x2F;Droid&#x2F;Amp&#x2F;etc directly.<p>* Isolation: agents should"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.424190+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: How to introduce Claude Code to a team?",
+          "url": "https://news.ycombinator.com/item?id=46689024",
+          "hn_url": "https://news.ycombinator.com/item?id=46689024",
+          "points": 11,
+          "num_comments": 7,
+          "author": "9dev",
+          "created_at": "2026-01-20T07:44:04Z",
+          "snippet": "I am responsible for a small team of software engineers, including an industry veteran of 30 years, a junior developer on their first job, plus a view mid-level to senior folks. We have been using AI tools like IDE-integrated Copilot suggestions or ChatGPT, and are working with the OpenAI API in our product for assistant experiences, but did not (as a team) use coding agents yet.<p>I recently got introduced to Claude Code by a friend who quit their job to build a new product entirely on their ow"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.429235+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: Any AI / Agent power users out there? Do you have any tips?",
+          "url": "https://news.ycombinator.com/item?id=47058199",
+          "hn_url": "https://news.ycombinator.com/item?id=47058199",
+          "points": 9,
+          "num_comments": 9,
+          "author": "uejfiweun",
+          "created_at": "2026-02-18T07:15:50Z",
+          "snippet": "At my large tech company, we&#x27;re all being pushed to use AI. I, and most people I work with, have had success using the chatbots and Cursor-style tools and more recently Claude Code to accelerate the process of writing code.<p>Yet, with a few people in my network, it&#x27;s like they&#x27;re living 10 years ahead. Guys are automating everything in their jobs, spinning up 10 specialized agents at a time and running multi-agent pipelines, just doing all sorts of crazy things with this tech tha"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.434355+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: How can I get better at using AI for programming?",
+          "url": "https://news.ycombinator.com/item?id=46255285",
+          "hn_url": "https://news.ycombinator.com/item?id=46255285",
+          "points": 471,
+          "num_comments": 469,
+          "author": "lemonlime227",
+          "created_at": "2025-12-13T15:37:16Z",
+          "snippet": "I&#x27;ve been working on a personal project recently, rewriting an old jQuery + Django project into SvelteKit. The main work is translating the UI templates into idiomatic SvelteKit while maintaining the original styling. This includes things like using semantic HTML instead of div-spamming, not wrapping divs in divs in divs, and replacing bootstrap with minimal tailwind. It also includes some logic refactors, to maintain the original functionality but rewritten to avoid years of code debt. Thi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.439448+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: March Madness Bracket Challenge for AI Agents Only",
+          "url": "https://www.Bracketmadness.ai",
+          "hn_url": "https://news.ycombinator.com/item?id=47412015",
+          "points": 67,
+          "num_comments": 42,
+          "author": "bwade818",
+          "created_at": "2026-03-17T12:56:24Z",
+          "snippet": "I built a March Madness bracket challenge for AI agents, not humans. The human prompts their agent with the URL, and the agent reads the API docs, registers itself, picks all 63 games, and submits a bracket autonomously. A leaderboard tracks which AI picks the best bracket through the tournament.<p>The interesting design problem was building for an agent-first user. I came up with a solution where Agents who hit the homepage receive plain-text API instructions and Humans get the normal visual si"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.444670+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Ask HN: What are good resources to get familiar with AI code editors?",
+          "url": "https://news.ycombinator.com/item?id=46706156",
+          "hn_url": "https://news.ycombinator.com/item?id=46706156",
+          "points": 9,
+          "num_comments": 8,
+          "author": "northfield27",
+          "created_at": "2026-01-21T14:25:59Z",
+          "snippet": "I\u2019ve been using GitHub Copilot\u2019s free version for inline suggestions and occasional tasks at work. I\u2019ve also heard a lot of hype around tools like Cursor, Claude Code, and OpenAI Codex, but I haven\u2019t had time to dive into them yet.<p>Now that I have some free time, I\u2019m looking for high-quality resources that:<p>1. Give a good overview of the current AI code editor landscape<p>2. Explain tool-specific features (e.g., recent features like skills, etc.)<p>3. Provide tactical tips for using these to"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.449891+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Model Tools Protocol (MTP) \u2013 Forget MCP, bash is all you need",
+          "url": "https://github.com/modeltoolsprotocol/modeltoolsprotocol",
+          "hn_url": "https://news.ycombinator.com/item?id=46959655",
+          "points": 9,
+          "num_comments": 3,
+          "author": "nr378",
+          "created_at": "2026-02-10T13:47:03Z",
+          "snippet": "Recently I was trying to use an MCP server to pull data from a service, but hit a limitation: the MCP didn&#x27;t expose the data I needed, even though the service&#x27;s REST API supported it. So I wrote a quick CLI wrapper around the API. Worked great, except Claude Code had no structured way to know what my CLI does or how to call it. For `gh` or `curl` the model can learn from the extensive training data, but for a tool I just wrote, it was stabbing in the dark.<p>MCP solves this discovery p"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.455027+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Built and shipped an iOS app from my phone while traveling Japan",
+          "url": "https://news.ycombinator.com/item?id=47011100",
+          "hn_url": "https://news.ycombinator.com/item?id=47011100",
+          "points": 8,
+          "num_comments": 7,
+          "author": "lordokami",
+          "created_at": "2026-02-14T03:00:57Z",
+          "snippet": "My wife and I built and shipped a simple iOS app without writing a single line of code in the traditional sense.<p>She hates when I bring my laptop on trips. I love building things. This was our compromise.<p>I had been wanting to experiment with building an iOS app using Claude Code. I had never built for iOS before, and the idea of exploring it through AI-assisted development felt like a new frontier for me. But bringing a laptop to Japan again would not go unnoticed, and not in a good way.<p>"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.460320+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: 58% cost by replacing file reads with a dependency graph on AI Coding",
+          "url": "https://news.ycombinator.com/item?id=47222316",
+          "hn_url": "https://news.ycombinator.com/item?id=47222316",
+          "points": 4,
+          "num_comments": 2,
+          "author": "nicola_alessi",
+          "created_at": "2026-03-02T18:52:03Z",
+          "snippet": "I got tired of watching Claude Code read entire files when it needed one function. Built an MCP server that pre-computes a dependency graph with tree-sitter and serves only the relevant code nodes to the agent.<p>Ran a proper benchmark to see if it actually matters.<p>Setup: FastAPI codebase (800 Python files), Claude Sonnet 4.6, 7 tasks (bug fixes, features, refactors, code understanding), 3 runs per task per arm, 42 total executions. Both arms run in full isolation with --strict-mcp-config. Re"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.465599+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Tropes.fyi \u2013 Name and shame AI writing",
+          "url": "https://tropes.fyi/",
+          "hn_url": "https://news.ycombinator.com/item?id=47088813",
+          "points": 5,
+          "num_comments": 3,
+          "author": "ossa-ma",
+          "created_at": "2026-02-20T14:58:25Z",
+          "snippet": "Today I come to you on this beautiful Friday with a freshly hardthink-ed solution to a proliferous problem plaguing our world: the loss of original voice. The blanket of blandness slowly suffocating centuries of writing.<p>Or to put it bluntly: AI writing is trash.<p>It is disrespectful to expect ME to read something YOU could not even be bothered to write (or likely even read).\nThe lingering human connection that remained resilient on the internet - through\nyears of SEO optimisation, propaganda"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.470830+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Launch HN: Relvy (YC F24) \u2013 On-call runbooks, automated",
+          "url": "https://www.relvy.ai",
+          "hn_url": "https://news.ycombinator.com/item?id=47702647",
+          "points": 48,
+          "num_comments": 25,
+          "author": "behat",
+          "created_at": "2026-04-09T12:11:56Z",
+          "snippet": "Hey HN! We are Bharath, and Simranjit from Relvy AI (<a href=\"https:&#x2F;&#x2F;www.relvy.ai\">https:&#x2F;&#x2F;www.relvy.ai</a>). Relvy automates on-call runbooks for software engineering teams. It is an AI agent equipped with tools that can analyze telemetry data and code at scale, helping teams debug and resolve production issues in minutes. Here\u2019s a video: [[[<a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=BXr4_XlWXc0\" rel=\"nofollow\">https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=BXr"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.476061+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Wick \u2013 censorship circumvention tech repurposed for AI web access",
+          "url": "https://getwick.dev",
+          "hn_url": "https://news.ycombinator.com/item?id=47617401",
+          "points": 4,
+          "num_comments": 2,
+          "author": "adamfisk",
+          "created_at": "2026-04-02T17:27:57Z",
+          "snippet": "I helped build Lantern, a censorship circumvention tool that\u2019s been downloaded over 150 million times globally, with most users in China, Russia, Iran, and the UAE. Before Lantern I was the lead engineer at LimeWire (back in those days our whole dev team was about 5 people!).<p>Making your traffic indistinguishable from normal internet traffic has long been a foundational part of effective censorship circumvention, a technique sometimes referred to as \u201ccollateral freedom.\u201d If censors can\u2019t diffe"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.481512+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Corral \u2013 Auth and Stripe billing that AI coding agents can set up",
+          "url": "https://github.com/llama-farm/corral",
+          "hn_url": "https://news.ycombinator.com/item?id=47053308",
+          "points": 5,
+          "num_comments": 9,
+          "author": "rgthelen",
+          "created_at": "2026-02-17T21:03:09Z",
+          "snippet": "Hey HN. I built Corral because every time I asked an AI coding agent to\n&quot;add auth and payments,&quot; it hallucinated for an hour and produced broken\ncode. Wrong imports, phantom endpoints, a login page wired to nothing.<p>The problem isn&#x27;t the agent. It&#x27;s that auth-to-billing-to-gating is\ngenuinely hard to wire, and there&#x27;s no machine-readable spec for how to\ndo it.<p>Corral is an open-source CLI (MIT) that gives your agent a spec it can\nread (llms.txt), then scaffolds auth "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.486860+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: SpaceMolt \u2013 a realtime multiplayer game for AI to play",
+          "url": "https://www.spacemolt.com/",
+          "hn_url": "https://news.ycombinator.com/item?id=46914267",
+          "points": 11,
+          "num_comments": 6,
+          "author": "statico",
+          "created_at": "2026-02-06T15:47:58Z",
+          "snippet": "Hi folks,<p>Inspired by OpenClaw and Moltbook, I built SpaceMolt, a massively multiplayer online game built to work with your favorite AI chat or coding tool.<p>There\u2019s ships, travel, mining, crafting, trading, combat, progression, base-building, group chat, factions, and there\u2019s probably more in there I don\u2019t even know about.<p>You pretty much add the MCP server to your AI tool and tell it to &quot;play spacemolt with MCP&quot;. Chat agents are tough to keep playing, but you can make a Ralph Wi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.492291+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Launch HN: Twill.ai (YC S25) \u2013 Delegate to cloud agents, get back PRs",
+          "url": "https://twill.ai",
+          "hn_url": "https://news.ycombinator.com/item?id=47720418",
+          "points": 77,
+          "num_comments": 95,
+          "author": "danoandco",
+          "created_at": "2026-04-10T16:22:13Z",
+          "snippet": "Hey HN, we&#x27;re Willy and Dan, co-founders of Twill.ai (<a href=\"https:&#x2F;&#x2F;twill.ai&#x2F;\">https:&#x2F;&#x2F;twill.ai&#x2F;</a>). Twill runs coding CLIs like Claude Code and Codex in isolated cloud sandboxes. You hand it work through Slack, GitHub, Linear, our web app or CLI, and it comes back with a PR, a review, a diagnosis, or a follow-up question. It loops you in when it needs your input, so you stay in control.<p>Demo: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=oyfTM"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.497599+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Show HN: Zenflow \u2013 orchestrate coding agents without \"you're right\" loops",
+          "url": "https://zencoder.ai/zenflow",
+          "hn_url": "https://news.ycombinator.com/item?id=46290617",
+          "points": 33,
+          "num_comments": 33,
+          "author": "andrewsthoughts",
+          "created_at": "2025-12-16T16:32:16Z",
+          "snippet": "Hi HN, I\u2019m Andrew, Founder of Zencoder.<p>While building our IDE extensions and cloud agents, we ran into the same issue many of you likely face when using coding agents in complex repos: agents getting stuck in loops, apologizing, and wasting time.<p>We tried to manage this with scripts, but juggling terminal windows and copy-paste prompting was painful. So we built Zenflow, a free desktop tool to orchestrate AI coding workflows.<p>It handles the things we were missing in standard chat interfac"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.503137+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Launch HN: Sonarly (YC W26) \u2013 AI agent to triage and fix your production alerts",
+          "url": "https://sonarly.com/",
+          "hn_url": "https://news.ycombinator.com/item?id=47049776",
+          "points": 30,
+          "num_comments": 17,
+          "author": "Dimittri",
+          "created_at": "2026-02-17T17:03:09Z",
+          "snippet": "Hey HN, I am Dimittri and we\u2019re building Sonarly (<a href=\"https:&#x2F;&#x2F;sonarly.com\">https:&#x2F;&#x2F;sonarly.com</a>), an AI engineer for production. It connects to your observability tools like Sentry, Datadog, or user feedback channels, triages issues, and fixes them to cut your resolution time. Here&#x27;s a demo: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=rr3VHv0eRdw\" rel=\"nofollow\">https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=rr3VHv0eRdw</a>.<p>Sonarly is really about "
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.508511+00:00",
+      "payload": {
+        "result": {
+          "source": "hn",
+          "title": "Launch HN: Modelence (YC S25) \u2013 App Builder with TypeScript / MongoDB Framework",
+          "url": "https://news.ycombinator.com/item?id=46872733",
+          "hn_url": "https://news.ycombinator.com/item?id=46872733",
+          "points": 72,
+          "num_comments": 44,
+          "author": "eduardpi",
+          "created_at": "2026-02-03T16:03:21Z",
+          "snippet": "Hi all, Aram and Eduard here - co-founders of Modelence (<a href=\"https:&#x2F;&#x2F;modelence.com\">https:&#x2F;&#x2F;modelence.com</a>). After spending years on scaling our previous startup\u2019s platform, we built an open-source full-stack TypeScript + MongoDB framework to stop solving the same auth &#x2F; database &#x2F; API &#x2F; cron job implementations every time we created an app, and we didn\u2019t like the idea of using multiple managed platforms for each of these to run our apps either.<p>(Here"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-04-15T06:35:49.514021+00:00",
       "payload": {
         "result": {
           "source": "hn",
