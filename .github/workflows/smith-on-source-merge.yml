@@ -203,11 +203,23 @@ jobs:
         if: steps.affected.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: Configure git remote for PAT
+        if: steps.affected.outputs.skip != 'true'
+        env:
+          PROJECT_PAT: ${{ secrets.PROJECT_PAT }}
+        run: |
+          # Use PAT for git push and gh pr create so the resulting events
+          # trigger downstream workflows (GITHUB_TOKEN can't do that).
+          if [ -n "$PROJECT_PAT" ]; then
+            git remote set-url origin \
+              "https://x-access-token:${PROJECT_PAT}@github.com/${{ github.repository }}.git"
+          fi
+
       - name: Run Smith synthesis
         if: steps.affected.outputs.skip != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
         run: |
           # Write prompt to file to avoid shell quoting issues
           cat > /tmp/smith-prompt.txt <<PROMPT_EOF
