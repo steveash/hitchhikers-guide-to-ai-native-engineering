@@ -726,12 +726,12 @@ Monthly trajectory:   $60-100 (historical) → $500+ actual → ~$1,600 projecte
 
 This interacts with the "cache reads are cheap" framing from the MCP overhead
 section above. Bswen's Claim 8 establishes that cache reads cost 0.1x base
-input price. At 21 million tokens, 0.1x of a very large number is still a
-very large number. "Cheap per token" does not mean "cheap overall" when
-vendor-managed session state scales independently of visible conversation
-length.
-[source: blog-bswen-mcp-token-cost, Claim 8;
-failure-cursor-ultra-billing-cache-explosion, Lessons 1, 2] [anecdotal]
+input price.
+[source: blog-bswen-mcp-token-cost, Claim 8] [settled]
+At 21 million tokens, 0.1x of a very large number is still a very large
+number. "Cheap per token" does not mean "cheap overall" when vendor-managed
+session state scales independently of visible conversation length.
+[source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 2] [anecdotal]
 
 **Rule**: Never assume your UI context window display predicts your API bill.
 For tools using agentic or multi-step sessions, billing costs are not

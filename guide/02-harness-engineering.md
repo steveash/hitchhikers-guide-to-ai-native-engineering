@@ -1029,8 +1029,8 @@ implementation. Addy Osmani's experimental Claude Code Agent Teams
 pattern from the vendor side. Two independent implementations arriving at the
 same architecture — one from a CLI author, one from Anthropic — is meaningful
 signal that this structure is load-bearing.
-[source: discussion-hn-ttal-multiagent-factory, Claims 2, 9;
-blog-addyosmani-code-agent-orchestra, Claim 4] [anecdotal]
+[source: discussion-hn-ttal-multiagent-factory, Claims 2, 9] [anecdotal]
+[source: blog-addyosmani-code-agent-orchestra, Claim 4] [emerging]
 
 ### Cleanup as a first-class lifecycle stage
 
@@ -1045,6 +1045,7 @@ failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
 **Rule**: In any autonomous multi-agent harness, the agent that creates the
 worktree is responsible for destroying it. Do not leave cleanup to a manual
 garbage-collection step.
+[editorial]
 
 ### The stuck-vs-slow open problem
 
