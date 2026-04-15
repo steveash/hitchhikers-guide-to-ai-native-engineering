@@ -67,6 +67,24 @@ jobs:
             You may read any file in the repository to verify citations,
             cross-references, and contradictions. Do NOT edit any files.
 
+            ## Human reviewer context
+
+            Before reviewing, check for human reviewer comments on this PR:
+
+              gh api "repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
+                --paginate --jq '.[] | select(.user.type != "Bot") | "[\(.user.login) \(.created_at)]: \(.body)"'
+              gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/comments" \
+                --paginate --jq '.[] | select(.user.type != "Bot") | "[\(.user.login) on \(.path):\(.line // "?")]: \(.body)"'
+              gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews" \
+                --paginate --jq '.[] | select(.user.type != "Bot") | select(.body != null and .body != "") | "[\(.user.login) review \(.state)]: \(.body)"'
+
+            If human reviewers have left feedback, treat their comments
+            as authoritative editorial direction. Do NOT flag issues that
+            the human has explicitly accepted or requested. If the human
+            said "tone this down" and the Smith toned it down, that change
+            is correct even if the source note says otherwise — the human
+            reviewer outranks the source note on editorial judgment.
+
             Write your review to /tmp/assayer-review.md using the exact
             "Review Output Format" template from agents/ASSAYER.md. The
             verdict line MUST be one of:
