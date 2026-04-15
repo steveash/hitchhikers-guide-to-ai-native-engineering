@@ -700,7 +700,7 @@ sessions extend and cache depth increases. Export billing CSV (not the product
 UI) as the diagnostic. Do not interpret a tool's "context management" or
 "summarization" feature as a cost control; these govern what the model
 reasons over, not what you are billed for.
-[source: failure-cursor-ultra-billing-cache-explosion, Lessons 2, 3, 6] [anecdotal]
+[source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 2, 3, 6] [anecdotal]
 
 ### How to audit your own context budget
 
@@ -865,7 +865,7 @@ blog-osmani-good-spec (Claims 1, 3-7),
 blog-sankalp-claude-code-20 (Claims 1-7),
 research-wasnotwas-context-compaction (Claims 1-8),
 failure-decker-4hr-session-loss (Lessons 1-5, Recovery Path),
-failure-cursor-ultra-billing-cache-explosion (Lessons 1-4, 6),
+failure-cursor-ultra-billing-cache-explosion (Lessons 1-3, 6),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
