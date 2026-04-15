@@ -121,9 +121,42 @@ jobs:
              scope, do not refactor, do not "improve" things they didn't
              mention.
           4. Do NOT edit source-notes/, agents/, scripts/, or .github/.
-          5. Commit and push your fixes.
 
-          After fixing:
+          ## Sticky note extraction
+
+          After addressing the feedback, review each comment for
+          generalizable lessons — patterns the Smith should always
+          follow (or avoid) when synthesizing this chapter in the
+          future. Not every comment is a sticky note. Only create one
+          when the feedback reveals a recurring editorial standard,
+          not a one-time fix.
+
+          Examples that ARE sticky notes:
+          - "Don't call paraphrased content 'verbatim'" → prescriptive
+            rule about attribution language
+          - "Always qualify cognitive ceiling claims with the modality
+            (interactive vs background)" → conditional note for that
+            section
+          - "Tone down single-source claims" → prescriptive rule about
+            confidence framing
+
+          Examples that are NOT sticky notes:
+          - "Fix the typo in line 42" → one-time fix
+          - "Add the missing citation" → specific to this PR
+          - "This section is too long" → subjective, not actionable
+            as a recurring rule
+
+          If you identify generalizable lessons:
+          a) Read the relevant sticky-notes/chNN-*.md file
+          b) Find the next SN-NN-NNN ID (look at the index table)
+          c) Append the new note using the exact format from the file
+             header (Type: prescriptive or conditional, Status: active)
+          d) Add it to the index table
+          e) Include the sticky-notes file in your commit
+
+          ## Commit and push
+
+          After all changes (guide fixes + any new sticky notes):
             git add guide/ sticky-notes/
             if git diff --staged --quiet; then
               echo "No changes needed."
