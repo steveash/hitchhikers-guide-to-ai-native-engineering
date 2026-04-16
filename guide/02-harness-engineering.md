@@ -540,6 +540,37 @@ the hierarchy above.
 
 ## .claude/settings.json — Permission Models
 
+### The Permission Architecture
+
+Claude Code's permission system has three levels and four context tiers
+(from the Claude Code architecture map):
+[source: blog-ccunpacked-claude-code-architecture, Claim 14] [emerging]
+
+```
+# Permission system (3 levels)
+deny    → tool call is blocked, no user interaction
+check   → hook script runs and decides; exit non-zero blocks the call
+prompt  → human must approve before the call executes
+
+# Context tier hierarchy (4 levels, outer overrides inner)
+global   → ~/.claude/settings.json
+project  → .claude/settings.json
+session  → runtime configuration for the current session
+call     → per-tool-invocation overrides
+```
+
+The **check** tier is the most under-used: a PreToolUse hook script runs
+before each tool call and can block it automatically based on custom logic
+— no human in the loop. Claude Code already uses this for dangerous
+operations; practitioners who write enforcement hooks are effectively
+reimplementing this tier externally instead of using it directly.
+
+The **four-tier hierarchy** answers "where should I put this
+configuration?": outer tiers override inner ones. A project-level deny
+overrides a session-level prompt; a call-level override applies to a
+single invocation.
+[source: blog-ccunpacked-claude-code-architecture, Claim 14] [emerging]
+
 ### The Granular Allowlist (enterprise / high-security)
 
 Sentry's `.claude/settings.json` uses 60+ specific Bash command prefixes.
@@ -1136,6 +1167,39 @@ docs. The high-value workflow rules are in the first ~60 lines.
 Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 [source: practitioner-mikelane-pytest-test-categories] [editorial]
 
+### 6. No Circuit Breaker on Retry Loops — CRITICAL
+
+Any retry loop in a harness — compaction retries, tool-call retries, agent
+loop retries — needs a consecutive-failure counter that trips to a safe
+degraded state. Without one, a single persistent failure can burn massive
+API budget in a loop.
+
+Claude Code's production autoCompact subsystem learned this the hard way.
+A comment in `autoCompact.ts` (BigQuery data, 2026-03-10):
+
+```
+# BQ 2026-03-10: 1,279 sessions had 50+ consecutive failures
+# (up to 3,272) in a single session, wasting ~250K API calls/day globally.
+MAX_CONSECUTIVE_AUTOCOMPACT_FAILURES = 3
+```
+
+Before the three-line circuit breaker shipped, 1,279 sessions were retrying
+autoCompact 50+ times in a row in a single session — one session reached
+3,272 consecutive failures. The entire $250K API calls/day waste was
+preventable with a single constant.
+[source: failure-alex000kim-claudecode-source-leak, Lesson 1] [emerging]
+
+The three-failure threshold is instructive: it counts *consecutive* failures,
+not total failures. Transient errors self-heal before the breaker trips;
+persistent failures trip it after three attempts. This is the reference
+implementation — apply the same pattern to any retry loop in a custom harness.
+
+**Rule**: In any harness with a retry loop, add a consecutive-failure counter.
+After N consecutive failures (3 is a reasonable default), trip to a safe
+degraded state rather than continuing to retry. The autoCompact case is the
+only measured production cost of omitting one in our corpus.
+[source: failure-alex000kim-claudecode-source-leak, Lesson 1] [emerging]
+
 ---
 
 ## Quick Reference: Harness File Inventory
@@ -1157,7 +1221,9 @@ Move architecture docs to ARCHITECTURE.md. Keep CLAUDE.md behavioral.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
+blog-ccunpacked-claude-code-architecture (Claim 14),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
+failure-alex000kim-claudecode-source-leak (Lesson 1),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
 failure-sukit-parallel-session-ceiling (Lessons 2, 3),
@@ -1169,4 +1235,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-16*

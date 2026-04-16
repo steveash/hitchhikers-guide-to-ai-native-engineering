@@ -475,6 +475,55 @@ research-wasnotwas-context-compaction, Claim 5] [emerging]
 
 ---
 
+## Pre-Session Corpus Loading for Low-Coverage Domains
+
+When generating code for a language or framework with thin training data,
+LLMs produce plausible-looking code that uses the wrong idioms, hallucinated
+API calls, or incorrect type patterns. Prompting alone cannot compensate
+for a training data gap.
+
+The Godogen game-generation pipeline solved this for GDScript (~850 classes,
+Python-like syntax, absent from most LLM training corpora) by building a
+custom three-part reference corpus:
+
+1. A hand-written language specification documenting quirks not in the
+   official docs
+2. Full API documentation converted from the engine's XML source
+3. A "quirks database for engine behaviors you can't learn from docs alone"
+
+[source: failure-htdt-godogen-game-generation, Lesson 1] [anecdotal]
+
+Critically, the corpus is **lazy-loaded** via an isolated skill context —
+the agent queries it on demand for the specific class APIs it needs,
+rather than injecting the full corpus upfront. Injecting all 850 classes
+would overflow the context budget alongside the actual code being
+generated.
+[source: failure-htdt-godogen-game-generation, Lesson 2] [emerging]
+
+```
+Architecture: "godot-api" runs as an isolated skill context
+  → Agent queries it on demand for needed class APIs
+  → Only relevant API documentation enters the main context window
+  → Context budget preserved for generation and reasoning
+```
+
+[source: failure-htdt-godogen-game-generation, Recovery 1] [anecdotal]
+
+This pattern applies to any:
+- Domain-specific or niche language (GDScript, Zig, Roc, Gleam)
+- Rapidly-evolving API that is ahead of the model's training cutoff
+- Internal or proprietary API absent from public training data
+- Framework with undocumented behavior the model consistently gets wrong
+
+**Rule**: Before attributing LLM errors to "bad prompting," check whether
+the target language or framework is adequately represented in the model's
+training corpus. If not, plan for a reference injection layer. Lazy-load
+via a dedicated skill context to preserve budget — do not inject the full
+corpus upfront.
+[source: failure-htdt-godogen-game-generation, Lessons 1, 2] [emerging]
+
+---
+
 ## The Restart Recovery Pattern
 
 Sessions end. Sometimes you choose it (handoff), sometimes the harness
@@ -702,6 +751,24 @@ UI) as the diagnostic. Do not interpret a tool's "context management" or
 reasons over, not what you are billed for.
 [source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 2, 3, 6] [anecdotal]
 
+### Naming cache-hostile operations
+
+Production-scale cache management is more complex than practitioners
+typically model. Anthropic's `promptCacheBreakDetection.ts` (from the
+Claude Code source map leak) tracks 14 distinct ways a cache can be
+invalidated — with internal guards to prevent mode toggles from
+accidentally busting it. One internal function is annotated:
+
+```typescript
+DANGEROUS_uncachedSystemPromptSection()
+```
+
+**Pattern**: Prefix any harness function that invalidates the prompt cache
+with `DANGEROUS_` so callers know to pause — in Claude Code, the harness
+(not Anthropic) controls when cache-busting fires.
+[source: failure-alex000kim-claudecode-source-leak, Lesson 2] [emerging]
+[per SN-04-002]
+
 ### How to audit your own context budget
 
 The methodology is reproducible with one built-in command:
@@ -863,11 +930,13 @@ blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
 blog-sankalp-claude-code-20 (Claims 1-7),
-research-wasnotwas-context-compaction (Claims 1-8),
-failure-decker-4hr-session-loss (Lessons 1-5, Recovery Path),
+failure-alex000kim-claudecode-source-leak (Lesson 2),
 failure-cursor-ultra-billing-cache-explosion (Lessons 1-3, 6),
+failure-decker-4hr-session-loss (Lessons 1-5, Recovery Path),
+failure-htdt-godogen-game-generation (Lessons 1, 2; Recovery 1),
+research-wasnotwas-context-compaction (Claims 1-8),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-16*

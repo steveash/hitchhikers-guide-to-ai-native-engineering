@@ -587,6 +587,46 @@ production issues, 27M events) is a more sophisticated one.
 blog-bvp-shopify-ai-playbook, Claim 6;
 practitioner-getsentry-sentry] [emerging]
 
+### Available measurement primitives (enterprise GitHub)
+
+GitHub Enterprise teams using Copilot have vendor-native access to two PR
+review fields in the Copilot usage metrics REST API (`GET
+/orgs/{org}/copilot/metrics`, single-day and 28-day rolling windows,
+added April 2026):
+
+```
+pull_requests.total_merged_reviewed_by_copilot
+  → Count of merged PRs that received a Copilot code review.
+  → Measures: Copilot review adoption penetration (Layer 1).
+  → Does NOT measure: review quality or engineer engagement.
+
+pull_requests.median_minutes_to_merge_copilot_reviewed
+  → Median time from PR creation to merge for Copilot-reviewed PRs.
+  → Measures: cycle time for the Copilot-reviewed cohort (Layer 3).
+  → Does NOT measure: cycle time for non-Copilot-reviewed PRs.
+```
+
+[source: docs-github-copilot-pr-review-metrics, Claims 2, 3] [settled]
+
+The first field is an **adoption metric** — it tells you whether Copilot
+review touched a PR, not whether the review helped. The second field is a
+genuine **outcome metric**, but it is only half the measurement: to
+determine whether Copilot review speeds up merges, you also need the same
+metric for PRs *not* reviewed by Copilot in the same period. Compute this
+from the GitHub PR API or a third-party analytics layer (e.g., Faros).
+[source: docs-github-copilot-pr-review-metrics, Claims 3, 6] [anecdotal]
+
+**Caveat**: These fields are restricted to GitHub Enterprise Cloud
+administrators. They are unavailable on free/team GitHub.com plans. The
+GitHub changelog positions Copilot review as already beneficial ("capture
+how Copilot *helps* review pull requests") — treat this as a hypothesis to
+test with these metrics, not a demonstrated finding.
+[source: docs-github-copilot-pr-review-metrics, Claims 5, 6] [anecdotal]
+
+These fields are a no-cost starting point for teams before investing in
+a full Faros-style cohort study — if you are on GitHub Enterprise Cloud,
+you already have access.
+
 ### Vanity metrics to avoid
 
 Faros enumerates the metrics that look like productivity wins but measure
@@ -1006,6 +1046,7 @@ research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-faros-claude-code-roi (Claims 1-7),
+docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
 discussion-hn-agentic-coding-jobs (Claim 10),
 failure-sukit-parallel-session-ceiling (Lesson 4),
 practitioner-getsentry-sentry,
@@ -1014,4 +1055,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-16*

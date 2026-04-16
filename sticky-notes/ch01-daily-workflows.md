@@ -24,6 +24,7 @@ ID that is never reused, even after the note is resolved.
 | ID | Title | Type | Status | Section |
 |----|-------|------|--------|---------|
 | SN-01-001 | Keep obvious recommendations concise | prescriptive | active | §task-size-threshold |
+| SN-01-002 | Don't restate the Rule in the preceding paragraph | prescriptive | active | any section with a **Rule** block |
 
 ---
 
@@ -36,3 +37,15 @@ ID that is never reused, even after the note is resolved.
 
 **Why:** Belaboring obvious points erodes the chapter's signal-to-noise ratio and signals the Smith is padding.
 **How to apply:** Before finalizing any subsection, ask: "Would an experienced engineer find this obvious?" If yes, cap at 3-4 sentences and drop supporting quotes unless they add nuance not in the prose.
+
+---
+
+## SN-01-002: Don't restate the Rule in the preceding paragraph
+- **Created**: 2026-04-16
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any section with a **Rule** block
+- **Note**: When a **Rule** block immediately follows a paragraph, the paragraph must not repeat what the rule states. Use the paragraph to present evidence, context, or the failure mode being addressed. Let the **Rule** carry the actionable takeaway. Reviewer flagged a paragraph that restated the rule's content as redundant.
+
+**Why:** Repeating the rule in prose before the rule itself doubles the word count for no added value and makes readers skip the paragraph.
+**How to apply:** After writing any **Rule** block, read the immediately preceding paragraph and remove any sentence that restates the rule. Keep only what adds context or grounds the rule in evidence.
