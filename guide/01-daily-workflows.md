@@ -503,6 +503,13 @@ study found that conceptual inquiry sessions produced comprehension
 scores above 65%, while pure delegation sessions dropped below 40%.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
 
+### The task-size threshold
+
+If you can execute a task in under 10 seconds and you know exactly what to
+type, just type it. Agent overhead — writing the instruction, reviewing output,
+applying the result — exceeds the time saved for micro-tasks.
+[source: discussion-hn-agentic-coding-jobs, Claim 9] [anecdotal]
+
 ### Example: applying the framework
 
 ```
@@ -547,6 +554,7 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+discussion-hn-agentic-coding-jobs (Claim 9),
 failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,

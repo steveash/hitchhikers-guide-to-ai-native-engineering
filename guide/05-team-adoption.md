@@ -722,6 +722,24 @@ productivity gain on the same tasks where objective measurement showed a 19%
 *slowdown*.
 [source: research-anthropic-ai-transforming-work, Claim 2] [anecdotal]
 
+A practitioner summarizing their own experience with unstructured agentic use
+independently arrives at the same pattern as Miller et al.:
+
+> "Our output has not changed, except maybe a little more speed alongside a
+> little more slop. People who do get it to work do so by throwing a lot of
+> money at tokens. Is that all we are doing? Funding the AI platform vendors
+> and stressing ourselves over... a minor speed improvement?"
+> — codingdave
+[source: discussion-hn-agentic-coding-jobs, Claim 10] [anecdotal]
+
+This experience -- more speed, more slop, marginal net gain -- is the expected
+result for engineers who have not adopted spec-first, harness-structured,
+verification-checkpointed workflows. Miller et al.'s measured data (41% more
+complexity, speed spike decaying to zero) and codingdave's self-report are
+consistent. The guide's thesis is that structured agentic use changes this
+outcome -- but that claim needs to be defended, not assumed.
+[editorial]
+
 Shopify's "humble 20%" framing is much closer to what the durable evidence
 supports than the typical "5x productivity" vendor pitch.
 [source: blog-bvp-shopify-ai-playbook, Claim 5] [anecdotal]
@@ -988,6 +1006,7 @@ research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-faros-claude-code-roi (Claims 1-7),
+discussion-hn-agentic-coding-jobs (Claim 10),
 failure-sukit-parallel-session-ceiling (Lesson 4),
 practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,

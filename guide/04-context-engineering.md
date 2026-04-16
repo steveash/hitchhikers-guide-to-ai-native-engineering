@@ -691,6 +691,17 @@ practitioner-getsentry-sentry (cross-reference)] [emerging]
 slash command would do the same job. If yes, skip the server.
 [source: blog-bswen-mcp-token-cost, Claim 5] [editorial]
 
+### The billing window is not the inference window
+
+**Rule**: Never assume your UI context window display predicts your API bill.
+For tools using agentic or multi-step sessions, billing costs are not
+proportional to the visible conversation — expect superlinear cost growth as
+sessions extend and cache depth increases. Export billing CSV (not the product
+UI) as the diagnostic. Do not interpret a tool's "context management" or
+"summarization" feature as a cost control; these govern what the model
+reasons over, not what you are billed for.
+[source: failure-cursor-ultra-billing-cache-explosion, Lessons 1, 2, 3, 6] [anecdotal]
+
 ### How to audit your own context budget
 
 The methodology is reproducible with one built-in command:
@@ -854,8 +865,9 @@ blog-osmani-good-spec (Claims 1, 3-7),
 blog-sankalp-claude-code-20 (Claims 1-7),
 research-wasnotwas-context-compaction (Claims 1-8),
 failure-decker-4hr-session-loss (Lessons 1-5, Recovery Path),
+failure-cursor-ultra-billing-cache-explosion (Lessons 1-3, 6),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-14*
