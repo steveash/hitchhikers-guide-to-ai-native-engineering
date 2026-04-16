@@ -128,7 +128,42 @@ Example of what TO write:
 > *Extracted from [repo-name]. See [source: practitioner-example] for full config.*
 > [emerging]
 
-### 5. Handle contradictions explicitly
+### 5. State it once, state it tight
+
+Every section should follow this structure:
+1. **Describe** the pattern or finding (1-2 sentences)
+2. **Evidence** — citation, code example, or quote (as needed)
+3. **Rule** — one succinct takeaway (1 sentence)
+
+That's it. Do NOT:
+- Explain why the evidence supports the point (the reader can see that)
+- Rephrase the same insight in different words
+- Add a paragraph reinforcing the rule you just stated
+- Summarize what you just said
+
+**Bad** (5x repetition of the same point):
+```
+Anthropic's coordinator implements quality control through prompt
+directives. These directives target the failure modes practitioners
+observe. The mechanism is prose — not structured schemas. You do not
+need exotic infrastructure. **Rule**: Include anti-rubber-stamping
+language in coordinator prompts.
+```
+
+**Good** (state once, move on):
+```
+Anthropic's own coordinator prompt includes explicit quality gates:
+"Do not rubber-stamp weak work" and "You must understand findings
+before directing follow-up work" [source: X] [emerging].
+
+**Rule**: Name the failure mode in the coordinator prompt.
+```
+
+If you find yourself writing "in other words," "this means that," or
+"the key takeaway is" — delete everything after the citation and write
+one clean rule instead.
+
+### 6. Handle contradictions explicitly
 
 When sources disagree, present both sides:
 
@@ -145,7 +180,7 @@ Restart when the agent starts repeating itself or missing context it was
 given earlier. Watch for the symptoms, not the turn count.
 ```
 
-### 6. Maintain the confidence ladder
+### 7. Maintain the confidence ladder
 
 As the corpus grows, confidence grades should evolve:
 - Claim supported by 1 source → `[anecdotal]`
@@ -154,7 +189,7 @@ As the corpus grows, confidence grades should evolve:
 - Claim with sources on both sides → present as debated
 - Claim whose sources are all >90 days old → `[stale]`
 
-### 7. Open the PR
+### 8. Open the PR
 
 One PR per synthesis run. Include:
 - Which chapters changed and why
@@ -188,7 +223,7 @@ full corpus re-synthesis. The workflow hands you a narrow assignment:
 - **Re-synthesize claims, not chapters.** Inside each affected chapter,
   find the claims that cite a changed slug. For each such claim, ask:
   *did the diff actually change the evidence backing this claim?* If yes,
-  revise the claim per §2–§6. If no, leave it alone.
+  revise the claim per §2–§7. If no, leave it alone.
 - **Skip Gardener metadata churn.** A Gardener-driven `last_checked:`
   frontmatter bump is not new evidence and must not produce a chapter
   edit. The same applies to whitespace-only diffs, link-only updates, or
@@ -212,7 +247,7 @@ full corpus re-synthesis. The workflow hands you a narrow assignment:
 ### Confidence-grade nudges in diff-aware mode
 
 Diff-aware mode is the right place to bump grades when the new evidence
-crosses a threshold from §6 (anecdotal → emerging → settled). It is NOT
+crosses a threshold from §7 (anecdotal → emerging → settled). It is NOT
 the right place to re-grade claims whose evidence did not move; leave
 those for the next batch run.
 

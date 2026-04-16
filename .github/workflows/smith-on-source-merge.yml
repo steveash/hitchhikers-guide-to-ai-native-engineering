@@ -306,7 +306,7 @@ jobs:
             ## Your task
 
             1. Read `agents/SMITH.md` end-to-end. Follow its synthesis
-               process (§1–§7), the diff-aware operating rules, AND
+               process (§1–§8), the diff-aware operating rules, AND
                the Sticky Notes protocol.
             2. Read the per-note diff file above. Identify which
                specific claims (not just which chapters) the diff
@@ -332,9 +332,11 @@ jobs:
                  cite must appear in the diff file — do not pull in
                  unrelated sources.
                - Re-grade only if the new evidence crosses a confidence
-                 threshold in agents/SMITH.md §6. Leave unchanged
+                 threshold in agents/SMITH.md §7. Leave unchanged
                  claims alone.
-               - Surface contradictions explicitly per agents/SMITH.md §5.
+               - State it once, state it tight per agents/SMITH.md §5.
+                 No restating the insight after the citation.
+               - Surface contradictions explicitly per agents/SMITH.md §6.
                - Show, don't just tell — every recommendation needs the
                  concrete example required by agents/SMITH.md §4.
             6. Do NOT gold-plate. An empty PR is preferable to a churn
