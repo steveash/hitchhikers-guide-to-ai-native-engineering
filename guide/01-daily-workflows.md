@@ -298,8 +298,10 @@ implements quality control through system prompt directives:
 
 [source: failure-alex000kim-claudecode-source-leak, Lesson 3] [emerging]
 
-These two directives name the failure modes directly: rubber-stamping weak
-work, and delegating understanding rather than synthesizing it.
+This is what Anthropic's team found necessary to encode in production:
+coordinators naturally drift toward approval and delegation without
+explicit counter-instructions, because each sub-agent handoff is an
+invitation to forward a summary rather than understand it.
 
 **Rule**: When writing coordinator prompts, include explicit
 anti-rubber-stamping language. Name the specific failure mode: "You must

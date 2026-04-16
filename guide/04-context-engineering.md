@@ -926,7 +926,6 @@ session.
 ---
 
 *Sources for this chapter:
-blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
