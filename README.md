@@ -70,11 +70,16 @@ directly:
 
 1. Read the PR diff
 2. Leave as many comments as you want — what to change, tone down, add, remove
-3. When you're done, post a comment containing `/rework`
+3. When you're done, post a comment containing one of:
+   - **`/rework`** — incremental fix. The Smith addresses your feedback and pushes
+     fixes to the existing branch.
+   - **`/rebase`** — fresh start. The Smith resets the branch to current main and
+     re-synthesizes the guide changes from scratch. Use this when the PR has merge
+     conflicts or the guide has changed too much for incremental fixes.
 
-The Smith reads **all** your comments holistically in one pass, pushes fixes, and
-the Assayer re-reviews automatically. You can `/rework` as many times as needed.
-Only repo collaborators can trigger rework.
+The Smith reads **all** your comments holistically in one pass. The Assayer
+re-reviews automatically after each push. You can use either command as many
+times as needed. Only repo collaborators can trigger.
 
 ---
 

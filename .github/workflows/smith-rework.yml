@@ -1,12 +1,19 @@
 name: Smith Rework (Human Feedback)
 
-# Triggered when a maintainer comments "/rework" on a guide-update PR.
-# The Smith reads the comment as feedback and pushes fixes to the PR branch.
-# The assayer re-triggers automatically on the push.
+# Triggered when a maintainer comments "/rework" or "/rebase" on a
+# guide-update PR.
 #
-# Usage: comment on any open guide-update PR with your feedback and include
-# "/rework" anywhere in the comment. The Smith will address your feedback
-# and push a new commit. You can /rework as many times as needed.
+# /rework — Fix what's here. The Smith reads your feedback and pushes
+#           incremental fixes to the existing PR branch.
+#
+# /rebase — Start fresh. The Smith resets the branch to current main
+#           and re-synthesizes the guide changes from scratch, reading
+#           the original source notes + your feedback. Use this when
+#           the PR has merge conflicts or the guide has diverged too
+#           far for incremental fixes.
+#
+# Both commands collect ALL human comments on the PR as context.
+# You can use either command as many times as needed.
 
 on:
   issue_comment:
@@ -33,14 +40,14 @@ jobs:
       (
         github.event_name == 'issue_comment' &&
         github.event.issue.pull_request &&
-        contains(github.event.comment.body, '/rework') &&
+        (contains(github.event.comment.body, '/rework') || contains(github.event.comment.body, '/rebase')) &&
         contains(github.event.issue.labels.*.name, 'guide-update') &&
         (github.event.comment.author_association == 'OWNER' ||
          github.event.comment.author_association == 'COLLABORATOR' ||
          github.event.comment.author_association == 'MEMBER')
       ) || (
         github.event_name == 'pull_request_review' &&
-        contains(github.event.review.body, '/rework') &&
+        (contains(github.event.review.body, '/rework') || contains(github.event.review.body, '/rebase')) &&
         contains(github.event.pull_request.labels.*.name, 'guide-update') &&
         (github.event.review.author_association == 'OWNER' ||
          github.event.review.author_association == 'COLLABORATOR' ||
@@ -77,6 +84,19 @@ jobs:
           gh api "repos/${{ github.repository }}/issues/${{ steps.pr.outputs.pr_number }}/labels/rework-attempted" \
             -X DELETE 2>/dev/null || true
 
+      - name: Detect command
+        id: cmd
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body || github.event.review.body }}
+        run: |
+          if echo "$COMMENT_BODY" | grep -q '/rebase'; then
+            echo "mode=rebase" >> "$GITHUB_OUTPUT"
+            echo "Mode: rebase (fresh synthesis on top of main)"
+          else
+            echo "mode=rework" >> "$GITHUB_OUTPUT"
+            echo "Mode: rework (incremental fix)"
+          fi
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ steps.pr.outputs.head_ref }}
@@ -87,6 +107,13 @@ jobs:
         run: |
           git config user.name "hitchhiker-smith[bot]"
           git config user.email "hitchhiker-smith@users.noreply.github.com"
+
+      - name: Reset branch to main (rebase mode)
+        if: steps.cmd.outputs.mode == 'rebase'
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+          echo "Branch reset to origin/main ($(git rev-parse --short HEAD))"
 
       - name: React to trigger
         env:
@@ -104,7 +131,7 @@ jobs:
       - name: Install Claude Code CLI
         run: npm install -g @anthropic-ai/claude-code
 
-      - name: Collect all human feedback from PR
+      - name: Collect all human feedback and PR context
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
@@ -113,8 +140,6 @@ jobs:
           # 1. Regular PR comments (issue_comment API)
           # 2. PR review bodies (reviews API)
           # 3. Inline review comments on the diff (review comments API)
-          # The reviewer may have left many comments before triggering
-          # /rework — the Smith should address all of them holistically.
 
           > /tmp/human-feedback.md
 
@@ -122,7 +147,7 @@ jobs:
           gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
             --paginate --jq '.[] |
               select(.user.type != "Bot") |
-              select(.body | test("/rework") | not) |
+              select(.body | test("/rework|/rebase") | not) |
               "### Comment by \(.user.login) at \(.created_at)\n\n\(.body)\n"
             ' >> /tmp/human-feedback.md 2>/dev/null || true
 
@@ -131,7 +156,7 @@ jobs:
             --paginate --jq '.[] |
               select(.user.type != "Bot") |
               select(.body != null and .body != "") |
-              select(.body | test("/rework") | not) |
+              select(.body | test("/rework|/rebase") | not) |
               "### Review by \(.user.login) at \(.submitted_at) [\(.state)]\n\n\(.body)\n"
             ' >> /tmp/human-feedback.md 2>/dev/null || true
 
@@ -144,17 +169,19 @@ jobs:
 
           LINES=$(wc -l < /tmp/human-feedback.md)
           echo "Collected $LINES lines of reviewer feedback"
-          if [ "$LINES" -eq 0 ]; then
-            echo "No feedback found — nothing to rework."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          fi
 
-      - name: Run Smith rework
+          # For rebase mode: extract the PR body so the Smith knows what
+          # source notes this PR was originally synthesizing
+          gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" \
+            --jq '.body' > /tmp/pr-body.md 2>/dev/null || true
+
+      - name: Run Smith (rework mode)
+        if: steps.cmd.outputs.mode == 'rework'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat > /tmp/smith-rework-prompt.txt <<'PROMPT_EOF'
+          cat > /tmp/smith-prompt.txt <<'PROMPT_EOF'
           You are the Smith agent reworking a guide-update PR based on
           human reviewer feedback. Read agents/SMITH.md for your role
           and quality bar.
@@ -178,24 +205,8 @@ jobs:
           After addressing the feedback, review each comment for
           generalizable lessons — patterns the Smith should always
           follow (or avoid) when synthesizing this chapter in the
-          future. Not every comment is a sticky note. Only create one
-          when the feedback reveals a recurring editorial standard,
-          not a one-time fix.
-
-          Examples that ARE sticky notes:
-          - "Don't call paraphrased content 'verbatim'" → prescriptive
-            rule about attribution language
-          - "Always qualify cognitive ceiling claims with the modality
-            (interactive vs background)" → conditional note for that
-            section
-          - "Tone down single-source claims" → prescriptive rule about
-            confidence framing
-
-          Examples that are NOT sticky notes:
-          - "Fix the typo in line 42" → one-time fix
-          - "Add the missing citation" → specific to this PR
-          - "This section is too long" → subjective, not actionable
-            as a recurring rule
+          future. Only create a sticky note when the feedback reveals
+          a recurring editorial standard, not a one-time fix.
 
           If you identify generalizable lessons:
           a) Read the relevant sticky-notes/chNN-*.md file
@@ -217,9 +228,64 @@ jobs:
             git push
           PROMPT_EOF
 
-          claude -p "$(cat /tmp/smith-rework-prompt.txt)" \
+          claude -p "$(cat /tmp/smith-prompt.txt)" \
             --max-turns 30 \
             --allowedTools "Bash(*)" "Read" "Edit" "Glob" "Grep" "WebFetch"
+
+      - name: Run Smith (rebase mode)
+        if: steps.cmd.outputs.mode == 'rebase'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > /tmp/smith-prompt.txt <<'PROMPT_EOF'
+          You are the Smith agent re-synthesizing guide chapters from
+          scratch after a rebase. Read agents/SMITH.md for your role,
+          synthesis process, and quality bar.
+
+          ## Context
+
+          This PR previously had guide chapter changes, but the branch
+          has been reset to current main because of merge conflicts or
+          divergence. You need to re-do the synthesis fresh.
+
+          The original PR description is at /tmp/pr-body.md — read it
+          to understand which source notes triggered this PR and what
+          chapters were affected.
+
+          Human reviewers have also left feedback in /tmp/human-feedback.md.
+          Read it and incorporate their guidance into your synthesis.
+          Human editorial direction outranks source notes.
+
+          ## Your task
+
+          1. Read /tmp/pr-body.md to identify the source notes this PR
+             was synthesizing.
+          2. Read /tmp/human-feedback.md for reviewer guidance.
+          3. Read agents/SMITH.md for synthesis rules and quality bar.
+          4. Read the sticky-notes files for affected chapters.
+          5. Read the source notes identified in the PR body.
+          6. Read the current guide chapters (they are now up-to-date
+             on main — your branch IS main).
+          7. Synthesize the source notes into the guide chapters,
+             following SMITH.md rules, sticky notes, and reviewer
+             feedback.
+          8. Do NOT edit source-notes/, agents/, scripts/, or .github/.
+
+          ## Commit and push
+
+            git add guide/ sticky-notes/
+            if git diff --staged --quiet; then
+              echo "No changes needed after rebase."
+              exit 0
+            fi
+            git commit -m "smith: re-synthesize after rebase"
+            git push --force-with-lease
+          PROMPT_EOF
+
+          claude -p "$(cat /tmp/smith-prompt.txt)" \
+            --max-turns 60 \
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
 
       - name: Notify success
         if: success()
