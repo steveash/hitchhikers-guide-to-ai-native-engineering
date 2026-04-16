@@ -507,7 +507,7 @@ Architecture: "godot-api" runs as an isolated skill context
   → Context budget preserved for generation and reasoning
 ```
 
-[source: failure-htdt-godogen-game-generation, Recovery 1]
+[source: failure-htdt-godogen-game-generation, Recovery 1] [anecdotal]
 
 This pattern applies to any:
 - Domain-specific or niche language (GDScript, Zig, Roc, Gleam)
@@ -772,6 +772,7 @@ invalidates the prompt cache. When a function breaks the cache, its
 name should say so. An engineer who sees `DANGEROUS_resetSystemPrompt()`
 will pause to understand why; an engineer who sees `resetSystemPrompt()`
 will not.
+[source: failure-alex000kim-claudecode-source-leak, Lesson 2] [emerging]
 
 **Note on harness control**: In Claude Code specifically, cache
 breakpoints are set by the harness, not by Anthropic. This means harness

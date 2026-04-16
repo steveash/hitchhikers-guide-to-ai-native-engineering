@@ -705,6 +705,7 @@ over time.
    container or sandbox that bounds the blast radius
 4. Treat behavioral stability across model upgrades as a first-class
    testing concern
+[source: discussion-hn-airun-executable-markdown, Claim 7] [anecdotal]
 
 ### Coding-agent self-bias in evaluation
 
@@ -728,6 +729,7 @@ the actual execution output — not the code that produced it. The
 evaluator must NOT have access to the generated code. This eliminates
 self-bias by design: the evaluator can only see whether the output is
 correct, not whether the code looks correct.
+[source: failure-htdt-godogen-game-generation, Lesson 4] [anecdotal]
 
 ### Shell execution attack surface
 
