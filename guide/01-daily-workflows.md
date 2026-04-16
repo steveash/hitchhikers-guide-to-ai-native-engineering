@@ -283,6 +283,33 @@ agents running, you have too many agents running. Reduce until every
 diff gets a real review.
 [editorial]
 
+### Quality Enforcement in Coordinator Prompts
+
+When managing multiple agents, the coordinator role requires active
+quality synthesis — not just task routing. Anthropic's own production
+coordinator (`coordinatorMode.ts`, from the Claude Code source map leak)
+implements quality control through system prompt directives:
+
+```
+"Do not rubber-stamp weak work"
+"You must understand findings before directing follow-up work.
+ Never hand off understanding to another worker."
+```
+
+[source: failure-alex000kim-claudecode-source-leak, Lesson 3] [emerging]
+
+These two directives target the exact failure modes practitioners observe:
+a coordinator that waves through poor agent work without review, and one
+that routes tasks without synthesizing what workers found. The mechanism
+is prose — not structured schemas or tool-call validation. You do not need
+exotic orchestration infrastructure to enforce coordinator quality; you
+need the right language in the system prompt.
+
+**Rule**: When writing coordinator prompts, include explicit
+anti-rubber-stamping language. Name the specific failure mode: "You must
+understand findings before directing follow-up work."
+[source: failure-alex000kim-claudecode-source-leak, Lesson 3] [emerging]
+
 ### The 15-minute cadence
 
 If an agent has not made significant progress in 15 minutes, it should
@@ -555,10 +582,11 @@ a checkpoint.
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
 discussion-hn-agentic-coding-jobs (Claim 9),
+failure-alex000kim-claudecode-source-leak (Lesson 3),
 failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-14*
+*Last updated: 2026-04-16*

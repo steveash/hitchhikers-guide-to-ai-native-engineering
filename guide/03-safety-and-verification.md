@@ -539,6 +539,54 @@ repos:
 
 [source: practitioner-mikelane-pytest-test-categories] [emerging]
 
+### Pattern: Hybrid static+LLM security review
+
+Static analysis findings can anchor AI security review, addressing the
+recall gap that LLM-only review produces. A vendor-run benchmark
+(DeepSource, JS/TS only) on the OpenSSF CVE dataset (200+ real
+vulnerabilities) found:
+
+```
+Tool            | Precision | Recall  | F1 Score | Avg. Time
+----------------|-----------|---------|----------|----------
+Claude Code     | 88.89%    | 48.78%  | 62.99%   |  43.92s
+Cursor Bugbot   | 69.23%    | 87.80%  | 77.42%   | 189.88s
+Autofix Bot     | 84.93%    | 75.61%  | 80.00%   | 143.77s
+Semgrep CE      | 66.67%    | 26.83%  | 38.26%   |  90.00s
+
+Note: vendor-run; different invocation methods per tool; JS/TS only.
+```
+
+Claude Code's 88.89% precision / 48.78% recall profile means it almost
+never flags a false positive, but misses more than half of actual
+vulnerabilities in the test set. A team interpreting "Claude Code found
+no security issues" as "no security issues exist" is operating on a false
+premise.
+[source: discussion-hn-autofix-hybrid-review, Claim 2] [anecdotal]
+
+**Critical caveats**: The benchmark was run by DeepSource (the vendor
+whose product topped the results). Claude Code was invoked via "diff
+simulation," not its native interactive workflow. Results cover JS/TS
+only; Python, Go, Java, C++ are not covered. Treat figures as
+directional; independent replication is recommended before citing them
+as authoritative.
+[source: discussion-hn-autofix-hybrid-review, Extraction Notes] [anecdotal]
+
+The architectural fix is to run static analysis first and pass findings
+to the AI reviewer as anchors:
+
+```markdown
+"Here are the static analysis findings for this diff: [findings].
+Focus your security review on these locations and report any
+additional vulnerabilities you find in the surrounding context."
+```
+
+This addresses two LLM-only failure modes at once: the recall gap
+(static analysis catches what the LLM misses) and the distraction
+problem (LLMs flagging stylistic concerns while missing security bugs
+when both types are present in the same diff).
+[source: discussion-hn-autofix-hybrid-review, Claims 1, 3, 8] [emerging]
+
 ### The coverage gap
 
 Tests cannot fully answer correctness. You cannot write tests for
@@ -629,6 +677,93 @@ which is subject to the ~70-80% prose compliance ceiling.
 [source: failure-hooks-enforcement-2k, Recovery Path (command_restrictor.py,
 validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [emerging]
 
+### Trust-degradation in automated pipelines
+
+A nondeterministic automation can pass early tests, build deployment
+trust over time, and then fail catastrophically when the model's
+interpretation of an ambiguous instruction shifts. DocTomoe's formulation:
+
+> "it passes tests, builds trust, and then fails catastrophically once
+> the implicit interpretation shifts"
+> [source: discussion-hn-airun-executable-markdown, Claim 7]
+
+The scenario: an automated AI pipeline runs "analyze logfiles, then
+clean up" repeatedly. For weeks, "clean up" means "remove temp files."
+Then a model upgrade or context shift causes the model to interpret
+"clean up" differently — potentially destructively. The failure is not
+random; it is structurally inevitable when natural-language instructions
+have multiple valid interpretations and execution environments change
+over time.
+[source: discussion-hn-airun-executable-markdown, Claim 7] [anecdotal]
+
+**Mitigation**: For any automated AI pipeline:
+1. Use maximally unambiguous language — eliminate instructions with
+   multiple valid interpretations
+2. For destructive operations, require explicit confirmation via the
+   permission model
+3. Run scripts touching the filesystem or infrastructure in a
+   container or sandbox that bounds the blast radius
+4. Treat behavioral stability across model upgrades as a first-class
+   testing concern
+
+### Coding-agent self-bias in evaluation
+
+A coding agent evaluating its own generated output is inherently biased
+toward declaring success. "Code compiles fine but assets are floating,
+paths lead nowhere, layouts are garbage" — the agent that wrote the code
+cannot reliably detect failures that manifest as visual, spatial, or
+behavioral properties of the running output.
+
+From the Godogen game-generation pipeline (four rewrites over one year):
+after adding a separate vision-model QA loop (Gemini Flash evaluating
+screenshots from the running engine, with no code access), the pipeline
+caught bug categories the code-generating agent systematically missed:
+z-fighting, floating objects, physics explosions, and grid-like
+placements that should be organic.
+[source: failure-htdt-godogen-game-generation, Lesson 4] [anecdotal]
+
+**Mitigation**: For any pipeline where output correctness has a visual,
+spatial, or behavioral dimension, add a separate evaluator grounded in
+the actual execution output — not the code that produced it. The
+evaluator must NOT have access to the generated code. This eliminates
+self-bias by design: the evaluator can only see whether the output is
+correct, not whether the code looks correct.
+
+### Shell execution attack surface
+
+If your harness allows shell execution, your allowlist matching will
+be bypassed unless hardened against attack classes that are non-obvious.
+Claude Code's `bashSecurity.ts` (from the source map leak) implements
+23 numbered security checks:
+
+```
+# bashSecurity.ts — partial inventory
+# Total: 23 numbered checks
+# Includes:
+#   - 18 blocked Zsh builtins
+#   - Zsh equals expansion: =curl bypasses permission checks for curl
+#   - Unicode zero-width space injection in command tokens
+#   - IFS null-byte injection
+#   - Malformed token bypass (additional, discovered in security review)
+```
+
+[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
+
+Three lessons:
+1. **Zsh is meaningfully more dangerous than bash** for harness tool use —
+   18 extra blocked builtins. Default to bash.
+2. **Zsh equals expansion** (`=curl` executes `curl` even when `curl`
+   is on a blocklist) will not be caught by simple string matching.
+3. **Unicode zero-width space injection** in command tokens can slip past
+   allow-list matching entirely.
+
+**Rule**: If your harness allows shell execution and you have fewer than
+23 documented security checks, you have unknown exposure. At minimum,
+audit for the three non-obvious bypass classes above. The 23-check count
+is a floor, not a ceiling — the comment history implies new bypasses are
+discovered during audits.
+[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
+
 ---
 
 ## Summary: The Verification Stack
@@ -647,8 +782,12 @@ Build all five layers. Each one is a safety net for the layer above it.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
+discussion-hn-airun-executable-markdown (Claim 7),
+discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
+failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
+failure-htdt-godogen-game-generation (Lesson 4),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
@@ -657,4 +796,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-04-16*
