@@ -753,33 +753,20 @@ reasons over, not what you are billed for.
 
 ### Naming cache-hostile operations
 
-Production-scale cache management tracks far more break vectors than
-practitioners typically model. Anthropic's `promptCacheBreakDetection.ts`
-(from the Claude Code source map leak) tracks 14 distinct cache-break
-vectors with sticky latches that prevent mode toggles from invalidating
-the cache unexpectedly. One internal function is annotated:
+Production-scale cache management is more complex than practitioners
+typically model. Anthropic's `promptCacheBreakDetection.ts` (from the
+Claude Code source map leak) tracks 14 distinct ways a cache can be
+invalidated — with internal guards to prevent mode toggles from
+accidentally busting it. One internal function is annotated:
 
 ```typescript
 DANGEROUS_uncachedSystemPromptSection()
 ```
 
-The uppercase `DANGEROUS` prefix signals: calling this function in the
-wrong context silently destroys the cache hit rate for the session.
+**Pattern**: Prefix any harness function that invalidates the prompt cache
+with `DANGEROUS_` so callers know to pause — in Claude Code, the harness
+(not Anthropic) controls when cache-busting fires.
 [source: failure-alex000kim-claudecode-source-leak, Lesson 2] [emerging]
-
-**Pattern**: Adopt this naming convention in any harness code that
-invalidates the prompt cache. When a function breaks the cache, its
-name should say so. An engineer who sees `DANGEROUS_resetSystemPrompt()`
-will pause to understand why; an engineer who sees `resetSystemPrompt()`
-will not.
-[source: failure-alex000kim-claudecode-source-leak, Lesson 2] [emerging]
-
-**Note on harness control**: In Claude Code specifically, cache
-breakpoints are set by the harness, not by Anthropic. This means harness
-authors control when and whether cache-busting operations fire — and can
-apply the `DANGEROUS_` convention to their own harness code to make this
-control visible.
-[source: blog-ccunpacked-claude-code-architecture, Claim 14] [emerging]
 [per SN-04-002]
 
 ### How to audit your own context budget

@@ -539,52 +539,9 @@ repos:
 
 [source: practitioner-mikelane-pytest-test-categories] [emerging]
 
-### Pattern: Hybrid static+LLM security review
-
-Static analysis findings can anchor AI security review, addressing the
-recall gap that LLM-only review produces. A vendor-run benchmark
-(DeepSource, JS/TS only) on the OpenSSF CVE dataset (200+ real
-vulnerabilities) found:
-
-```
-Tool            | Precision | Recall  | F1 Score | Avg. Time
-----------------|-----------|---------|----------|----------
-Claude Code     | 88.89%    | 48.78%  | 62.99%   |  43.92s
-Cursor Bugbot   | 69.23%    | 87.80%  | 77.42%   | 189.88s
-Autofix Bot     | 84.93%    | 75.61%  | 80.00%   | 143.77s
-Semgrep CE      | 66.67%    | 26.83%  | 38.26%   |  90.00s
-
-Note: vendor-run; different invocation methods per tool; JS/TS only.
-```
-
-Claude Code's 88.89% precision / 48.78% recall profile means it almost
-never flags a false positive, but misses more than half of actual
-vulnerabilities in the test set. A team interpreting "Claude Code found
-no security issues" as "no security issues exist" is operating on a false
-premise.
-[source: discussion-hn-autofix-hybrid-review, Claim 2] [anecdotal]
-
-**Critical caveats**: The benchmark was run by DeepSource (the vendor
-whose product topped the results). Claude Code was invoked via "diff
-simulation," not its native interactive workflow. Results cover JS/TS
-only; Python, Go, Java, C++ are not covered. Treat figures as
-directional; independent replication is recommended before citing them
-as authoritative.
-[source: discussion-hn-autofix-hybrid-review, Extraction Notes] [anecdotal]
-
-The architectural fix is to run static analysis first and pass findings
-to the AI reviewer as anchors:
-
-```markdown
-"Here are the static analysis findings for this diff: [findings].
-Focus your security review on these locations and report any
-additional vulnerabilities you find in the surrounding context."
-```
-
-This addresses two LLM-only failure modes at once: the recall gap
-(static analysis catches what the LLM misses) and the distraction
-problem (LLMs flagging stylistic concerns while missing security bugs
-when both types are present in the same diff).
+For security-focused review, run static analysis first and pass its
+findings to the AI reviewer as anchors — this compensates for LLM recall
+gaps and keeps the review focused on security rather than style.
 [source: discussion-hn-autofix-hybrid-review, Claims 1, 3, 8] [emerging]
 
 ### The coverage gap

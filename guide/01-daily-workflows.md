@@ -298,12 +298,8 @@ implements quality control through system prompt directives:
 
 [source: failure-alex000kim-claudecode-source-leak, Lesson 3] [emerging]
 
-These two directives target the exact failure modes practitioners observe:
-a coordinator that waves through poor agent work without review, and one
-that routes tasks without synthesizing what workers found. The mechanism
-is prose — not structured schemas or tool-call validation. You do not need
-exotic orchestration infrastructure to enforce coordinator quality; you
-need the right language in the system prompt.
+These two directives name the failure modes directly: rubber-stamping weak
+work, and delegating understanding rather than synthesizing it.
 
 **Rule**: When writing coordinator prompts, include explicit
 anti-rubber-stamping language. Name the specific failure mode: "You must

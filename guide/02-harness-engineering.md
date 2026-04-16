@@ -549,20 +549,21 @@ Claude Code's permission system has three levels and four context tiers
 ```
 # Permission system (3 levels)
 deny    → tool call is blocked, no user interaction
-check   → programmatic validation runs before proceeding
+check   → hook script runs and decides; exit non-zero blocks the call
 prompt  → human must approve before the call executes
 
 # Context tier hierarchy (4 levels, outer overrides inner)
 global   → ~/.claude/settings.json
-project  → .claude/settings.json (or CLAUDE.md)
+project  → .claude/settings.json
 session  → runtime configuration for the current session
 call     → per-tool-invocation overrides
 ```
 
-The **check** tier is the most under-used: it lets a programmatic
-validator approve or reject a tool call automatically — without human
-interaction — based on custom logic. Practitioners who build enforcement
-hooks are effectively reimplementing this tier externally.
+The **check** tier is the most under-used: a PreToolUse hook script runs
+before each tool call and can block it automatically based on custom logic
+— no human in the loop. Claude Code already uses this for dangerous
+operations; practitioners who write enforcement hooks are effectively
+reimplementing this tier externally instead of using it directly.
 
 The **four-tier hierarchy** answers "where should I put this
 configuration?": outer tiers override inner ones. A project-level deny

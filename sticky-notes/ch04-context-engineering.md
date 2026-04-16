@@ -25,6 +25,7 @@ ID that is never reused, even after the note is resolved.
 |----|-------|------|--------|---------|
 | SN-04-001 | §billing-window stays rule-only | prescriptive | active | §billing-window |
 | SN-04-002 | Cache breakpoints are harness-controlled in Claude Code | prescriptive | active | §billing-window |
+| SN-04-003 | Replace internal implementation jargon with plain language | prescriptive | active | any section citing internal source code |
 
 ---
 
@@ -49,3 +50,15 @@ ID that is never reused, even after the note is resolved.
 
 **Why:** Reviewer corrected a factual error: "cache breakpoints are picked by the harness, not the frontier model vendor (at least in the case of claude code)."
 **How to apply:** If §billing-window or any caching section discusses who controls cache breakpoints, attribute that control to the harness (for Claude Code) rather than the vendor in blanket statements.
+
+---
+
+## SN-04-003: Replace internal implementation jargon with plain language
+- **Created**: 2026-04-16
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any section citing internal source code (e.g., from the Claude Code source map leak)
+- **Note**: When referencing internal implementation details derived from source code leaks or architecture maps, translate jargon into plain language before including it in the guide. Terms like "cache-break vector with sticky latches" are not meaningful to practitioners without definition; replace with plain equivalents (e.g., "14 distinct ways a cache can be invalidated — with internal guards to prevent accidental busting"). Reviewer said "no clue what that means concretely."
+
+**Why:** The guide audience is practitioners, not Anthropic engineers. Internal naming conventions carry no shared meaning outside their original context.
+**How to apply:** After quoting or paraphrasing from leaked source code, read the sentence aloud and ask: "Would a senior engineer who has never seen this codebase understand this in one pass?" If not, replace or define the jargon before publishing.
