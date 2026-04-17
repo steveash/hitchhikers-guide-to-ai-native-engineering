@@ -3,6 +3,7 @@
     "simon-willison": {
       "seen": [
         "https://simonwillison.net/2026/Apr/1/datasette-llm-2/#atom-everything",
+        "https://simonwillison.net/2026/Apr/10/voice-mode-is-weaker/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/gemma-4/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/lennys-podcast/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/llm-gemini/#atom-everything",
@@ -31,9 +32,11 @@
         "https://simonwillison.net/2026/Apr/7/project-glasswing/#atom-everything",
         "https://simonwillison.net/2026/Apr/7/sqlite-wal-docker-containers/#atom-everything",
         "https://simonwillison.net/2026/Apr/8/giles-turnbull/#atom-everything",
-        "https://simonwillison.net/2026/Apr/8/muse-spark/#atom-everything"
+        "https://simonwillison.net/2026/Apr/8/muse-spark/#atom-everything",
+        "https://simonwillison.net/2026/Apr/9/asgi-gzip/#atom-everything",
+        "https://simonwillison.net/2026/Apr/9/github-repo-size/#atom-everything"
       ],
-      "last_scan": "2026-04-16T06:34:59.966527+00:00"
+      "last_scan": "2026-04-17T06:35:24.547695+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -49,7 +52,7 @@
         "https://lucumr.pocoo.org/2026/4/4/absurd-in-production/",
         "https://lucumr.pocoo.org/2026/4/8/mario-and-earendil/"
       ],
-      "last_scan": "2026-04-16T06:35:02.177690+00:00"
+      "last_scan": "2026-04-17T06:35:26.751802+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -86,7 +89,7 @@
         "69d7c7e5f4b5380001c805e3",
         "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-04-15T06:34:49.611388+00:00"
+      "last_scan": "2026-04-17T06:35:31.103622+00:00"
     },
     "github-copilot": {
       "seen": [
@@ -101,9 +104,11 @@
         "https://github.blog/changelog/2026-04-13-copilot-data-residency-in-us-eu-and-fedramp-compliance-now-available",
         "https://github.blog/changelog/2026-04-13-fix-merge-conflicts-in-three-clicks-with-copilot-cloud-agent",
         "https://github.blog/changelog/2026-04-14-model-selection-for-claude-and-codex-agents-on-github-com",
-        "https://github.blog/changelog/2026-04-15-enable-copilot-cloud-agent-via-custom-properties"
+        "https://github.blog/changelog/2026-04-15-enable-copilot-cloud-agent-via-custom-properties",
+        "https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available",
+        "https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli"
       ],
-      "last_scan": "2026-04-16T06:35:04.545634+00:00"
+      "last_scan": "2026-04-17T06:35:28.838553+00:00"
     },
     "anthropic-engineering": {
       "seen": [
@@ -129,7 +134,7 @@
         "https://www.anthropic.com/engineering/swe-bench-sonnet",
         "https://www.anthropic.com/engineering/writing-tools-for-agents"
       ],
-      "last_scan": "2026-04-16T06:35:08.723207+00:00"
+      "last_scan": "2026-04-17T06:35:33.138039+00:00"
     },
     "claude-blog": {
       "seen": [
@@ -140,6 +145,7 @@
         "https://claude.com/blog/analysis-tool",
         "https://claude.com/blog/android-app",
         "https://claude.com/blog/artifacts",
+        "https://claude.com/blog/auto-mode",
         "https://claude.com/blog/automate-security-reviews-with-claude-code",
         "https://claude.com/blog/behind-model-launch-what-customers-discovered-testing-claude-opus-4-6-early",
         "https://claude.com/blog/best-practices-for-prompt-engineering",
@@ -167,6 +173,7 @@
         "https://claude.com/blog/claude-for-enterprise",
         "https://claude.com/blog/claude-now-available-in-microsoft-365-copilot",
         "https://claude.com/blog/claude-on-google-cloud-fedramp-high",
+        "https://claude.com/blog/claude-platform-compliance-api",
         "https://claude.com/blog/claude-powered-artifacts",
         "https://claude.com/blog/claude-team-updates",
         "https://claude.com/blog/code-review",
@@ -187,6 +194,7 @@
         "https://claude.com/blog/extending-claude-capabilities-with-skills-mcp-servers",
         "https://claude.com/blog/fine-tune-claude-3-haiku",
         "https://claude.com/blog/fix-software-bugs-faster-with-claude",
+        "https://claude.com/blog/harnessing-claudes-intelligence",
         "https://claude.com/blog/how-ai-helps-break-cost-barrier-cobol-modernization",
         "https://claude.com/blog/how-anthropic-teams-use-claude-code",
         "https://claude.com/blog/how-anthropic-uses-claude-legal",
@@ -235,24 +243,27 @@
         "https://claude.com/blog/workspaces",
         "https://claude.com/blog/your-thinking-partner"
       ],
-      "last_scan": "2026-04-16T06:35:10.773619+00:00"
+      "last_scan": "2026-04-17T06:35:35.201534+00:00"
     },
     "cursor-blog": {
       "seen": [
         "https://cursor.com/blog/box",
         "https://cursor.com/blog/composer-2",
+        "https://cursor.com/blog/composer-2-technical-report",
+        "https://cursor.com/blog/cursor-3",
         "https://cursor.com/blog/cursorbench",
         "https://cursor.com/blog/fast-regex-search",
         "https://cursor.com/blog/new-plugins",
         "https://cursor.com/blog/nvidia",
         "https://cursor.com/blog/planetscale",
+        "https://cursor.com/blog/real-time-rl-for-composer",
         "https://cursor.com/blog/salesforce",
         "https://cursor.com/blog/security-agents",
         "https://cursor.com/blog/self-hosted-cloud-agents",
         "https://cursor.com/blog/self-summarization",
         "https://cursor.com/blog/third-era"
       ],
-      "last_scan": "2026-04-16T06:35:12.854470+00:00"
+      "last_scan": "2026-04-17T06:35:37.259630+00:00"
     },
     "the-batch": {
       "seen": [
@@ -532,6 +543,8 @@
         "https://www.deeplearning.ai/the-batch/issue-344/",
         "https://www.deeplearning.ai/the-batch/issue-345/",
         "https://www.deeplearning.ai/the-batch/issue-346/",
+        "https://www.deeplearning.ai/the-batch/issue-347/",
+        "https://www.deeplearning.ai/the-batch/issue-348/",
         "https://www.deeplearning.ai/the-batch/issue-35/",
         "https://www.deeplearning.ai/the-batch/issue-36/",
         "https://www.deeplearning.ai/the-batch/issue-37/",
@@ -620,7 +633,7 @@
         "https://www.deeplearning.ai/the-batch/issue-xv/",
         "https://www.deeplearning.ai/the-batch/issue-xvi/"
       ],
-      "last_scan": "2026-04-16T06:35:14.911715+00:00"
+      "last_scan": "2026-04-17T06:35:39.321863+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
@@ -640,10 +653,12 @@
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-testing-validation/",
         "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-tool-infrastructure/",
         "https://github.github.com/gh-aw/blog/2026-03-18-weekly-update/",
-        "https://github.github.com/gh-aw/blog/2026-03-23-weekly-update/"
+        "https://github.github.com/gh-aw/blog/2026-03-23-weekly-update/",
+        "https://github.github.com/gh-aw/blog/2026-03-30-weekly-update/",
+        "https://github.github.com/gh-aw/blog/2026-04-06-weekly-update/"
       ],
-      "last_scan": "2026-04-16T06:35:17.057506+00:00"
+      "last_scan": "2026-04-17T06:35:41.471122+00:00"
     }
   },
-  "last_scan": "2026-04-16T06:35:17.057626+00:00"
+  "last_scan": "2026-04-17T06:35:41.471138+00:00"
 }
