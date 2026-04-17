@@ -17,17 +17,6 @@ agents can produce code faster than you can read it. The scarce resource
 is not writing speed -- it is your ability to confirm that what was written
 is correct, secure, and comprehensible.
 
-Anthropic ran a randomized controlled trial with 52 engineers. Those who
-delegated coding to AI scored 17% lower on comprehension quizzes (50% vs.
-67% for the control group). The largest declines were in debugging capability
-specifically.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
-
-This means the cost of AI-generated code is not measured in tokens or
-dollars. It is measured in understanding you did not build. Velocity metrics
-and DORA scores stay green while comprehension deficits accumulate invisibly.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [emerging]
-
 ### What this looks like in practice
 
 Sentry's `/gh-review` command encodes a verification-first stance:
