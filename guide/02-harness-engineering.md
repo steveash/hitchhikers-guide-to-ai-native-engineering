@@ -615,14 +615,6 @@ constraints the agent could technically violate.
 [source: practitioner-frankray78-netpace, practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories] [emerging]
 
-**Debated: How granular should permissions be?** Sentry lists 60+
-command prefixes. tin scopes per command. Three repos use none. The right
-answer depends on your threat model: for open-source repos where anyone
-can trigger an agent, granular allowlists are defensive. For solo projects,
-prompt-based rules may suffice.
-[source: practitioner-getsentry-sentry, practitioner-dadlerj-tin,
-practitioner-frankray78-netpace] [editorial]
-
 ---
 
 ## Custom Commands
@@ -723,16 +715,6 @@ tin configures four Claude Code lifecycle hooks in `.claude/settings.json`:
 These hooks track every conversation as a versioned tin thread. The
 `SessionEnd` hook auto-commits with the first human prompt as the commit
 message. The agent never invokes these — they fire silently.
-
-### Anti-pattern: Hardcoded absolute paths
-
-tin's committed settings.json contains `/Users/danieladler/Dev/tin/tin/tin`.
-pytest-test-categories hardcodes `/Users/mikelane/dev/effective-testing-with-python/`.
-Both break for any other contributor.
-[source: practitioner-dadlerj-tin, practitioner-mikelane-pytest-test-categories] [emerging]
-
-**Rule**: Never commit machine-specific absolute paths in AI config files.
-Use PATH resolution, relative paths, or generate the config dynamically.
 
 ---
 
@@ -959,11 +941,6 @@ instances running against the same checkout will write to the same files
 and your git state becomes a collision waiting to happen. With them, you
 can run 5-10 concurrent agents without any instance stomping on another.
 [source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
-
-**When to add worktrees**: Any time you want more than 2 concurrent agent
-tasks. Below that threshold, a single checkout is fine. Above it, worktrees
-are the difference between productive parallelism and chaotic interleaving.
-[source: failure-sukit-parallel-session-ceiling, Lesson 2] [anecdotal]
 
 ### Setup
 
