@@ -51,7 +51,7 @@ the first implementation prompt.
 ### Execute (the bulk of the session)
 
 Use one of the execution loops described in the sections below. The
-single-agent loop for focused tasks, the Ralph Loop for long tasks
+single-agent loop for focused tasks, the Ralph Loop (defined below) for long tasks
 that exceed context limits.
 
 ### Close (last 2 minutes)
@@ -183,23 +183,6 @@ these before starting:
 - Stop if no commits in last 5 iterations
 - 3+ failures on same task = skip and flag for human
 ```
-
-### Bash orchestration
-
-The Self-Improving Agents post provides a minimal bash orchestrator:
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [emerging]
-
-```bash
-while :; do
-   amp run -s prompt.md -o progress.txt
-   if grep -q "<promise>COMPLETE</promise>" progress.txt; then break; fi
-done
-```
-
-The agent writes to `progress.txt`, the bash loop reads it, and the
-`<promise>COMPLETE</promise>` tag is the termination signal. This is
-crude but functional -- the outer loop is deterministic (bash), and
-only the inner loop (the agent) is non-deterministic.
 
 ### When to use the Ralph Loop
 
