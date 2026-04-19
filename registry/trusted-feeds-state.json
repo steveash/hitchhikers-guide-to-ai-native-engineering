@@ -7,6 +7,9 @@
         "https://simonwillison.net/2026/Apr/10/voice-mode-is-weaker/#atom-everything",
         "https://simonwillison.net/2026/Apr/11/sqlite-qrf/#atom-everything",
         "https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything",
+        "https://simonwillison.net/2026/Apr/12/mlx-audio/#atom-everything",
+        "https://simonwillison.net/2026/Apr/13/bryan-cantrill/#atom-everything",
+        "https://simonwillison.net/2026/Apr/13/servo-crate-exploration/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/gemma-4/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/lennys-podcast/#atom-everything",
         "https://simonwillison.net/2026/Apr/2/llm-gemini/#atom-everything",
@@ -39,7 +42,7 @@
         "https://simonwillison.net/2026/Apr/9/asgi-gzip/#atom-everything",
         "https://simonwillison.net/2026/Apr/9/github-repo-size/#atom-everything"
       ],
-      "last_scan": "2026-04-18T06:24:06.829074+00:00"
+      "last_scan": "2026-04-19T06:32:36.419016+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -55,7 +58,7 @@
         "https://lucumr.pocoo.org/2026/4/4/absurd-in-production/",
         "https://lucumr.pocoo.org/2026/4/8/mario-and-earendil/"
       ],
-      "last_scan": "2026-04-18T06:24:08.951335+00:00"
+      "last_scan": "2026-04-19T06:32:38.521456+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -92,7 +95,7 @@
         "69d7c7e5f4b5380001c805e3",
         "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-04-18T06:24:13.877715+00:00"
+      "last_scan": "2026-04-19T06:32:43.249801+00:00"
     },
     "github-copilot": {
       "seen": [
@@ -112,7 +115,7 @@
         "https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli",
         "https://github.blog/changelog/2026-04-17-github-copilot-cli-now-supports-copilot-auto-model-selection"
       ],
-      "last_scan": "2026-04-18T06:24:11.329503+00:00"
+      "last_scan": "2026-04-19T06:32:40.817068+00:00"
     },
     "anthropic-engineering": {
       "seen": [
@@ -138,7 +141,7 @@
         "https://www.anthropic.com/engineering/swe-bench-sonnet",
         "https://www.anthropic.com/engineering/writing-tools-for-agents"
       ],
-      "last_scan": "2026-04-18T06:24:15.928759+00:00"
+      "last_scan": "2026-04-19T06:32:45.301093+00:00"
     },
     "claude-blog": {
       "seen": [
@@ -189,6 +192,7 @@
         "https://claude.com/blog/connectors-directory",
         "https://claude.com/blog/context-management",
         "https://claude.com/blog/contribution-metrics",
+        "https://claude.com/blog/cowork-for-enterprise",
         "https://claude.com/blog/cowork-plugins",
         "https://claude.com/blog/cowork-plugins-across-enterprise",
         "https://claude.com/blog/cowork-plugins-finance",
@@ -225,6 +229,7 @@
         "https://claude.com/blog/optimize-code-performance-quickly",
         "https://claude.com/blog/opus-4-6-finance",
         "https://claude.com/blog/organization-skills-and-directory",
+        "https://claude.com/blog/preparing-your-security-program-for-ai-accelerated-offense",
         "https://claude.com/blog/preview-review-and-merge-with-claude-code",
         "https://claude.com/blog/product-management-on-the-ai-exponential",
         "https://claude.com/blog/productivity-platforms",
@@ -239,6 +244,7 @@
         "https://claude.com/blog/structured-outputs-on-the-claude-developer-platform",
         "https://claude.com/blog/subagents-in-claude-code",
         "https://claude.com/blog/team-plan-and-ios",
+        "https://claude.com/blog/the-advisor-strategy",
         "https://claude.com/blog/token-saving-updates",
         "https://claude.com/blog/tool-use-ga",
         "https://claude.com/blog/trainium2-and-distillation",
@@ -250,12 +256,15 @@
         "https://claude.com/blog/workspaces",
         "https://claude.com/blog/your-thinking-partner"
       ],
-      "last_scan": "2026-04-18T06:24:18.013191+00:00"
+      "last_scan": "2026-04-19T06:32:47.604188+00:00"
     },
     "cursor-blog": {
       "seen": [
+        "https://cursor.com/blog/amplitude",
+        "https://cursor.com/blog/better-models-ambitious-work",
         "https://cursor.com/blog/box",
         "https://cursor.com/blog/bugbot-learning",
+        "https://cursor.com/blog/canvas",
         "https://cursor.com/blog/composer-2",
         "https://cursor.com/blog/composer-2-technical-report",
         "https://cursor.com/blog/cursor-3",
@@ -273,7 +282,7 @@
         "https://cursor.com/blog/third-era",
         "https://cursor.com/blog/warp-decode"
       ],
-      "last_scan": "2026-04-18T06:24:20.195392+00:00"
+      "last_scan": "2026-04-19T06:32:49.814916+00:00"
     },
     "the-batch": {
       "seen": [
@@ -644,7 +653,7 @@
         "https://www.deeplearning.ai/the-batch/issue-xv/",
         "https://www.deeplearning.ai/the-batch/issue-xvi/"
       ],
-      "last_scan": "2026-04-18T06:24:22.438509+00:00"
+      "last_scan": "2026-04-19T06:32:51.999338+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
@@ -669,8 +678,8 @@
         "https://github.github.com/gh-aw/blog/2026-04-06-weekly-update/",
         "https://github.github.com/gh-aw/blog/2026-04-13-weekly-update/"
       ],
-      "last_scan": "2026-04-18T06:24:24.668649+00:00"
+      "last_scan": "2026-04-19T06:32:54.204381+00:00"
     }
   },
-  "last_scan": "2026-04-18T06:24:24.668742+00:00"
+  "last_scan": "2026-04-19T06:32:54.204393+00:00"
 }
