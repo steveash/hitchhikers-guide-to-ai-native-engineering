@@ -47,31 +47,35 @@ jobs:
       # runs first gets first claim on the daily cap; whoever runs last
       # is most likely to push to the overflow queue.
 
+      # All scanners use PROJECT_PAT for GH_TOKEN so that `gh issue create`
+      # fires the issues:opened event, which triggers the source pipeline.
+      # GITHUB_TOKEN can't do this (by design — prevents recursive triggers).
+
       - name: Run trusted-feed scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-trusted.py
 
       - name: Run repo scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-repos.py
 
       - name: Run failure scanner (Hacker News)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-failures.py --source hn
 
       - name: Run site-crawl scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/scan-sites.py
@@ -79,7 +83,7 @@ jobs:
       - name: Run failure scanner (GitHub Discussions)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/scan-failures.py --source github
 
