@@ -31,7 +31,7 @@ ID that is never reused, even after the note is resolved.
 ## SN-02-001: Permission tiers must include concrete examples
 - **Created**: 2026-04-16
 - **Type**: prescriptive
-- **Status**: active
+- **Status**: stale
 - **Section**: §permission-architecture (the .claude/settings.json section)
 - **Note**: When introducing the three permission levels (deny / check / prompt), define each with a concrete description of what happens at runtime — not just an abstract label. The `check` tier in particular must describe that a PreToolUse hook script runs, can block on non-zero exit, and that Claude Code uses this internally. Reviewer asked "what does this mean, 'check'? is there an example where claude does this today?"
 
@@ -43,7 +43,7 @@ ID that is never reused, even after the note is resolved.
 ## SN-02-002: Context tier hierarchy references settings.json only, not CLAUDE.md
 - **Created**: 2026-04-16
 - **Type**: prescriptive
-- **Status**: active
+- **Status**: stale
 - **Section**: §permission-architecture (the .claude/settings.json section)
 - **Note**: The context tier hierarchy in the permission architecture section must reference only deterministic settings files (`.claude/settings.json`, `~/.claude/settings.json`). Do not list `CLAUDE.md` as an alternative for the project tier. `CLAUDE.md` is a system-instruction file, not a deterministic permission settings file. Reviewer flagged "project → .claude/settings.json (or CLAUDE.md)" as a category error.
 

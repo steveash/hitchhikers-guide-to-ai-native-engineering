@@ -30,7 +30,7 @@ ID that is never reused, even after the note is resolved.
 ## SN-05-001: Don't repeat billing details from ch04
 - **Created**: 2026-04-15
 - **Type**: prescriptive
-- **Status**: active
+- **Status**: stale
 - **Section**: §adoption-playbook (team rollout checklist)
 - **Note**: Billing risk details (inference vs. cache billing, billing CSV exports, session-state caching costs) belong in ch04-context-engineering and must not be repeated in the adoption playbook checklist. Reviewer flagged the billing pilot bullet as "a relatively unimportant comment that you didn't need to repeat in this section" — the word "again" signals they'd already objected to billing overexplanation in ch04.
 
