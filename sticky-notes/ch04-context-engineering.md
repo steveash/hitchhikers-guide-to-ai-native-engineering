@@ -32,7 +32,7 @@ ID that is never reused, even after the note is resolved.
 ## SN-04-001: §billing-window stays rule-only
 - **Created**: 2026-04-15
 - **Type**: prescriptive
-- **Status**: active
+- **Status**: stale
 - **Section**: §billing-window (The billing window is not the inference window)
 - **Note**: The billing section must contain only the rule — no failure-case narratives, no token arithmetic, no "cheap per token" cross-references. Reviewer explicitly said "the whole section could just be this rule; all of the above is a waste of time to read" and flagged the section as overly explicit about a secondary concern.
 
@@ -44,7 +44,7 @@ ID that is never reused, even after the note is resolved.
 ## SN-04-002: Cache breakpoints are harness-controlled in Claude Code
 - **Created**: 2026-04-15
 - **Type**: prescriptive
-- **Status**: active
+- **Status**: stale
 - **Section**: §billing-window (The billing window is not the inference window)
 - **Note**: In Claude Code specifically, cache breakpoints are set by the harness — not by the frontier model vendor (Anthropic). Do not write "cache breakpoints are determined by the vendor" without qualifying that in Claude Code the harness controls this. The distinction matters because it affects whether users can influence caching behavior through harness configuration.
 
