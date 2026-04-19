@@ -101,10 +101,16 @@ jobs:
 
             ## Step 3: Write verdict and act
 
+            IMPORTANT: Use Bash commands (echo, cat) for ALL file writes.
+            Do NOT use the Write tool — it runs in a sandbox and files
+            will not be visible to subsequent workflow steps.
+
             If REJECT (any criterion matched):
               echo "reject" > /tmp/verdict.txt
-              Write a brief rejection reason to /tmp/rejection-comment.md, e.g.:
-                "**Pre-screen rejection**: <criterion that matched>. <1-sentence explanation>"
+              Write the rejection reason using Bash:
+                cat > /tmp/rejection-comment.md <<'EOF'
+                **Pre-screen rejection**: <criterion that matched>. <1-sentence explanation>
+                EOF
               Then run:
                 gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body-file /tmp/rejection-comment.md
                 gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-label "rejected"
@@ -226,8 +232,10 @@ jobs:
                agents/PROSPECTOR.md (Novelty / Type / Relevant chapters /
                Key question / Existing notes that overlap). For rejections,
                post a specific reason instead (see "Rejection Standards").
-               Write the comment body to a file first to avoid quoting
-               issues, then:
+               IMPORTANT: Use Bash (cat > /tmp/triage-comment.md <<'EOF')
+               for ALL file writes. Do NOT use the Write tool — it runs
+               in a sandbox and files will not persist.
+               Write the comment body to a file first, then:
                   gh issue comment ${{ github.event.issue.number }} \
                     --repo ${{ github.repository }} \
                     --body-file /tmp/triage-comment.md
@@ -267,8 +275,8 @@ jobs:
             output is labels + a comment + (for rejections and repo triages)
             issue closure + (for feed-candidates) a PR adding the feed.
           claude_args: |
-            --max-turns 20
-            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --max-turns 25
+            --allowedTools "Bash(*)" "Read" "Edit" "Glob" "Grep"
 
       - name: Update project board (prospector verdict)
         if: always()
