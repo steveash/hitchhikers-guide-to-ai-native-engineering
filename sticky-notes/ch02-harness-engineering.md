@@ -25,6 +25,32 @@ ID that is never reused, even after the note is resolved.
 |----|-------|------|--------|---------|
 | SN-02-001 | Permission tiers must include concrete examples | prescriptive | active | §permission-architecture |
 | SN-02-002 | Context tier hierarchy references settings.json only, not CLAUDE.md | prescriptive | active | §permission-architecture |
+| SN-02-003 | Split citations when settled facts and emerging inferences share a paragraph | prescriptive | active | any |
+| SN-02-004 | Rules with vendor-restricted scope must carry a scope qualifier | prescriptive | active | any |
+
+---
+
+## SN-02-003: Split citations when settled facts and emerging inferences share a paragraph
+- **Created**: 2026-05-02
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any
+- **Note**: When a paragraph mixes a `[settled]` factual claim with an `[emerging]` inference derived from that same source, each must carry its own citation line. Do not roll both under a single `[settled]` tag — this overstates the confidence of the inferential sentence.
+
+**Why:** A single `[settled]` citation covering a paragraph that ends with an interpretation (e.g., "this means X is a neutral landing zone") implies the interpretation is as firmly established as the underlying fact. Reviewers caught this pattern twice on the skill-path addition.
+**How to apply:** Wherever a paragraph concludes with an inference ("this means...", "this suggests...", "this makes X a..."), give the inferential sentence its own citation line at the appropriate grade. The factual sentence keeps its grade separately.
+
+---
+
+## SN-02-004: Rules with vendor-restricted scope must carry a scope qualifier
+- **Created**: 2026-05-02
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any
+- **Note**: When a Rule's applicability is restricted to a specific tool, IDE, or platform (as indicated by Extraction Notes in the source), include a parenthetical qualifier in the Rule text stating the current scope and the unknown. The Rule's confidence tag should reflect the weakest supporting claim.
+
+**Why:** A Rule stated without scope qualification implies broad adoption. The skill-path Rule said "for cross-tool compatibility" when multi-path discovery was confirmed for Visual Studio Copilot only; reviewers flagged this as implying broader adoption than the evidence supports.
+**How to apply:** Check the source note's Extraction Notes for scope caveats. If the evidence is IDE/vendor-specific, add "(currently confirmed for X; whether Y adopts the same pattern is not yet documented)" to the Rule text and downgrade to the weakest cited claim's confidence grade.
 
 ---
 

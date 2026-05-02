@@ -859,15 +859,21 @@ Claude Code's expected path to the tool-agnostic location.
 
 As of April 2026, GitHub Copilot in Visual Studio now discovers skills
 from `.claude/skills/` and `.agents/skills/` alongside its existing
-`.github/skills/` path. This cross-tool convergence means `.agents/skills/`
-is a neutral landing zone for skills that should be available to multiple
-agent clients on the same project.
+`.github/skills/` path.
 [source: docs-github-copilot-vs-april-2026, Claim 1] [settled]
 
+This cross-tool convergence means `.agents/skills/` is a neutral landing
+zone for skills that should be available to multiple agent clients on the
+same project.
+[source: docs-github-copilot-vs-april-2026, Claim 2] [emerging]
+
 **Rule**: Place shared skills in `.agents/skills/` for cross-tool
-compatibility. Use `.claude/skills/` for Claude Code-specific skills
-and `.github/skills/` for Copilot-native skills.
+compatibility (currently confirmed for Visual Studio Copilot; whether other
+Copilot-enabled IDEs adopt the same path is not yet documented). Use
+`.claude/skills/` for Claude Code-specific skills and `.github/skills/` for
+Copilot-native skills.
 [source: docs-github-copilot-vs-april-2026, Claim 1] [settled]
+[source: docs-github-copilot-vs-april-2026, Claim 2] [emerging]
 
 ### Production Data as Agent Skills
 
