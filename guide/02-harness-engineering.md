@@ -857,6 +857,17 @@ With `pin = false` and `gitignore = true`, skills update dynamically. The
 Claude Code's expected path to the tool-agnostic location.
 [source: practitioner-getsentry-sentry] [anecdotal]
 
+As of April 2026, GitHub Copilot in Visual Studio also discovers skills
+from `.agents/skills/` (alongside its existing `.github/skills/` path).
+This cross-tool convergence means `.agents/skills/` is a neutral landing
+zone for skills that should be available to multiple agent clients on the
+same project.
+[source: docs-github-copilot-vs-april-2026, Claim 1] [settled]
+
+**Rule**: Place shared skills in `.agents/skills/` for cross-tool
+compatibility. Use `.claude/skills/` for Claude Code-specific skills
+and `.github/skills/` for Copilot-native skills.
+
 ### Production Data as Agent Skills
 
 Sentry's `sentry-backend-bugs` skill encodes patterns from 638 real
@@ -1204,6 +1215,7 @@ failure-alex000kim-claudecode-source-leak (Lesson 1),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
 failure-sukit-parallel-session-ceiling (Lessons 2, 3),
+docs-github-copilot-vs-april-2026 (Claim 1),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
@@ -1212,4 +1224,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-05-02*

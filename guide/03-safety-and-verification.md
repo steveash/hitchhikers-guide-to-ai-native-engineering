@@ -723,6 +723,33 @@ is a floor, not a ceiling — the comment history implies new bypasses are
 discovered during audits.
 [source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
 
+### Prompt injection in workflow inputs
+
+Automated pipelines that process user-submitted content — issue bodies,
+PR descriptions, comments, commit messages — are natural-language injection
+surfaces. A malicious comment can include "ignore previous instructions"
+the same way SQL accepts `' OR '1'='1`.
+
+GitHub's agentic workflow documentation names this threat explicitly:
+
+> "Treat user-provided content as untrusted. Design workflows to resist
+> prompt injection attempts in issue descriptions, comments, or pull
+> request content."
+
+The safe access pattern is to route user content through a sanitization
+channel (e.g., `steps.sanitized.outputs.text` in GitHub Agentic Workflows,
+which filters unauthorized mentions, malicious links, and excessive content)
+before passing it to the agent. The anti-pattern: interpolating raw event
+payload fields like `github.event.comment.body` directly into the agent's
+instruction body, bypassing any sanitization.
+[source: docs-ghaw-chatops, Claims 5, 6, 7] [settled]
+
+**Rule**: Never interpolate raw user-submitted event fields directly into
+agent instructions. Route user content through a sanitization layer first,
+or treat every user-submitted field as untrusted and apply explicit format
+gates.
+[source: docs-ghaw-chatops, Claim 7] [settled]
+
 ---
 
 ## Summary: The Verification Stack
@@ -743,6 +770,7 @@ Build all five layers. Each one is a safety net for the layer above it.
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
+docs-ghaw-chatops (Claims 5, 6, 7),
 failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
@@ -755,4 +783,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-05-02*

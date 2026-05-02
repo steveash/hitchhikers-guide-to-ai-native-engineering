@@ -483,6 +483,13 @@ Tasks that are mechanical, well-specified, and easy to verify:
 The agent works unsupervised. You review the final diff.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [emerging]
 
+One less obvious category also belongs here: cold-start codebase exploration.
+Give Claude Code an unfamiliar repository and a bounded question, and expect
+a verifiable working artifact in a single session. Willison gave Claude Code
+the `openai/codex` repo with no prior knowledge and received a working,
+published LLM plugin in return.
+[source: blog-simonwillison-gpt55-codex-plugin, Claim 3] [anecdotal]
+
 ### Delegate with checkpoints (supervised)
 
 Tasks that involve judgment at specific decision points:
@@ -562,6 +569,7 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+blog-simonwillison-gpt55-codex-plugin (Claim 3),
 discussion-hn-agentic-coding-jobs (Claim 9),
 failure-alex000kim-claudecode-source-leak (Lesson 3),
 failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
@@ -570,4 +578,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-05-02*
