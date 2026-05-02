@@ -742,7 +742,8 @@ which filters unauthorized mentions, malicious links, and excessive content)
 before passing it to the agent. The anti-pattern: interpolating raw event
 payload fields like `github.event.comment.body` directly into the agent's
 instruction body, bypassing any sanitization.
-[source: docs-ghaw-chatops, Claims 5, 6, 7] [settled]
+[source: docs-ghaw-chatops, Claims 5, 7] [settled]
+[source: docs-ghaw-chatops, Claim 6] [emerging]
 
 **Rule**: Never interpolate raw user-submitted event fields directly into
 agent instructions. Route user content through a sanitization layer first,
