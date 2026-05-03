@@ -12,6 +12,19 @@
       "confidence_overall": "emerging",
       "status": "current"
     }
+    },
+    "blog-simonwillison-deepseek-v4": {
+      "slug": "blog-simonwillison-deepseek-v4",
+      "title": "DeepSeek V4—almost on the frontier, a fraction of the price",
+      "source_url": "https://simonwillison.net/2026/Apr/24/deepseek-v4/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-03",
+      "issue": "#521",
+      "file": "source-notes/blog-simonwillison-deepseek-v4.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    }
   },
   "last_updated": "2026-05-03"
 }
