@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-expert-ops": {
+      "slug": "docs-ghaw-expert-ops",
+      "title": "GitHub Agentic Workflows: ExpertOps Pattern",
+      "source_url": "https://github.github.com/gh-aw/patterns/expert-ops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team",
+      "date_extracted": "2026-05-03",
+      "issue": "#499",
+      "file": "source-notes/docs-ghaw-expert-ops.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-multi-repo-ops": {
       "slug": "docs-ghaw-multi-repo-ops",
       "title": "GitHub Agentic Workflows: MultiRepoOps Pattern",
