@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-inline-sub-agents": {
+      "slug": "docs-ghaw-inline-sub-agents",
+      "title": "GitHub Agentic Workflows: Inline Sub-Agents Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/inline-sub-agents",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team",
+      "date_extracted": "2026-05-03",
+      "issue": "#522",
+      "file": "source-notes/docs-ghaw-inline-sub-agents.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-multi-repo-ops": {
       "slug": "docs-ghaw-multi-repo-ops",
       "title": "GitHub Agentic Workflows: MultiRepoOps Pattern",
