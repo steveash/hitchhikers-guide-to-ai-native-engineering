@@ -678,7 +678,7 @@ quick fire-and-forget operations and as guided workflows.
 The Claude Code team frames their internal tool-design heuristic as "see
 like an agent": shape commands and tools to the model's actual cognitive
 patterns, not to human intuitions about what a tool should look like.
-[source: blog-anthropic-seeing-like-an-agent, Claim 12] [anecdotal]
+[source: blog-anthropic-seeing-like-an-agent, Claim 12] [settled]
 
 The mechanism matters for slash-command authors: agents perceive commands
 through their names, frontmatter, and argument hints — not by reading the
@@ -695,35 +695,35 @@ history that generalize to command authoring:
   disambiguate "give me a plan" from "ask me questions about the plan" in
   the same call. The fix was a dedicated `AskUserQuestion` tool with a
   single unambiguous purpose.
-  [source: blog-anthropic-seeing-like-an-agent, Claim 1] [anecdotal]
+  [source: blog-anthropic-seeing-like-an-agent, Claim 1] [settled]
 
 - **Format instructions for structured output.** Asking the model to produce
   bullet-pointed questions with bracketed alternatives via prose
   instructions failed reliably — the model appended extra sentences,
   dropped options, or abandoned the structure. Typed tool calls succeed
   where format instructions fail.
-  [source: blog-anthropic-seeing-like-an-agent, Claims 2, 4] [anecdotal]
+  [source: blog-anthropic-seeing-like-an-agent, Claims 2, 4] [settled]
 
 - **Over-scaffolding capable models.** A 5-turn `TodoWrite` system reminder
   designed for goal-anchoring became a constraint on Opus 4.5, which treated
   the todo list as rigid and refused to modify the plan when circumstances
   changed. Scaffolding that compensates for a model limitation becomes
   dead weight — and then a constraint — once the limitation is gone.
-  [source: blog-anthropic-seeing-like-an-agent, Claims 5, 7] [anecdotal]
+  [source: blog-anthropic-seeing-like-an-agent, Claims 5, 7] [settled]
 
 The author's evaluation signal is also worth naming: "Claude seemed to like
 calling this tool" — voluntary call rate above baseline indicates the tool's
 interface matches the model's action model. Watch the rate at which the agent
 reaches for a new command without prompting; that is the leading indicator of
 tool-model fit.
-[source: blog-anthropic-seeing-like-an-agent, Claim 3] [anecdotal]
+[source: blog-anthropic-seeing-like-an-agent, Claim 3] [settled]
 
 **Rule**: Name commands so the domain is obvious from the name alone. Use a
 typed tool call (or a frontmatter-typed slash command) whenever the agent
 needs to produce structured output on demand — never a prose format
 instruction. At each model upgrade, audit the harness for components built to
 compensate for limitations the new model no longer has.
-[source: blog-anthropic-seeing-like-an-agent, Claims 4, 7, 12] [anecdotal]
+[source: blog-anthropic-seeing-like-an-agent, Claims 4, 7, 12] [settled]
 
 ---
 
@@ -1159,7 +1159,7 @@ more cross-agent dependencies, the topology choice itself becomes load-bearing.
 Anthropic's Claude team published a five-pattern taxonomy that names the
 trade-offs explicitly — including the failure mode that justifies evolving from
 one pattern to the next.
-[source: blog-anthropic-multi-agent-coordination-patterns, Claim 1] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 1] [settled]
 
 ### The five patterns and their failure modes
 
@@ -1199,20 +1199,20 @@ one pattern to the next.
 ```
 
 [source: blog-anthropic-multi-agent-coordination-patterns, Claims 2, 3, 5, 6;
-Concrete Artifacts] [anecdotal]
+Concrete Artifacts] [settled]
 
 ### Start with orchestrator-subagent
 
 Anthropic's explicit recommendation: "For most use cases, we recommend
 starting with orchestrator-subagent. It handles the widest range of problems
 with the least coordination overhead."
-[source: blog-anthropic-multi-agent-coordination-patterns, Claim 7] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 7] [settled]
 
 The other four patterns are evolution paths, not parallel design choices. Each
 adds coordination complexity to fix a specific failure mode of the simpler
 pattern. The team frames the meta-principle as: "Start with the simplest
 pattern that could work, watching where it struggles, and evolving from there."
-[source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [settled]
 
 The pairwise evolution criteria from the post:
 
@@ -1235,12 +1235,12 @@ Message Bus → Shared State
   Test:    Discrete pipeline stages, or a shared knowledge base?
 ```
 
-[source: blog-anthropic-multi-agent-coordination-patterns, Concrete Artifacts] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Concrete Artifacts] [settled]
 
 **Rule**: Pick the simplest topology in the taxonomy and document the
 specific failure mode you would need to observe to justify the next one. Do
 not pre-build for failure modes you have not seen.
-[source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [settled]
 
 ### Generator-verifier for unattended pipelines
 
@@ -1250,7 +1250,7 @@ generator-verifier split is the structural answer to "who catches the bugs?"
 The post warns explicitly that the verifier is "only as good as its criteria,"
 and that vague criteria produce a verifier that rationalizes acceptance rather
 than catching defects.
-[source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [settled]
 
 This is the same failure mode the long-running harness post named "Claude is
 a poor QA agent out of the box" and the source-leaked coordinator prompt
@@ -1262,7 +1262,7 @@ the criteria explicit and behavioral *before* generation starts.
 acceptance criteria as an enumerable, checkable list before the generator
 runs. If the verifier prompt contains the word "good" without a definition,
 the early-victory failure mode is loaded and pointed at production.
-[source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [anecdotal]
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [settled]
 
 ### Decompose by context, not by work type
 
@@ -1270,7 +1270,7 @@ The post's design principle for splitting work across agents:
 
 > "Divide work by what context each agent needs rather than by what type of
 > work it does."
-> [source: blog-anthropic-multi-agent-coordination-patterns, Claim 13] [anecdotal]
+> [source: blog-anthropic-multi-agent-coordination-patterns, Claim 13] [settled]
 
 The common decomposition ("agent A handles frontend, agent B handles backend")
 is work-type decomposition. If frontend and backend agents need overlapping

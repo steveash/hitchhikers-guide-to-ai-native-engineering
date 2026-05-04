@@ -817,7 +817,7 @@ production deployment in our corpus:
    pulled in different directions in one prompt is the failure mode behind
    the recall gap.
    [source: blog-cursor-security-agents, Claim 5;
-   discussion-hn-autofix-hybrid-review, Claims 1, 8] [anecdotal]
+   discussion-hn-autofix-hybrid-review, Claims 1, 8] [emerging]
 
 ### Gradual trust rollout: shadow → inform → gate
 
@@ -847,7 +847,7 @@ Progression criteria (per Cursor):
   PR comments → blocking: confidence continues to build (no specific gate)
 ```
 
-[source: blog-cursor-security-agents, Claim 4] [anecdotal]
+[source: blog-cursor-security-agents, Claim 4] [emerging]
 
 The pattern catches the "agent cried wolf" failure mode that causes engineers
 to dismiss legitimate findings. Skipping shadow mode lands you with a CI gate
@@ -857,7 +857,7 @@ findings train the team to ignore the agent.
 **Rule**: Never deploy a security agent in blocking mode before it has run
 in shadow mode long enough to produce a stable signal. Shadow → inform →
 gate is the only deployment sequence with corroborating production evidence.
-[source: blog-cursor-security-agents, Claim 4] [anecdotal]
+[source: blog-cursor-security-agents, Claim 4] [emerging]
 
 ### Three-axis attribution when the agent gets it wrong
 
@@ -869,7 +869,7 @@ each failure to one of three root causes — and the fix differs by axis.
 > "When something underperforms, you can trace it back to a specific prompt,
 > a context issue, or a retrieval gap rather than staring at an aggregate
 > score wondering what went wrong." — Matthew Mazzanti, Carta Healthcare
-> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 5] [anecdotal]
+> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 5] [emerging]
 
 ```
 Three-axis evaluation attribution
@@ -886,7 +886,7 @@ component that broke.
 **Rule**: Build evaluation that attributes each failure to one of prompt,
 context, or retrieval before iterating. Skip this and you will spend more
 time debugging than building.
-[source: blog-anthropic-carta-healthcare-context-engineering, Claims 5, 6] [anecdotal]
+[source: blog-anthropic-carta-healthcare-context-engineering, Claims 5, 6] [emerging]
 
 ---
 

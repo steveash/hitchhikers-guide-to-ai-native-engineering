@@ -782,9 +782,9 @@ The Anthropic Platform team's recommended pattern: append a
 is mutable; the system prompt should not be.
 [source: blog-anthropic-harnessing-claude-intelligence, Claim 11] [settled]
 
-The same pattern is documented in the session-management post as the runtime
-mechanism behind steerable `/compact` hints and other mid-session
-instruction injection:
+The harnessing-claude-intelligence post documents this as a caching
+principle — "Messages for updates" — under the rule that the system prompt
+is part of the cacheable prefix and should not be edited mid-session:
 
 > "Append `<system-reminder>` in messages instead of editing prompt."
 > [source: blog-anthropic-harnessing-claude-intelligence, Claim 11] [settled]
@@ -798,8 +798,7 @@ mid-session rule update, which compounds with every turn that follows.
 change, or constraint that appears mid-session, inject it as a
 `<system-reminder>` in a user-turn message — the cache stays warm and the
 agent still sees the new instruction.
-[source: blog-anthropic-harnessing-claude-intelligence, Claim 11;
-blog-anthropic-session-management-1m-context, Claim 1] [settled]
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 11] [settled]
 
 ### How to audit your own context budget
 
@@ -869,7 +868,7 @@ harness:
 | Opus 4.5 | 68% |
 | Opus 4.6 | 84% |
 
-[source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [anecdotal]
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [settled]
 
 Sonnet 4.5 cannot leverage more compaction budget — throwing more tokens at
 the summarizer does nothing. Opus 4.6 nearly doubles the score on the same
@@ -880,7 +879,7 @@ model, the binding constraint is the model, not the harness.
 uses for compaction. If it is a smaller model and you need high
 post-compaction accuracy, upgrade the model before attributing the
 degradation to a fundamental limitation.
-[source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [anecdotal]
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [settled]
 
 ### Gemini CLI: tail preservation + self-critique
 
@@ -944,7 +943,7 @@ abstraction on Claude via Amazon Bedrock. Their Lighthouse platform
 extracts structured data from 22,000+ surgical cases per year across 14
 hospitals, with 98–99% inter-rater reliability against human abstractors
 (the clinical-registry industry standard).
-[source: blog-anthropic-carta-healthcare-context-engineering, Claim 9] [anecdotal]
+[source: blog-anthropic-carta-healthcare-context-engineering, Claim 9] [emerging]
 
 The architectural finding from Matthew Mazzanti, their software engineering
 manager, is what makes the scale possible:
@@ -953,7 +952,7 @@ manager, is what makes the scale possible:
 > they were about context construction. A perfectly written prompt with bad
 > context gives bad answers. A straightforward prompt with the right
 > context delivers the results you need."
-> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 1] [anecdotal]
+> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 1] [emerging]
 
 ### The pattern
 
@@ -975,7 +974,7 @@ BUT: an individually assembled context window per data point, scoped
      to that question's temporal and clinical boundaries
 ```
 
-[source: blog-anthropic-carta-healthcare-context-engineering, Claim 2] [anecdotal]
+[source: blog-anthropic-carta-healthcare-context-engineering, Claim 2] [emerging]
 
 Each query runs in a narrow, purpose-built window. The full document never
 all enters context at once; the model never has to decide which procedure
@@ -1002,7 +1001,7 @@ to manage. The lever that does apply is *what enters context per query*.
 context window to the individual query, not to the session or the source
 document. Build query-specific context assembly as a first-class layer of
 the harness, not as an afterthought to prompt design.
-[source: blog-anthropic-carta-healthcare-context-engineering, Claims 1, 2] [anecdotal]
+[source: blog-anthropic-carta-healthcare-context-engineering, Claims 1, 2] [emerging]
 
 ---
 

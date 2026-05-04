@@ -166,7 +166,7 @@ messages grew +22% over the period, but high-complexity messages grew +68%
 authors attribute the lag to "the time it takes developers to discover what
 a better model can do, and the need for firms to reorient their workflows
 around new capabilities."
-[source: blog-cursor-better-models-ambitious-work, Claims 2, 3] [anecdotal]
+[source: blog-cursor-better-models-ambitious-work, Claims 2, 3] [emerging]
 
 The operational implication is direct: a measurement window that closes at
 week 1 or 2 captures volume growth in existing-complexity tasks and *misses*
@@ -177,7 +177,7 @@ did less than it actually did.
 **Rule**: Set rollout-evaluation milestones at weeks 4, 8, and 12 — not
 week 2. Behavioral shifts after a model upgrade or phase transition take
 4–6 weeks to manifest in the data.
-[source: blog-cursor-better-models-ambitious-work, Claim 2] [anecdotal]
+[source: blog-cursor-better-models-ambitious-work, Claim 2] [emerging]
 
 ### The harness must include quality automation from day one
 
@@ -739,7 +739,7 @@ AI applications manager:
 > translating that into data science models and custom code, we use that
 > feedback directly in the prompts. What used to take months of engineering
 > and QA per registry now ships in a week."
-> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 7] [anecdotal]
+> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 7] [emerging]
 
 The structural change is not "things are faster." It is *who does which
 iteration step*. In the old workflow, a clinical abstractor explained an
@@ -761,7 +761,7 @@ grew +15% in UI/styling specifically. The authors' interpretation:
 > faster-moving codebases also increase the complexity of managing how
 > it all fits together, which may explain the sharp growth in cross-system
 > tasks like architecture and deployment."
-> [source: blog-cursor-better-models-ambitious-work, Claim 4] [anecdotal]
+> [source: blog-cursor-better-models-ambitious-work, Claim 4] [emerging]
 
 Both findings point in the same direction: AI shifts work composition
 toward judgment-heavy, integrative, non-engineer-translated tasks. For team
@@ -791,7 +791,7 @@ knowledge, legal reasoning, compliance rules, content guidelines), measure
 whether domain experts are unblocked, not only whether engineers are
 faster. The biggest AI-native wins in these domains come from removing the
 engineering translation layer, not from speeding it up.
-[source: blog-anthropic-carta-healthcare-context-engineering, Claim 7] [anecdotal]
+[source: blog-anthropic-carta-healthcare-context-engineering, Claim 7] [emerging]
 
 ---
 
