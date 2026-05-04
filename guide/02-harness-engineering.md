@@ -673,6 +673,58 @@ show context and prompt for input. This makes commands usable both as
 quick fire-and-forget operations and as guided workflows.
 [source: practitioner-dadlerj-tin] [anecdotal]
 
+### Design commands the way the agent perceives them
+
+The Claude Code team frames their internal tool-design heuristic as "see
+like an agent": shape commands and tools to the model's actual cognitive
+patterns, not to human intuitions about what a tool should look like.
+[source: blog-anthropic-seeing-like-an-agent, Claim 12] [anecdotal]
+
+The mechanism matters for slash-command authors: agents perceive commands
+through their names, frontmatter, and argument hints — not by reading the
+command body upfront. A `/checkout` command that a teammate would understand
+on sight is also the one Claude reaches for at the right moment. A command
+named `/utility-3` with the same body is invisible to the model until
+something forces it to enumerate the directory.
+
+The post documents three named anti-patterns from Claude Code's own iteration
+history that generalize to command authoring:
+
+- **Parameter overloading.** An early `ExitPlanTool` accepted both a plan
+  and an optional `questions` parameter. The model could not reliably
+  disambiguate "give me a plan" from "ask me questions about the plan" in
+  the same call. The fix was a dedicated `AskUserQuestion` tool with a
+  single unambiguous purpose.
+  [source: blog-anthropic-seeing-like-an-agent, Claim 1] [anecdotal]
+
+- **Format instructions for structured output.** Asking the model to produce
+  bullet-pointed questions with bracketed alternatives via prose
+  instructions failed reliably — the model appended extra sentences,
+  dropped options, or abandoned the structure. Typed tool calls succeed
+  where format instructions fail.
+  [source: blog-anthropic-seeing-like-an-agent, Claims 2, 4] [anecdotal]
+
+- **Over-scaffolding capable models.** A 5-turn `TodoWrite` system reminder
+  designed for goal-anchoring became a constraint on Opus 4.5, which treated
+  the todo list as rigid and refused to modify the plan when circumstances
+  changed. Scaffolding that compensates for a model limitation becomes
+  dead weight — and then a constraint — once the limitation is gone.
+  [source: blog-anthropic-seeing-like-an-agent, Claims 5, 7] [anecdotal]
+
+The author's evaluation signal is also worth naming: "Claude seemed to like
+calling this tool" — voluntary call rate above baseline indicates the tool's
+interface matches the model's action model. Watch the rate at which the agent
+reaches for a new command without prompting; that is the leading indicator of
+tool-model fit.
+[source: blog-anthropic-seeing-like-an-agent, Claim 3] [anecdotal]
+
+**Rule**: Name commands so the domain is obvious from the name alone. Use a
+typed tool call (or a frontmatter-typed slash command) whenever the agent
+needs to produce structured output on demand — never a prose format
+instruction. At each model upgrade, audit the harness for components built to
+compensate for limitations the new model no longer has.
+[source: blog-anthropic-seeing-like-an-agent, Claims 4, 7, 12] [anecdotal]
+
 ---
 
 ## Hooks — Silent Behavior Injection
@@ -1100,6 +1152,135 @@ safety net, not a solution.
 
 ---
 
+## Multi-Agent Coordination Patterns
+
+Two-plane orchestration is one specific topology. As you add more agents and
+more cross-agent dependencies, the topology choice itself becomes load-bearing.
+Anthropic's Claude team published a five-pattern taxonomy that names the
+trade-offs explicitly — including the failure mode that justifies evolving from
+one pattern to the next.
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 1] [anecdotal]
+
+### The five patterns and their failure modes
+
+```
+1. GENERATOR-VERIFIER
+   Mechanics: Generator → verifier criteria check → loop until accept or max iters
+   Failure: Vague criteria → verifier rubber-stamps (the "early victory problem")
+   Guard:   Make criteria explicit and behavioral before generation starts
+
+2. ORCHESTRATOR-SUBAGENT
+   Mechanics: Lead plans + dispatches → subagents complete bounded work
+              → orchestrator synthesizes
+   Failure: Information bottleneck — cross-cutting insights lost in handoffs
+   Guard:   Design explicitly for cross-cutting propagation;
+            consider a shared-state hybrid
+
+3. AGENT TEAMS
+   Mechanics: Coordinator spawns persistent workers from a shared queue;
+              workers retain context across assignments
+   Failure: Strict independence required; shared-resource conflicts;
+            completion detection is hard
+   Guard:   Partition tasks to minimize inter-worker dependencies
+
+4. MESSAGE BUS
+   Mechanics: Agents publish/subscribe via a router; new agents join
+              without rewiring
+   Failure: Silent failures if the router misclassifies an event
+   Guard:   Explicit event logging at the router; do not use for
+            predictable workflows
+
+5. SHARED STATE
+   Mechanics: Agents read/write a persistent store autonomously;
+              no central coordinator
+   Failure: Token-burning reactive loops without a convergence criterion
+   Guard:   Require explicit termination — time budget, convergence threshold,
+            or a designated judge agent
+```
+
+[source: blog-anthropic-multi-agent-coordination-patterns, Claims 2, 3, 5, 6;
+Concrete Artifacts] [anecdotal]
+
+### Start with orchestrator-subagent
+
+Anthropic's explicit recommendation: "For most use cases, we recommend
+starting with orchestrator-subagent. It handles the widest range of problems
+with the least coordination overhead."
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 7] [anecdotal]
+
+The other four patterns are evolution paths, not parallel design choices. Each
+adds coordination complexity to fix a specific failure mode of the simpler
+pattern. The team frames the meta-principle as: "Start with the simplest
+pattern that could work, watching where it struggles, and evolving from there."
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [anecdotal]
+
+The pairwise evolution criteria from the post:
+
+```
+Orchestrator-Subagent → Agent Teams
+  Trigger: Subtasks require sustained, multi-step engagement
+  Test:    Do workers develop familiarity that improves performance over time?
+
+Orchestrator-Subagent → Message Bus
+  Trigger: Workflow structure is unpredictable; steps emerge from events
+  Test:    Can you write the workflow DAG before it runs?
+           Yes → stay. No → message bus.
+
+Agent Teams → Shared State
+  Trigger: Agents need each other's intermediate findings in real-time
+  Test:    Do results combine at the end, or must findings flow mid-work?
+
+Message Bus → Shared State
+  Trigger: Agents need to build on accumulated findings over time
+  Test:    Discrete pipeline stages, or a shared knowledge base?
+```
+
+[source: blog-anthropic-multi-agent-coordination-patterns, Concrete Artifacts] [anecdotal]
+
+**Rule**: Pick the simplest topology in the taxonomy and document the
+specific failure mode you would need to observe to justify the next one. Do
+not pre-build for failure modes you have not seen.
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [anecdotal]
+
+### Generator-verifier for unattended pipelines
+
+For long-running pipelines where a human cannot review every output — think
+nightly data extraction, autonomous patching, scheduled audit jobs — the
+generator-verifier split is the structural answer to "who catches the bugs?"
+The post warns explicitly that the verifier is "only as good as its criteria,"
+and that vague criteria produce a verifier that rationalizes acceptance rather
+than catching defects.
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [anecdotal]
+
+This is the same failure mode the long-running harness post named "Claude is
+a poor QA agent out of the box" and the source-leaked coordinator prompt
+addresses with "Do not rubber-stamp weak work" (see §Quality Enforcement in
+Coordinator Prompts in Ch01). The fix is not better prompting — it is making
+the criteria explicit and behavioral *before* generation starts.
+
+**Rule**: For any unattended generator-verifier pipeline, write down the
+acceptance criteria as an enumerable, checkable list before the generator
+runs. If the verifier prompt contains the word "good" without a definition,
+the early-victory failure mode is loaded and pointed at production.
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [anecdotal]
+
+### Decompose by context, not by work type
+
+The post's design principle for splitting work across agents:
+
+> "Divide work by what context each agent needs rather than by what type of
+> work it does."
+> [source: blog-anthropic-multi-agent-coordination-patterns, Claim 13] [anecdotal]
+
+The common decomposition ("agent A handles frontend, agent B handles backend")
+is work-type decomposition. If frontend and backend agents need overlapping
+context to make coordinated decisions, that boundary generates information
+bottlenecks. Context-needs decomposition asks: what does each agent need to
+know to do its work? Decompose so each agent holds the minimum context it
+actually needs.
+
+---
+
 ## Anti-Patterns (With Evidence)
 
 ### 1. Plans That Contain Results
@@ -1216,6 +1397,8 @@ only measured production cost of omitting one in our corpus.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
+blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
+blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
 failure-alex000kim-claudecode-source-leak (Lesson 1),
@@ -1231,4 +1414,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-02*
+*Last updated: 2026-05-04*

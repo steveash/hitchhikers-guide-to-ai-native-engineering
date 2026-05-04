@@ -769,6 +769,38 @@ with `DANGEROUS_` so callers know to pause — in Claude Code, the harness
 [source: failure-alex000kim-claudecode-source-leak, Lesson 2] [emerging]
 [per SN-04-002]
 
+### Injecting mid-session updates without busting the cache
+
+When you need to update Claude's instructions during a session — a new rule,
+a corrected scope, a constraint that came up mid-task — the naive move is to
+edit the system prompt. Don't. The system prompt is part of the cached
+prefix; editing it creates a new cache key and the next turn pays full input
+pricing for the entire prefix.
+
+The Anthropic Platform team's recommended pattern: append a
+`<system-reminder>` block in a user-turn message instead. The message stream
+is mutable; the system prompt should not be.
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 11] [settled]
+
+The same pattern is documented in the session-management post as the runtime
+mechanism behind steerable `/compact` hints and other mid-session
+instruction injection:
+
+> "Append `<system-reminder>` in messages instead of editing prompt."
+> [source: blog-anthropic-harnessing-claude-intelligence, Claim 11] [settled]
+
+This is not a niche optimization. The `<system-reminder>` tag is the
+convention Claude Code itself uses for its own runtime instruction injection
+— the cost of getting it wrong is full cache invalidation on every
+mid-session rule update, which compounds with every turn that follows.
+
+**Rule**: Reserve system-prompt edits for session-start. For any rule, scope
+change, or constraint that appears mid-session, inject it as a
+`<system-reminder>` in a user-turn message — the cache stays warm and the
+agent still sees the new instruction.
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 11;
+blog-anthropic-session-management-1m-context, Claim 1] [settled]
+
 ### How to audit your own context budget
 
 The methodology is reproducible with one built-in command:
@@ -823,6 +855,33 @@ Not all compaction is equally lossy. The seven-harness study documents
 several harness-level mitigations that change the practical reliability
 of long sessions.
 
+### Compaction quality scales with model generation
+
+Before assuming your compaction problem is a harness-config problem, check
+which model is doing the compacting. Anthropic's first-party benchmark on
+BrowseComp shows that the ability to convert a compaction budget into
+post-compaction task accuracy is a property of the model generation, not the
+harness:
+
+| Model | Post-compaction BrowseComp accuracy |
+|-------|-------------------------------------|
+| Sonnet 4.5 | 43% (flat regardless of compaction budget) |
+| Opus 4.5 | 68% |
+| Opus 4.6 | 84% |
+
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [anecdotal]
+
+Sonnet 4.5 cannot leverage more compaction budget — throwing more tokens at
+the summarizer does nothing. Opus 4.6 nearly doubles the score on the same
+benchmark. If your team is fighting compaction quality on a Sonnet-tier
+model, the binding constraint is the model, not the harness.
+
+**Rule**: Before tuning compaction settings, confirm which model your harness
+uses for compaction. If it is a smaller model and you need high
+post-compaction accuracy, upgrade the model before attributing the
+degradation to a fundamental limitation.
+[source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [anecdotal]
+
 ### Gemini CLI: tail preservation + self-critique
 
 > "not full replacement, but extract + tail preservation. The last 30%
@@ -868,6 +927,82 @@ build a coding-agent harness.
 compaction policy is part of the choice. Factor it in alongside the
 features you actually use.
 [editorial]
+
+---
+
+## Per-Query Context Scoping
+
+Most of this chapter has been about sessions: managing one accumulating
+context window over time. There is a different shape of problem — batch
+extraction, structured classification, repeated decisions over many input
+documents — where the right architecture is the opposite. Instead of one
+session context that grows, assemble a fresh, narrow context window *per
+data point* and discard it.
+
+Carta Healthcare runs this pattern in production for clinical data
+abstraction on Claude via Amazon Bedrock. Their Lighthouse platform
+extracts structured data from 22,000+ surgical cases per year across 14
+hospitals, with 98–99% inter-rater reliability against human abstractors
+(the clinical-registry industry standard).
+[source: blog-anthropic-carta-healthcare-context-engineering, Claim 9] [anecdotal]
+
+The architectural finding from Matthew Mazzanti, their software engineering
+manager, is what makes the scale possible:
+
+> "The hardest problems we solved weren't about building a perfect prompt,
+> they were about context construction. A perfectly written prompt with bad
+> context gives bad answers. A straightforward prompt with the right
+> context delivers the results you need."
+> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 1] [anecdotal]
+
+### The pattern
+
+For each extracted data point, assemble a context window scoped to *that
+point's* requirements at query time — not a global document context shared
+across all extractions. The concrete example from the team:
+
+```
+Extraction question: "Most recent glucose before procedure"
+
+Context assembled AT QUERY TIME includes:
+  - Patient's lab results, ordered by timestamp
+  - Exact procedure start time injected as a temporal anchor
+  - Instruction: scope to readings BEFORE procedure start time
+  - Instruction: EXCLUDE readings after procedure start time
+
+NOT: one global patient context passed to all extraction questions
+BUT: an individually assembled context window per data point, scoped
+     to that question's temporal and clinical boundaries
+```
+
+[source: blog-anthropic-carta-healthcare-context-engineering, Claim 2] [anecdotal]
+
+Each query runs in a narrow, purpose-built window. The full document never
+all enters context at once; the model never has to decide which procedure
+to anchor on, because the anchor is already injected.
+
+### Why this matters for any batch extraction pipeline
+
+The same pattern generalizes beyond healthcare. Any pipeline that:
+
+- extracts many structured fields from each input document
+- runs the same question over thousands of records
+- must apply temporal or scope boundaries that vary per record
+
+will hit the same context-collapse failure mode if all queries share one
+session context. The Carta architecture is the answer: scope context to
+the query, not to the session.
+
+This complements the within-session context discipline of the rest of this
+chapter. For batch pipelines specifically, the within-session levers
+(compaction, handoff, plan files) do not apply — there is no long session
+to manage. The lever that does apply is *what enters context per query*.
+
+**Rule**: For batch extraction or classification pipelines, scope the
+context window to the individual query, not to the session or the source
+document. Build query-specific context assembly as a first-class layer of
+the harness, not as an afterthought to prompt design.
+[source: blog-anthropic-carta-healthcare-context-engineering, Claims 1, 2] [anecdotal]
 
 ---
 
@@ -926,6 +1061,9 @@ session.
 ---
 
 *Sources for this chapter:
+blog-anthropic-carta-healthcare-context-engineering (Claims 1, 2, 9),
+blog-anthropic-harnessing-claude-intelligence (Claims 7, 11),
+blog-anthropic-session-management-1m-context (Claim 1),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
@@ -939,4 +1077,4 @@ practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-05-04*

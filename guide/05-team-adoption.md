@@ -157,6 +157,28 @@ A team that tries to ship Phase 3 content on day one will overwhelm the agent
 context budget and the engineers' attention. A team that never expands past
 Phase 1 will see usage plateau and engagement decay.
 
+A second timing finding sharpens the rollout schedule. Cursor's behavioral
+study with the University of Chicago Booth School (n=500 companies, 8 months,
+two model step-changes) measured the lag between a model upgrade and the
+visible shift in *what* developers used the model for: low-complexity
+messages grew +22% over the period, but high-complexity messages grew +68%
+— "with most of that growth occurring during the last six weeks." The
+authors attribute the lag to "the time it takes developers to discover what
+a better model can do, and the need for firms to reorient their workflows
+around new capabilities."
+[source: blog-cursor-better-models-ambitious-work, Claims 2, 3] [anecdotal]
+
+The operational implication is direct: a measurement window that closes at
+week 1 or 2 captures volume growth in existing-complexity tasks and *misses*
+the complexity shift entirely. A team that evaluates a model upgrade — or a
+phase-transition rollout — at the four-week mark will conclude the change
+did less than it actually did.
+
+**Rule**: Set rollout-evaluation milestones at weeks 4, 8, and 12 — not
+week 2. Behavioral shifts after a model upgrade or phase transition take
+4–6 weeks to manifest in the data.
+[source: blog-cursor-better-models-ambitious-work, Claim 2] [anecdotal]
+
 ### The harness must include quality automation from day one
 
 The Speed at the Cost of Quality study (Miller et al., MSR '26, peer-reviewed,
@@ -698,6 +720,81 @@ research-anthropic-ai-transforming-work, Claim 2] [editorial]
 
 ---
 
+## How AI Changes Who Does the Iteration Work
+
+Most of this chapter has been about engineering throughput — PRs merged,
+review cycle time, complexity drift, license allocation. There is a parallel
+adoption question: *which decisions still require an engineer as
+intermediary between a domain expert and an answer?* For some classes of
+work, AI collapses that intermediation, which changes the team composition
+and the iteration timeline more than any productivity number does.
+
+The clearest production case in our corpus is Carta Healthcare, who replaced
+a rules/NLP-based clinical data extraction pipeline with an LLM-based one.
+The before/after on iteration velocity, from Hannah Glaser, their applied
+AI applications manager:
+
+> "Our clinical abstractors regularly hand us long explanations of how a
+> specific data point works in practice. Instead of spending weeks
+> translating that into data science models and custom code, we use that
+> feedback directly in the prompts. What used to take months of engineering
+> and QA per registry now ships in a week."
+> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 7] [anecdotal]
+
+The structural change is not "things are faster." It is *who does which
+iteration step*. In the old workflow, a clinical abstractor explained an
+extraction rule to a data scientist, who translated it into labeled training
+data, retrained a model, ran QA, and shipped — over months. In the new
+workflow, the abstractor explains the rule in natural language, an engineer
+edits the prompt, and the change is in production in a week. The data
+science translation layer is gone. Domain expert language goes directly to
+prompt language.
+
+The Cursor + UChicago Booth study finds the same shift in a different
+dataset. Across 500 companies, the task categories that grew fastest as
+models improved were **documentation (+62%), architecture (+52%), code
+review (+51%), and learning (+50%)** — not raw code generation, which only
+grew +15% in UI/styling specifically. The authors' interpretation:
+
+> "as AI-generated code expands codebase size, the need to document,
+> understand, and review that code grows in proportion. Larger and
+> faster-moving codebases also increase the complexity of managing how
+> it all fits together, which may explain the sharp growth in cross-system
+> tasks like architecture and deployment."
+> [source: blog-cursor-better-models-ambitious-work, Claim 4] [anecdotal]
+
+Both findings point in the same direction: AI shifts work composition
+toward judgment-heavy, integrative, non-engineer-translated tasks. For team
+adoption, the operational question is not just "are engineers more
+productive?" but "which decisions still need an engineer in the loop?"
+
+### What this means for measurement
+
+Most adoption measurement programs (Layer 1–4 above) are calibrated to
+engineering throughput. A team running clinical extraction, document
+classification, compliance checks, or any other domain-expert-driven
+pipeline should add a fifth measurement layer:
+
+```
+Layer 5: Domain-expert unblocking
+  — How long does it take a non-engineer SME to ship a rule change?
+  — How many decisions still require an engineer as intermediary?
+  — Are domain experts authoring/iterating on prompts directly?
+```
+
+If the answer to the first two questions has not improved after AI
+adoption, the AI-native value of the change is limited even when the
+engineering throughput numbers look good.
+
+**Rule**: For domains where expertise lives in natural language (clinical
+knowledge, legal reasoning, compliance rules, content guidelines), measure
+whether domain experts are unblocked, not only whether engineers are
+faster. The biggest AI-native wins in these domains come from removing the
+engineering translation layer, not from speeding it up.
+[source: blog-anthropic-carta-healthcare-context-engineering, Claim 7] [anecdotal]
+
+---
+
 ## Common Objections and Real Answers
 
 The discipline this section requires is to take objections seriously when the
@@ -1044,7 +1141,9 @@ in early 2026.
 survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
+blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
+blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
 blog-faros-claude-code-roi (Claims 1-7),
 docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
 discussion-hn-agentic-coding-jobs (Claim 10),
@@ -1055,4 +1154,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-05-04*

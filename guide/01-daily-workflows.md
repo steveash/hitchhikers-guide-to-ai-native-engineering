@@ -424,6 +424,61 @@ Context degrades over long sessions. The agent starts repeating itself,
 misses instructions it followed earlier, or proposes changes that
 contradict its own previous work. These are signals, not vibes.
 
+### The session management toolkit
+
+Anthropic's Claude Code team labels the degradation phenomenon **context rot**:
+"model performance degrades as context grows because attention gets spread
+across more tokens, and older, irrelevant content starts to distract from the
+current task."
+[source: blog-anthropic-session-management-1m-context, Claim 1] [settled]
+
+Most practitioners think every turn is a binary choice: continue or start
+over. The Claude Code team frames it as a five-way branch — the right tool
+depends on what just happened and what comes next:
+
+| Situation | Tool | What it does |
+|-----------|------|--------------|
+| Same task, context still relevant | Continue | Keep the load-bearing context; don't rebuild |
+| Claude went down a wrong path | `/rewind` (⎋⎋) | Keep the file reads, drop the failed attempt, re-prompt with what you learned |
+| Mid-task, session bloated with stale exploration | `/compact <hint>` | Claude summarizes; steer it with a hint about what to preserve |
+| Starting a genuinely new task | `/clear` | You write down what carries forward; zero rot |
+| Next step generates output you'll only need the conclusion from | Subagent | Intermediate noise stays in the child; only the result returns |
+
+[source: blog-anthropic-session-management-1m-context, Claim 2] [settled]
+
+The `/rewind` move is the most under-used. Concrete example from the same
+post: Claude reads five files, tries an approach, and it doesn't work. The
+naive correction is "that didn't work, try X instead" in the same session —
+which keeps the failed attempt in context as noise. The better move is
+`/rewind` to just after the file reads, then re-prompt: "Don't use approach A,
+the foo module doesn't expose that — go straight to B."
+[source: blog-anthropic-session-management-1m-context, Claim 4] [settled]
+
+The subagent decision is also a heuristic, not a parallelism choice. The
+question Anthropic's engineers ask: *will I need this tool output again, or
+just the conclusion?* If only the conclusion, spawn a subagent — the
+intermediate exploration trace stays in the child's context, not yours.
+Concrete invocations from the post:
+
+```
+"Spin up a subagent to verify the result of this work based on the
+ following spec file"
+
+"Spin off a subagent to read through this other codebase and summarize
+ how it implemented the auth flow, then implement it yourself in the
+ same way"
+
+"Spin off a subagent to write the docs on this feature based on my git
+ changes"
+```
+
+[source: blog-anthropic-session-management-1m-context, Claim 10] [settled]
+
+**Rule**: Before continuing past a stuck turn, pick one of the four
+non-Continue options. Continuing is the default that produces context rot;
+the other four are the levers that prevent it.
+[source: blog-anthropic-session-management-1m-context, Claim 2] [settled]
+
 ### Concrete restart signals
 
 1. **The agent proposes reverting a change it just made.** This means
@@ -569,6 +624,7 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+blog-anthropic-session-management-1m-context (Claims 1, 2, 4, 10),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
 discussion-hn-agentic-coding-jobs (Claim 9),
 failure-alex000kim-claudecode-source-leak (Lesson 3),
@@ -578,4 +634,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-02*
+*Last updated: 2026-05-04*

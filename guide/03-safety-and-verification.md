@@ -753,6 +753,143 @@ gates.
 
 ---
 
+## Security Threat Model for AI-Native Teams
+
+The verification stack above defends against agent mistakes against your
+codebase. There is a parallel threat model that defends against attackers
+using agents against your codebase. Two first-party sources from inside the
+model and tooling vendors converged on it in early 2026.
+
+### The 24-month offensive AI escalation window
+
+Anthropic's security team, citing internal research from Project Glasswing
+and Claude Mythos Preview, makes an explicit timeline claim:
+
+> "Within the next 24 months, vast numbers of bugs that sat unnoticed in code,
+> possibly for years, will be found by AI models and chained into working
+> exploits."
+> [source: blog-anthropic-ai-accelerated-offense, Claim 1] [anecdotal]
+
+The operative word is *chained*. The companion claim — that "publicly
+available models can find serious vulnerabilities that traditional reviews
+have missed for long periods" — means the threat model can no longer assume
+"only nation-state actors have these capabilities."
+[source: blog-anthropic-ai-accelerated-offense, Claim 2] [anecdotal]
+
+For AI-native engineering teams, this is the asymmetry: you ship more code
+per developer, your attack surface grows in proportion, and the cost for an
+attacker to find chainable bugs in that surface is collapsing toward zero on
+the same curve that is making your team faster.
+
+**Rule**: If you have not yet adopted AI-assisted security scanning of your
+own code before it ships, the first-mover advantage is closing. Run the same
+class of tools an attacker would on your own code first, on every PR, before
+the 24-month window closes.
+[source: blog-anthropic-ai-accelerated-offense, Claim 6] [anecdotal]
+
+### Three defensive actions that offset the asymmetry
+
+The Anthropic post ranks seven recommendations; three are immediately
+actionable for an AI-native engineering team and have a corroborating
+production deployment in our corpus:
+
+1. **AI security scan before shipping.** Anthropic frames this as the single
+   highest-ROI action: "If you implement one thing from this section,
+   implement this: scan your code for vulnerabilities using AI before it
+   ships."
+   [source: blog-anthropic-ai-accelerated-offense, Claim 6] [anecdotal]
+   Cursor's production deployment runs four security agents on a shared MCP
+   substrate; the new-PR review agent alone runs on 3,000+ internal PRs per
+   week and surfaces 200+ vulnerabilities per week.
+   [source: blog-cursor-security-agents, Claims 1, 9] [anecdotal]
+
+2. **AI model at the front of the alert queue, for 100% alert coverage.**
+   Human-only SOCs sample alerts under fatigue. An AI triage agent that
+   processes every alert at low depth ensures none goes uninvestigated.
+   [source: blog-anthropic-ai-accelerated-offense, Claim 7] [anecdotal]
+
+3. **Specialization over general-purpose review.** The DeepSource benchmark
+   measured Claude Code at 48.78% recall on the OpenSSF CVE dataset for
+   security review of full diffs (see §CI as Verification Backstop above).
+   Cursor's response is a dedicated security review agent prompt-tuned to
+   specific threat models, gating CI independently from general code-quality
+   review. The shared principle: a security agent and a code-quality agent
+   pulled in different directions in one prompt is the failure mode behind
+   the recall gap.
+   [source: blog-cursor-security-agents, Claim 5;
+   discussion-hn-autofix-hybrid-review, Claims 1, 8] [anecdotal]
+
+### Gradual trust rollout: shadow → inform → gate
+
+Cursor documents the deployment pattern they used for their own internal
+security review agent — and it generalizes to any autonomous agent entering
+a critical path:
+
+```
+Stage 1: Shadow mode
+  — Agent runs on every event
+  — Findings → private Slack channel for the security team
+  — Zero PR impact, zero blast radius
+  — Purpose: validate signal quality before anyone sees it
+
+Stage 2: PR commenting
+  — Agent posts findings as PR comments
+  — Engineers can address or dismiss; no merge gate
+  — Purpose: expose to broader scrutiny, build wider confidence
+
+Stage 3: Blocking gate check
+  — Agent findings can block merge
+  — Engineer must address or dismiss before landing
+  — Purpose: enforce findings as a hard constraint
+
+Progression criteria (per Cursor):
+  Shadow → PR comments: "confident it was identifying genuine issues"
+  PR comments → blocking: confidence continues to build (no specific gate)
+```
+
+[source: blog-cursor-security-agents, Claim 4] [anecdotal]
+
+The pattern catches the "agent cried wolf" failure mode that causes engineers
+to dismiss legitimate findings. Skipping shadow mode lands you with a CI gate
+calibrated to nothing — which is worse than no gate, because dismissed
+findings train the team to ignore the agent.
+
+**Rule**: Never deploy a security agent in blocking mode before it has run
+in shadow mode long enough to produce a stable signal. Shadow → inform →
+gate is the only deployment sequence with corroborating production evidence.
+[source: blog-cursor-security-agents, Claim 4] [anecdotal]
+
+### Three-axis attribution when the agent gets it wrong
+
+When a security agent (or any extraction agent) produces a wrong answer,
+practitioners default to "tweak the prompt." Carta Healthcare's clinical
+abstraction team identified a more useful diagnostic structure: attribute
+each failure to one of three root causes — and the fix differs by axis.
+
+> "When something underperforms, you can trace it back to a specific prompt,
+> a context issue, or a retrieval gap rather than staring at an aggregate
+> score wondering what went wrong." — Matthew Mazzanti, Carta Healthcare
+> [source: blog-anthropic-carta-healthcare-context-engineering, Claim 5] [anecdotal]
+
+```
+Three-axis evaluation attribution
+
+  PROMPT failure     → revise the prompt
+  CONTEXT failure    → change context assembly (what the agent sees per query)
+  RETRIEVAL failure  → fix the retrieval pipeline (which documents are surfaced)
+```
+
+Aggregate accuracy metrics conflate all three and cannot drive targeted
+remediation. A three-axis evaluation framework lets you separately tune the
+component that broke.
+
+**Rule**: Build evaluation that attributes each failure to one of prompt,
+context, or retrieval before iterating. Skip this and you will spend more
+time debugging than building.
+[source: blog-anthropic-carta-healthcare-context-engineering, Claims 5, 6] [anecdotal]
+
+---
+
 ## Summary: The Verification Stack
 
 | Layer | Cost | Catches | Example |
@@ -769,6 +906,9 @@ Build all five layers. Each one is a safety net for the layer above it.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
+blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
+blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
+blog-cursor-security-agents (Claims 1, 4, 5, 9),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
 docs-ghaw-chatops (Claims 5, 6, 7),
@@ -784,4 +924,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-02*
+*Last updated: 2026-05-04*
