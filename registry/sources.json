@@ -23,7 +23,6 @@
       "file": "source-notes/docs-ghaw-multi-repo-ops.md",
       "confidence_overall": "emerging",
       "status": "current"
-    }
     },
     "blog-simonwillison-deepseek-v4": {
       "slug": "blog-simonwillison-deepseek-v4",
@@ -46,6 +45,18 @@
       "date_extracted": "2026-05-04",
       "issue": "#522",
       "file": "source-notes/docs-ghaw-inline-sub-agents.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
+    "blog-ghaw-weekly-2026-05-04": {
+      "slug": "blog-ghaw-weekly-2026-05-04",
+      "title": "Weekly Update – May 4, 2026 (GitHub Agentic Workflows)",
+      "source_url": "https://github.github.com/gh-aw/blog/2026-05-04-weekly-update/",
+      "source_type": "blog-post",
+      "author": "GitHub Agentic Workflows team",
+      "date_extracted": "2026-05-04",
+      "issue": "#530",
+      "file": "source-notes/blog-ghaw-weekly-2026-05-04.md",
       "confidence_overall": "emerging",
       "status": "current"
     }
