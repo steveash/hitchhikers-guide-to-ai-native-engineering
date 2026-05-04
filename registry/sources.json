@@ -48,6 +48,18 @@
       "file": "source-notes/docs-ghaw-inline-sub-agents.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-llm031": {
+      "slug": "blog-simonwillison-llm031",
+      "title": "llm 0.31",
+      "source_url": "https://simonwillison.net/2026/Apr/24/llm/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-04",
+      "issue": "#528",
+      "file": "source-notes/blog-simonwillison-llm031.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-04"
