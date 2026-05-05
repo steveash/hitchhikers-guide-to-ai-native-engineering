@@ -60,7 +60,19 @@
       "file": "source-notes/blog-simonwillison-llm031.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-ronacher-content-for-contents-sake": {
+      "slug": "blog-ronacher-content-for-contents-sake",
+      "title": "Content for Content's Sake",
+      "source_url": "https://lucumr.pocoo.org/2026/5/4/content-for-contents-sake/",
+      "source_type": "blog-post",
+      "author": "Armin Ronacher",
+      "date_extracted": "2026-05-05",
+      "issue": "#537",
+      "file": "source-notes/blog-ronacher-content-for-contents-sake.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-04"
+  "last_updated": "2026-05-05"
 }
