@@ -23,7 +23,6 @@
       "file": "source-notes/docs-ghaw-multi-repo-ops.md",
       "confidence_overall": "emerging",
       "status": "current"
-    }
     },
     "blog-simonwillison-deepseek-v4": {
       "slug": "blog-simonwillison-deepseek-v4",
@@ -60,7 +59,19 @@
       "file": "source-notes/blog-simonwillison-llm031.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-simonwillison-romain-huet": {
+      "slug": "blog-simonwillison-romain-huet",
+      "title": "Quoting Romain Huet",
+      "source_url": "https://simonwillison.net/2026/Apr/25/romain-huet/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (quoting Romain Huet, OpenAI)",
+      "date_extracted": "2026-05-05",
+      "issue": "#534",
+      "file": "source-notes/blog-simonwillison-romain-huet.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-04"
+  "last_updated": "2026-05-05"
 }
