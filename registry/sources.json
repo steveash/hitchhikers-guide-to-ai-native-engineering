@@ -72,7 +72,19 @@
       "file": "source-notes/blog-ronacher-content-for-contents-sake.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "docs-github-copilot-vscode-april-2026": {
+      "slug": "docs-github-copilot-vscode-april-2026",
+      "title": "GitHub Copilot in Visual Studio Code — April 2026 Releases",
+      "source_url": "https://github.blog/changelog/2026-05-06-github-copilot-in-visual-studio-code-april-releases",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-07",
+      "issue": "#548",
+      "file": "source-notes/docs-github-copilot-vscode-april-2026.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-05"
+  "last_updated": "2026-05-07"
 }
