@@ -72,7 +72,19 @@
       "file": "source-notes/blog-ronacher-content-for-contents-sake.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-simonwillison-codex-base-instructions": {
+      "slug": "blog-simonwillison-codex-base-instructions",
+      "title": "Quoting OpenAI Codex base_instructions",
+      "source_url": "https://simonwillison.net/2026/Apr/28/openai-codex/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-07",
+      "issue": "#547",
+      "file": "source-notes/blog-simonwillison-codex-base-instructions.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-05"
+  "last_updated": "2026-05-07"
 }
