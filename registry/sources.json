@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-agentic-ops": {
+      "slug": "docs-ghaw-agentic-ops",
+      "title": "GitHub Agentic Workflows: Agentic Ops Pattern",
+      "source_url": "https://github.github.com/gh-aw/patterns/agentic-ops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team",
+      "date_extracted": "2026-05-07",
+      "issue": "#552",
+      "file": "source-notes/docs-ghaw-agentic-ops.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-expert-ops": {
       "slug": "docs-ghaw-expert-ops",
       "title": "GitHub Agentic Workflows: ExpertOps Pattern",
