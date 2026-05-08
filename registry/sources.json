@@ -35,7 +35,6 @@
       "file": "source-notes/docs-ghaw-multi-repo-ops.md",
       "confidence_overall": "emerging",
       "status": "current"
-    }
     },
     "blog-simonwillison-deepseek-v4": {
       "slug": "blog-simonwillison-deepseek-v4",
@@ -96,7 +95,19 @@
       "file": "source-notes/blog-simonwillison-codex-base-instructions.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-github-copilot-claude-sonnet4-deprecation": {
+      "slug": "docs-github-copilot-claude-sonnet4-deprecation",
+      "title": "Claude Sonnet 4 deprecated",
+      "source_url": "https://github.blog/changelog/2026-05-07-claude-sonnet-4-deprecated",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-08",
+      "issue": "#562",
+      "file": "source-notes/docs-github-copilot-claude-sonnet4-deprecation.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-07"
+  "last_updated": "2026-05-08"
 }
