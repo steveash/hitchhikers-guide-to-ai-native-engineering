@@ -96,7 +96,19 @@
       "file": "source-notes/blog-simonwillison-codex-base-instructions.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-github-copilot-rubber-duck-multi-model": {
+      "slug": "docs-github-copilot-rubber-duck-multi-model",
+      "title": "Rubber Duck in GitHub Copilot CLI now supports more models",
+      "source_url": "https://github.blog/changelog/2026-05-07-rubber-duck-in-github-copilot-cli-now-supports-more-models",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-08",
+      "issue": "#561",
+      "file": "source-notes/docs-github-copilot-rubber-duck-multi-model.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-07"
+  "last_updated": "2026-05-08"
 }
