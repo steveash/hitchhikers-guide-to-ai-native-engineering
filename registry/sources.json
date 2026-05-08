@@ -96,7 +96,19 @@
       "file": "source-notes/blog-simonwillison-codex-base-instructions.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-llm032a0": {
+      "slug": "blog-simonwillison-llm032a0",
+      "title": "LLM 0.32a0 is a major backwards-compatible refactor",
+      "source_url": "https://simonwillison.net/2026/Apr/29/llm/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-08",
+      "issue": "#559",
+      "file": "source-notes/blog-simonwillison-llm032a0.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-07"
+  "last_updated": "2026-05-08"
 }
