@@ -108,6 +108,18 @@
       "file": "source-notes/blog-simonwillison-llm032a0.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-github-copilot-gpt41-deprecation": {
+      "slug": "docs-github-copilot-gpt41-deprecation",
+      "title": "Upcoming deprecation of GPT-4.1",
+      "source_url": "https://github.blog/changelog/2026-05-07-upcoming-deprecation-of-gpt-4-1",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-08",
+      "issue": "#563",
+      "file": "source-notes/docs-github-copilot-gpt41-deprecation.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-08"
