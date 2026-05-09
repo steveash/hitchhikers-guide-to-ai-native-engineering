@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-anthropic-managed-agents-dreaming-outcomes": {
+      "slug": "blog-anthropic-managed-agents-dreaming-outcomes",
+      "title": "New in Claude Managed Agents: dreaming, outcomes, and multiagent orchestration",
+      "source_url": "https://claude.com/blog/new-in-claude-managed-agents",
+      "source_type": "blog-post",
+      "author": "Anthropic (product announcement)",
+      "date_extracted": "2026-05-09",
+      "issue": "#550",
+      "file": "source-notes/blog-anthropic-managed-agents-dreaming-outcomes.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-ghaw-agentic-ops": {
       "slug": "docs-ghaw-agentic-ops",
       "title": "GitHub Agentic Workflows: Agentic Ops Pattern",
