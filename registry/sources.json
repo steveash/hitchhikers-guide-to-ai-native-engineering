@@ -132,6 +132,18 @@
       "file": "source-notes/blog-simonwillison-rss-vibe-coded-apps.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "docs-github-copilot-cca-secrets-variables": {
+      "slug": "docs-github-copilot-cca-secrets-variables",
+      "title": "More flexible secrets and variables for Copilot cloud agent",
+      "source_url": "https://github.blog/changelog/2026-05-08-more-flexible-secrets-and-variables-for-copilot-cloud-agent",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-09",
+      "issue": "#573",
+      "file": "source-notes/docs-github-copilot-cca-secrets-variables.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-09"
