@@ -120,7 +120,19 @@
       "file": "source-notes/docs-github-copilot-gpt41-deprecation.md",
       "confidence_overall": "settled",
       "status": "current"
+    },
+    "blog-simonwillison-rss-vibe-coded-apps": {
+      "slug": "blog-simonwillison-rss-vibe-coded-apps",
+      "title": "We need RSS for sharing abundant vibe-coded apps",
+      "source_url": "https://simonwillison.net/2026/Apr/30/rss-vibe-coded-apps/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (relaying Matt Webb)",
+      "date_extracted": "2026-05-09",
+      "issue": "#570",
+      "file": "source-notes/blog-simonwillison-rss-vibe-coded-apps.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-08"
+  "last_updated": "2026-05-09"
 }
