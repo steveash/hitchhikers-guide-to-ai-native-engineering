@@ -144,6 +144,18 @@
       "file": "source-notes/blog-ronacher-local-models-focus-polish.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-ghaw-weekly-2026-05-04": {
+      "slug": "blog-ghaw-weekly-2026-05-04",
+      "title": "Weekly Update – May 4, 2026 (GitHub Agentic Workflows)",
+      "source_url": "https://github.github.com/gh-aw/blog/2026-05-04-weekly-update/",
+      "source_type": "blog-post",
+      "author": "GitHub Agentic Workflows team (gh-aw)",
+      "date_extracted": "2026-05-09",
+      "issue": "#530",
+      "file": "source-notes/blog-ghaw-weekly-2026-05-04.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-09"
