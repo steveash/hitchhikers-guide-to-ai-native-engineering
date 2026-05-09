@@ -48,6 +48,34 @@ If your project uses an issue-first workflow, create the issue before
 the first implementation prompt.
 [source: practitioner-mikelane-pytest-test-categories] [emerging]
 
+### Carrying prior research into the session
+
+When the problem was first explored in a different chat session — Claude.ai
+on mobile, ChatGPT, a browser scratchpad — Claude Code starts with no
+memory of any of it. The fix is a two-file handoff: paste the prior
+session's last reply into `notes.md`, then tell Claude Code to read
+`notes.md` and write `plan.md` before touching code.
+[source: blog-simonwillison-liteparse-browser, Claim 5] [anecdotal]
+
+Willison used this exact pattern when porting LiteParse to the browser:
+
+> "I forked the original repo on GitHub, cloned a local copy, started
+> a new `web` branch and pasted that last reply from Claude into a new
+> file called notes.md. Then I told Claude Code: `Get this working as
+> a web app. index.html, when loaded, should render an app that lets
+> users open a PDF in their browser and select OCR or non-OCR mode and
+> have this run. Read notes.md for initial research on this problem,
+> then write out plan.md with your detailed implementation plan`"
+> [source: blog-simonwillison-liteparse-browser, Claim 5]
+
+The plan file then becomes the artifact that survives compaction (see
+Chapter 04, "Specs and Plans as Compressed Context").
+
+**Rule**: When Claude Code is the second AI tool to see your problem,
+externalize the prior session's output into `notes.md` and have Claude
+Code read it before writing `plan.md`.
+[source: blog-simonwillison-liteparse-browser, Claim 5] [anecdotal]
+
 ### Execute (the bulk of the session)
 
 Use one of the execution loops described in the sections below. The
@@ -338,6 +366,30 @@ sequence. The review burden is distributed across models, not across your
 attention budget.
 [editorial]
 
+### Cross-model audit for shortcut detection
+
+A lighter-weight cross-model pattern: ask a second model to *describe*
+what the first one built. Willison used GPT-5.5 via Codex to audit a
+Claude Code-built browser app he had not reviewed line-by-line:
+
+> "With this kind of project there's always a major risk that the model
+> might 'cheat'—mark key features as 'TODO' and fake them, or take
+> shortcuts that ignore the initial requirements. The responsible way
+> to prevent this is to review all of the code... but this wasn't
+> intended as that kind of project, so instead I fired up OpenAI Codex
+> with GPT-5.5 (I had preview access) and told it: `Describe the
+> difference between how the node.js CLI tool runs and how the web/
+> version runs` The answer I got back was enough to give me confidence
+> that Claude hadn't taken any project-threatening shortcuts."
+> [source: blog-simonwillison-liteparse-browser, Claim 11]
+
+The auditor never approves or rejects code; it describes what the code
+does. A description that matches the requirements implies the
+implementation exists. A description that reveals stubs reveals shortcuts.
+This is cheaper than a full review and catches a different failure mode
+(faked features) than two-agent review (logic errors).
+[source: blog-simonwillison-liteparse-browser, Claim 11] [anecdotal]
+
 ---
 
 ## Workflow Commands
@@ -570,6 +622,7 @@ a checkpoint.
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
+blog-simonwillison-liteparse-browser (Claims 5, 11),
 discussion-hn-agentic-coding-jobs (Claim 9),
 failure-alex000kim-claudecode-source-leak (Lesson 3),
 failure-sukit-parallel-session-ceiling (Lessons 2, 3, 5),
@@ -578,4 +631,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-02*
+*Last updated: 2026-05-09*

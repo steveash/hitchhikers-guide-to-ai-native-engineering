@@ -113,6 +113,34 @@ consider the post broadly trustworthy. The $0.40 cost figure is a single
 measurement on one model; cite as illustrative, not exact.
 [source: research-wasnotwas-context-compaction, extraction notes] [emerging]
 
+### Cache-safe forking refines the compaction cost
+
+The wasnotwas $0.40 figure measures the cost when compaction destroys
+the KV cache. The Claude Code team describes a partial mitigation:
+cache-safe forking. The compaction call itself uses the same system
+prompt, user context, system context, and tool definitions as the
+parent conversation, so the cached prefix is reused.
+
+> "When we run compaction, we use the _exact same_ system prompt, user
+> context, system context, and tool definitions as the parent
+> conversation."
+> [source: blog-anthropic-prompt-caching-everything, Claim 11]
+
+Cache-safe forking eliminates the cost of the compaction call itself.
+It does not eliminate the post-compaction rebuild: after compaction
+fires, the new (summary-based) prefix differs from the original, and
+the next turn pays full prefill on the rebuilt cache. The wasnotwas
+measurement captures that second cost, which cache-safe forking does
+not address.
+[source: blog-anthropic-prompt-caching-everything, Claim 11;
+research-wasnotwas-context-compaction, Claim 2] [emerging]
+
+The practical consequence for users: cache-safe forking makes the
+compaction call itself cheap, but the post-compaction rebuild still
+dominates multi-hour-session arithmetic. The handoff-before-compaction
+discipline does not change.
+[source: blog-anthropic-prompt-caching-everything, Claim 11] [emerging]
+
 ---
 
 ## Specs and Plans as Compressed Context
@@ -634,6 +662,105 @@ quality, not just capacity.
 
 ---
 
+## Cache Layer Hierarchy
+
+The Claude Code team's first-party description of how their cache is
+structured anchors any conversation about what is "cheap" and what is
+"expensive" in your context budget.
+
+> "Static system prompt & Tools (globally cached) | CLAUDE.md (cached
+> within a project) | Session context (cached within a session) |
+> Conversation messages"
+> [source: blog-anthropic-prompt-caching-everything, Claim 2]
+
+| Layer | Scope | Mutability |
+|-------|-------|------------|
+| 1. System prompt + tools | Globally cached across sessions | Static |
+| 2. CLAUDE.md | Cached within a project | Per-project |
+| 3. Session context | Cached within a session | Per-session |
+| 4. Conversation messages | Per-turn | Always dynamic |
+
+[source: blog-anthropic-prompt-caching-everything, Claim 2] [settled]
+
+Anything that changes — timestamps, file states, the model's awareness
+that a user just edited a file — should arrive in the *next* user
+message inside a `<system-reminder>` tag, not as a system-prompt edit.
+The Claude Code team describes their own practice:
+
+> "we add a <system-reminder> tag in the next user message or tool
+> result with the updated information for the model, which helps
+> preserve the cache."
+> [source: blog-anthropic-prompt-caching-everything, Claim 5]
+
+If a harness embeds dynamic content (a current timestamp, a file's
+current contents) into the static system prompt every turn, the cache
+is invalidated every turn. The fix is structural: route dynamic state
+through messages, not system-prompt edits.
+[source: blog-anthropic-prompt-caching-everything, Claim 5] [settled]
+
+**Rule** (Claude Code-specific): Static content first, dynamic content
+last. Inject runtime updates via `<system-reminder>` in the next
+message rather than rewriting the system prompt.
+[source: blog-anthropic-prompt-caching-everything, Claims 3, 5] [settled]
+
+### Mid-session model switching is more expensive than you think
+
+A common practitioner heuristic — "drop to a cheaper model for simpler
+subtasks" — inverts at non-trivial conversation length. The cache is
+provider-and-model-specific; switching models invalidates the prefix
+the agent has been building.
+
+> "If you're 100k tokens into a conversation with Opus and want to ask
+> a question that is fairly easy to answer, it would actually be more
+> expensive to switch to Haiku than to have Opus answer, because we
+> would need to rebuild the prompt cache for Haiku."
+> [source: blog-anthropic-prompt-caching-everything, Claim 6]
+
+Cursor's harness team independently documents the same effect on
+their stack:
+
+> "Switching means a cache miss and a slower, more expensive first
+> turn."
+> [source: blog-cursor-continual-harness-improvement, Claim 10]
+
+The clean alternative is a subagent: a fresh context window for the
+cheaper model that does not invalidate the parent's cache. The subagent
+gets a handoff message; the parent keeps its cache.
+[source: blog-cursor-continual-harness-improvement, Claim 11;
+blog-anthropic-prompt-caching-everything, Claim 6] [emerging]
+
+**Rule**: Past ~50% context fill, do not switch models mid-conversation
+to save cost. Either continue on the current model or spawn a subagent
+on the cheaper one.
+[source: blog-anthropic-prompt-caching-everything, Claim 6;
+blog-cursor-continual-harness-improvement, Claims 10, 11] [emerging]
+
+### Context rot — when wrong information accumulates
+
+Compaction loses information by summarizing. There is a distinct
+failure mode where context degrades by *adding* the wrong information:
+failed tool calls, incorrect outputs, and error messages that the
+agent then reasons over on subsequent turns.
+
+> "errors remain in context, wasting tokens and causing 'context rot,'
+> where accumulated mistakes degrade the quality of the model's
+> subsequent decisions."
+> [source: blog-cursor-continual-harness-improvement, Claim 3]
+
+Forgetting loses what the agent knew; rot pollutes what the agent
+reasons over. Cursor treats any unknown error class as a harness bug
+specifically because unknown errors are the most likely vector for
+silent rot at scale.
+[source: blog-cursor-continual-harness-improvement, Claims 3, 5] [emerging]
+
+**Rule**: If the agent keeps re-attempting a failed tool call, restart
+rather than letting the error trace accumulate. A fresh session with a
+clean handoff is cheaper than reasoning over a context full of failed
+attempts.
+[source: blog-cursor-continual-harness-improvement, Claim 3] [emerging]
+
+---
+
 ## Tool Choice and Context Cost
 
 Every tool you make available to the agent has a baseline cost in
@@ -926,6 +1053,8 @@ session.
 ---
 
 *Sources for this chapter:
+blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
+blog-cursor-continual-harness-improvement (Claims 3, 5, 10, 11),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
@@ -939,4 +1068,4 @@ practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-05-09*
