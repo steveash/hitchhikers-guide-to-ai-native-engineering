@@ -132,6 +132,18 @@
       "file": "source-notes/blog-simonwillison-rss-vibe-coded-apps.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-ronacher-local-models-focus-polish": {
+      "slug": "blog-ronacher-local-models-focus-polish",
+      "title": "Pushing Local Models With Focus And Polish",
+      "source_url": "https://lucumr.pocoo.org/2026/5/8/local-models/",
+      "source_type": "blog-post",
+      "author": "Armin Ronacher",
+      "date_extracted": "2026-05-09",
+      "issue": "#572",
+      "file": "source-notes/blog-ronacher-local-models-focus-polish.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-09"
