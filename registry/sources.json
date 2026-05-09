@@ -120,7 +120,19 @@
       "file": "source-notes/docs-github-copilot-gpt41-deprecation.md",
       "confidence_overall": "settled",
       "status": "current"
+    },
+    "blog-simonwillison-andrew-kelley": {
+      "slug": "blog-simonwillison-andrew-kelley",
+      "title": "A quote from Andrew Kelley",
+      "source_url": "https://simonwillison.net/2026/Apr/30/andrew-kelley/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (quoting Andrew Kelley, Creator of Zig)",
+      "date_extracted": "2026-05-09",
+      "issue": "#571",
+      "file": "source-notes/blog-simonwillison-andrew-kelley.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-08"
+  "last_updated": "2026-05-09"
 }
