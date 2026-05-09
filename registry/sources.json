@@ -144,6 +144,18 @@
       "file": "source-notes/blog-ronacher-local-models-focus-polish.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-simonwillison-gpt55-prompting-guide": {
+      "slug": "blog-simonwillison-gpt55-prompting-guide",
+      "title": "GPT-5.5 prompting guide",
+      "source_url": "https://simonwillison.net/2026/Apr/25/gpt-5-5-prompting-guide/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-09",
+      "issue": "#529",
+      "file": "source-notes/blog-simonwillison-gpt55-prompting-guide.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-09"
