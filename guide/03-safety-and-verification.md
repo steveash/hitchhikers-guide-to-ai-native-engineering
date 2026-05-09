@@ -768,7 +768,7 @@ and Claude Mythos Preview, makes an explicit timeline claim:
 > "Within the next 24 months, vast numbers of bugs that sat unnoticed in code,
 > possibly for years, will be found by AI models and chained into working
 > exploits."
-> [source: blog-anthropic-ai-accelerated-offense, Claim 1] [anecdotal]
+> [source: blog-anthropic-ai-accelerated-offense, Claim 1] [emerging]
 
 The operative word is *chained*. The companion claim — that "publicly
 available models can find serious vulnerabilities that traditional reviews
@@ -806,7 +806,7 @@ production deployment in our corpus:
 2. **AI model at the front of the alert queue, for 100% alert coverage.**
    Human-only SOCs sample alerts under fatigue. An AI triage agent that
    processes every alert at low depth ensures none goes uninvestigated.
-   [source: blog-anthropic-ai-accelerated-offense, Claim 7] [anecdotal]
+   [source: blog-anthropic-ai-accelerated-offense, Claim 7] [emerging]
 
 3. **Specialization over general-purpose review.** The DeepSource benchmark
    measured Claude Code at 48.78% recall on the OpenSSF CVE dataset for
