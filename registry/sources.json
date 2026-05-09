@@ -132,6 +132,18 @@
       "file": "source-notes/blog-simonwillison-rss-vibe-coded-apps.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "docs-github-copilot-review-comment-types": {
+      "slug": "docs-github-copilot-review-comment-types",
+      "title": "Copilot code review comment types now in usage metrics API",
+      "source_url": "https://github.blog/changelog/2026-05-08-copilot-code-review-comment-types-now-in-usage-metrics-api",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-09",
+      "issue": "#574",
+      "file": "source-notes/docs-github-copilot-review-comment-types.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-09"
