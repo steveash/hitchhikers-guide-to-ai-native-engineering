@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-langchain-deep-agents-deploy": {
+      "slug": "blog-langchain-deep-agents-deploy",
+      "title": "Deep Agents Deploy: an open alternative to Claude Managed Agents",
+      "source_url": "https://blog.langchain.com/deep-agents-deploy-an-open-alternative-to-claude-managed-agents/",
+      "source_type": "blog-post",
+      "author": "Sydney Runkle (LangChain)",
+      "date_extracted": "2026-05-10",
+      "issue": "#132",
+      "file": "source-notes/blog-langchain-deep-agents-deploy.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-langchain-human-judgment-improvement-loop": {
       "slug": "blog-langchain-human-judgment-improvement-loop",
       "title": "Human judgment in the agent improvement loop",
