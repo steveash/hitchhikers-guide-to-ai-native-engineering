@@ -191,7 +191,19 @@
       "file": "source-notes/docs-github-copilot-claude-sonnet4-deprecation.md",
       "confidence_overall": "settled",
       "status": "current"
+    },
+    "blog-simonwillison-zig-anti-ai": {
+      "slug": "blog-simonwillison-zig-anti-ai",
+      "title": "The Zig project's rationale for their firm anti-AI contribution policy",
+      "source_url": "https://simonwillison.net/2026/Apr/30/zig-anti-ai/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (relaying Loris Cro, Zig Software Foundation VP of Community)",
+      "date_extracted": "2026-05-10",
+      "issue": "#569",
+      "file": "source-notes/blog-simonwillison-zig-anti-ai.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
-  "last_updated": "2026-05-09"
+  "last_updated": "2026-05-10"
 }
