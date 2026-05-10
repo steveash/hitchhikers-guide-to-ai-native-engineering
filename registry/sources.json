@@ -347,6 +347,18 @@
       "file": "source-notes/docs-ghaw-network-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-opus47-system-prompt": {
+      "slug": "blog-simonwillison-opus47-system-prompt",
+      "title": "Changes in the system prompt between Claude Opus 4.6 and 4.7",
+      "source_url": "https://simonwillison.net/2026/Apr/18/opus-system-prompt/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-10",
+      "issue": "#404",
+      "file": "source-notes/blog-simonwillison-opus47-system-prompt.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
