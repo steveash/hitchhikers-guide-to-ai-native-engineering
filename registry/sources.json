@@ -323,6 +323,18 @@
       "file": "source-notes/blog-anthropic-claudecode-quality-postmortem.md",
       "confidence_overall": "settled",
       "status": "current"
+    },
+    "docs-ghaw-network-reference": {
+      "slug": "docs-ghaw-network-reference",
+      "title": "GitHub Agentic Workflows: Network Permissions Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/network",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-10",
+      "issue": "#400",
+      "file": "source-notes/docs-ghaw-network-reference.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
