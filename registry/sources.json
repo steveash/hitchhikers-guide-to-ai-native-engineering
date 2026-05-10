@@ -313,5 +313,17 @@
       "status": "current"
     }
   },
+  "blog-anthropic-scaling-managed-agents": {
+    "slug": "blog-anthropic-scaling-managed-agents",
+    "title": "Scaling Managed Agents: Decoupling the Brain from the Hands",
+    "source_url": "https://www.anthropic.com/engineering/managed-agents",
+    "source_type": "blog-post",
+    "author": "Anthropic Engineering",
+    "date_extracted": "2026-05-10",
+    "issue": "#388",
+    "file": "source-notes/blog-anthropic-scaling-managed-agents.md",
+    "confidence_overall": "emerging",
+    "status": "current"
+  },
   "last_updated": "2026-05-10"
 }
