@@ -419,6 +419,19 @@
       "file": "source-notes/docs-ghaw-staged-mode-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-ghaw-weekly-2026-04-27": {
+      "slug": "blog-ghaw-weekly-2026-04-27",
+      "title": "Weekly Update \u2013 April 27, 2026 (GitHub Agentic Workflows)",
+      "source_url": "https://github.github.com/gh-aw/blog/2026-04-27-weekly-update/",
+      "source_type": "blog-post",
+      "author": "GitHub Agentic Workflows team (gh-aw)",
+      "date_published": "2026-04-27",
+      "date_extracted": "2026-05-10",
+      "issue": "#448",
+      "file": "source-notes/blog-ghaw-weekly-2026-04-27.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
