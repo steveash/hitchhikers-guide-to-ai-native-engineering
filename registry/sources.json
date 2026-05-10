@@ -217,5 +217,18 @@
       "status": "current"
     }
   },
+    "blog-langchain-better-harness-evals": {
+      "slug": "blog-langchain-better-harness-evals",
+      "title": "Better Harness: A Recipe for Harness Hill-Climbing with Evals",
+      "source_url": "https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals",
+      "source_type": "blog-post",
+      "author": "Vivek Trivedy (LangChain)",
+      "date_extracted": "2026-05-10",
+      "issue": "#107",
+      "file": "source-notes/blog-langchain-better-harness-evals.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    }
+  },
   "last_updated": "2026-05-10"
 }
