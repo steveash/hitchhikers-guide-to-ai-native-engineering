@@ -251,6 +251,18 @@
       "file": "source-notes/docs-github-copilot-cca-validation-parallel.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-ghaw-issue-pr-mgmt": {
+      "slug": "blog-ghaw-issue-pr-mgmt",
+      "title": "Meet the Workflows: Issue & PR Management",
+      "source_url": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-issue-management/",
+      "source_type": "blog-post",
+      "author": "Don Syme, Peli de Halleux, Mara Kiefer (GitHub Agentic Workflows team)",
+      "date_extracted": "2026-05-10",
+      "issue": "#146",
+      "file": "source-notes/blog-ghaw-issue-pr-mgmt.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
