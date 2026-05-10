@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-github-copilot-code-review-actions-billing": {
+      "slug": "docs-github-copilot-code-review-actions-billing",
+      "title": "GitHub Copilot code review will start consuming GitHub Actions minutes on June 1, 2026",
+      "source_url": "https://github.blog/changelog/2026-04-27-github-copilot-code-review-will-start-consuming-github-actions-minutes-on-june-1-2026",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-10",
+      "issue": "#445",
+      "file": "source-notes/docs-github-copilot-code-review-actions-billing.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "docs-ghaw-deterministic-agentic-patterns": {
       "slug": "docs-ghaw-deterministic-agentic-patterns",
       "title": "GitHub Agentic Workflows: Deterministic & Agentic Patterns",
