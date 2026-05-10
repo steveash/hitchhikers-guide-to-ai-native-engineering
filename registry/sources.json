@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-simonwillison-andrew-kelley": {
+      "slug": "blog-simonwillison-andrew-kelley",
+      "title": "A quote from Andrew Kelley",
+      "source_url": "https://simonwillison.net/2026/Apr/30/andrew-kelley/",
+      "source_type": "blog-post",
+      "author": "Andrew Kelley (Zig creator), quoted by Simon Willison",
+      "date_extracted": "2026-05-10",
+      "issue": "#571",
+      "file": "source-notes/blog-simonwillison-andrew-kelley.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-anthropic-managed-agents-dreaming-outcomes": {
       "slug": "blog-anthropic-managed-agents-dreaming-outcomes",
       "title": "New in Claude Managed Agents: dreaming, outcomes, and multiagent orchestration",
