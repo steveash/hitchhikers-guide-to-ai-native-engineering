@@ -50,7 +50,7 @@
     },
     "blog-simonwillison-deepseek-v4": {
       "slug": "blog-simonwillison-deepseek-v4",
-      "title": "DeepSeek V4—almost on the frontier, a fraction of the price",
+      "title": "DeepSeek V4\u2014almost on the frontier, a fraction of the price",
       "source_url": "https://simonwillison.net/2026/Apr/24/deepseek-v4/",
       "source_type": "blog-post",
       "author": "Simon Willison",
@@ -178,6 +178,18 @@
       "issue": "#551",
       "file": "source-notes/blog-cursor-autoinstall-bootstrapping.md",
       "confidence_overall": "emerging",
+      "status": "current"
+    },
+    "docs-github-copilot-claude-sonnet4-deprecation": {
+      "slug": "docs-github-copilot-claude-sonnet4-deprecation",
+      "title": "Claude Sonnet 4 deprecated",
+      "source_url": "https://github.blog/changelog/2026-05-07-claude-sonnet-4-deprecated",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-10",
+      "issue": "#562",
+      "file": "source-notes/docs-github-copilot-claude-sonnet4-deprecation.md",
+      "confidence_overall": "settled",
       "status": "current"
     }
   },
