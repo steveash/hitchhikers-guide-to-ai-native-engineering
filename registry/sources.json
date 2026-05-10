@@ -311,6 +311,18 @@
       "file": "source-notes/docs-ghaw-concurrency-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-claudecode-quality-postmortem": {
+      "slug": "blog-anthropic-claudecode-quality-postmortem",
+      "title": "An update on recent Claude Code quality reports",
+      "source_url": "https://www.anthropic.com/engineering/april-23-postmortem",
+      "source_type": "blog-post",
+      "author": "Anthropic Engineering",
+      "date_extracted": "2026-05-10",
+      "issue": "#389",
+      "file": "source-notes/blog-anthropic-claudecode-quality-postmortem.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
