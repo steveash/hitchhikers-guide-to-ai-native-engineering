@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-langchain-human-judgment-improvement-loop": {
+      "slug": "blog-langchain-human-judgment-improvement-loop",
+      "title": "Human judgment in the agent improvement loop",
+      "source_url": "https://www.langchain.com/blog/human-judgment-in-the-agent-improvement-loop",
+      "source_type": "blog-post",
+      "author": "Rahul Verma (LangChain)",
+      "date_extracted": "2026-05-10",
+      "issue": "#108",
+      "file": "source-notes/blog-langchain-human-judgment-improvement-loop.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-andrew-kelley": {
       "slug": "blog-simonwillison-andrew-kelley",
       "title": "A quote from Andrew Kelley",
