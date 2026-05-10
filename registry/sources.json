@@ -468,6 +468,18 @@
       "file": "source-notes/blog-anthropic-jessyan-pm-agentic-era.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "docs-github-copilot-cca-usage-metrics-aggregate": {
+      "slug": "docs-github-copilot-cca-usage-metrics-aggregate",
+      "title": "Copilot usage metrics now aggregate Copilot cloud agent active user counts",
+      "source_url": "https://github.blog/changelog/2026-04-10-copilot-usage-metrics-now-aggregate-copilot-cloud-agent-active-user-counts",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_extracted": "2026-05-10",
+      "issue": "#131",
+      "file": "source-notes/docs-github-copilot-cca-usage-metrics-aggregate.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
