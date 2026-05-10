@@ -444,6 +444,18 @@
       "file": "source-notes/blog-ghaw-weekly-2026-04-27.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-jessyan-pm-agentic-era": {
+      "slug": "blog-anthropic-jessyan-pm-agentic-era",
+      "title": "Product development in the agentic era",
+      "source_url": "https://claude.com/blog/product-development-in-the-agentic-era",
+      "source_type": "blog-post",
+      "author": "Jess Yan (Claude Managed Agents product manager, Anthropic)",
+      "date_extracted": "2026-05-10",
+      "issue": "#466",
+      "file": "source-notes/blog-anthropic-jessyan-pm-agentic-era.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
