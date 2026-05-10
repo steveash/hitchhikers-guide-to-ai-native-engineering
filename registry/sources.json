@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-simonwillison-inat-sightings": {
+      "slug": "blog-simonwillison-inat-sightings",
+      "title": "Tool: iNaturalist Sightings",
+      "source_url": "https://simonwillison.net/2026/May/1/inat-sightings/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-10",
+      "issue": "#601",
+      "file": "source-notes/blog-simonwillison-inat-sightings.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-cca-startup-custom-images": {
       "slug": "docs-github-copilot-cca-startup-custom-images",
       "title": "Copilot cloud agent starts 20% faster with Actions custom images",
