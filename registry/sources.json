@@ -480,6 +480,18 @@
       "file": "source-notes/docs-github-copilot-cca-usage-metrics-aggregate.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "docs-ghaw-assign-to-copilot": {
+      "slug": "docs-ghaw-assign-to-copilot",
+      "title": "GitHub Agentic Workflows: Assign to Copilot Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/assign-to-copilot",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-10",
+      "issue": "#357",
+      "file": "source-notes/docs-ghaw-assign-to-copilot.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
