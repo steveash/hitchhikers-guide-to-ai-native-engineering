@@ -275,6 +275,18 @@
       "file": "source-notes/blog-cursor-nab-legacy-migration.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-ghaw-reference-cache-memory": {
+      "slug": "docs-ghaw-reference-cache-memory",
+      "title": "GitHub Agentic Workflows: cache-memory Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/cache-memory",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (official reference documentation)",
+      "date_extracted": "2026-05-10",
+      "issue": "#360",
+      "file": "source-notes/docs-ghaw-reference-cache-memory.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
