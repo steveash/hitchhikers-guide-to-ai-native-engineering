@@ -59,7 +59,7 @@ jobs:
       - name: Run Assayer review
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           allowed_bots: "claude[bot]"
           show_full_output: true
           prompt: |
@@ -179,7 +179,10 @@ jobs:
           fi
 
           # Extract issue number from branch name (miner/issue-NN)
-          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)$|\1|p')
+          # Branch is miner/issue-N or miner/issue-N-r<run_id> (the -r
+          # suffix was added to avoid GitHub's per-branch workflow-event
+          # suppression that hits recreated branches; see miner-batch.yml).
+          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)\(-r[0-9]\+\)\?$|\1|p')
 
           echo "Auto-merging source-note PR #$PR_NUMBER (assayer approved)"
           gh pr merge "$PR_NUMBER" \
@@ -200,7 +203,10 @@ jobs:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)$|\1|p')
+          # Branch is miner/issue-N or miner/issue-N-r<run_id> (the -r
+          # suffix was added to avoid GitHub's per-branch workflow-event
+          # suppression that hits recreated branches; see miner-batch.yml).
+          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)\(-r[0-9]\+\)\?$|\1|p')
 
           if [ -f /tmp/assayer-review.md ] && \
              grep -Eq '^\*\*Verdict\*\*:[[:space:]]*APPROVE' /tmp/assayer-review.md; then
@@ -234,7 +240,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_PAT: ${{ secrets.PROJECT_PAT }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           # Use PAT for git push so the synchronize event triggers a re-run
@@ -289,4 +295,5 @@ jobs:
             --model opus \
             --append-system-prompt "$(cat agents/SMITH.md)" \
             --max-turns 30 \
+            --output-format stream-json --verbose \
             --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"

@@ -50,7 +50,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
             You are the Assayer agent for the hitchhiker-guide repo,
             operating in **contradiction resolution** mode.
@@ -140,7 +140,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # PROJECT_PAT so the resolution PR (created with --label
+          # guide-update) triggers the Assayer workflow. PRs/pushes
+          # created with GITHUB_TOKEN do not trigger downstream workflows.
+          token: ${{ secrets.PROJECT_PAT }}
           fetch-depth: 0
 
       - name: Configure git identity
@@ -150,10 +153,12 @@ jobs:
 
       - name: Resolve contradiction and open PR
         uses: anthropics/claude-code-action@v1
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Top-level github_token input (NOT just an env: GH_TOKEN) is
+          # required to override the action's app-installation token.
+          # See miner-batch.yml's Miner step for the full explanation.
+          github_token: ${{ secrets.PROJECT_PAT }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
             You are the Assayer agent for the hitchhiker-guide repo,
             operating in **contradiction resolution — commit phase**.

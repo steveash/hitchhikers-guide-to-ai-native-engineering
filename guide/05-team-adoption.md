@@ -431,6 +431,199 @@ review AI output should not.
 
 ---
 
+## Multi-Repo Coordination Topologies
+
+Orgs that run agentic workflows across many repositories face a
+coordination question: which repo runs the workflow, and which one
+receives the output? GitHub Agentic Workflows names three topology
+archetypes. Each maps to a distinct operational pattern.
+
+**Hub-and-spoke**: each component repo runs its own workflow that
+writes tracking issues to a central coordination repo via `target-repo`.
+Best for: cross-component status aggregation where components already
+own their own automation.
+[source: docs-ghaw-multi-repo-ops, Claim 4] [settled]
+
+**Upstream-to-downstream**: a single source repo propagates changes to
+many downstream repos using `create-pull-request` with `target-repo`.
+Best for: shared library updates, security patch rollouts, and standard
+configuration enforcement.
+[source: docs-ghaw-multi-repo-ops, Claim 5] [settled]
+
+**Org-wide broadcast**: a single workflow creates issues in many repos
+up to a configured `max` limit. Best for: policy enforcement and
+announcement workflows that must reach every repo. The `max` parameter
+is the blast-radius bound — without it, one workflow run can fan out
+across the entire organization.
+[source: docs-ghaw-multi-repo-ops, Claim 6] [settled]
+
+### The GITHUB_TOKEN repo-scope footgun
+
+The default `GITHUB_TOKEN` provided to GitHub Actions is scoped to the
+workflow's own repository. Cross-repo *reads* fail silently — empty
+results, no error — without additional authentication.
+
+> "The default `GITHUB_TOKEN` only has access to the current repository."
+> [source: docs-ghaw-multi-repo-ops, Claim 3]
+
+A workflow that uses the GitHub toolset to scan multiple repos will
+appear to succeed and return empty data. The fix is to configure a PAT,
+a GitHub App installation token, or the `GH_AW_GITHUB_MCP_SERVER_TOKEN`
+magic secret.
+[source: docs-ghaw-multi-repo-ops, Claims 3, 9] [settled]
+
+**Rule**: Any agentic workflow that reads from multiple repos must
+configure cross-repo authentication explicitly. The default token's
+silent-failure mode is the most dangerous default on the platform for
+multi-repo coordination.
+[source: docs-ghaw-multi-repo-ops, Claim 3] [settled]
+
+---
+
+## Distributing Harness Improvements Across Repos
+
+Once a team has a working harness — slash commands, hooks, agentic
+workflows — the next adoption question is how to keep it consistent
+across the org without forcing every repo to copy-paste from a template.
+
+GitHub Agentic Workflows documents an enterprise pattern built around
+a central `agentic-workflows` repository that consuming repos install
+from with `gh aw add`:
+
+```bash
+gh aw add acme-org/agentic-workflows/ci-doctor@v1.2.0
+```
+
+The install records the source and version in the workflow's
+frontmatter; `gh aw update` later fetches upstream changes using a
+3-way merge that preserves local customizations.
+[source: docs-ghaw-sharing-workflows, Claims 1, 3] [emerging]
+
+### Four reference types with different update semantics
+
+| Ref type | Example | Update behavior |
+|----------|---------|-----------------|
+| Exact tag | `@v1.2.0` | Never moves; explicit re-install to advance |
+| Moving major | `@v1` | Tracks latest compatible release in v1.x |
+| Branch | `@develop` | Follows branch HEAD; latest always |
+| SHA pin | `@abc123def` | Never moves; absolute reproducibility |
+
+[source: docs-ghaw-sharing-workflows, Claim 2] [emerging]
+
+Production workflows should use exact tags or SHA pins. Staging can use
+moving major refs to absorb compatible improvements automatically.
+Branch refs are for development integration only.
+[source: docs-ghaw-sharing-workflows, Claim 2] [emerging]
+
+### `private: true` for org-internal catalogs
+
+A workflow with `private: true` in its frontmatter cannot be installed
+into external repositories. Combined with private/internal repo
+visibility, this creates an org-member-only catalog: discoverable,
+installable via `gh aw add` by org members, but not distributable
+outside the org.
+[source: docs-ghaw-sharing-workflows, Claim 4] [emerging]
+
+**Rule**: Mark internal-only workflows `private: true` by default and
+remove the marker only when intentionally distributing externally.
+[source: docs-ghaw-sharing-workflows, Claim 4] [emerging]
+
+### Commit the lock file and the import cache
+
+`gh aw compile` resolves remote imports to exact commit SHAs in
+`.lock.yml` and caches the resolved content under
+`.github/aw/imports/<sha>/`. Committing both — analogous to committing
+`yarn.lock` — guarantees reproducible compilation regardless of
+upstream branch changes.
+[source: docs-ghaw-sharing-workflows, Claim 5] [settled]
+
+### The recommended enterprise pattern
+
+The five-element pattern documented for at-scale adoption:
+
+1. A central `agentic-workflows` repository housing versioned templates
+   under `workflows/` and shared modules under `shared/`
+2. Installation via `gh aw add <org>/agentic-workflows/<workflow>@<version>`
+3. Shared modules imported via `imports:` declarations in templates
+4. Version anchoring through repo tags
+5. `private: true` on internal-only workflows
+
+[source: docs-ghaw-sharing-workflows, Claim 8] [emerging]
+
+This is the *design-time* distribution layer — how workflow definitions
+are packaged and governed before they run. It complements the *runtime*
+topologies (hub-and-spoke / upstream-to-downstream / broadcast) above.
+Teams frequently conflate the two layers; treat them as separate
+adoption decisions.
+[source: docs-ghaw-sharing-workflows, Claim 8] [emerging]
+
+---
+
+## Model Deprecation Is a Recurring Governance Event
+
+Workflows that pin specific model identifiers have a shelf life
+measured in weeks, not months. GitHub deprecated GPT-5.2 and
+GPT-5.2-Codex on May 1, 2026, with a June 1 cutover — approximately
+seven weeks after GPT-5.4 support was added to Copilot.
+[source: docs-github-copilot-gpt52-deprecation, Claim 7] [emerging]
+
+The failure mode is silent. Enterprise admins who do not enable the
+replacement model in policy before the cutover find that pinned models
+simply disappear, with no automatic migration:
+
+> "update your workflows and integrations to use supported models
+> before these dates"
+> [source: docs-github-copilot-gpt52-deprecation, Claim 5]
+
+> "Enterprise administrators should enable alternative models through
+> Copilot settings and verify availability in the model selector
+> across VS Code and github.com"
+> [source: docs-github-copilot-gpt52-deprecation, Claim 5]
+
+The same pattern, framed at the industry level by The Batch's editorial
+on the GPT-5.5 launch — the fourth flagship model in approximately
+three months:
+
+> "Developers should design their software stacks to swap models as
+> easily as bumping a dependency."
+> [source: blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4]
+
+Model lifecycle management cannot be a one-time setup. The Copilot
+case is concrete evidence that hardcoded model identifiers are
+fragile: the platform retired one generation seven weeks after
+documenting the next.
+
+The notice window can also collapse to zero. On May 7, 2026, GitHub
+published a Copilot changelog labeled "Retired" announcing that Claude
+Sonnet 4 had been deprecated across all Copilot surfaces effective
+the previous day, May 6 — a *retroactive* notice with negative lead
+time
+[source: docs-github-copilot-claude-sonnet4-deprecation, Claim 2]
+[settled]. The same May 7 changelog also carried a 25-day advance
+notice for GPT-4.1; notice characteristics now vary by model rather
+than by provider or platform-wide policy
+[source: docs-github-copilot-claude-sonnet4-deprecation, Claim 8]
+[emerging]. A governance process designed only to monitor changelogs
+and schedule migrations cannot protect against a notice published
+after the model is already gone — proactive policy coverage of the
+successor model is the only mitigation that survives the zero-notice
+case
+[source: docs-github-copilot-claude-sonnet4-deprecation, Claim 3]
+[settled].
+
+**Rule**: Treat model identifiers as versioned dependencies. Prefer
+auto-routing or admin-policy-managed selection over hardcoded model
+names in scripts, harness configurations, or CI jobs. Maintain admin
+policy entries for the *next* generation of every model your team
+uses — based on the model roadmap, not the deprecation notice — so
+that a zero-notice retirement leaves a working successor already
+enabled.
+[source: docs-github-copilot-gpt52-deprecation, Claims 5, 7;
+docs-github-copilot-claude-sonnet4-deprecation, Claims 2, 3, 8;
+blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
+
+---
+
 ## Code Review When AI Wrote It
 
 Three independent sources -- a peer-reviewed paper, a vendor analytics report,
@@ -685,11 +878,38 @@ are being done -- quality-of-life improvements, exploratory prototypes,
 internal tools, the "papercut fixes" Anthropic identified as 8.6% of tasks.
 [source: research-anthropic-ai-transforming-work, Claims 3, 6] [emerging]
 
+The most concrete enterprise example of this category is National Australia
+Bank's Assembly mainframe migration — a project the bank had not attempted
+because it lacked Assembly expertise:
+
+> "Before Cursor, we couldn't even think about moving away from Assembly.
+> We just didn't have the expertise or time to tackle an enormous project
+> like this manually."
+> — Harjot Singh, Engineering Manager
+> [source: blog-cursor-nab-legacy-migration, Claim 6]
+
+> "Without Cursor, the time and cost of this migration would have been
+> greater than the value we'd get from it."
+> — Harjot Singh, Engineering Manager
+> [source: blog-cursor-nab-legacy-migration, Claim 6]
+
+This is a viability claim, not a velocity claim. The same pattern appears
+in NAB's greenfield Kotlin/Android payment app, completed in less than
+three weeks by a team with no prior Kotlin experience: "We've seen a 5-8x
+improvement in development velocity. But the main thing is we wouldn't have
+even tried to build this app without Cursor"
+[source: blog-cursor-nab-legacy-migration, Claim 7] [emerging]. Treat
+"wouldn't have tried" as a distinct value category from "now faster" — and
+treat the source as vendor case-study evidence, since it is published on
+Cursor's blog with named NAB engineers but no independent validation.
+
 **Recommendation**: Add an explicit "new-categories-of-work" metric to your
 measurement program. Count the prototypes, the internal tools, the
 documentation improvements that landed because someone could now ship them in
-an afternoon. This is where a meaningful chunk of AI value lives, and no
-standard productivity dashboard surfaces it.
+an afternoon — and separately count the projects that were not on the
+roadmap because the expertise to staff them was unavailable. This is where
+a meaningful chunk of AI value lives, and no standard productivity dashboard
+surfaces it.
 
 ### The realistic ceiling is much lower than the vendor pitch
 
@@ -1144,7 +1364,13 @@ paper-miller-speed-cost-quality (Claims 1-6),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
+blog-cursor-nab-legacy-migration (Claims 6, 7),
 blog-faros-claude-code-roi (Claims 1-7),
+blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
+docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
+docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
+docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
+docs-github-copilot-gpt52-deprecation (Claims 5, 7),
 docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
 discussion-hn-agentic-coding-jobs (Claim 10),
 failure-sukit-parallel-session-ceiling (Lesson 4),
@@ -1154,4 +1380,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-05-04*
+*Last updated: 2026-05-10*

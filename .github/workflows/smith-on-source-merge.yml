@@ -220,7 +220,7 @@ jobs:
       - name: Run Smith synthesis
         if: steps.affected.outputs.skip != 'true'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
         run: |
           # Write prompt to file to avoid shell quoting issues
@@ -407,6 +407,7 @@ jobs:
             --model opus \
             --append-system-prompt "$(cat agents/SMITH.md)" \
             --max-turns 60 \
+            --output-format stream-json --verbose \
             --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
 
       - name: Enforce per-chapter source cap

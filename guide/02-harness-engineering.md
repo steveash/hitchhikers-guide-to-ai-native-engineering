@@ -845,6 +845,37 @@ Each subdirectory guide is self-contained. The root file serves as a router,
 not a summary.
 [source: practitioner-getsentry-sentry] [anecdotal]
 
+The nesting pattern Sentry uses informally is now specified verbatim in
+OpenAI Codex's publicly-inspectable `base_instructions` (the system prompt
+shipped with the Codex CLI), under an "AGENTS.md spec" section:
+[source: blog-simonwillison-codex-base-instructions, Claim 6] [settled]
+
+```
+- The scope of an AGENTS.md file is the entire directory tree rooted at
+  the folder that contains it.
+- More-deeply-nested AGENTS.md files take precedence in the case of
+  conflicting instructions.
+- Direct system/developer/user instructions (as part of a prompt) take
+  precedence over AGENTS.md instructions.
+```
+*From `gpt-5.2` `base_instructions`, in the public `openai/codex` repo
+(commit `66b0781`).*
+
+Whether Anthropic Claude Code, Cursor, or other AGENTS.md-aware clients
+implement the same precedence semantics is not yet documented in the
+corpus — treat the rules as confirmed for OpenAI Codex and as a
+reasonable default elsewhere.
+[source: blog-simonwillison-codex-base-instructions, Claim 6] [emerging]
+
+**Rule**: Place package-level overrides in `packages/<name>/AGENTS.md`
+rather than re-stating them in the root file (currently confirmed for
+OpenAI Codex; verify behavior for other AGENTS.md-aware tools by checking
+whether they actually load sub-directory AGENTS.md files). Do not encode
+hard rules in AGENTS.md and expect them to bind a system prompt that
+contradicts them — the vendor specification places direct system /
+developer / user instructions above AGENTS.md.
+[source: blog-simonwillison-codex-base-instructions, Claim 6] [emerging]
+
 ### Per-Package Test Command Matrix
 
 When packages in a monorepo have different test commands, document the
@@ -1400,6 +1431,7 @@ blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
+blog-simonwillison-codex-base-instructions (Claim 6),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
 failure-alex000kim-claudecode-source-leak (Lesson 1),
 failure-claudemd-ignored-compaction,
@@ -1414,4 +1446,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-04*
+*Last updated: 2026-05-09*

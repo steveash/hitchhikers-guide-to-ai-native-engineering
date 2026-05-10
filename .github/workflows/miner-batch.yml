@@ -14,7 +14,12 @@ name: Batch Miner
 
 on:
   schedule:
-    - cron: '17 */8 * * *'  # Every 8 hours at :17 (offset from top-of-hour load)
+    # Hourly at :17 (offset from top-of-hour load). Bumped from every-8h
+    # on 2026-05-10 to drain a 100+ issue triage backlog faster. With
+    # BATCH_SIZE=2 this caps Miner capacity at 48 issues/day; once the
+    # queue is empty, cron runs exit immediately at the preflight step
+    # (no Claude invocation, no tokens spent).
+    - cron: '17 * * * *'
   workflow_dispatch:        # Manual trigger for testing / one-off runs
 
 permissions:
@@ -52,10 +57,21 @@ jobs:
         id: query
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BATCH_SIZE: '3'
+          # BATCH_SIZE was 3, but GitHub appears to silently drop the
+          # pull_request workflow dispatch on the 3rd PR opened by the
+          # same user in close succession (suspected abuse-detection
+          # rate limit). Today's run on 2026-05-09 confirmed: PRs #591
+          # and #592 fired Assayer cleanly; #593 (3rd in batch) had zero
+          # workflow runs ever, despite multiple synchronize / closed /
+          # reopened events that should have re-dispatched. Dropping to 2
+          # gives full reliability at the cost of needing more cron
+          # cycles or workflow_dispatch fires to drain a large queue.
+          BATCH_SIZE: '2'
         run: |
           # Find open issues labeled mining-queued but NOT mining-complete
-          # or miner-blocked. Sort oldest-first, take at most BATCH_SIZE.
+          # or miner-blocked. Sort by priority band first (high → medium →
+          # unset → low), then by createdAt within each band so older
+          # issues drain first at equal priority.
           QUEUED=$(gh issue list \
             --repo "${{ github.repository }}" \
             --label "mining-queued" \
@@ -67,9 +83,15 @@ jobs:
                 select(.labels | map(.name) |
                   (contains([\"mining-complete\"]) or
                    contains([\"miner-blocked\"])) | not
-                )
+                ) |
+                . + {prio:
+                  (if .labels | map(.name) | index(\"priority:high\")   then 0
+                   elif .labels | map(.name) | index(\"priority:medium\") then 1
+                   elif .labels | map(.name) | index(\"priority:low\")    then 3
+                   else 2 end)
+                }
               ]
-              | sort_by(.createdAt)
+              | sort_by([.prio, .createdAt])
               | .[0:${BATCH_SIZE}]
               | [.[].number]
             ")
@@ -103,7 +125,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use PROJECT_PAT so subsequent git push (and gh pr create below)
+          # are authenticated as a user, not the GitHub Actions bot. PRs
+          # created or pushed with GITHUB_TOKEN do not trigger downstream
+          # workflows (per GitHub's "preventing recursive workflows" rule),
+          # which has been silently leaving Miner PRs without an Assayer
+          # check ever firing. See assayer.yml's rework step for the same
+          # pattern.
+          token: ${{ secrets.PROJECT_PAT }}
           fetch-depth: 0
 
       - name: Configure git identity for Miner commits
@@ -123,10 +152,16 @@ jobs:
 
       - name: Run Miner extraction for issue #${{ matrix.issue }}
         uses: anthropics/claude-code-action@v1
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Top-level github_token input (NOT just an env: GH_TOKEN) is
+          # required to override the action's internal app installation
+          # token. Without this the action calls /installation/token and
+          # exports GH_TOKEN as the Claude App's token, overwriting any
+          # env-level value we set. The resulting gh pr create runs as
+          # the App and the PR doesn't trigger downstream workflows.
+          # See action.yml: inputs.github_token → env.OVERRIDE_GITHUB_TOKEN.
+          github_token: ${{ secrets.PROJECT_PAT }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           show_full_output: true
           # The issue number and repo slug are GitHub-controlled and safe
           # to interpolate. The issue title and body (which contain the
@@ -199,12 +234,12 @@ jobs:
 
             ## 4. Open the PR
 
-            Branch name: `miner/issue-${{ matrix.issue }}`
+            Branch name: `miner/issue-${{ matrix.issue }}-r${{ github.run_id }}`
 
-              git checkout -b miner/issue-${{ matrix.issue }}
+              git checkout -b miner/issue-${{ matrix.issue }}-r${{ github.run_id }}
               git add source-notes/ registry/ 2>/dev/null || git add source-notes/
               git commit -m "source: <slug> (#${{ matrix.issue }})"
-              git push -u origin miner/issue-${{ matrix.issue }}
+              git push -u origin miner/issue-${{ matrix.issue }}-r${{ github.run_id }}
 
             Then open the PR. Write the body to a file first to avoid
             shell quoting issues:
@@ -221,7 +256,7 @@ jobs:
               gh pr create \
                 --repo ${{ github.repository }} \
                 --base main \
-                --head miner/issue-${{ matrix.issue }} \
+                --head miner/issue-${{ matrix.issue }}-r${{ github.run_id }} \
                 --title "source: <slug> (#${{ matrix.issue }})" \
                 --body-file /tmp/miner-pr-body.md \
                 --label source-note

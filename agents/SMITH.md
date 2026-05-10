@@ -101,6 +101,48 @@ rather than one massive root file
 [source: practitioner-turborepo-example] [emerging].
 ```
 
+### 3a. Verify every citation before writing it
+
+Hallucinated claim numbers and fabricated quotes are the most common
+Assayer rejection on guide-update PRs. Past PRs have cited "Claim 1"
+when the relevant content was Claim 5, blockquoted passages that don't
+appear in the cited note, and rolled together claims from unrelated
+sources. Don't.
+
+For every `[source: <slug>, Claim N]` you write:
+
+1. Re-open the source note `source-notes/<slug>.md`. Find the
+   `### Claim:` heading numbered N (claims are numbered top-to-bottom,
+   starting at 1; if the note doesn't number them explicitly, count
+   them in document order).
+2. Confirm the claim's content matches what you're citing it for. If
+   the number doesn't line up, find the correct number — do not guess
+   or approximate. Multiple cites from the same note must each be
+   independently verified, not back-derived from one correct cite.
+3. If the material lives in the note's `Concrete Artifacts` section,
+   `Source Context`, frontmatter, or any non-numbered region, cite by
+   section name (e.g., `[source: <slug>, Concrete Artifacts]`), not by
+   a fictional claim number. `Claim N` must resolve to a real numbered
+   claim.
+
+For every quoted passage (anything in `>` blockquote or `"..."` form)
+attributed to a source note or an upstream source:
+
+1. Open the source note (and, if quoting the original source verbatim,
+   the source URL itself). Locate the exact passage.
+2. Copy it character-for-character. Do not "tighten," do not paraphrase
+   into a quote, do not splice non-adjacent sentences into one.
+3. If the meaning is your synthesis across multiple source sentences,
+   present it as prose with a citation, not as a blockquote. Blockquotes
+   are reserved for the source's own words.
+4. If no exact passage captures the point, drop the blockquote and
+   write a paraphrase with the citation. A missing quote is fine; an
+   invented one fails the PR.
+
+This verification is mandatory before opening the PR. The Assayer
+spot-checks every citation and quote — fabrication is the single
+largest cause of guide-update PR rejections.
+
 ### 4. Show, don't just tell
 
 For every recommendation, include at minimum ONE of:

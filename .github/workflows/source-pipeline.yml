@@ -62,7 +62,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           show_full_output: true
           prompt: |
             You are a fast, cheap pre-screening filter for the hitchhiker-guide
@@ -159,6 +159,12 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          # PROJECT_PAT so when the Prospector creates a feed-candidate
+          # PR (gh pr create --label feed-candidate, in the prompt below),
+          # the resulting push triggers the Assayer. Pushes/PRs created
+          # with GITHUB_TOKEN do not trigger downstream workflows.
+          token: ${{ secrets.PROJECT_PAT }}
 
       - name: Ensure required labels exist
         env:
@@ -187,12 +193,13 @@ jobs:
 
       - name: Run Prospector triage
         uses: anthropics/claude-code-action@v1
-        env:
-          # gh CLI needs GH_TOKEN to read issue + write labels/comments.
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          # Top-level github_token input (NOT just an env: GH_TOKEN) is
+          # required to override the action's app-installation token.
+          # See miner-batch.yml's Miner step for the full explanation.
+          github_token: ${{ secrets.PROJECT_PAT }}
           show_full_output: true
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           # The issue number and repo slug are GitHub-controlled integers /
           # identifiers, so they are safe to interpolate directly. The issue
           # title and body are NOT interpolated here — Prospector reads them

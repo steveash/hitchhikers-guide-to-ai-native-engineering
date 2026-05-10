@@ -53,7 +53,13 @@ jobs:
         if: steps.state.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # PROJECT_PAT so the resulting "guide-update" labeled PR
+          # triggers the Assayer workflow. peter-evans/create-pull-request
+          # behaves the same way as gh pr create — PRs opened with
+          # GITHUB_TOKEN do not trigger downstream workflows. Without
+          # this, the Gardener's weekly PR was silently bypassing the
+          # Assayer gate.
+          token: ${{ secrets.PROJECT_PAT }}
           branch: gardener/staleness-sweep
           delete-branch: true
           commit-message: "chore(gardener): weekly staleness sweep + claim demotions + sticky note checks"

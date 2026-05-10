@@ -170,6 +170,33 @@ jobs:
           LINES=$(wc -l < /tmp/human-feedback.md)
           echo "Collected $LINES lines of reviewer feedback"
 
+          # Fallback: if the only human comment on this PR was the /rework
+          # trigger itself, the filter above strips it and the feedback
+          # file ends up empty. The Smith then no-ops and posts a false
+          # "rework complete" message. Recover the trigger comment body
+          # and use it (minus the slash command) as the guidance.
+          if [ ! -s /tmp/human-feedback.md ]; then
+            echo "Feedback file empty — falling back to trigger comment body"
+            TRIGGER_BODY=$(cat <<'TRIGGER_EOF'
+          ${{ github.event.comment.body || github.event.review.body }}
+          TRIGGER_EOF
+          )
+            # Strip the slash-command line(s) but keep any guidance the
+            # user wrote alongside it.
+            CLEANED=$(printf '%s\n' "$TRIGGER_BODY" | grep -vE '^[[:space:]]*/(rework|rebase)[[:space:]]*$' || true)
+            if [ -n "$CLEANED" ] && [ "$(printf '%s' "$CLEANED" | tr -d '[:space:]')" != "" ]; then
+              {
+                echo "### Trigger comment (the only human guidance on this PR)"
+                echo ""
+                echo "$CLEANED"
+              } > /tmp/human-feedback.md
+              echo "Recovered $(wc -l < /tmp/human-feedback.md) lines from trigger comment"
+            else
+              echo "Trigger comment had no guidance beyond /rework or /rebase."
+              echo "Smith will run with the bare trigger and may make minimal changes."
+            fi
+          fi
+
           # For rebase mode: extract the PR body so the Smith knows what
           # source notes this PR was originally synthesizing
           gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" \
@@ -178,7 +205,7 @@ jobs:
       - name: Run Smith (rework mode)
         if: steps.cmd.outputs.mode == 'rework'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > /tmp/smith-prompt.txt <<'PROMPT_EOF'
@@ -232,12 +259,13 @@ jobs:
             --model opus \
             --append-system-prompt "$(cat agents/SMITH.md)" \
             --max-turns 30 \
+            --output-format stream-json --verbose \
             --allowedTools "Bash(*)" "Read" "Edit" "Glob" "Grep" "WebFetch"
 
       - name: Run Smith (rebase mode)
         if: steps.cmd.outputs.mode == 'rebase'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > /tmp/smith-prompt.txt <<'PROMPT_EOF'
@@ -289,6 +317,7 @@ jobs:
             --model opus \
             --append-system-prompt "$(cat agents/SMITH.md)" \
             --max-turns 60 \
+            --output-format stream-json --verbose \
             --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
 
       - name: Notify success

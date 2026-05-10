@@ -38,6 +38,21 @@ misses after a long session.
 practitioner-supabase-supabase-js, practitioner-mikelane-pytest-test-categories,
 practitioner-frankray78-netpace] [settled]
 
+A single CI gate is not enough. Anthropic's own April 2026 postmortem on
+a Claude Code regression reports that the offending pull request "made
+it past multiple human and automated code reviews, as well as unit tests,
+end-to-end tests, automated verification, and dogfooding"
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 7] [settled].
+The bug was diagnosed only after external users reported it via the
+`/feedback` command and reproducible examples online
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 13] [settled].
+
+If Anthropic's full verification stack — the people who wrote the harness,
+running the harness on the harness — could not catch the regression
+internally, treat your own multi-layer verification as a probability gate,
+not a guarantee.
+[source: blog-anthropic-claudecode-quality-postmortem, Claims 7, 13] [editorial]
+
 ### The rule
 
 **Treat every AI-generated change as untrusted input.** Review it with
@@ -267,6 +282,7 @@ you understand, not to help you avoid understanding.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 10; Linked Sources 1, 2, 4, 6),
+blog-anthropic-claudecode-quality-postmortem (Claims 7, 13),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
@@ -274,4 +290,4 @@ practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-04-08*
+*Last updated: 2026-05-10*

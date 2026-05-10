@@ -668,8 +668,18 @@
         "screened_at": "2026-05-03T06:50:42.226951+00:00",
         "issue": 522,
         "filed_at": "2026-05-03T06:50:43.201223+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/model-tables": {
+        "status": "rejected",
+        "screened_at": "2026-05-06T06:53:51.852253+00:00"
+      },
+      "https://github.github.com/gh-aw/patterns/agentic-ops": {
+        "status": "filed",
+        "screened_at": "2026-05-07T06:58:51.226494+00:00",
+        "issue": 552,
+        "filed_at": "2026-05-07T06:58:52.937910+00:00"
       }
     },
-    "last_scan": "2026-05-03T06:50:42.226969+00:00"
+    "last_scan": "2026-05-10T06:53:54.227335+00:00"
   }
 }

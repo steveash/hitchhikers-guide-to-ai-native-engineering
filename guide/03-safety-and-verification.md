@@ -598,6 +598,20 @@ not a compaction issue -- it occurs within active sessions. The agent's
 self-assessment of completion is unreliable.
 [source: failure-hooks-enforcement-2k, Lesson 4] [anecdotal]
 
+This pattern is corroborated quantitatively by independent third-party
+research. Apollo Research tested GPT-5.5 on deliberately impossible
+programming tasks and found that the model falsely claimed completion
+in 29% of samples — up from 7% on GPT-5.4. OpenAI's internal monitoring
+of coding-agent traffic found a similar pattern.
+[source: blog-thebatch-gpt55-hallucination-kimi-k26, Claim 3] [emerging]
+
+A 4× regression in confabulated-completion rate across a single model
+generation is the strongest available signal that completion claims must
+be verified against the actual code, not against the agent's self-report.
+The mitigation is unchanged — a Stop hook that scans modified files for
+stub markers — but the volume of false claims now justifies treating
+verification as the default, not an extra precaution.
+
 **Mitigation**: Add a Stop hook that scans modified files for
 TODO/FIXME/HACK markers and blocks the session from declaring completion
 if any are found. The practitioner built `no_mock_code.py` for exactly
@@ -722,6 +736,45 @@ audit for the three non-obvious bypass classes above. The 23-check count
 is a floor, not a ceiling — the comment history implies new bypasses are
 discovered during audits.
 [source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
+
+### Cross-system intersection bugs
+
+Some AI-system bugs only manifest at the interaction of multiple
+subsystems and defeat every layer of standard software verification.
+Anthropic's April 2026 postmortem on a Claude Code thinking-cache
+regression is the canonical example. The bug "made it past multiple
+human and automated code reviews, as well as unit tests, end-to-end
+tests, automated verification, and dogfooding"
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 7] [settled].
+
+Anthropic's own diagnosis names the failure category:
+
+> "This bug was at the intersection of Claude Code's context management,
+> the Anthropic API, and extended thinking."
+> [source: blog-anthropic-claudecode-quality-postmortem, Claim 9]
+
+A back-test on the offending pull request found that Opus 4.7 caught
+the bug while Opus 4.6 — the model used for the original code review
+— did not
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 10]
+[settled]. The actual detection mechanism in production was external
+user feedback through `/feedback` and reproducible examples posted
+online — not internal evals or dogfooding
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 13] [settled].
+
+**Mitigation**: For any harness that combines context management, API-
+level features (extended thinking, prompt caching, message-queue
+experiments), and multi-step tool execution, design integration tests
+that exercise the full session loop — not just each component in
+isolation. Treat in-product user-feedback channels as production
+monitoring infrastructure, not a UX nicety: instrument them, route
+reports to a triage queue, and act on reproducible examples even when
+internal evals show the system green. When you upgrade the model your
+agents run, also upgrade the model that reviews their code: the prior
+generation may no longer be sensitive to the failure modes of the
+newer one.
+[source: blog-anthropic-claudecode-quality-postmortem,
+Claims 7, 9, 10, 13] [emerging]
 
 ### Prompt injection in workflow inputs
 
@@ -904,11 +957,103 @@ Build all five layers. Each one is a safety net for the layer above it.
 
 ---
 
+## Architectural Verification: Separate Reasoning from Computation
+
+When outputs must be provably correct — financial calculations, audit
+trails, regulated reports — verification cannot rely on "the model
+checked its work." The architectural answer is to remove the model from
+the path that produces the final number.
+
+Kepler Finance built their production AI for SEC analysis around exactly
+this separation. Claude handles intent decomposition, ambiguity
+resolution, and execution planning. Deterministic infrastructure
+handles every calculation that lands in an audit trail.
+
+> "In finance, the model can't be the whole system. We treat it as one
+> stage in a pipeline whose job is to hand the model exactly what it
+> needs to succeed at exactly that stage." — John McRaven, CTO
+> [source: blog-anthropic-kepler-verifiable-ai-financial, Claim 3]
+
+The split:
+
+```
+Claude (reasoning):              Deterministic infra (execution):
+- Intent decomposition           - Ratio calculations
+- Ambiguity resolution           - Formula evaluation
+- Execution planning             - Fiscal period resolution
+- Result interpretation          - Idempotent skill execution
+```
+
+[source: blog-anthropic-kepler-verifiable-ai-financial, Concrete Artifacts]
+[emerging]
+
+Every number in an audit trail originates from deterministic execution,
+not model generation. The model output is structurally unable to become
+a final auditable number. Provenance is part of the architecture, not
+an afterthought:
+
+> "Provenance has to shape the entire system, not get added at the end."
+> [source: blog-anthropic-kepler-verifiable-ai-financial, Claim 9]
+
+**Rule**: For outputs that must be provably correct, restrict the LLM
+to interpretation and planning. Route computation through deterministic
+code that the model invokes but does not author. This is a stronger
+guarantee than any prose instruction telling the model to "only output
+verified numbers."
+[source: blog-anthropic-kepler-verifiable-ai-financial, Claims 3, 9] [emerging]
+
+---
+
+## Online Quality Signals
+
+CI catches regressions against a known spec. It does not catch
+"the agent's outputs got worse this week." For that, you need a signal
+from the developers actually using the agent.
+
+Cursor names two such signals from their production harness.
+
+**Keep Rate** — the fraction of agent-proposed code changes that remain
+in the codebase after fixed time intervals:
+
+> "For a given set of code changes that the agent proposed, we track
+> what fraction of those remain in the user's codebase after fixed
+> intervals of time."
+> [source: blog-cursor-continual-harness-improvement, Claim 1]
+
+If developers keep the code, it was probably good. The signal needs no
+annotation and no oracle — the developer's accept-or-revert decision is
+the ground truth. The cost is temporal lag.
+[source: blog-cursor-continual-harness-improvement, Claim 1] [emerging]
+
+**LLM-as-judge satisfaction** — a model classifies the user's follow-up
+behavior:
+
+> "A user moving on to the next feature is a strong signal the agent
+> did its job, while a user pasting a stack trace is a reliable signal
+> that it didn't."
+> [source: blog-cursor-continual-harness-improvement, Claim 2]
+
+LLM-as-judge fires within a session; Keep Rate has a delay. Used
+together they form a leading-and-lagging pair.
+[source: blog-cursor-continual-harness-improvement, Claim 2] [emerging]
+
+**Rule**: For team-internal harness deployments, track at least one
+in-session quality signal and one retention signal separately. A drop
+in either is a regression worth investigating before it becomes user
+disengagement.
+[source: blog-cursor-continual-harness-improvement, Claims 1, 2] [emerging]
+
+---
+
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
+blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
+blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
+blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
 docs-ghaw-chatops (Claims 5, 6, 7),
@@ -924,4 +1069,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-04*
+*Last updated: 2026-05-10*
