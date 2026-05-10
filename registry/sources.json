@@ -215,6 +215,18 @@
       "file": "source-notes/blog-simonwillison-zig-anti-ai.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-langchain-deep-agents-v05": {
+      "slug": "blog-langchain-deep-agents-v05",
+      "title": "Deep Agents v0.5",
+      "source_url": "https://www.langchain.com/blog/deep-agents-v0-5",
+      "source_type": "blog-post",
+      "author": "The LangChain Team",
+      "date_extracted": "2026-05-10",
+      "issue": "#106",
+      "file": "source-notes/blog-langchain-deep-agents-v05.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
