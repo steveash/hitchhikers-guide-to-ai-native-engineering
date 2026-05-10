@@ -241,5 +241,18 @@
       "status": "current"
     }
   },
+    "blog-langchain-harness-memory-ownership": {
+      "slug": "blog-langchain-harness-memory-ownership",
+      "title": "Your harness, your memory",
+      "source_url": "https://blog.langchain.com/your-harness-your-memory/",
+      "source_type": "blog-post",
+      "author": "Harrison Chase (LangChain)",
+      "date_extracted": "2026-05-10",
+      "issue": "#134",
+      "file": "source-notes/blog-langchain-harness-memory-ownership.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    }
+  },
   "last_updated": "2026-05-10"
 }
