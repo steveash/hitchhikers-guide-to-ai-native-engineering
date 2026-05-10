@@ -263,6 +263,18 @@
       "file": "source-notes/blog-ghaw-issue-pr-mgmt.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-cursor-nab-legacy-migration": {
+      "slug": "blog-cursor-nab-legacy-migration",
+      "title": "National Australia Bank accelerates legacy migrations with Cursor",
+      "source_url": "https://cursor.com/blog/nab",
+      "source_type": "blog-post",
+      "author": "Cursor (vendor case study; named practitioners from NAB: Chris De Lorenzo, Andrew Vaughan, Coby Paterson, Harjot Singh, Caroline Trang)",
+      "date_extracted": "2026-05-10",
+      "issue": "#350",
+      "file": "source-notes/blog-cursor-nab-legacy-migration.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
