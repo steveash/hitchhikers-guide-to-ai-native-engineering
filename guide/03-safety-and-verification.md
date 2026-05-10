@@ -737,6 +737,45 @@ is a floor, not a ceiling — the comment history implies new bypasses are
 discovered during audits.
 [source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
 
+### Cross-system intersection bugs
+
+Some AI-system bugs only manifest at the interaction of multiple
+subsystems and defeat every layer of standard software verification.
+Anthropic's April 2026 postmortem on a Claude Code thinking-cache
+regression is the canonical example. The bug "made it past multiple
+human and automated code reviews, as well as unit tests, end-to-end
+tests, automated verification, and dogfooding"
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 7] [settled].
+
+Anthropic's own diagnosis names the failure category:
+
+> "This bug was at the intersection of Claude Code's context management,
+> the Anthropic API, and extended thinking."
+> [source: blog-anthropic-claudecode-quality-postmortem, Claim 9]
+
+A back-test on the offending pull request found that Opus 4.7 caught
+the bug while Opus 4.6 — the model used for the original code review
+— did not
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 10]
+[anecdotal]. The actual detection mechanism in production was external
+user feedback through `/feedback` and reproducible examples posted
+online — not internal evals or dogfooding
+[source: blog-anthropic-claudecode-quality-postmortem, Claim 13] [settled].
+
+**Mitigation**: For any harness that combines context management, API-
+level features (extended thinking, prompt caching, message-queue
+experiments), and multi-step tool execution, design integration tests
+that exercise the full session loop — not just each component in
+isolation. Treat in-product user-feedback channels as production
+monitoring infrastructure, not a UX nicety: instrument them, route
+reports to a triage queue, and act on reproducible examples even when
+internal evals show the system green. When you upgrade the model your
+agents run, also upgrade the model that reviews their code: the prior
+generation may no longer be sensitive to the failure modes of the
+newer one.
+[source: blog-anthropic-claudecode-quality-postmortem,
+Claims 7, 9, 10, 13] [emerging]
+
 ### Prompt injection in workflow inputs
 
 Automated pipelines that process user-submitted content — issue bodies,
@@ -871,6 +910,7 @@ disengagement.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
+blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),

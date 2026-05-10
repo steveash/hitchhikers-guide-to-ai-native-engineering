@@ -366,6 +366,30 @@ sequence. The review burden is distributed across models, not across your
 attention budget.
 [editorial]
 
+### Model mixing across orchestration tiers
+
+A second multi-model pattern — distinct from kevinsync's serial Claude-then-Codex
+pipeline above — is to assign different models to different roles inside a
+single orchestrator-subagent run. The Spiral team (Every) runs their lead agent
+on Haiku and their drafting subagents on Opus:
+
+> "The lead agent runs on Haiku: it fields incoming requests, poses quick
+> follow-up questions when needed, then delegates the drafting to subagents
+> running on Opus. When a user asks for multiple drafts, the subagents run
+> in parallel."
+> [source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8]
+
+This is the first production-validated assignment in the corpus pairing a
+specific cheap model with a specific expensive one for orchestrator-vs-subagent
+work. The economic logic: routing and follow-up questions are latency-sensitive
+but quality-tolerant; drafting is the opposite.
+[source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8] [anecdotal]
+
+**Rule**: When you split work between an orchestrator and subagents, run the
+orchestrator on the cheaper, faster model and the subagents on the more
+capable one — not the reverse.
+[source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8] [anecdotal]
+
 ### Cross-model audit for shortcut detection
 
 A lighter-weight cross-model pattern: ask a second model to *describe*
@@ -621,6 +645,7 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+blog-anthropic-managed-agents-dreaming-outcomes (Claim 8),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
 blog-simonwillison-liteparse-browser (Claims 5, 11),
 discussion-hn-agentic-coding-jobs (Claim 9),
@@ -631,4 +656,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-09*
+*Last updated: 2026-05-10*

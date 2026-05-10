@@ -571,13 +571,33 @@ case is concrete evidence that hardcoded model identifiers are
 fragile: the platform retired one generation seven weeks after
 documenting the next.
 
+The notice window can also collapse to zero. On May 7, 2026, GitHub
+published a Copilot changelog labeled "Retired" announcing that Claude
+Sonnet 4 had been deprecated across all Copilot surfaces effective
+the previous day, May 6 — a *retroactive* notice with negative lead
+time
+[source: docs-github-copilot-claude-sonnet4-deprecation, Claim 2]
+[settled]. The same May 7 changelog also carried a 25-day advance
+notice for GPT-4.1; notice characteristics now vary by model rather
+than by provider or platform-wide policy
+[source: docs-github-copilot-claude-sonnet4-deprecation, Claim 8]
+[emerging]. A governance process designed only to monitor changelogs
+and schedule migrations cannot protect against a notice published
+after the model is already gone — proactive policy coverage of the
+successor model is the only mitigation that survives the zero-notice
+case
+[source: docs-github-copilot-claude-sonnet4-deprecation, Claim 3]
+[settled].
+
 **Rule**: Treat model identifiers as versioned dependencies. Prefer
 auto-routing or admin-policy-managed selection over hardcoded model
-names in scripts, harness configurations, or CI jobs. Add a recurring
-"review model deprecation notices" item to your AI governance cadence
-— the silent-failure cutover model means missing a notice produces
-broken workflows on the cutover date with no warning.
+names in scripts, harness configurations, or CI jobs. Maintain admin
+policy entries for the *next* generation of every model your team
+uses — based on the model roadmap, not the deprecation notice — so
+that a zero-notice retirement leaves a working successor already
+enabled.
 [source: docs-github-copilot-gpt52-deprecation, Claims 5, 7;
+docs-github-copilot-claude-sonnet4-deprecation, Claims 2, 3, 8;
 blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
 
 ---
@@ -836,11 +856,38 @@ are being done -- quality-of-life improvements, exploratory prototypes,
 internal tools, the "papercut fixes" Anthropic identified as 8.6% of tasks.
 [source: research-anthropic-ai-transforming-work, Claims 3, 6] [emerging]
 
+The most concrete enterprise example of this category is National Australia
+Bank's Assembly mainframe migration — a project the bank had not attempted
+because it lacked Assembly expertise:
+
+> "Before Cursor, we couldn't even think about moving away from Assembly.
+> We just didn't have the expertise or time to tackle an enormous project
+> like this manually."
+> — Harjot Singh, Engineering Manager
+> [source: blog-cursor-nab-legacy-migration, Claim 6]
+
+> "Without Cursor, the time and cost of this migration would have been
+> greater than the value we'd get from it."
+> — Harjot Singh, Engineering Manager
+> [source: blog-cursor-nab-legacy-migration, Claim 6]
+
+This is a viability claim, not a velocity claim. The same pattern appears
+in NAB's greenfield Kotlin/Android payment app, completed in less than
+three weeks by a team with no prior Kotlin experience: "We've seen a 5-8x
+improvement in development velocity. But the main thing is we wouldn't have
+even tried to build this app without Cursor"
+[source: blog-cursor-nab-legacy-migration, Claim 7] [emerging]. Treat
+"wouldn't have tried" as a distinct value category from "now faster" — and
+treat the source as vendor case-study evidence, since it is published on
+Cursor's blog with named NAB engineers but no independent validation.
+
 **Recommendation**: Add an explicit "new-categories-of-work" metric to your
 measurement program. Count the prototypes, the internal tools, the
 documentation improvements that landed because someone could now ship them in
-an afternoon. This is where a meaningful chunk of AI value lives, and no
-standard productivity dashboard surfaces it.
+an afternoon — and separately count the projects that were not on the
+roadmap because the expertise to staff them was unavailable. This is where
+a meaningful chunk of AI value lives, and no standard productivity dashboard
+surfaces it.
 
 ### The realistic ceiling is much lower than the vendor pitch
 
@@ -1218,10 +1265,12 @@ survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
+blog-cursor-nab-legacy-migration (Claims 6, 7),
 blog-faros-claude-code-roi (Claims 1-7),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
 docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
+docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
 docs-github-copilot-gpt52-deprecation (Claims 5, 7),
 docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
 discussion-hn-agentic-coding-jobs (Claim 10),
@@ -1232,4 +1281,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-05-09*
+*Last updated: 2026-05-10*
