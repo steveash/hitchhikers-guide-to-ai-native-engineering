@@ -263,6 +263,18 @@
       "file": "source-notes/blog-ghaw-issue-pr-mgmt.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "docs-ghaw-task-ops": {
+      "slug": "docs-ghaw-task-ops",
+      "title": "GitHub Agentic Workflows: TaskOps Pattern",
+      "source_url": "https://github.github.com/gh-aw/patterns/task-ops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team",
+      "date_extracted": "2026-05-10",
+      "issue": "#354",
+      "file": "source-notes/docs-ghaw-task-ops.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
