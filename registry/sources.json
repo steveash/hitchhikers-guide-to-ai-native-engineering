@@ -251,6 +251,18 @@
       "file": "source-notes/docs-github-copilot-cca-validation-parallel.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "blog-anthropic-hackathon-opus46-winners": {
+      "slug": "blog-anthropic-hackathon-opus46-winners",
+      "title": "Meet the winners of our Built with Opus 4.6 Claude Code hackathon",
+      "source_url": "https://claude.com/blog/meet-the-winners-of-our-built-with-opus-4-6-claude-code-hackathon",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_extracted": "2026-05-10",
+      "issue": "#348",
+      "file": "source-notes/blog-anthropic-hackathon-opus46-winners.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "last_updated": "2026-05-10"
