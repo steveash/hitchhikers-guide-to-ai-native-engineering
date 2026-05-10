@@ -407,6 +407,18 @@
       "file": "source-notes/docs-ghaw-staged-mode-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-ghaw-memoryops": {
+      "slug": "docs-ghaw-memoryops",
+      "title": "GitHub Agentic Workflows: MemoryOps Guide",
+      "source_url": "https://github.github.com/gh-aw/guides/memoryops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-10",
+      "issue": "#438",
+      "file": "source-notes/docs-ghaw-memoryops.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
