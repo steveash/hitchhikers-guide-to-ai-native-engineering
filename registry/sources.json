@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-simonwillison-headless-everything": {
+      "slug": "blog-simonwillison-headless-everything",
+      "title": "Headless everything for personal AI",
+      "source_url": "https://simonwillison.net/2026/Apr/19/headless-everything/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (aggregating Matt Webb, Marc Benioff/Salesforce, Brandur Leach)",
+      "date_extracted": "2026-05-10",
+      "issue": "#422",
+      "file": "source-notes/blog-simonwillison-headless-everything.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-rate-limiting-controls": {
       "slug": "docs-ghaw-rate-limiting-controls",
       "title": "GitHub Agentic Workflows: Rate Limiting Controls Reference",
