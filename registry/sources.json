@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-rate-limiting-controls": {
+      "slug": "docs-ghaw-rate-limiting-controls",
+      "title": "GitHub Agentic Workflows: Rate Limiting Controls Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/rate-limiting-controls",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-10",
+      "issue": "#409",
+      "file": "source-notes/docs-ghaw-rate-limiting-controls.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-permissions-reference": {
       "slug": "docs-ghaw-permissions-reference",
       "title": "GitHub Agentic Workflows: GitHub Read Permissions Reference",
