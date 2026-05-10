@@ -757,7 +757,7 @@ A back-test on the offending pull request found that Opus 4.7 caught
 the bug while Opus 4.6 — the model used for the original code review
 — did not
 [source: blog-anthropic-claudecode-quality-postmortem, Claim 10]
-[anecdotal]. The actual detection mechanism in production was external
+[settled]. The actual detection mechanism in production was external
 user feedback through `/feedback` and reproducible examples posted
 online — not internal evals or dogfooding
 [source: blog-anthropic-claudecode-quality-postmortem, Claim 13] [settled].

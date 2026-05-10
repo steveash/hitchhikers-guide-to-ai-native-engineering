@@ -51,6 +51,7 @@ If Anthropic's full verification stack — the people who wrote the harness,
 running the harness on the harness — could not catch the regression
 internally, treat your own multi-layer verification as a probability gate,
 not a guarantee.
+[source: blog-anthropic-claudecode-quality-postmortem, Claims 7, 13] [editorial]
 
 ### The rule
 
