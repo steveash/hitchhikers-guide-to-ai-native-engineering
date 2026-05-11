@@ -722,5 +722,17 @@
     "file": "source-notes/blog-simonwillison-aisi-gpt55-cyber.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-kyle-kingsbury": {
+    "slug": "blog-simonwillison-kyle-kingsbury",
+    "title": "Quoting Kyle Kingsbury: Meat Shields and New Jobs at the Human-ML Boundary",
+    "source_url": "https://simonwillison.net/2026/Apr/15/kyle-kingsbury/",
+    "source_type": "blog-post",
+    "author": "Kyle Kingsbury (aphyr), quoted by Simon Willison",
+    "date_extracted": "2026-05-11",
+    "issue": "#342",
+    "file": "source-notes/blog-simonwillison-kyle-kingsbury.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
