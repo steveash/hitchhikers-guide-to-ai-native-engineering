@@ -698,5 +698,17 @@
     "file": "source-notes/docs-ghaw-guides-serena.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-aisi-gpt55-cyber": {
+    "slug": "blog-simonwillison-aisi-gpt55-cyber",
+    "title": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities",
+    "source_url": "https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/",
+    "source_type": "blog-post",
+    "author": "Simon Willison (link-blog to UK AI Security Institute evaluation)",
+    "date_extracted": "2026-05-11",
+    "issue": "#599",
+    "file": "source-notes/blog-simonwillison-aisi-gpt55-cyber.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
