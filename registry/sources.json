@@ -552,6 +552,18 @@
       "file": "source-notes/docs-ghaw-setup-creating-workflows.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-bobby-holley": {
+      "slug": "blog-simonwillison-bobby-holley",
+      "title": "Quoting Bobby Holley (Firefox CTO on 271 vulnerabilities in Firefox 150)",
+      "source_url": "https://simonwillison.net/2026/Apr/22/bobby-holley/",
+      "source_type": "blog-post",
+      "author": "Bobby Holley (CTO, Firefox/Mozilla), quoted by Simon Willison",
+      "date_extracted": "2026-05-11",
+      "issue": "#461",
+      "file": "source-notes/blog-simonwillison-bobby-holley.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
