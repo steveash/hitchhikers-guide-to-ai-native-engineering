@@ -650,5 +650,17 @@
     "file": "source-notes/docs-ghaw-troubleshooting-errors.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "docs-ghaw-guides-serena": {
+    "slug": "docs-ghaw-guides-serena",
+    "title": "GitHub Agentic Workflows: Using Serena",
+    "source_url": "https://github.github.com/gh-aw/guides/serena",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_extracted": "2026-05-11",
+    "issue": "#440",
+    "file": "source-notes/docs-ghaw-guides-serena.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
