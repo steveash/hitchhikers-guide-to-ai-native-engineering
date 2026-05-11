@@ -566,5 +566,17 @@
     "confidence_overall": "emerging",
     "status": "current"
   },
-  "last_updated": "2026-05-10"
+  "docs-ghaw-fork-support": {
+    "slug": "docs-ghaw-fork-support",
+    "title": "GitHub Agentic Workflows: Fork Support Reference",
+    "source_url": "https://github.github.com/gh-aw/reference/fork-support",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_extracted": "2026-05-11",
+    "issue": "#394",
+    "file": "source-notes/docs-ghaw-fork-support.md",
+    "confidence_overall": "emerging",
+    "status": "current"
+  },
+  "last_updated": "2026-05-11"
 }
