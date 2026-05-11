@@ -566,5 +566,17 @@
     "confidence_overall": "emerging",
     "status": "current"
   },
-  "last_updated": "2026-05-10"
+  "docs-github-copilot-agent-sessions-issues-projects": {
+    "slug": "docs-github-copilot-agent-sessions-issues-projects",
+    "title": "View and manage agent sessions from issues and projects",
+    "source_url": "https://github.blog/changelog/2026-04-23-view-and-manage-agent-sessions-from-issues-and-projects",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_extracted": "2026-05-11",
+    "issue": "#385",
+    "file": "source-notes/docs-github-copilot-agent-sessions-issues-projects.md",
+    "confidence_overall": "emerging",
+    "status": "current"
+  },
+  "last_updated": "2026-05-11"
 }
