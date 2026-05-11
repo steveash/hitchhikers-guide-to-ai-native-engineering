@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-triggers-reference": {
+      "slug": "docs-ghaw-triggers-reference",
+      "title": "GitHub Agentic Workflows: Triggers Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/triggers",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-11",
+      "issue": "#418",
+      "file": "source-notes/docs-ghaw-triggers-reference.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-inat-sightings": {
       "slug": "blog-simonwillison-inat-sightings",
       "title": "Tool: iNaturalist Sightings",
