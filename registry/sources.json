@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-anthropic-mcp-production-agents": {
+      "slug": "blog-anthropic-mcp-production-agents",
+      "title": "Building agents that reach production systems with MCP",
+      "source_url": "https://claude.com/blog/building-agents-that-reach-production-systems-with-mcp",
+      "source_type": "blog-post",
+      "author": "Anthropic (no individual byline)",
+      "date_extracted": "2026-05-11",
+      "issue": "#349",
+      "file": "source-notes/blog-anthropic-mcp-production-agents.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-thebatch-nvidia-chip-design-robotics": {
       "slug": "blog-thebatch-nvidia-chip-design-robotics",
       "title": "The Batch Issue 352: Seedance Makes A Splash, Nvidia's AI-Guided Chip Designs, Helping Robots Not Forget",
