@@ -722,5 +722,17 @@
     "file": "source-notes/blog-simonwillison-aisi-gpt55-cyber.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-ghaw-fault-investigation": {
+    "slug": "blog-ghaw-fault-investigation",
+    "title": "Meet the Workflows: Fault Investigation",
+    "source_url": "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-quality-hygiene/",
+    "source_type": "blog-post",
+    "author": "Don Syme, Peli de Halleux, Mara Kiefer (GitHub Agentic Workflows team)",
+    "date_extracted": "2026-05-11",
+    "issue": "#147",
+    "file": "source-notes/blog-ghaw-fault-investigation.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
