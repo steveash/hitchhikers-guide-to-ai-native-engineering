@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-simonwillison-llm-openrouter-06": {
+      "slug": "blog-simonwillison-llm-openrouter-06",
+      "title": "Release: llm-openrouter 0.6",
+      "source_url": "https://simonwillison.net/2026/Apr/20/llm-openrouter/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_extracted": "2026-05-11",
+      "issue": "#442",
+      "file": "source-notes/blog-simonwillison-llm-openrouter-06.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-simonwillison-anthropic-sycophancy-domains": {
       "slug": "blog-simonwillison-anthropic-sycophancy-domains",
       "title": "Quoting Anthropic: domain-specific sycophancy in personal guidance conversations",
