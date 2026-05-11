@@ -552,6 +552,18 @@
       "file": "source-notes/docs-ghaw-setup-creating-workflows.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-cursor-typescript-sdk": {
+      "slug": "blog-cursor-typescript-sdk",
+      "title": "Build programmatic agents with the Cursor SDK",
+      "source_url": "https://cursor.com/blog/typescript-sdk",
+      "source_type": "blog-post",
+      "author": "Cursor (Anysphere)",
+      "date_extracted": "2026-05-11",
+      "issue": "#467",
+      "file": "source-notes/blog-cursor-typescript-sdk.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "blog-anthropic-scaling-managed-agents": {
