@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-specops": {
+      "slug": "docs-ghaw-specops",
+      "title": "GitHub Agentic Workflows: SpecOps Pattern",
+      "source_url": "https://github.github.com/gh-aw/patterns/spec-ops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-11",
+      "issue": "#353",
+      "file": "source-notes/docs-ghaw-specops.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-thebatch-nvidia-chip-design-robotics": {
       "slug": "blog-thebatch-nvidia-chip-design-robotics",
       "title": "The Batch Issue 352: Seedance Makes A Splash, Nvidia's AI-Guided Chip Designs, Helping Robots Not Forget",
