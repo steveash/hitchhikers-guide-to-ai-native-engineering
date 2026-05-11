@@ -36,6 +36,18 @@
       "confidence_overall": "emerging",
       "status": "current"
     },
+    "docs-ghaw-checkout-reference": {
+      "slug": "docs-ghaw-checkout-reference",
+      "title": "GitHub Agentic Workflows: Checkout Configuration Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/checkout",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-11",
+      "issue": "#361",
+      "file": "source-notes/docs-ghaw-checkout-reference.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-simonwillison-anthropic-sycophancy-domains": {
       "slug": "blog-simonwillison-anthropic-sycophancy-domains",
       "title": "Quoting Anthropic: domain-specific sycophancy in personal guidance conversations",
