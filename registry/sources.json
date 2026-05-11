@@ -770,5 +770,17 @@
     "file": "source-notes/docs-ghaw-trial-ops.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-ghaw-copilot-agent-files": {
+    "slug": "docs-ghaw-copilot-agent-files",
+    "title": "GitHub Agentic Workflows: Importing Copilot Agent Files",
+    "source_url": "https://github.github.com/gh-aw/reference/copilot-custom-agents",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_extracted": "2026-05-11",
+    "issue": "#374",
+    "file": "source-notes/docs-ghaw-copilot-agent-files.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
