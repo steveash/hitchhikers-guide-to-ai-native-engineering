@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-simonwillison-anthropic-sycophancy-domains": {
+      "slug": "blog-simonwillison-anthropic-sycophancy-domains",
+      "title": "Quoting Anthropic: domain-specific sycophancy in personal guidance conversations",
+      "source_url": "https://simonwillison.net/2026/May/3/anthropic/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (quoting Anthropic research)",
+      "date_extracted": "2026-05-11",
+      "issue": "#651",
+      "file": "source-notes/blog-simonwillison-anthropic-sycophancy-domains.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-inat-sightings": {
       "slug": "blog-simonwillison-inat-sightings",
       "title": "Tool: iNaturalist Sightings",
