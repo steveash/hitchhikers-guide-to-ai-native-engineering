@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-thebatch-nvidia-chip-design-robotics": {
+      "slug": "blog-thebatch-nvidia-chip-design-robotics",
+      "title": "The Batch Issue 352: Seedance Makes A Splash, Nvidia's AI-Guided Chip Designs, Helping Robots Not Forget",
+      "source_url": "https://www.deeplearning.ai/the-batch/issue-352",
+      "source_type": "blog-post",
+      "author": "DeepLearning.AI / Andrew Ng (editorial)",
+      "date_extracted": "2026-05-11",
+      "issue": "#653",
+      "file": "source-notes/blog-thebatch-nvidia-chip-design-robotics.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-artifacts-reference": {
       "slug": "docs-ghaw-artifacts-reference",
       "title": "GitHub Agentic Workflows: Artifacts Reference",
