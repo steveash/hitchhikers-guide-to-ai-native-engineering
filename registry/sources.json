@@ -566,5 +566,17 @@
     "confidence_overall": "emerging",
     "status": "current"
   },
-  "last_updated": "2026-05-10"
+  "docs-ghaw-github-tools": {
+    "slug": "docs-ghaw-github-tools",
+    "title": "GitHub Agentic Workflows: GitHub Tools Reference",
+    "source_url": "https://github.github.com/gh-aw/reference/github-tools",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_extracted": "2026-05-11",
+    "issue": "#396",
+    "file": "source-notes/docs-ghaw-github-tools.md",
+    "confidence_overall": "emerging",
+    "status": "current"
+  },
+  "last_updated": "2026-05-11"
 }
