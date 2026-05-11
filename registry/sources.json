@@ -626,6 +626,18 @@
     "confidence_overall": "emerging",
     "status": "current"
   },
+  "docs-ghaw-wasm-compilation": {
+    "slug": "docs-ghaw-wasm-compilation",
+    "title": "GitHub Agentic Workflows: WebAssembly Compilation Reference",
+    "source_url": "https://github.github.com/gh-aw/reference/wasm-compilation",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_extracted": "2026-05-11",
+    "issue": "#455",
+    "file": "source-notes/docs-ghaw-wasm-compilation.md",
+    "confidence_overall": "emerging",
+    "status": "current"
+  },
   "last_updated": "2026-05-11",
   "docs-ghaw-tools-reference": {
     "slug": "docs-ghaw-tools-reference",
