@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-anthropic-claude-managed-agents-memory": {
+      "slug": "blog-anthropic-claude-managed-agents-memory",
+      "title": "Built-in memory for Claude Managed Agents",
+      "source_url": "https://claude.com/blog/claude-managed-agents-memory",
+      "source_type": "blog-post",
+      "author": "Anthropic (product announcement)",
+      "date_extracted": "2026-05-11",
+      "issue": "#370",
+      "file": "source-notes/blog-anthropic-claude-managed-agents-memory.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-anthropic-mcp-production-agents": {
       "slug": "blog-anthropic-mcp-production-agents",
       "title": "Building agents that reach production systems with MCP",
