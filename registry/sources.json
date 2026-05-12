@@ -5,7 +5,7 @@
       "title": "Less human AI agents, please.",
       "source_url": "https://simonwillison.net/2026/Apr/21/andreas-pahlsson-notini/",
       "source_type": "blog-post",
-      "author": "Andreas Påhlsson-Notini (via Simon Willison quotation post)",
+      "author": "Andreas P\u00e5hlsson-Notini (via Simon Willison quotation post)",
       "date_extracted": "2026-05-12",
       "issue": "#444",
       "file": "source-notes/blog-simonwillison-pahlsson-notini-less-human-agents.md",
@@ -718,6 +718,18 @@
       "date_extracted": "2026-05-12",
       "issue": "#426",
       "file": "source-notes/docs-ghaw-troubleshooting-debug-ghe.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
+    "docs-ghaw-audit-reference": {
+      "slug": "docs-ghaw-audit-reference",
+      "title": "GitHub Agentic Workflows: Audit Command Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/audit",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-12",
+      "issue": "#450",
+      "file": "source-notes/docs-ghaw-audit-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
     }
