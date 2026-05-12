@@ -830,7 +830,20 @@
     "confidence_overall": "emerging",
     "status": "current"
   },
-  "last_updated": "2026-05-11",
+  "last_updated": "2026-05-12",
+  "docs-github-copilot-student-gpt53codex-picker-removal": {
+    "slug": "docs-github-copilot-student-gpt53codex-picker-removal",
+    "title": "Copilot Student GPT-5.3-Codex removal from model picker",
+    "source_url": "https://github.blog/changelog/2026-04-27-copilot-student-gpt-5-3-codex-removal-from-model-picker",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-04-27",
+    "date_extracted": "2026-05-12",
+    "issue": "#447",
+    "file": "source-notes/docs-github-copilot-student-gpt53codex-picker-removal.md",
+    "confidence_overall": "settled",
+    "status": "current"
+  },
   "docs-ghaw-tools-reference": {
     "slug": "docs-ghaw-tools-reference",
     "title": "GitHub Agentic Workflows: Tools Reference",
