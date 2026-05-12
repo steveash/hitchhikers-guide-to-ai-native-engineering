@@ -1023,5 +1023,18 @@
     "file": "source-notes/blog-anthropic-cowork-deploy-guide.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-ghaw-weekly-2026-05-11": {
+    "slug": "blog-ghaw-weekly-2026-05-11",
+    "title": "Weekly Update – May 11, 2026 (GitHub Agentic Workflows)",
+    "source_url": "https://github.github.com/gh-aw/blog/2026-05-11-weekly-update/",
+    "source_type": "blog-post",
+    "author": "GitHub Agentic Workflows team (gh-aw)",
+    "date_published": "2026-05-11",
+    "date_extracted": "2026-05-12",
+    "issue": "#654",
+    "file": "source-notes/blog-ghaw-weekly-2026-05-11.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
