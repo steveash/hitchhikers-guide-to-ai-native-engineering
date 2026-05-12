@@ -744,6 +744,18 @@
       "file": "source-notes/docs-ghaw-qmd-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-maccoss-developer-onboarding": {
+      "slug": "blog-anthropic-maccoss-developer-onboarding",
+      "title": "Onboarding Claude Code like a new developer: Lessons from 17 years of development",
+      "source_url": "https://claude.com/blog/onboarding-claude-code-like-a-new-developer-lessons-from-17-years-of-development",
+      "source_type": "blog-post",
+      "author": "Brendan MacLean (Claude Developer Ambassador, MacCoss Lab, University of Washington)",
+      "date_extracted": "2026-05-12",
+      "issue": "#460",
+      "file": "source-notes/blog-anthropic-maccoss-developer-onboarding.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
