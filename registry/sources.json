@@ -1,5 +1,17 @@
 {
   "sources": {
+    "docs-ghaw-templating-reference": {
+      "slug": "docs-ghaw-templating-reference",
+      "title": "GitHub Agentic Workflows: Templating Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/templating",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_extracted": "2026-05-12",
+      "issue": "#413",
+      "file": "source-notes/docs-ghaw-templating-reference.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-sandbox-reference": {
       "slug": "docs-ghaw-sandbox-reference",
       "title": "GitHub Agentic Workflows: Sandbox Configuration Reference",
