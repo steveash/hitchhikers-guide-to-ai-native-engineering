@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-simonwillison-pahlsson-notini-less-human-agents": {
+      "slug": "blog-simonwillison-pahlsson-notini-less-human-agents",
+      "title": "Less human AI agents, please.",
+      "source_url": "https://simonwillison.net/2026/Apr/21/andreas-pahlsson-notini/",
+      "source_type": "blog-post",
+      "author": "Andreas Påhlsson-Notini (via Simon Willison quotation post)",
+      "date_extracted": "2026-05-12",
+      "issue": "#444",
+      "file": "source-notes/blog-simonwillison-pahlsson-notini-less-human-agents.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-getting-started-mcp": {
       "slug": "docs-ghaw-getting-started-mcp",
       "title": "GitHub Agentic Workflows: Getting Started with MCP",
