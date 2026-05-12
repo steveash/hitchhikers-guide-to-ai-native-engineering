@@ -756,6 +756,18 @@
       "file": "source-notes/blog-anthropic-maccoss-developer-onboarding.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-agent-view-claude-code": {
+      "slug": "blog-anthropic-agent-view-claude-code",
+      "title": "Agent view in Claude Code",
+      "source_url": "https://claude.com/blog/agent-view-in-claude-code",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_extracted": "2026-05-12",
+      "issue": "#693",
+      "file": "source-notes/blog-anthropic-agent-view-claude-code.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
