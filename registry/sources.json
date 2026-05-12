@@ -999,5 +999,17 @@
     "file": "source-notes/docs-ghaw-guides-upgrading.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-anthropic-cowork-deploy-guide": {
+    "slug": "blog-anthropic-cowork-deploy-guide",
+    "title": "Deploying Claude across the enterprise with Claude Cowork (Practitioner Guide)",
+    "source_url": "https://claude.com/blog/new-guide-deploying-claude-across-the-enterprise-with-claude-cowork",
+    "source_type": "blog-post",
+    "author": "Anthropic",
+    "date_extracted": "2026-05-12",
+    "issue": "#464",
+    "file": "source-notes/blog-anthropic-cowork-deploy-guide.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
