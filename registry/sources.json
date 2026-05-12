@@ -830,5 +830,17 @@
     "file": "source-notes/docs-ghaw-custom-agent-for-aw.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-ghaw-repo-memory-reference": {
+    "slug": "docs-ghaw-repo-memory-reference",
+    "title": "GitHub Agentic Workflows: Repo Memory Reference",
+    "source_url": "https://github.github.com/gh-aw/reference/repo-memory",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_extracted": "2026-05-12",
+    "issue": "#410",
+    "file": "source-notes/docs-ghaw-repo-memory-reference.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
