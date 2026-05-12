@@ -1,5 +1,17 @@
 {
   "sources": {
+    "blog-cursor-bugbot-effort-billing": {
+      "slug": "blog-cursor-bugbot-effort-billing",
+      "title": "Updates to Bugbot for Teams and Individuals",
+      "source_url": "https://cursor.com/blog/may-2026-bugbot-changes",
+      "source_type": "blog-post",
+      "author": "Cursor Team",
+      "date_extracted": "2026-05-12",
+      "issue": "#695",
+      "file": "source-notes/blog-cursor-bugbot-effort-billing.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-awf-reflect-reference": {
       "slug": "docs-ghaw-awf-reflect-reference",
       "title": "GitHub Agentic Workflows: AWF Reflect Route Reference",
