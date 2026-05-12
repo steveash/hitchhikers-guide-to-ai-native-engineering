@@ -866,5 +866,17 @@
     "file": "source-notes/docs-ghaw-custom-agent-for-aw.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-cursor-paypal-enterprise-adoption": {
+    "slug": "blog-cursor-paypal-enterprise-adoption",
+    "title": "Beyond efficiency: PayPal expands what's possible to build with AI",
+    "source_url": "https://cursor.com/blog/paypal",
+    "source_type": "blog-post",
+    "author": "Cursor Team (vendor case study; named practitioners from PayPal: Michelle Chance, Prakhar Mehrotra)",
+    "date_extracted": "2026-05-12",
+    "issue": "#696",
+    "file": "source-notes/blog-cursor-paypal-enterprise-adoption.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
