@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-code-review-comment-ux": {
+      "slug": "docs-github-copilot-code-review-comment-ux",
+      "title": "Copilot code review: Comment experience improvements",
+      "source_url": "https://github.blog/changelog/2026-05-12-copilot-code-review-comment-experience-improvements",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-12",
+      "date_extracted": "2026-05-13",
+      "issue": "#723",
+      "file": "source-notes/docs-github-copilot-code-review-comment-ux.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "docs-ghaw-effective-tokens-specification": {
       "slug": "docs-ghaw-effective-tokens-specification",
       "title": "GitHub Agentic Workflows: Effective Tokens Specification",
