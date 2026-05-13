@@ -768,6 +768,19 @@
       "file": "source-notes/blog-anthropic-agent-view-claude-code.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-bow-cybersecurity-clue": {
+      "slug": "blog-anthropic-bow-cybersecurity-clue",
+      "title": "How Anthropic's cybersecurity team built a threat detection platform with Claude Code",
+      "source_url": "https://claude.com/blog/how-anthropic-uses-claude-cybersecurity",
+      "source_type": "blog-post",
+      "author": "Jackie Bow (Technical Lead, Detection Platform Engineering, Anthropic)",
+      "date_published": "2026-05-12",
+      "date_extracted": "2026-05-13",
+      "issue": "#726",
+      "file": "source-notes/blog-anthropic-bow-cybersecurity-clue.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
