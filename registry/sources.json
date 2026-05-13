@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-claude-legal-industry": {
+      "slug": "blog-anthropic-claude-legal-industry",
+      "title": "Claude for the Legal Industry",
+      "source_url": "https://claude.com/blog/claude-for-the-legal-industry",
+      "source_type": "blog-post",
+      "author": "Anthropic (no individual byline)",
+      "date_published": "2026-05-12",
+      "date_extracted": "2026-05-13",
+      "issue": "#725",
+      "file": "source-notes/blog-anthropic-claude-legal-industry.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-code-review-comment-ux": {
       "slug": "docs-github-copilot-code-review-comment-ux",
       "title": "Copilot code review: Comment experience improvements",
