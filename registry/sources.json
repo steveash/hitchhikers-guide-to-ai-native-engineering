@@ -1074,5 +1074,18 @@
     "file": "source-notes/blog-ghaw-weekly-2026-05-11.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-anthropic-computer-use-best-practices": {
+    "slug": "blog-anthropic-computer-use-best-practices",
+    "title": "Best practices for computer and browser use with Claude",
+    "source_url": "https://claude.com/blog/best-practices-for-computer-and-browser-use-with-claude",
+    "source_type": "blog-post",
+    "author": "Lucas Gonzalez and Luca Weihs (Anthropic)",
+    "date_published": "2026-05-13",
+    "date_extracted": "2026-05-14",
+    "issue": "#735",
+    "file": "source-notes/blog-anthropic-computer-use-best-practices.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
