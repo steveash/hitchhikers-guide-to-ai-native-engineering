@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-cca-rest-api-tasks": {
+      "slug": "docs-github-copilot-cca-rest-api-tasks",
+      "title": "Start Copilot cloud agent tasks via the REST API",
+      "source_url": "https://github.blog/changelog/2026-05-13-start-copilot-cloud-agent-tasks-via-the-rest-api",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-13",
+      "date_extracted": "2026-05-14",
+      "issue": "#734",
+      "file": "source-notes/docs-github-copilot-cca-rest-api-tasks.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "docs-github-copilot-code-review-comment-ux": {
       "slug": "docs-github-copilot-code-review-comment-ux",
       "title": "Copilot code review: Comment experience improvements",
