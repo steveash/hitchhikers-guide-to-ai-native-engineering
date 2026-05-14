@@ -794,6 +794,19 @@
       "file": "source-notes/blog-anthropic-bow-cybersecurity-clue.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-andon-cafe-stockholm": {
+      "slug": "blog-simonwillison-andon-cafe-stockholm",
+      "title": "Our AI started a cafe in Stockholm",
+      "source_url": "https://simonwillison.net/2026/May/5/our-ai-started-a-cafe-in-stockholm/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (commentary on Andon Labs blog post)",
+      "date_published": "2026-05-05",
+      "date_extracted": "2026-05-14",
+      "issue": "#732",
+      "file": "source-notes/blog-simonwillison-andon-cafe-stockholm.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
