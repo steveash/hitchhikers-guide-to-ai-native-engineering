@@ -867,6 +867,37 @@ practitioner-getsentry-sentry (cross-reference)] [emerging]
 slash command would do the same job. If yes, skip the server.
 [source: blog-bswen-mcp-token-cost, Claim 5] [editorial]
 
+### Protocol-level efficiency: tool search and programmatic tool calling
+
+Server-count pruning is the harness-side lever. The MCP protocol itself
+now includes two complementary patterns that Anthropic quantifies in their
+April 2026 production-MCP guide.
+
+**Tool search** defers loading tool definitions until the agent searches
+for them at query time, rather than loading every tool from every server
+into the system prompt upfront. Anthropic reports the pattern "tends to
+cut tool-definition tokens by 85%+ while maintaining high selection
+accuracy."
+[source: blog-anthropic-mcp-production-agents, Claim 10] [emerging]
+
+**Programmatic tool calling** processes tool results inside a
+code-execution sandbox before they return to the model, instead of
+returning raw JSON for the agent to reason over in text. Anthropic reports
+"roughly 37%" token reduction on complex multi-step workflows.
+[source: blog-anthropic-mcp-production-agents, Claim 11] [emerging]
+
+Tool search is the pre-fetch lever; programmatic tool calling is the
+post-fetch lever. With the 3-6 server budget, they form a three-stage
+discipline: prune the server set, then defer the tool definitions, then
+filter the tool results before they hit context.
+
+**Rule**: For MCP-heavy harnesses, ask whether your MCP client supports
+tool search and whether your high-volume MCP servers support programmatic
+tool calling. The 85%+ and ~37% figures are vendor self-reported with no
+disclosed methodology — verify against your own `/context` baseline before
+relying on the numbers.
+[source: blog-anthropic-mcp-production-agents, Claims 10, 11] [emerging]
+
 ### The billing window is not the inference window
 
 **Rule**: Never assume your UI context window display predicts your API bill.
@@ -1189,6 +1220,7 @@ session.
 *Sources for this chapter:
 blog-anthropic-carta-healthcare-context-engineering (Claims 1, 2, 9),
 blog-anthropic-harnessing-claude-intelligence (Claims 7, 11),
+blog-anthropic-mcp-production-agents (Claims 10, 11),
 blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
 blog-anthropic-session-management-1m-context (Claim 1),
 blog-cursor-continual-harness-improvement (Claims 3, 5, 10, 11),
@@ -1205,4 +1237,4 @@ practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference)*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-05-14*

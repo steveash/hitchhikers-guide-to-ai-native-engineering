@@ -283,6 +283,27 @@ may not justify the cost. Reserve this pattern for: security-sensitive
 changes, architectural decisions, and code that is hard to test.
 [editorial]
 
+### Effort routing for review agents
+
+Cursor's May 2026 Bugbot update gives the first published quantification of
+the effort-quality curve for an AI review agent: high effort finds 35% more
+bugs than default effort while the resolution rate stays constant at 80% —
+additional signal, not additional noise.
+[source: blog-cursor-bugbot-effort-billing, Claim 6] [emerging]
+
+This is vendor-internal data on one product, but the configurable-effort
+mechanism — and the empirical finding that depth does not raise the
+false-positive rate — generalizes the cost-benefit decision from per-PR to
+per-codepath. The same product also exposes "custom logic" that selects
+effort dynamically per PR.
+[source: blog-cursor-bugbot-effort-billing, Claim 4] [emerging]
+
+**Rule**: Where your review agent has a tunable effort lever, route high
+effort to auth, payment, and data-migration paths; default effort to CSS,
+docs, and routine refactors. Pay for depth on the codepaths whose failures
+hurt most.
+[source: blog-cursor-bugbot-effort-billing, Claims 4, 6] [emerging]
+
 ---
 
 ## Quality Gates Framework
@@ -829,6 +850,16 @@ have missed for long periods" — means the threat model can no longer assume
 "only nation-state actors have these capabilities."
 [source: blog-anthropic-ai-accelerated-offense, Claim 2] [anecdotal]
 
+As of May 2026, the UK AI Security Institute's independent evaluation
+places publicly-available GPT-5.5 at 71.4% on its Expert-level cyber CTF
+benchmark — statistically indistinguishable from Claude Mythos Preview
+(68.6%) — and the second model ever to complete AISI's 32-step corporate
+network attack simulation autonomously.
+[source: blog-simonwillison-aisi-gpt55-cyber, Claims 1, 2, 3] [emerging]
+Teams that deferred AI-assisted security review because capable models were
+research-access-only can no longer use that deferral.
+[source: blog-simonwillison-aisi-gpt55-cyber, Claim 1] [emerging]
+
 For AI-native engineering teams, this is the asymmetry: you ship more code
 per developer, your attack surface grows in proportion, and the cost for an
 attacker to find chainable bugs in that surface is collapsing toward zero on
@@ -855,11 +886,44 @@ production deployment in our corpus:
    substrate; the new-PR review agent alone runs on 3,000+ internal PRs per
    week and surfaces 200+ vulnerabilities per week.
    [source: blog-cursor-security-agents, Claims 1, 9] [anecdotal]
+   Mozilla provides the third, vendor-independent data point: Firefox 150
+   shipped fixes for 271 vulnerabilities surfaced by an early Claude Mythos
+   Preview run on the codebase, against 22 found by Opus 4.6 in Firefox 148 —
+   a ~12× model-generation jump on the same heavily-audited browser.
+   [source: blog-simonwillison-bobby-holley, Claim 1] [emerging]
+
+   Budget for the finding-volume shock before enabling the scan. Firefox CTO
+   Bobby Holley named the organizational impact directly:
+   > "You may need to reprioritize everything else to bring relentless and
+   > single-minded focus to the task, but there is light at the end of the
+   > tunnel."
+   > [source: blog-simonwillison-bobby-holley, Claim 7]
+   Mozilla — one of the most security-mature organizations in open source —
+   could not absorb 271 vulnerabilities without significant operational
+   disruption.
+   [source: blog-simonwillison-bobby-holley, Claim 7] [anecdotal]
 
 2. **AI model at the front of the alert queue, for 100% alert coverage.**
    Human-only SOCs sample alerts under fatigue. An AI triage agent that
    processes every alert at low depth ensures none goes uninvestigated.
    [source: blog-anthropic-ai-accelerated-offense, Claim 7] [emerging]
+   Anthropic's own production deployment of this pattern — CLUE (Claude
+   Looks Up Evidence), built by their Detection Platform Engineering team —
+   reduced the false positive rate on triaged alerts from approximately 33%
+   to 7% and processed 12,000 automated queries in 30 days, recovering an
+   estimated 1,870 analyst-hours.
+   [source: blog-anthropic-bow-cybersecurity-clue, Claims 4, 5] [emerging]
+   CLUE Triage enriches each alert with cross-system context (Slack
+   messages, internal docs, code, data warehouse) before assigning a
+   confidence-scored disposition; analysts review the low-confidence cases.
+   [source: blog-anthropic-bow-cybersecurity-clue, Claim 2] [emerging]
+
+   **Caveat**: The CLUE team explicitly notes "accuracy is harder to quantify
+   than speed" — false positive reduction is measured, but the false negative
+   rate (real threats dismissed by automated triage) is not. Define a false
+   negative measurement strategy before deploying AI triage in security
+   contexts.
+   [source: blog-anthropic-bow-cybersecurity-clue, Claim 4] [emerging]
 
 3. **Specialization over general-purpose review.** The DeepSource benchmark
    measured Claude Code at 48.78% recall on the OpenSSF CVE dataset for
@@ -1048,11 +1112,15 @@ disengagement.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
+blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
+blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
+blog-simonwillison-bobby-holley (Claims 1, 7),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
@@ -1069,4 +1137,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-05-14*
