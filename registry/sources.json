@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-vibe-coding-agentic-engineering": {
+      "slug": "blog-simonwillison-vibe-coding-agentic-engineering",
+      "title": "Vibe coding and agentic engineering are getting closer than I'd like",
+      "source_url": "https://simonwillison.net/2026/May/6/vibe-coding-and-agentic-engineering/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-06",
+      "date_extracted": "2026-05-15",
+      "issue": "#741",
+      "file": "source-notes/blog-simonwillison-vibe-coding-agentic-engineering.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-cca-rest-api-tasks": {
       "slug": "docs-github-copilot-cca-rest-api-tasks",
       "title": "Start Copilot cloud agent tasks via the REST API",
