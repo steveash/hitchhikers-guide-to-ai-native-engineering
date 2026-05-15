@@ -26,6 +26,19 @@
       "confidence_overall": "anecdotal",
       "status": "current"
     },
+    "docs-github-copilot-cca-auto-model-selection": {
+      "slug": "docs-github-copilot-cca-auto-model-selection",
+      "title": "Copilot cloud agent supports auto model selection",
+      "source_url": "https://github.blog/changelog/2026-05-14-copilot-cloud-agent-supports-auto-model-selection",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-14",
+      "date_extracted": "2026-05-15",
+      "issue": "#745",
+      "file": "source-notes/docs-github-copilot-cca-auto-model-selection.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-cca-rest-api-tasks": {
       "slug": "docs-github-copilot-cca-rest-api-tasks",
       "title": "Start Copilot cloud agent tasks via the REST API",
