@@ -1126,5 +1126,18 @@
     "file": "source-notes/blog-anthropic-computer-use-best-practices.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "blog-anthropic-founders-playbook": {
+    "slug": "blog-anthropic-founders-playbook",
+    "title": "The Founder's Playbook: Building an AI-Native Startup",
+    "source_url": "https://claude.com/blog/the-founders-playbook",
+    "source_type": "blog-post",
+    "author": "Anthropic",
+    "date_published": "2026-05-14",
+    "date_extracted": "2026-05-15",
+    "issue": "#747",
+    "file": "source-notes/blog-anthropic-founders-playbook.md",
+    "confidence_overall": "anecdotal",
+    "status": "current"
   }
 }
