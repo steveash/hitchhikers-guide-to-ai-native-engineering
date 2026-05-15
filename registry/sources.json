@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-large-codebase-best-practices": {
+      "slug": "blog-anthropic-large-codebase-best-practices",
+      "title": "How Claude Code works in large codebases: Best practices and where to start",
+      "source_url": "https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_published": "2026-05-14",
+      "date_extracted": "2026-05-15",
+      "issue": "#748",
+      "file": "source-notes/blog-anthropic-large-codebase-best-practices.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-simonwillison-vibe-coding-agentic-engineering": {
       "slug": "blog-simonwillison-vibe-coding-agentic-engineering",
       "title": "Vibe coding and agentic engineering are getting closer than I'd like",
