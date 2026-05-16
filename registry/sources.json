@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-ghaw-monitor-ops": {
+      "slug": "docs-ghaw-monitor-ops",
+      "title": "GitHub Agentic Workflows: MonitorOps Pattern",
+      "source_url": "https://github.github.com/gh-aw/patterns/monitor-ops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_published": null,
+      "date_extracted": "2026-05-16",
+      "issue": "#769",
+      "file": "source-notes/docs-ghaw-monitor-ops.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-thebatch-ng-ai-andrew-agentic-harness": {
       "slug": "blog-thebatch-ng-ai-andrew-agentic-harness",
       "title": "The Batch Issue 353: AI Andrew's Agentic Harness, Voice Reasoning Tradeoffs, and AI in Clinical Practice",
