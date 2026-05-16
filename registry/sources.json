@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-thebatch-ng-ai-andrew-agentic-harness": {
+      "slug": "blog-thebatch-ng-ai-andrew-agentic-harness",
+      "title": "The Batch Issue 353: AI Andrew's Agentic Harness, Voice Reasoning Tradeoffs, and AI in Clinical Practice",
+      "source_url": "https://www.deeplearning.ai/the-batch/issue-353",
+      "source_type": "blog-post",
+      "author": "Andrew Ng / DeepLearning.AI (editorial + reporting)",
+      "date_published": "2026-05-15",
+      "date_extracted": "2026-05-16",
+      "issue": "#761",
+      "file": "source-notes/blog-thebatch-ng-ai-andrew-agentic-harness.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-firefox-claude-mythos": {
       "slug": "blog-simonwillison-firefox-claude-mythos",
       "title": "Behind the Scenes: Firefox Security Hardening with Claude Mythos Preview",
