@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-team-level-usage-metrics": {
+      "slug": "docs-github-copilot-team-level-usage-metrics",
+      "title": "Team-level Copilot usage metrics now available via API",
+      "source_url": "https://github.blog/changelog/2026-05-14-team-level-copilot-usage-metrics-now-available-via-api",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-14",
+      "date_extracted": "2026-05-16",
+      "issue": "#758",
+      "file": "source-notes/docs-github-copilot-team-level-usage-metrics.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-anthropic-large-codebase-best-practices": {
       "slug": "blog-anthropic-large-codebase-best-practices",
       "title": "How Claude Code works in large codebases: Best practices and where to start",
