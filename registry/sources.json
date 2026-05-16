@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-firefox-claude-mythos": {
+      "slug": "blog-simonwillison-firefox-claude-mythos",
+      "title": "Behind the Scenes: Firefox Security Hardening with Claude Mythos Preview",
+      "source_url": "https://simonwillison.net/2026/May/7/firefox-claude-mythos/",
+      "source_type": "blog-post",
+      "author": "Brian Grinstead, Christian Holler, Frederik Braun (Mozilla Hacks); linked by Simon Willison",
+      "date_published": "2026-05-07",
+      "date_extracted": "2026-05-16",
+      "issue": "#756",
+      "file": "source-notes/blog-simonwillison-firefox-claude-mythos.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-anthropic-large-codebase-best-practices": {
       "slug": "blog-anthropic-large-codebase-best-practices",
       "title": "How Claude Code works in large codebases: Best practices and where to start",
