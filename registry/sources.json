@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-xai-anthropic-datacenter": {
+      "slug": "blog-simonwillison-xai-anthropic-datacenter",
+      "title": "Notes on the xAI/Anthropic data center deal",
+      "source_url": "https://simonwillison.net/2026/May/7/xai-anthropic/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-07",
+      "date_extracted": "2026-05-16",
+      "issue": "#755",
+      "file": "source-notes/blog-simonwillison-xai-anthropic-datacenter.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-ghaw-agent-of-the-day-2026-05-15": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-15",
       "title": "Agent of the Day – May 15, 2026: The AI Moderator",
