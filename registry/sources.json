@@ -872,6 +872,19 @@
       "file": "source-notes/blog-simonwillison-andon-cafe-stockholm.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-legal-industry-deploy": {
+      "slug": "blog-anthropic-legal-industry-deploy",
+      "title": "Deploying Claude across the legal industry",
+      "source_url": "https://claude.com/blog/deploying-claude-across-the-legal-industry",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_published": "2026-05-15",
+      "date_extracted": "2026-05-16",
+      "issue": "#760",
+      "file": "source-notes/blog-anthropic-legal-industry-deploy.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
@@ -1142,7 +1155,7 @@
   },
   "blog-ghaw-weekly-2026-05-11": {
     "slug": "blog-ghaw-weekly-2026-05-11",
-    "title": "Weekly Update – May 11, 2026 (GitHub Agentic Workflows)",
+    "title": "Weekly Update \u2013 May 11, 2026 (GitHub Agentic Workflows)",
     "source_url": "https://github.github.com/gh-aw/blog/2026-05-11-weekly-update/",
     "source_type": "blog-post",
     "author": "GitHub Agentic Workflows team (gh-aw)",
@@ -1164,6 +1177,19 @@
     "issue": "#735",
     "file": "source-notes/blog-anthropic-computer-use-best-practices.md",
     "confidence_overall": "settled",
+    "status": "current"
+  },
+  "blog-anthropic-legal-industry-deploy": {
+    "slug": "blog-anthropic-legal-industry-deploy",
+    "title": "Deploying Claude across the legal industry",
+    "source_url": "https://claude.com/blog/deploying-claude-across-the-legal-industry",
+    "source_type": "blog-post",
+    "author": "Anthropic",
+    "date_published": "2026-05-15",
+    "date_extracted": "2026-05-16",
+    "issue": "#760",
+    "file": "source-notes/blog-anthropic-legal-industry-deploy.md",
+    "confidence_overall": "emerging",
     "status": "current"
   }
 }
