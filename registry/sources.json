@@ -1217,5 +1217,18 @@
     "file": "source-notes/docs-ghaw-practices-experiments.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-ghaw-open-telemetry": {
+    "slug": "docs-ghaw-open-telemetry",
+    "title": "GitHub Agentic Workflows: OpenTelemetry Reference",
+    "source_url": "https://github.github.com/gh-aw/reference/open-telemetry",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_published": null,
+    "date_extracted": "2026-05-17",
+    "issue": "#787",
+    "file": "source-notes/docs-ghaw-open-telemetry.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
