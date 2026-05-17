@@ -1230,5 +1230,18 @@
     "file": "source-notes/blog-simonwillison-html-effectiveness.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-luke-curley-webrtc": {
+    "slug": "blog-simonwillison-luke-curley-webrtc",
+    "title": "Quoting Luke Curley: WebRTC Is the Wrong Protocol for LLM Voice AI",
+    "source_url": "https://simonwillison.net/2026/May/9/luke-curley/",
+    "source_type": "blog-post",
+    "author": "Luke Curley (OpenAI, moq.dev), quoted by Simon Willison",
+    "date_published": "2026-05-09",
+    "date_extracted": "2026-05-17",
+    "issue": "#785",
+    "file": "source-notes/blog-simonwillison-luke-curley-webrtc.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
