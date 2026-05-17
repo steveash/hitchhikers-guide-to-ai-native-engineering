@@ -15,7 +15,7 @@
     },
     "blog-ghaw-agent-of-the-day-2026-05-15": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-15",
-      "title": "Agent of the Day – May 15, 2026: The AI Moderator",
+      "title": "Agent of the Day \u2013 May 15, 2026: The AI Moderator",
       "source_url": "https://github.github.com/gh-aw/blog/2026-05-15-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw)",
@@ -911,6 +911,19 @@
       "file": "source-notes/blog-simonwillison-andon-cafe-stockholm.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-github-copilot-memory-user-preferences": {
+      "slug": "docs-github-copilot-memory-user-preferences",
+      "title": "Copilot Memory supports user preferences for Pro, Pro+ users",
+      "source_url": "https://github.blog/changelog/2026-05-15-copilot-memory-supports-user-preferences-for-pro-pro-users",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-15",
+      "date_extracted": "2026-05-17",
+      "issue": "#786",
+      "file": "source-notes/docs-github-copilot-memory-user-preferences.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
@@ -1181,7 +1194,7 @@
   },
   "blog-ghaw-weekly-2026-05-11": {
     "slug": "blog-ghaw-weekly-2026-05-11",
-    "title": "Weekly Update – May 11, 2026 (GitHub Agentic Workflows)",
+    "title": "Weekly Update \u2013 May 11, 2026 (GitHub Agentic Workflows)",
     "source_url": "https://github.github.com/gh-aw/blog/2026-05-11-weekly-update/",
     "source_type": "blog-post",
     "author": "GitHub Agentic Workflows team (gh-aw)",
