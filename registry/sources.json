@@ -1217,5 +1217,18 @@
     "file": "source-notes/docs-ghaw-practices-experiments.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-html-effectiveness": {
+    "slug": "blog-simonwillison-html-effectiveness",
+    "title": "Using Claude Code: The Unreasonable Effectiveness of HTML",
+    "source_url": "https://simonwillison.net/2026/May/8/unreasonable-effectiveness-of-html/",
+    "source_type": "blog-post",
+    "author": "Simon Willison",
+    "date_published": "2026-05-08",
+    "date_extracted": "2026-05-17",
+    "issue": "#784",
+    "file": "source-notes/blog-simonwillison-html-effectiveness.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
