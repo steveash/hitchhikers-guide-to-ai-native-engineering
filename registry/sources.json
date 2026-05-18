@@ -950,6 +950,19 @@
       "file": "source-notes/blog-simonwillison-tobias-lutke-lehrwerkstatt.md",
       "confidence_overall": "anecdotal",
       "status": "current"
+    },
+    "failure-nyt-ai-fabricated-quote": {
+      "slug": "failure-nyt-ai-fabricated-quote",
+      "title": "Quoting New York Times Editors' Note",
+      "source_url": "https://simonwillison.net/2026/May/10/new-york-times-editors-note/",
+      "source_type": "failure-report",
+      "author": "Simon Willison (quoting The New York Times)",
+      "date_published": "2026-05-10",
+      "date_extracted": "2026-05-18",
+      "issue": "#795",
+      "file": "source-notes/failure-nyt-ai-fabricated-quote.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
