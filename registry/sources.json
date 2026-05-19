@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-cursor-composer-2-5": {
+      "slug": "blog-cursor-composer-2-5",
+      "title": "Introducing Composer 2.5",
+      "source_url": "https://cursor.com/blog/composer-2-5",
+      "source_type": "blog-post",
+      "author": "Cursor Team",
+      "date_published": "2026-05-18",
+      "date_extracted": "2026-05-19",
+      "issue": "#808",
+      "file": "source-notes/blog-cursor-composer-2-5.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-james-shore-maintenance-costs": {
       "slug": "blog-simonwillison-james-shore-maintenance-costs",
       "title": "A quote from James Shore",
