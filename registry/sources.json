@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-james-shore-maintenance-costs": {
+      "slug": "blog-simonwillison-james-shore-maintenance-costs",
+      "title": "A quote from James Shore",
+      "source_url": "https://simonwillison.net/2026/May/11/james-shore/",
+      "source_type": "blog-post",
+      "author": "James Shore (quoted by Simon Willison)",
+      "date_published": "2026-05-11",
+      "date_extracted": "2026-05-19",
+      "issue": "#804",
+      "file": "source-notes/blog-simonwillison-james-shore-maintenance-costs.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-practices-experiments-specification": {
       "slug": "docs-ghaw-practices-experiments-specification",
       "title": "GitHub Agentic Workflows: A/B Experiments Specification (v1.0.0)",
