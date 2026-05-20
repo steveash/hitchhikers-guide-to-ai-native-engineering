@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-claude-managed-agents-selfhosted": {
+      "slug": "blog-anthropic-claude-managed-agents-selfhosted",
+      "title": "New in Claude Managed Agents: self-hosted sandboxes and MCP tunnels",
+      "source_url": "https://claude.com/blog/claude-managed-agents-updates",
+      "source_type": "blog-post",
+      "author": "Anthropic (product announcement)",
+      "date_published": "2026-05-19",
+      "date_extracted": "2026-05-20",
+      "issue": "#820",
+      "file": "source-notes/blog-anthropic-claude-managed-agents-selfhosted.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-simonwillison-mitchell-hashimoto-tdm-dynamics": {
       "slug": "blog-simonwillison-mitchell-hashimoto-tdm-dynamics",
       "title": "Quoting Mitchell Hashimoto",
