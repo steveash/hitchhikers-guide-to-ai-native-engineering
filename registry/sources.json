@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-mitchell-hashimoto-tdm-dynamics": {
+      "slug": "blog-simonwillison-mitchell-hashimoto-tdm-dynamics",
+      "title": "Quoting Mitchell Hashimoto",
+      "source_url": "https://simonwillison.net/2026/May/12/mitchell-hashimoto/",
+      "source_type": "blog-post",
+      "author": "Mitchell Hashimoto (quoted by Simon Willison)",
+      "date_published": "2026-05-12",
+      "date_extracted": "2026-05-20",
+      "issue": "#816",
+      "file": "source-notes/blog-simonwillison-mitchell-hashimoto-tdm-dynamics.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-cli-remote-control-ga": {
       "slug": "docs-github-copilot-cli-remote-control-ga",
       "title": "Remote control for Copilot CLI sessions now generally available on mobile, web, and VS Code",
