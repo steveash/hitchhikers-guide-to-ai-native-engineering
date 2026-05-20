@@ -1360,5 +1360,17 @@
     "file": "source-notes/blog-simonwillison-luke-curley-webrtc.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-github-copilot-cca-fix-failing-actions": {
+    "slug": "docs-github-copilot-cca-fix-failing-actions",
+    "title": "One-click fixes for failing Actions with Copilot cloud agent",
+    "source_url": "https://github.blog/changelog/2026-05-18-one-click-fixes-for-failing-actions-with-copilot-cloud-agent",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_extracted": "2026-05-20",
+    "issue": "#819",
+    "file": "source-notes/docs-github-copilot-cca-fix-failing-actions.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
