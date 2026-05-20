@@ -1385,5 +1385,18 @@
     "file": "source-notes/docs-github-copilot-cca-fix-failing-actions.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "docs-github-copilot-web-contextual-chat": {
+    "slug": "docs-github-copilot-web-contextual-chat",
+    "title": "Ask questions in context with Copilot on web",
+    "source_url": "https://github.blog/changelog/2026-05-18-ask-questions-in-context-with-copilot-on-web",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-05-18",
+    "date_extracted": "2026-05-20",
+    "issue": "#817",
+    "file": "source-notes/docs-github-copilot-web-contextual-chat.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
