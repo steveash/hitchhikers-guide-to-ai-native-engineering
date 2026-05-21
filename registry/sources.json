@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-bryant-cowork-sales": {
+      "slug": "blog-anthropic-bryant-cowork-sales",
+      "title": "How an Anthropic sales leader uses Claude Cowork to run a 4,000-account book",
+      "source_url": "https://claude.com/blog/how-an-anthropic-sales-leader-uses-claude-cowork-to-run-a-4-000-account-book",
+      "source_type": "blog-post",
+      "author": "Travis Bryant (Head of US Mid-Market GTM, Anthropic)",
+      "date_published": "2026-05-20",
+      "date_extracted": "2026-05-21",
+      "issue": "#835",
+      "file": "source-notes/blog-anthropic-bryant-cowork-sales.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-anthropic-claude-managed-agents-selfhosted": {
       "slug": "blog-anthropic-claude-managed-agents-selfhosted",
       "title": "New in Claude Managed Agents: self-hosted sandboxes and MCP tunnels",
