@@ -1411,5 +1411,18 @@
     "file": "source-notes/docs-github-copilot-web-contextual-chat.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "docs-github-copilot-semantic-issue-search": {
+    "slug": "docs-github-copilot-semantic-issue-search",
+    "title": "Semantic issue search in Copilot Chat",
+    "source_url": "https://github.blog/changelog/2026-05-20-semantic-issue-search-in-copilot-chat",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-05-20",
+    "date_extracted": "2026-05-21",
+    "issue": "#834",
+    "file": "source-notes/docs-github-copilot-semantic-issue-search.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
