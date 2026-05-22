@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-cursor-cloud-agent-lessons": {
+      "slug": "blog-cursor-cloud-agent-lessons",
+      "title": "What we've learned building cloud agents",
+      "source_url": "https://cursor.com/blog/cloud-agent-lessons",
+      "source_type": "blog-post",
+      "author": "Josh Ma (Cursor)",
+      "date_published": "2026-05-21",
+      "date_extracted": "2026-05-22",
+      "issue": "#849",
+      "file": "source-notes/blog-cursor-cloud-agent-lessons.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-anthropic-compliance-api-security-partners": {
       "slug": "blog-anthropic-compliance-api-security-partners",
       "title": "Claude now works with more security and compliance tools",
