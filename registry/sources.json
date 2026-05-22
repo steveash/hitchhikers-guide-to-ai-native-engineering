@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-ghaw-dependabot-rollout": {
+      "slug": "docs-ghaw-dependabot-rollout",
+      "title": "GitHub Agentic Workflows Examples: Dependabot Rollout",
+      "source_url": "https://github.github.com/gh-aw/examples/multi-repo/dependabot-rollout",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (official documentation)",
+      "date_published": null,
+      "date_extracted": "2026-05-22",
+      "issue": "#851",
+      "file": "source-notes/docs-ghaw-dependabot-rollout.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-code-quality-monitoring": {
       "slug": "docs-ghaw-code-quality-monitoring",
       "title": "GitHub Agentic Workflows Examples: Multi-Repo Code Quality Monitoring",
