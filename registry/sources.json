@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-ghaw-memory-ops": {
+      "slug": "docs-ghaw-memory-ops",
+      "title": "GitHub Agentic Workflows: MemoryOps Pattern",
+      "source_url": "https://github.github.com/gh-aw/patterns/memory-ops",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_published": null,
+      "date_extracted": "2026-05-22",
+      "issue": "#855",
+      "file": "source-notes/docs-ghaw-memory-ops.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-cursor-cloud-agent-lessons": {
       "slug": "blog-cursor-cloud-agent-lessons",
       "title": "What we've learned building cloud agents",
