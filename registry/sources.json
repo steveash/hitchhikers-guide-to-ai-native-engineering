@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-compliance-api-security-partners": {
+      "slug": "blog-anthropic-compliance-api-security-partners",
+      "title": "Claude now works with more security and compliance tools",
+      "source_url": "https://claude.com/blog/compliance-api-security-partners",
+      "source_type": "blog-post",
+      "author": "Anthropic (product announcement)",
+      "date_published": "2026-05-21",
+      "date_extracted": "2026-05-22",
+      "issue": "#847",
+      "file": "source-notes/blog-anthropic-compliance-api-security-partners.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-anthropic-bryant-cowork-sales": {
       "slug": "blog-anthropic-bryant-cowork-sales",
       "title": "How an Anthropic sales leader uses Claude Cowork to run a 4,000-account book",
