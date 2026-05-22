@@ -1437,5 +1437,18 @@
     "file": "source-notes/docs-github-copilot-cca-apply-review-feedback.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "docs-github-copilot-vscode-auto-model-selection": {
+    "slug": "docs-github-copilot-vscode-auto-model-selection",
+    "title": "Auto model selection now routes based on your task in VS Code",
+    "source_url": "https://github.blog/changelog/2026-05-20-auto-model-selection-now-routes-based-on-your-task-in-vs-code",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-05-20",
+    "date_extracted": "2026-05-22",
+    "issue": "#844",
+    "file": "source-notes/docs-github-copilot-vscode-auto-model-selection.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
