@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-ghaw-code-quality-monitoring": {
+      "slug": "docs-ghaw-code-quality-monitoring",
+      "title": "GitHub Agentic Workflows Examples: Multi-Repo Code Quality Monitoring",
+      "source_url": "https://github.github.com/gh-aw/examples/multi-repo/code-quality-monitoring",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (official documentation)",
+      "date_published": null,
+      "date_extracted": "2026-05-22",
+      "issue": "#850",
+      "file": "source-notes/docs-ghaw-code-quality-monitoring.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-memory-ops": {
       "slug": "docs-ghaw-memory-ops",
       "title": "GitHub Agentic Workflows: MemoryOps Pattern",
