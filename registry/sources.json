@@ -1541,5 +1541,18 @@
     "file": "source-notes/docs-github-copilot-web-model-consolidation.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "blog-anthropic-opus-cybersecurity-partners": {
+    "slug": "blog-anthropic-opus-cybersecurity-partners",
+    "title": "How our partners are putting Opus to work for cybersecurity",
+    "source_url": "https://claude.com/blog/how-our-partners-are-putting-opus-to-work-for-cybersecurity",
+    "source_type": "blog-post",
+    "author": "Anthropic (no individual byline)",
+    "date_published": "2026-05-21",
+    "date_extracted": "2026-05-22",
+    "issue": "#848",
+    "file": "source-notes/blog-anthropic-opus-cybersecurity-partners.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
