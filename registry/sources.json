@@ -1158,6 +1158,19 @@
       "file": "source-notes/docs-ghaw-multi-repo-issue-tracking.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-ghaw-maintaining-repos": {
+      "slug": "docs-ghaw-maintaining-repos",
+      "title": "GitHub Agentic Workflows Examples: Automated Repository Maintenance",
+      "source_url": "https://github.github.com/gh-aw/examples/maintaining-repos",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (official documentation)",
+      "date_published": null,
+      "date_extracted": "2026-05-23",
+      "issue": "#876",
+      "file": "source-notes/docs-ghaw-maintaining-repos.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
