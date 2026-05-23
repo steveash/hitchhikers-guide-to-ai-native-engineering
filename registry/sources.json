@@ -1567,5 +1567,18 @@
     "file": "source-notes/blog-thebatch-hermes-openclaw-tml-cybersecurity.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-not-locked-in": {
+    "slug": "blog-simonwillison-not-locked-in",
+    "title": "Not so locked in any more",
+    "source_url": "https://simonwillison.net/2026/May/14/not-so-locked-in/",
+    "source_type": "blog-post",
+    "author": "Simon Willison",
+    "date_published": "2026-05-14",
+    "date_extracted": "2026-05-23",
+    "issue": "#871",
+    "file": "source-notes/blog-simonwillison-not-locked-in.md",
+    "confidence_overall": "anecdotal",
+    "status": "current"
   }
 }
