@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-fong-finance-narrative": {
+      "slug": "blog-anthropic-fong-finance-narrative",
+      "title": "How Anthropic's finance team uses Claude to shape the narrative behind the numbers",
+      "source_url": "https://claude.com/blog/how-anthropics-finance-team-uses-claude-to-shape-the-narrative-behind-the-numbers",
+      "source_type": "blog-post",
+      "author": "Alice Fong (corporate finance and strategy team, Anthropic)",
+      "date_published": "2026-05-22",
+      "date_extracted": "2026-05-23",
+      "issue": "#873",
+      "file": "source-notes/blog-anthropic-fong-finance-narrative.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-ghaw-dependabot-rollout": {
       "slug": "docs-ghaw-dependabot-rollout",
       "title": "GitHub Agentic Workflows Examples: Dependabot Rollout",
