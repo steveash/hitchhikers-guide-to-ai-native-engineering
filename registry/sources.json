@@ -1554,5 +1554,18 @@
     "file": "source-notes/blog-anthropic-opus-cybersecurity-partners.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-thebatch-hermes-openclaw-tml-cybersecurity": {
+    "slug": "blog-thebatch-hermes-openclaw-tml-cybersecurity",
+    "title": "The Batch Issue 354: Hermes vs. OpenClaw, Cybersecurity Alarms Ring, More-Interactive Conversations, Can Agents Do Human Work?",
+    "source_url": "https://www.deeplearning.ai/the-batch/issue-354",
+    "source_type": "blog-post",
+    "author": "DeepLearning.AI / Andrew Ng (editorial)",
+    "date_published": "2026-05-22",
+    "date_extracted": "2026-05-23",
+    "issue": "#875",
+    "file": "source-notes/blog-thebatch-hermes-openclaw-tml-cybersecurity.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
