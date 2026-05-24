@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-datasette-llm-limits": {
+      "slug": "blog-simonwillison-datasette-llm-limits",
+      "title": "datasette-llm-limits 0.1a0",
+      "source_url": "https://simonwillison.net/2026/May/15/datasette-llm-limits/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-15",
+      "date_extracted": "2026-05-24",
+      "issue": "#890",
+      "file": "source-notes/blog-simonwillison-datasette-llm-limits.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-anthropic-fong-finance-narrative": {
       "slug": "blog-anthropic-fong-finance-narrative",
       "title": "How Anthropic's finance team uses Claude to shape the narrative behind the numbers",
