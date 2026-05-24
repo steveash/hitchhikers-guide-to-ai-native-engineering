@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-langchain-better-harness-evals": {
+      "slug": "blog-langchain-better-harness-evals",
+      "title": "Better Harness: A Recipe for Harness Hill-Climbing with Evals",
+      "source_url": "https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals",
+      "source_type": "blog-post",
+      "author": "Vivek Trivedy (LangChain)",
+      "date_published": "2026-04-08",
+      "date_extracted": "2026-05-24",
+      "issue": "#107",
+      "file": "source-notes/blog-langchain-better-harness-evals.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-datasette-blog-codex-session": {
       "slug": "blog-simonwillison-datasette-blog-codex-session",
       "title": "Welcome to the Datasette blog",
