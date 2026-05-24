@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-datasette-blog-codex-session": {
+      "slug": "blog-simonwillison-datasette-blog-codex-session",
+      "title": "Welcome to the Datasette blog",
+      "source_url": "https://simonwillison.net/2026/May/13/welcome-to-the-datasette-blog/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-13",
+      "date_extracted": "2026-05-24",
+      "issue": "#842",
+      "file": "source-notes/blog-simonwillison-datasette-blog-codex-session.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-simonwillison-datasette-llm-limits": {
       "slug": "blog-simonwillison-datasette-llm-limits",
       "title": "datasette-llm-limits 0.1a0",
