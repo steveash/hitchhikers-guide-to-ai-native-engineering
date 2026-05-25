@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-datasette-agent": {
+      "slug": "blog-simonwillison-datasette-agent",
+      "title": "Datasette Agent",
+      "source_url": "https://simonwillison.net/2026/May/21/datasette-agent/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-21",
+      "date_extracted": "2026-05-25",
+      "issue": "#869",
+      "file": "source-notes/blog-simonwillison-datasette-agent.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-semantic-issue-search": {
       "slug": "docs-github-copilot-semantic-issue-search",
       "title": "Semantic issue search in Copilot Chat",
