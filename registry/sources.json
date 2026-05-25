@@ -1366,6 +1366,19 @@
       "file": "source-notes/docs-ghaw-dependencies-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-github-copilot-issues-projects-sessions": {
+      "slug": "docs-github-copilot-issues-projects-sessions",
+      "title": "View and manage agent sessions from issues and projects",
+      "source_url": "https://github.blog/changelog/2026-04-23-view-and-manage-agent-sessions-from-issues-and-projects",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-04-23",
+      "date_extracted": "2026-05-25",
+      "issue": "#385",
+      "file": "source-notes/docs-github-copilot-issues-projects-sessions.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
