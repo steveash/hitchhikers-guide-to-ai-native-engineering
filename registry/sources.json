@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-legal-industry-deploy": {
+      "slug": "blog-anthropic-legal-industry-deploy",
+      "title": "Deploying Claude across the legal industry (Practitioner Deployment Guide)",
+      "source_url": "https://claude.com/blog/deploying-claude-across-the-legal-industry",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_published": "2026-05-15",
+      "date_extracted": "2026-05-25",
+      "issue": "#760",
+      "file": "source-notes/blog-anthropic-legal-industry-deploy.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-team-level-usage-metrics": {
       "slug": "docs-github-copilot-team-level-usage-metrics",
       "title": "Team-level Copilot usage metrics now available via API",
