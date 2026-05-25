@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-cursor-third-era": {
+      "slug": "blog-cursor-third-era",
+      "title": "The third era of AI software development",
+      "source_url": "https://cursor.com/blog/third-era",
+      "source_type": "blog-post",
+      "author": "Michael Truell (Cursor CEO)",
+      "date_published": "2026-02-26",
+      "date_extracted": "2026-05-25",
+      "issue": "#141",
+      "file": "source-notes/blog-cursor-third-era.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-guides-reusing-workflows": {
       "slug": "docs-ghaw-guides-reusing-workflows",
       "title": "GitHub Agentic Workflows: Reusing Workflows (Guides)",
