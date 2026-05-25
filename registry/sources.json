@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-not-locked-in": {
+      "slug": "blog-simonwillison-not-locked-in",
+      "title": "Not so locked in any more",
+      "source_url": "https://simonwillison.net/2026/May/14/not-so-locked-in/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-14",
+      "date_extracted": "2026-05-25",
+      "issue": "#871",
+      "file": "source-notes/blog-simonwillison-not-locked-in.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-simonwillison-llm-openrouter-06": {
       "slug": "blog-simonwillison-llm-openrouter-06",
       "title": "llm-openrouter 0.6",
