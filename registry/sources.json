@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-ghaw-cost-management": {
+      "slug": "docs-ghaw-cost-management",
+      "title": "GitHub Agentic Workflows: Cost Management Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/cost-management",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_published": null,
+      "date_extracted": "2026-05-25",
+      "issue": "#375",
+      "file": "source-notes/docs-ghaw-cost-management.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-patterns-spec-ops": {
       "slug": "docs-ghaw-patterns-spec-ops",
       "title": "GitHub Agentic Workflows: SpecOps Pattern",
