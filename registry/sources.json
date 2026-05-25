@@ -1671,5 +1671,18 @@
     "file": "source-notes/blog-thebatch-hermes-openclaw-tml-cybersecurity.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-cursor-cloud-agent-dev-environments": {
+    "slug": "blog-cursor-cloud-agent-dev-environments",
+    "title": "Development environments for your cloud agents",
+    "source_url": "https://cursor.com/blog/cloud-agent-development-environments",
+    "source_type": "blog-post",
+    "author": "Samantha Whitmore, David Wetterau & Nick Bradford (Cursor)",
+    "date_published": "2026-05-13",
+    "date_extracted": "2026-05-25",
+    "issue": "#736",
+    "file": "source-notes/blog-cursor-cloud-agent-dev-environments.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
