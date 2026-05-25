@@ -1840,5 +1840,18 @@
     "file": "source-notes/blog-ronacher-pi-oss.md",
     "confidence_overall": "anecdotal",
     "status": "current"
+  },
+  "docs-ghaw-guides-network-configuration": {
+    "slug": "docs-ghaw-guides-network-configuration",
+    "title": "GitHub Agentic Workflows: Network Configuration (Guides)",
+    "source_url": "https://github.github.com/gh-aw/guides/network-configuration",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_published": null,
+    "date_extracted": "2026-05-25",
+    "issue": "#439",
+    "file": "source-notes/docs-ghaw-guides-network-configuration.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
