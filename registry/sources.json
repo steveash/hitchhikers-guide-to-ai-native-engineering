@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-jetbrains-cli-agent-sessions": {
+      "slug": "docs-github-copilot-jetbrains-cli-agent-sessions",
+      "title": "Introducing Copilot CLI agent and unified sessions view in GitHub Copilot for JetBrains IDEs",
+      "source_url": "https://github.blog/changelog/2026-05-13-introducing-copilot-cli-agent-and-unified-sessions-view-in-github-copilot-for-jetbrains-ides",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-13",
+      "date_extracted": "2026-05-25",
+      "issue": "#744",
+      "file": "source-notes/docs-github-copilot-jetbrains-cli-agent-sessions.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-fuzzy-schedule-specification": {
       "slug": "docs-ghaw-fuzzy-schedule-specification",
       "title": "GitHub Agentic Workflows: Fuzzy Schedule Time Syntax Specification",
