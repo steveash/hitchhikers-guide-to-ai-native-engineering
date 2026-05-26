@@ -1509,6 +1509,19 @@
       "file": "source-notes/docs-ghaw-mcp-scripts-specification.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-llm-shebang": {
+      "slug": "blog-simonwillison-llm-shebang",
+      "title": "Using LLM in the shebang line of a script",
+      "source_url": "https://simonwillison.net/2026/May/11/llm-shebang/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-11",
+      "date_extracted": "2026-05-26",
+      "issue": "#802",
+      "file": "source-notes/blog-simonwillison-llm-shebang.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
