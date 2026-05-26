@@ -1996,5 +1996,18 @@
     "file": "source-notes/docs-ghaw-repo-memory-reference.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-ghaw-guides-maintaining-repos": {
+    "slug": "docs-ghaw-guides-maintaining-repos",
+    "title": "GitHub Agentic Workflows: Guides \u2014 Maintaining Repositories",
+    "source_url": "https://github.github.com/gh-aw/guides/maintaining-repos",
+    "source_type": "docs",
+    "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+    "date_published": null,
+    "date_extracted": "2026-05-26",
+    "issue": "#437",
+    "file": "source-notes/docs-ghaw-guides-maintaining-repos.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
