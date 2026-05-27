@@ -2074,5 +2074,18 @@
     "file": "source-notes/docs-ghaw-engines-reference.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-ronacher-clanker-terminology": {
+    "slug": "blog-ronacher-clanker-terminology",
+    "title": "Clanker: A Word For The Machine",
+    "source_url": "https://lucumr.pocoo.org/2026/5/26/clankers/",
+    "source_type": "blog-post",
+    "author": "Armin Ronacher",
+    "date_published": "2026-05-26",
+    "date_extracted": "2026-05-27",
+    "issue": "#956",
+    "file": "source-notes/blog-ronacher-clanker-terminology.md",
+    "confidence_overall": "anecdotal",
+    "status": "current"
   }
 }
