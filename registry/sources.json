@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-code-w-claude-london-2026": {
+      "slug": "blog-anthropic-code-w-claude-london-2026",
+      "title": "Code w/ Claude London 2026: Rethinking how we build",
+      "source_url": "https://claude.com/blog/code-w-claude-london-2026-rethinking-how-we-build",
+      "source_type": "blog-post",
+      "author": "Anthropic (Boris Cherny, Head of Claude Code; Lisa Crofoot, Research Product Manager)",
+      "date_published": "2026-05-26",
+      "date_extracted": "2026-05-27",
+      "issue": "#960",
+      "file": "source-notes/blog-anthropic-code-w-claude-london-2026.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-ghaw-cross-repository-reference": {
       "slug": "docs-ghaw-cross-repository-reference",
       "title": "GitHub Agentic Workflows: Cross-Repository Operations Reference",
