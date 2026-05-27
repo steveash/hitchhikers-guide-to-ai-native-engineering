@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-how-contain-claude": {
+      "slug": "blog-anthropic-how-contain-claude",
+      "title": "How we contain Claude across products",
+      "source_url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+      "source_type": "blog-post",
+      "author": "Anthropic Engineering",
+      "date_published": "2026-05-25",
+      "date_extracted": "2026-05-27",
+      "issue": "#959",
+      "file": "source-notes/blog-anthropic-how-contain-claude.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-anthropic-code-w-claude-london-2026": {
       "slug": "blog-anthropic-code-w-claude-london-2026",
       "title": "Code w/ Claude London 2026: Rethinking how we build",
