@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-ghaw-agent-of-the-day-2026-05-27": {
+      "slug": "blog-ghaw-agent-of-the-day-2026-05-27",
+      "title": "Agent of the Day – May 27, 2026: Agent Performance Analyzer",
+      "source_url": "https://github.github.com/gh-aw/blog/2026-05-27-agent-of-the-day/",
+      "source_type": "blog-post",
+      "author": "GitHub Agentic Workflows team (gh-aw), bylined \"By Copilot\"",
+      "date_published": "2026-05-27",
+      "date_extracted": "2026-05-28",
+      "issue": "#977",
+      "file": "source-notes/blog-ghaw-agent-of-the-day-2026-05-27.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-gemini35-flash-pricing": {
       "slug": "blog-simonwillison-gemini35-flash-pricing",
       "title": "Gemini 3.5 Flash: more expensive, but Google plan to use it for everything",
