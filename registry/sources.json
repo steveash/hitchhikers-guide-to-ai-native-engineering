@@ -2126,5 +2126,18 @@
     "file": "source-notes/blog-ronacher-clanker-terminology.md",
     "confidence_overall": "anecdotal",
     "status": "current"
+  },
+  "blog-anthropic-zero-trust-ai-agents": {
+    "slug": "blog-anthropic-zero-trust-ai-agents",
+    "title": "Zero Trust for AI Agents",
+    "source_url": "https://claude.com/blog/zero-trust-for-ai-agents",
+    "source_type": "blog-post",
+    "author": "Anthropic (Claude Security team)",
+    "date_published": "2026-05-27",
+    "date_extracted": "2026-05-28",
+    "issue": "#976",
+    "file": "source-notes/blog-anthropic-zero-trust-ai-agents.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
