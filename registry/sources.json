@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-gemini35-flash-pricing": {
+      "slug": "blog-simonwillison-gemini35-flash-pricing",
+      "title": "Gemini 3.5 Flash: more expensive, but Google plan to use it for everything",
+      "source_url": "https://simonwillison.net/2026/May/19/gemini-35-flash/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-19",
+      "date_extracted": "2026-05-28",
+      "issue": "#972",
+      "file": "source-notes/blog-simonwillison-gemini35-flash-pricing.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-anthropic-how-contain-claude": {
       "slug": "blog-anthropic-how-contain-claude",
       "title": "How we contain Claude across products",
