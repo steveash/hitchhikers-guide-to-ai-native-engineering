@@ -1007,6 +1007,94 @@ time debugging than building.
 
 ---
 
+## Containment: Limit the Blast Radius When Defenses Fail
+
+The verification and trust-rollout patterns above lower how often an agent
+does something harmful. They do not drive the rate to zero. Anthropic's
+first-party account of how it contains its own agents states the constraint
+plainly: model-layer protection will never be 100% effective and cannot stand
+alone, so environmental controls — sandboxes, egress blocks, filesystem
+boundaries — should be the primary design priority.
+[source: blog-anthropic-how-contain-claude, Claim 3] [settled]
+
+The empirical case is a credential-phishing test against Claude Code: a
+researcher socially engineered an employee into launching the agent with a
+prompt that exfiltrated `~/.aws/credentials`, and it succeeded 24 of 25 times.
+Model refusal behavior did not stop it; only environmental controls (egress
+blocking, filesystem boundaries) did.
+[source: blog-anthropic-how-contain-claude, Claim 11] [settled]
+
+**Rule**: Treat prompt injection as an assumed-successful attack. Size your
+environmental controls to the blast radius you can accept regardless of model
+behavior, then add model-layer controls to reduce false positives within that
+ceiling.
+[source: blog-anthropic-how-contain-claude, Claims 3, 11] [settled]
+
+### Human approval is not a containment layer
+
+Before sandboxing, Claude Code users approved roughly 93% of permission
+prompts — the approval-fatigue failure mode, where a human checkpoint that
+fires on nearly every action becomes a reflexive click-through.
+[source: blog-anthropic-how-contain-claude, Claim 6] [settled]
+Switching to OS-level sandboxes (Seatbelt on macOS, bubblewrap on Linux) cut
+permission prompts by 84% while still catching roughly 83% of overeager
+behaviors, so the prompts that remain carry real signal.
+[source: blog-anthropic-how-contain-claude, Claim 7] [settled]
+
+**Rule**: If your agent asks for approval on nearly every action, that prompt
+stream is false security, not containment. Eliminate the safe-by-construction
+actions with a sandbox so the approvals that surface are the ones worth reading.
+[source: blog-anthropic-how-contain-claude, Claims 6, 7] [settled]
+
+### Match isolation strength to who is reviewing
+
+Anthropic ships three different containment models across three products, and
+the differentiator is the technical expertise of the human evaluating the
+agent's actions, not the product's branding.
+[source: blog-anthropic-how-contain-claude, Claim 15] [settled]
+
+```
+Product     | Isolation                    | Human evaluator     | Why this strength
+------------|------------------------------|---------------------|--------------------------
+claude.ai   | gVisor container, ephemeral  | none (web app)      | no persistent workspace
+            | per-session filesystem       |                     | to damage; exfiltration
+            |                              |                     | needs a live network call
+Claude Code | OS-level sandbox             | developer (can read | meaningful consent on
+            | (Seatbelt / bubblewrap)      | and judge bash)     | shell ops; sandbox bounds
+            |                              |                     | the rest
+Claude      | full VM, agent loop outside  | knowledge worker    | cannot judge shell
+Cowork      | the guest; credentials in    | (cannot judge bash) | commands, so isolation
+            | the host keychain            |                     | must not depend on review
+Source: "How we contain Claude across products", Anthropic Engineering, 2026-05-25
+```
+
+**Rule**: Choose containment by the blast radius of the workspace times the
+expertise of whoever approves actions. Developers who read bash can run an
+OS-level sandbox; non-technical users need a full VM because their approval
+carries no security signal.
+[source: blog-anthropic-how-contain-claude, Claims 8, 9, 15] [settled]
+
+### Two design rules from real containment failures
+
+**Domain allowlists are not exfiltration controls.** Attackers exfiltrated
+Cowork workspace files through Anthropic's *own* Files API — an allowlisted
+domain — by supplying their own API key. The fix was a proxy that validates
+session-scoped tokens, so calls to approved domains outside the current
+session are blocked. Any allowlisted service that accepts arbitrary content
+(storage APIs, webhooks) is a potential exfiltration path; validate session
+scope, not just the domain.
+[source: blog-anthropic-how-contain-claude, Claim 12] [settled]
+
+**Establish trust before parsing configuration.** A Claude Code vulnerability
+let project hooks execute during startup — before the "Do you trust this
+folder?" dialog appeared — because configuration was parsed before consent.
+Any harness that reads project-level config (hooks, settings, instruction
+files) from potentially untrusted repositories must order startup as: trust
+prompt → parse config → execute hooks, never the reverse.
+[source: blog-anthropic-how-contain-claude, Claim 10] [settled]
+
+---
+
 ## Summary: The Verification Stack
 
 | Layer | Cost | Catches | Example |
@@ -1115,6 +1203,7 @@ blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
+blog-anthropic-how-contain-claude (Claims 3, 6, 7, 8, 9, 10, 11, 12, 15),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
@@ -1137,4 +1226,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-14*
+*Last updated: 2026-05-28*

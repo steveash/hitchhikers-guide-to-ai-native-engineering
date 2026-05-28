@@ -611,15 +611,30 @@ case
 [source: docs-github-copilot-claude-sonnet4-deprecation, Claim 3]
 [settled].
 
+There is now a mitigation from the vendor side. In May 2026 GitHub made
+GPT-5.3-Codex the default base model for Copilot Business and Enterprise,
+replacing GPT-4.1, and designated it GitHub's first long-term support (LTS)
+model — availability guaranteed from February 5, 2026 through February 4,
+2027.
+[source: docs-github-copilot-gpt53codex-base-model, Claims 1, 2, 3] [settled]
+An LTS designation inverts the shelf-life problem for configurations built
+around that model: GPT-5.3-Codex is a known-stable target until February 2027
+rather than a weeks-to-months gamble. It does not remove the governance
+work — it converts an unannounced deadline into a scheduled one.
+[source: docs-github-copilot-gpt53codex-base-model, Claim 2] [settled]
+
 **Rule**: Treat model identifiers as versioned dependencies. Prefer
 auto-routing or admin-policy-managed selection over hardcoded model
 names in scripts, harness configurations, or CI jobs. Maintain admin
 policy entries for the *next* generation of every model your team
 uses — based on the model roadmap, not the deprecation notice — so
 that a zero-notice retirement leaves a working successor already
-enabled.
+enabled. Where the platform offers a long-term-support model, prefer it
+for configurations you will not actively maintain, and put its LTS end
+date on the migration calendar.
 [source: docs-github-copilot-gpt52-deprecation, Claims 5, 7;
 docs-github-copilot-claude-sonnet4-deprecation, Claims 2, 3, 8;
+docs-github-copilot-gpt53codex-base-model, Claims 2, 3;
 blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
 
 ---
@@ -1371,6 +1386,7 @@ docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
 docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
 docs-github-copilot-gpt52-deprecation (Claims 5, 7),
+docs-github-copilot-gpt53codex-base-model (Claims 1, 2, 3),
 docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
 discussion-hn-agentic-coding-jobs (Claim 10),
 failure-sukit-parallel-session-ceiling (Lesson 4),
@@ -1380,4 +1396,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-05-28*
