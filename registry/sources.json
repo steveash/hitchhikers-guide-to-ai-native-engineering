@@ -2178,5 +2178,18 @@
     "file": "source-notes/blog-simonwillison-datasette-agent-charts.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-anthropic-dynamic-workflows-claude-code": {
+    "slug": "blog-anthropic-dynamic-workflows-claude-code",
+    "title": "Introducing dynamic workflows in Claude Code",
+    "source_url": "https://claude.com/blog/introducing-dynamic-workflows-in-claude-code",
+    "source_type": "blog-post",
+    "author": "Anthropic (Claude team, no individual byline)",
+    "date_published": "2026-05-28",
+    "date_extracted": "2026-05-29",
+    "issue": "#988",
+    "file": "source-notes/blog-anthropic-dynamic-workflows-claude-code.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
