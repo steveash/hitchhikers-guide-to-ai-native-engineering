@@ -2,7 +2,7 @@
   "sources": {
     "blog-ghaw-agent-of-the-day-2026-05-28": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-28",
-      "title": "Agent of the Day – May 28, 2026: Dead Code Removal Agent",
+      "title": "Agent of the Day \u2013 May 28, 2026: Dead Code Removal Agent",
       "source_url": "https://github.github.com/gh-aw/blog/2026-05-28-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw), bylined \"By Copilot\"",
@@ -1611,6 +1611,19 @@
       "date_extracted": "2026-05-29",
       "issue": "#985",
       "file": "source-notes/blog-simonwillison-gemini-spark-antigravity.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
+    "docs-ghaw-outcomes-reference": {
+      "slug": "docs-ghaw-outcomes-reference",
+      "title": "GitHub Agentic Workflows: Outcomes Reference",
+      "source_url": "https://github.github.com/gh-aw/reference/outcomes",
+      "source_type": "docs",
+      "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
+      "date_published": null,
+      "date_extracted": "2026-05-29",
+      "issue": "#991",
+      "file": "source-notes/docs-ghaw-outcomes-reference.md",
       "confidence_overall": "emerging",
       "status": "current"
     }
