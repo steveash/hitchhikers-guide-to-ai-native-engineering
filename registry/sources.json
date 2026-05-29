@@ -2152,5 +2152,18 @@
     "file": "source-notes/blog-anthropic-zero-trust-ai-agents.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-datasette-agent-charts": {
+    "slug": "blog-simonwillison-datasette-agent-charts",
+    "title": "datasette-agent-charts 0.1a1",
+    "source_url": "https://simonwillison.net/2026/May/20/datasette-agent-charts/",
+    "source_type": "blog-post",
+    "author": "Simon Willison",
+    "date_published": "2026-05-20",
+    "date_extracted": "2026-05-29",
+    "issue": "#984",
+    "file": "source-notes/blog-simonwillison-datasette-agent-charts.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
