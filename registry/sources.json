@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-usage-metrics-adoption-cohorts": {
+      "slug": "docs-github-copilot-usage-metrics-adoption-cohorts",
+      "title": "Copilot usage metrics API adds cohorts for AI adoption",
+      "source_url": "https://github.blog/changelog/2026-05-29-copilot-usage-metrics-api-adds-cohorts-for-ai-adoption",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-05-29",
+      "date_extracted": "2026-05-30",
+      "issue": "#1001",
+      "file": "source-notes/docs-github-copilot-usage-metrics-adoption-cohorts.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-ghaw-agent-of-the-day-2026-05-28": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-28",
       "title": "Agent of the Day \u2013 May 28, 2026: Dead Code Removal Agent",
