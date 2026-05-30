@@ -1310,6 +1310,47 @@ bottlenecks. Context-needs decomposition asks: what does each agent need to
 know to do its work? Decompose so each agent holds the minimum context it
 actually needs.
 
+### Dynamic workflows: a hosted path to orchestrator-subagent
+
+The five patterns above assume you build the orchestration yourself. Claude
+Code's **dynamic workflows** (research preview, May 2026) ship the
+orchestrator-subagent pattern as a platform feature: rather than executing a
+coordination graph you wrote, Claude "dynamically writes orchestration scripts"
+and fans out across "tens to hundreds of parallel subagents in a single
+session"
+[source: blog-anthropic-dynamic-workflows-claude-code, Claims 1, 2] [emerging].
+A built-in step holds results until internal checks pass — "checking its work
+before anything reaches you" — implementing the generator-verifier split as a
+platform primitive instead of a harness you assemble
+[source: blog-anthropic-dynamic-workflows-claude-code, Claim 3] [emerging].
+
+Two access paths exist: ask Claude directly to create a workflow, or enable the
+`ultracode` setting (effort level "xhigh"), which delegates to Claude the
+decision of *when* to deploy a workflow. The feature is research-preview only,
+on Max, Team, and Enterprise plans.
+[source: blog-anthropic-dynamic-workflows-claude-code, Claims 5, 9] [settled]
+
+The headline case study is the largest-scale agent-driven migration in the
+corpus with concrete quality metrics: Jarred Sumner (creator of Bun) used
+dynamic workflows to port the Bun runtime from Zig to Rust, generating "roughly
+750,000 lines of Rust" with "99.8% of the existing test suite passing" in
+"eleven days from first commit to merge"
+[source: blog-anthropic-dynamic-workflows-claude-code, Claim 6] [emerging].
+It is a single named-practitioner case, not a replicated benchmark.
+
+The cost lever is the catch. "Dynamic workflows can consume substantially more
+tokens than a typical Claude Code session," and consumption scales with the
+number of simultaneous subagents — a workflow fanning out to hundreds of agents
+costs proportionally more than one session.
+[source: blog-anthropic-dynamic-workflows-claude-code, Claim 8] [settled]
+
+**Rule**: Before building a custom orchestrator-subagent harness for a
+codebase-wide bug hunt, audit, or large migration, check whether Claude Code
+dynamic workflows cover the case first (research preview; Max/Team/Enterprise
+only) — but prototype on a scoped task to calibrate token cost before pointing
+`ultracode` at a production-scale codebase.
+[source: blog-anthropic-dynamic-workflows-claude-code, Claims 5, 8] [emerging]
+
 ---
 
 ## Anti-Patterns (With Evidence)
@@ -1428,6 +1469,7 @@ only measured production cost of omitting one in our corpus.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
+blog-anthropic-dynamic-workflows-claude-code (Claims 1, 2, 3, 5, 6, 8, 9),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
@@ -1446,4 +1488,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-09*
+*Last updated: 2026-05-30*

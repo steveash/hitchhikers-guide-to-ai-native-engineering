@@ -1005,6 +1005,51 @@ context, or retrieval before iterating. Skip this and you will spend more
 time debugging than building.
 [source: blog-anthropic-carta-healthcare-context-engineering, Claims 5, 6] [emerging]
 
+### Design controls for an attacker with unlimited patience
+
+The threat model above changes how you evaluate every control. Anthropic's
+Zero Trust for AI Agents framework (May 2026) reduces the test to one question:
+"does this make the attack impossible, or just tedious?" Friction-based
+controls — rate limits, non-standard ports, SMS-based MFA — "degrade
+significantly against an adversary that can grind through tedious steps at
+scale": "Agentic attackers have unlimited patience and near-zero per-attempt
+cost"
+[source: blog-anthropic-zero-trust-ai-agents, Claim 3] [emerging]. The controls
+that survive remove a capability rather than throttling it: "prefer a control
+that removes a capability over a control that throttles it"
+[source: blog-anthropic-zero-trust-ai-agents, Claim 4] [settled].
+
+The most immediately actionable application is credentials. Static API keys and
+shared service-account passwords "are no longer a legitimate entry point, not
+even at Foundation" — short-lived, identity-provider-issued tokens (minutes
+expiry) are the new minimum: "Rotating a credential that can be grepped out of
+a lockfile does not raise the cost to an AI-assisted attacker meaningfully"
+[source: blog-anthropic-zero-trust-ai-agents, Claim 12] [settled].
+
+This is shipping in production, not just prescribed. Google's Gemini Spark runs
+every task in "a fresh, strictly isolated, ephemeral VM" so session state
+cannot persist by design
+[source: blog-simonwillison-gemini-spark-antigravity, Claim 3] [emerging], and
+routes all traffic through a "secure Agent Gateway that enforces Data Loss
+Prevention (DLP) policies" the agent cannot bypass
+[source: blog-simonwillison-gemini-spark-antigravity, Claim 4] [emerging]. DLP
+at the gateway, not in the prompt, means a prompt-injected agent cannot
+exfiltrate what the gateway structurally blocks.
+
+For the prompt-injection surface (see §Prompt injection in workflow inputs
+above), the highest-evidence mitigation is input isolation by delimiting
+untrusted content: Microsoft's Spotlighting technique "reduces indirect
+injection attack success from over 50% to under 2% by clearly delimiting
+untrusted content"
+[source: blog-anthropic-zero-trust-ai-agents, Claim 13] [emerging].
+
+**Rule**: Evaluate every agent security control with one question — does it
+make the attack impossible, or just tedious? Remove capabilities rather than
+throttle them: replace static API keys with minutes-expiry tokens, enforce
+data-loss controls at a gateway the agent cannot bypass, and delimit untrusted
+input before it reaches the model.
+[source: blog-anthropic-zero-trust-ai-agents, Claims 3, 4, 12, 13] [emerging]
+
 ---
 
 ## Summary: The Verification Stack
@@ -1116,6 +1161,8 @@ blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-anthropic-zero-trust-ai-agents (Claims 3, 4, 12, 13),
+blog-simonwillison-gemini-spark-antigravity (Claims 3, 4),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
@@ -1137,4 +1184,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-14*
+*Last updated: 2026-05-30*

@@ -842,6 +842,71 @@ These fields are a no-cost starting point for teams before investing in
 a full Faros-style cohort study — if you are on GitHub Enterprise Cloud,
 you already have access.
 
+### Adoption depth, not just adoption breadth (enterprise GitHub)
+
+The Copilot usage metrics API added a second measurement dimension in May 2026:
+a four-phase **adoption cohort** model that classifies each engaged user — over
+a rolling 28-day window — as Code First (code completion and/or IDE agent
+mode), Agent First (a single GitHub-based agent surface: cloud agent, code
+review, or CLI), or Multi-agent (two or more agent surfaces, or the GitHub
+Copilot app)
+[source: docs-github-copilot-usage-metrics-adoption-cohorts, Claims 1, 3, 4, 5]
+[settled]. A `totals_by_ai_adoption_phase` array exposes per-phase aggregates
+at org and enterprise level, and the phase data combines with the existing
+teams filter for a team-by-phase view
+[source: docs-github-copilot-usage-metrics-adoption-cohorts, Claims 6, 9]
+[settled].
+
+This is the breadth-versus-depth distinction made measurable: active-user
+counts answer "how many engineers use Copilot," the phase distribution answers
+"at what capability level." The vendor's highest-leverage intended use is
+targeted enablement — find which teams cluster in the lowest phase and direct
+training there
+[source: docs-github-copilot-usage-metrics-adoption-cohorts, Claim 11]
+[anecdotal].
+
+**Caveat**: the 28-day rolling window measures *current* engagement, not
+cumulative achievement — a user who stops using agent surfaces drops back a
+phase
+[source: docs-github-copilot-usage-metrics-adoption-cohorts, Claim 1]
+[settled]. Track phase distribution as monthly snapshots over time, and store
+the per-record `version` field so a future change to the classification logic
+does not silently break historical comparisons
+[source: docs-github-copilot-usage-metrics-adoption-cohorts, Claim 8] [settled].
+
+**Rule**: Measure adoption depth (phase distribution) alongside breadth
+(active-user counts); on GitHub Enterprise the phase model is the vendor-native
+primitive for doing so.
+[source: docs-github-copilot-usage-metrics-adoption-cohorts, Claims 1, 5]
+[settled]
+
+### Measuring autonomous workflows: outcome efficiency, not token cost
+
+The metrics above measure developer-tool ROI. Teams running *autonomous*
+agentic workflows (the multi-repo topologies above) need a different measure,
+because a workflow's token cost alone is ambiguous: "A workflow can become
+cheaper because it became more efficient, or because it simply did less useful
+work" [source: docs-ghaw-outcomes-reference, Claim 3] [settled]. GitHub Agentic
+Workflows resolves the ambiguity with **outcome efficiency** — effective tokens
+divided by accepted outcomes, lower is better — where an accepted outcome is
+"the simplest useful unit": a merged PR, a completed issue, a label or comment
+that stuck [source: docs-ghaw-outcomes-reference, Claims 2, 5] [settled].
+
+The companion principle is timing. Cost signals arrive early and immediately;
+outcome signals are "delayed and downstream" — a PR matters only once merged,
+an issue only once resolved
+[source: docs-ghaw-measuring-impact, Claim 2] [settled]. The guidance is
+therefore to keep the two apart: "Do not try to collapse them into a single
+score" [source: docs-ghaw-measuring-impact, Claim 1] [emerging]. A workflow
+that looks cheap on week-one token cost may be producing rejected output that
+only surfaces in the outcome data weeks later.
+
+**Rule**: Judge an autonomous workflow by outcome efficiency (effective tokens
+per accepted outcome), not token cost alone — and do not kill or keep a
+workflow on early cost data before its outcome signals have accumulated.
+[source: docs-ghaw-outcomes-reference, Claim 2;
+docs-ghaw-measuring-impact, Claims 1, 2] [emerging]
+
 ### Vanity metrics to avoid
 
 Faros enumerates the metrics that look like productivity wins but measure
@@ -1367,7 +1432,10 @@ blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
 blog-cursor-nab-legacy-migration (Claims 6, 7),
 blog-faros-claude-code-roi (Claims 1-7),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
+docs-ghaw-measuring-impact (Claims 1, 2),
 docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
+docs-ghaw-outcomes-reference (Claims 2, 3, 5),
+docs-github-copilot-usage-metrics-adoption-cohorts (Claims 1, 3, 4, 5, 6, 8, 9, 11),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
 docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
 docs-github-copilot-gpt52-deprecation (Claims 5, 7),
@@ -1380,4 +1448,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-05-30*
