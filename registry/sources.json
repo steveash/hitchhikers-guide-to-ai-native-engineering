@@ -2,7 +2,7 @@
   "sources": {
     "blog-ghaw-agent-of-the-day-2026-05-28": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-28",
-      "title": "Agent of the Day \u2013 May 28, 2026: Dead Code Removal Agent",
+      "title": "Agent of the Day – May 28, 2026: Dead Code Removal Agent",
       "source_url": "https://github.github.com/gh-aw/blog/2026-05-28-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw), bylined \"By Copilot\"",
@@ -15,7 +15,7 @@
     },
     "blog-ghaw-agent-of-the-day-2026-05-27": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-27",
-      "title": "Agent of the Day \u2013 May 27, 2026: Agent Performance Analyzer",
+      "title": "Agent of the Day – May 27, 2026: Agent Performance Analyzer",
       "source_url": "https://github.github.com/gh-aw/blog/2026-05-27-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw), bylined \"By Copilot\"",
@@ -171,7 +171,7 @@
     },
     "blog-ghaw-agent-of-the-day-2026-05-20": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-20",
-      "title": "Agent of the Day \u2013 May 20, 2026: Architecture Guardian",
+      "title": "Agent of the Day – May 20, 2026: Architecture Guardian",
       "source_url": "https://github.github.com/gh-aw/blog/2026-05-20-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw), bylined \"By Copilot\"",
@@ -483,7 +483,7 @@
     },
     "blog-ghaw-agent-of-the-day-2026-05-15": {
       "slug": "blog-ghaw-agent-of-the-day-2026-05-15",
-      "title": "Agent of the Day \u2013 May 15, 2026: The AI Moderator",
+      "title": "Agent of the Day – May 15, 2026: The AI Moderator",
       "source_url": "https://github.github.com/gh-aw/blog/2026-05-15-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw)",
@@ -602,7 +602,7 @@
       "title": "Less human AI agents, please.",
       "source_url": "https://simonwillison.net/2026/Apr/21/andreas-pahlsson-notini/",
       "source_type": "blog-post",
-      "author": "Andreas P\u00e5hlsson-Notini (via Simon Willison quotation post)",
+      "author": "Andreas Påhlsson-Notini (via Simon Willison quotation post)",
       "date_extracted": "2026-05-12",
       "issue": "#444",
       "file": "source-notes/blog-simonwillison-pahlsson-notini-less-human-agents.md",
@@ -959,7 +959,7 @@
     },
     "blog-simonwillison-deepseek-v4": {
       "slug": "blog-simonwillison-deepseek-v4",
-      "title": "DeepSeek V4\u2014almost on the frontier, a fraction of the price",
+      "title": "DeepSeek V4—almost on the frontier, a fraction of the price",
       "source_url": "https://simonwillison.net/2026/Apr/24/deepseek-v4/",
       "source_type": "blog-post",
       "author": "Simon Willison",
@@ -1211,7 +1211,7 @@
     },
     "blog-ghaw-weekly-2026-04-27": {
       "slug": "blog-ghaw-weekly-2026-04-27",
-      "title": "Weekly Update \u2013 April 27, 2026 (GitHub Agentic Workflows)",
+      "title": "Weekly Update – April 27, 2026 (GitHub Agentic Workflows)",
       "source_url": "https://github.github.com/gh-aw/blog/2026-04-27-weekly-update/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw)",
@@ -1398,7 +1398,7 @@
       "title": "Learning on the Shop floor",
       "source_url": "https://simonwillison.net/2026/May/11/learning-on-the-shop-floor/",
       "source_type": "blog-post",
-      "author": "Tobias L\u00fctke (CEO, Shopify), quoted by Simon Willison",
+      "author": "Tobias Lütke (CEO, Shopify), quoted by Simon Willison",
       "date_published": "2026-05-11",
       "date_extracted": "2026-05-18",
       "issue": "#796",
@@ -1624,6 +1624,19 @@
       "date_extracted": "2026-05-29",
       "issue": "#991",
       "file": "source-notes/docs-ghaw-outcomes-reference.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
+    "blog-ghaw-agent-of-the-day-2026-05-29": {
+      "slug": "blog-ghaw-agent-of-the-day-2026-05-29",
+      "title": "Agent of the Day – May 29, 2026: Auto-Triage Issues",
+      "source_url": "https://github.github.com/gh-aw/blog/2026-05-29-agent-of-the-day/",
+      "source_type": "blog-post",
+      "author": "GitHub Agentic Workflows team (gh-aw), bylined \"By Copilot\"",
+      "date_published": "2026-05-29",
+      "date_extracted": "2026-05-30",
+      "issue": "#1003",
+      "file": "source-notes/blog-ghaw-agent-of-the-day-2026-05-29.md",
       "confidence_overall": "emerging",
       "status": "current"
     }
@@ -1896,7 +1909,7 @@
   },
   "blog-ghaw-weekly-2026-05-11": {
     "slug": "blog-ghaw-weekly-2026-05-11",
-    "title": "Weekly Update \u2013 May 11, 2026 (GitHub Agentic Workflows)",
+    "title": "Weekly Update – May 11, 2026 (GitHub Agentic Workflows)",
     "source_url": "https://github.github.com/gh-aw/blog/2026-05-11-weekly-update/",
     "source_type": "blog-post",
     "author": "GitHub Agentic Workflows team (gh-aw)",
@@ -2129,7 +2142,7 @@
   },
   "docs-ghaw-guides-maintaining-repos": {
     "slug": "docs-ghaw-guides-maintaining-repos",
-    "title": "GitHub Agentic Workflows: Guides \u2014 Maintaining Repositories",
+    "title": "GitHub Agentic Workflows: Guides — Maintaining Repositories",
     "source_url": "https://github.github.com/gh-aw/guides/maintaining-repos",
     "source_type": "docs",
     "author": "GitHub Agentic Workflows team (GitHub Next / Microsoft Research)",
