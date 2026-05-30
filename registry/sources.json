@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-spacex-s1-anthropic": {
+      "slug": "blog-simonwillison-spacex-s1-anthropic",
+      "title": "A quote from SpaceX S-1",
+      "source_url": "https://simonwillison.net/2026/May/20/spacex-s1/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-20",
+      "date_extracted": "2026-05-30",
+      "issue": "#998",
+      "file": "source-notes/blog-simonwillison-spacex-s1-anthropic.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "docs-github-copilot-usage-metrics-adoption-cohorts": {
       "slug": "docs-github-copilot-usage-metrics-adoption-cohorts",
       "title": "Copilot usage metrics API adds cohorts for AI adoption",
