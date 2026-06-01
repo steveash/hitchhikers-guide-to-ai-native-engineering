@@ -2295,5 +2295,18 @@
     "file": "source-notes/docs-ghaw-measuring-impact.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-ghaw-weekly-2026-06-01": {
+    "slug": "blog-ghaw-weekly-2026-06-01",
+    "title": "Weekly Update – June 1, 2026 (GitHub Agentic Workflows)",
+    "source_url": "https://github.github.com/gh-aw/blog/2026-06-01-weekly-update/",
+    "source_type": "blog-post",
+    "author": "GitHub Agentic Workflows team (gh-aw)",
+    "date_published": "2026-06-01",
+    "date_extracted": "2026-06-01",
+    "issue": "#1017",
+    "file": "source-notes/blog-ghaw-weekly-2026-06-01.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
