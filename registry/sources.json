@@ -1704,6 +1704,19 @@
       "file": "source-notes/blog-thebatch-fde-agents-aiact-issue355.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-simonwillison-memory-shortage-repricing": {
+      "slug": "blog-simonwillison-memory-shortage-repricing",
+      "title": "The memory shortage is causing a repricing of consumer electronics",
+      "source_url": "https://simonwillison.net/2026/May/22/memory-shortage/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-22",
+      "date_extracted": "2026-06-01",
+      "issue": "#1014",
+      "file": "source-notes/blog-simonwillison-memory-shortage-repricing.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
@@ -2311,7 +2324,7 @@
   },
   "blog-ghaw-weekly-2026-06-01": {
     "slug": "blog-ghaw-weekly-2026-06-01",
-    "title": "Weekly Update – June 1, 2026 (GitHub Agentic Workflows)",
+    "title": "Weekly Update \u2013 June 1, 2026 (GitHub Agentic Workflows)",
     "source_url": "https://github.github.com/gh-aw/blog/2026-06-01-weekly-update/",
     "source_type": "blog-post",
     "author": "GitHub Agentic Workflows team (gh-aw)",
