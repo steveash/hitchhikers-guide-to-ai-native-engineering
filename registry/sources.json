@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-pydantic-monty-investigation": {
+      "slug": "blog-simonwillison-pydantic-monty-investigation",
+      "title": "pydantic-monty investigation",
+      "source_url": "https://simonwillison.net/2026/May/22/monty-investigation/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-22",
+      "date_extracted": "2026-06-01",
+      "issue": "#1015",
+      "file": "source-notes/blog-simonwillison-pydantic-monty-investigation.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-datasette-agent": {
       "slug": "blog-simonwillison-datasette-agent",
       "title": "Datasette Agent",
