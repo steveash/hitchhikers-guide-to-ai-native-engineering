@@ -2347,5 +2347,18 @@
     "file": "source-notes/blog-ghaw-weekly-2026-06-01.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-github-copilot-evaluation-models-individual-plans": {
+    "slug": "docs-github-copilot-evaluation-models-individual-plans",
+    "title": "Evaluation models in auto for individual plans",
+    "source_url": "https://github.blog/changelog/2026-06-01-evaluation-models-in-auto-for-individual-plans",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-06-01",
+    "date_extracted": "2026-06-02",
+    "issue": "#1027",
+    "file": "source-notes/docs-github-copilot-evaluation-models-individual-plans.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
