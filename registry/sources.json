@@ -1756,6 +1756,19 @@
       "file": "source-notes/docs-github-copilot-eclipse-byok-skills-chat.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "docs-github-copilot-gemini-cli-cloud-agent-app": {
+      "slug": "docs-github-copilot-gemini-cli-cloud-agent-app",
+      "title": "Gemini models in Copilot CLI, cloud agent, and the Copilot app",
+      "source_url": "https://github.blog/changelog/2026-06-02-gemini-models-in-copilot-cli-cloud-agent-and-the-copilot-app",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-02",
+      "date_extracted": "2026-06-03",
+      "issue": "#1035",
+      "file": "source-notes/docs-github-copilot-gemini-cli-cloud-agent-app.md",
+      "confidence_overall": "settled",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
