@@ -2,7 +2,7 @@
   "sources": {
     "blog-ghaw-agent-of-the-day-2026-06-01": {
       "slug": "blog-ghaw-agent-of-the-day-2026-06-01",
-      "title": "Agent of the Day – June 1, 2026: Daily Security Red Team Agent",
+      "title": "Agent of the Day \u2013 June 1, 2026: Daily Security Red Team Agent",
       "source_url": "https://github.github.com/gh-aw/blog/2026-06-01-agent-of-the-day/",
       "source_type": "blog-post",
       "author": "GitHub Agentic Workflows team (gh-aw)",
@@ -1728,6 +1728,19 @@
       "date_extracted": "2026-06-01",
       "issue": "#1014",
       "file": "source-notes/blog-simonwillison-memory-shortage-repricing.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
+    "docs-github-copilot-eclipse-byok-skills-chat": {
+      "slug": "docs-github-copilot-eclipse-byok-skills-chat",
+      "title": "GitHub Copilot in Eclipse: BYOK, skills, and chat updates",
+      "source_url": "https://github.blog/changelog/2026-06-02-github-copilot-in-eclipse-byok-skills-and-chat-updates",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-02",
+      "date_extracted": "2026-06-03",
+      "issue": "#1034",
+      "file": "source-notes/docs-github-copilot-eclipse-byok-skills-chat.md",
       "confidence_overall": "emerging",
       "status": "current"
     }
