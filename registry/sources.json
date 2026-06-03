@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-encyclical-on-ai": {
+      "slug": "blog-simonwillison-encyclical-on-ai",
+      "title": "Notes on Pope Leo XIV's encyclical on AI",
+      "source_url": "https://simonwillison.net/2026/May/25/encyclical-on-ai/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-25",
+      "date_extracted": "2026-06-03",
+      "issue": "#1033",
+      "file": "source-notes/blog-simonwillison-encyclical-on-ai.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-ghaw-agent-of-the-day-2026-06-01": {
       "slug": "blog-ghaw-agent-of-the-day-2026-06-01",
       "title": "Agent of the Day – June 1, 2026: Daily Security Red Team Agent",
