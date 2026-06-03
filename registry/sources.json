@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-ai-native-engineering-org": {
+      "slug": "blog-anthropic-ai-native-engineering-org",
+      "title": "Running an AI-native engineering org",
+      "source_url": "https://claude.com/blog/running-an-ai-native-engineering-org",
+      "source_type": "blog-post",
+      "author": "Fiona Fung (Director of Engineering, Claude Code and Claude Cowork, Anthropic)",
+      "date_published": "2026-06-03",
+      "date_extracted": "2026-06-03",
+      "issue": "#1038",
+      "file": "source-notes/blog-anthropic-ai-native-engineering-org.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-encyclical-on-ai": {
       "slug": "blog-simonwillison-encyclical-on-ai",
       "title": "Notes on Pope Leo XIV's encyclical on AI",
