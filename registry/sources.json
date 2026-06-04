@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-selfservice-data-analytics": {
+      "slug": "blog-anthropic-selfservice-data-analytics",
+      "title": "How Anthropic enables self-service data analytics with Claude",
+      "source_url": "https://claude.com/blog/how-anthropic-enables-self-service-data-analytics-with-claude",
+      "source_type": "blog-post",
+      "author": "Chen Chang, Clement Peng, Justin Leder, Johanne Jiao, and Josh Cherry (Data Science and Data Engineering team, Anthropic)",
+      "date_published": "2026-06-03",
+      "date_extracted": "2026-06-04",
+      "issue": "#1054",
+      "file": "source-notes/blog-anthropic-selfservice-data-analytics.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-code-review-skills-mcp-tier": {
       "slug": "docs-github-copilot-code-review-skills-mcp-tier",
       "title": "Shape Copilot code review around your team",
