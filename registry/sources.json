@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-code-review-skills-mcp-tier": {
+      "slug": "docs-github-copilot-code-review-skills-mcp-tier",
+      "title": "Shape Copilot code review around your team",
+      "source_url": "https://github.blog/changelog/2026-06-02-shape-copilot-code-review-around-your-team",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-02",
+      "date_extracted": "2026-06-04",
+      "issue": "#1052",
+      "file": "source-notes/docs-github-copilot-code-review-skills-mcp-tier.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-anthropic-ai-native-engineering-org": {
       "slug": "blog-anthropic-ai-native-engineering-org",
       "title": "Running an AI-native engineering org",
