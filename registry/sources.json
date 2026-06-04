@@ -2412,5 +2412,18 @@
     "file": "source-notes/docs-github-copilot-evaluation-models-individual-plans.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "failure-copilot-cowork-file-exfiltration": {
+    "slug": "failure-copilot-cowork-file-exfiltration",
+    "title": "Microsoft Copilot Cowork Exfiltrates Files",
+    "source_url": "https://simonwillison.net/2026/May/26/copilot-cowork-exfiltrates-files/",
+    "source_type": "failure-report",
+    "author": "Simon Willison (linking Prompt Armor security analysis)",
+    "date_published": "2026-05-26",
+    "date_extracted": "2026-06-04",
+    "issue": "#1050",
+    "file": "source-notes/failure-copilot-cowork-file-exfiltration.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
