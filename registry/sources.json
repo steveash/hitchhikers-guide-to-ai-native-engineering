@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-cowork-getting-started": {
+      "slug": "blog-anthropic-cowork-getting-started",
+      "title": "Best practices for getting started with Claude Cowork",
+      "source_url": "https://claude.com/blog/best-practices-for-getting-started-with-claude-cowork",
+      "source_type": "blog-post",
+      "author": "Austin Lau (Growth Marketing Lead, Anthropic)",
+      "date_published": "2026-06-03",
+      "date_extracted": "2026-06-04",
+      "issue": "#1056",
+      "file": "source-notes/blog-anthropic-cowork-getting-started.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-anthropic-selfservice-data-analytics": {
       "slug": "blog-anthropic-selfservice-data-analytics",
       "title": "How Anthropic enables self-service data analytics with Claude",
