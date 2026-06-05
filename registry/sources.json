@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-cli-rubber-duck-scheduling-voice": {
+      "slug": "docs-github-copilot-cli-rubber-duck-scheduling-voice",
+      "title": "Copilot CLI: Improved UI, rubber duck, prompt scheduling, and voice input",
+      "source_url": "https://github.blog/changelog/2026-06-02-copilot-cli-improved-ui-rubber-duck-prompt-scheduling-and-voice-input",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-02",
+      "date_extracted": "2026-06-05",
+      "issue": "#1067",
+      "file": "source-notes/docs-github-copilot-cli-rubber-duck-scheduling-voice.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-anthropic-cowork-getting-started": {
       "slug": "blog-anthropic-cowork-getting-started",
       "title": "Best practices for getting started with Claude Cowork",
