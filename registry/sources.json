@@ -2477,5 +2477,18 @@
     "file": "source-notes/blog-anthropic-claude-code-skills-lessons.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-the-pressure": {
+    "slug": "blog-simonwillison-the-pressure",
+    "title": "The Pressure",
+    "source_url": "https://simonwillison.net/2026/May/26/the-pressure/",
+    "source_type": "blog-post",
+    "author": "Simon Willison (link-blog curation); primary content by Daniel Stenberg (curl maintainer)",
+    "date_published": "2026-05-26",
+    "date_extracted": "2026-06-05",
+    "issue": "#1064",
+    "file": "source-notes/blog-simonwillison-the-pressure.md",
+    "confidence_overall": "anecdotal",
+    "status": "current"
   }
 }
