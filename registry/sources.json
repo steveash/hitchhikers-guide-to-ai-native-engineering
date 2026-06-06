@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-cursor-design-mode": {
+      "slug": "blog-cursor-design-mode",
+      "title": "Direct agents with visual prompts in Design Mode",
+      "source_url": "https://cursor.com/blog/design-mode",
+      "source_type": "blog-post",
+      "author": "Erik Nilsson, Ian Huang & Ryo Lu (Cursor)",
+      "date_published": "2026-06-05",
+      "date_extracted": "2026-06-06",
+      "issue": "#1081",
+      "file": "source-notes/blog-cursor-design-mode.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-sqlite-agents-md": {
       "slug": "blog-simonwillison-sqlite-agents-md",
       "title": "sqlite AGENTS.md",
