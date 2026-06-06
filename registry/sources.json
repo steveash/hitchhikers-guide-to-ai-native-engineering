@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-sqlite-agents-md": {
+      "slug": "blog-simonwillison-sqlite-agents-md",
+      "title": "sqlite AGENTS.md",
+      "source_url": "https://simonwillison.net/2026/May/27/sqlite-agents/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-27",
+      "date_extracted": "2026-06-06",
+      "issue": "#1073",
+      "file": "source-notes/blog-simonwillison-sqlite-agents-md.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-cli-rubber-duck-scheduling-voice": {
       "slug": "docs-github-copilot-cli-rubber-duck-scheduling-voice",
       "title": "Copilot CLI: Improved UI, rubber duck, prompt scheduling, and voice input",
