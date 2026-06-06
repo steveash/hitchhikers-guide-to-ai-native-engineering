@@ -988,6 +988,98 @@ domain-specific knowledge, extract it into a skill rather than keeping it
 in AGENTS.md.
 [source: practitioner-getsentry-sentry] [editorial]
 
+### Skills Design: what to put in, what to leave out
+
+Skills are now the most-used extension point inside Anthropic, with hundreds
+in active use.
+[source: blog-anthropic-claude-code-skills-lessons, Claim 1] [settled]
+A separate Anthropic team put a number on why they matter: the data-science
+group measured analytics-agent accuracy at ≤21% without skills and
+consistently above 95% (≈99% in mature domains) once skills were added — the
+skills layer, not the prompt wording or the model, is the accuracy lever.
+[source: blog-anthropic-selfservice-data-analytics, Claim 6] [emerging]
+
+The most common authoring failure is padding a skill with what the model
+already knows. "Claude already knows how to code and can read your codebase" —
+a skill earns its context cost only by carrying what the model cannot infer:
+proprietary APIs, team conventions that diverge from open-source norms, and
+non-obvious failure modes.
+[source: blog-anthropic-claude-code-skills-lessons, Claim 7] [settled]
+The opposite failure is over-specification: a skill that prescribes a fixed
+command sequence is a script, not a skill. Give the model the context and the
+known failure modes, then leave sequencing to it so the skill survives varying
+conditions.
+[source: blog-anthropic-claude-code-skills-lessons, Claim 8] [emerging]
+
+Three design practices carry the most weight:
+
+- **Write the description as a trigger, not a summary.** The `description`
+  field is "a description of when to trigger this skill," not a human-readable
+  summary — it is what the model reads to decide whether to invoke the skill.
+  A skill whose description reads like a catalog blurb (*helps with CI/CD
+  pipelines*) stays invisible when the user says *babysit my PR*; one written as
+  a trigger condition (*use this when the user wants to monitor a PR for CI
+  failures*) fires at the right moment.
+  [source: blog-anthropic-claude-code-skills-lessons, Claim 10] [settled]
+- **Grow a Gotchas section from observed failures.** The highest-signal content
+  in a skill is the accumulated list of failure points the agent actually hit
+  while using it — written reactively, not in advance.
+  [source: blog-anthropic-claude-code-skills-lessons, Claim 6] [emerging]
+  A skill with no Gotchas section is one that has not been battle-tested.
+- **Use the folder as progressive disclosure.** A skill is a folder of scripts,
+  assets, and data, not a single markdown file.
+  [source: blog-anthropic-claude-code-skills-lessons, Claim 4] [settled]
+  Keep universal content at the top level and push examples, references, and
+  edge cases into subdirectories the agent reaches for only when the task
+  requires them.
+  [source: blog-anthropic-claude-code-skills-lessons, Claim 5] [emerging]
+
+**Rule**: A skill should contain only what the model cannot infer, a
+reactively-grown Gotchas section, and a `description` written as a trigger
+condition. Delete anything the agent could discover by reading the code.
+[source: blog-anthropic-claude-code-skills-lessons, Claims 6, 7, 10] [emerging]
+
+On *what* to build: Anthropic's data team found that raw retrieval over
+thousands of prior SQL queries moved accuracy by less than a point — structured
+procedural skills beat example retrieval by a wide margin.
+[source: blog-anthropic-selfservice-data-analytics, Claim 7] [emerging]
+Their working split is two tiers: a thin **knowledge skill** that routes ("try
+the semantic layer first, but if there's no coverage, here are ~30 reference
+files for this domain") and a heavier **unbook skill** that encodes the full
+senior-analyst workflow.
+[source: blog-anthropic-selfservice-data-analytics, Claim 11] [emerging]
+
+**Rule**: Invest in procedural skills, not retrieval over historical examples.
+Start with one thin routing skill per domain; promote it to a full workflow
+skill only where the domain's value justifies the effort.
+[source: blog-anthropic-selfservice-data-analytics, Claims 7, 11] [emerging]
+
+#### Distribution: repo-embedded until context cost bites
+
+The skills abstraction crosses tools. GitHub Copilot's code review reads custom
+skills from `.github/skills/code-review/SKILL.md` to "invoke your team's
+internal tools and standards during a review,"
+[source: docs-github-copilot-code-review-skills-mcp-tier, Claims 1, 12] [settled]
+and any skill already in `.github/skills/` is selected automatically when
+relevant to the review.
+[source: docs-github-copilot-code-review-skills-mcp-tier, Claim 7] [settled]
+The folder-of-instructions packaging is converging across competing tools —
+currently confirmed for Claude Code and GitHub Copilot; whether other vendors
+adopt the same packaging is not yet documented.
+[editorial]
+
+The distribution decision turns on context cost. "Every skill that is checked
+in also adds a little bit to the context of the model" — at small scale,
+checking skills into the repo is fine; as a team accumulates many skills, an
+internal plugin marketplace lets engineers install only what they need rather
+than loading every skill universally.
+[source: blog-anthropic-claude-code-skills-lessons, Claim 14] [emerging]
+
+**Rule**: Check skills into the repo while the count is small. Switch to a
+selective-install marketplace once the always-loaded context cost of unused
+skills becomes measurable.
+[source: blog-anthropic-claude-code-skills-lessons, Claim 14] [emerging]
+
 ---
 
 ## Process Enforcement via CLAUDE.md
@@ -1428,9 +1520,12 @@ only measured production cost of omitting one in our corpus.
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
+blog-anthropic-claude-code-skills-lessons (Claims 1, 4, 5, 6, 7, 8, 10, 14),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
+blog-anthropic-selfservice-data-analytics (Claims 6, 7, 11),
 blog-ccunpacked-claude-code-architecture (Claim 14),
+docs-github-copilot-code-review-skills-mcp-tier (Claims 1, 7, 12),
 blog-simonwillison-codex-base-instructions (Claim 6),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
 failure-alex000kim-claudecode-source-leak (Lesson 1),
@@ -1446,4 +1541,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-09*
+*Last updated: 2026-06-06*

@@ -275,6 +275,15 @@ The key is that Agent B operates in a separate context. It does not
 share Agent A's reasoning, assumptions, or confirmation bias.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [emerging]
 
+GitHub's Copilot CLI ships this pattern as a built-in: `/rubber-duck` invokes
+a secondary "constructive critic" agent, and the main agent can hand it a plan,
+design, implementation, or test for review.
+[source: docs-github-copilot-cli-rubber-duck-scheduling-voice, Claims 1, 2] [settled]
+When the second pass is a one-command primitive (currently a Copilot CLI
+feature; in Claude Code the equivalent is a separately-invoked review session),
+the cost of running it drops — but the anti-sycophancy instruction above still
+has to be supplied, or the critic rubber-stamps the same way a human does.
+
 ### Counter-evidence
 
 Two-agent review adds cost (roughly double the tokens) and latency.
@@ -303,6 +312,31 @@ effort to auth, payment, and data-migration paths; default effort to CSS,
 docs, and routine refactors. Pay for depth on the codepaths whose failures
 hurt most.
 [source: blog-cursor-bugbot-effort-billing, Claims 4, 6] [emerging]
+
+### The cost of a second opinion, quantified
+
+"Roughly double the tokens" now has a sharper number from a production
+deployment. Anthropic's data-science team ran an adversarial-review skill that
+aggressively challenges the assumptions behind a candidate answer and measured
+the tradeoff directly: +6% accuracy for +32% more tokens and +72% higher
+latency.
+[source: blog-anthropic-selfservice-data-analytics, Claim 12] [emerging]
+The verification pass is not free, and the gain is incremental — which is
+exactly why it should be routed by stakes rather than applied to every change.
+
+That said, verification is where two first-party Anthropic teams independently
+put their highest-leverage skills investment. The Claude Code team reports that
+"verification skills have had the most measurable impact on Claude's output
+quality internally,"
+[source: blog-anthropic-claude-code-skills-lessons, Claim 3] [emerging]
+and the analytics team's 21%→95% accuracy jump came from the skills layer that
+includes the adversarial-review step above.
+[source: blog-anthropic-selfservice-data-analytics, Claim 6] [emerging]
+
+**Rule**: Treat adversarial or second-agent review as a paid upgrade — measure
+its accuracy gain against its token and latency cost on your own workload, and
+reserve it for the high-stakes paths rather than running it everywhere.
+[source: blog-anthropic-selfservice-data-analytics, Claim 12] [emerging]
 
 ---
 
@@ -825,6 +859,49 @@ or treat every user-submitted field as untrusted and apply explicit format
 gates.
 [source: docs-ghaw-chatops, Claim 7] [settled]
 
+### Tool-chaining exfiltration through agent messaging
+
+Prompt injection does not need a single dangerous tool — it can chain several
+safe ones. Prompt Armor demonstrated a complete file-exfiltration attack
+against Microsoft Copilot Cowork using only legitimate capabilities: a 5-line
+payload hidden in an 81-line skill file directed the agent to mint a OneDrive
+pre-authenticated download link, embed it in an external `<img>` URL, and email
+it to the user's own inbox. Opening the email made the user's mail client fetch
+the image, leaking the link to the attacker's server. It succeeded on every
+trial (5/5).
+[source: failure-copilot-cowork-file-exfiltration, Lesson 5] [emerging]
+
+No single component was broken. Three individually-reasonable defaults combined
+into the attack: agents could send email to the user's own inbox without
+approval,
+[source: failure-copilot-cowork-file-exfiltration, Lesson 1] [emerging]
+mail clients render external images,
+[source: failure-copilot-cowork-file-exfiltration, Lesson 2] [emerging]
+and the agent could generate pre-authenticated links that download a file with
+no further auth.
+[source: failure-copilot-cowork-file-exfiltration, Lesson 3] [emerging]
+The attack is model-agnostic — switching to a "safer" model changes nothing,
+because the gap is architectural, not in the model's judgment.
+[source: failure-copilot-cowork-file-exfiltration, Lesson 4] [emerging]
+
+**Mitigation**: Defend the chain at its first externally-visible step with
+environmental controls, not model-layer ones:
+1. Require explicit approval before an agent sends to any messaging channel —
+   "send to the user's own inbox" is not a safe exemption.
+2. Strip or proxy external content (images, link previews) from agent-composed
+   messages before delivery.
+3. Forbid agents from embedding signed or pre-authenticated URLs (OneDrive,
+   SharePoint, S3, GCS) in any externally-reachable output; prefer short-lived,
+   session-scoped links.
+4. Hold scheduled or background agents to stricter containment — there is no
+   human in the loop to catch the send.
+   [source: failure-copilot-cowork-file-exfiltration, Lesson 6] [emerging]
+
+**Rule**: Any agent with both data access and message-sending capability is a
+potential exfiltration pipeline. Put a hard approval gate on the send step;
+model choice and prose instructions will not save you.
+[source: failure-copilot-cowork-file-exfiltration, Lessons 1, 4] [emerging]
+
 ---
 
 ## Security Threat Model for AI-Native Teams
@@ -935,6 +1012,36 @@ production deployment in our corpus:
    the recall gap.
    [source: blog-cursor-security-agents, Claim 5;
    discussion-hn-autofix-hybrid-review, Claims 1, 8] [emerging]
+
+### The finding-volume surge is here — and it lands on maintainers too
+
+The finding-volume shock above (Mozilla absorbing 271 vulnerabilities) is no
+longer a single org's experience. The curl project — ~30 years old, ~30 billion
+installs — reports security submissions running 4-5× their 2024 rate and double
+their 2025 pace, now averaging more than one per day.
+[source: blog-simonwillison-the-pressure, Claim 1] [anecdotal]
+And the reports are no longer dismissible: AI-assisted security research has
+matured from "stupid AI slop reports" into "current high quality chaos."
+[source: blog-simonwillison-the-pressure, Claim 2] [anecdotal]
+Critically, the volume is not matched by severity: every curl vulnerability in
+recent years has been LOW or MEDIUM.
+[source: blog-simonwillison-the-pressure, Claim 7] [anecdotal]
+The flood is real; the per-report urgency is not proportionally higher.
+
+This creates a second-order cost your adoption plan should account for. When
+you point AI security tooling at open-source dependencies, the credible reports
+you generate land on volunteer maintainers who get no corresponding funding or
+triage infrastructure
+[source: blog-simonwillison-the-pressure, Claim 8] [anecdotal] —
+curl's lead maintainer reports the workload crossing into his personal and
+family life for the first time in three decades.
+[source: blog-simonwillison-the-pressure, Claim 5] [anecdotal]
+
+**Rule**: Before scanning code you do not maintain, plan the triage-and-
+disclosure burden you are creating downstream, and budget to fund the projects
+you depend on. AI-amplified scanning without a matching triage and funding plan
+exports the cost to maintainers who cannot absorb it.
+[source: blog-simonwillison-the-pressure, Claims 1, 8] [anecdotal]
 
 ### Gradual trust rollout: shadow → inform → gate
 
@@ -1114,17 +1221,21 @@ blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 
 blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
+blog-anthropic-claude-code-skills-lessons (Claim 3),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-anthropic-selfservice-data-analytics (Claims 6, 12),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
 blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
+blog-simonwillison-the-pressure (Claims 1, 2, 5, 7, 8),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
 docs-ghaw-chatops (Claims 5, 6, 7),
+docs-github-copilot-cli-rubber-duck-scheduling-voice (Claims 1, 2),
 failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
@@ -1135,6 +1246,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin*
+practitioner-dadlerj-tin,
+failure-copilot-cowork-file-exfiltration*
 
-*Last updated: 2026-05-14*
+*Last updated: 2026-06-06*
