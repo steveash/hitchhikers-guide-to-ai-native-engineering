@@ -2503,5 +2503,18 @@
     "file": "source-notes/blog-simonwillison-the-pressure.md",
     "confidence_overall": "anecdotal",
     "status": "current"
+  },
+  "blog-anthropic-sires-gtm-claude-code": {
+    "slug": "blog-anthropic-sires-gtm-claude-code",
+    "title": "How one Anthropic seller rebuilt his team's workflows with Claude Code",
+    "source_url": "https://claude.com/blog/how-anthropic-uses-claude-gtm-engineering",
+    "source_type": "blog-post",
+    "author": "Anthropic (first-party practitioner case study; subject: Jared Sires, GTM PM)",
+    "date_published": "2026-06-05",
+    "date_extracted": "2026-06-06",
+    "issue": "#1080",
+    "file": "source-notes/blog-anthropic-sires-gtm-claude-code.md",
+    "confidence_overall": "anecdotal",
+    "status": "current"
   }
 }
