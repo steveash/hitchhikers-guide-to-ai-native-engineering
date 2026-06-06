@@ -283,6 +283,7 @@ When the second pass is a one-command primitive (currently a Copilot CLI
 feature; in Claude Code the equivalent is a separately-invoked review session),
 the cost of running it drops — but the anti-sycophancy instruction above still
 has to be supplied, or the critic rubber-stamps the same way a human does.
+[editorial]
 
 ### Counter-evidence
 
@@ -329,8 +330,9 @@ put their highest-leverage skills investment. The Claude Code team reports that
 "verification skills have had the most measurable impact on Claude's output
 quality internally,"
 [source: blog-anthropic-claude-code-skills-lessons, Claim 3] [emerging]
-and the analytics team's 21%→95% accuracy jump came from the skills layer that
-includes the adversarial-review step above.
+and the analytics team's 21%→95% accuracy jump came from that same skills layer
+— of which adversarial review is one component, adding +6% on its own — not from
+adversarial review alone.
 [source: blog-anthropic-selfservice-data-analytics, Claim 6] [emerging]
 
 **Rule**: Treat adversarial or second-agent review as a paid upgrade — measure

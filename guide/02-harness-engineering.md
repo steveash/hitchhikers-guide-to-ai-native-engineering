@@ -990,8 +990,8 @@ in AGENTS.md.
 
 ### Skills Design: what to put in, what to leave out
 
-Skills are now the most-used extension point inside Anthropic, with hundreds
-in active use.
+Skills are now one of the most-used extension points inside Anthropic, with
+hundreds in active use.
 [source: blog-anthropic-claude-code-skills-lessons, Claim 1] [settled]
 A separate Anthropic team put a number on why they matter: the data-science
 group measured analytics-agent accuracy at ≤21% without skills and
