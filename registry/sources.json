@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-llm-anthropic-0251": {
+      "slug": "blog-simonwillison-llm-anthropic-0251",
+      "title": "llm-anthropic 0.25.1",
+      "source_url": "https://simonwillison.net/2026/May/28/llm-anthropic/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-28",
+      "date_extracted": "2026-06-06",
+      "issue": "#1075",
+      "file": "source-notes/blog-simonwillison-llm-anthropic-0251.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-cursor-design-mode": {
       "slug": "blog-cursor-design-mode",
       "title": "Direct agents with visual prompts in Design Mode",
