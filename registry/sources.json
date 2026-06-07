@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-vs-may-2026": {
+      "slug": "docs-github-copilot-vs-may-2026",
+      "title": "GitHub Copilot in Visual Studio — May 2026 Update",
+      "source_url": "https://github.blog/changelog/2026-06-04-github-copilot-in-visual-studio-may-update",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-04",
+      "date_extracted": "2026-06-07",
+      "issue": "#1100",
+      "file": "source-notes/docs-github-copilot-vs-may-2026.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-ronacher-communities-of-not": {
       "slug": "blog-ronacher-communities-of-not",
       "title": "Communities of Not",
