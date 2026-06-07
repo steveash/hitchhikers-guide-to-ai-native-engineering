@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-ronacher-communities-of-not": {
+      "slug": "blog-ronacher-communities-of-not",
+      "title": "Communities of Not",
+      "source_url": "https://lucumr.pocoo.org/2026/6/6/communities-of-not/",
+      "source_type": "blog-post",
+      "author": "Armin Ronacher",
+      "date_published": "2026-06-06",
+      "date_extracted": "2026-06-07",
+      "issue": "#1099",
+      "file": "source-notes/blog-ronacher-communities-of-not.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-chat-pr-richer-context": {
       "slug": "docs-github-copilot-chat-pr-richer-context",
       "title": "Copilot Chat brings richer context to pull requests",
