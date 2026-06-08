@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-enterprise-managed-plugins-vscode": {
+      "slug": "docs-github-copilot-enterprise-managed-plugins-vscode",
+      "title": "Enterprise-managed plugins in VS Code in public preview",
+      "source_url": "https://github.blog/changelog/2026-06-05-enterprise-managed-plugins-in-vs-code-in-public-preview",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-05",
+      "date_extracted": "2026-06-08",
+      "issue": "#1111",
+      "file": "source-notes/docs-github-copilot-enterprise-managed-plugins-vscode.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-pyodide-asgi-browser": {
       "slug": "blog-simonwillison-pyodide-asgi-browser",
       "title": "Running Python ASGI apps in the browser via Pyodide + a service worker",
