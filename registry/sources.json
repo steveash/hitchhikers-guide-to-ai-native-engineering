@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-pyodide-asgi-browser": {
+      "slug": "blog-simonwillison-pyodide-asgi-browser",
+      "title": "Running Python ASGI apps in the browser via Pyodide + a service worker",
+      "source_url": "https://simonwillison.net/2026/May/30/pyodide-asgi-browser/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-05-30",
+      "date_extracted": "2026-06-08",
+      "issue": "#1107",
+      "file": "source-notes/blog-simonwillison-pyodide-asgi-browser.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-vs-may-2026": {
       "slug": "docs-github-copilot-vs-may-2026",
       "title": "GitHub Copilot in Visual Studio — May 2026 Update",
