@@ -2646,5 +2646,18 @@
     "file": "source-notes/docs-github-copilot-cca-fix-failing-actions-pro-max.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "blog-anthropic-connector-observability": {
+    "slug": "blog-anthropic-connector-observability",
+    "title": "Observability for developers building connectors",
+    "source_url": "https://claude.com/blog/observability-for-developers-building-connectors",
+    "source_type": "blog-post",
+    "author": "Anthropic (no individual byline)",
+    "date_published": "2026-06-08",
+    "date_extracted": "2026-06-09",
+    "issue": "#1124",
+    "file": "source-notes/blog-anthropic-connector-observability.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
