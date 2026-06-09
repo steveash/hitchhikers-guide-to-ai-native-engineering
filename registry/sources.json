@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-cancelling-ai-subscription": {
+      "slug": "blog-simonwillison-cancelling-ai-subscription",
+      "title": "The solution might be cancelling my AI subscription",
+      "source_url": "https://simonwillison.net/2026/May/31/the-solution-might-be-cancelling-my-ai-subscription/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (relaying David Wilson + HN commenters)",
+      "date_published": "2026-05-31",
+      "date_extracted": "2026-06-09",
+      "issue": "#1122",
+      "file": "source-notes/blog-simonwillison-cancelling-ai-subscription.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-enterprise-managed-plugins-vscode": {
       "slug": "docs-github-copilot-enterprise-managed-plugins-vscode",
       "title": "Enterprise-managed plugins in VS Code in public preview",
