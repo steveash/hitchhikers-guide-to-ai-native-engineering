@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-anthropic-run-rate": {
+      "slug": "blog-simonwillison-anthropic-run-rate",
+      "title": "Quoting Karen Kwok for Reuters Breakingviews",
+      "source_url": "https://simonwillison.net/2026/May/31/anthropic-run-rate/",
+      "source_type": "blog-post",
+      "author": "Karen Kwok (Reuters Breakingviews), quoted by Simon Willison",
+      "date_published": "2026-05-31",
+      "date_extracted": "2026-06-09",
+      "issue": "#1121",
+      "file": "source-notes/blog-simonwillison-anthropic-run-rate.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-simonwillison-cancelling-ai-subscription": {
       "slug": "blog-simonwillison-cancelling-ai-subscription",
       "title": "The solution might be cancelling my AI subscription",
