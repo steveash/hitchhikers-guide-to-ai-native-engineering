@@ -1,5 +1,18 @@
 {
   "sources": {
+    "failure-meta-ai-instagram-account-takeover": {
+      "slug": "failure-meta-ai-instagram-account-takeover",
+      "title": "Hackers Simply Asked Meta AI to Give Them Access to High-Profile Instagram Accounts. It Worked",
+      "source_url": "https://simonwillison.net/2026/Jun/1/hackers-simply-asked-meta-ai/",
+      "source_type": "failure-report",
+      "author": "Simon Willison (linking and analyzing 404 Media reporting)",
+      "date_published": "2026-06-01",
+      "date_extracted": "2026-06-10",
+      "issue": "#1131",
+      "file": "source-notes/failure-meta-ai-instagram-account-takeover.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-anthropic-run-rate": {
       "slug": "blog-simonwillison-anthropic-run-rate",
       "title": "Quoting Karen Kwok for Reuters Breakingviews",
