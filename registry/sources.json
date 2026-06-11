@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-chat-agent-sessions": {
+      "slug": "docs-github-copilot-chat-agent-sessions",
+      "title": "Copilot Chat now sees your agent sessions",
+      "source_url": "https://github.blog/changelog/2026-06-10-copilot-chat-now-sees-your-agent-sessions",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-10",
+      "date_extracted": "2026-06-11",
+      "issue": "#1145",
+      "file": "source-notes/docs-github-copilot-chat-agent-sessions.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "failure-meta-ai-instagram-account-takeover": {
       "slug": "failure-meta-ai-instagram-account-takeover",
       "title": "Hackers Simply Asked Meta AI to Give Them Access to High-Profile Instagram Accounts. It Worked",
