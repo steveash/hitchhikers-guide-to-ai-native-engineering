@@ -717,6 +717,7 @@ metrics with individual self-reports before concluding the tool helps or hurts
 **Rule**: Declare the scope and a stop condition before opening an agent
 session, and treat output that exceeds the stated intent as a signal to stop —
 not as a bonus.
+[source: blog-simonwillison-cancelling-ai-subscription, Claims 2, 5, 6] [anecdotal]
 
 ---
 
