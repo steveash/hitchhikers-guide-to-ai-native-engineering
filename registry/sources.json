@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-cursor-bugbot-updates-june-2026": {
+      "slug": "blog-cursor-bugbot-updates-june-2026",
+      "title": "Bugbot is now over 3x faster, 22% cheaper, and finds 10% more bugs",
+      "source_url": "https://cursor.com/blog/bugbot-updates-june-2026",
+      "source_type": "blog-post",
+      "author": "Jason Smale, Yuri Volkov & Michael Zhao (Cursor)",
+      "date_published": "2026-06-10",
+      "date_extracted": "2026-06-11",
+      "issue": "#1147",
+      "file": "source-notes/blog-cursor-bugbot-updates-june-2026.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-chat-agent-sessions": {
       "slug": "docs-github-copilot-chat-agent-sessions",
       "title": "Copilot Chat now sees your agent sessions",
