@@ -679,6 +679,45 @@ insight: delegation is not a property of the feature. It is a property
 of the sub-task.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [editorial]
 
+### The "project I didn't mean to build" anti-pattern
+
+Sub-hour scaffolding inverts the cost of starting work: when an agent turns a
+vague idea into a tested, documented project in under an hour, the friction that
+used to gate new projects disappears. Willison and David Wilson both report the
+failure mode that follows — a session opened for a trivial task expands, under
+agent momentum, into an unrequested project while the original problem goes
+unsolved.
+
+> "I didn't mean to build most of these things. Usually the Claude session
+> started with something like '_write a quick script for X_', and one hour
+> later the result is not a _quick script for X_, nor in the usual case is my
+> problem solved, whatever the original itch happened to be."
+> — David Wilson, quoted by Simon Willison
+> [source: blog-simonwillison-cancelling-ai-subscription, Claim 2] [anecdotal]
+
+Wilson's diagnosis is that zero friction is itself the liability: "a tool
+producing a cheap reward with minimal input and no friction can only be a
+liability."
+[source: blog-simonwillison-cancelling-ai-subscription, Claim 5] [anecdotal]
+The fix is not more personal resolve — Willison notes he's been trying to
+develop that discipline "for decades"
+[source: blog-simonwillison-cancelling-ai-subscription, Claim 6] [anecdotal]
+— but commitment-gating friction added back into the workflow deliberately.
+
+**Debated — the same speed helps some practitioners.** Several Hacker News
+commenters with ADHD report the opposite outcome: agents collapse the
+finish-before-boredom window and let them complete side projects "for the first
+time ever."
+[source: blog-simonwillison-cancelling-ai-subscription, Claims 7, 9] [anecdotal]
+The moderating variable is neurotype, not the tool — so team productivity
+averages can hide structurally opposite individual experiences. Pair aggregate
+metrics with individual self-reports before concluding the tool helps or hurts
+"focus."
+
+**Rule**: Declare the scope and a stop condition before opening an agent
+session, and treat output that exceeds the stated intent as a signal to stop —
+not as a bonus.
+
 ---
 
 ## Summary: Daily Workflow Patterns
@@ -702,6 +741,7 @@ blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
 blog-anthropic-managed-agents-dreaming-outcomes (Claim 8),
 blog-anthropic-session-management-1m-context (Claims 1, 2, 4, 10),
+blog-simonwillison-cancelling-ai-subscription (Claims 2, 5, 6, 7, 9),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
 blog-simonwillison-liteparse-browser (Claims 5, 11),
 discussion-hn-agentic-coding-jobs (Claim 9),
