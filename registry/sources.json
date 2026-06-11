@@ -2698,5 +2698,18 @@
     "file": "source-notes/blog-anthropic-connector-observability.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "docs-github-copilot-cli-security-review": {
+    "slug": "docs-github-copilot-cli-security-review",
+    "title": "Dedicated security review command now available in Copilot CLI",
+    "source_url": "https://github.blog/changelog/2026-06-10-dedicated-security-review-command-now-available-in-copilot-cli",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-06-10",
+    "date_extracted": "2026-06-11",
+    "issue": "#1144",
+    "file": "source-notes/docs-github-copilot-cli-security-review.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
