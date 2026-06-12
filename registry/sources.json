@@ -2750,5 +2750,18 @@
     "file": "source-notes/blog-simonwillison-microsoft-mai-models.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-github-copilot-cli-settings-command": {
+    "slug": "docs-github-copilot-cli-settings-command",
+    "title": "Copilot CLI: Configure everything from one place with /settings",
+    "source_url": "https://github.blog/changelog/2026-06-11-copilot-cli-configure-everything-from-one-place-with-settings",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-06-11",
+    "date_extracted": "2026-06-12",
+    "issue": "#1157",
+    "file": "source-notes/docs-github-copilot-cli-settings-command.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
