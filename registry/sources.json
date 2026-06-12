@@ -2582,6 +2582,19 @@
     "confidence_overall": "emerging",
     "status": "current"
   },
+  "blog-simonwillison-datasette-agent-micropython": {
+    "slug": "blog-simonwillison-datasette-agent-micropython",
+    "title": "datasette-agent-micropython 0.1a0",
+    "source_url": "https://simonwillison.net/2026/Jun/2/datasette-agent-micropython/",
+    "source_type": "blog-post",
+    "author": "Simon Willison",
+    "date_published": "2026-06-02",
+    "date_extracted": "2026-06-12",
+    "issue": "#1153",
+    "file": "source-notes/blog-simonwillison-datasette-agent-micropython.md",
+    "confidence_overall": "emerging",
+    "status": "current"
+  },
   "blog-anthropic-dynamic-workflows-claude-code": {
     "slug": "blog-anthropic-dynamic-workflows-claude-code",
     "title": "Introducing dynamic workflows in Claude Code",
