@@ -2776,5 +2776,18 @@
     "file": "source-notes/docs-github-copilot-cli-settings-command.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "blog-cursor-agent-autonomy-auto-review": {
+    "slug": "blog-cursor-agent-autonomy-auto-review",
+    "title": "Governing agent autonomy with Auto-review",
+    "source_url": "https://cursor.com/blog/agent-autonomy-auto-review",
+    "source_type": "blog-post",
+    "author": "David Gomes & Travis McPeak (Cursor/Anysphere)",
+    "date_published": "2026-06-11",
+    "date_extracted": "2026-06-12",
+    "issue": "#1158",
+    "file": "source-notes/blog-cursor-agent-autonomy-auto-review.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
