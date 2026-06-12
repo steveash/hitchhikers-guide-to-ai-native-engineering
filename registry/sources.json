@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-aw-github-token-auth": {
+      "slug": "docs-github-copilot-aw-github-token-auth",
+      "title": "Agentic workflows no longer need a personal access token",
+      "source_url": "https://github.blog/changelog/2026-06-11-agentic-workflows-no-longer-need-a-personal-access-token",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-11",
+      "date_extracted": "2026-06-12",
+      "issue": "#1155",
+      "file": "source-notes/docs-github-copilot-aw-github-token-auth.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-cursor-bugbot-updates-june-2026": {
       "slug": "blog-cursor-bugbot-updates-june-2026",
       "title": "Bugbot is now over 3x faster, 22% cheaper, and finds 10% more bugs",
