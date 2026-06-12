@@ -2724,5 +2724,18 @@
     "file": "source-notes/docs-github-copilot-cli-security-review.md",
     "confidence_overall": "settled",
     "status": "current"
+  },
+  "blog-simonwillison-microsoft-mai-models": {
+    "slug": "blog-simonwillison-microsoft-mai-models",
+    "title": "Microsoft's new MAI models",
+    "source_url": "https://simonwillison.net/2026/Jun/2/microsofts-new-models/",
+    "source_type": "blog-post",
+    "author": "Simon Willison",
+    "date_published": "2026-06-02",
+    "date_extracted": "2026-06-12",
+    "issue": "#1154",
+    "file": "source-notes/blog-simonwillison-microsoft-mai-models.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
