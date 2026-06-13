@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-uber-caps-usage": {
+      "slug": "blog-simonwillison-uber-caps-usage",
+      "title": "Uber Caps Usage of AI Tools Like Claude Code to Manage Costs",
+      "source_url": "https://simonwillison.net/2026/Jun/3/uber-caps-usage/",
+      "source_type": "blog-post",
+      "author": "Simon Willison (link-blog post relaying Bloomberg reporting)",
+      "date_published": "2026-06-03",
+      "date_extracted": "2026-06-13",
+      "issue": "#1165",
+      "file": "source-notes/blog-simonwillison-uber-caps-usage.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "docs-github-copilot-aw-github-token-auth": {
       "slug": "docs-github-copilot-aw-github-token-auth",
       "title": "Agentic workflows no longer need a personal access token",
