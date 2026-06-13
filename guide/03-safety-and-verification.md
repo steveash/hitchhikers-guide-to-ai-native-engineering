@@ -384,6 +384,62 @@ Keep only what requires human knowledge.
 
 ---
 
+## Contextual Autonomy: Block-and-Explain Instead of Ask-the-Human
+
+The quality gates above reduce risk by interrupting the human on every
+action that looks dangerous. At scale this produces approval fatigue:
+Cursor reports enterprise customers previously saw roughly 40% of agent
+actions blocked under approval-first policies.
+[source: blog-cursor-agent-autonomy-auto-review, Claim 10] [anecdotal]
+Cursor's production answer, Auto-review, replaces the binary gate with a
+contextual classifier — making agent-autonomy decisions behave "more like
+a dial than a switch."
+[source: blog-cursor-agent-autonomy-auto-review, Claim 1] [anecdotal]
+Three design choices make the dial work.
+
+**Judge intent, not the isolated action.** The classifier asks whether an
+action is justified by what the user asked for, not whether it looks risky
+on its own — `rm -rf` on a build directory the user asked to clean is
+fine; the same command unprompted is not.
+[source: blog-cursor-agent-autonomy-auto-review, Claim 2] [emerging]
+
+**Run the classifier as an agent with read-only tools, behind cheaper
+layers.** Some actions can't be judged from the command string alone
+(`python script.py` depends on the script's contents), so the classifier
+reads the workspace before deciding — given ReadFile, Grep, Glob, and
+ListDir, with no write or execute capability. That is least agency applied
+to the reviewer itself. Put allowlists and sandboxing in front of it so
+the reasoning classifier only runs on the small subset of higher-consequence
+actions that actually need judgment — don't pay for a classifier on
+`git status`.
+[source: blog-cursor-agent-autonomy-auto-review, Claims 4, 11] [emerging]
+
+**Block to the parent agent, not the user.** When the classifier blocks an
+action it returns the explanation to the parent agent, which can narrow the
+action, choose a safer tool, or skip the step without ever interrupting the
+human.
+[source: blog-cursor-agent-autonomy-auto-review, Claim 6] [emerging]
+The payoff: Auto-review blocks ~4% of classifier-reviewed actions, yet only
+~7% of chats reach the user for an interruption
+[source: blog-cursor-agent-autonomy-auto-review, Claim 9] [emerging] — down
+from the ~40% approval-first baseline.
+[source: blog-cursor-agent-autonomy-auto-review, Claim 10] [anecdotal]
+
+**Rule**: When blanket approval gates are producing approval fatigue, move
+the gate from "ask the human on every risky-looking action" to "judge the
+action against the user's intent, and route blocks to the agent first, the
+human last." (Production-validated for Cursor's local desktop agents only;
+the metrics are vendor self-reported and the pattern is unproven elsewhere.)
+[source: blog-cursor-agent-autonomy-auto-review, Claims 6, 9] [emerging]
+
+One calibration technique transfers directly: watch for *flapping* — the
+classifier returning different decisions on the same case across runs.
+Inconsistency marks exactly the policy boundaries that are underspecified
+and need tightening.
+[source: blog-cursor-agent-autonomy-auto-review, Claim 7] [emerging]
+
+---
+
 ## Kill Criteria: When to Stop the Agent
 
 Not every agent task succeeds. Knowing when to kill a stuck agent saves
@@ -935,6 +991,16 @@ production deployment in our corpus:
    the recall gap.
    [source: blog-cursor-security-agents, Claim 5;
    discussion-hn-autofix-hybrid-review, Claims 1, 8] [emerging]
+   GitHub validated the same principle with a product decision: rather than
+   folding security into general review, it shipped a dedicated
+   `/security-review` command in the Copilot CLI, scoped to a fixed
+   five-category threat model (injection, XSS, insecure data handling, path
+   traversal, weak cryptography).
+   [source: docs-github-copilot-cli-security-review, Claims 1, 3] [settled]
+   A second vendor independently choosing a specialized command over a
+   general prompt strengthens the case that specialization, not breadth,
+   closes the recall gap. (The command is an experimental preview; no
+   precision/recall data is published for it.)
 
 ### Gradual trust rollout: shadow → inform → gate
 
@@ -1116,6 +1182,7 @@ blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-cursor-agent-autonomy-auto-review (Claims 1, 2, 4, 6, 7, 9, 10, 11),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
@@ -1125,6 +1192,7 @@ blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
 docs-ghaw-chatops (Claims 5, 6, 7),
+docs-github-copilot-cli-security-review (Claims 1, 3),
 failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
@@ -1137,4 +1205,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-14*
+*Last updated: 2026-06-13*

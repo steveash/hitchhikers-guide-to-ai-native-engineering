@@ -624,6 +624,52 @@ blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
 
 ---
 
+## Cost Governance Is a Recurring Event Too
+
+Model deprecation is one recurring governance event; runaway spend is
+another. Uber set its 2026 AI tool budget in 2025 and exhausted it within
+roughly four months — the budget pre-dated the agentic-coding adoption
+curve.
+[source: blog-simonwillison-uber-caps-usage, Claim 1] [emerging]
+Its response was a per-tool, per-employee limit of "$1,500 in monthly token
+spending per AI coding tool," scoped to agentic coding software such as
+Cursor and Claude Code rather than to AI tools in general.
+[source: blog-simonwillison-uber-caps-usage, Claims 2, 3] [emerging]
+Two design choices in that policy generalize.
+
+**Cap per tool, not in aggregate.** Separate per-tool budgets let an
+engineer spend the full cap on each of several tools independently instead
+of rationing one pool across them — the cost-side analog of the multi-tool
+reality this chapter opened with. An aggregate cap would create budget
+competition between tools and push teams toward premature consolidation.
+[source: blog-simonwillison-uber-caps-usage, Claim 2] [emerging]
+
+**Cap spend; never reward it.** Willison frames the cap as "a rational
+policy response to over-spending" and contrasts it with "tokenmaxxing
+leaderboards" — internal scoreboards that rank engineers by token
+consumption. A spending leaderboard rewards burning tokens regardless of
+outcome; it is the same anti-gaming failure as scoring developers on "% of
+code written by AI," which trains them to pad output.
+[source: blog-simonwillison-uber-caps-usage, Claim 4] [anecdotal]
+
+The number worth carrying into a budget conversation is the ratio, not the
+dollar figure. Willison annualizes the cap (assuming two tools per engineer
+→ $36,000/year) against a $330,000 median Uber engineer compensation —
+about 11% of total comp.
+[source: blog-simonwillison-uber-caps-usage, Claim 5] [anecdotal]
+Framed that way the cap is conservative: it bounds runaway spend while
+leaving the tool ample room to clear the durable 10–30% productivity
+ceiling this chapter documents.
+
+**Rule**: Set an explicit organizational AI-tool spending policy before
+adoption scales, not after the budget is gone. Cap per tool rather than in
+aggregate so cost control doesn't fight the multi-tool reality, and never
+convert spend into a competitive metric — a spending leaderboard optimizes
+the proxy, not the outcome.
+[source: blog-simonwillison-uber-caps-usage, Claims 2, 4] [anecdotal]
+
+---
+
 ## Code Review When AI Wrote It
 
 Three independent sources -- a peer-reviewed paper, a vendor analytics report,
@@ -1366,6 +1412,7 @@ blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
 blog-cursor-nab-legacy-migration (Claims 6, 7),
 blog-faros-claude-code-roi (Claims 1-7),
+blog-simonwillison-uber-caps-usage (Claims 1, 2, 3, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
 docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
@@ -1380,4 +1427,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-06-13*
