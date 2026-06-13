@@ -13,6 +13,19 @@
       "confidence_overall": "emerging",
       "status": "current"
     },
+    "docs-github-copilot-code-review-config-controls": {
+      "slug": "docs-github-copilot-code-review-config-controls",
+      "title": "Copilot code review: New configurations and controls",
+      "source_url": "https://github.blog/changelog/2026-06-12-copilot-code-review-new-configurations-and-controls",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-12",
+      "date_extracted": "2026-06-13",
+      "issue": "#1168",
+      "file": "source-notes/docs-github-copilot-code-review-config-controls.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "docs-github-copilot-aw-github-token-auth": {
       "slug": "docs-github-copilot-aw-github-token-auth",
       "title": "Agentic workflows no longer need a personal access token",
