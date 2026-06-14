@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-andreas-kling": {
+      "slug": "blog-simonwillison-andreas-kling",
+      "title": "Quoting Andreas Kling",
+      "source_url": "https://simonwillison.net/2026/Jun/5/andreas-kling/",
+      "source_type": "blog-post",
+      "author": "Andreas Kling (Ladybird browser creator), quoted by Simon Willison",
+      "date_published": "2026-06-05",
+      "date_extracted": "2026-06-14",
+      "issue": "#1173",
+      "file": "source-notes/blog-simonwillison-andreas-kling.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-simonwillison-uber-caps-usage": {
       "slug": "blog-simonwillison-uber-caps-usage",
       "title": "Uber Caps Usage of AI Tools Like Claude Code to Manage Costs",
