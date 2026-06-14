@@ -145,7 +145,7 @@
     },
     "docs-github-copilot-vs-may-2026": {
       "slug": "docs-github-copilot-vs-may-2026",
-      "title": "GitHub Copilot in Visual Studio — May 2026 Update",
+      "title": "GitHub Copilot in Visual Studio \u2014 May 2026 Update",
       "source_url": "https://github.blog/changelog/2026-06-04-github-copilot-in-visual-studio-may-update",
       "source_type": "docs",
       "author": "GitHub (official changelog)",
@@ -2054,6 +2054,19 @@
       "issue": "#1035",
       "file": "source-notes/docs-github-copilot-gemini-cli-cloud-agent-app.md",
       "confidence_overall": "settled",
+      "status": "current"
+    },
+    "blog-ronacher-ai-nationalism-americans-only": {
+      "slug": "blog-ronacher-ai-nationalism-americans-only",
+      "title": "Dangerous Technology For Americans Only",
+      "source_url": "https://lucumr.pocoo.org/2026/6/13/americans-only/",
+      "source_type": "blog-post",
+      "author": "Armin Ronacher",
+      "date_published": "2026-06-13",
+      "date_extracted": "2026-06-14",
+      "issue": "#1176",
+      "file": "source-notes/blog-ronacher-ai-nationalism-americans-only.md",
+      "confidence_overall": "anecdotal",
       "status": "current"
     }
   },
