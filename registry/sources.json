@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-siri-ai-wwdc": {
+      "slug": "blog-simonwillison-siri-ai-wwdc",
+      "title": "Siri AI at WWDC 2026",
+      "source_url": "https://simonwillison.net/2026/Jun/8/wwdc/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-08",
+      "date_extracted": "2026-06-15",
+      "issue": "#1182",
+      "file": "source-notes/blog-simonwillison-siri-ai-wwdc.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-andreas-kling": {
       "slug": "blog-simonwillison-andreas-kling",
       "title": "Quoting Andreas Kling",
