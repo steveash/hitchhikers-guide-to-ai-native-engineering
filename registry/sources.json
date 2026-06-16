@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-agentsview-custom-model-price": {
+      "slug": "blog-simonwillison-agentsview-custom-model-price",
+      "title": "Setting a custom price for a model in AgentsView",
+      "source_url": "https://simonwillison.net/2026/Jun/9/agentsview-custom-model-price/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-09",
+      "date_extracted": "2026-06-16",
+      "issue": "#1187",
+      "file": "source-notes/blog-simonwillison-agentsview-custom-model-price.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-cursor-wayfair-ml-cost-reduction": {
       "slug": "blog-cursor-wayfair-ml-cost-reduction",
       "title": "How Wayfair cut ML model costs by 90% (twice!) with Cursor",
