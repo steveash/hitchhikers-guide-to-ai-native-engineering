@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-cursor-wayfair-ml-cost-reduction": {
+      "slug": "blog-cursor-wayfair-ml-cost-reduction",
+      "title": "How Wayfair cut ML model costs by 90% (twice!) with Cursor",
+      "source_url": "https://cursor.com/blog/wayfair",
+      "source_type": "blog-post",
+      "author": "Cursor Team (vendor case study; named practitioners: Guillermo Mosse, Omer Lang, Nick Coleman — Wayfair)",
+      "date_published": "2026-06-15",
+      "date_extracted": "2026-06-16",
+      "issue": "#1191",
+      "file": "source-notes/blog-cursor-wayfair-ml-cost-reduction.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-siri-ai-wwdc": {
       "slug": "blog-simonwillison-siri-ai-wwdc",
       "title": "Siri AI at WWDC 2026",
