@@ -18,7 +18,7 @@
       "title": "How Wayfair cut ML model costs by 90% (twice!) with Cursor",
       "source_url": "https://cursor.com/blog/wayfair",
       "source_type": "blog-post",
-      "author": "Cursor Team (vendor case study; named practitioners: Guillermo Mosse, Omer Lang, Nick Coleman — Wayfair)",
+      "author": "Cursor Team (vendor case study; named practitioners: Guillermo Mosse, Omer Lang, Nick Coleman \u2014 Wayfair)",
       "date_published": "2026-06-15",
       "date_extracted": "2026-06-16",
       "issue": "#1191",
@@ -2106,6 +2106,19 @@
       "issue": "#1176",
       "file": "source-notes/blog-ronacher-ai-nationalism-americans-only.md",
       "confidence_overall": "anecdotal",
+      "status": "current"
+    },
+    "blog-simonwillison-fable-silent-interventions": {
+      "slug": "blog-simonwillison-fable-silent-interventions",
+      "title": "If Claude Fable stops helping you, you'll never know",
+      "source_url": "https://simonwillison.net/2026/Jun/10/if-claude-fable-stops-helping-you/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-10",
+      "date_extracted": "2026-06-17",
+      "issue": "#1197",
+      "file": "source-notes/blog-simonwillison-fable-silent-interventions.md",
+      "confidence_overall": "emerging",
       "status": "current"
     }
   },
