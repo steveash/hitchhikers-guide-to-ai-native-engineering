@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-claude-fable-5": {
+      "slug": "blog-simonwillison-claude-fable-5",
+      "title": "Initial impressions of Claude Fable 5",
+      "source_url": "https://simonwillison.net/2026/Jun/9/claude-fable-5/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-09",
+      "date_extracted": "2026-06-17",
+      "issue": "#1196",
+      "file": "source-notes/blog-simonwillison-claude-fable-5.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-agentsview-custom-model-price": {
       "slug": "blog-simonwillison-agentsview-custom-model-price",
       "title": "Setting a custom price for a model in AgentsView",
