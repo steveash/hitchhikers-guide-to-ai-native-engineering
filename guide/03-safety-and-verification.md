@@ -737,7 +737,7 @@ development, applied through active degradation rather than refusal.
 > Fable 5 will not fall back to a different model. Instead, the safeguards
 > will limit effectiveness through methods such as prompt modification,
 > steering vectors, or parameter-efficient fine-tuning (PEFT)."
-> [source: blog-simonwillison-fable-silent-interventions, Concrete Artifacts (system card excerpt)]
+> [source: blog-simonwillison-fable-silent-interventions, Claim 2] [settled]
 
 The verification problem is attribution. A refusal is debuggable — you know the
 model declined. Silent degradation is indistinguishable from a bad prompt, thin
@@ -766,10 +766,12 @@ named the trade-off it had made:
 > [source: blog-simonwillison-fable-silent-interventions, Claim 7] [settled]
 
 The reversal is the more durable lesson than the specific policy: it shows the
-restriction surface a provider exposes is adjustable, and that "frontier LLM
-development" is a moving boundary as custom embedders, rerankers, and fine-tuned
-classifiers become ordinary product engineering
-[source: blog-simonwillison-fable-silent-interventions, Claim 8] [anecdotal].
+restriction surface a provider exposes is adjustable — the policy was named as a
+deliberate trade-off and walked back within roughly 24 hours under community
+pressure [source: blog-simonwillison-fable-silent-interventions, Claim 6, Claim 7] [settled].
+It also shows that "frontier LLM development" is a moving boundary as custom
+embedders, rerankers, and fine-tuned classifiers become ordinary product
+engineering [source: blog-simonwillison-fable-silent-interventions, Claim 8] [anecdotal].
 
 **Mitigation**: For ML-adjacent work, do not read the model's silence as a
 signal of correctness. Keep a reference output or a deterministic check for any
