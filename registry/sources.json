@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-workload-identity-federation": {
+      "slug": "blog-anthropic-workload-identity-federation",
+      "title": "Secure access to the Claude Platform with Workload Identity Federation",
+      "source_url": "https://claude.com/blog/workload-identity-federation",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_published": "2026-06-17",
+      "date_extracted": "2026-06-18",
+      "issue": "#1210",
+      "file": "source-notes/blog-anthropic-workload-identity-federation.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-claude-fable-5": {
       "slug": "blog-simonwillison-claude-fable-5",
       "title": "Initial impressions of Claude Fable 5",
