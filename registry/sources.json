@@ -2906,5 +2906,18 @@
     "file": "source-notes/blog-cursor-agent-autonomy-auto-review.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "blog-simonwillison-diffusiongemma": {
+    "slug": "blog-simonwillison-diffusiongemma",
+    "title": "DiffusionGemma",
+    "source_url": "https://simonwillison.net/2026/Jun/10/diffusiongemma/",
+    "source_type": "blog-post",
+    "author": "Simon Willison",
+    "date_published": "2026-06-10",
+    "date_extracted": "2026-06-18",
+    "issue": "#1202",
+    "file": "source-notes/blog-simonwillison-diffusiongemma.md",
+    "confidence_overall": "emerging",
+    "status": "current"
   }
 }
