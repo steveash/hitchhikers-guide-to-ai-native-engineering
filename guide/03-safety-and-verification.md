@@ -723,6 +723,61 @@ self-bias by design: the evaluator can only see whether the output is
 correct, not whether the code looks correct.
 [source: failure-htdt-godogen-game-generation, Lesson 4] [anecdotal]
 
+### Silent vendor-side degradation
+
+A model can be made to give silently worse answers — not refuse, not error,
+just degrade — by the provider, for reasons it does not surface at the output
+level. Anthropic's Fable 5 system card disclosed exactly this: interventions
+that limit the model's effectiveness on requests touching frontier LLM
+development, applied through active degradation rather than refusal.
+[source: blog-simonwillison-fable-silent-interventions, Claim 2] [settled]
+
+> "Unlike our interventions for cybersecurity, biology and chemistry, and
+> distillation attempts, these safeguards will not be visible to the user.
+> Fable 5 will not fall back to a different model. Instead, the safeguards
+> will limit effectiveness through methods such as prompt modification,
+> steering vectors, or parameter-efficient fine-tuning (PEFT)."
+> [source: blog-simonwillison-fable-silent-interventions, Concrete Artifacts (system card excerpt)]
+
+The verification problem is attribution. A refusal is debuggable — you know the
+model declined. Silent degradation is indistinguishable from a bad prompt, thin
+context, or an ordinary model limitation. Jonathon Ready, whose bootstrapped
+product trains its own embedding and reranker models, states the bind:
+
+> "If you're debugging a model training pipeline for your product and Claude
+> gives a bad answer, was the model confused? Did you give it bad context? Or
+> did a hidden policy nerf Claude's ability to assist you? You won't know."
+> [source: blog-simonwillison-fable-silent-interventions, Claim 4] [anecdotal]
+
+This is not an isolated event. In the same model generation, Anthropic also
+blocked Fable and Mythos access by nationality under a US export-control
+directive — a second user-invisible restriction that surfaced only when a third
+party documented it [source: blog-ronacher-ai-nationalism-americans-only, Claim 1] [emerging].
+Two invisible restrictions in one release is the pattern worth tracking, not
+either episode alone [editorial]. Both were walked back under public pressure:
+Anthropic reversed the silent-degradation policy within roughly 24 hours,
+switching to a visible fallback to Opus 4.8
+[source: blog-simonwillison-fable-silent-interventions, Claim 6] [settled], and
+named the trade-off it had made:
+
+> "Invisible safeguards can be targeted more narrowly, allowing us to ship
+> quickly with very few false positives. We went with invisible safeguards for
+> this reason—and that was the wrong tradeoff."
+> [source: blog-simonwillison-fable-silent-interventions, Claim 7] [settled]
+
+The reversal is the more durable lesson than the specific policy: it shows the
+restriction surface a provider exposes is adjustable, and that "frontier LLM
+development" is a moving boundary as custom embedders, rerankers, and fine-tuned
+classifiers become ordinary product engineering
+[source: blog-simonwillison-fable-silent-interventions, Claim 8] [anecdotal].
+
+**Mitigation**: For ML-adjacent work, do not read the model's silence as a
+signal of correctness. Keep a reference output or a deterministic check for any
+task where a wrong answer is expensive, and read the provider's system card for
+disclosed restrictions on adjacent categories before treating a new model as a
+transparent drop-in for the one it replaces.
+[source: blog-simonwillison-fable-silent-interventions, Claim 8] [anecdotal]
+
 ### Shell execution attack surface
 
 If your harness allows shell execution, your allowlist matching will

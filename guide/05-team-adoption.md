@@ -676,6 +676,38 @@ treats every PR identically will miss the failure modes specific to AI output.
 [source: paper-miller-speed-cost-quality, Claim 6;
 research-anthropic-ai-transforming-work, Claim 8] [emerging]
 
+### Accountability is a cleaner test than detection
+
+The trust problem is usually framed as detection — can the reviewer tell what
+was AI-generated? Andreas Kling, announcing that the Ladybird browser would
+stop accepting public pull requests, argues detection is the wrong target
+because the signal it relied on has collapsed.
+[source: blog-simonwillison-andreas-kling, Claim 2] [emerging]
+
+> "A substantial patch used to imply substantial effort, and that effort was a
+> reasonable proxy for good faith. That assumption no longer holds."
+
+His operative test is ownership, not origin:
+
+> "Whether code was typed by hand is beside the point. What matters is who is
+> responsible for it once it enters the browser."
+> [source: blog-simonwillison-andreas-kling, Claim 4] [anecdotal]
+
+The standard Ladybird now applies — the person introducing a change must be the
+one who decided it belongs and who will answer for its consequences
+[source: blog-simonwillison-andreas-kling, Claim 5] [settled] — also excludes a
+low-accountability human who lands a PR and disappears. Ladybird's actual
+response (closing the public PR channel outright) is calibrated to a browser's
+threat model, where one well-hidden vulnerability is catastrophic
+[source: blog-simonwillison-andreas-kling, Claim 3] [settled], and is not a
+template for a typical internal team — but the test underneath it transfers.
+
+**Rule**: Gate AI-generated code on accountability, not detection. Require that
+every change have a named owner who understands it and will answer for it in
+production; author tagging and skeptical review (below) enforce that, while
+trying to fingerprint "was this AI?" does not.
+[source: blog-simonwillison-andreas-kling, Claims 4, 5] [anecdotal]
+
 ### Solutions that work
 
 **Skeptical review by default.** Sentry's `/gh-review` slash command bakes
@@ -987,6 +1019,36 @@ Both findings point in the same direction: AI shifts work composition
 toward judgment-heavy, integrative, non-engineer-translated tasks. For team
 adoption, the operational question is not just "are engineers more
 productive?" but "which decisions still need an engineer in the loop?"
+
+A third domain — ML research — shows the same shift with hard numbers. At
+Wayfair, five researchers tested 110+ model variants in a four-day sprint,
+cutting tag-validation inference cost 94% while improving precision
+[source: blog-cursor-wayfair-ml-cost-reduction, Claim 4] [emerging]. The
+researchers' time went to brainstorming, reviewing results, and deciding what to
+try next, while the agent wrote and ran each variant
+[source: blog-cursor-wayfair-ml-cost-reduction, Claim 7] [anecdotal]. Omer Lang
+names what changed:
+
+> "Cursor changed the bottleneck from 'How long will this take to build?' to
+> 'What is the next idea worth testing?' That is a much better place for a
+> scientist to spend their attention."
+> [source: blog-cursor-wayfair-ml-cost-reduction, Claim 5] [anecdotal]
+
+The enabling move was structural, and it is the transferable part: the team
+locked the evaluation framework before opening the design space — every variant
+ran on the same test dataset and benchmark — so 110 parallel results were
+directly comparable [source: blog-cursor-wayfair-ml-cost-reduction, Claim 3] [emerging].
+Once that framework was mature, junior engineers with no prior exposure to the
+problem shipped novel variants on day one, because implementation and evaluation
+were delegated and the contribution that mattered was idea generation
+[source: blog-cursor-wayfair-ml-cost-reduction, Claim 11] [anecdotal]. (This is a
+vendor case study with self-reported metrics; treat the percentages as emerging.)
+
+**Rule**: Before handing an exploration problem to parallel agents, fix the
+evaluation harness first — same dataset, same benchmark for every variant. The
+agent generates candidates faster than you can compare them; a locked evaluation
+is what turns that parallelism into comparable answers instead of noise.
+[source: blog-cursor-wayfair-ml-cost-reduction, Claim 3] [emerging]
 
 ### What this means for measurement
 
