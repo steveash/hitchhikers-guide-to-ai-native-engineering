@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-fable-relentlessly-proactive": {
+      "slug": "blog-simonwillison-fable-relentlessly-proactive",
+      "title": "Claude Fable is relentlessly proactive",
+      "source_url": "https://simonwillison.net/2026/Jun/11/fable-is-relentlessly-proactive/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-11",
+      "date_extracted": "2026-06-19",
+      "issue": "#1217",
+      "file": "source-notes/blog-simonwillison-fable-relentlessly-proactive.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-anthropic-workload-identity-federation": {
       "slug": "blog-anthropic-workload-identity-federation",
       "title": "Secure access to the Claude Platform with Workload Identity Federation",
