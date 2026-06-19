@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-datasette-1-0a33": {
+      "slug": "blog-simonwillison-datasette-1-0a33",
+      "title": "datasette 1.0a33",
+      "source_url": "https://simonwillison.net/2026/Jun/11/datasette/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-11",
+      "date_extracted": "2026-06-19",
+      "issue": "#1216",
+      "file": "source-notes/blog-simonwillison-datasette-1-0a33.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "blog-anthropic-steering-claude-code-mechanisms": {
       "slug": "blog-anthropic-steering-claude-code-mechanisms",
       "title": "Steering Claude Code: CLAUDE.md files, skills, hooks, rules, subagents and more",
