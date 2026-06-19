@@ -1,5 +1,18 @@
 {
   "sources": {
+    "docs-github-copilot-enterprise-bypass-permissions": {
+      "slug": "docs-github-copilot-enterprise-bypass-permissions",
+      "title": "Enterprise-managed settings now support bypass permission controls",
+      "source_url": "https://github.blog/changelog/2026-06-17-enterprise-managed-settings-now-support-bypass-permission-controls",
+      "source_type": "docs",
+      "author": "GitHub (official changelog)",
+      "date_published": "2026-06-17",
+      "date_extracted": "2026-06-19",
+      "issue": "#1219",
+      "file": "source-notes/docs-github-copilot-enterprise-bypass-permissions.md",
+      "confidence_overall": "emerging",
+      "status": "current"
+    },
     "blog-simonwillison-datasette-1-0a33": {
       "slug": "blog-simonwillison-datasette-1-0a33",
       "title": "datasette 1.0a33",
