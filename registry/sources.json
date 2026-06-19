@@ -2159,6 +2159,19 @@
       "file": "source-notes/blog-simonwillison-fable-silent-interventions.md",
       "confidence_overall": "emerging",
       "status": "current"
+    },
+    "blog-anthropic-enterprise-managed-auth": {
+      "slug": "blog-anthropic-enterprise-managed-auth",
+      "title": "Centrally manage authorization for MCP connectors",
+      "source_url": "https://claude.com/blog/enterprise-managed-auth",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_published": "2026-06-18",
+      "date_extracted": "2026-06-19",
+      "issue": "#1223",
+      "file": "source-notes/blog-anthropic-enterprise-managed-auth.md",
+      "confidence_overall": "emerging",
+      "status": "current"
     }
   },
   "docs-ghaw-frontmatter-full-reference": {
