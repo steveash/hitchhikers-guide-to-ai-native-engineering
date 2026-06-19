@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-anthropic-steering-claude-code-mechanisms": {
+      "slug": "blog-anthropic-steering-claude-code-mechanisms",
+      "title": "Steering Claude Code: CLAUDE.md files, skills, hooks, rules, subagents and more",
+      "source_url": "https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more",
+      "source_type": "blog-post",
+      "author": "Anthropic",
+      "date_published": "2026-06-18",
+      "date_extracted": "2026-06-19",
+      "issue": "#1222",
+      "file": "source-notes/blog-anthropic-steering-claude-code-mechanisms.md",
+      "confidence_overall": "settled",
+      "status": "current"
+    },
     "blog-simonwillison-fable-relentlessly-proactive": {
       "slug": "blog-simonwillison-fable-relentlessly-proactive",
       "title": "Claude Fable is relentlessly proactive",
