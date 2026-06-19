@@ -2984,5 +2984,18 @@
     "file": "source-notes/blog-simonwillison-diffusiongemma.md",
     "confidence_overall": "emerging",
     "status": "current"
+  },
+  "docs-github-copilot-release-notes-pr-credit": {
+    "slug": "docs-github-copilot-release-notes-pr-credit",
+    "title": "Generated release notes credit you for Copilot pull requests",
+    "source_url": "https://github.blog/changelog/2026-06-18-generated-release-notes-credit-you-for-copilot-pull-requests",
+    "source_type": "docs",
+    "author": "GitHub (official changelog)",
+    "date_published": "2026-06-18",
+    "date_extracted": "2026-06-19",
+    "issue": "#1220",
+    "file": "source-notes/docs-github-copilot-release-notes-pr-credit.md",
+    "confidence_overall": "settled",
+    "status": "current"
   }
 }
