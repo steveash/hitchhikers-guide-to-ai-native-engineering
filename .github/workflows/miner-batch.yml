@@ -115,7 +115,10 @@ jobs:
     strategy:
       matrix:
         issue: ${{ fromJson(needs.preflight.outputs.issues) }}
-      max-parallel: 1        # serialize to avoid registry/sources.json conflicts
+      max-parallel: 1        # serialized to bound API/rate-limit load. Miners no
+                             # longer touch registry/sources.json (it's generated
+                             # post-merge), so this can be raised if throughput is
+                             # needed — conflicts are no longer the constraint.
       fail-fast: false        # don't skip remaining issues if one fails
     permissions:
       contents: write        # create + push the miner/* feature branch
@@ -227,17 +230,19 @@ jobs:
               - `confidence_overall:` based on the body of evidence,
                 NOT left as the template placeholder
 
-            If `registry/sources.json` already has entries for other
-            sources, add one for this source matching the existing
-            schema. If the file is empty / minimal, leave it alone —
-            do not invent a schema.
+            Do NOT edit `registry/sources.json`. The registry is a DERIVED
+            index, rebuilt automatically from source-note front-matter by
+            `scripts/build_registry.py` after merge (see registry-rebuild.yml).
+            Having every miner append to that one shared file is what made all
+            parallel miner PRs conflict on it. Just make sure THIS note's
+            front-matter is complete and correct — the index is generated from it.
 
             ## 4. Open the PR
 
             Branch name: `miner/issue-${{ matrix.issue }}-r${{ github.run_id }}`
 
               git checkout -b miner/issue-${{ matrix.issue }}-r${{ github.run_id }}
-              git add source-notes/ registry/ 2>/dev/null || git add source-notes/
+              git add source-notes/
               git commit -m "source: <slug> (#${{ matrix.issue }})"
               git push -u origin miner/issue-${{ matrix.issue }}-r${{ github.run_id }}
 

@@ -44,7 +44,14 @@ permissions:
 
 concurrency:
   group: assayer-pr-${{ github.event.pull_request.number || inputs.pr_number }}
-  cancel-in-progress: true
+  # Do NOT cancel in-progress reviews. A PR commonly receives several events
+  # in quick succession (opened -> bot workflow_dispatch -> synchronize), and
+  # cancel-in-progress:true killed the running Assayer before it could render
+  # a verdict — the root cause of the 2026-06 backlog, where 53 of 54 PRs had
+  # no final verdict (CANCELLED) and fell to a human gate. Letting every run
+  # finish means each (PR, push) reliably gets a verdict; a redundant duplicate
+  # run is far cheaper than a dropped one.
+  cancel-in-progress: false
 
 jobs:
   prepare:
@@ -272,6 +279,64 @@ jobs:
               --repo "${{ github.repository }}" \
               --comment "Source note merged via PR #$PR_NUMBER. Closing."
           fi
+
+      - name: Auto-merge approved guide-update PRs (shadow/live gated)
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ needs.prepare.outputs.pr_number }}
+          # Repo variable GUIDE_AUTOMERGE controls the published-guide gate:
+          #   off    (default) — never auto-merge guide PRs; a human merges.
+          #   shadow           — log the decision the gate WOULD make, but
+          #                      don't merge. Use this to watch the catch-rate.
+          #   live             — actually auto-merge on APPROVE.
+          # Roll out off -> shadow -> live as trust is established. Before
+          # going live, enable a second independent fabrication-only review
+          # pass (see docs/AUTO-GATE-ROLLOUT.md) — the guide is what readers
+          # see, so it warrants two agreeing verdicts, not one.
+          GUIDE_AUTOMERGE: ${{ vars.GUIDE_AUTOMERGE || 'off' }}
+        run: |
+          LABELS='${{ needs.prepare.outputs.labels }}'
+          if ! echo "$LABELS" | jq -e 'index("guide-update")' > /dev/null 2>&1; then
+            echo "Not a guide-update PR; nothing to do here."
+            exit 0
+          fi
+
+          echo "Assayer APPROVED guide-update PR #$PR_NUMBER. Mode: $GUIDE_AUTOMERGE"
+          case "$GUIDE_AUTOMERGE" in
+            live)
+              echo "GUIDE_AUTOMERGE=live — auto-merging."
+              gh pr merge "$PR_NUMBER" --repo "${{ github.repository }}" --squash
+              echo "- guide PR #$PR_NUMBER: **auto-merged (live)** on APPROVE" >> "$GITHUB_STEP_SUMMARY"
+              ;;
+            shadow)
+              echo "GUIDE_AUTOMERGE=shadow — would auto-merge, but only logging."
+              echo "- guide PR #$PR_NUMBER: **SHADOW** — gate would auto-merge on APPROVE (not merged)" >> "$GITHUB_STEP_SUMMARY"
+              gh pr comment "$PR_NUMBER" --body "🟡 **Shadow gate**: the Assayer APPROVED this guide-update PR. In \`live\` mode it would have been auto-merged. Left open for human merge while the gate is in shadow mode." || true
+              ;;
+            *)
+              echo "GUIDE_AUTOMERGE=off — leaving for human merge."
+              echo "- guide PR #$PR_NUMBER: APPROVE (human-merge; guide auto-merge off)" >> "$GITHUB_STEP_SUMMARY"
+              ;;
+          esac
+
+      - name: Record gate decision summary
+        if: always()
+        env:
+          PR_NUMBER: ${{ needs.prepare.outputs.pr_number }}
+        run: |
+          # One-glance ledger line per run so the catch-rate is auditable in
+          # the Actions UI without opening each PR. (Aggregated into the
+          # dashboard by scripts/generate_dashboard.py — see rollout doc.)
+          if [ -f /tmp/assayer-review.md ] && \
+             grep -Eq '^\*\*Verdict\*\*:[[:space:]]*APPROVE' /tmp/assayer-review.md; then
+            VERDICT="APPROVE"
+          elif grep -Eq '^\*\*Verdict\*\*:[[:space:]]*REJECT' /tmp/assayer-review.md 2>/dev/null; then
+            VERDICT="REJECT"
+          else
+            VERDICT="REQUEST_CHANGES"
+          fi
+          echo "### Assayer gate: PR #$PR_NUMBER → $VERDICT" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Update project board (assayer verdict)
         if: always()

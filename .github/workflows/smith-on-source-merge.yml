@@ -580,9 +580,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Advance the tag to HEAD so the next daily run only processes
-          # new changes. We do this whether or not a PR was opened —
-          # "no changes needed" is a valid outcome that shouldn't be
-          # re-evaluated tomorrow.
-          git tag -f smith-last-run HEAD
+          # Advance the tag to the tip of MAIN (not HEAD — HEAD here is the
+          # Smith's feature branch, which carries synthesis commits that are
+          # not on main; tagging it caused the baseline to drift onto dead
+          # branches and the diff range to go stale, which is how the tag got
+          # stuck 2 months back and produced giant, mutually-conflicting guide
+          # PRs). The baseline must track what has actually merged to main.
+          # We advance whether or not a PR was opened — "no changes needed" is
+          # a valid outcome that shouldn't be re-evaluated next run.
+          git fetch origin main
+          git tag -f smith-last-run origin/main
           git push origin smith-last-run --force
