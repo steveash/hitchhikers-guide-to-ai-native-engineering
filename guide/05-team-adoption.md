@@ -624,6 +624,89 @@ blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
 
 ---
 
+## Identity and Permission Governance
+
+Standardizing harness files and a proxy governs how agents are *configured*. A
+parallel governance surface emerged across vendors in mid-2026: how agents
+*authenticate*, and what they are allowed to approve on their own. Three
+first-party announcements in June 2026 — two from Anthropic, one from GitHub —
+point the same direction: agent access is moving out of static, per-user setup
+and into the enterprise identity and policy layer.
+
+### Replace static API keys with short-lived credentials
+
+Anthropic shipped Workload Identity Federation (WIF) to general availability on
+the Claude Platform on June 17, 2026
+[source: blog-anthropic-workload-identity-federation, Claim 1] [settled]. WIF
+replaces long-lived Anthropic API keys with "short-lived, scoped credentials
+issued at request time," federated from any OIDC provider — AWS IAM, GCP, Azure,
+Kubernetes, GitHub Actions, Okta
+[source: blog-anthropic-workload-identity-federation, Claims 3, 6] [settled]. The
+security argument is that it removes the three failure modes of a static key at
+once: there is no key to "create, rotate, or leak"
+[source: blog-anthropic-workload-identity-federation, Claim 4] [settled].
+Per-workload **service accounts** give each agentic workload its own identity and
+audit trail rather than sharing one key's surface
+[source: blog-anthropic-workload-identity-federation, Claim 5] [settled].
+
+Existing API keys keep working alongside WIF, so migration is incremental — adopt
+WIF for new workloads, move existing ones at their next redeploy
+[source: blog-anthropic-workload-identity-federation, Claim 10] [settled].
+
+**Rule**: For production agent workloads, federate credentials from your existing
+OIDC provider and give each workload its own service account. Treat API-key/WIF
+coexistence as a migration ramp, not a permanent policy.
+[source: blog-anthropic-workload-identity-federation, Claims 3, 5, 10] [emerging]
+
+### Provision MCP connector access through the IdP, not per user
+
+The same week, Anthropic extended the pattern outward to MCP connectors.
+Previously, enabling a connector took two steps — "admins enabled a connector for
+the organization, and then every individual user authorized it themselves"
+[source: blog-anthropic-enterprise-managed-auth, Claim 1] [settled].
+Enterprise-managed authorization collapses the second step: admins authorize once
+and "users inherit access through the IdP groups and roles they already have"
+[source: blog-anthropic-enterprise-managed-auth, Claim 2] [settled]. For
+governance this folds connector access into the workflow that already governs the
+rest of the stack — "provision once, scope by group, manage revocation through the
+IdP" — and lets admins shorten token lifetimes so that "when someone is
+deprovisioned, their connector access expires fast instead of lingering on an old
+token"
+[source: blog-anthropic-enterprise-managed-auth, Claims 4, 5] [settled].
+
+### Take auto-approval away as an enterprise control
+
+GitHub closed the loop from the policy side. Its June 17, 2026 enterprise-managed
+settings added `disableBypassPermissionsMode`, which prevents Copilot CLI and VS
+Code from automatically approving permission prompts ("bypass permissions mode")
+across every licensed user
+[source: docs-github-copilot-enterprise-bypass-permissions, Claim 1] [settled].
+
+```json
+// .github-private/.github/copilot/settings.json
+// (new preferred path: copilot/managed-settings.json)
+{ "disableBypassPermissionsMode": "disable" }
+```
+*[source: docs-github-copilot-enterprise-bypass-permissions, Concrete Artifacts;
+Claim 4] [settled]*
+
+Auto-approval is exactly the state in which permission prompts stop being a safety
+control. Forbidding it centrally is more robust than trusting each developer to
+leave it off — the same logic that puts hard enforcement in settings.json rather
+than prose (see Ch02) and that keeps Chapter 03's prompt-injection defenses
+meaningful.
+
+**Rule**: Two of the highest-leverage enterprise levers for agent safety are now
+identity-layer, not prompt-layer: federate credentials so access tracks
+organizational identity and expires on deprovisioning, and disable auto-approval
+of permission prompts org-wide so no developer can rubber-stamp past the
+permission model.
+[source: blog-anthropic-workload-identity-federation, Claim 4;
+blog-anthropic-enterprise-managed-auth, Claim 5;
+docs-github-copilot-enterprise-bypass-permissions, Claim 1] [emerging]
+
+---
+
 ## Code Review When AI Wrote It
 
 Three independent sources -- a peer-reviewed paper, a vendor analytics report,
@@ -1358,6 +1441,9 @@ in early 2026.
 ---
 
 *Sources for this chapter:
+blog-anthropic-enterprise-managed-auth (Claims 1, 2, 4, 5),
+blog-anthropic-workload-identity-federation (Claims 1, 3, 4, 5, 6, 10),
+docs-github-copilot-enterprise-bypass-permissions (Claims 1, 4; Concrete Artifacts),
 survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
@@ -1380,4 +1466,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-06-20*

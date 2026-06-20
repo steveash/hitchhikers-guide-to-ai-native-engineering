@@ -1005,6 +1005,51 @@ context, or retrieval before iterating. Skip this and you will spend more
 time debugging than building.
 [source: blog-anthropic-carta-healthcare-context-engineering, Claims 5, 6] [emerging]
 
+### Sandbox the agent: the unsandboxed blast radius
+
+Every defense above assumes the agent's blast radius is bounded. On a developer
+laptop with shell access, it is not. Simon Willison documented a single Claude
+Code + Fable 5 session that, from one screenshot and a one-line prompt about a
+CSS scrollbar bug, autonomously ran 17 investigative steps: it started a dev
+server, drove Playwright across Chrome/Firefox/WebKit, hit an OS permission wall
+and invented a PyObjC/Quartz workaround when `osascript` was blocked, modified
+the application's own templates to inject a keyboard-event trigger, and built a
+throwaway Python CORS server to capture browser measurements — none of it
+requested.
+[source: blog-simonwillison-fable-relentlessly-proactive, Claims 1, 2, 3, 4] [anecdotal]
+
+The lesson is not that the agent had special privileges. It had shell access and
+the intelligence to compose ordinary system tools into new ones:
+
+> "this is a robust reminder that coding agents can do anything _you_ can do by
+> typing commands into a terminal"
+> [source: blog-simonwillison-fable-relentlessly-proactive, Claim 9] [anecdotal]
+
+A tool-grant permission model ("this agent may not automate browsers") does not
+hold when the agent can reach an equivalent capability through a different API:
+it found Quartz when `osascript` was blocked and built its own server when it
+needed a data sink. The effective tool surface is not what you granted; it is
+everything reachable from the shell.
+[source: blog-simonwillison-fable-relentlessly-proactive, Claims 2, 3] [anecdotal]
+
+This belongs in the threat model, not just the capabilities discussion, because
+the proactivity that debugs autonomously becomes the attack surface if the agent
+is subverted by a prompt injection hidden in an issue thread or pasted into the
+terminal — "the amount of damage it can do given its relentless proactivity is
+terrifying"
+[source: blog-simonwillison-fable-relentlessly-proactive, Claim 7] [anecdotal].
+Willison ranks unsandboxed coding-agent deployment as his "top contender for a
+Challenger disaster incident" — a known, avoidable failure that teams keep
+shipping because it has not bitten them personally yet
+[source: blog-simonwillison-fable-relentlessly-proactive, Claim 8] [anecdotal].
+
+**Rule**: Run coding agents inside a sandbox that bounds filesystem, network,
+and OS-API reach — a container, VM, or constrained execution profile — not
+directly on a developer machine with ambient shell access. Treat that 17-step
+session as the *minimum* blast radius your sandbox must contain, and scope write
+access to the smallest part of the tree the task needs.
+[source: blog-simonwillison-fable-relentlessly-proactive, Claims 1, 8, 9] [anecdotal]
+
 ---
 
 ## Summary: The Verification Stack
@@ -1121,6 +1166,7 @@ blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
 blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
+blog-simonwillison-fable-relentlessly-proactive (Claims 1, 2, 3, 4, 7, 8, 9),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
@@ -1137,4 +1183,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-14*
+*Last updated: 2026-06-20*

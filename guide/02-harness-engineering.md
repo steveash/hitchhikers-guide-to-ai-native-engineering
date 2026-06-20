@@ -538,6 +538,95 @@ the hierarchy above.
 
 ---
 
+## Choosing the Right Mechanism
+
+The Enforcement Hierarchy ranks mechanisms by *reliability*. A second question
+comes before it: *which mechanism fits this instruction at all?* That depends on
+when the instruction loads, whether it survives compaction, and what it costs
+per turn. In June 2026 Anthropic published the first first-party answer — a
+unified taxonomy of seven methods for instructing Claude Code, compared across
+loading, compaction behavior, and context cost
+[source: blog-anthropic-steering-claude-code-mechanisms, Claim 1] [settled].
+
+> "There are seven methods for instructing Claude's behavior: CLAUDE.md files,
+> rules, skills, subagents, hooks, output styles, and appending the system
+> prompt."
+> [source: blog-anthropic-steering-claude-code-mechanisms, Claim 1] [settled]
+
+These are Claude Code mechanisms. Other AGENTS.md-aware tools share some of them
+(CLAUDE.md/AGENTS.md, hooks), but the seven-method taxonomy and its compaction
+semantics are documented for Claude Code only; verify behavior elsewhere before
+relying on it.
+
+| Method | When it loads | Survives compaction? | Context cost |
+|--------|---------------|----------------------|--------------|
+| CLAUDE.md (root) | Session start; whole session | Yes — memoized, re-read after compaction | High — "every line costs tokens whether relevant or not" |
+| CLAUDE.md (subdir) | On-demand, when a file under it is read | No — lost until that subdir is touched again | Low |
+| Rules (`.claude/rules/`) | Session start, or only when matching paths are touched | Yes — re-injected | Medium; near-zero when path-scoped |
+| Skills | Name + description at start; body on invocation | Invoked bodies re-injected up to a shared budget, oldest dropped first | Low |
+| Subagents | Name/description/tools at start; body only when called | No — only the final message returns | Low — zero in main context until called |
+| Hooks | Fire on lifecycle events | Bypass compaction entirely | Low — config lives outside the context window |
+| Output styles | Session start; injected into the system prompt | Never compacted | High — occupies the system prompt |
+| Append system prompt (`--append-system-prompt`) | Session start; CLI flag | Never compacted; this invocation only | Moderate |
+
+*Reconstructed from [source: blog-anthropic-steering-claude-code-mechanisms,
+Concrete Artifacts (Seven-Method Comparison Table)] [settled].*
+
+Three content-partitioning rules fall out of the table, each named by Anthropic
+as an explicit anti-pattern:
+
+**Procedures go in skills, not CLAUDE.md.** A multi-step runbook in the root
+file costs its full length on every turn, even when the task is unrelated; in a
+skill the body loads only on invocation.
+> "Procedures belong in skills. CLAUDE.md is for facts Claude should hold all
+> the time: build commands, monorepo layout, team conventions. A deployment
+> runbook or a security review checklist should live in `.claude/skills/`,
+> where the body loads only when invoked."
+> [source: blog-anthropic-steering-claude-code-mechanisms, Claim 12] [settled]
+
+**Enforcement goes in hooks, not prose** — the same conclusion the Enforcement
+Hierarchy reaches from practitioner failure data, now stated first-party:
+> "When there's something that absolutely must not happen, an instruction is the
+> wrong tool."
+> [source: blog-anthropic-steering-claude-code-mechanisms, Claim 13] [settled]
+
+The same applies to behavior that must happen on every action — running a
+formatter after each edit, posting to Slack on completion — which belongs in a
+deterministic hook rather than an "always do X" line in CLAUDE.md
+[source: blog-anthropic-steering-claude-code-mechanisms, Claim 14] [settled].
+
+**Path-scope rules that apply to only part of the tree.** A rule scoped with a
+`paths:` field to `src/api/**` stays out of context during a docs-only session,
+dropping its cost from medium-always-on to near-zero
+[source: blog-anthropic-steering-claude-code-mechanisms, Claim 4] [settled].
+
+### Hooks have five types — and only three are deterministic
+
+The Hooks section earlier in this chapter treats hooks as uniformly
+deterministic. The steering post draws a sharper boundary:
+> "There are several types of hooks: command, HTTP, mcp_tool, prompt, and agent.
+> All hooks are deterministically triggered. The first three execute
+> deterministically while the latter two, prompt and agent, use Claude's
+> judgment rather than a set of rules to determine the output."
+> [source: blog-anthropic-steering-claude-code-mechanisms, Claim 8] [settled]
+
+All five fire on a deterministic trigger and all bypass compaction; `prompt` and
+`agent` hooks differ only in that their *output* is model-judged rather than
+rule-determined
+[source: blog-anthropic-steering-claude-code-mechanisms, Claims 7, 8] [settled].
+That makes a `prompt` or `agent` hook behave like the advisory-hook tier of the
+Enforcement Hierarchy rather than a blocking `command` hook [editorial].
+
+**Rule**: For a must-not-happen or must-always-happen constraint, use a
+`command` or `HTTP` hook — deterministic output. Reserve `prompt`/`agent` hooks
+for context-aware automation where some variation is acceptable. Reach for
+output styles only for deliberate role-level changes: Anthropic notes they
+"carry the highest instruction-following weight of any method that we've covered
+so far and should be used judiciously."
+[source: blog-anthropic-steering-claude-code-mechanisms, Claims 8, 9] [settled]
+
+---
+
 ## .claude/settings.json — Permission Models
 
 ### The Permission Architecture
@@ -1430,6 +1519,7 @@ only measured production cost of omitting one in our corpus.
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
+blog-anthropic-steering-claude-code-mechanisms (Claims 1, 4, 7, 8, 9, 12, 13, 14; Concrete Artifacts),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-simonwillison-codex-base-instructions (Claim 6),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
@@ -1446,4 +1536,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-09*
+*Last updated: 2026-06-20*
