@@ -1,5 +1,18 @@
 {
   "sources": {
+    "blog-simonwillison-openai-webrtc-document-context": {
+      "slug": "blog-simonwillison-openai-webrtc-document-context",
+      "title": "OpenAI WebRTC Audio Session, now with document context",
+      "source_url": "https://simonwillison.net/2026/Jun/12/openai-webrtc/",
+      "source_type": "blog-post",
+      "author": "Simon Willison",
+      "date_published": "2026-06-12",
+      "date_extracted": "2026-06-20",
+      "issue": "#1233",
+      "file": "source-notes/blog-simonwillison-openai-webrtc-document-context.md",
+      "confidence_overall": "anecdotal",
+      "status": "current"
+    },
     "docs-github-copilot-enterprise-bypass-permissions": {
       "slug": "docs-github-copilot-enterprise-bypass-permissions",
       "title": "Enterprise-managed settings now support bypass permission controls",
