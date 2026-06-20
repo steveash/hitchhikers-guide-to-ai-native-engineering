@@ -2,7 +2,7 @@
 source_url: https://cursor.com/blog/faire
 source_type: blog-post
 title: "Faire doubles PR throughput with Cursor Cloud Agents"
-author: Cursor Team (vendor case study; named practitioners: Luke Bjerring — Principal Engineer, Blair McAlpine — Senior Engineer, both at Faire)
+author: "Cursor Team (vendor case study; named practitioners: Luke Bjerring — Principal Engineer, Blair McAlpine — Senior Engineer, both at Faire)"
 date_published: 2026-05-26
 date_extracted: 2026-05-27
 last_checked: 2026-05-27

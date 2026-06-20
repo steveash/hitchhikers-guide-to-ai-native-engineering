@@ -2,7 +2,7 @@
 source_url: https://cursor.com/blog/paypal
 source_type: blog-post
 title: "Beyond efficiency: PayPal expands what's possible to build with AI"
-author: Cursor Team (vendor case study; named practitioners from PayPal: Michelle Chance — Head of Developer Platforms; Prakhar Mehrotra — SVP and Global Head of AI)
+author: "Cursor Team (vendor case study; named practitioners from PayPal: Michelle Chance — Head of Developer Platforms; Prakhar Mehrotra — SVP and Global Head of AI)"
 date_published: 2026-05-11
 date_extracted: 2026-05-12
 last_checked: 2026-05-12

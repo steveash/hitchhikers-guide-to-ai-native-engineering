@@ -2,7 +2,7 @@
 source_url: https://claude.com/blog/how-anthropic-uses-claude-gtm-engineering
 source_type: blog-post
 title: "How one Anthropic seller rebuilt his team's workflows with Claude Code"
-author: Anthropic (first-party practitioner case study; subject: Jared Sires, GTM Product Manager, Anthropic)
+author: "Anthropic (first-party practitioner case study; subject: Jared Sires, GTM Product Manager, Anthropic)"
 date_published: 2026-06-05
 date_extracted: 2026-06-06
 last_checked: 2026-06-06

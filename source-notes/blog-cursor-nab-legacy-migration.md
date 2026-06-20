@@ -2,7 +2,7 @@
 source_url: https://cursor.com/blog/nab
 source_type: blog-post
 title: "National Australia Bank accelerates legacy migrations with Cursor"
-author: Cursor (vendor case study; named practitioners: Chris De Lorenzo, Andrew Vaughan, Coby Paterson, Harjot Singh, Caroline Trang — all NAB)
+author: "Cursor (vendor case study; named practitioners: Chris De Lorenzo, Andrew Vaughan, Coby Paterson, Harjot Singh, Caroline Trang — all NAB)"
 date_published: 2026-04-23
 date_extracted: 2026-05-10
 last_checked: 2026-05-10
