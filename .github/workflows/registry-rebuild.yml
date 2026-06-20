@@ -31,7 +31,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # PROJECT_PAT (an admin user), not GITHUB_TOKEN: the commit below is a
+          # direct push to main. Once branch protection requires the assayer
+          # check, the github-actions bot cannot push to main directly, but an
+          # admin user bypasses it (enforce_admins=false). The [skip ci] on the
+          # commit still prevents a re-trigger loop. See docs/AUTO-GATE-ROLLOUT.md.
+          token: ${{ secrets.PROJECT_PAT }}
 
       - uses: actions/setup-python@v5
         with:

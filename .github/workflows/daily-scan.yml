@@ -33,6 +33,13 @@ jobs:
       DAILY_SCAN_CAP: '20'
     steps:
       - uses: actions/checkout@v4
+        with:
+          # PROJECT_PAT (admin) so the scanner-state commit can push directly to
+          # main once branch protection requires the assayer check — the
+          # github-actions bot would otherwise be blocked. The committed files
+          # are registry state + DASHBOARD.md only (no source-notes/), so this
+          # push does not trigger registry-rebuild.
+          token: ${{ secrets.PROJECT_PAT }}
 
       - uses: actions/setup-python@v5
         with:
