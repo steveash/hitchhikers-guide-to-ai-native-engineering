@@ -267,20 +267,18 @@ jobs:
           # recreated branches; see miner-batch.yml).
           ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)\(-r[0-9]\+\)\?$|\1|p')
 
-          # Use GitHub-native auto-merge (--auto), NOT an immediate merge.
-          # This step runs INSIDE the assayer job, so the required "assayer"
-          # check is still pending right now — an immediate `gh pr merge` is
-          # rejected by branch protection and would fail the job (flipping the
-          # check to FAILURE even on an APPROVE verdict). --auto queues the
-          # merge; GitHub completes it the moment this job finishes and the
-          # assayer check goes green. `|| true` so a transient enable failure
-          # can never fail the job and corrupt the verdict.
-          echo "Enabling auto-merge for approved source-note PR #$PR_NUMBER"
+          # Immediate squash-merge on APPROVE. main is intentionally NOT
+          # branch-protected (the gate IS this approve-only-merge logic, and a
+          # required status check is incompatible with the dispatch-based review
+          # path — workflow_dispatch runs don't write a check onto the PR head
+          # SHA, so a required check would leave dispatch-reviewed PRs unmergeable.
+          # See docs/AUTO-GATE-ROLLOUT.md). `|| true` so a transient merge hiccup
+          # can't fail the job and corrupt the verdict check.
+          echo "Auto-merging approved source-note PR #$PR_NUMBER"
           gh pr merge "$PR_NUMBER" \
             --repo "${{ github.repository }}" \
             --squash \
-            --auto \
-            --delete-branch || echo "WARN: could not enable auto-merge (non-fatal)"
+            --delete-branch || echo "WARN: merge failed (non-fatal)"
 
           # Close the linked source issue
           if [ -n "$ISSUE_NUMBER" ]; then
@@ -314,12 +312,10 @@ jobs:
           echo "Assayer APPROVED guide-update PR #$PR_NUMBER. Mode: $GUIDE_AUTOMERGE"
           case "$GUIDE_AUTOMERGE" in
             live)
-              echo "GUIDE_AUTOMERGE=live — enabling auto-merge."
-              # --auto (queue until the assayer check is green), same reason as
-              # the source-note path: this runs inside the assayer job.
-              gh pr merge "$PR_NUMBER" --repo "${{ github.repository }}" --squash --auto \
-                || echo "WARN: could not enable auto-merge (non-fatal)"
-              echo "- guide PR #$PR_NUMBER: **auto-merge enabled (live)** on APPROVE" >> "$GITHUB_STEP_SUMMARY"
+              echo "GUIDE_AUTOMERGE=live — auto-merging."
+              gh pr merge "$PR_NUMBER" --repo "${{ github.repository }}" --squash \
+                || echo "WARN: merge failed (non-fatal)"
+              echo "- guide PR #$PR_NUMBER: **auto-merged (live)** on APPROVE" >> "$GITHUB_STEP_SUMMARY"
               ;;
             shadow)
               echo "GUIDE_AUTOMERGE=shadow — would auto-merge, but only logging."

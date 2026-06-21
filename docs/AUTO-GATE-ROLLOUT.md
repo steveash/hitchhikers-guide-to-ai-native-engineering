@@ -58,16 +58,25 @@ regenerated. Pick the baseline for the next Smith run:
 
 Then trigger it: `gh workflow run smith-on-source-merge.yml`.
 
-### 3. Make the Assayer enforcing, not advisory (track A)
-```bash
-gh api -X PUT repos/steveash/hitchhikers-guide-to-ai-native-engineering/branches/main/protection \
-  -f 'required_status_checks[strict]=true' \
-  -f 'required_status_checks[contexts][]=assayer' \
-  -f 'enforce_admins=false' \
-  -f 'required_pull_request_reviews=' \
-  -f 'restrictions='
-```
-Now nothing merges to `main` unless the Assayer check passes.
+### 3. Enforcement (track A) — DECIDED: no hard branch protection
+
+We tried requiring the `assayer` status check via branch protection and backed it
+out (2026-06-21). It is **incompatible with the dispatch-based review path**: bots
+review by `workflow_dispatch` (because the `pull_request` webhook is ~35% rate-
+limited), and dispatch runs do **not** write a check onto the PR head SHA — so a
+required `assayer` check leaves every dispatch-reviewed PR permanently unmergeable
+(auto-merge stuck queued). It also deadlocked auto-merge (the merge step runs
+inside the assayer job, so the required check was still pending when it merged).
+
+**The gate is the workflow's approve-only-merge logic** (assayer.yml only calls
+`gh pr merge` after an APPROVE verdict). That runs on every review regardless of
+trigger, so the pipeline flows hands-free. Trust comes from shadow mode + the
+gardener audit + the decision log, not from a hard merge block.
+
+If you later want hard enforcement anyway, the robust way is a **status bridge**:
+have the assayer post an explicit commit-status (e.g. `assayer-verdict`) on the PR
+head SHA in *every* run including dispatch, and require *that* context — never the
+implicit job check, which is trigger-dependent.
 
 ### 4. Turn on guide auto-merge, shadow → live (tracks E/F/G)
 The guide is what readers see, so gate it harder than raw notes:
