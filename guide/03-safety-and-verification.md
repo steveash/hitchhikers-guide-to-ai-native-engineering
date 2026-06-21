@@ -988,7 +988,8 @@ Prompt the discovery agent *simply*. The counter-intuitive finding:
 checklists tend to reduce the model's creativity and generate fewer novel bugs"
 [source: blog-anthropic-llms-secure-source-code, Claim 2] [emerging]. Encode the
 durable context — which vulnerability classes count — in a `THREAT_MODEL.md`
-committed to the repo, and leave the search strategy to the model.
+committed to the repo, and leave the search strategy to the model
+[source: blog-anthropic-llms-secure-source-code, Claim 5] [emerging].
 
 Verification must run independently. Give the verifier only the proof-of-concept
 and the codebase, not the finder's analysis, so it hunts for mitigations the
