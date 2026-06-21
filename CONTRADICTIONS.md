@@ -86,6 +86,7 @@ stay in this file with their original ID.
 | C-002 | AGENTS.md role: redirect target vs identical mirror | 2026-04-08 | resolved | accepted-A |
 | C-003 | AI productivity at the org level: individual vs organizational gains | 2026-04-08 | resolved | debated |
 | C-004 | slash_command trigger: recommended HITL mechanism vs. near-zero success rate | 2026-05-12 | resolved | debated |
+| C-005 | Agentic workflow authentication: GITHUB_TOKEN sufficient vs PAT required | 2026-06-12 | resolved | accepted-A |
 
 ---
 
@@ -277,3 +278,41 @@ Ch02 §Harness Engineering trigger taxonomy and Ch03 §HITL interaction patterns
 
 *This file is updated whenever a `contradiction` issue is resolved. New entries
 are appended at the bottom; the index table at the top is updated to match.*
+
+## C-005: Agentic workflow authentication: GITHUB_TOKEN sufficient (June 2026) vs. fine-grained PAT required (May 2026)
+
+- **Filed**: 2026-06-12 by steveash
+- **Issue**: #1161
+- **Resolved**: 2026-06-21
+- **Verdict**: accepted-A
+- **Affected guide sections**: Ch02 §Harness Engineering, Ch03 §Safety and Verification, Ch05 §Team Adoption
+
+### Side A
+- **Source**: [docs-ghaw-assign-to-copilot](source-notes/docs-ghaw-assign-to-copilot.md)
+- **Claim**: The `assign-to-agent` safe output requires a fine-grained PAT; the default GITHUB_TOKEN lacks the necessary permissions, and GitHub App tokens are explicitly not supported.
+- **Evidence**: First-party GitHub reference documentation (May 2026), direct statement with verbatim quote: "This safe output requires a fine-grained PAT to authenticate the agent assignment operation. The default `GITHUB_TOKEN` lacks the necessary permissions." Confirmed by the Concrete Artifacts authentication table in the source note showing `DEFAULT GITHUB_TOKEN: ❌ Insufficient`, `FINE-GRAINED PAT: ✅ Required`.
+- **Confidence**: settled (as of 2026-05-10 extraction, re-verified 2026-06-21 against live reference page)
+
+### Side B
+- **Source**: [docs-github-copilot-aw-github-token-auth](source-notes/docs-github-copilot-aw-github-token-auth.md)
+- **Claim**: Agentic workflows can now authenticate using the built-in GITHUB_TOKEN; PATs are no longer required.
+- **Evidence**: Official GitHub changelog (June 11, 2026) from the GitHub blog: "You can now use GitHub Agentic Workflows with GitHub Actions's built-in `GITHUB_TOKEN`. This means that you no longer need to create and store a personal access token (PAT)." The changelog discloses `copilot-requests: write` as the enabling mechanism in the workflow frontmatter, described as enabling Copilot AI inference billing.
+- **Confidence**: settled (first-party official announcement)
+
+### Resolution
+
+These claims address different architectural layers and are not actually contradictory. The human resolver re-fetched the live `assign-to-agent` reference page on 2026-06-21 and confirmed it still states verbatim: "Both safe outputs require a fine-grained PAT. The default `GITHUB_TOKEN` lacks the necessary permissions" (Actions, Contents, Issues, Pull requests — all Write). Side A's requirement stands.
+
+Side B's June 2026 changelog introduces GITHUB_TOKEN support for agentic workflows via the `copilot-requests: write` frontmatter permission — this is specifically for **Copilot AI inference billing** (authorizing and paying for LLM calls within a workflow run). This is a different credential layer from the `assign-to-agent` safe output, which requires write access to GitHub Issues and Pull Requests (the GitHub API write layer, routed through the Safe Outputs Processor). Side B's changelog never mentions `assign-to-agent` by name, nor does it address Safe Outputs write-credential requirements.
+
+The guide should preserve the `assign-to-agent` PAT requirement (Side A holds) while clarifying that the June 2026 "no longer need a PAT" announcement refers to the Copilot inference billing layer (`copilot-requests: write`), a separate concern. Additionally, the filer noted a security distinction: PAT-based writes bypass the `github-actions[bot]` non-triggering loop-prevention mechanism (per `docs-ghaw-rate-limiting-controls.md` Claim 2), so workflows using PATs must explicitly guard against trigger loops — this is an important safety note regardless of authentication layering.
+
+### Citation in the guide
+
+Ch02 §Harness Engineering should state that `assign-to-agent` workflows require a fine-grained PAT (Actions/Contents/Issues/PRs Write; `GH_AW_AGENT_TOKEN` fallback chain; GitHub App tokens not supported), citing Side A as `[settled]`. Clarify that the June 2026 "no longer need a PAT" announcement covers Copilot AI inference billing only, not Safe Outputs write operations.
+
+Ch03 §Safety and Verification should document the PAT-related loop-prevention bypass: workflows authenticating with a fine-grained PAT (rather than GITHUB_TOKEN) are not subject to the `github-actions[bot]` non-triggering protection, so they must implement explicit loop guards.
+
+Ch05 §Team Adoption should note the June 2026 change as reducing PAT lifecycle management burden for Copilot AI inference billing, acknowledging this as an operational improvement for adoption — while preserving the note that `assign-to-agent` and certain other safe outputs still require PAT provisioning.
+
+---
