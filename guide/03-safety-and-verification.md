@@ -1186,7 +1186,7 @@ disengagement.
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
-blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 6, 7, 12),
+blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 5, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
