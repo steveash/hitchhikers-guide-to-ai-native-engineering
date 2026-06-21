@@ -82,7 +82,8 @@ jobs:
               [.[] |
                 select(.labels | map(.name) |
                   (contains([\"mining-complete\"]) or
-                   contains([\"miner-blocked\"])) | not
+                   contains([\"miner-blocked\"]) or
+                   contains([\"extraction-rejected\"])) | not
                 ) |
                 . + {prio:
                   (if .labels | map(.name) | index(\"priority:high\")   then 0

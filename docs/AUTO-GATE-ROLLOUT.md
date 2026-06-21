@@ -16,14 +16,22 @@ trust-building rollout so the human can exit the loop without losing quality.
 | A/F | Auto-merge existed for source-notes but the gate was **advisory** (no branch protection) and guide PRs always needed a human. | Guide auto-merge added behind a shadow/live variable; branch-protection + double-gate steps documented below. |
 | E/G | No at-a-glance view of gate decisions to build trust. | Per-run decision summary in the Actions UI; shadow mode logs "would merge". |
 
-## Tiered autonomy (the target steady state)
+## Fully autonomous steady state (no human exception queue)
 
-- **APPROVE** → auto-merge (source-notes already; guide via `GUIDE_AUTOMERGE`).
-- **REQUEST CHANGES** → Smith `/rework` once, then re-gate (already wired).
-- **REJECT** (e.g. fabrication) → stays open with the Assayer's evidence; a
-  human only sees these. In the 54-PR backlog this was ~4% (2 fabrications).
+- **APPROVE** → auto-merge (source-notes immediately; guide via `GUIDE_AUTOMERGE`).
+- **Guide PRs, REQUEST CHANGES** → Smith `/rework`, then re-gate.
+- **Source-note PRs, REQUEST CHANGES** → Miner reworks the note (re-fetches the
+  source, fixes only what was flagged), up to `MAX_REWORK` (2) rounds, re-gating
+  each time.
+- **Source-note PRs, hard REJECT or still failing after 2 rounds** → the PR is
+  **auto-closed** and the rejection is recorded on the source issue: label
+  `extraction-rejected` (+ a reason comment), `mining-complete` removed. The
+  miner-batch preflight excludes `extraction-rejected`, so the source is *not*
+  re-mined — it's remembered as "couldn't include." Removing that label later
+  re-queues it for a fresh attempt.
 
-You watch the **exception queue and the dashboard**, not every PR.
+Nothing waits on a human. You watch the **dashboard** (catch-rate, reject-rate),
+not a PR queue. A rejected source is a recorded outcome, not a task.
 
 ## Rollout steps (do these in order, after merging this PR)
 

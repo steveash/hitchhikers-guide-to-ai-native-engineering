@@ -455,3 +455,108 @@ jobs:
           gh workflow run assayer.yml \
             --repo "${{ github.repository }}" \
             --field pr_number="$PR_NUMBER"
+
+      # Source-note rework OR auto-reject. No human exception queue: the Miner
+      # gets a few rounds to fix a flagged source note; if it's a hard REJECT or
+      # still failing after MAX_REWORK rounds, the PR is auto-closed and the
+      # rejection is recorded on the source issue (excluded from re-mining,
+      # retryable later by removing the `extraction-rejected` label).
+      - name: Source-note rework or auto-reject
+        if: |
+          failure() &&
+          contains(fromJSON(needs.prepare.outputs.labels), 'source-note') &&
+          !contains(fromJSON(needs.prepare.outputs.labels), 'guide-update')
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+          PROJECT_PAT: ${{ secrets.PROJECT_PAT }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          PR_NUMBER: ${{ needs.prepare.outputs.pr_number }}
+          PR_HEAD_REF: ${{ needs.prepare.outputs.head_ref }}
+        run: |
+          set -e
+          MAX_REWORK=2
+          REPO="${{ github.repository }}"
+
+          if grep -Eq '^\*\*Verdict\*\*:[[:space:]]*REJECT' /tmp/assayer-review.md 2>/dev/null; then
+            VERDICT="REJECT"
+          else
+            VERDICT="REQUEST_CHANGES"
+          fi
+          ISSUE_NUMBER=$(echo "$PR_HEAD_REF" | sed -n 's|^miner/issue-\([0-9]\+\)\(-r[0-9]\+\)\?$|\1|p')
+          ATTEMPTS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json labels \
+            -q '[.labels[].name | select(startswith("sn-rework-"))] | length')
+          echo "Source-note PR #$PR_NUMBER verdict=$VERDICT prior_rework_attempts=$ATTEMPTS"
+
+          reject_and_remember() {
+            local reason="$1"
+            echo "Auto-rejecting PR #$PR_NUMBER: $reason"
+            gh pr close "$PR_NUMBER" --repo "$REPO" --delete-branch \
+              --comment "🛑 **Auto-rejected by the Assayer gate** — $reason. The source note could not be brought to the quality bar automatically, so it was not included. Recorded on the source issue; remove the \`extraction-rejected\` label there to retry this source in the future." || true
+            if [ -n "$ISSUE_NUMBER" ]; then
+              gh label create "extraction-rejected" --repo "$REPO" \
+                --description "Assayer rejected the extracted note; excluded from re-mining until this label is removed" \
+                --color "b60205" 2>/dev/null || true
+              gh issue edit "$ISSUE_NUMBER" --repo "$REPO" \
+                --remove-label "mining-complete" --add-label "extraction-rejected" 2>/dev/null || true
+              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+                --body "Source extraction **rejected** by the Assayer gate ($reason) after up to ${MAX_REWORK} automated rework attempts. The note was not included. Remove the \`extraction-rejected\` label to re-queue this source for mining later." || true
+            fi
+          }
+
+          # Hard reject, or out of rework attempts -> reject + remember.
+          if [ "$VERDICT" = "REJECT" ]; then
+            reject_and_remember "fundamental accuracy/quality issue (hard REJECT)"
+            exit 0
+          fi
+          if [ "$ATTEMPTS" -ge "$MAX_REWORK" ]; then
+            reject_and_remember "still failing after ${MAX_REWORK} rework attempts"
+            exit 0
+          fi
+
+          # Otherwise: one more Miner rework round.
+          NEXT=$((ATTEMPTS + 1))
+          echo "Dispatching Miner rework attempt $NEXT/$MAX_REWORK for PR #$PR_NUMBER"
+          if [ -n "$PROJECT_PAT" ]; then
+            git remote set-url origin \
+              "https://x-access-token:${PROJECT_PAT}@github.com/${REPO}.git"
+          fi
+          gh label create "sn-rework-$NEXT" --repo "$REPO" \
+            --description "Miner rework attempt $NEXT" --color "fbca04" 2>/dev/null || true
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "sn-rework-$NEXT"
+
+          git config user.name  "hitchhiker-miner[bot]"
+          git config user.email "hitchhiker-miner@users.noreply.github.com"
+          git checkout "$PR_HEAD_REF"
+          npm install -g @anthropic-ai/claude-code
+
+          cat > /tmp/miner-rework-prompt.txt <<'REWORK_EOF'
+          You are the Miner agent reworking a source-note PR based on Assayer
+          feedback. Read agents/MINER.md for your role and the extraction bar.
+          The Assayer's review is at /tmp/assayer-review.md — read it carefully.
+
+          Your task:
+          1. Read /tmp/assayer-review.md to understand exactly what was flagged.
+          2. Re-fetch the source URL (in the note's front-matter) and verify the
+             flagged quotes/claims against it.
+          3. Fix ONLY the flagged issues, in the single source-notes/*.md file for
+             this PR. Do NOT edit registry/ (it is generated), agents/, scripts/,
+             or .github/.
+          4. If a flagged claim genuinely is not supported by the source, make the
+             note accurate by correcting or removing it — never fabricate to pass.
+          5. Commit and push to the current branch:
+               git add source-notes/
+               git commit -m "miner: address assayer feedback"
+               git push
+          REWORK_EOF
+
+          claude -p "$(cat /tmp/miner-rework-prompt.txt)" \
+            --model opus \
+            --append-system-prompt "$(cat agents/MINER.md)" \
+            --max-turns 30 \
+            --output-format stream-json --verbose \
+            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep" "WebFetch"
+
+          echo "Dispatching Assayer for the post-rework review"
+          gh workflow run assayer.yml \
+            --repo "$REPO" \
+            --field pr_number="$PR_NUMBER"
