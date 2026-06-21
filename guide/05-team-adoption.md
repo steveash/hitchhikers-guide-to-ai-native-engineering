@@ -892,6 +892,7 @@ sum of those breakdowns runs below the DAU total by design
 **Rule**: Mark June 15, 2026 as a break point in any Copilot adoption trend line.
 Do not compare DAU across it without accounting for the coverage change, and
 expect breakdown sums to fall short of the top-line count for proxy-heavy orgs.
+[source: docs-github-copilot-usage-metrics-server-side-telemetry, Claims 1, 2, 3, 4] [settled]
 
 ### Vanity metrics to avoid
 

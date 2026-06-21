@@ -798,6 +798,7 @@ a harness's memory:
 questions for it. The accumulated context is the part you cannot easily move to
 another tool — a harness whose memory behavior you cannot inspect is a
 portability liability.
+[source: blog-langchain-harness-memory, Concrete Artifacts] [emerging]
 
 ---
 

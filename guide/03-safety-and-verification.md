@@ -981,6 +981,7 @@ verification, triage, and patching"
 **Rule**: Before turning on aggressive AI scanning, confirm your
 verification-triage-patch pipeline can absorb the finding volume. A scan that
 outpaces remediation produces a backlog, not security.
+[source: blog-anthropic-llms-secure-source-code, Claims 1, 12] [emerging]
 
 Prompt the discovery agent *simply*. The counter-intuitive finding:
 "Counterintuitively, more prescriptive prompts make discovery worse—long
@@ -1005,6 +1006,7 @@ from GitHub anyway"
 discovery agents in containers and proof-of-concept detonation in a locked-down
 microVM or VM, and run verification in a context that never sees the finder's
 reasoning.
+[source: blog-anthropic-llms-secure-source-code, Claims 3, 6, 7] [emerging]
 
 ### Gradual trust rollout: shadow → inform → gate
 
