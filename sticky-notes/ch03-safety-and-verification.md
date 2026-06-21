@@ -25,6 +25,7 @@ ID that is never reused, even after the note is resolved.
 |----|-------|------|--------|---------|
 | SN-03-001 | Benchmark data without a practitioner rule belongs in source notes, not the guide | prescriptive | active | any section presenting benchmark results |
 | SN-03-002 | Inline citation grade must match the per-claim grade in the source note | prescriptive | active | any inline `[source: <slug>, Claim N] [grade]` citation |
+| SN-03-003 | Every Rule block must carry an inline [source:] citation | prescriptive | active | any |
 
 ---
 
@@ -47,3 +48,13 @@ ID that is never reused, even after the note is resolved.
 
 **Why:** The confidence ladder in §7 of agents/SMITH.md depends on each citation accurately reflecting how strongly that specific claim is supported. Defaulting to `[anecdotal]` for first-party Anthropic research that the source note grades `emerging` understates the evidence and misleads the reader. Reviewer caught two such mismatches on blog-anthropic-ai-accelerated-offense (Claims 1 and 7 both graded emerging in the note, but cited as anecdotal in the guide).
 **How to apply:** Whenever you write or revise a `[source: <slug>, Claim N] [grade]` citation, open `source-notes/<slug>.md`, locate the matching `### Claim N:` block, and use the grade from its `**Confidence**:` field. If a single citation references multiple claims with different grades, either split the citation or use the lower of the two grades and explain in prose.
+
+## SN-03-003: Every Rule block must carry an inline [source:] citation
+- **Created**: 2026-06-21
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any
+- **Note**: Every **Rule** block must be followed immediately, on its own line, by an inline `[source: <slug>, ...] [grade]` citation — even when the Rule restates a point already cited earlier in the same section. A Rule is a recommendation, and the guide convention is that every recommendation carries its own inline citation.
+
+**Why:** The Rule is the most actionable line in each section; an uncited Rule reads as bare editorial assertion rather than evidence-backed synthesis. Reviewers flagged four Rule blocks across ch02/03/05 in a single PR for missing their inline citations ("the guide convention seen elsewhere in these chapters").
+**How to apply:** After writing any `**Rule**:` block, add a citation line on the next line pointing at the source(s) the rule is drawn from, at the appropriate confidence grade. The cited slug must already back the rule's content — do not invent a citation to satisfy the convention; if no source backs the rule, it is `[editorial]`, not a Rule.

@@ -27,6 +27,7 @@ ID that is never reused, even after the note is resolved.
 | SN-02-002 | Context tier hierarchy references settings.json only, not CLAUDE.md | prescriptive | active | §permission-architecture |
 | SN-02-003 | Split citations when settled facts and emerging inferences share a paragraph | prescriptive | active | any |
 | SN-02-004 | Rules with vendor-restricted scope must carry a scope qualifier | prescriptive | active | any |
+| SN-02-005 | Every Rule block must carry an inline [source:] citation | prescriptive | active | any |
 
 ---
 
@@ -51,6 +52,18 @@ ID that is never reused, even after the note is resolved.
 
 **Why:** A Rule stated without scope qualification implies broad adoption. The skill-path Rule said "for cross-tool compatibility" when multi-path discovery was confirmed for Visual Studio Copilot only; reviewers flagged this as implying broader adoption than the evidence supports.
 **How to apply:** Check the source note's Extraction Notes for scope caveats. If the evidence is IDE/vendor-specific, add "(currently confirmed for X; whether Y adopts the same pattern is not yet documented)" to the Rule text and downgrade to the weakest cited claim's confidence grade.
+
+---
+
+## SN-02-005: Every Rule block must carry an inline [source:] citation
+- **Created**: 2026-06-21
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any
+- **Note**: Every **Rule** block must be followed immediately, on its own line, by an inline `[source: <slug>, ...] [grade]` citation — even when the Rule restates a point already cited earlier in the same section. A Rule is a recommendation, and the guide convention is that every recommendation carries its own inline citation.
+
+**Why:** The Rule is the most actionable line in each section; an uncited Rule reads as bare editorial assertion rather than evidence-backed synthesis. Reviewers flagged four Rule blocks across ch02/03/05 in a single PR for missing their inline citations ("the guide convention seen elsewhere in these chapters").
+**How to apply:** After writing any `**Rule**:` block, add a citation line on the next line pointing at the source(s) the rule is drawn from, at the appropriate confidence grade. The cited slug must already back the rule's content — do not invent a citation to satisfy the convention; if no source backs the rule, it is `[editorial]`, not a Rule.
 
 ---
 

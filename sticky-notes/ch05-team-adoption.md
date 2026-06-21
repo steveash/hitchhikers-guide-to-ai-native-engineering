@@ -24,6 +24,7 @@ ID that is never reused, even after the note is resolved.
 | ID | Title | Type | Status | Section |
 |----|-------|------|--------|---------|
 | SN-05-001 | Don't repeat billing details from ch04 | prescriptive | active | §adoption-playbook |
+| SN-05-002 | Every Rule block must carry an inline [source:] citation | prescriptive | active | any |
 
 ---
 
@@ -36,3 +37,15 @@ ID that is never reused, even after the note is resolved.
 
 **Why:** Repeating ch04 content here adds noise to the adoption checklist and signals the Smith is padding rather than synthesizing. Cross-chapter repetition also creates maintenance burden when the billing section changes.
 **How to apply:** The Months 1-3 and Months 3-6 checklists should reference billing concerns at most with a one-line pointer ("see §billing-window in ch04") — do not expand into multi-sentence explanations of cache token mechanics.
+
+---
+
+## SN-05-002: Every Rule block must carry an inline [source:] citation
+- **Created**: 2026-06-21
+- **Type**: prescriptive
+- **Status**: active
+- **Section**: any
+- **Note**: Every **Rule** block must be followed immediately, on its own line, by an inline `[source: <slug>, ...] [grade]` citation — even when the Rule restates a point already cited earlier in the same section. A Rule is a recommendation, and the guide convention is that every recommendation carries its own inline citation.
+
+**Why:** The Rule is the most actionable line in each section; an uncited Rule reads as bare editorial assertion rather than evidence-backed synthesis. Reviewers flagged four Rule blocks across ch02/03/05 in a single PR for missing their inline citations ("the guide convention seen elsewhere in these chapters").
+**How to apply:** After writing any `**Rule**:` block, add a citation line on the next line pointing at the source(s) the rule is drawn from, at the appropriate confidence grade. The cited slug must already back the rule's content — do not invent a citation to satisfy the convention; if no source backs the rule, it is `[editorial]`, not a Rule.
