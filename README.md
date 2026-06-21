@@ -16,9 +16,10 @@ The guide lives in [`guide/`](guide/). Read in order, or jump to what you need:
 - [Principles](guide/00-principles.md) — The mental models that hold up
 - [Daily Workflows](guide/01-daily-workflows.md) — What a good session looks like
 - [Harness Engineering](guide/02-harness-engineering.md) — CLAUDE.md, rules, commands, hooks
-- [Safety and Verification](guide/03-safety-and-verification.md) — Layered verification, kill criteria, comprehension debt
+- [Verification](guide/03-verification.md) — Layered verification, kill criteria, comprehension debt
 - [Context Engineering](guide/04-context-engineering.md) — Context as budget, compaction, plan files, MCP cost
 - [Team Adoption](guide/05-team-adoption.md) — Scaling from one engineer to a team, measurement, rollout
+- [Security and Threat Model](guide/06-security-threat-model.md) — Offensive-AI window, defensive posture, trust rollout, attribution
 - [Sources](guide/SOURCES.md) — Master index of every source the guide cites
 
 ### Trust Model
