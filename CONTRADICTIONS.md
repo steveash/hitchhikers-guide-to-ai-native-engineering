@@ -85,6 +85,7 @@ stay in this file with their original ID.
 | C-001 | CLAUDE.md sizing: brief vs verbose | 2026-04-08 | resolved | debated |
 | C-002 | AGENTS.md role: redirect target vs identical mirror | 2026-04-08 | resolved | accepted-A |
 | C-003 | AI productivity at the org level: individual vs organizational gains | 2026-04-08 | resolved | debated |
+| C-004 | slash_command trigger: recommended HITL mechanism vs. near-zero success rate | 2026-05-12 | resolved | debated |
 
 ---
 
@@ -232,6 +233,45 @@ capacity and deploy cadence — rather than picking a winner. Reference
 [paper-miller-speed-cost-quality](source-notes/paper-miller-speed-cost-quality.md)
 as additional evidence that the organizational picture is more pessimistic
 than the individual one.
+
+---
+
+## C-004: slash_command trigger: recommended HITL mechanism vs. near-zero success rate
+
+- **Filed**: 2026-05-12 by Miner agent (during extraction of issue #381)
+- **Issue**: #681
+- **Resolved**: 2026-06-21
+- **Verdict**: debated
+- **Affected guide sections**: Ch02 §Harness Engineering (trigger taxonomy, HITL interaction patterns); Ch03 §Safety and Verification (human-in-the-loop design)
+
+### Side A
+- **Source**: [docs-ghaw-chatops](source-notes/docs-ghaw-chatops.md)
+- **Claim**: The `slash_command` trigger is a first-class, recommended mechanism for human-in-the-loop interactions in gh-aw workflows, with role-based access control, event filtering, and sanitized input handling.
+- **Evidence**: First-party official gh-aw ChatOps documentation. Documents the full trigger schema, six `events:` filter values, roles-based runtime access control, and `steps.sanitized.outputs.text` sanitization pattern. Includes working production examples (Grumpy Code Reviewer, /review workflow).
+- **Confidence**: settled (design intent and feature existence)
+
+### Side B
+- **Source**: [docs-ghaw-editors-reference](source-notes/docs-ghaw-editors-reference.md)
+- **Claim**: The `slash_command` trigger has near-zero success rate across all configurations (n=204); practitioners should use `issues + workflow_dispatch` instead for user-initiated workflows.
+- **Evidence**: Empirical analysis of 679 gh-aw workflows by the Agentic Prompt Generator (community tool by Ashley Wolf). n=204 for `slash_command`. Dataset composition and "success" definition not disclosed.
+- **Confidence**: anecdotal (community tool's analysis; sample may be biased toward misconfigured or template-copied workflows)
+
+### Resolution
+
+This contradiction sits at the boundary between design documentation and empirical community outcome data. The `slash_command` trigger is unambiguously the platform's intended mechanism for human-initiated (ChatOps) workflows — the official docs describe its schema, access control model, and sanitization semantics in detail, with production examples. The community empirical data (n=204, near-zero success) is a meaningful signal that cannot be dismissed, but its methodology is undisclosed: the definition of "success," the sample composition, and whether failures reflect trigger defects or misconfiguration are all unknown.
+
+The most plausible mediating variable is configuration complexity. The `slash_command` trigger requires correct specification across `name:`, `events:` (six values with non-obvious semantics), `roles:`, and the `steps.sanitized.outputs.text` access pattern. Template-copied or minimally-adapted workflows are likely to fail. The `docs-ghaw-dispatch-ops.md` note establishes `workflow_dispatch` as a simpler, fork-safe alternative with parameterization support — the Side B recommendation to use `issues + workflow_dispatch` may be sound advice for simpler HITL scenarios without implying the `slash_command` trigger is fundamentally broken.
+
+The guide should present both sides, anchor on the mediating variable (configuration complexity), and withhold a definitive recommendation until the platform team confirms whether the community failure rate reflects a known limitation or a common misconfiguration pattern. Until then, the guide can honestly say: "The official mechanism is `slash_command`; community empirical data suggests near-zero success in practice, likely due to configuration complexity. If you use it, follow the official ChatOps documentation exactly; if you need a simpler alternative, `issues + workflow_dispatch` is the documented fallback."
+
+### Citation in the guide
+
+Ch02 §Harness Engineering trigger taxonomy and Ch03 §HITL interaction patterns should present this as a `**Debated:**` block:
+
+- Cite `docs-ghaw-chatops.md` Claim 1 as `[settled]` for the assertion that `slash_command` exists and is designed for HITL use. Describe the full configuration (roles, events, sanitized input) from that note.
+- Cite `docs-ghaw-editors-reference.md` Claim 5 as `[anecdotal]` for the near-zero community success rate (n=204). Note the undisclosed methodology.
+- Present `workflow_dispatch` (`docs-ghaw-dispatch-ops.md`) as the documented simpler alternative for human-initiated invocation, with fork-safety and parameterization advantages.
+- Do NOT present `slash_command` as settled guidance until the contradiction is resolved. Do NOT recommend avoiding it entirely without stronger evidence of a platform-level failure rather than a configuration complexity problem.
 
 ---
 
