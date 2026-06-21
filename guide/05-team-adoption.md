@@ -866,6 +866,33 @@ These fields are a no-cost starting point for teams before investing in
 a full Faros-style cohort study — if you are on GitHub Enterprise Cloud,
 you already have access.
 
+### A measurement discontinuity to watch: June 15, 2026
+
+Copilot daily-active-user counts are not comparable across June 15, 2026. Before
+that date, usage reports were built from client-side telemetry alone, which "does
+not always reach us" in proxy- or network-restricted environments — so "an active,
+billed user could be absent from your reports"
+[source: docs-github-copilot-usage-metrics-server-side-telemetry, Claim 1]
+[settled]. The June 15 update added server-side telemetry, surfacing those
+previously uncounted users
+[source: docs-github-copilot-usage-metrics-server-side-telemetry, Claim 2]
+[settled]. GitHub's own illustration: a report that showed 1,000 DAU "might now
+show 1,050"
+[source: docs-github-copilot-usage-metrics-server-side-telemetry, Claim 3]
+[anecdotal].
+
+A ~5% step-up in DAU the week of June 15 is improved coverage, not adoption
+growth — and the inverse risk is worse: a genuine drop can be masked by the
+coverage gain, defeating the 20%-week-over-week trigger above. The newly surfaced
+users also carry empty `totals_by_ide` / `totals_by_feature` breakdowns, so the
+sum of those breakdowns runs below the DAU total by design
+[source: docs-github-copilot-usage-metrics-server-side-telemetry, Claim 4]
+[settled].
+
+**Rule**: Mark June 15, 2026 as a break point in any Copilot adoption trend line.
+Do not compare DAU across it without accounting for the coverage change, and
+expect breakdown sums to fall short of the top-line count for proxy-heavy orgs.
+
 ### Vanity metrics to avoid
 
 Faros enumerates the metrics that look like productivity wins but measure
@@ -1397,6 +1424,7 @@ docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
 docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
 docs-github-copilot-gpt52-deprecation (Claims 5, 7),
 docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
+docs-github-copilot-usage-metrics-server-side-telemetry (Claims 1, 2, 3, 4),
 discussion-hn-agentic-coding-jobs (Claim 10),
 failure-sukit-parallel-session-ceiling (Lesson 4),
 practitioner-getsentry-sentry,
@@ -1405,4 +1433,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-06-04*
+*Last updated: 2026-06-21*

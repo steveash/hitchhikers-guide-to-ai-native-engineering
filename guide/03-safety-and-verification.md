@@ -963,6 +963,49 @@ production deployment in our corpus:
    [source: blog-cursor-security-agents, Claim 5;
    discussion-hn-autofix-hybrid-review, Claims 1, 8] [emerging]
 
+### The find-and-fix loop: discovery is cheap, patching is the bottleneck
+
+"Scan before shipping" (action 1) is the *what*. Anthropic's security research
+team published the *how* — a six-step find-and-fix loop (threat model → sandbox →
+discovery → verification → triage → patching) run against open-source codebases.
+Three of its findings change how you staff and prompt that loop.
+
+As of May 22, 2026 the team had "disclosed 1,596 vulnerabilities. To our
+knowledge, 97 of these have been patched"
+[source: blog-anthropic-llms-secure-source-code, Claim 12] [settled] — a ~6%
+patch rate. Discovery now parallelizes; the work moved downstream: "discovery is
+now straightforward to parallelize, and the bottleneck has shifted to
+verification, triage, and patching"
+[source: blog-anthropic-llms-secure-source-code, Claim 1] [emerging].
+
+**Rule**: Before turning on aggressive AI scanning, confirm your
+verification-triage-patch pipeline can absorb the finding volume. A scan that
+outpaces remediation produces a backlog, not security.
+
+Prompt the discovery agent *simply*. The counter-intuitive finding:
+"Counterintuitively, more prescriptive prompts make discovery worse—long
+checklists tend to reduce the model's creativity and generate fewer novel bugs"
+[source: blog-anthropic-llms-secure-source-code, Claim 2] [emerging]. Encode the
+durable context — which vulnerability classes count — in a `THREAT_MODEL.md`
+committed to the repo, and leave the search strategy to the model.
+
+Verification must run independently. Give the verifier only the proof-of-concept
+and the codebase, not the finder's analysis, so it hunts for mitigations the
+finder missed instead of anchoring on the finder's conclusion; across the teams
+Anthropic worked with, "adding an adversarial verifier roughly halved the rate of
+non-exploitable findings from the discovery phase"
+[source: blog-anthropic-llms-secure-source-code, Claims 6, 7] [emerging]. This is
+the same separate-context principle as the two-agent review pattern above. And the
+sandbox is a compute-layer concern, not a prompt one: "One team told the model it
+had no network access—when it actually did—and the model discovered it could fetch
+from GitHub anyway"
+[source: blog-anthropic-llms-secure-source-code, Claim 3] [anecdotal].
+
+**Rule**: Model instructions are not a security boundary. Isolate read-only
+discovery agents in containers and proof-of-concept detonation in a locked-down
+microVM or VM, and run verification in a context that never sees the finder's
+reasoning.
+
 ### Gradual trust rollout: shadow → inform → gate
 
 Cursor documents the deployment pattern they used for their own internal
@@ -1140,6 +1183,7 @@ disengagement.
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
+blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
@@ -1165,4 +1209,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-05-24*
+*Last updated: 2026-06-21*

@@ -760,6 +760,45 @@ by Anthropic and Cursor; the specific multi-repo migration is Cursor's own
 and may not transfer verbatim to your harness.
 [source: blog-cursor-cloud-agent-lessons, Claim 9] [emerging]
 
+### What stays behind: the harness owns your memory
+
+The audit above moves logic *out* of the harness, which invites the question:
+will a good-enough model eventually absorb the harness entirely? LangChain's
+Harrison Chase gives the structural answer — no, by definition: "An agent, by
+definition, is an LLM interacting with tools and other sources of data. There
+will always be a system around the LLM to facilitate that type of interaction"
+[source: blog-langchain-harness-memory, Claim 2] [settled]. The concrete evidence
+that even capability-focused vendors invest heavily here: "When Claude Code's
+source code was leaked, there was 512k lines of code. That code is the harness"
+[source: blog-langchain-harness-memory, Claim 3] [settled]. That is a third
+independent voice — with Cursor and Anthropic above — converging on the same
+point: the harness persists.
+
+What it retains is memory. "Managing context, and therefore memory, is a core
+capability and responsibility of the agent harness"
+[source: blog-langchain-harness-memory, Claim 4] [emerging] — memory is not a
+database bolted on, it is the sum of context-management decisions the harness
+already makes. That makes harness choice a portability decision: a closed harness
+manages your accumulated memory in ways you cannot audit or extract (Chase sells
+an open-harness product and has a commercial interest in this framing, but the
+underlying mechanism is structural) [editorial].
+
+The actionable artifact is his five-question test for whether you actually control
+a harness's memory:
+
+> 1. How is the AGENTS.md or CLAUDE.md file loaded into context?
+> 2. How is skill metadata shown to the agents?
+> 3. Can the agent modify its own system instructions?
+> 4. What survives compaction?
+> 5. What is the filesystem the agent is exposed to?
+
+*[source: blog-langchain-harness-memory, Concrete Artifacts]*
+
+**Rule**: When you choose or build a harness, confirm you can answer all five
+questions for it. The accumulated context is the part you cannot easily move to
+another tool — a harness whose memory behavior you cannot inspect is a
+portability liability.
+
 ---
 
 ## Hooks — Silent Behavior Injection
@@ -1467,6 +1506,7 @@ blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
+blog-langchain-harness-memory (Claims 2, 3, 4),
 blog-simonwillison-codex-base-instructions (Claim 6),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
 failure-alex000kim-claudecode-source-leak (Lesson 1),
@@ -1482,4 +1522,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-24*
+*Last updated: 2026-06-21*
