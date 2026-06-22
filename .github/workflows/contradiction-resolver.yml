@@ -132,6 +132,12 @@ jobs:
       github.event.action == 'labeled' &&
       github.event.label.name == 'resolution-approved'
     runs-on: ubuntu-latest
+    # Serialize all resolve runs so the next C-NNN id is read+written
+    # atomically. Concurrent resolves (two issues approved at once) otherwise
+    # both read the same "highest = C-00X" and collide on the next id.
+    concurrency:
+      group: contradiction-resolve
+      cancel-in-progress: false
     permissions:
       contents: write
       issues: write
@@ -228,6 +234,8 @@ jobs:
               cat > /tmp/contradiction-pr-body.md <<'PR_BODY_EOF'
               Contradiction resolved by the Assayer agent for #${{ github.event.issue.number }}.
 
+              Closes #${{ github.event.issue.number }}
+
               The Assayer assessed both sides, proposed a verdict, and a human
               approved by adding the `resolution-approved` label. This PR
               appends the resolved entry to CONTRADICTIONS.md.
@@ -255,9 +263,11 @@ jobs:
             Comment on the contradiction issue with the PR link:
               gh issue comment ${{ github.event.issue.number }} \
                 --repo ${{ github.repository }} \
-                --body "Resolution PR opened: <PR-URL>. The entry will land in CONTRADICTIONS.md after the Assayer PR gate passes and the PR merges."
+                --body "Resolution PR opened: <PR-URL>. The entry lands in CONTRADICTIONS.md and this issue closes automatically when the PR merges (the PR body carries \`Closes #${{ github.event.issue.number }}\`)."
 
-            Do NOT close the issue — it stays open until the PR merges.
+            Do NOT close the issue manually — the `Closes #N` line in the PR
+            body closes it automatically when the PR merges (and keeps it open
+            if the PR is rejected at the gate).
 
             ## Constraints
 
