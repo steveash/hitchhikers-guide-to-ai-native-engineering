@@ -87,6 +87,7 @@ stay in this file with their original ID.
 | C-003 | AI productivity at the org level: individual vs organizational gains | 2026-04-08 | resolved | debated |
 | C-004 | slash_command trigger: recommended HITL mechanism vs. near-zero success rate | 2026-05-12 | resolved | debated |
 | C-005 | Agentic workflow authentication: GITHUB_TOKEN sufficient vs PAT required | 2026-06-12 | resolved | accepted-A |
+| C-006 | Context anxiety model version: Opus 4.5 eliminated it vs. Opus 4.5 still had it | 2026-04-20 | resolved | debated |
 
 ---
 
@@ -276,9 +277,6 @@ Ch02 §Harness Engineering trigger taxonomy and Ch03 §HITL interaction patterns
 
 ---
 
-*This file is updated whenever a `contradiction` issue is resolved. New entries
-are appended at the bottom; the index table at the top is updated to match.*
-
 ## C-005: Agentic workflow authentication: GITHUB_TOKEN sufficient (June 2026) vs. fine-grained PAT required (May 2026)
 
 - **Filed**: 2026-06-12 by steveash
@@ -316,3 +314,46 @@ Ch03 §Safety and Verification should document the PAT-related loop-prevention b
 Ch05 §Team Adoption should note the June 2026 change as reducing PAT lifecycle management burden for Copilot AI inference billing, acknowledging this as an operational improvement for adoption — while preserving the note that `assign-to-agent` and certain other safe outputs still require PAT provisioning.
 
 ---
+
+## C-006: Context anxiety model version: Opus 4.5 eliminated it vs. Opus 4.5 still had it
+
+- **Filed**: 2026-04-20 by Miner agent (during extraction of issue #192)
+- **Issue**: #232
+- **Resolved**: 2026-06-22
+- **Verdict**: debated
+- **Affected guide sections**: Ch04 §Context Engineering, Ch02 §Harness Engineering
+
+### Side A
+- **Source**: [blog-anthropic-harnessing-claude-intelligence](source-notes/blog-anthropic-harnessing-claude-intelligence.md)
+- **Claim**: Opus 4.5 exhibited no context anxiety; context-reset harness components became dead weight by Opus 4.5.
+- **Evidence**: Single illustrative sentence in a first-party Anthropic post (Lance Martin, April 2026). Corroborated by `blog-anthropic-scaling-managed-agents` Claim 1, which explicitly pairs Sonnet 4.5 (exhibited context anxiety) with Opus 4.5 (behavior gone).
+- **Confidence**: emerging (two corroborating first-party Anthropic sources; claim is illustrative rather than primary; task profiles not specified)
+
+### Side B
+- **Source**: [blog-anthropic-harness-long-running](source-notes/blog-anthropic-harness-long-running.md)
+- **Claim**: Opus 4.5 exhibited context anxiety in multi-hour production builds, requiring sprint decomposition; Opus 4.6 eliminated the behavior.
+- **Evidence**: First-person production engineering retrospective (Prithvi Rajasekaran, Anthropic Labs, March 2026). Cost data, harness evolution tables across two domains, explicit "compaction alone wasn't sufficient" finding for Opus 4.5 on 3+ hour runs.
+- **Confidence**: emerging (primary observation with production metrics; multi-hour continuous coding harness as the task profile)
+
+### Resolution
+
+This contradiction is most plausibly explained by a task-duration mediating variable. Two Anthropic engineering sources (Side A corroborated by managed-agents) document that Opus 4.5 eliminated context anxiety in their operational context. One Anthropic engineering source (Side B) documents Opus 4.5 still exhibiting context anxiety in multi-hour continuous coding builds. The behavior appears to be context-saturation-threshold-dependent: Opus 4.5 raised the threshold enough that typical tasks no longer trigger it, while genuinely extended runs (2+ hours of continuous context accumulation) still crossed it. Opus 4.6 appears to have eliminated the behavior across regimes. Neither post explicitly conditions on task duration, so both accounts are internally consistent with this explanation.
+
+Practitioners should not treat "safe to remove context-reset logic" as universally true at Opus 4.5. The answer depends on whether your task profile resembles the managed-agents operational context (where Opus 4.5 was safe) or Prithvi's multi-hour continuous coding harness (where Opus 4.5 still required sprint decomposition). If you upgrade to Opus 4.5 and run primarily short sessions, Side A evidence suggests you may safely remove context resets. If you run extended multi-hour continuous builds, Side B documents that Opus 4.5 still required them, and only Opus 4.6 made them truly unnecessary.
+
+### Citation in the guide
+
+Ch04 §Context Engineering should present context anxiety as a real, named failure mode (premature task wrap-up as context window approaches saturation) documented by first-party Anthropic sources and third-party practitioners. Include a `**Debated:**` block on the model-version question:
+
+- Cite `blog-anthropic-scaling-managed-agents` Claim 1 and `blog-anthropic-harnessing-claude-intelligence` Claim 15 as `[emerging]` for the claim that Opus 4.5 eliminated context anxiety relative to Sonnet 4.5 in typical operational contexts.
+- Cite `blog-anthropic-harness-long-running` Claims 7–8 as `[emerging]` for the claim that Opus 4.5 still exhibited context anxiety in multi-hour continuous builds, with Opus 4.6 as the model where it was eliminated.
+- State the conditioning variable explicitly: "The safe model version for removing context-reset logic is task-profile-dependent. For typical shorter sessions: Opus 4.5 evidence suggests context anxiety is eliminated. For extended multi-hour continuous builds: documented evidence shows Opus 4.5 still required sprint decomposition; Opus 4.6 is the safe floor."
+- Do NOT cite either claim as `[settled]` for when context-reset components become unnecessary.
+- Cite `blog-cursor-continual-harness-improvement` Claim 9 as `[anecdotal]` third-party corroboration that context anxiety is a real cross-vendor harness concern.
+
+Ch02 §Harness Engineering should cite the meta-principle (prune harness components at each model upgrade) from both `blog-anthropic-harness-long-running` Claim 9 and `blog-anthropic-harnessing-claude-intelligence` Claim 15 as `[emerging]`. Tag the specific Opus 4.5 vs. Opus 4.6 trigger point as `**Debated:**` pending resolution, with the task-profile conditioning variable surfaced.
+
+---
+
+*This file is updated whenever a `contradiction` issue is resolved. New entries
+are appended at the bottom; the index table at the top is updated to match.*
