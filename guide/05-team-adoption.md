@@ -740,6 +740,17 @@ next model." Re-draw the Claude-handles / human-handles line on a regular
 cadence rather than treating any current division as settled.
 [source: blog-anthropic-ai-native-engineering-org, Claim 7] [anecdotal]
 
+One enterprise leader places that floor near zero. Chintan Turakhia at Coinbase
+predicts manual line-by-line code review will trend toward zero as agents
+produce the implementation, with engineers moving up to deciding what to build,
+choosing architecture, and evaluating finished output
+[source: blog-cursor-coinbase-agent-first-adoption, Claim 3] [anecdotal]. This
+is a directional prediction from a vendor case study, not a measured state, and
+it sits at the aggressive end of the same trajectory Fung describes rather than
+contradicting the review-is-the-bottleneck finding. Treat it as a hypothesis
+about where the trust/verify line is heading — not as license to drop review
+depth today, which the rest of this section argues against.
+
 ### Anti-pattern: trust the merge gate to catch quality
 
 Some teams respond to the review bottleneck by leaning harder on CI as the
@@ -914,6 +925,21 @@ nothing useful:
 This sentence is the productivity paradox in one line. A measurement program
 that reports individual output without reporting organizational delivery is
 producing the wrong report.
+
+A named enterprise practitioner reaches the same verdict on lines of code from
+the other side of the room. Chintan Turakhia, Senior Director of Engineering at
+Coinbase (a 2,400-developer engineering org), rejects code volume as a
+measurement target outright:
+
+> "We want to shift the focus to outcomes, not inputs. Every new line of code
+> is a risk. We should not be incentivizing that."
+> [source: blog-cursor-coinbase-agent-first-adoption, Claim 10] [emerging]
+
+Coinbase's replacement north-star is time from idea to production, not a count
+of code or PRs [source: blog-cursor-coinbase-agent-first-adoption, Claim 10]
+[emerging]. The analytics vendor (Faros) and the practitioner (Coinbase) now
+converge from independent vantage points: the input metrics that rise most
+reliably under AI adoption are the ones worth measuring least.
 
 ### The 27% finding: measure new categories of work
 
@@ -1417,6 +1443,7 @@ blog-anthropic-ai-native-engineering-org (Claims 1, 6, 7),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
+blog-cursor-coinbase-agent-first-adoption (Claims 3, 10),
 blog-cursor-nab-legacy-migration (Claims 6, 7),
 blog-faros-claude-code-roi (Claims 1-7),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
@@ -1434,4 +1461,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-06-21*
+*Last updated: 2026-06-25*
