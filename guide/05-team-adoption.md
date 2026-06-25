@@ -749,7 +749,7 @@ is a directional prediction from a vendor case study, not a measured state, and
 it sits at the aggressive end of the same trajectory Fung describes rather than
 contradicting the review-is-the-bottleneck finding. Treat it as a hypothesis
 about where the trust/verify line is heading — not as license to drop review
-depth today, which the rest of this section argues against.
+depth today, which the rest of this section argues against. [editorial]
 
 ### Anti-pattern: trust the merge gate to catch quality
 
@@ -939,7 +939,7 @@ Coinbase's replacement north-star is time from idea to production, not a count
 of code or PRs [source: blog-cursor-coinbase-agent-first-adoption, Claim 10]
 [emerging]. The analytics vendor (Faros) and the practitioner (Coinbase) now
 converge from independent vantage points: the input metrics that rise most
-reliably under AI adoption are the ones worth measuring least.
+reliably under AI adoption are the ones worth measuring least. [editorial]
 
 ### The 27% finding: measure new categories of work
 
