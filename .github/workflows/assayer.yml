@@ -379,11 +379,14 @@ jobs:
       # Rework must be the LAST step. It pushes a fix commit and then
       # explicitly dispatches Assayer for the next round (push synchronize
       # events are rate-limited and unreliable; see workflow header).
-      - name: Smith rework (one iteration)
+      - name: Smith rework or auto-close (guide-update)
+        # No human exception queue: the Smith gets up to MAX_REWORK rounds to fix
+        # a flagged guide PR (each round sees the Assayer review and re-gates). On
+        # a hard REJECT or after the rounds are exhausted, the PR is auto-closed —
+        # the affected chapters re-synthesize on a future Smith run.
         if: |
           failure() &&
-          contains(fromJSON(needs.prepare.outputs.labels), 'guide-update') &&
-          !contains(fromJSON(needs.prepare.outputs.labels), 'rework-attempted')
+          contains(fromJSON(needs.prepare.outputs.labels), 'guide-update')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_PAT: ${{ secrets.PROJECT_PAT }}
@@ -399,15 +402,42 @@ jobs:
               "https://x-access-token:${PROJECT_PAT}@github.com/${{ github.repository }}.git"
           fi
 
-          # Guard against loops — ensure label exists first
-          gh label create "rework-attempted" \
+          # Decide: rework again, or give up and auto-close.
+          if grep -Eq '^\*\*Verdict\*\*:[[:space:]]*REJECT' /tmp/assayer-review.md 2>/dev/null; then
+            VERDICT="REJECT"
+          else
+            VERDICT="REQUEST_CHANGES"
+          fi
+          MAX_REWORK=3
+          ATTEMPTS=$(gh pr view "$PR_NUMBER" --repo "${{ github.repository }}" --json labels \
+            -q '[.labels[].name | select(startswith("gu-rework-"))] | length')
+          echo "guide-update PR #$PR_NUMBER verdict=$VERDICT prior_rework_rounds=$ATTEMPTS"
+
+          close_stuck() {
+            gh pr close "$PR_NUMBER" --repo "${{ github.repository }}" --delete-branch \
+              --comment "🛑 **Auto-closed by the Assayer gate** — $1. This guide synthesis could not reach the quality bar automatically. No action needed: the affected chapter(s) will be re-synthesized on a future Smith run when their source notes next change." || true
+          }
+
+          # Hard reject, or out of auto-rework rounds -> close. No human queue.
+          if [ "$VERDICT" = "REJECT" ]; then
+            close_stuck "fundamental issue (hard REJECT)"
+            exit 0
+          fi
+          if [ "$ATTEMPTS" -ge "$MAX_REWORK" ]; then
+            close_stuck "still failing after ${MAX_REWORK} rework rounds"
+            exit 0
+          fi
+
+          # Otherwise: one more Smith rework round. Track the count via labels.
+          NEXT=$((ATTEMPTS + 1))
+          echo "Smith rework round $NEXT/$MAX_REWORK for PR #$PR_NUMBER"
+          gh label create "gu-rework-$NEXT" \
             --repo "${{ github.repository }}" \
-            --description "Smith rework has been attempted on this PR" \
-            --color "c2e0c6" \
-            2>/dev/null || true
+            --description "Smith guide rework round $NEXT" \
+            --color "c2e0c6" 2>/dev/null || true
           gh pr edit "$PR_NUMBER" \
             --repo "${{ github.repository }}" \
-            --add-label "rework-attempted"
+            --add-label "gu-rework-$NEXT"
 
           # Configure git for pushing fixes
           git config user.name "hitchhiker-smith[bot]"
