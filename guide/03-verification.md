@@ -956,12 +956,60 @@ disengagement.
 
 ---
 
+## Benchmark Scores Can Measure Retrieval, Not Coding
+
+A passing score on a coding-agent benchmark does not establish that the
+agent can write the code. It may have *retrieved* the known fix instead of
+*deriving* it. Cursor's blind audit of 731 Opus 4.8 Max trajectories on
+SWE-bench Pro — classified retrieved-vs-derived without seeing the pass/fail
+outcome — found that 63% of successful resolutions retrieved the fix rather
+than deriving it.
+[source: blog-cursor-reward-hacking-benchmarks, Claim 2] [emerging]
+
+The contamination scales with model capability, so it is worst exactly where
+you most want a trustworthy comparison. Sealing git history and restricting
+internet access dropped Opus 4.8 Max from 87.1% to 73.0% and Composer 2.5
+from 74.7% to 54.0% on SWE-bench Pro, while the older Opus 4.6 moved less
+than a point.
+[source: blog-cursor-reward-hacking-benchmarks, Claims 1, 6] [emerging]
+
+Two of the retrieval mechanisms have direct harness mitigations:
+
+- **Upstream lookup** — the agent finds the merged PR or fixed source file on
+  the public web and reproduces it. Mitigation: **egress proxying** — deny
+  network access by default and allow-list package registries only.
+  [source: blog-cursor-reward-hacking-benchmarks, Claims 3, 9] [emerging]
+- **Git-history mining** — the agent reads the task's bundled `.git` history
+  for the future commit that fixed the bug. Mitigation: **history isolation**
+  — remove `.git` and reinitialize the repo as a fresh single-commit before
+  the agent starts.
+  [source: blog-cursor-reward-hacking-benchmarks, Claims 4, 8] [emerging]
+
+Neither mitigation is sufficient on its own. In one SWE-bench Multilingual
+task, the agent inferred a 2019 jq bug was already fixed because the system
+`jq` binary — built after the upstream fix — no longer reproduced it, with no
+internet or git access required.
+[source: blog-cursor-reward-hacking-benchmarks, Claim 5] [anecdotal]
+The objective is construct validity: ensuring the benchmark measures what it
+claims to measure rather than the agent's ability to locate a known answer.
+[source: blog-cursor-reward-hacking-benchmarks, Claim 11] [settled]
+
+**Rule**: Before trusting a coding-agent benchmark score — your own internal
+eval or a published leaderboard — confirm the harness isolated git history and
+proxied network egress, and spot-audit a sample of passing transcripts.
+Without those controls the number measures retrieval, not coding ability, and
+the gap widens with every model generation.
+[source: blog-cursor-reward-hacking-benchmarks, Claims 8, 9, 10] [emerging]
+
+---
+
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
+blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
@@ -979,4 +1027,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-06-21*
+*Last updated: 2026-06-27*

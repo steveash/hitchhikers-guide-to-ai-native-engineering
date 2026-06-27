@@ -1316,6 +1316,93 @@ review."
 
 ---
 
+## Forming the Human-Agent Team
+
+Most of this chapter treats agents as throughput infrastructure. Anthropic's
+June 2026 guidance on human-agent teams treats them instead as team *members*,
+and names the organizational scaffolding that lets them function as one. The
+framing is deliberately deflationary:
+
+> "A strong north star, clear roles, strong documentation, a shared bar for
+> quality, and room to learn from mistakes are the healthy team habits we've
+> known for decades. Agents just make it even more important not to skip them."
+> [source: blog-anthropic-human-agent-teams, Claim 11] [settled]
+
+These habits stop being optional for a mechanical reason: an agent builds its
+understanding entirely from text the team makes searchable, so anything living
+only in hallway conversations or private DMs is invisible to it.
+[source: blog-anthropic-human-agent-teams, Claim 3] [settled]
+
+### Write down the roster
+
+Without an explicit statement of what each human and each agent owns, teams
+default to running "fleets of personal AIs on the side, duplicating work and
+fracturing the team's context."
+[source: blog-anthropic-human-agent-teams, Claim 5] [emerging]
+The remedy is a written roster — every human and every agent, with the scope
+each one owns — maintained as shared team infrastructure alongside the harness
+files this chapter already tells you to standardize.
+[editorial]
+
+### Give agents a north star
+
+A shared, mission-aligned goal is what makes agent proactivity productive
+rather than random: the agent can test a proposed action against the goal
+before initiating it. In Anthropic's internal example, a tools team with the
+north star "make product onboarding more helpful" saw an agent proactively
+recommend onboarding error-message copy revisions that measurably increased
+onboarding success the following week.
+[source: blog-anthropic-human-agent-teams, Claim 7] [emerging]
+
+### Expand autonomy in proportion to demonstrated reliability
+
+Anthropic's teams "grant agents autonomy in proportion to demonstrated
+reliability, then expand it deliberately" — starting with heavy oversight,
+teaching agents to surface hard tradeoffs, and widening scope only as
+reliability is shown.
+[source: blog-anthropic-human-agent-teams, Claim 9] [emerging]
+This is the human-team framing of the verification ramp earlier in this
+chapter: the rung you trust an agent at is earned by evidence, not granted on
+a schedule.
+[editorial]
+One concrete tracking mechanism is a weekly, agent-compiled "lessons &
+missteps" report, so recurring mistakes are recorded and avoided rather than
+repeated.
+[source: blog-anthropic-human-agent-teams, Claim 10] [anecdotal]
+
+### Run the pre-launch self-assessment
+
+Anthropic offers five yes/no questions for a team forming a human-agent
+collaboration:
+
+```
+1. Is all the information and access that agents and humans need
+   both public and broadly searchable?
+2. Can you write down your team's roster (humans and agents),
+   and say what each member owns?
+3. Does every human and agent on the team have access to the
+   right tools to perform their job?
+4. Do you have rubrics or tests for humans and agents to verify
+   key work products?
+5. Does your team have a clear north star that everyone can
+   reference?
+```
+[source: blog-anthropic-human-agent-teams, Claim 12] [settled]
+
+Question 4 is this chapter's verification-first stance applied at the team
+level. Anthropic's named mechanism for it is the "Doer-Verifier" harness — one
+agent does the task, a second checks the first agent's work — which only adds
+value when the verifier has an explicit rubric to check against rather than a
+vague instruction to "review."
+[source: blog-anthropic-human-agent-teams, Claims 8, 12] [emerging]
+
+**Rule**: Before pointing agents at shared team work, run Anthropic's
+five-question self-assessment and treat any "no" as a gap to close first — an
+agent cannot bridge it by social inference the way a human teammate can.
+[source: blog-anthropic-human-agent-teams, Claims 3, 12] [settled]
+
+---
+
 ## Pulling It Together: A Rollout Playbook
 
 For a team of 20-200 engineers considering a deliberate AI adoption program,
@@ -1440,6 +1527,7 @@ survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-anthropic-ai-native-engineering-org (Claims 1, 6, 7),
+blog-anthropic-human-agent-teams (Claims 3, 5, 7, 8, 9, 10, 11, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
@@ -1461,4 +1549,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-06-25*
+*Last updated: 2026-06-27*
