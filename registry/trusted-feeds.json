@@ -8,67 +8,102 @@
     "max_per_run": "(optional) cap new entries filed per scan. Default: 3"
   },
   "feeds": [
-{
+    {
       "id": "simon-willison",
       "url": "https://simonwillison.net/atom/everything/",
       "source_type": "blog-post",
-      "description": "Simon Willison — high-signal LLM tooling commentary and experiments",
+      "description": "Simon Willison \u2014 high-signal LLM tooling commentary and experiments",
       "max_per_run": 3
     },
     {
       "id": "armin-ronacher",
       "url": "https://lucumr.pocoo.org/feed.atom",
       "source_type": "blog-post",
-      "description": "Armin Ronacher — practitioner notes on AI coding workflows",
+      "description": "Armin Ronacher \u2014 practitioner notes on AI coding workflows",
       "max_per_run": 2
     },
     {
       "id": "github-copilot",
       "url": "https://github.blog/changelog/feed/?label=copilot",
       "source_type": "documentation",
-      "description": "GitHub Copilot changelog — Copilot-specific feature changes and updates",
+      "description": "GitHub Copilot changelog \u2014 Copilot-specific feature changes and updates",
       "max_per_run": 3
     },
     {
       "id": "langchain-blog",
       "url": "https://blog.langchain.com/rss/",
       "source_type": "blog-post",
-      "description": "LangChain blog — agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
+      "description": "LangChain blog \u2014 agent architectures, tool-use patterns, and LLM orchestration practitioner notes",
       "max_per_run": 3
     },
     {
       "id": "anthropic-engineering",
       "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
       "source_type": "blog-post",
-      "description": "Anthropic engineering blog — agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
+      "description": "Anthropic engineering blog \u2014 agent design, harness patterns, evals (via Olshansk/rss-feeds mirror)",
       "max_per_run": 3
     },
     {
       "id": "claude-blog",
       "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
       "source_type": "blog-post",
-      "description": "Claude blog — Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
+      "description": "Claude blog \u2014 Claude Code features, multi-agent patterns, enterprise tooling (via Olshansk/rss-feeds mirror)",
       "max_per_run": 3
     },
     {
       "id": "cursor-blog",
       "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cursor.xml",
       "source_type": "blog-post",
-      "description": "Cursor blog — competing AI coding agent, Composer, model inference techniques",
+      "description": "Cursor blog \u2014 competing AI coding agent, Composer, model inference techniques",
       "max_per_run": 3
     },
     {
       "id": "the-batch",
       "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml",
       "source_type": "blog-post",
-      "description": "DeepLearning.AI The Batch — weekly AI industry news roundup (Andrew Ng)",
+      "description": "DeepLearning.AI The Batch \u2014 weekly AI industry news roundup (Andrew Ng)",
       "max_per_run": 2
     },
     {
       "id": "github-agentic-workflows",
       "url": "https://github.github.com/gh-aw/blog/rss.xml",
       "source_type": "documentation",
-      "description": "GitHub Agentic Workflows (gh-aw) blog — weekly updates on GitHub's agentic automation CLI",
+      "description": "GitHub Agentic Workflows (gh-aw) blog \u2014 weekly updates on GitHub's agentic automation CLI",
+      "max_per_run": 2
+    },
+    {
+      "id": "sourcegraph",
+      "url": "https://sourcegraph.com/blog/rss.xml",
+      "source_type": "blog-post",
+      "description": "Sourcegraph (Amp, Cody) \u2014 agentic coding in large codebases, code-search infrastructure",
+      "max_per_run": 3
+    },
+    {
+      "id": "martin-fowler",
+      "url": "https://martinfowler.com/feed.atom",
+      "source_type": "blog-post",
+      "description": "Martin Fowler / Thoughtworks \u2014 Boeckeler harness-engineering series, vendor-neutral AI-assisted dev",
+      "max_per_run": 2
+    },
+    {
+      "id": "openai-news",
+      "url": "https://openai.com/news/rss.xml",
+      "source_type": "blog-post",
+      "description": "OpenAI \u2014 Codex, agentic workflows, model releases (second major lab)",
+      "max_per_run": 2
+    },
+    {
+      "id": "pragmatic-engineer",
+      "url": "https://newsletter.pragmaticengineer.com/feed",
+      "source_type": "blog-post",
+      "description": "Gergely Orosz \u2014 engineering-org AI adoption, productivity data, workflow practices",
+      "max_per_run": 2
+    },
+    {
+      "id": "jetbrains-ai",
+      "url": "https://blog.jetbrains.com/ai/feed/",
+      "source_type": "blog-post",
+      "description": "JetBrains AI \u2014 Junie agent, IDE-deep workflows, agent benchmarking",
       "max_per_run": 2
     }
   ]
