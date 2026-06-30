@@ -2,7 +2,7 @@
   "_comment": "Curated documentation site seeds for the site-crawl scanner. Hand-edited. The scanner discovers pages from these sites via sitemap.xml (or nav-link crawling), Haiku-screens for relevance, and files issues for relevant pages. Per-seed crawl state lives in registry/site-crawl-state.json.",
   "_schema": {
     "id": "stable short identifier (used as key in state file)",
-    "url": "seed page URL — scanner starts here and discovers linked pages",
+    "url": "seed page URL \u2014 scanner starts here and discovers linked pages",
     "scope": "one-line hint for the Haiku screener about what's relevant vs. noise",
     "source_type": "one of: blog-post, documentation, discussion, paper (matches source-submission.yml dropdown)"
   },
@@ -10,8 +10,20 @@
     {
       "id": "github-agentic-workflows",
       "url": "https://github.github.com/gh-aw/introduction/overview/",
-      "scope": "agent patterns, workflows, MCP tools, orchestration, observability — skip API reference pages, changelog entries, and release notes",
+      "scope": "agent patterns, workflows, MCP tools, orchestration, observability \u2014 skip API reference pages, changelog entries, and release notes",
       "source_type": "documentation"
+    },
+    {
+      "id": "humanlayer",
+      "url": "https://www.humanlayer.dev/blog",
+      "scope": "context engineering, harness engineering, human-in-the-loop coding agents, backpressure, context forking \u2014 skip product/pricing/careers pages",
+      "source_type": "blog-post"
+    },
+    {
+      "id": "cognition",
+      "url": "https://cognition.com/blog",
+      "scope": "Devin autonomous coding agent, agentic engineering, agent evaluation and orchestration \u2014 skip careers/pricing/legal",
+      "source_type": "blog-post"
     }
   ]
 }

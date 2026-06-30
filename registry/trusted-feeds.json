@@ -105,6 +105,62 @@
       "source_type": "blog-post",
       "description": "JetBrains AI \u2014 Junie agent, IDE-deep workflows, agent benchmarking",
       "max_per_run": 2
+    },
+    {
+      "id": "google-developers",
+      "url": "https://developers.googleblog.com/feeds/posts/default",
+      "source_type": "blog-post",
+      "description": "Google Developers \u2014 Gemini, Jules coding agent, Antigravity, ADK (third major lab)",
+      "max_per_run": 2
+    },
+    {
+      "id": "kent-beck",
+      "url": "https://newsletter.kentbeck.com/feed",
+      "source_type": "blog-post",
+      "description": "Kent Beck \u2014 TDD/XP creator on AI-augmented coding, design, and trust",
+      "max_per_run": 2
+    },
+    {
+      "id": "geoffrey-huntley",
+      "url": "https://ghuntley.com/rss/",
+      "source_type": "blog-post",
+      "description": "Geoffrey Huntley \u2014 deep agentic coding technique (Ralph loops, spec-driven autonomy)",
+      "max_per_run": 2
+    },
+    {
+      "id": "hamel-husain",
+      "url": "https://hamel.dev/index.xml",
+      "source_type": "blog-post",
+      "description": "Hamel Husain \u2014 applied AI engineering, LLM evals and verification",
+      "max_per_run": 2
+    },
+    {
+      "id": "thoughtworks",
+      "url": "https://www.thoughtworks.com/rss/insights.xml",
+      "source_type": "blog-post",
+      "description": "Thoughtworks Insights \u2014 AI-native engineering building blocks, agentic SDLC, vendor-neutral",
+      "max_per_run": 2
+    },
+    {
+      "id": "addy-osmani",
+      "url": "https://addyosmani.com/rss.xml",
+      "source_type": "blog-post",
+      "description": "Addy Osmani \u2014 AI-assisted engineering practices (already a top-cited corpus source)",
+      "max_per_run": 2
+    },
+    {
+      "id": "latent-space",
+      "url": "https://www.latent.space/feed",
+      "source_type": "blog-post",
+      "description": "Latent Space (swyx) \u2014 AI engineering essays/interviews; daily AINews is broad aggregation",
+      "max_per_run": 1
+    },
+    {
+      "id": "vercel",
+      "url": "https://vercel.com/atom",
+      "source_type": "blog-post",
+      "description": "Vercel \u2014 agent infrastructure (AI SDK, Sandbox, harness adapters); changelog-heavy",
+      "max_per_run": 1
     }
   ]
 }
