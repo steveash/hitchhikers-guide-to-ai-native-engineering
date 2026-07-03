@@ -161,6 +161,13 @@
       "source_type": "blog-post",
       "description": "Vercel \u2014 agent infrastructure (AI SDK, Sandbox, harness adapters); changelog-heavy",
       "max_per_run": 1
+    },
+    {
+      "id": "mattwood",
+      "url": "https://mattwood.blog/feed.xml",
+      "source_type": "blog-post",
+      "description": "Matt Wood (AWS CTO for AI) \u2014 high-level insights on organizational AI-native engineering and cost-of-validation in loops",
+      "max_per_run": 2
     }
   ]
 }
