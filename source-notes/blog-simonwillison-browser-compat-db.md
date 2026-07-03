@@ -141,7 +141,7 @@ issue: "#1391"
 - **Our assessment**: This closes the loop on Claim 3 — the CORS requirement
   wasn't incidental, it was specifically so that a purely client-side tool
   (Datasette Lite runs SQLite via WASM in the browser) could fetch and query the
-  database with no backend at all. Combined with `blog-simonwillison-sqlite-utils-40rc1.md`
+  database with no backend at all. Combined with `blog-simonwillison-datasette-apps.md`
   Claim 11's "capability evolution arc" (read-only data publishing →
   agent-readable SQL → agent-writable SQL → user app-hosting), this project sits
   at the "agent-readable SQL" rung: a bulk dataset published once, then queried
@@ -460,7 +460,7 @@ claude mcp add --transport http mdn https://mcp.mdn.mozilla.net/
     getting free, CORS-enabled, unbounded-size-safe hosting of a periodically
     rebuilt binary artifact directly from GitHub, without an external storage
     service (Claim 3).
-  - `blog-simonwillison-sqlite-utils-40rc1.md` Claim 11's "capability evolution
+  - `blog-simonwillison-datasette-apps.md` Claim 11's "capability evolution
     arc" for Datasette (read-only publishing → agent-readable SQL →
     agent-writable SQL → app-hosting): this source is a concrete instance
     sitting at the "agent-readable SQL" rung, complementary to (not competing
@@ -559,8 +559,11 @@ claude mcp add --transport http mdn https://mcp.mdn.mozilla.net/
   `### Claim:` heading; `blog-simonwillison-csrf-multimodel-review.md` Claims
   1–2 confirmed as the 1st and 2nd headings; `blog-simonwillison-liteparse-browser.md`
   Claim 13 confirmed as the 13th heading; `blog-simonwillison-moebius-browser.md`
-  Claim 11 confirmed as the 11th heading; `blog-simonwillison-sqlite-utils-40rc1.md`
-  Claim 11 confirmed as the 11th heading.
+  Claim 11 confirmed as the 11th heading; `blog-simonwillison-datasette-apps.md`
+  Claim 11 ("Datasette Apps represent a capability evolution arc...") confirmed
+  as the 11th heading (`blog-simonwillison-sqlite-utils-40rc1.md` has only 7
+  claims and is cited separately in Cross-References → Corroborates for its
+  overall `sqlite-utils` usage, not for the capability-arc claim).
 - **Confidence set to anecdotal overall**: The core project claims (Claims
   1–7, 11) are a single practitioner's account of one hobby project, though
   several (Claims 5–7) were independently verified against the actual code
