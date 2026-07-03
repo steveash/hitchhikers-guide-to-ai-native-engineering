@@ -552,7 +552,14 @@ jobs:
           fi
           gh label create "sn-rework-$NEXT" --repo "$REPO" \
             --description "Miner rework attempt $NEXT" --color "fbca04" 2>/dev/null || true
-          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "sn-rework-$NEXT"
+          # Use the REST issues/labels endpoint, NOT `gh pr edit --add-label`:
+          # this step runs gh as PROJECT_PAT (scopes: project, repo), and
+          # `gh pr edit` issues a GraphQL query whose login/name/slug fields
+          # require `read:org` — which PROJECT_PAT lacks, so it exited 1 and no
+          # source-note PR could ever rework (only the REJECT path, which avoids
+          # that query, worked). The REST labels endpoint needs only `repo`.
+          gh api "repos/$REPO/issues/$PR_NUMBER/labels" \
+            -f "labels[]=sn-rework-$NEXT" >/dev/null
 
           git config user.name  "hitchhiker-miner[bot]"
           git config user.email "hitchhiker-miner@users.noreply.github.com"
