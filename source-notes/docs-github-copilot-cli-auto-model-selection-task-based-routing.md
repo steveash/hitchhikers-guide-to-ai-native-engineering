@@ -54,7 +54,10 @@ issue: "#1468"
 - **Our assessment**: This directly contradicts Claim 2 of `docs-github-copilot-cli-auto-model-selection.md`
   (issue #203, April 17, 2026), which states CLI auto selects "the most efficient model based
   on your plan and policies" and explicitly does NOT route on task type. Filed as contradiction
-  issue #1476 — see Cross-References below. The word "now" in this July sentence suggests a
+  issue #1483 — see Cross-References below. (An earlier filing, #1476, was pre-screen-rejected and
+  closed for a missing source URL — a pre-screen formality unrelated to the evidence; #1483 re-files
+  the same contradiction with both source URLs so it can be assessed.) The word "now" in this July
+  sentence suggests a
   genuine behavior change since April, not merely a restatement, but the changelog itself does
   not explicitly say "this changes prior behavior" — a human resolver should weigh whether this
   is a feature update or a correction to an incomplete April description.
@@ -76,7 +79,7 @@ issue: "#1468"
   description across surfaces — strong evidence that the CLI's auto routing implementation was
   brought into alignment with the VS Code implementation, rather than the July changelog simply
   wording an unchanged CLI behavior differently. This supports treating the April→July change
-  as a real algorithm update (candidate `superseded` verdict on contradiction issue #1476) rather
+  as a real algorithm update (candidate `superseded` verdict on contradiction issue #1483) rather
   than an April omission.
 
 ### Claim 3: Users can switch between Auto and any specific model at any time using the `/model` command
@@ -262,9 +265,15 @@ data points showing the same task-aware pattern rolled out to those surfaces fir
   pressure — not based on task type," quoting "Auto will select the most efficient model
   based on your plan and policies"). This July source's Claim 1/2 states the opposite for the
   same CLI surface: task dimensions are now an explicit routing input. **Filed as contradiction
-  issue #1476** ("Copilot CLI auto routing: availability-only (April) vs. task-aware (July)").
-  Filer's recommended verdict: `superseded` (see issue #1476 for full reasoning) — but this is
+  issue #1483** ("Copilot CLI auto routing: availability-only (April) vs. task-aware (July)").
+  Filer's recommended verdict: `superseded` (see issue #1483 for full reasoning) — but this is
   not this source note's call to make; the verdict is pending human/Smith resolution.
+  **Note on #1476**: an earlier filing of this exact contradiction (issue #1476) was
+  pre-screen-rejected and closed (`NOT_PLANNED`) at 2026-07-03 solely because its issue body
+  contained no source URL — a pre-screen formality, *not* a judgment on the contradiction's
+  merit. Do not read #1476's closed/rejected state as "the contradiction was rejected." #1483
+  re-files the identical disagreement with both source URLs (April and July changelogs) in the
+  body so it passes pre-screen and can be assessed now that this July source note is merged.
 
 - **Corroborates**:
   - `docs-github-copilot-vscode-auto-model-selection.md` (issue #844, Claim 1): the routing-
@@ -312,7 +321,9 @@ data points showing the same task-aware pattern rolled out to those surfaces fir
 - **Chapter 02 (Harness Engineering — Auto Model Selection Surface Map)**: The existing
   guidance (per `docs-github-copilot-cli-auto-model-selection.md`, issue #203) that "CLI auto
   routes on plan/policy/rate-limit only, not task type" is now out of date for July 2026 and
-  should be revised once contradiction issue #1476 is resolved. If resolved as `superseded`,
+  should be revised once contradiction issue #1483 is resolved. (#1483 is the live issue; the
+  earlier #1476 filing of this contradiction is closed/rejected for a missing-URL pre-screen
+  formality and will not itself receive a verdict — track #1483.) If resolved as `superseded`,
   update the CLI row of the four-surface comparison table (introduced in the Chat auto note,
   issue #1218) to read: task dimensions (reasoning, code gen, bug diagnosis, tool orchestration)
   + availability/reliability signals — matching VS Code's routing description almost verbatim.
@@ -335,9 +346,13 @@ data points showing the same task-aware pattern rolled out to those surfaces fir
    named sections, and closing setup note) is captured verbatim in Concrete Artifacts above.
    At ~150 words of primary text this is a short, self-contained announcement; no linked
    sub-pages were present to follow.
-2. **Contradiction filed before this PR, per MINER.md §4a**: issue #1476 documents the
-   April-vs-July CLI routing disagreement. This note does not pick a verdict — see the
-   `Contradicts` entry above.
+2. **Contradiction filed per MINER.md §4a — the live issue is #1483, not #1476**: the
+   April-vs-July CLI routing disagreement was first filed as issue #1476, which was
+   pre-screen-rejected and closed (`NOT_PLANNED`) at 2026-07-03 because its body contained no
+   source URL — a pre-screen formality, not an evidentiary judgment. It has been re-filed as
+   issue #1483 with both source URLs included so it passes pre-screen and can be assessed now
+   that this source note is merged. #1476 is a dead end (closed/rejected) and will not receive
+   a verdict; track #1483. This note does not pick a verdict — see the `Contradicts` entry above.
 3. **Model pool is less specific than the April source**: this July entry says only "multiple
    model families" without naming which models are in the CLI auto pool as of July 2026,
    whereas the April source named four specific models. The guide should not assume the April
