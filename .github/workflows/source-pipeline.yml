@@ -290,7 +290,12 @@ jobs:
                close the issue — no further processing needed.
             8. For a whole-site seed (feed-candidate OR site-seed-candidate),
                FIRST auto-detect whether the site has a usable feed, then open a
-               PR to the matching registry. Follow these steps exactly:
+               PR to the matching registry. Follow these steps exactly.
+               BEFORE opening the PR, append a closing line to the PR body so the
+               seed issue auto-closes when the PR merges:
+                    printf '\nCloses #%s\n' "${{ github.event.issue.number }}" >> /tmp/triage-comment.md
+               (The issue comment in step 6 was already posted, so this only
+               affects the PR body.)
                a) Try to discover an RSS/Atom feed from the submitted URL. Try
                   common paths: /rss, /feed, /feed.xml, /atom.xml, /rss.xml,
                   /index.xml, /feeds/posts/default. For each, curl it and confirm
@@ -333,8 +338,10 @@ jobs:
                         --label "site-seed-candidate" \
                         --repo ${{ github.repository }}
                     - Apply the `site-seed-candidate` label to the issue.
-               f) Note the PR number in the issue comment. Do NOT close the seed
-                  issue — leave it open until its PR merges.
+               f) Note the PR number in the issue comment. Do NOT manually close
+                  the seed issue — the `Closes #<issue>` line in the PR body
+                  closes it automatically when the PR merges (and keeps it open
+                  if the PR is rejected at the Assayer gate).
 
             Do not edit any source notes, the guide, or the issue body. Your
             output is labels + a comment + (for rejections and repo triages)

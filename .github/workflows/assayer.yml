@@ -244,21 +244,25 @@ jobs:
           echo "assayer_passed=false" >> "$GITHUB_OUTPUT"
           exit 1
 
-      - name: Auto-merge approved source-note PRs
+      - name: Auto-merge approved source-note / feed / seed PRs
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ needs.prepare.outputs.pr_number }}
           PR_HEAD_REF: ${{ needs.prepare.outputs.head_ref }}
         run: |
-          # Only auto-merge source-note PRs, not guide-update or feed-candidate
+          # Auto-merge source-note, feed-candidate, and site-seed-candidate PRs
+          # on APPROVE. NOT guide-update (that has its own shadow/live step).
+          # feed/seed candidates are gated by the Assayer's reachability/schema/
+          # quality/dedup checks; their PR body carries "Closes #<issue>" so the
+          # seed submission issue closes on merge.
           LABELS='${{ needs.prepare.outputs.labels }}'
-          if ! echo "$LABELS" | jq -e 'index("source-note")' > /dev/null 2>&1; then
-            echo "Not a source-note PR; skipping auto-merge."
+          if echo "$LABELS" | jq -e 'index("guide-update")' > /dev/null 2>&1; then
+            echo "guide-update PR; handled by the shadow/live step."
             exit 0
           fi
-          if echo "$LABELS" | jq -e 'index("guide-update")' > /dev/null 2>&1; then
-            echo "PR also has guide-update label; requires human review."
+          if ! echo "$LABELS" | jq -e 'any(.[]; . == "source-note" or . == "feed-candidate" or . == "site-seed-candidate")' > /dev/null 2>&1; then
+            echo "Not an auto-mergeable label; skipping auto-merge."
             exit 0
           fi
 
@@ -275,7 +279,7 @@ jobs:
           # SHA, so a required check would leave dispatch-reviewed PRs unmergeable.
           # See docs/AUTO-GATE-ROLLOUT.md). `|| true` so a transient merge hiccup
           # can't fail the job and corrupt the verdict check.
-          echo "Auto-merging approved source-note PR #$PR_NUMBER"
+          echo "Auto-merging approved PR #$PR_NUMBER"
           gh pr merge "$PR_NUMBER" \
             --repo "${{ github.repository }}" \
             --squash \
