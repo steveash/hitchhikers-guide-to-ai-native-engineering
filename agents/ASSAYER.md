@@ -75,6 +75,42 @@ Reject if:
 - Is this feed already in `registry/trusted-feeds.json` under a different id?
 - Does the feed URL overlap with an existing entry (same domain, different path)?
 
+## Review Standards for Site-Crawl Seed PRs
+
+A `site-seed-candidate` PR adds a whole site (with NO usable RSS/Atom feed) to
+`registry/site-crawl-seeds.json` so the site scanner crawls it on a schedule.
+
+### Reachability Check
+
+- Does the site URL resolve (HTTP 200)?
+- Does the page actually list/link posts (an index or blog root), not a single
+  article or a homepage with no post links?
+- Is there evidence of recent, on-topic posts (within the last ~90 days)?
+- Confirm there really is NO usable feed (the Prospector should route sites WITH
+  a feed to `trusted-feeds.json` instead). If a clear feed exists, request that
+  it be resubmitted as a `feed-candidate`.
+
+### Schema Check
+
+- Does the new entry in `registry/site-crawl-seeds.json` match the schema?
+- Required fields: `id`, `url`, `scope`, `source_type`
+- `id` is a short, stable, lowercase-hyphenated identifier
+- `scope` is a concrete one-line hint of what's relevant vs. noise on the site
+  (not vague — it guides the scanner's screener)
+- `source_type` is one of: `blog-post`, `documentation`, `discussion`, `paper`,
+  `practitioner-repo`, `failure-report`
+
+### Source Quality Check
+
+- Is the site from a known author or organization in AI-native engineering?
+- Does it have a history of substantive posts (not marketing/product pages)?
+- Does the `scope` accurately delimit the valuable material?
+
+### Duplication Check
+
+- Is this site already in `registry/site-crawl-seeds.json` under a different id?
+- Does the URL overlap an existing seed or trusted feed (same domain)?
+
 ## Review Standards for Guide Update PRs
 
 ### Citation Check

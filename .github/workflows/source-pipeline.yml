@@ -39,7 +39,9 @@ jobs:
         github.event.label.name == 'new-source' ||
         github.event.label.name == 'new-repo' ||
         github.event.label.name == 'new-failure' ||
-        github.event.label.name == 'source-submission'
+        github.event.label.name == 'new-seed' ||
+        github.event.label.name == 'source-submission' ||
+        github.event.label.name == 'seed-submission'
       ))
     runs-on: ubuntu-latest
     outputs:
@@ -180,6 +182,16 @@ jobs:
             --description "Blog feed proposed for trusted-feeds.json" \
             --color "c5def5" \
             2>/dev/null || true
+          gh label create "site-seed-candidate" \
+            --repo "${{ github.repository }}" \
+            --description "No-RSS site proposed for site-crawl-seeds.json" \
+            --color "c5def5" \
+            2>/dev/null || true
+          gh label create "new-seed" \
+            --repo "${{ github.repository }}" \
+            --description "Seed-site submission awaiting triage" \
+            --color "fbca04" \
+            2>/dev/null || true
 
       - name: Load Prospector role into APPEND_SYSTEM_PROMPT
         # Cache the role definition in the system-prompt prefix so it
@@ -231,10 +243,19 @@ jobs:
                   - triaged:repo     — practitioner repo for the Repo Scout
                   - triaged:failure  — failure report for the Miner's
                                        failure-report extraction path
-                  - feed-candidate   — blog index, RSS/Atom feed, or blog
-                                       root URL for trusted-feeds routing
+                  - feed-candidate   — a whole site/blog that HAS a reachable
+                                       RSS/Atom feed → route to trusted-feeds.json
+                  - site-seed-candidate — a whole site/blog with NO usable feed
+                                       → route to site-crawl-seeds.json
                   - rejected         — duplicate, marketing, pre-Dec-2025,
                                        or no substance
+               SEED SUBMISSIONS: if the issue carries `new-seed` /
+               `seed-submission` (a whole-site proposal), it is a seed, not a
+               single article. Do the feed-vs-crawl detection in step 8 and pick
+               `feed-candidate` or `site-seed-candidate` from what you find —
+               do NOT ask the submitter and do NOT rely on their guess. A homepage
+               or blog-index URL from any submission may also be a seed; treat it
+               the same way.
             5. Apply the label:
                   gh issue edit ${{ github.event.issue.number }} \
                     --repo ${{ github.repository }} \
@@ -267,26 +288,53 @@ jobs:
                Repo-triaged issues are low value when discovered outside
                the Repo Scout pipeline. Keep the label for tracking but
                close the issue — no further processing needed.
-            8. If you chose `feed-candidate`, create a PR to add the feed
-               to trusted-feeds.json. Follow these steps exactly:
-               a) Discover or infer the RSS/Atom feed URL from the submitted
-                  URL. Try common paths: /rss, /feed, /atom.xml, /feed.xml.
-                  Verify the feed URL is reachable with curl.
-               b) Read registry/trusted-feeds.json to understand the schema.
+            8. For a whole-site seed (feed-candidate OR site-seed-candidate),
+               FIRST auto-detect whether the site has a usable feed, then open a
+               PR to the matching registry. Follow these steps exactly:
+               a) Try to discover an RSS/Atom feed from the submitted URL. Try
+                  common paths: /rss, /feed, /feed.xml, /atom.xml, /rss.xml,
+                  /index.xml, /feeds/posts/default. For each, curl it and confirm
+                  it returns a valid feed (body contains `<rss` or `<feed`) with
+                  at least one recent entry (within ~90 days). Do NOT trust the
+                  submitter's claim about whether a feed exists — verify yourself.
                c) Pick a short stable id (lowercase, hyphenated).
-               d) Create a feature branch and add the entry:
-                    git checkout -b feed-candidate/<id>
-                    # Edit registry/trusted-feeds.json to add the new entry
-                    git add registry/trusted-feeds.json
-                    git commit -m "feat: add <id> feed to trusted-feeds.json"
-                    git push origin feed-candidate/<id>
-               e) Open a PR:
-                    gh pr create \
-                      --title "feed-candidate: add <id> to trusted feeds" \
-                      --body-file /tmp/triage-comment.md \
-                      --label "feed-candidate" \
-                      --repo ${{ github.repository }}
-               f) Note the PR number in the issue comment.
+               d) IF a valid feed was found → this is `feed-candidate`
+                  (trusted-feeds.json):
+                    - Read registry/trusted-feeds.json for the schema
+                      ({id, url, source_type, description, max_per_run}). Use the
+                      submitter's "why high-signal" as the description; set
+                      max_per_run to 2 (or 3 for very high-signal sources).
+                    - git checkout -b feed-candidate/<id>
+                      # add the entry to registry/trusted-feeds.json (the feed URL)
+                      git add registry/trusted-feeds.json
+                      git commit -m "feat: add <id> feed to trusted-feeds.json"
+                      git push origin feed-candidate/<id>
+                    - gh pr create \
+                        --title "feed-candidate: add <id> to trusted feeds" \
+                        --body-file /tmp/triage-comment.md \
+                        --label "feed-candidate" \
+                        --repo ${{ github.repository }}
+                    - Apply the `feed-candidate` label to the issue.
+               e) IF NO valid feed was found → this is `site-seed-candidate`
+                  (site-crawl-seeds.json):
+                    - Read registry/site-crawl-seeds.json for the schema
+                      ({id, url, scope, source_type}). Use the submitted site URL
+                      as `url`, the submitter's "what's relevant / noise" answer
+                      as `scope`, and an appropriate `source_type` (usually
+                      blog-post, or documentation for a docs site).
+                    - git checkout -b site-seed-candidate/<id>
+                      # add the entry to registry/site-crawl-seeds.json
+                      git add registry/site-crawl-seeds.json
+                      git commit -m "feat: add <id> to site-crawl-seeds.json"
+                      git push origin site-seed-candidate/<id>
+                    - gh pr create \
+                        --title "site-seed-candidate: add <id> to site-crawl seeds" \
+                        --body-file /tmp/triage-comment.md \
+                        --label "site-seed-candidate" \
+                        --repo ${{ github.repository }}
+                    - Apply the `site-seed-candidate` label to the issue.
+               f) Note the PR number in the issue comment. Do NOT close the seed
+                  issue — leave it open until its PR merges.
 
             Do not edit any source notes, the guide, or the issue body. Your
             output is labels + a comment + (for rejections and repo triages)
@@ -311,7 +359,7 @@ jobs:
             OPTION_ID="4a01c3ba"   # rejected
           elif echo "$LABELS" | grep -qE "^triaged:(text|repo|failure)$"; then
             OPTION_ID="c0dcbb7b"   # accepted
-          elif echo "$LABELS" | grep -q "^feed-candidate$"; then
+          elif echo "$LABELS" | grep -qE "^(feed-candidate|site-seed-candidate)$"; then
             OPTION_ID="c0dcbb7b"   # accepted
           else
             echo "No recognized triage label found; skipping project update."

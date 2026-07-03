@@ -1,0 +1,58 @@
+name: Seed Site
+description: Propose a whole site or blog to scan regularly (not a single post)
+title: "[seed] "
+labels: ["new-seed", "seed-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this to propose a **whole source** — a blog, publication, or docs
+        site that regularly posts relevant material — so the guide scans it on
+        an ongoing basis. For a single article or repo, use **Source Submission**
+        instead.
+
+        You don't need to find an RSS feed or classify the site — triage detects
+        whether it has a feed (→ trusted feeds) or needs crawling (→ site-crawl
+        seeds) and routes it automatically.
+  - type: input
+    id: url
+    attributes:
+      label: Site URL
+      description: The blog/site root or index page (e.g. the /blog page).
+      placeholder: https://example.com/blog
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this a high-signal source worth scanning regularly?
+      description: |
+        What makes this site consistently valuable for AI-native engineering?
+        Be specific about the author/org and the kind of material they publish.
+        "Good blog" is not helpful. "The HumanLayer blog — deep, first-party
+        posts on context/harness engineering for coding agents" is.
+      placeholder: Who runs it, and what do they consistently publish that matters?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: What's relevant here — and what's noise?
+      description: |
+        A one-line hint for the scanner about what to pick up vs. skip on this
+        site (topics that matter, and sections to ignore like pricing/careers).
+      placeholder: |
+        e.g. "Engineering posts on agent harnesses, context, evals — skip
+        product/pricing/careers pages and press releases."
+    validations:
+      required: true
+  - type: textarea
+    id: samples
+    attributes:
+      label: 2–3 example posts (optional)
+      description: Links to representative posts that show why this belongs in the guide.
+      placeholder: |
+        - https://example.com/blog/some-relevant-post
+        - https://example.com/blog/another-one
+    validations:
+      required: false

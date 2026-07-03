@@ -56,6 +56,21 @@ When the submitted URL is a blog index page, RSS/Atom feed URL, or blog root
 4. Apply the `feed-candidate` label to the issue
 5. Post a comment explaining the assessment (see format below)
 
+**If the site has NO usable RSS/Atom feed** (but is otherwise a strong,
+regularly-posting source — e.g. a `new-seed` / `seed-submission` proposal):
+route it to the **site crawler** instead of trusted-feeds. This is
+`site-seed-candidate`:
+1. Create a feature branch: `site-seed-candidate/<id>`
+2. Add an entry to `registry/site-crawl-seeds.json` (`id`, `url`, `scope`,
+   `source_type`), using the submitter's "what's relevant / noise" answer as the
+   `scope` hint.
+3. Open a PR labeled `site-seed-candidate`
+4. Apply the `site-seed-candidate` label to the issue
+
+Always auto-detect the feed yourself — do not rely on the submitter's guess about
+whether a feed exists. Feed present → `feed-candidate` (trusted-feeds); no feed →
+`site-seed-candidate` (site-crawl-seeds).
+
 **If the feed does NOT meet the bar:**
 Reject as usual with a comment noting it was evaluated as a potential feed but
 didn't meet the quality threshold. Explain why (e.g. "mostly marketing content",

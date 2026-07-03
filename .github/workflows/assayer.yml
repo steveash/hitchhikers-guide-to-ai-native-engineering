@@ -99,7 +99,7 @@ jobs:
 
           # Only review PRs that carry one of the labels we gate on.
           SHOULD_RUN=false
-          if echo "$LABELS" | jq -e 'any(.[]; . == "source-note" or . == "guide-update" or . == "feed-candidate")' >/dev/null; then
+          if echo "$LABELS" | jq -e 'any(.[]; . == "source-note" or . == "guide-update" or . == "feed-candidate" or . == "site-seed-candidate")' >/dev/null; then
             SHOULD_RUN=true
           fi
 
@@ -153,9 +153,10 @@ jobs:
             ${{ needs.prepare.outputs.labels }}
 
             Pick the review standards that apply:
-            - source-note label     → "Review Standards for Source Note PRs"
-            - guide-update label    → "Review Standards for Guide Update PRs"
-            - feed-candidate label  → "Review Standards for Feed Candidate PRs"
+            - source-note label        → "Review Standards for Source Note PRs"
+            - guide-update label       → "Review Standards for Guide Update PRs"
+            - feed-candidate label     → "Review Standards for Feed Candidate PRs"
+            - site-seed-candidate label → "Review Standards for Site-Crawl Seed PRs"
 
             You may read any file in the repository to verify citations,
             cross-references, and contradictions. Do NOT edit any files.

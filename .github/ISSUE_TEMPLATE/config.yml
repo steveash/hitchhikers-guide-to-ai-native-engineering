@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Guide changelog & releases
+    url: https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/releases
+    about: Weekly summaries of what changed in the guide.
