@@ -88,6 +88,7 @@ stay in this file with their original ID.
 | C-004 | slash_command trigger: recommended HITL mechanism vs. near-zero success rate | 2026-05-12 | resolved | debated |
 | C-005 | Agentic workflow authentication: GITHUB_TOKEN sufficient vs PAT required | 2026-06-12 | resolved | accepted-A |
 | C-006 | Context anxiety model version: Opus 4.5 eliminated it vs. Opus 4.5 still had it | 2026-04-20 | resolved | debated |
+| C-007 | Human-attacker prompt-injection success: near-100% (role-confusion study) vs. 0/6,000 (hackmyclaw challenge) | 2026-06-29 | resolved | debated |
 
 ---
 
@@ -357,3 +358,41 @@ Ch02 §Harness Engineering should cite the meta-principle (prune harness compone
 
 *This file is updated whenever a `contradiction` issue is resolved. New entries
 are appended at the bottom; the index table at the top is updated to match.*
+
+## C-007: Human-attacker prompt-injection success: near-100% (role-confusion study) vs. 0/6,000 (hackmyclaw challenge)
+
+- **Filed**: 2026-06-29 by Miner agent (during extraction of issue #1429)
+- **Issue**: #1443
+- **Resolved**: 2026-07-02
+- **Verdict**: debated
+- **Affected guide sections**: Ch06 §Security and Threat Model (model-layer vs. environmental defenses against prompt injection)
+
+### Side A
+- **Source**: [blog-simonwillison-prompt-injection-role-confusion](source-notes/blog-simonwillison-prompt-injection-role-confusion.md)
+- **Claim**: Human red-teamers deliberately exploiting role confusion achieve near-100% attack success against frontier models; automated attacks still succeed 11%/25% of the time against Opus 4.5/GPT-5.4 (May 2026); without genuine role perception, injection defense remains a "perpetual whack-a-mole game."
+- **Evidence**: ICML 2026 peer-reviewed paper; human red-teaming evaluation plus controlled automated-attack measurement against named frontier models.
+- **Confidence**: emerging
+
+### Side B
+- **Source**: blog-simonwillison-hack-my-ai-assistant (not yet mined — issue #1429)
+- **Claim**: In a live public challenge, ~2,000 people made ~6,000 attempts to leak a secret from an Opus 4.6-powered, prompt-hardened OpenClaw instance via email injection. Zero succeeded. Willison reads this as evidence that labs' anti-injection training is "effective in making these attacks much harder to pull off," while explicitly cautioning that "6,000 failed attempts provides no guarantees that someone with a more sophisticated approach couldn't get through" and still recommending against relying on this for irreversible-damage production systems.
+- **Evidence**: Real-world, large-N live public challenge against a specific model and deployment (verified directly against the source URL; corpus source note not yet written).
+- **Confidence**: anecdotal (single deployment, single model, undisclosed attacker-skill distribution, no source note yet in corpus)
+
+### Resolution
+
+Both sides are credible but measure different things and are not as opposed as the raw headline figures (near-100% vs. 0%) suggest. Side A's near-100% figure specifically describes skilled red-teamers *deliberately* exploiting a named technique (CoT Forgery/role confusion); Side B's 6,000 attempts come from an open public audience with no evidence of comparable technique sophistication, against a deployment that included explicit system-prompt-level anti-injection rules (not a bare, undefended model). Model generation also differs (Opus 4.5/GPT-5.4, May 2026, vs. Opus 4.6, June 2026), consistent with Side A's own trendline that later model generations reduce automated-attack failure rates.
+
+Willison's own text does not claim the 0/6,000 result refutes model-layer-defense skepticism — he explicitly cautions that a more sophisticated attacker could still succeed, which is consonant with, not contrary to, Side A's mechanism claim. The genuine open question is narrower than "does model-layer defense work": it is whether a *skilled, technique-aware* human attacker would still achieve a near-100% success rate against the same Opus 4.6 + prompt-hardened target that resisted 6,000 unscreened public attempts. The corpus cannot answer that yet.
+
+This verdict should be revisited once the `blog-simonwillison-hack-my-ai-assistant` source note is formally extracted and merged — in particular, check whether Hacker News commenters or Fernando Irarrázaval's own writeup identify near-misses or technique-aware attempts, which would bear directly on whether Side B narrows or leaves untouched Side A's Claim 4.
+
+### Citation in the guide
+
+Ch06 §Security and Threat Model should present this as a `**Debated:**` block:
+- Cite Side A's mechanism claims (Claims 1-3, 7-8: style-based role identification, CoT Forgery, destyling, "perpetual whack-a-mole") as `[emerging]` — these are not contradicted by Side B and should anchor the guide's recommendation that environmental/structural controls remain necessary regardless of model-layer training improvements.
+- Cite Side A's automated-attack failure rates (Claim 5: 11%/25% for Opus 4.5/GPT-5.4, May 2026) as `[emerging]` and note the likely downward trend by model generation, corroborated qualitatively by Side B's Opus 4.6 result.
+- Cite Side A's "near-100% human red-teamer success" figure (Claim 4) as `[emerging]` but flag it specifically as describing *technique-aware, deliberate* attackers — not a general population — and note it is the weaker-sourced part of Side A (no disclosed protocol).
+- Cite the hackmyclaw result as `[anecdotal]` (pending the corpus source note) as encouraging real-world evidence that current-generation training resists a broad, unscreened attacker population, while explicitly carrying Willison's own caveat that this provides no guarantee against a more sophisticated, targeted attacker.
+- Do NOT cite the hackmyclaw 0/6,000 result as evidence that model-layer training alone is a sufficient defense — the target used explicit prompt-level anti-injection rules, and Willison himself declines to draw that conclusion.
+- Do NOT treat the human-attacker "near-100% vs. 0%" comparison as settled; flag it for re-assessment once `blog-simonwillison-hack-my-ai-assistant` is merged into the corpus.
