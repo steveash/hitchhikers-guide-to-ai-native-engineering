@@ -70,9 +70,9 @@ issue: "#1432"
   internal testing conclusion rather than a third-party benchmark citation.
 - **Confidence**: anecdotal (vendor-reported internal testing result; no
   benchmark name, task set, or numeric score is disclosed)
-- **Quote**: "In internal testing, Claude Sonnet 5 demonstrated strong results
-  across coding scenarios, with particularly strong performance on CLI-style
-  tasks."
+- **Quote**: "In our internal testing, Claude Sonnet 5 showed strong results
+  across a range of coding scenarios, including particularly strong performance
+  on CLI-style tasks."
 - **Our assessment**: The "CLI-style tasks" emphasis is notable because it
   aligns with GitHub's own CLI-first agent tooling emphasis (Copilot CLI, `gh`
   extensions) documented across `docs-github-copilot-cli-auto-model-selection.md`
@@ -125,7 +125,8 @@ issue: "#1432"
   plan list in `docs-github-copilot-opus48-fast-mode-preview.md` Claim 5
   (Pro+, Max, Business, Enterprise — Pro explicitly excluded).
 - **Confidence**: settled (plan list stated directly in official changelog)
-- **Quote**: "Plans: Copilot Pro, Pro+, Max, Business, and Enterprise"
+- **Quote**: "Claude Sonnet 5 will be available to Copilot Pro, Pro+, Max,
+  Business, and Enterprise users."
 - **Our assessment**: This is a meaningful contrast with the immediately
   preceding Opus 4.8 fast mode announcement (one day earlier), which gated
   access above standard Pro. Sonnet 5 GA reaches the full paid tier ladder
@@ -177,8 +178,9 @@ issue: "#1432"
 
 - **Evidence**: Official changelog administration statement.
 - **Confidence**: settled (stated directly in official changelog)
-- **Quote**: "Copilot Enterprise and Business plan administrators can enable
-  Claude Sonnet 5 through model policy settings."
+- **Quote**: "Copilot Enterprise and Copilot Business plan administrators can
+  enable Claude Sonnet 5 for their organization through the model policy
+  settings in Copilot."
 - **Our assessment**: The changelog does not state whether the policy is off by
   default (as it explicitly was for Opus 4.8 fast mode, per
   `docs-github-copilot-opus48-fast-mode-preview.md` Claim 7) or on by default.
@@ -196,21 +198,24 @@ issue: "#1432"
 - **Evidence**: Official changelog administration section statement, stated as a
   standalone operating condition alongside the admin enablement claim.
 - **Confidence**: settled (stated directly in official changelog)
-- **Quote**: "The model operates under Zero Data Retention (ZDR)."
+- **Quote**: "Like other Sonnet models in GitHub Copilot, Claude Sonnet 5
+  operates under Zero Data Retention (ZDR)."
 - **Our assessment**: This is the first corpus source to state a ZDR operating
   condition for a specific named model within GitHub Copilot. No other Copilot
   model-availability changelog in this corpus (including the Opus 4.8 fast mode
   preview, the Sonnet 4 deprecation notice, or the April 2026 Claude/Codex model
-  selection announcement) mentions ZDR as an explicit per-model claim. It is not
-  stated whether ZDR is a new condition specific to Sonnet 5 or whether it has
-  applied to other Claude models in Copilot without being called out previously
-  — the source does not clarify this. For Ch05 (enterprise governance / data
-  handling): this is a concrete, citable data point for compliance-conscious
-  teams evaluating whether Copilot's Claude Sonnet 5 integration meets data
-  retention requirements. Flag as worth following up: does ZDR apply
-  Copilot-wide to all Claude models, or is this Sonnet-5-specific language that
-  should prompt a targeted documentation check for other models before assuming
-  parity?
+  selection announcement) mentions ZDR as an explicit per-model claim. The source
+  does clarify the scope: the leading clause "Like other Sonnet models in GitHub
+  Copilot" establishes that ZDR is a pre-existing property of the Sonnet tier in
+  Copilot, not a new condition specific to Sonnet 5 — Sonnet 5 inherits it rather
+  than introducing it. What the source does *not* address is whether the same ZDR
+  condition applies to Opus-tier Claude models in Copilot; it speaks only to
+  "other Sonnet models." For Ch05 (enterprise governance / data handling): this is
+  a concrete, citable data point for compliance-conscious teams evaluating whether
+  Copilot's Claude Sonnet 5 integration meets data retention requirements, and it
+  can be generalized to the Sonnet tier as a whole. The open question that remains
+  is narrower than parity across all Claude models: does ZDR also cover Opus-class
+  models in Copilot, or is it stated here only for the Sonnet tier?
 
 ## Concrete Artifacts
 
@@ -311,10 +316,12 @@ ZDR mentioned            No                       Yes
 
 - **Novel**:
   - First corpus documentation of Claude Sonnet 5 anywhere in GitHub Copilot.
-  - First corpus source to state an explicit Zero Data Retention (ZDR) operating
-    condition for a specific named Claude model within GitHub Copilot — no
-    prior Copilot model-availability note in the corpus makes a per-model ZDR
-    claim.
+  - First corpus confirmation that Zero Data Retention (ZDR) applies to the
+    Claude Sonnet tier in GitHub Copilot generally — the source states Sonnet 5
+    operates under ZDR "like other Sonnet models," so this is a pre-existing
+    tier property surfaced explicitly for the first time in the corpus, not a
+    Sonnet-5-specific novelty. No prior Copilot model-availability note in the
+    corpus states a ZDR condition at all.
   - First evidence that GitHub is reusing an identical ten-surface rollout
     template across consecutive model announcements (Opus 4.8 fast mode, June
     29; Sonnet 5 GA, June 30), suggesting a standardized release process rather
@@ -341,14 +348,18 @@ ZDR mentioned            No                       Yes
   capability evidence without an independent source.
 
 - **Chapter 05 (Team Adoption / Enterprise Governance)**: Add Zero Data
-  Retention (ZDR) as a documented data-handling property of Claude Sonnet 5 in
-  Copilot — a new, citable compliance data point. Note the ambiguity around
-  whether the Business/Enterprise admin policy for Sonnet 5 is on or off by
-  default (unlike the explicit "off by default" statement for Opus 4.8 fast
-  mode) — recommend enterprise admins verify current policy state directly
-  rather than assuming a default, and recommend a follow-up documentation check
-  on whether ZDR applies to other Claude models in Copilot or is specific to
-  Sonnet 5.
+  Retention (ZDR) as a documented data-handling property of the Claude Sonnet
+  tier in Copilot — a new, citable compliance data point. The source states
+  Sonnet 5 operates under ZDR "like other Sonnet models in GitHub Copilot," so
+  the guide can document ZDR as a Sonnet-tier property, not a Sonnet-5-specific
+  disclosure; no follow-up check on whether ZDR applies to other *Sonnet* models
+  is needed — the source already answers that. The narrower open question that
+  remains is whether ZDR extends to Opus-class Claude models in Copilot, which
+  this source does not address. Also note the ambiguity around whether the
+  Business/Enterprise admin policy for Sonnet 5 is on or off by default (unlike
+  the explicit "off by default" statement for Opus 4.8 fast mode) — recommend
+  enterprise admins verify current policy state directly rather than assuming a
+  default.
 
 ## Extraction Notes
 
@@ -367,11 +378,13 @@ ZDR mentioned            No                       Yes
    changelog states only that admins "can enable" Sonnet 5 — it does not specify
    the default state. This ambiguity is called out explicitly in Claim 8 rather
    than assumed either way.
-4. **ZDR scope not clarified**: The changelog states Sonnet 5 "operates under
-   Zero Data Retention (ZDR)" without clarifying whether this is a new condition
-   specific to this model or a pre-existing platform-wide condition being stated
-   explicitly for the first time. This is flagged in Claim 9 and in Guide Impact
-   as worth a follow-up documentation check rather than treated as settled scope.
+4. **ZDR scope — Sonnet tier confirmed, Opus tier open**: The changelog states
+   Sonnet 5 operates under ZDR "like other Sonnet models in GitHub Copilot,"
+   which establishes ZDR as a pre-existing property of the Sonnet tier that
+   Sonnet 5 inherits — not a Sonnet-5-specific condition. This is reflected in
+   Claim 9 and Guide Impact. The only ZDR scope question the source leaves open
+   is whether the condition also covers Opus-class Claude models in Copilot,
+   which it does not address.
 5. **No contradictions to file**: No existing corpus source claims Sonnet 4.6
    is the permanent or final Claude Sonnet-class model in Copilot, or that
    Copilot models never carry ZDR. This source documents an expected model-tier
