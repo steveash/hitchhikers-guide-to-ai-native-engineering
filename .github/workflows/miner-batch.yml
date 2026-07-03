@@ -291,11 +291,16 @@ jobs:
             - Do NOT merge your own PR. The Assayer reviews; humans
               merge.
             - If the source is paywalled, dead, or otherwise unreadable,
-              comment on the issue explaining why, then:
+              comment on the issue explaining why, then label AND close it
+              (the label is the permanent record; closing keeps the open-issue
+              count meaningful — reopen to retry if the source becomes readable):
                 gh issue edit ${{ matrix.issue }} \
                   --repo ${{ github.repository }} \
                   --add-label "miner-blocked" \
                   --remove-label "mining-queued"
+                gh issue close ${{ matrix.issue }} \
+                  --repo ${{ github.repository }} \
+                  --comment "Auto-closed: source unreadable (miner-blocked). Reopen if it becomes accessible."
               Exit WITHOUT opening a PR.
           claude_args: |
             --model sonnet

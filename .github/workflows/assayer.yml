@@ -529,7 +529,11 @@ jobs:
               gh issue edit "$ISSUE_NUMBER" --repo "$REPO" \
                 --remove-label "mining-complete" --add-label "extraction-rejected" 2>/dev/null || true
               gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Source extraction **rejected** by the Assayer gate ($reason) after up to ${MAX_REWORK} automated rework attempts. The note was not included. Remove the \`extraction-rejected\` label to re-queue this source for mining later." || true
+                --body "Source extraction **rejected** by the Assayer gate ($reason) after up to ${MAX_REWORK} automated rework attempts. The note was not included. Reopen and remove the \`extraction-rejected\` label to re-queue this source for mining later." || true
+              # Close the issue: the extraction-rejected label on the closed
+              # issue is the permanent record, and closing keeps the open-issue
+              # count reflecting real pending work. Reopen + unlabel to retry.
+              gh issue close "$ISSUE_NUMBER" --repo "$REPO" 2>/dev/null || true
             fi
           }
 

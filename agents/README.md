@@ -107,7 +107,7 @@ human intervention. The recovery mechanism for each common failure:
 | Cron schedule miss after a `cron:` change | | No | First tick after the change can be skipped (GitHub propagation delay). Subsequent ticks fire normally. Manual `workflow_dispatch` covers the gap |
 | `pull_request` workflow events silently dropped on a recreated branch | | No | Per-branch dispatch suppression. Mitigated: every Miner attempt uses a fresh `miner/issue-N-r<run_id>` branch so the suppression state can't carry over. If it still recurs, label the source issue `miner-blocked` |
 | 3rd+ PR opened in tight succession from the same user — workflow doesn't dispatch | | No | `BATCH_SIZE=2` in `miner-batch.yml` keeps each batch under GitHub's abuse-detection threshold. If a manual workflow_dispatch produces a stuck PR, recycle via close + requeue |
-| Source URL is unreachable, paywalled, or otherwise unreadable | Miner | No | Marks the issue `miner-blocked` and exits without opening a PR. The issue stays open with the block label so a human can investigate later if desired |
+| Source URL is unreachable, paywalled, or otherwise unreadable | Miner | No | Marks the issue `miner-blocked`, closes it (the label on the closed issue is the record), and exits without opening a PR. Reopen if the source becomes accessible |
 
 ## When humans need to step in
 
