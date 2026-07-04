@@ -134,11 +134,11 @@ Slash commands available directly in AI chat: /remote, /chronicle
 
 ### Cross-reference verification notes
 Claims cited from `docs-github-copilot-jetbrains-ai-assistant-picker-june2026.md`,
-`docs-github-copilot-jetbrains-cli-enhancements-june2026.md`, and
-`docs-github-copilot-jetbrains-claude-agent-provider-june2026.md` were
-re-read directly in those notes before citing (per MINER.md §4b); claim
-numbers are counted top-to-bottom in document order as they appear in each
-cited note.
+`docs-github-copilot-jetbrains-cli-enhancements-june2026.md`,
+`docs-github-copilot-jetbrains-claude-agent-provider-june2026.md`, and
+`blog-jetbrains-codex-recommended-agent.md` were re-read directly in those
+notes before citing (per MINER.md §4b); claim numbers are counted
+top-to-bottom in document order as they appear in each cited note.
 
 - **Corroborates**:
   - `docs-github-copilot-jetbrains-ai-assistant-picker-june2026.md` Claim 1:
@@ -177,6 +177,24 @@ cited note.
     commands to the JetBrains AI Assistant surface as well — the first
     corpus evidence that CLI-agent slash commands cross over into the
     AI-Assistant agent-picker surface.
+  - `blog-jetbrains-codex-recommended-agent.md` (Claim 9): that note
+    (published June 25, 2026, five days before this post, on the same
+    JetBrains AI blog) documents the same JetBrains AI Chat agent-picker
+    surface this post's Claims 9–10 describe, including a "recommended
+    agent" default-selection feature that names Codex as the default while
+    stating users "can switch to Junie, Claude Agent, or other ACP-compatible
+    agents at any time" (that note's Claim 9). This post's Claim 2 establishes
+    that Copilot was reachable through the general-purpose "ACP Registry"
+    mechanism *before* this native launch — so Copilot was very plausibly
+    already one of the "other ACP-compatible agents" that recommended-agent
+    note refers to. Today's native, first-class picker inclusion (Claim 1)
+    changes that relationship. Open questions this post does not answer, but
+    that the connection surfaces for the guide: does the "recommended agent"
+    default (Codex) still apply when a user selects GitHub Copilot, or does
+    picking Copilot bypass the recommendation entirely? Does Copilot's new
+    first-class status change whether it appears among, or ahead of, the
+    ACP-Registry-reached agents in that picker? Neither is answerable from
+    this source alone.
 
 - **Novel**:
   - **"ACP Registry" as JetBrains' named term for the prior integration
