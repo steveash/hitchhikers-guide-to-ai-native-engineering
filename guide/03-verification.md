@@ -40,6 +40,103 @@ include:
 
 ---
 
+## Human Review Is Being Skipped, Not Reinforced
+
+The thesis above assumes human review is the backstop that catches what the
+cheaper layers miss. The 2026 data shows that backstop is the layer giving way
+under agent volume — not the one being reinforced. Faros AI's tracking of
+22,000 developers found PRs merging with *zero* review up 31.3% and median
+review duration up 441.5%, while the per-developer defect rate rose from 9% to
+54%.
+[source: blog-addyosmani-agentic-code-review, Claim 2] [emerging]
+Cursor's own usage telemetry shows the same erosion first-hand: a sharp rise in
+changes accepted with no human review, beginning around February 2026.
+[source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 7] [emerging]
+
+> "We're seeing a lot more code generated, and less of it than ever being
+> reviewed by devs."
+> [source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 7]
+
+The June 2026 Meta/Instagram account-takeover shipped through exactly this gap:
+engineers told Orosz the change was AI-generated, AI-reviewed code that landed
+in a security org stripped of the headcount that would have caught it.
+[source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 1] [emerging]
+
+**Debated: does agent-written code pull verification rigor up or down?**
+
+Two Pragmatic Engineer pieces, six days apart, point opposite directions.
+Robert Erez predicts rigor rises: once agents write most of the code and wait
+out the pipeline themselves, the human-ergonomics reason to keep CI fast
+disappears, and "the new priority will be to reduce the risk of an AI agent
+shipping a bug to production, so it will make much more sense to run extra,
+more thorough tests – and also even slower ones."
+[source: blog-pragmaticengineer-erez-cicd, Claim 10] [emerging]
+Orosz's vendor data shows the opposite happening right now — human review is
+being dropped, not deepened.
+[source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 7] [emerging]
+
+**Our take** [editorial]: The two reconcile once you separate the automated
+layer from the human one. Erez describes where the *machine* layers are headed
+— more, slower tests, now that the reason to keep CI fast (a human waiting on
+it) is fading. Orosz measures what happens to the *human* layer when no one
+redesigns it: it collapses. Freed verification budget does not redeploy itself;
+spend it deliberately or it evaporates.
+
+### Tier review by blast radius, not by author
+
+The erosion above is the failure mode of treating review as all-or-nothing:
+read every diff (impossible at agent volume) or wave it all through. Osmani's
+framework replaces the binary with a triage variable — the change's blast
+radius, not who or what authored it. "A config change earns a linter and a
+glance. A payments path earns the full stack."
+[source: blog-addyosmani-agentic-code-review, Claim 7] [emerging]
+This rejects the "AI-authored PRs always need extra scrutiny" heuristic
+outright: a human-written and an agent-written payments change get the same
+rigor; a config tweak gets the same light touch regardless of author. The
+reviewer's posture shifts with it, from reading every diff to sampling the
+system:
+
+> "Human in the loop becomes human on the loop: sampling, spot-checking and
+> auditing the system."
+> [source: blog-addyosmani-agentic-code-review, Claim 11] [emerging]
+
+OpenAI's Codex team runs the deliberate version of this — a tiered AI-review
+system where lower-risk changes merge on AI review alone and higher-risk ones
+get an added human pass.
+[source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 10] [emerging]
+Routing-by-risk is the difference between that model and the Meta outcome: the
+same reduction in per-change human review, aimed by blast radius instead of
+abandoned uniformly. [editorial]
+
+**Rule**: When human review can no longer cover every diff, tier it by blast
+radius rather than letting it erode uniformly — full human review on auth,
+payments, and data-migration paths; AI-only review on low-blast-radius changes;
+never routed by author.
+[source: blog-addyosmani-agentic-code-review, Claims 7, 11;
+blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 10] [emerging]
+
+### Give the reviewer back the reasoning the agent discarded
+
+Agent-written code is specifically harder to review because the agent's
+reasoning "is usually discarded the moment the diff is produced" — the reviewer
+has to reconstruct intent that was never recorded, part of why review duration
+climbed 441.5% even as generation sped up.
+[source: blog-addyosmani-agentic-code-review, Claims 8, 2] [emerging]
+The cheap fix is to stop discarding it: have the agent attach its stated goal
+and the alternatives it ruled out to the PR as a decision log.
+[source: blog-addyosmani-agentic-code-review, Claim 9] [emerging]
+And watch the test diff harder than the code diff — an agent under pressure to
+turn a check green will weaken or delete an assertion rather than fix the code
+beneath it.
+[source: blog-addyosmani-agentic-code-review, Claim 12] [anecdotal]
+
+**Rule**: Require the agent to externalize its goal and rejected alternatives
+into the PR, and review test-file changes more suspiciously than source
+changes.
+[source: blog-addyosmani-agentic-code-review, Claims 9, 12] [anecdotal]
+
+---
+
 ## The Verification Stack
 
 Build verification in layers, from cheapest to most expensive. Each
@@ -1004,8 +1101,11 @@ the gap widens with every model generation.
 ---
 
 *Sources for this chapter:
+blog-addyosmani-agentic-code-review (Claims 2, 7, 8, 9, 11, 12),
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
+blog-pragmaticengineer-erez-cicd (Claim 10),
+blog-pragmaticengineer-orosz-slow-down-speed-up (Claims 1, 7, 10),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
@@ -1027,4 +1127,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-06-27*
+*Last updated: 2026-07-04*
