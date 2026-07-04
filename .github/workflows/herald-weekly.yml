@@ -25,6 +25,10 @@ on:
         description: 'Compute + print the report but do NOT commit or release'
         type: boolean
         default: false
+      from_ref:
+        description: 'Override the baseline commit/ref (e.g. for the first report or a backfill). Blank = normal chain/7-day bootstrap.'
+        type: string
+        default: ''
 
 permissions:
   contents: write            # push the changelog commit + cut the release
@@ -76,7 +80,17 @@ jobs:
           LATEST=$(find changelog -maxdepth 1 -name '*.md' ! -name 'README.md' \
                      -printf '%f\n' 2>/dev/null | sort | tail -1 || true)
 
-          if [ -n "$LATEST" ]; then
+          OVERRIDE="${{ inputs.from_ref }}"
+          if [ -n "$OVERRIDE" ]; then
+            # Manual baseline override (first report / backfill). Takes priority
+            # over both the chain and the 7-day bootstrap.
+            FROM=$(git rev-parse "$OVERRIDE" 2>/dev/null || true)
+            if [ -z "$FROM" ]; then
+              echo "::error::from_ref '$OVERRIDE' did not resolve to a commit."
+              exit 1
+            fi
+            echo "Using from_ref override: $FROM"
+          elif [ -n "$LATEST" ]; then
             echo "Latest prior report: changelog/$LATEST"
             FROM=$(grep -m1 '^to_commit:' "changelog/$LATEST" | awk '{print $2}' || true)
             if [ -z "$FROM" ]; then
