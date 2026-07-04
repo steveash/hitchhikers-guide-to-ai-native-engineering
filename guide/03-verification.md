@@ -62,26 +62,6 @@ engineers told Orosz the change was AI-generated, AI-reviewed code that landed
 in a security org stripped of the headcount that would have caught it.
 [source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 1] [emerging]
 
-**Debated: does agent-written code pull verification rigor up or down?**
-
-Two Pragmatic Engineer pieces, six days apart, point opposite directions.
-Robert Erez predicts rigor rises: once agents write most of the code and wait
-out the pipeline themselves, the human-ergonomics reason to keep CI fast
-disappears, and "the new priority will be to reduce the risk of an AI agent
-shipping a bug to production, so it will make much more sense to run extra,
-more thorough tests – and also even slower ones."
-[source: blog-pragmaticengineer-erez-cicd, Claim 10] [emerging]
-Orosz's vendor data shows the opposite happening right now — human review is
-being dropped, not deepened.
-[source: blog-pragmaticengineer-orosz-slow-down-speed-up, Claim 7] [emerging]
-
-**Our take** [editorial]: The two reconcile once you separate the automated
-layer from the human one. Erez describes where the *machine* layers are headed
-— more, slower tests, now that the reason to keep CI fast (a human waiting on
-it) is fading. Orosz measures what happens to the *human* layer when no one
-redesigns it: it collapses. Freed verification budget does not redeploy itself;
-spend it deliberately or it evaporates.
-
 ### Tier review by blast radius, not by author
 
 The erosion above is the failure mode of treating review as all-or-nothing:
@@ -1104,7 +1084,6 @@ the gap widens with every model generation.
 blog-addyosmani-agentic-code-review (Claims 2, 7, 8, 9, 11, 12),
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
-blog-pragmaticengineer-erez-cicd (Claim 10),
 blog-pragmaticengineer-orosz-slow-down-speed-up (Claims 1, 7, 10),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
