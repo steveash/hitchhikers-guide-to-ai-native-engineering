@@ -97,11 +97,25 @@ issue: "#1542"
   mechanism — already documented for plugin distribution and hooks/MCP governance
   (`docs-github-copilot-enterprise-managed-plugins-vscode.md`) and for
   `disableBypassPermissionsMode` (`docs-github-copilot-enterprise-bypass-permissions.md`,
-  issue #1219) — is the same file used for model-selection defaults. For Ch02: the
-  `.github-private/.github/copilot/managed-settings.json` file continues to grow
-  as the single enterprise-wide Copilot configuration surface; this is now its
-  fourth documented capability category (plugin distribution, hooks/MCP enforcement,
-  bypass-permissions control, and now model-selection default).
+  issue #1219) — is reused for model-selection defaults. **Path-notation caveat
+  (verified against the live changelog):** this changelog's full source-org path
+  uses the filename `managed-settings.json`
+  (`.github-private/.github/copilot/managed-settings.json`), whereas the June 17
+  bypass-permissions changelog's full source-org path used `settings.json`
+  (`.github-private/.github/copilot/settings.json`, that note's Claim 3). The
+  filename in the full source-org path has therefore migrated from `settings.json`
+  → `managed-settings.json` between June 17 and July 1 — consistent with the
+  preferred-path migration the bypass note documented (its Claim 4), but now
+  visibly applied to the `.github-private/`-prefixed full path as well, not just
+  the short "AI standards" path. Note also that this *same* changelog separately
+  states the "supported path for AI standards" as the shorter `copilot/managed-settings.json`
+  (Claim 6) and the backward-compat path as `.github/copilot/settings.json` (no
+  `.github-private/` prefix in that clause) — so the source itself uses more than
+  one path notation, and the corpus should not treat any single path string as
+  canonical without this caveat. For Ch02: the source-org configuration file
+  continues to grow as the single enterprise-wide Copilot configuration surface;
+  this is now its fourth documented capability category (plugin distribution,
+  hooks/MCP enforcement, bypass-permissions control, and now model-selection default).
 
 ### Claim 4: The `model: auto` permission requires VS Code 1.126+
 
@@ -238,8 +252,15 @@ was AI-summarized by WebFetch, not raw-HTML-verified — see Extraction Notes).
 ### Enterprise-Managed Settings Capability Map (updated to July 1, 2026)
 
 ```
-Configuration file: .github-private/.github/copilot/managed-settings.json
-Legacy path (compat): .github/copilot/settings.json
+Configuration file (full source-org path, July 1 changelog notation):
+  .github-private/.github/copilot/managed-settings.json
+  — the June 5 / June 17 changelogs wrote this same full path with the older
+    filename settings.json (.github-private/.github/copilot/settings.json);
+    the filename migrated to managed-settings.json by July 1 (see Claim 3 caveat).
+"Supported path for AI standards" (short form, same file): copilot/managed-settings.json
+Backward-compat path: .github/copilot/settings.json
+  (stated verbatim in the changelog without a .github-private/ prefix; the
+   .github-private/ source-org repository still applies as the containing repo)
 License required:     Copilot Business or Copilot Enterprise
 
 Capabilities announced to date:
@@ -260,11 +281,20 @@ Source: GitHub Copilot changelogs, June 5 / June 17 / July 1, 2026.
 ## Cross-References
 
 - **Corroborates** `docs-github-copilot-enterprise-bypass-permissions.md` (issue
-  #1219, Claims 3, 4, 6, 7): Same `.github-private/.github/copilot/managed-settings.json`
-  file, same legacy-path backward-compatibility note (`.github/copilot/settings.json`),
-  same reuse of an existing custom-agent source organization, and same Agents-page
-  verification path. This source reconfirms all four mechanics six weeks later and
-  adds a fourth capability to the same file.
+  #1219, Claims 3, 4, 6, 7): same `.github-private` source organization and
+  `.github/copilot/` directory, same backward-compat path
+  (`.github/copilot/settings.json`), same reuse of an existing custom-agent source
+  organization, and same Agents-page verification path. **Not an exact full-path
+  string match, though:** the bypass note's full source-org path (its Claim 3) was
+  `.github-private/.github/copilot/settings.json` with the older `settings.json`
+  filename, whereas this changelog writes the full source-org path as
+  `.github-private/.github/copilot/managed-settings.json` with the newer
+  `managed-settings.json` filename. The filename in the full path migrated between
+  June 17 and July 1 — an incremental evolution consistent with the bypass note's
+  Claim 4 preferred-path migration, not a verbatim reuse of the same string. This
+  source reconfirms the mechanics (source org, directory, backward-compat path,
+  verification surface) and adds a fourth capability, but the exact full-path
+  filename is newer here.
 - **Corroborates** `docs-github-copilot-org-targeted-model-rules.md` (issue #957,
   Claim 5): Both sources restate the Copilot Business/Copilot Enterprise license
   gate as the floor for enterprise-level Copilot governance features.
