@@ -90,7 +90,7 @@ measured the actual cost of one compaction call:
 > [source: research-wasnotwas-context-compaction, Claim 2] [emerging]
 
 The dollar number ($0.40) is illustrative; the structural finding is
-load-bearing. Compaction destroys the prompt cache. Cached prefix reads
+solid. Compaction destroys the prompt cache. Cached prefix reads
 cost 0.1x base input pricing; after compaction, the next turn pays full
 1.0x for the entire summarized prefix.
 [source: blog-bswen-mcp-token-cost, Claim 8] [settled]
@@ -172,8 +172,8 @@ Sankalp confirms the user-side observation:
 > [source: blog-sankalp-claude-code-20, Claim 6] [settled]
 
 In Claude Code, **the active plan file survives compaction by name**.
-That makes the plan-as-file pattern not just a clearer prompt format but
-the storage layout the harness was designed to preserve. If you want
+That makes the plan-as-file pattern the storage layout the harness was designed to preserve, not just a
+clearer prompt format. If you want
 state to make it through a compaction event, put it in the plan, not the
 conversation.
 [source: research-wasnotwas-context-compaction, Claim 5;
@@ -583,7 +583,7 @@ The pattern, expanded:
 
 [source: blog-sankalp-claude-code-20, Claim 3 / concrete artifact]
 
-The crucial property: the *agent* writes the handoff, while the
+The property that matters: the *agent* writes the handoff, while the
 conversation is still intact and the rationale is still in the working
 context. Compare to decker's failure case, where the user tried to
 rebuild context conversationally *after* compaction had already
@@ -785,7 +785,7 @@ overhead.
 
 ### MCP servers load before you say hello
 
-Cowrie's load-bearing finding:
+Cowrie's central finding:
 
 > "Every MCP server you connect loads all its tool definitions into
 > Claude's system prompt. Not when you use them -- **before you even
@@ -1028,7 +1028,7 @@ harness:
 
 [source: blog-anthropic-harnessing-claude-intelligence, Claim 7] [settled]
 
-Sonnet 4.5 cannot leverage more compaction budget — throwing more tokens at
+Sonnet 4.5 cannot use more compaction budget — throwing more tokens at
 the summarizer does nothing. Opus 4.6 nearly doubles the score on the same
 benchmark. If your team is fighting compaction quality on a Sonnet-tier
 model, the binding constraint is the model, not the harness.
@@ -1212,7 +1212,7 @@ The recurring theme is that **the smallest thing in the budget is the
 thing you actually care about, and the largest things are pure
 overhead**. Context engineering is the discipline of inverting that
 ratio: shrink the overhead, protect the conversation, and write
-everything load-bearing to a file the harness will re-load on the next
+everything essential to a file the harness will re-load on the next
 session.
 
 ---

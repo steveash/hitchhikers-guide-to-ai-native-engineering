@@ -514,7 +514,7 @@ depends on what just happened and what comes next:
 
 | Situation | Tool | What it does |
 |-----------|------|--------------|
-| Same task, context still relevant | Continue | Keep the load-bearing context; don't rebuild |
+| Same task, context still relevant | Continue | Keep the context that's still doing work; don't rebuild |
 | Claude went down a wrong path | `/rewind` (⎋⎋) | Keep the file reads, drop the failed attempt, re-prompt with what you learned |
 | Mid-task, session bloated with stale exploration | `/compact <hint>` | Claude summarizes; steer it with a hint about what to preserve |
 | Starting a genuinely new task | `/clear` | You write down what carries forward; zero rot |

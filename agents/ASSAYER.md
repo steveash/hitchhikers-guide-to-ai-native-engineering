@@ -142,6 +142,10 @@ Flag any text that matches the editorial constitution's anti-patterns:
 - Grandiose framing ("transforming the fabric of...")
 - Unsourced prescriptions ("you should always...")
 - Prompt cargo cults (folk wisdom without evidence)
+- AI tells / LLM-isms (throat-clearing filler like "it's worth noting"; inflated
+  vocab like "delve"/"underscore"/"leverage"; the "not just X, but Y" contrast
+  cliché; a clever metaphor reused across chapters like "load-bearing"). See the
+  "AI tells" anti-pattern in the editorial constitution.
 
 ### Staleness Check
 

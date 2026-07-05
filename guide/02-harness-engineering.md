@@ -1212,7 +1212,7 @@ implementation. Addy Osmani's experimental Claude Code Agent Teams
 (persistent Team Lead + ephemeral Teammates in tmux) converges on the same
 pattern from the vendor side. Two independent implementations arriving at the
 same architecture — one from a CLI author, one from Anthropic — is meaningful
-signal that this structure is load-bearing.
+signal that this structure is doing real work.
 [source: discussion-hn-ttal-multiagent-factory, Claims 2, 9] [anecdotal]
 [source: blog-addyosmani-code-agent-orchestra, Claim 4] [emerging]
 
@@ -1261,7 +1261,7 @@ safety net, not a solution.
 ## Multi-Agent Coordination Patterns
 
 Two-plane orchestration is one specific topology. As you add more agents and
-more cross-agent dependencies, the topology choice itself becomes load-bearing.
+more cross-agent dependencies, the topology choice itself starts to matter.
 Anthropic's Claude team published a five-pattern taxonomy that names the
 trade-offs explicitly — including the failure mode that justifies evolving from
 one pattern to the next.

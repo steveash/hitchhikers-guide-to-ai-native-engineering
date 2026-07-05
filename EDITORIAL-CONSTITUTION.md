@@ -87,6 +87,31 @@ and the space moves fast, flag it as `[stale]` or re-verify.
 "You should always restart your session after 20 turns" — says who?
 Based on what? Every "should" needs a citation or an explicit `[editorial]` tag.
 
+### AI tells (LLM-isms)
+Writing that reads as machine-generated. The guide is written by agents, so this
+is the anti-pattern we're most at risk of. Cut or vary these:
+
+- **A clever metaphor on repeat.** "Load-bearing," "double-edged sword," "at its
+  core," "the backbone of." Fine once. A tell when every chapter reaches for the
+  same phrase — reusing it *is* the giveaway. Vary the wording or say it plainly.
+- **Throat-clearing filler.** "It's worth noting," "it's important to note,"
+  "notably," "importantly," "that said," "ultimately," "in essence," "simply
+  put." Delete them and state the point directly.
+- **Inflated vocabulary.** "Delve," "underscore," "leverage" (use *use*),
+  "utilize," "meticulous," "seamless," "unlock/unleash/empower," and "crucial /
+  pivotal / vital" as reflexive intensifiers. Prefer the plain word.
+- **The contrast cliché.** "It's not just X — it's Y." "Not about X, but about
+  Y." A formulaic faux-reveal. Rewrite as a direct statement.
+- **Reflexive rule-of-three.** "Faster, cheaper, and more reliable." Not
+  everything comes in threes; vary the rhythm — two is often enough, sometimes
+  one.
+- **Em-dash pile-up.** The guide uses `--` for an emphatic pause. If one sentence
+  has two, one of them is a comma or a period.
+
+The test: read it aloud. If it sounds like a press release or a chatbot being
+helpful, rewrite it plainer. (Hype nouns — "game-changer," "paradigm shift,"
+"tapestry," "landscape" — are already banned under *Grandiose framing*.)
+
 ## Inclusion Bar
 
 A source or claim earns inclusion if it meets ANY of:

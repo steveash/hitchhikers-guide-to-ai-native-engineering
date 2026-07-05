@@ -1,7 +1,7 @@
 # Principles
 
 > The mental models that hold up across tools, models, and workflows.
-> These are the load-bearing ideas underneath every recommendation in this guide.
+> These are the foundational ideas underneath every recommendation in this guide.
 > If you skip this chapter, the rest of the guide is a bag of tricks.
 > If you internalize this chapter, you can derive the rest yourself.
 
