@@ -389,9 +389,15 @@ jobs:
         # a flagged guide PR (each round sees the Assayer review and re-gates). On
         # a hard REJECT or after the rounds are exhausted, the PR is auto-closed —
         # the affected chapters re-synthesize on a future Smith run.
+        #
+        # SKIP contradiction-resolution PRs (branch assayer/contradiction-*): those
+        # change CONTRADICTIONS.md, which the Smith rework does not edit (it only
+        # touches guide/ + sticky-notes/), so reworking them just churns. A flagged
+        # resolution entry needs a human to fix the ledger text.
         if: |
           failure() &&
-          contains(fromJSON(needs.prepare.outputs.labels), 'guide-update')
+          contains(fromJSON(needs.prepare.outputs.labels), 'guide-update') &&
+          !startsWith(needs.prepare.outputs.head_ref, 'assayer/contradiction-')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_PAT: ${{ secrets.PROJECT_PAT }}
