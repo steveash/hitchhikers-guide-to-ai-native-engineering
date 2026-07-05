@@ -244,7 +244,7 @@ LLMs scatter inline imports and default to `unittest.Mock`. Two lines fix both.
 **The pattern**: Identify the 2-5 mistakes your agent makes repeatedly. Write
 a one-line rule for each. Skip everything your linter already catches.
 [source: practitioner-nikolays-postgres-dba,
-practitioner-mikelane-pytest-test-categories] [emerging]
+practitioner-mikelane-pytest-test-categories] [stale]
 
 ### 3. Stack Context (for non-obvious architectures)
 
