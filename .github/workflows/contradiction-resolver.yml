@@ -92,11 +92,19 @@ jobs:
             - Review existing CONTRADICTIONS.md entries for precedent
             - Consult additional source notes if relevant
 
-            ## 3. Post your assessment
+            ## 3. Write your assessment to a file
 
-            Write your assessment to `/tmp/contradiction-assessment.md`
-            using the exact "Output Format" from ASSAYER.md §Contradiction
-            Resolution. The comment MUST include:
+            Write your assessment to `/tmp/contradiction-assessment.md` using
+            the exact "Output Format" from ASSAYER.md §Contradiction Resolution.
+            You MUST write it with a Bash heredoc — NOT the Write tool, which is
+            sandboxed and whose output is invisible to later workflow steps:
+
+              cat > /tmp/contradiction-assessment.md <<'ASSESS_EOF'
+              ## Assayer Contradiction Assessment
+              ...your full assessment...
+              ASSESS_EOF
+
+            It MUST include:
             - Proposed verdict (one of: accepted-A, accepted-B, debated,
               superseded, unresolved)
             - Evidence assessment for both sides
@@ -105,22 +113,31 @@ jobs:
             - Proposed resolution entry text (for CONTRADICTIONS.md)
             - Proposed citation guidance
 
-            Post it as an issue comment:
-              gh issue comment ${{ github.event.issue.number }} \
-                --repo ${{ github.repository }} \
-                --body-file /tmp/contradiction-assessment.md
-
-            Then add the `assessment-complete` label:
-              gh issue edit ${{ github.event.issue.number }} \
-                --repo ${{ github.repository }} \
-                --add-label "assessment-complete"
-
-            Do NOT edit any files in the repository. Your only outputs are
-            the issue comment and the label.
+            Do NOT post a comment, do NOT add labels, do NOT edit repo files. A
+            deterministic workflow step posts the comment and applies the label
+            once you exit. Your ONLY output is /tmp/contradiction-assessment.md.
           claude_args: |
             --model sonnet
             --max-turns 25
             --allowedTools "Bash(*)" "Read" "Glob" "Grep"
+
+      - name: Post assessment and label
+        # Deterministic — the agent only WRITES the assessment file; this step
+        # posts it. Moving side effects out of the agent turn is what makes the
+        # resolver reliable (the agent used to run gh itself and flakily no-op).
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -s /tmp/contradiction-assessment.md ]; then
+            echo "::error::Assayer produced no assessment file — nothing to post. Re-run the assess job."
+            exit 1
+          fi
+          gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --body-file /tmp/contradiction-assessment.md
+          gh issue edit ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --add-label "assessment-complete"
 
   resolve:
     # Trigger when a human approves the Assayer's verdict by adding the
@@ -192,91 +209,97 @@ jobs:
             c. Both source notes cited in Side A and Side B (to get the
                correct filenames and link paths).
 
-            ## 2. Build the entry
+            ## 2. Write the entry and index row to files
 
-            Construct a CONTRADICTIONS.md entry following the exact format
-            of the existing entries (C-001, C-002, C-003). The entry must
-            include all mandatory fields per the "Entry Format" section of
-            CONTRADICTIONS.md:
-            - C-NNN header (next sequential ID after the current highest)
-            - Filed date, issue number, resolved date (today), verdict
-            - Affected guide sections
-            - Side A and Side B (source link, claim, evidence, confidence)
-            - Resolution text (from the Assayer's "Proposed Resolution
-              Entry" in the assessment comment, adjusted for any human
-              corrections)
-            - Citation in the guide (from the Assayer's "Proposed Citation
-              Guidance", adjusted for any human corrections)
+            Produce TWO files with Bash heredocs — NOT the Write/Edit tools
+            (sandboxed, invisible to later steps). Do NOT edit CONTRADICTIONS.md,
+            do NOT run git, do NOT run gh. A deterministic workflow step inserts
+            your files, commits, and opens the PR once you exit.
 
-            ## 3. Edit CONTRADICTIONS.md
+            First determine the next ID: read CONTRADICTIONS.md's index table,
+            take the highest C-NNN, add one (highest C-007 -> use C-008).
 
-            Make exactly two edits:
+            a. The full entry -> `/tmp/contradiction-entry.md`. It MUST begin
+               with `## C-NNN: <short title>` and follow the exact format of the
+               existing entries (C-001..C-003): Filed date, issue number,
+               resolved date (today), verdict; Affected guide sections; Side A
+               and Side B (source link, claim, evidence, confidence); Resolution
+               text (from the assessment's "Proposed Resolution Entry", adjusted
+               for any human corrections in later comments); Citation guidance.
+                 cat > /tmp/contradiction-entry.md <<'ENTRY_EOF'
+                 ## C-NNN: <short title>
+                 ...full entry...
+                 ENTRY_EOF
 
-            a. **Update the index table**: Add a new row for the new C-NNN
-               entry. Match the existing row format:
-               `| C-NNN | <title> | <filed-date> | resolved | <verdict> |`
+            b. The index-table row -> `/tmp/contradiction-index-row.md`, exactly
+               one line in the existing format:
+                 cat > /tmp/contradiction-index-row.md <<'ROW_EOF'
+                 | C-NNN | <title> | <filed-date> | resolved | <verdict> |
+                 ROW_EOF
 
-            b. **Append the entry**: Add the full entry BEFORE the final
-               italic footer line that starts with `*This file is updated`.
-               Separate from the previous entry with `---`.
-
-            ## 4. Open the PR
-
-            Branch name: `assayer/contradiction-${{ github.event.issue.number }}`
-
-              git checkout -b assayer/contradiction-${{ github.event.issue.number }}
-              git add CONTRADICTIONS.md
-              git commit -m "resolve: C-NNN <short-title> (#${{ github.event.issue.number }})"
-              git push -u origin assayer/contradiction-${{ github.event.issue.number }}
-
-            Write the PR body to a file, then create the PR:
-
-              cat > /tmp/contradiction-pr-body.md <<'PR_BODY_EOF'
-              Contradiction resolved by the Assayer agent for #${{ github.event.issue.number }}.
-
-              Closes #${{ github.event.issue.number }}
-
-              The Assayer assessed both sides, proposed a verdict, and a human
-              approved by adding the `resolution-approved` label. This PR
-              appends the resolved entry to CONTRADICTIONS.md.
-
-              See `agents/ASSAYER.md` §Contradiction Resolution for the
-              assessment rubric.
-              PR_BODY_EOF
-
-              gh pr create \
-                --repo ${{ github.repository }} \
-                --base main \
-                --head assayer/contradiction-${{ github.event.issue.number }} \
-                --title "resolve: C-NNN <short-title> (#${{ github.event.issue.number }})" \
-                --body-file /tmp/contradiction-pr-body.md \
-                --label guide-update
-
-            Replace `C-NNN` and `<short-title>` in the commit message and
-            PR title with the actual values.
-
-            The `guide-update` label triggers the Assayer PR quality gate
-            (`.github/workflows/assayer.yml`) — the PR must carry it.
-
-            ## 5. Update the source issue
-
-            Comment on the contradiction issue with the PR link:
-              gh issue comment ${{ github.event.issue.number }} \
-                --repo ${{ github.repository }} \
-                --body "Resolution PR opened: <PR-URL>. The entry lands in CONTRADICTIONS.md and this issue closes automatically when the PR merges (the PR body carries \`Closes #${{ github.event.issue.number }}\`)."
-
-            Do NOT close the issue manually — the `Closes #N` line in the PR
-            body closes it automatically when the PR merges (and keeps it open
-            if the PR is rejected at the gate).
-
-            ## Constraints
-
-            - Edit ONLY `CONTRADICTIONS.md` — nothing else.
-            - Do NOT merge your own PR. The Assayer PR gate reviews; humans
-              merge.
-            - Match the exact format and style of the existing C-001/C-002/
-              C-003 entries. Do not invent new fields or change the layout.
+            The C-NNN MUST match in both files. That is your entire job — write
+            those two files and exit. Do not git, gh, or edit the repo.
           claude_args: |
-            --model haiku
-            --max-turns 30
-            --allowedTools "Bash(*)" "Read" "Write" "Edit" "Glob" "Grep"
+            --model sonnet
+            --max-turns 25
+            --allowedTools "Bash(*)" "Read" "Glob" "Grep"
+
+      - name: Apply entry and open resolution PR
+        # Deterministic: the agent only WROTE the entry + index row; this step
+        # inserts them into CONTRADICTIONS.md, commits, pushes, and opens the
+        # guide-update PR (with Closes #N). Moving git/gh out of the agent turn
+        # is what makes resolution reliable — the agent used to do it and
+        # flakily no-op (green run, no PR).
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        run: |
+          set -e
+          ENTRY=/tmp/contradiction-entry.md
+          ROW=/tmp/contradiction-index-row.md
+          if [ ! -s "$ENTRY" ] || [ ! -s "$ROW" ]; then
+            echo "::error::Resolver agent produced no entry/index-row files. Re-run the resolve job."
+            exit 1
+          fi
+          CID=$(grep -m1 -oE '^## C-[0-9]+:' "$ENTRY" | sed -E 's/^## (C-[0-9]+):/\1/')
+          TITLE=$(grep -m1 -E '^## C-[0-9]+:' "$ENTRY" | sed -E 's/^## C-[0-9]+:[[:space:]]*//')
+          if [ -z "$CID" ]; then echo "::error::entry missing '## C-NNN:' header"; exit 1; fi
+          echo "Applying $CID: $TITLE"
+
+          # Insert the index row after the last existing "| C-..." table row.
+          ROW_TEXT=$(cat "$ROW")
+          awk -v row="$ROW_TEXT" '
+            /^\| C-/ { last=NR }
+            { line[NR]=$0 }
+            END { for (i=1;i<=NR;i++){ print line[i]; if (i==last) print row } }
+          ' CONTRADICTIONS.md > /tmp/contradictions.new
+          mv /tmp/contradictions.new CONTRADICTIONS.md
+          # Append the full entry at EOF, separated from the prior entry.
+          printf '\n' >> CONTRADICTIONS.md
+          cat "$ENTRY" >> CONTRADICTIONS.md
+
+          BRANCH="assayer/contradiction-${{ github.event.issue.number }}"
+          git checkout -b "$BRANCH"
+          git add CONTRADICTIONS.md
+          git commit -m "resolve: $CID $TITLE (#${{ github.event.issue.number }})"
+          git push -u origin "$BRANCH"
+
+          cat > /tmp/contradiction-pr-body.md <<PR_EOF
+          Contradiction resolved for #${{ github.event.issue.number }} ($CID).
+
+          Closes #${{ github.event.issue.number }}
+
+          The Assayer assessed both sides, a human approved the verdict via the
+          \`resolution-approved\` label, and this PR appends the resolved entry
+          to CONTRADICTIONS.md. See \`agents/ASSAYER.md\` §Contradiction Resolution.
+          PR_EOF
+
+          gh pr create \
+            --repo ${{ github.repository }} \
+            --base main --head "$BRANCH" \
+            --title "resolve: $CID $TITLE (#${{ github.event.issue.number }})" \
+            --body-file /tmp/contradiction-pr-body.md \
+            --label guide-update
+
+          PR_URL=$(gh pr view "$BRANCH" --repo ${{ github.repository }} --json url -q .url)
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            --body "Resolution PR opened: $PR_URL ($CID). The entry lands in CONTRADICTIONS.md and this issue closes when the PR merges."
