@@ -39,10 +39,17 @@ issue: "#1535"
   `blog-thoughtworks-mugrage-claude-outage-infrastructure.md`,
   `blog-thoughtworks-omahony-feature-token-budgets.md`). The article's factual
   anchor is the Thoughtworks Technology Radar's "AI-accelerated shadow IT" and
-  "codebase cognitive debt" entries (both placed in the Radar's Caution ring,
-  per the article), which Ryan cites as authority but does not quote directly
-  or link inline (the fetched HTML contained no inline links to the Radar
-  entries themselves).
+  "codebase cognitive debt" entries, which Ryan cites as authority and links
+  to inline in the article body. The raw HTML contains live anchor tags to
+  both `radar/techniques/ai-accelerated-shadow-it` and
+  `radar/techniques/codebase-cognitive-debt` (and also to
+  `radar/platforms/model-context-protocol-mcp`). The article explicitly places
+  the "AI-accelerated shadow IT" entry in the Radar's Caution ring ("a
+  particularly telling entry was placed firmly in the Caution ring:
+  AI-accelerated shadow IT"); it cites "codebase cognitive debt" as what "the
+  most recent Technology Radar warns against" without naming a ring for that
+  entry. Both linked Radar entries were followed (HTTP 200) and their
+  primary-source detail is incorporated into Claims 1 and 8 below.
 - **Scope**: Covers the organizational-risk framing of AI-accelerated shadow
   IT (why it happens, why it's newly dangerous, how to respond
   architecturally). Does NOT cover: specific tooling recommendations, named
@@ -75,6 +82,35 @@ issue: "#1535"
   capability, not demonstrated with a named real-world example. Useful as a
   concrete illustration for any chapter discussing why agentic AI changes the
   shadow-IT risk profile qualitatively, not just quantitatively.
+- **Technology Radar (linked primary source, followed)**: The article links
+  inline to the Radar's "AI-accelerated shadow IT" entry
+  (`radar/techniques/ai-accelerated-shadow-it`), which was fetched and read.
+  The Radar entry frames the same phenomenon from the noncoder angle:
+
+  > "AI continues to lower the barriers for noncoders to build complex
+  > systems. While this enables experimentation and early validation of
+  > requirements, it also introduces the risk of AI-accelerated shadow IT. In
+  > addition to no-code workflow platforms integrating AI APIs (e.g., OpenAI
+  > or Anthropic), more agentic tools are becoming available to noncoders,
+  > such as Claude Cowork."
+
+  It also adds concrete recommendations Ryan's essay does not spell out (a
+  separate paragraph in the Radar entry):
+
+  > "Organizations should prioritize governance as part of their AI adoption
+  > strategy by facilitating experimentation within controlled environments.
+  > Appropriately instrumented Internal sandboxes give noncoders a place to
+  > deploy prototypes where usage can be tracked. Pairing these with a shared
+  > catalogue of existing workflows helps teams discover what's already been
+  > built before duplicating effort. Workflows that gain traction can then
+  > signal where to invest in more robust, production-grade applications."
+
+  These three Radar recommendations — appropriately instrumented internal
+  sandboxes for noncoders, a shared workflow catalogue to prevent duplicate
+  builds, and treating traction as the signal for where to invest in
+  production-grade apps — are more operationally specific than Ryan's "paved
+  roads" prescription (Claim 11) and directly reinforce the Chapter 02
+  guide-impact recommendation below.
 
 ### Claim 2: Shadow IT is best understood as a lagging indicator of unmet organizational demand, not as misconduct
 - **Evidence**: Stated as the article's central reframing, presented as a
@@ -196,12 +232,46 @@ issue: "#1535"
 - **Quote**: "When functional workflows are spun up at machine speed without
   human developers building the foundational mental models to understand how
   they work, the system becomes incredibly brittle."
+- **Technology Radar (linked primary source, followed)**: The article links
+  inline to the Radar's "codebase cognitive debt" entry
+  (`radar/techniques/codebase-cognitive-debt`), which was fetched and read.
+  The Radar entry gives a sharper primary definition than Ryan's essay
+  wording ("brittleness from missing mental models"):
+
+  > "Codebase cognitive debt is the growing gap between a system’s
+  > implementation and a team’s shared understanding of how and why it works.
+  > As AI increases change velocity, especially with multiple contributors or
+  > Coding Agent Swarms, teams can lose track of design intent and hidden
+  > coupling. This, combined with rising technical debt, creates a reinforcing
+  > loop that makes systems progressively harder to reason about."
+
+  It prescribes explicit countermeasures:
+
+  > "Teams should avoid complacency with AI-generated code and adopt explicit
+  > countermeasures: feedback sensors for coding agents, tracking team
+  > cognitive load and architectural fitness functions to continuously enforce
+  > key constraints as AI accelerates output."
+
+  The Radar entry explicitly links four related blips, several of which are
+  candidate cross-references or follow-on source-note leads for a
+  debt-taxonomy guide section: Coding agent swarms (Caution, April 2026),
+  Complacency with AI-generated code (Hold, November 2025), Team cognitive
+  load (Adopt, October 2022), and Architectural fitness function (Trial, May
+  2018).
 - **Our assessment**: This corroborates `blog-addyosmani-intent-debt.md`
   Claim 1, which defines "cognitive debt" (per Margaret-Anne Storey's Triple
   Debt Model, as applied by Osmani) as the debt category that "lives in
-  people" — the erosion of human comprehension of a system. Ryan's
-  "codebase cognitive debt" describes the same underlying mechanism (humans
-  lacking the mental models to understand a system) but applies it
+  people" — the erosion of human comprehension of a system. The Radar's own
+  definition (followed via the article's inline link) sharpens this: it frames
+  codebase cognitive debt not merely as a *location* ("in people") but as a
+  *relational gap* — "the growing gap between a system’s implementation and a
+  team’s shared understanding of how and why it works." That relational
+  framing tightens the distinction from generative debt below: cognitive debt
+  is a gap between the artifact and human understanding of it, whereas
+  generative debt is a degradation internal to the model output/artifact
+  itself. Ryan's "codebase cognitive debt" describes the same underlying
+  mechanism (humans lacking the mental models to understand a system) but
+  applies it
   specifically to systems built via AI-accelerated shadow IT rather than to
   agentic engineering generally. This is a novel application of an existing
   corpus concept to a new context (shadow IT) rather than a wholly new claim.
@@ -404,7 +474,12 @@ notes' numbered `### Claim N:` headings in document order.
     generally). The two sources independently converge on the idea that
     systems built or modified faster than humans can build understanding of
     them accumulate a distinct debt category from ordinary code-quality
-    technical debt.
+    technical debt. The Radar's primary wording — a *gap* between
+    implementation and shared understanding (followed via the article's inline
+    link) — is compatible with Osmani's "lives in people" locus but frames the
+    debt relationally (artifact vs. human mental model) rather than purely as
+    a location, so the corroboration holds and is slightly strengthened by the
+    more precise primary source rather than shifted by it.
   - `blog-thoughtworks-kamelman-ai-governance-category-error.md`: Both are
     Thoughtworks Insights essays arguing that a standard framing of an
     AI-related problem is itself miscalibrated — Kamelman argues AI
@@ -431,7 +506,13 @@ notes' numbered `### Claim N:` headings in document order.
     used here and in the Osmani note) is about degrading human
     *understanding*. A guide section on "debt categories in the AI era"
     should treat these as two named, distinct sibling concepts rather than
-    synonyms.
+    synonyms. The Radar's precise primary definition of codebase cognitive
+    debt — "the growing gap between a system’s implementation and a team’s
+    shared understanding of how and why it works" (followed via the article's
+    inline link) — sharpens rather than shifts this distinction: it locates
+    cognitive debt on the *implementation-vs-understanding* axis, which is
+    orthogonal to generative debt's *output-quality* axis, confirming the two
+    are independent axes rather than points on a single scale.
   - `blog-jetbrains-agentic-ai-governance.md`: That note provides the
     accountability/audit-trail architecture for agents once deployed inside
     an organization (chain of command, boundary conditions, audit trail,
@@ -482,7 +563,13 @@ notes' numbered `### Claim N:` headings in document order.
   actively competitive with external workarounds on friction, not just
   compliant on paper. Recommend citing the "approved route easier than a
   personal credit card" framing as a concrete design heuristic for
-  self-service AI platform teams.
+  self-service AI platform teams. The linked "AI-accelerated shadow IT" Radar
+  entry (followed, see Claim 1) supplies three more operationally specific
+  primitives to pair with this heuristic: appropriately instrumented internal
+  sandboxes where noncoder prototypes can be deployed and usage tracked, a
+  shared catalogue of existing workflows so teams discover what's already been
+  built before duplicating it, and using traction on a workflow as the signal
+  for where to invest in a production-grade app.
 
 - **Chapter 02/03 — Debt taxonomy**: Add "codebase cognitive debt" (Claim 8)
   as a named sibling concept alongside intent debt and generative debt
@@ -527,22 +614,30 @@ notes' numbered `### Claim N:` headings in document order.
    paragraphs, and the pull-quote blockquote) used for every quote in this
    note. All quotes above were copied character-for-character from that
    extracted text.
-2. **No sub-pages followed**: The article's HTML contained no inline links to
-   the Thoughtworks Technology Radar entries it cites ("AI-accelerated shadow
-   IT" and "codebase cognitive debt") or to any other substantive external
-   page. Per MINER.md guidance to follow up to 5 linked pages, none were
-   followed because none were present in the fetched content — this appears
-   to be a genuine absence of inline links in the article rather than a
-   fetch artifact, since the raw HTML was parsed directly (not through
-   WebFetch's markdown conversion, which has stripped links in other notes).
-   A future miner with time to search the Technology Radar directly for
-   these two named entries may find additional primary-source detail worth a
-   separate extraction.
+2. **Both linked Radar sub-pages followed**: The article's raw HTML *does*
+   contain live inline links to the two Technology Radar entries it cites —
+   `radar/techniques/ai-accelerated-shadow-it` and
+   `radar/techniques/codebase-cognitive-debt` (and also
+   `radar/platforms/model-context-protocol-mcp`). (An earlier draft of this
+   note incorrectly asserted the article had no inline links to the Radar
+   entries; that was wrong — the anchors are present in the fetched HTML and
+   both resolve HTTP 200.) Both Radar entries were fetched directly via `curl`
+   and followed per MINER.md's guidance to follow up to 5 substantive linked
+   pages. Their primary-source detail has been incorporated into Claim 1 (the
+   shadow-IT Radar entry's instrumented-sandbox / shared-catalogue /
+   invest-where-traction-appears recommendations) and Claim 8 (the
+   cognitive-debt Radar entry's precise definition, prescribed countermeasures,
+   and four related blips). Neither entry was judged to warrant a separate
+   standalone source note at this time — each is a short Radar blip whose
+   substance is fully captured within the two extended claims here — but the
+   cognitive-debt entry's related blips (Coding Agent Swarms, Complacency with
+   AI-generated code, Team Cognitive Load, Architectural Fitness Function) are
+   flagged in Claim 8 as candidate follow-on source-note leads.
 3. **Article is short and contains no quantitative data**: At ~900 words with
    six brief sections, this is one of the shorter sources in the corpus. It
    contains zero metrics, statistics, named case studies, or customer
    examples — every claim is a practitioner assertion or a citation to the
-   (unlinked) Technology Radar. This caps the overall confidence rating at
+   (inline-linked) Technology Radar. This caps the overall confidence rating at
    "emerging" rather than "settled": the ideas are coherent and consistent
    with independently-sourced corroborating claims (JetBrains, Osmani), but
    this specific article provides no primary data of its own.
