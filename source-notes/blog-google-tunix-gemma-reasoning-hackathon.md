@@ -35,9 +35,11 @@ issue: "#1532"
   pipelines, reward functions, and code, not generic marketing copy.
 - **Scope**: Covers the hackathon's top three winning submissions'
   post-training pipelines (architecture, reward design, training data
-  volumes), a set of "Honorable Mentions" domain applications (medical,
-  chemistry, legal, robotics), and links to the Tunix GitHub repo and example
-  notebooks. Does NOT cover: independent benchmark evaluation of the resulting
+  volumes), a set of "Honorable Mentions" that includes both methodological
+  submissions (a from-scratch on-policy distillation implementation;
+  Gemma2-Deep's custom Deep-CoRGI dataset and "ThoughtTeacher" reward model)
+  and domain applications (medical, chemistry, legal, robotics), and links to
+  the Tunix GitHub repo and example notebooks. Does NOT cover: independent benchmark evaluation of the resulting
   models' reasoning quality, comparison against non-Tunix RL frameworks,
   the full leaderboard beyond the top three, or any discussion of deploying
   these models in an agentic coding/harness context.
@@ -205,7 +207,41 @@ issue: "#1532"
   pattern was applied by different teams across several verticals, not as
   evidence that it works well in any of them.
 
-### Claim 11: Google is positioning Tunix as an extensible open-source library that hackathon teams modified directly (custom loss functions, custom reward functions, custom evaluation engines) rather than treating as a fixed black box
+### Claim 11: Two Honorable Mentions were methodological rather than domain-specific — a from-scratch on-policy distillation implementation in Tunix, and Gemma2-Deep's custom Deep-CoRGI dataset paired with a custom "ThoughtTeacher" reward model
+- **Evidence**: Two "Honorable Mentions" entries ("Eliciting Reasoning via
+  On-Policy Distillation" and "Gemma2-Deep: Incentivizing Gemma to Reason
+  before Answering") describing novel *training methods*, not vertical
+  applications like the medical/chemistry/legal/robotics entries in Claim 10.
+- **Confidence**: emerging (first-party descriptions of individual
+  submissions; specific methods named, but no benchmark or replication given
+  in the extracted text)
+- **Quote**: On-policy distillation — "on-policy distillation method from
+  scratch within the Tunix framework" ... "a larger, highly capable teacher
+  model (trained in 3 phases) to generate reasoning traces dynamically in
+  response to the student model's generations during training, creating a
+  tighter feedback loop"; Gemma2-Deep — "curated the Deep-CoRGI (Cognitive
+  Reasoning Guided Interface) dataset, specifically designed to teach Chain
+  of Thought" ... "trained a custom ThoughtTeacher reward model to evaluate
+  not just the correctness of the final answer, but the logical flow of the
+  reasoning steps themselves"
+- **Our assessment**: These two entries carry more reusable-methodology
+  content than the four domain applications in Claim 10, which is why they
+  warrant a dedicated claim. (1) On-policy distillation — generating teacher
+  reasoning traces *dynamically in response to the student's own current
+  outputs*, rather than distilling from a fixed pre-generated dataset — is a
+  recognizable technique for tightening the imitation-learning feedback loop;
+  implementing it "from scratch within Tunix" is another instance of the
+  extend-the-trainer pattern seen in Claim 7 (custom SimPO loss injected into
+  `DPOTrainer`). (2) Gemma2-Deep's ThoughtTeacher reward model targets
+  *reasoning-process* quality — "the logical flow of the reasoning steps
+  themselves" — rather than only final-answer correctness, which is a
+  reward-shaping idea distinct from the format/exact-match/rubric composite in
+  Claim 5 and the TF-IDF reward in Claim 8: it rewards the trajectory, not
+  just the endpoint. Both are single-submission, unbenchmarked descriptions,
+  but they are exactly the reusable-pattern content the rest of this note
+  prioritizes.
+
+### Claim 12: Google is positioning Tunix as an extensible open-source library that hackathon teams modified directly (custom loss functions, custom reward functions, custom evaluation engines) rather than treating as a fixed black box
 - **Evidence**: Multiple submissions' "Customizing Tunix" subsections
   describe direct modifications to Tunix internals (Pinocchio-1B's custom
   SimPO loss injected into `DPOTrainer`; the closing call-to-action pointing
@@ -221,7 +257,7 @@ issue: "#1532"
   trainer classes for subclassing, but this source alone only substantiates
   one instance of it.
 
-### Claim 12: The hackathon organizers frame the event's outcome as democratizing access to structured-reasoning training recipes by making the winning approaches and code publicly available
+### Claim 13: The hackathon organizers frame the event's outcome as democratizing access to structured-reasoning training recipes by making the winning approaches and code publicly available
 - **Evidence**: Closing section of the post.
 - **Confidence**: anecdotal (organizer framing/marketing conclusion, not an
   independently measured claim)
@@ -235,7 +271,7 @@ issue: "#1532"
   checkable, but "democratizes" is a value-laden characterization the
   authors apply to their own event.
 
-### Claim 13: Winning teams' code is publicly available via the Tunix GitHub repository, including a specific GRPO example notebook and general RL documentation
+### Claim 14: Winning teams' code is publicly available via the Tunix GitHub repository, including a specific GRPO example notebook and general RL documentation
 - **Evidence**: Links provided in the article to `github.com/google/tunix`,
   the `examples/grpo_gemma.ipynb` notebook, and `tunix.readthedocs.io`'s RL
   design docs.
@@ -350,7 +386,7 @@ about how practitioners work *with* existing AI coding agents and harnesses
 — none of them addresses training or post-training LLMs. There is no
 chapter section this source should update, add to, or contradict.
 
-- **No direct chapter impact recommended.** None of Claims 1-13 describes
+- **No direct chapter impact recommended.** None of Claims 1-14 describes
   a harness-engineering practice, a verification technique, a context-
   management pattern, a team-adoption process, or a security consideration
   — the guide's actual subject matter. Forcing a citation into, e.g.,
