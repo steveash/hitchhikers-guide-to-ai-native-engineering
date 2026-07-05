@@ -264,7 +264,7 @@ tokens. Osmani's "curse of instructions" is the mechanism behind that
 empirical observation.
 [source: blog-osmani-good-spec, Claim 5;
 failure-claudemd-ignored-compaction, Lessons 1, 5 (cross-reference)]
-[emerging]
+[stale]
 
 **Counter-evidence**: Supabase ships a 931-line CLAUDE.md and treats it
 as their primary agent surface (Ch02). They have the resources to make
@@ -858,7 +858,7 @@ allowlist of 60+ Bash command prefixes (Ch02) is the structural
 alternative: granular control over what the agent can run, with zero
 per-session token tax for the unused commands.
 [source: blog-bswen-mcp-token-cost, Claim 5;
-practitioner-getsentry-sentry (cross-reference)] [emerging]
+practitioner-getsentry-sentry (cross-reference)] [stale]
 
 **Rule**: Before adding an MCP server, ask whether a bash command and a
 slash command would do the same job. If yes, skip the server.

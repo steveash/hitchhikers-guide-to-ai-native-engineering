@@ -369,7 +369,7 @@ consume, and standardize *up* to that layer rather than *down* to the client.
 | Hook scripts (lifecycle enforcement) | Yes | The only 100%-reliable enforcement layer |
 
 [source: practitioner-getsentry-sentry; blog-bvp-shopify-ai-playbook, Claims 1, 2;
-failure-claudemd-ignored-compaction; failure-hooks-enforcement-2k] [emerging]
+failure-claudemd-ignored-compaction; failure-hooks-enforcement-2k] [stale]
 
 ### What to leave personal
 
@@ -403,7 +403,7 @@ they survive the inevitable tool change when procurement catches up. The
 Sentry `@AGENTS.md` redirect pattern (see Chapter 02) is the cheapest
 implementation of this principle.
 [source: survey-pragmaticengineer-ai-tooling-2026, Claim 6;
-practitioner-getsentry-sentry] [emerging]
+practitioner-getsentry-sentry] [stale]
 
 ### License allocation: by verification capacity, not by headcount
 
@@ -831,7 +831,7 @@ implementation; Sentry's `sentry-backend-bugs` skill (built on 638 real
 production issues, 27M events) is a more sophisticated one.
 [source: paper-miller-speed-cost-quality, Claims 2, 3;
 blog-bvp-shopify-ai-playbook, Claim 6;
-practitioner-getsentry-sentry] [emerging]
+practitioner-getsentry-sentry] [stale]
 
 ### Available measurement primitives (enterprise GitHub)
 
@@ -1428,7 +1428,7 @@ timeline the evidence actually supports.
 - Build tool-agnostic harness files (CLAUDE.md → AGENTS.md, with
   Sentry-style redirect or equivalent).
   [source: practitioner-getsentry-sentry;
-  survey-pragmaticengineer-ai-tooling-2026, Claim 6] [emerging]
+  survey-pragmaticengineer-ai-tooling-2026, Claim 6] [stale]
 - Stand up a meta-harness layer (LLM proxy, gateway, or shared secrets store)
   proportional to org size.
   [source: blog-bvp-shopify-ai-playbook, Claim 2] [emerging]
@@ -1447,7 +1447,7 @@ timeline the evidence actually supports.
 - Capture the surgical LLM-targeting rules pilot users discover. These become
   the second-wave harness improvements.
   [source: practitioner-nikolays-postgres-dba;
-  practitioner-mikelane-pytest-test-categories] [emerging]
+  practitioner-mikelane-pytest-test-categories] [stale]
 - Maintain code review depth even as PR volume grows. Resist the bottleneck
   pressure to relax review.
   [source: blog-bvp-shopify-ai-playbook, Claim 4;
