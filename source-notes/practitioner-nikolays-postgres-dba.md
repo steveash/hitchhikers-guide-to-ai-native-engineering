@@ -7,7 +7,7 @@ project_type: library (SQL diagnostic toolkit)
 date_extracted: 2026-03-30
 last_checked: 2026-03-30
 commit_analyzed: edfb9d36 (master branch, 2026-03-11)
-status: current
+status: stale
 ---
 
 # Practitioner Profile: NikolayS/postgres_dba

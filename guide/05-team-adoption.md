@@ -114,7 +114,7 @@ All guidance lives in `AGENTS.md` files (root + subdirectories), and an
 agents = ["claude", "cursor"]
 ```
 
-[source: practitioner-getsentry-sentry] [settled]
+[source: practitioner-getsentry-sentry] [emerging]
 
 This is the architectural posture the multi-tool reality demands. Putting
 guidance in a tool-agnostic file means the file remains useful when your team

@@ -10,7 +10,7 @@
 ## Verification Over Generation
 
 The bottleneck is no longer generation. It is verification.
-[source: blog-addyosmani-code-agent-orchestra, Claim 5] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 5] [stale]
 
 This is the lead principle because it reframes everything else. AI coding
 agents can produce code faster than you can read it. The scarce resource
@@ -77,18 +77,18 @@ harness reduces comprehension loss -- but no study has tested this yet.
 When you orchestrate multiple agents in parallel, vague thinking multiplies
 errors across the entire fleet. Specification clarity is what separates
 engineers who get 10x leverage from agents from those who get 10x bugs.
-[source: blog-addyosmani-code-agent-orchestra, Claim 10] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 10] [stale]
 
 GitHub analyzed 2,500+ agent configuration files and found that most
 fail because they are too vague -- not because they are wrong.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [stale]
 
 This finding has a corollary that some engineers find uncomfortable:
 strong software engineers get MORE leverage from AI tools than weak ones,
 not less. The skill that matters is not "prompting" -- it is the ability
 to decompose problems, specify acceptance criteria, and anticipate edge
 cases. These are the same skills that made engineers effective before AI.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [stale]
 
 ### What this looks like in practice
 
@@ -143,7 +143,7 @@ Lite and AGENTbench (138 tasks) and found that LLM-generated AGENTS.md
 files reduced success rates by 0.5-2% while increasing inference costs
 by over 20% (including a 22% reasoning token overhead). The auto-generated
 content was redundant: agents could discover it by reading the code.
-[source: paper-gloaguen-agentsmd-effectiveness, Claim 1] [emerging]
+[source: paper-gloaguen-agentsmd-effectiveness, Claim 1] [stale]
 
 Developer-written context files improved success by ~4% on AGENTbench.
 The difference: developers wrote what the agent could NOT discover on its
@@ -151,7 +151,7 @@ own -- judgment calls, historical context, "we tried X and it broke Y."
 Note: the paper is a preprint without significance tests on headline
 numbers and covers Python-only repos, so treat as strong directional
 evidence rather than settled fact.
-[source: paper-gloaguen-agentsmd-effectiveness, Claim 2] [emerging]
+[source: paper-gloaguen-agentsmd-effectiveness, Claim 2] [stale]
 
 ### What this looks like in practice
 
@@ -183,7 +183,7 @@ else is delegated to CI and an external rule repository.
 discover this by reading the code, config files, or tool output? If yes,
 delete it. Keep only what requires human judgment, historical context, or
 knowledge the codebase does not encode.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [stale]
 
 ---
 
@@ -192,7 +192,7 @@ knowledge the codebase does not encode.
 Every line you add to CLAUDE.md costs attention. Model performance drops
 as instructions pile up, even for frontier models -- a phenomenon documented
 as "the Curse of Instructions."
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [stale]
 
 This interacts with the "deterministic tools" principle above: lines that
 restate linter rules are not just redundant, they actively degrade performance
@@ -204,7 +204,7 @@ The profiled repos show a clear pattern: the most effective configurations
 are not the longest. postgres_dba's 30-line CLAUDE.md is arguably more
 effective per-byte than supabase's 931-line version, because every line
 in postgres_dba carries novel, non-discoverable information.
-[source: practitioner-nikolays-postgres-dba, practitioner-supabase-supabase-js] [emerging]
+[source: practitioner-nikolays-postgres-dba, practitioner-supabase-supabase-js] [stale]
 
 Sentry solves the length problem architecturally: a thin root CLAUDE.md
 (11 bytes) redirects to AGENTS.md, which acts as a router to subdirectory
@@ -230,7 +230,7 @@ cut it.
 
 AI makes code cheap to generate. It does not make understanding cheap to
 skip. The comprehension work (reading the code, understanding why it was written that way, knowing what breaks when you change it) is still the job.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [stale]
 
 The Anthropic study found two distinct usage patterns among engineers using
 AI tools:
@@ -241,7 +241,7 @@ AI tools:
 
 Sessions where you use the agent to learn produce better comprehension
 outcomes than sessions where you delegate blindly.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [stale]
 
 ### What this looks like in practice
 
