@@ -89,6 +89,7 @@ stay in this file with their original ID.
 | C-005 | Agentic workflow authentication: GITHUB_TOKEN sufficient vs PAT required | 2026-06-12 | resolved | accepted-A |
 | C-006 | Context anxiety model version: Opus 4.5 eliminated it vs. Opus 4.5 still had it | 2026-04-20 | resolved | debated |
 | C-007 | Human-attacker prompt-injection success: near-100% (role-confusion study) vs. 0/6,000 (hackmyclaw challenge) | 2026-06-29 | resolved | debated |
+| C-008 | Copilot CLI auto routing: availability-only (April) vs. task-aware (July) | 2026-07-03 | resolved | superseded |
 
 ---
 
@@ -396,3 +397,37 @@ Ch06 §Security and Threat Model should present this as a `**Debated:**` block:
 - Cite the hackmyclaw result as `[anecdotal]` (pending the corpus source note) as encouraging real-world evidence that current-generation training resists a broad, unscreened attacker population, while explicitly carrying Willison's own caveat that this provides no guarantee against a more sophisticated, targeted attacker.
 - Do NOT cite the hackmyclaw 0/6,000 result as evidence that model-layer training alone is a sufficient defense — the target used explicit prompt-level anti-injection rules, and Willison himself declines to draw that conclusion.
 - Do NOT treat the human-attacker "near-100% vs. 0%" comparison as settled; flag it for re-assessment once `blog-simonwillison-hack-my-ai-assistant` is merged into the corpus.
+
+## C-008: Copilot CLI auto routing: availability-only (April) vs. task-aware (July)
+
+- **Filed**: 2026-07-03 by steveash (re-file of Miner-filed issue #1476, closed on a pre-screen technicality for a missing source URL)
+- **Issue**: #1483
+- **Resolved**: 2026-07-05
+- **Verdict**: superseded
+- **Affected guide sections**: Ch02 §Harness Engineering (CLI default model configuration, auto model selection surface map), Ch04 §Model Selection and Cost Management
+
+### Side A
+- **Source**: [docs-github-copilot-cli-auto-model-selection](source-notes/docs-github-copilot-cli-auto-model-selection.md)
+- **Claim**: Copilot CLI auto (April 17, 2026) selects the most efficient model based on plan, applicable policies, and rate-limit pressure — not based on task type.
+- **Evidence**: Official GitHub changelog, April 17, 2026: "Auto will select the most efficient model based on your plan and policies." No task-type or task-dimension language appears anywhere in the ~300-word source.
+- **Confidence**: settled
+
+### Side B
+- **Source**: [docs-github-copilot-cli-auto-model-selection-task-based-routing](source-notes/docs-github-copilot-cli-auto-model-selection-task-based-routing.md)
+- **Claim**: Copilot CLI auto (July 1, 2026) now evaluates the task across several dimensions (reasoning, code generation complexity, bug diagnosis difficulty, tool orchestration needs) alongside availability/reliability signals to select the optimal model.
+- **Evidence**: Official GitHub changelog, July 1, 2026: "Auto weighs real-time model availability and reliability signals, then evaluates your task across several dimensions like reasoning, code generation complexity, bug diagnosis difficulty, and tool orchestration needs to select the optimal model." This sentence is verbatim identical to the May 20, 2026 VS Code auto announcement (issue #844, Claim 1).
+- **Confidence**: settled
+
+### Resolution
+
+This is a genuine algorithm change to the CLI's "auto" feature between April and July 2026, not a description error in either source. The corpus already documents GitHub rolling task-aware routing out to three other Copilot surfaces before the CLI: Cloud Agent (May 14, issue #745), VS Code (May 20, issue #844), and Copilot Chat (June 17, issue #1218) — each launched or updated with task-complexity-aware routing already built in. The Chat auto note explicitly flagged, at time of its own extraction, that "only CLI auto remains purely availability-driven" and that this gap would need to be revisited. The July 1 CLI changelog closes exactly that gap, using routing-description and cache-boundary language that is verbatim identical to the VS Code announcement — strong evidence the CLI's routing implementation was brought into alignment with the already-shipped VS Code/Chat implementation, rather than the April source having simply omitted an existing capability.
+
+The April source's "not task-aware" framing is inferred from the absence of any task-content language in a thin, ~300-word changelog, not a verbatim denial — this is a minor evidentiary weakness in Side A, but it is more consistent with "GitHub had not yet built task-aware routing for the CLI in April" than with "GitHub was suppressing an existing capability in April while announcing the same capability as new for sibling surfaces in May and June." No plan-tier, configuration, or credential-layer mediating variable explains the discrepancy (both changelogs describe the same "auto" toggle available on all Copilot plans) — this is a temporal supersession, not a context-dependent split.
+
+The April source's other claims (billing discount, admin policy compliance, user override control, cost-bounded model pool) are independently reconfirmed as unchanged in the July source and remain valid; only the task-awareness dimension and the billing *unit* (premium requests → AI credits, with legacy-plan grandfathering) changed.
+
+### Citation in the guide
+
+Ch02 §Harness Engineering's auto-model-selection surface map should be updated to state that, as of July 2026, all four GitHub Copilot auto surfaces (CCA, VS Code, Chat, CLI) are task-aware, evaluating reasoning, code generation complexity, bug diagnosis difficulty, and tool orchestration needs alongside availability/reliability signals. Cite `docs-github-copilot-cli-auto-model-selection-task-based-routing` Claims 1–2 as `[settled]` for current CLI behavior. Retain `docs-github-copilot-cli-auto-model-selection` as `[settled]` historical context only — explicitly dated to April 2026 — for readers who need to reason about the feature's evolution or who may be on an older CLI version; do not cite its "not task-aware" claim as current guidance. Note the model-pool caveat: the July source does not name specific models (unlike April's four-model enumeration), so the guide should not assume the April pool list (GPT-5.4, GPT-5.3-Codex, Sonnet 4.6, Haiku 4.5) is still accurate without checking GitHub's live supported-models documentation.
+
+Ch04 §Model Selection and Cost Management should update CLI auto's cost-management guidance to the AI-credits billing default (10% credit discount vs. direct model cost) from the July source, while flagging the legacy-annual-plan exception (Copilot Pro/Pro+ on existing annual plans remain on premium-request billing with the 10% multiplier discount) as a plan-dependent branch practitioners must check before applying cost formulas. Do not cite the July source's "no quality regression" claim (Claim 9) as verified — it is vendor-asserted with no disclosed methodology, consistent with how the guide should already be treating the equivalent Chat auto "maintaining high quality results" claim (issue #1218).
