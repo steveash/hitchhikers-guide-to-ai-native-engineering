@@ -229,9 +229,7 @@ cut it.
 ## The Comprehension Work Is the Job
 
 AI makes code cheap to generate. It does not make understanding cheap to
-skip. The comprehension work -- reading the code, understanding why it
-was written that way, knowing what breaks when you change it -- is still
-the job.
+skip. The comprehension work (reading the code, understanding why it was written that way, knowing what breaks when you change it) is still the job.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
 
 The Anthropic study found two distinct usage patterns among engineers using

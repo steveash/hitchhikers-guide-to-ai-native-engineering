@@ -69,8 +69,7 @@ minimizing the boilerplate, not about being clever with your prompts.
 [source: blog-bswen-mcp-token-cost, Claim 6] [emerging]
 
 **Caveat**: this is one user's snapshot with one MCP configuration. The
-exact percentages will vary. The shape of the distribution -- system
-overhead dwarfs conversation -- is what generalizes. The fix in the
+exact percentages will vary. The shape of the distribution (system overhead dwarfs conversation) is what generalizes. The fix in the
 "Tool Choice and Context Cost" section below is to attack the largest
 controllable bar, which is almost always MCP tools.
 
@@ -434,8 +433,7 @@ Three things make it through:
 2. **Invoked skills** -- the skill definition itself
 3. **The active plan file** -- by name
 
-Everything else -- conversation, intermediate reasoning, the architectural
-"why" decker lost -- is gone after compaction. If you need it preserved,
+Everything else (conversation, intermediate reasoning, the architectural "why" decker lost) is gone after compaction. If you need it preserved,
 it has to land in one of those three buckets.
 [source: research-wasnotwas-context-compaction, Claim 5;
 failure-decker-4hr-session-loss, Lesson 2] [emerging]
@@ -812,7 +810,7 @@ Cowrie's measured table from his own configuration:
 
 [source: blog-bswen-mcp-token-cost, Claim 2] [emerging]
 
-The slope -- ~5-7k tokens per server -- is the right order of magnitude
+The slope (~5-7k tokens per server) is the right order of magnitude
 for typical MCP server schemas (5-30 tools per server, 100-500 tokens
 per tool definition). The exact slope depends on which servers you
 load: a single complex server like `puppeteer` or `playwright` can
@@ -840,8 +838,7 @@ Cowrie's prescriptive advice after pruning his own setup:
 > [source: blog-bswen-mcp-token-cost, Claim 4] [anecdotal]
 
 His final kept list: Context7, GitHub, PostgreSQL, Filesystem. The right
-number depends on your work -- a database engineer probably wants the
-SQL MCP regardless of token cost -- but the *discipline* generalizes:
+number depends on your work (a database engineer probably wants the SQL MCP regardless of token cost), but the *discipline* generalizes:
 audit your servers, justify each one against the per-session token tax,
 and remove anything you cannot defend.
 [source: blog-bswen-mcp-token-cost, Claim 4] [anecdotal]
@@ -1049,8 +1046,7 @@ degradation to a fundamental limitation.
 > verification pass."
 > [source: research-wasnotwas-context-compaction, Claim 8] [emerging]
 
-Gemini's combination -- aggressive 50% trigger, 30% verbatim tail,
-two-pass summary with self-critique -- is the most quality-conscious
+Gemini's combination (aggressive 50% trigger, 30% verbatim tail, two-pass summary with self-critique) is the most quality-conscious
 compaction implementation in the studied set. It costs more per
 compaction but preserves more of the conversation.
 [source: research-wasnotwas-context-compaction, Claims 1, 4, 8] [emerging]

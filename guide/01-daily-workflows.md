@@ -170,9 +170,7 @@ refactoring. This is the default mode for most engineering work.
 
 ## The Ralph Loop
 
-For tasks that exceed a single context window -- large features,
-multi-file refactors, long-running test campaigns -- you need a
-pattern that survives context resets. The Ralph Loop (named after the
+For tasks that exceed a single context window (large features, multi-file refactors, long-running test campaigns) you need a pattern that survives context resets. The Ralph Loop (named after the
 "Ralph Wiggum Technique" in the community) is a stateless-but-iterative
 cycle where the agent picks up where it left off by reading persistent
 state rather than relying on conversation history.
@@ -271,9 +269,7 @@ The number 3 is not sacred -- but the **mode** matters. Osmani reports
 running 4-5 background agents plus 3-5 human-in-the-loop sessions; Boris
 Cherny reportedly runs 15+. These figures apply to **background-autonomous**
 sessions in isolated git worktrees, where each agent runs a scoped task
-with no human actively tracking it. For **interactively attended** parallel
-sessions -- where you are watching what each agent is doing and ready to
-redirect it -- two independent practitioners independently hit a wall at 2-3:
+with no human actively tracking it. For **interactively attended** parallel sessions, where you are watching what each agent is doing and ready to redirect it, two independent practitioners independently hit a wall at 2-3:
 
 > "Two parallel sessions already feel like my limit. Once I go beyond that,
 > my brain starts falling apart within minutes. Context switching is painful,
@@ -643,8 +639,7 @@ Tasks where the value IS the understanding:
 - "Should we build this?" questions
 - Debugging production incidents in unfamiliar code
 
-For these tasks, use the agent for **inquiry** -- "explain this code,"
-"what are the failure modes here?" -- not delegation. The Anthropic
+For these tasks, use the agent for **inquiry** ("explain this code," "what are the failure modes here?"), not delegation. The Anthropic
 study found that conceptual inquiry sessions produced comprehension
 scores above 65%, while pure delegation sessions dropped below 40%.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]

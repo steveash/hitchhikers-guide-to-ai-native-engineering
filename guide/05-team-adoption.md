@@ -130,9 +130,7 @@ AGENTS.md is no better than no AGENTS.md.
 
 ### Stage the harness rollout to match how usage matures
 
-The Anthropic transformation report's most operationally useful behavioral
-finding -- because it comes from instrumented log analysis, not self-report --
-is the change in *what* engineers use Claude Code for over time.
+The Anthropic transformation report's most operationally useful behavioral finding (because it comes from instrumented log analysis, not self-report) is the change in *what* engineers use Claude Code for over time.
 
 Between February 2025 and August 2025, feature implementation grew from 14%
 to 37% of Claude Code usage, and code design/planning grew from 1% to 10%.
@@ -626,9 +624,7 @@ blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
 
 ## Code Review When AI Wrote It
 
-Four independent sources -- a peer-reviewed paper, a vendor analytics report,
-an executive interview, and the engineering director of the team that builds
-Claude Code -- agree that **code review is the new bottleneck.** This is the
+Four independent sources (a peer-reviewed paper, a vendor analytics report, an executive interview, and the engineering director of the team that builds Claude Code) agree that **code review is the new bottleneck.** This is the
 strongest convergence in our corpus on any operational claim about team
 adoption.
 
@@ -1111,8 +1107,7 @@ position in the senior tech audience.
 [source: survey-pragmaticengineer-ai-tooling-2026, Claim 4;
 research-anthropic-ai-transforming-work, Claim 1] [emerging]
 
-**But** -- and this is the part vendors leave out -- high adoption is not the
-same as high effectiveness. The fact that everyone is using these tools is
+**But** here's the part vendors leave out: high adoption is not the same as high effectiveness. The fact that everyone is using these tools is
 not evidence that the tools are working. It is evidence that the tools have
 crossed a threshold of utility where engineers find some value in them. The
 right follow-up question is "how do we use them well," not "should we use
@@ -1167,8 +1162,7 @@ independently arrives at the same pattern as Miller et al.:
 > — codingdave
 [source: discussion-hn-agentic-coding-jobs, Claim 10] [anecdotal]
 
-This experience -- more speed, more slop, marginal net gain -- is the expected
-result for engineers who have not adopted spec-first, harness-structured,
+This experience (more speed, more slop, marginal net gain) is the expected result for engineers who have not adopted spec-first, harness-structured,
 verification-checkpointed workflows. Miller et al.'s measured data (41% more
 complexity, speed spike decaying to zero) and codingdave's self-report are
 consistent. The guide's thesis is that structured agentic use changes this
@@ -1236,9 +1230,7 @@ vantage:
 > "The brain is a muscle. If you stop using your brain -- it will atrophy."
 > [source: blog-bvp-shopify-ai-playbook, Claim 8] [emerging]
 
-Two of the most AI-aggressive engineering organizations on Earth -- Shopify
-and Anthropic -- independently warn about comprehension debt and skill
-atrophy. This is the strongest convergence in our objections evidence base,
+Two of the most AI-aggressive engineering organizations on Earth (Shopify and Anthropic) independently warn about comprehension debt and skill atrophy. This is the strongest convergence in our objections evidence base,
 and the most credible voices on AI risks are not AI skeptics; they are AI
 insiders.
 [source: research-anthropic-ai-transforming-work, Claim 8;
@@ -1252,8 +1244,7 @@ until someone has to debug code nobody understands.
 [source: paper-miller-speed-cost-quality, Claim 2;
 research-anthropic-ai-transforming-work, Claim 8] [emerging]
 
-The supervision-paradox concern -- that atrophied coding skills undermine
-the ability to oversee AI output -- directly contradicts the "AI lets juniors
+The supervision-paradox concern (that atrophied coding skills undermine the ability to oversee AI output) directly contradicts the "AI lets juniors
 operate at senior level" framing. If senior engineers atrophy, the
 verification capacity that the staff+ adoption pattern depends on will erode
 over time. This is not a future risk. It is a present concern raised by the
@@ -1485,8 +1476,7 @@ timeline the evidence actually supports.
   Any number above 30% should be checked against a 6-month window.
   [source: blog-bvp-shopify-ai-playbook, Claim 5;
   paper-miller-speed-cost-quality, Claims 1, 4] [editorial]
-- Keep autonomous merges off until the harness produces evidence -- not
-  vendor benchmarks -- that it can be trusted.
+- Keep autonomous merges off until the harness produces evidence (not vendor benchmarks) that it can be trusted.
   [source: blog-bvp-shopify-ai-playbook, Claim 3;
   research-anthropic-ai-transforming-work, Claim 4] [emerging]
 
