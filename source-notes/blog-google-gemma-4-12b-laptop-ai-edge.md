@@ -73,13 +73,21 @@ issue: "#1547"
 - **Confidence**: anecdotal (single vendor-narrated demo; no independent
   reproduction or accuracy metric beyond the narrative description)
 - **Quote**: "we asked the model to \"use a python program to render a chart png to compare the top 10 girl names born in 2024 vs 2025\" given two text files containing the data. In response, the model dynamically generates Python code, executes it locally, and converts raw data into beautiful, easy-to-grasp visualizations and insights."
-- **Our assessment**: This is a different worked demo from the one in the
-  companion developer-guide post (`blog-google-gemma-4-12b-developer-guide.md`
-  Claim 7, a Gradio image-processing app built via the OpenCode harness and the
-  `gemma-skills` package). This demo instead runs entirely inside the standalone
-  Gallery macOS app with no external coding-agent harness named — the app itself
-  is the code-generation-and-execution environment, not a bridge to a third-party
-  agent tool.
+- **Our assessment**: The Google AI Edge Gallery app and its in-chat Python
+  execution loop are **already documented in the corpus**: the companion
+  developer-guide note (`blog-google-gemma-4-12b-developer-guide.md` Claim 10)
+  describes the same app as running "a secure sandboxed Python execution loop to
+  write, execute, and plot scientific charts inside the chat bubble." So the
+  *feature* is corroboration, not novelty (two independent Google posts describe
+  the same Gallery chart-execution capability). What is distinct in this post is
+  the specific worked example: the verbatim girl-names-chart prompt and its
+  narrated data-in → rendered-PNG flow, described in more procedural detail than
+  the developer-guide note's one-sentence feature mention. Note also that this
+  Gallery demo runs entirely inside the standalone macOS app with no external
+  coding-agent harness named — unlike the developer-guide note's separate Gradio
+  image-processing demo (its Claim 7), which is built via the OpenCode harness and
+  the `gemma-skills` package. See Cross-References → Corroborates for the Gallery
+  overlap.
 
 ### Claim 3: A second Gallery demo shows Gemma 4 12B writing and self-correcting a 3D-rendering Python script (using the `trimesh` library) from a single prompt, in one turn
 
@@ -256,6 +264,18 @@ Source: developers.googleblog.com/bringing-gemma-4-12b-to-your-laptop-unlocking-
 ## Cross-References
 
 - **Corroborates**:
+  - `blog-google-gemma-4-12b-developer-guide.md` Claim 10 (the native macOS
+    "Google AI Edge Gallery" desktop app runs Gemma 4 12B offline on Apple
+    Silicon and "comes with a secure sandboxed Python execution loop to write,
+    execute, and plot scientific charts inside the chat bubble"): This source's
+    Claims 2 and 3 describe the **same Gallery Python chart-execution feature**
+    from a second, independent Google post. The two notes corroborate each other
+    on the existence and nature of the feature; this source adds two specific
+    worked examples (the girl-names data-viz prompt and the `trimesh` 3D-rendering
+    prompt, both with verbatim prompt text) and narrates them in more procedural
+    detail, whereas the developer-guide note documents the capability in a single
+    feature sentence. The Gallery app is therefore **not new to the corpus** — the
+    novelty in this note is confined to the specific demos, not the app.
   - `blog-google-gemma-4-12b-developer-guide.md` Claim 9 (`litert-lm serve` as a
     named local API server bridging to Continue, Aider, OpenClaw, Hermes, and
     OpenCode): This source's Claim 6 documents the same CLI feature and mostly
@@ -301,12 +321,19 @@ Source: developers.googleblog.com/bringing-gemma-4-12b-to-your-laptop-unlocking-
     family, echoing the structural fix Ronacher's Claim 9 recommends — just from
     a foundation-model vendor rather than an independent practitioner.
   - `blog-google-gemma-4-12b-developer-guide.md` (overall): That note covers the
-    model's encoder-free multimodal architecture and one CLI-driven,
-    harness-integrated demo (Gradio app built via OpenCode + `gemma-skills`).
-    This source extends the corpus's coverage of the same model release with two
-    consumer-facing product surfaces (Gallery, Eloquent) that that note does not
-    mention, plus operational CLI-server details (port, flags, endpoint list)
-    pulled from the linked CLI documentation rather than the blog prose.
+    model's encoder-free multimodal architecture, one CLI-driven,
+    harness-integrated demo (Gradio app built via OpenCode + `gemma-skills`), and
+    — per its Claim 10 — the Google AI Edge Gallery app's sandboxed Python
+    chart-execution feature (which this source corroborates rather than extends;
+    see Corroborates above). Where this source genuinely *extends* the corpus's
+    coverage of the same model release is: (a) the Google AI Edge Eloquent app and
+    its "Voice Edit" feature, which the developer-guide note does not mention at
+    all; and (b) operational `litert-lm serve` details (default port 9379,
+    `--host`/`--port`/`--verbose` flags, the `model_id[,backend][,max_tokens]`
+    request syntax, and the `GET /v1/models` / `POST /v1/chat/completions`
+    endpoints) pulled from the linked CLI documentation rather than either post's
+    prose. It does **not** extend Gallery coverage — Gallery is already in the
+    corpus via that note's Claim 10.
 
 - **Novel**:
   - **Google AI Edge Eloquent's "Voice Edit" feature**: No existing corpus source
@@ -319,12 +346,16 @@ Source: developers.googleblog.com/bringing-gemma-4-12b-to-your-laptop-unlocking-
     /v1/models` / `POST /v1/chat/completions` endpoints)**: These CLI-level
     operational specifics are not present in the companion developer-guide note
     and are new to the corpus's coverage of local-model-serving tooling.
-  - **A vendor-published local coding-agent app (Google AI Edge Gallery) with a
-    sandboxed-adjacent natural-language-to-Python-script workflow demonstrated
-    via a data-visualization task rather than an image-processing app**: distinct
-    worked example from the developer-guide note's Gradio demo, adding a second
-    independent data point for what Gemma 4 12B can do as an on-device coding
-    agent.
+  - **The two specific Gallery worked examples** (the girl-names data-visualization
+    prompt in Claim 2 and the `trimesh` 3D-rendering self-correction demo in
+    Claim 3, both with verbatim prompt text and narrated data-in → rendered-PNG
+    flow): The Google AI Edge Gallery app itself is **not** novel to the corpus —
+    `blog-google-gemma-4-12b-developer-guide.md` Claim 10 already documents the app
+    and its sandboxed Python chart-execution loop (see Corroborates). What is new
+    here is only these two procedurally-narrated worked examples, which add
+    independent data points for what Gemma 4 12B does as an on-device coding agent
+    beyond the developer-guide note's single feature sentence and its separate
+    Gradio image-processing demo.
 
 ## Guide Impact
 
@@ -383,11 +414,15 @@ Source: developers.googleblog.com/bringing-gemma-4-12b-to-your-laptop-unlocking-
   extracted from the model's Hugging Face presence.
 - **Existing overlap checked before writing**: Compared this source directly
   against `blog-google-gemma-4-12b-developer-guide.md` (same model, same
-  publication date, overlapping `litert-lm serve` feature) to avoid duplicating
-  claims — the claims above focus on what is distinct in this post (the two
-  macOS apps, the CLI's operational defaults from its docs page, the
-  metadata-only 16GB RAM figure) rather than re-extracting the architecture
-  claims already covered there.
+  publication date, overlapping `litert-lm serve` feature). Two overlaps were
+  found and are handled as corroboration rather than novelty: (1) the
+  `litert-lm serve` feature (that note's Claim 9), and (2) the Google AI Edge
+  Gallery app's sandboxed Python chart-execution loop (that note's Claim 10) —
+  see Cross-References → Corroborates. The genuinely non-overlapping material
+  extracted here is the Google AI Edge Eloquent app and its "Voice Edit" feature,
+  the CLI's operational defaults pulled from its docs page, and the metadata-only
+  16GB RAM figure. The architecture claims already covered in the companion note
+  were not re-extracted.
 - **No contradictions found**: Checked this source's claims against
   `blog-google-gemma-4-12b-developer-guide.md`,
   `blog-simonwillison-datasette-agent.md`,
