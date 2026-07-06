@@ -325,29 +325,35 @@ Corroborates for Claim 13; the earlier draft of this note missed them.
 
 ## Guide Impact
 
-- **Chapter 01 (Problem Framing) / Chapter 04 (Governance and Compliance)**:
+- **Chapter 05 (Team Adoption) — public- vs. private-sector objective set**:
   Add Claim 4 (public agencies must optimize for speed, trust, transparency,
   auditability, resilience, accessibility, compliance, and fairness
   simultaneously) as the defining constraint distinguishing public-sector
-  from private-sector AI-adoption guidance. Currently the guide's governance
-  content (sourced primarily from `blog-jetbrains-agentic-ai-governance.md`
-  and the zero-trust eBook) is written from a general-enterprise perspective;
-  recommend adding a callout or subsection noting that public-sector/
-  regulated-industry readers face an expanded, non-negotiable objective set
-  and cannot trade off trust/auditability for speed the way a private
-  competitor might.
+  from private-sector AI-adoption guidance. `05-team-adoption.md` already
+  carries the corpus's governance material (the "Model Deprecation Is a
+  Recurring Governance Event" section at `guide/05-team-adoption.md:560`,
+  and content sourced from `blog-jetbrains-agentic-ai-governance.md`), which
+  is currently written from a general-enterprise perspective; recommend
+  adding a callout or subsection noting that public-sector/regulated-industry
+  readers face an expanded, non-negotiable objective set and cannot trade off
+  trust/auditability for speed the way a private competitor might. Claim 5
+  (embedded governance controls accelerate rather than slow delivery) lands
+  in the same chapter as the mechanism-level support for that callout.
 
-- **Chapter 02 (Teams and Incentives) / Chapter 05 (Operationalizing)**: Add
-  Claim 6-9 (AI readiness is determined by 3-5 years of prior investment in
-  cloud-native architecture, CI/CD, platform engineering, automated testing,
-  and data governance) as evidence for framing harness-engineering discipline
-  as a precondition for AI adoption, not a parallel initiative that can be
-  pursued alongside AI rollout. Cite the MIT ~5% pilot-to-production figure
-  (Claim 8) as a data point motivating this — flagged explicitly as
-  unverified-at-source per the Our-assessment note above, pending
-  independent confirmation.
+- **Chapter 02 (Harness Engineering)**: Add Claim 6-9 (AI readiness is
+  determined by 3-5 years of prior investment in cloud-native architecture,
+  CI/CD, platform engineering, automated testing, and data governance) as
+  evidence for framing harness-engineering discipline as a precondition for
+  AI adoption, not a parallel initiative that can be pursued alongside AI
+  rollout. Cite the MIT ~5% pilot-to-production figure (Claim 8) as a data
+  point motivating this — flagged explicitly as unverified-at-source per the
+  Our-assessment note above, pending independent confirmation. Claim 10
+  (classic engineering disciplines — TDD, CI, refactoring, small services,
+  Unix-style modularity — as guardrails for AI-assisted development) also
+  belongs here, corroborating the harness-engineering thesis from the
+  organizational-modernization angle.
 
-- **Chapter 05 (Operationalizing) — Decision-making under uncertainty**: Add
+- **Chapter 05 (Team Adoption) — Decision-making under uncertainty**: Add
   the Cynefin framework and Act → Sense → Respond model (Claims 15-17) as a
   named decision-making framework for organizations facing AI-adoption
   uncertainty, with the worked call-centre pilot example (Claim 16) as a
@@ -359,9 +365,9 @@ Corroborates for Claim 13; the earlier draft of this note missed them.
   at different organizational layers (strategy/leadership vs.
   engineering-workflow).
 
-- **Chapter 04 (Governance and Compliance) — Sanctioned experimentation
-  pathways**: Add the Smart Nation Fellows / citizen-prototype-to-IT-hardening
-  pattern (Claim 12) as an example of a structured, sanctioned pathway for
+- **Chapter 05 (Team Adoption) — Sanctioned experimentation pathways**: Add
+  the Smart Nation Fellows / citizen-prototype-to-IT-hardening pattern
+  (Claim 12) as an example of a structured, sanctioned pathway for
   citizen-led experimentation to reach production hardening — a candidate
   counter-model to unsanctioned shadow-IT patterns discussed via
   `blog-thoughtworks-ryan-ai-shadow-it-paved-roads.md`, with the caveat that
