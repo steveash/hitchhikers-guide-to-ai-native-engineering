@@ -373,35 +373,62 @@ numbered `### Claim N:` headings in document order.
 
 2. **Followed 5 of the article's 8 substantive outbound links**, per MINER.md
    §1's "follow up to 5 linked pages" guidance, prioritizing the links behind
-   the most load-bearing factual claims:
-   - Tom's Hardware (Uber/Macdonald) — fetched via direct `curl` after an
+   the most load-bearing factual claims. Every URL below is the exact `href`
+   the Thoughtworks article links to (extracted from the source page's HTML),
+   so each cited quote can be independently verified against its source:
+   - Tom's Hardware (Uber/Macdonald, Claims 2, 6) —
+     `https://www.tomshardware.com/tech-industry/artificial-intelligence/uber-chief-warns-no-link-yet-between-ai-tokenmaxxing-and-shipping-successful-products-company-pumps-the-brakes-on-all-out-ai-spending`
+     — fetched via direct `curl` after an
      initial WebFetch attempt returned only navigation/membership boilerplate
      with no article body; the `curl` fetch succeeded and is the basis for
-     Claim 2's verbatim quotes.
-   - TheNextWeb (Storment/FinOps/$500M/Priceline) — fetched via both WebFetch
+     Claim 2's verbatim quotes. Re-verified during rework: the page contains
+     "That link is not there yet, right?", "the headline stats make your head
+     explode", and "there hasn't really been anything that's taken off yet"
+     verbatim.
+   - TheNextWeb (Storment/FinOps/$500M/Priceline, Claims 6–7) —
+     `https://thenextweb.com/news/token-prices-fell-98-enterprise-ai-bills-tripled-now-the-industry-wants-a-standards-body-to-explain-why`
+     — fetched via both WebFetch
      and a follow-up direct `curl`; the `curl` fetch confirmed verbatim
      quotes for Claims 6–7 and the price-paradox figures in Concrete
      Artifacts.
-   - Linux Foundation press release (Tokenomics Foundation) — fetched via
+   - Linux Foundation press release (Tokenomics Foundation, Claims 10–11) —
+     `https://www.linuxfoundation.org/press/linux-foundation-announces-the-intent-to-launch-the-tokenomics-foundation-to-establish-open-standards-for-ai-cost-management`
+     — fetched via
      both WebFetch and a follow-up direct `curl`; the `curl` fetch surfaced
      the supporter-list discrepancy documented in Claim 10.
-   - Forbes (Microsoft/Copilot CLI) — fetched via WebFetch only; treat
-     Claim 3's non-headline details (license end-date, "self-sufficiency"
-     framing) as AI-summarized rather than character-verbatim, though the
-     one directly quoted sentence ("Renting intelligence by the token...")
-     was returned consistently and is presented as a quote.
-   - Fortune (Duolingo) — fetched via WebFetch only; the von Ahn quotes in
-     Claim 5 are AI-summarized WebFetch output, not independently re-verified
-     via direct HTML fetch. The Assayer should spot-check these two
-     WebFetch-only quotes (Forbes, Fortune) against their source URLs before
-     treating them as character-for-character verbatim.
-   - NOT followed: TechCrunch (GitHub pricing) — cited in Claim 4 at the
-     Thoughtworks article's paraphrase level only, not independently re-read.
-     Goldman Sachs (token-usage forecast) — attempted via WebFetch, returned
+   - Forbes (Microsoft/Copilot CLI, Claim 3) —
+     `https://www.forbes.com/sites/jonmarkman/2026/06/01/microsoft-ends-claude-code-licenses-as-it-pushes-copilot-cli/`
+     — originally fetched via WebFetch only; **re-verified during rework via
+     direct `curl`**: the page contains "the costs ran past the annual AI
+     budget months ahead of schedule" and "renting intelligence by the token
+     is a price Microsoft does not control" verbatim, confirming Claim 3's
+     details and the "Renting intelligence by the token..." quote are
+     character-for-character accurate rather than AI-summarized.
+   - Fortune (Duolingo, Claim 5) —
+     `https://fortune.com/2026/04/13/duolingo-ceo-luis-von-ahn-ai-usage-requirement-employee-performance-evaluations/`
+     — originally fetched via WebFetch only; **re-verified during rework via
+     direct `curl`**: von Ahn's quote is present verbatim as "At the end, we
+     backtracked, and we said, 'No. Look, the most important thing in your
+     performance is that you are doing whatever your job is as well as
+     possible. A lot of times AI can help you with that. But if it can't, I'm
+     not going to force you to do that,'" (Claim 5's assessment elides the
+     "A lot of times AI can help you with that. But" clause with "..."), and
+     "It felt like rather than being held accountable for the actual outcome,
+     we're trying to just push something that in some cases did not fit." is
+     present verbatim.
+   - NOT followed: TechCrunch (GitHub pricing, Claim 4) —
+     `https://techcrunch.com/2026/05/30/what-a-joke-github-copilots-new-token-based-billing-spurs-consternation-among-devs/`
+     — cited in Claim 4 at the Thoughtworks article's paraphrase level only,
+     not independently re-read.
+     Goldman Sachs (token-usage forecast, Claim 11) —
+     `https://www.goldmansachs.com/insights/articles/ai-agents-forecast-to-boost-tech-cash-flow-as-usage-soars`
+     — attempted via WebFetch, returned
      HTTP 403; the figures were instead corroborated via the independently
      followed Linux Foundation press release, which cites the same Goldman
      Sachs research and figures verbatim (see Claim 11).
-     DataCenterDynamics (Ireland energy) — this one WAS followed (6th link,
+     DataCenterDynamics (Ireland energy, Claim 12) —
+     `https://www.datacenterdynamics.com/en/news/ireland-could-miss-out-on-ai-boom-amid-power-constraints-eaton-executive/`
+     — this one WAS followed (6th link,
      exceeding the "up to 5" guidance by one, because it was necessary to
      verify Claim 12's most checkable figure); fetched via WebFetch.
 
