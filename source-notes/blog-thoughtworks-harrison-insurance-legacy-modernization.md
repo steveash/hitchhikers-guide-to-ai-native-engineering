@@ -180,10 +180,10 @@ issue: "#1566"
 - **Confidence**: settled (the partnership's existence and stated scope are
   a first-party commercial fact); the effectiveness of the approach is
   emerging (no case study or outcome metric given for the partnership)
-- **Quote**: "Thoughtworks' partnership with Mechanical Orchard combines
-  Thoughtworks' engineering, delivery and transformation capability with
-  Mechanical Orchard's AI-powered approach to understanding and recreating
-  system behavior"
+- **Quote**: "Thoughtworks' partnership with Mechanical Orchard is relevant
+  because it combines Thoughtworks' engineering, delivery and transformation
+  capability with Mechanical Orchard's AI-powered approach to understanding
+  and recreating system behavior in a more modern, maintainable form."
 - **Our assessment**: This is the article's only named concrete tool/method
   reference for how AI is actually applied to legacy comprehension —
   "understanding and recreating system behavior" is a specific technical
