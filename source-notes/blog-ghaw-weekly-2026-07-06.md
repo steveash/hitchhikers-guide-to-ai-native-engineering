@@ -256,7 +256,7 @@ issue: "#1606"
   resolution time distributions. In its last three runs it made 13 GitHub API
   calls each time and burned through roughly 59 AI credits — efficient for a
   workflow that touches every open and closed issue in the repo."
-- **Our assessment**: Per `blog-ghaw-ai-credits-migration.md` Claim 1, 1 AIC =
+- **Our assessment**: Per `blog-ghaw-ai-credits-migration.md` Claim 7, 1 AIC =
   $0.01 USD, so ~59 AIC ≈ $0.59 per run for a workflow that (per the post)
   "touches every open and closed issue in the repo" over a 30-day window —
   the post's own framing ("efficient") is a value judgment we can't
@@ -401,7 +401,7 @@ Outputs:        CSV trend files
 Cost (last three runs, per run):
   GitHub API calls: 13
   AI Credits:       ~59 (~$0.59 at 1 AIC = $0.01 USD, per
-                     blog-ghaw-ai-credits-migration.md Claim 1)
+                     blog-ghaw-ai-credits-migration.md Claim 7)
 
 Run outcomes (last three runs):
   2/3: succeeded, posted digest, no unexpected write-side effects
@@ -443,9 +443,10 @@ Workflow definition:
     27,299/11,876 character counts were measured via `gh aw audit` or by some
     other means.
   - `blog-ghaw-ai-credits-migration.md` Claim 1 (AI Credits, AIC, replaced
-    Effective Tokens as the primary spend metric; 1 AIC = $0.01 USD): the
-    ~59 AIC figure in Claim 6 here uses the post-migration unit, consistent
-    with all gh-aw cost reporting in the corpus since that migration.
+    Effective Tokens as the primary spend metric) and Claim 7 (the conversion
+    rate: 1 AIC = $0.01 USD): the ~59 AIC figure in Claim 6 here uses the
+    post-migration unit, consistent with all gh-aw cost reporting in the corpus
+    since that migration.
   - `docs-ghaw-compilation-process.md` (job types table: `pre_activation` runs
     always/first for role checks, deadlines, dedup, and command-position
     validation; `conclusion` runs `always()` when safe outputs exist to
