@@ -249,7 +249,7 @@ model. See also [[project-goals]].
 - **Contradicts**: See filed contradiction
     [steveash/hitchhikers-guide-to-ai-native-engineering#1627](https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/issues/1627).
     `blog-anthropic-managed-agents-dreaming-outcomes.md` Claim 8 states, and
-    the guide (04-context-engineering.md, "Model mixing across
+    the guide (01-daily-workflows.md, "Model mixing across
     orchestration tiers") currently repeats as an explicit "Rule," that an
     orchestrator/subagent split should run the *orchestrator* on the
     cheaper/faster model and the *subagents* on the more capable model
@@ -307,7 +307,7 @@ model. See also [[project-goals]].
   user action — which has implications for auditing what ends up as
   "persistent policy" versus a one-off remark.
 
-- **Chapter 04 (Context Engineering) — "Model mixing across orchestration
+- **Chapter 01 (Daily Workflows) — "Model mixing across orchestration
   tiers"**: Do not silently update the existing "Rule" to match this
   source. File and cite the contradiction
   (steveash/hitchhikers-guide-to-ai-native-engineering#1627): the current
@@ -362,7 +362,7 @@ model. See also [[project-goals]].
     delegates to specialists with their own model/prompt/tools).
   - `blog-addyosmani-code-agent-orchestra.md` Claim 9: confirmed at lines
     81-86 of that note (multi-model routing, MODEL_ROUTING.md pattern).
-  - `guide/04-context-engineering.md` "Model mixing across orchestration
+  - `guide/01-daily-workflows.md` "Model mixing across orchestration
     tiers" section (lines 365-387): confirmed the guide currently states
     the cheap-orchestrator/capable-subagent rule as unconditional, sourced
     to `blog-anthropic-managed-agents-dreaming-outcomes.md` Claim 8.
