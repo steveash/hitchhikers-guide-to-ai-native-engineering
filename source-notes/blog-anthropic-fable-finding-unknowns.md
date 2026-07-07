@@ -7,7 +7,7 @@ date_published: 2026-07-06
 date_extracted: 2026-07-07
 last_checked: 2026-07-07
 status: current
-confidence_overall: settled
+confidence_overall: anecdotal
 issue: "#1618"
 ---
 
@@ -270,6 +270,18 @@ the Map and Territory.
   model actually perceives the task (that post), then use techniques to close
   the gap between what you told the model and what the task actually needs
   (this post).
+- **Corroborates**: `blog-kentbeck-jessicakerr-learning-system.md` (Claim 11) —
+  independent convergence on a comprehension-gated merge. That note's Claim 11
+  reports Kent Beck proposing "a PR-merge learning gate — a multiple-choice
+  quiz on what the developer should have learned from the change, which blocks
+  merge if the developer fails it," with Jessica Kerr naming a real existing
+  analogue (a Claude plugin by Dr. Nicole Forsgren). This is substantively the
+  same pattern as this note's Claim 10 (ask Claude to quiz you on the change
+  and only merge after passing the quiz). Two independent practitioner sources
+  landing on the same quiz-before-merge comprehension gate strengthens the case
+  for citing it as an emerging pattern — though both notes independently grade
+  the pattern `anecdotal`, so the convergence itself is the signal, not any
+  measured validation.
 - **Contradicts**: None identified. No existing source note makes a
   conflicting claim about pre/during/post-implementation unknown-surfacing
   practices.
