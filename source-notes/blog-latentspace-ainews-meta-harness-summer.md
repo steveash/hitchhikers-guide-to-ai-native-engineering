@@ -166,6 +166,34 @@ Claimed result: single-turn environment-prediction training transfers to
   meta-harness lineage (Claim 1) supply outside-the-interview context for
   why Databricks bet on this architecture; the interview note has the
   technical depth, this note has the industry-trend framing.
+- **Corroborates**: `blog-anthropic-scaling-managed-agents.md` (Claim 10) —
+  first-party, settled-confidence instance of exactly the convergence this
+  note's Claim 2 asserts. Anthropic describes its own Managed Agents product
+  using the identical "meta-harness" framing: "Managed Agents is a meta-harness
+  in the same spirit, unopinionated about the _specific_ harness that Claude
+  will need in the future." A vendor independently applying the same
+  meta-harness architecture and vocabulary to its own shipped product is
+  direct evidence for Claim 2's thesis that "some open source architecture
+  that looks like this will probably win... because it is currently being
+  independently rediscvoered at 1000 AI native shops" — this pattern is
+  recurring across vendors (Databricks Omnigent, Anthropic Managed Agents),
+  not unique to Omnigent. Strengthens Claim 1's meta-harness lineage and
+  Claim 2's convergent-evolution framing.
+- **Corroborates**: Prior corpus usages of the exact term "meta-harness" for
+  other architectures, which situate this note's Claim 1 lineage in the
+  broader thread the corpus already tracks:
+  `blog-bvp-shopify-ai-playbook.md` (Claim 2 assessment) frames Shopify's
+  centralized LLM proxy as the meta-harness — "The LLM proxy is the
+  *meta-harness*. It is the layer that survives tool churn" — i.e., the
+  standardization layer that outlasts per-tool churn; and
+  `docs-ghaw-agent-factory-status.md` (Claim 5 assessment) calls GitHub
+  Agentic Workflows' self-monitoring Smoke* layer "a meta-harness for the
+  platform." Both apply the same term to different architectures than
+  Omnigent's harness-of-harnesses, so they are weaker matches than the
+  Anthropic Managed Agents instance above, but they confirm "meta-harness"
+  is already an established (if loosely-defined) term in this corpus rather
+  than novel to this digest — useful context for the meta-harness-lineage
+  thread in Claim 1 and the Chapter 02 Guide Impact note.
 - **Corroborates**: `blog-openai-chatgpt-memory-dreaming.md` — Claim 10
   here (Weaviate Engram + LangSmith "sleep-time compute" as asynchronous,
   offline memory processing) is the same architectural pattern as OpenAI's
@@ -242,7 +270,15 @@ Claimed result: single-turn environment-prediction training transfers to
   independent research/mining — none are currently documented in the
   corpus, and this convergence (Claim 2) is asserted as evidence that
   meta-harness architecture is becoming a standard layer, not a one-vendor
-  bet.
+  bet. When framing this lineage, note that the corpus already uses the term
+  "meta-harness" for three distinct architectures — Anthropic's Managed Agents
+  (`blog-anthropic-scaling-managed-agents.md` Claim 10, first-party/settled),
+  Shopify's LLM proxy (`blog-bvp-shopify-ai-playbook.md` Claim 2), and GitHub
+  Agentic Workflows' self-monitoring layer (`docs-ghaw-agent-factory-status.md`
+  Claim 5) — which both supports Claim 2's convergence thesis and cautions
+  that "meta-harness" is currently applied loosely to several different
+  layers (harness-of-harnesses, standardization proxy, self-test harness);
+  the chapter should disambiguate which sense it means.
 - **Chapter 02 (Harness Engineering)**: Add Hugging Face's Moon Bot (Claim
   7) as a named example of a team choosing to self-host a Slack coding
   agent for "zero lock-in" rather than adopt Anthropic's or another
