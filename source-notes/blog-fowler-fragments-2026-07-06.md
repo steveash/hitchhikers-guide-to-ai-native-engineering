@@ -20,7 +20,8 @@ issue: "#1634"
 > replacing adoption anxiety), a session consensus that architecture/design still
 > matters because "the Venn Diagram of Developer Experience and Agent Experience is a
 > circle" (Laura Tacho), a proposed token-cost metric for design quality, and
-> corroborating 404 Media reporting on runaway enterprise token bills (Citi: $5M→$15M).
+> corroborating 404 Media reporting on runaway enterprise token bills (one unnamed
+> company: $5M→$15M, on track for $120M/fiscal year).
 
 ## Source Context
 
@@ -140,7 +141,7 @@ issue: "#1634"
 - **Evidence**: Fowler's summary of 404 Media's paywalled reporting, which is itself based on "leaked Slack chats, internal dashboards, emails and other material" from companies including Citi and Amazon (404 Media's own sourcing, as described by Fowler).
 - **Confidence**: emerging (leaked internal dashboard data as reported by a named investigative outlet with a track record already corroborated elsewhere in this corpus; the specific company behind this $5M→$15M/$120M figure is not named in this fragment)
 - **Quote**: "A dashboard indicates that one company has seen its token bill rise from $5 million in August 2025 to $15 million in May 2026, on track to spend over $120 million in the fiscal year."
-- **Our assessment**: This is a new, specific data point for this corpus's token-cost-crisis cluster. `blog-thoughtworks-kamelman-token-crisis.md` documents Citi and Amazon as companies with 404 Media leaks but does not include this specific $5M→$15M→$120M-run-rate figure — it's unclear from this fragment alone whether this figure is Citi's, Amazon's, or a third company's, since Fowler's summary doesn't attribute the dashboard to one of the two named companies specifically. This should be flagged for follow-up: a dedicated 404 Media source note (if the full paywalled report becomes accessible) could resolve the attribution and add substantially more figures — Fowler's fragment is a compressed pointer to a fuller investigative piece, not the full data set.
+- **Our assessment**: This is a new, specific data point for this corpus's token-cost-crisis cluster. Within this fragment, Fowler attributes the leaked material (Slack chats, dashboards, emails) to 404 Media reporting on "companies including Citi and Amazon," but does not tie this specific $5M→$15M→$120M dashboard figure to either named company — it's unclear from this fragment alone whether the figure is Citi's, Amazon's, or a third company's. (The existing corpus token-cost cluster — `blog-thoughtworks-kamelman-token-crisis.md` — does not contain this figure or the Citi/Amazon/404-Media material; its evidence base is a different set of companies. See Cross-References for how the two notes relate thematically rather than through shared facts.) This should be flagged for follow-up: a dedicated 404 Media source note (if the full paywalled report becomes accessible) could resolve the attribution and add substantially more figures — Fowler's fragment is a compressed pointer to a fuller investigative piece, not the full data set.
 
 ### Claim 15: 404 Media separately reported that Accenture's biggest token-cost driver was not agentic software engineering but non-engineering staff using AI for tasks like converting PDFs into presentation slides
 - **Evidence**: Fowler's summary of an earlier 404 Media report, distinguished from the Citi/Amazon leak reporting in Claim 14.
@@ -233,14 +234,21 @@ available, unlike the paywalled written reports).
   independently by a different, unnamed group one month later at a Thoughtworks
   retreat — the repeated independent observation strengthens this claim's standing from
   single-source to multiply-attested anecdotal.
-- **Corroborates**: `blog-thoughtworks-kamelman-token-crisis.md` (entire note, esp.
-  Claims 1, 9, 13). This fragment's Claim 4 (adoption anxiety replaced by cost anxiety)
-  and Claims 14–15 (Citi/Amazon leaks, $5M→$15M→$120M figure, Accenture "chewing
-  tokens") are the same 404 Media reporting thread that note documents from the
-  Thoughtworks-essay angle; this fragment adds a specific new figure ($5M→$15M/$120M
-  run rate) not present in that note, and independently corroborates that note's
-  organizational (not purely engineering) framing of token waste via the Accenture
-  detail.
+- **Corroborates (thematically)**: `blog-thoughtworks-kamelman-token-crisis.md`. The two
+  notes corroborate each other on the *theme* — both document the shift from
+  adoption-anxiety to cost-anxiety as a structural industry concern — but they do **not**
+  share factual content. This fragment's Claim 4 (adoption anxiety replaced by cost
+  anxiety, at the retreat-conversation level) matches the mood shift that note tracks
+  from the Thoughtworks-essay angle. Claims 14–15 here (Citi/Amazon 404-Media leaks, the
+  $5M→$15M→$120M figure, and Accenture's "chewing tokens" cost driver) all originate in
+  Fowler's summary of 404 Media reporting and are **not** present in the kamelman note,
+  whose distinct evidence base (Uber, Microsoft/Copilot, GitHub, Duolingo, FinOps
+  Foundation, Priceline, the Linux Foundation's Tokenomics Foundation launch, Goldman
+  Sachs projections) never mentions Citi, Amazon, 404 Media, or a "chewing tokens" cost
+  detail. Accenture appears in that note only as a listed *supporter* of the Tokenomics
+  Foundation standards body (its Claim 10), not as a token-waste case study — so the two
+  notes' Accenture references are unrelated. The specific $5M→$15M/$120M figure is new to
+  this corpus.
 - **Corroborates**: `blog-simonwillison-charity-majors-enthusiast-skeptic.md` and
   `blog-simonwillison-charity-majors-code-economics.md` — this fragment's Claim 13 is a
   third, distinct Charity Majors piece (the ethics essay, not previously in this
