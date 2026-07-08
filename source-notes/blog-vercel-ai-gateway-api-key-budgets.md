@@ -211,11 +211,12 @@ Source: https://vercel.com/changelog/budgets-for-api-keys-on-ai-gateway
 ### Cross-reference verification notes
 `blog-vercel-ai-gateway-production-index-may2026.md`, `blog-thoughtworks-omahony-feature-token-budgets.md`,
 `docs-ghaw-cost-management.md`, `blog-simonwillison-uber-caps-usage.md`,
-`blog-anthropic-admin-analytics-cost-controls.md`, and
-`blog-cursor-wayfair-ml-cost-reduction.md` were re-read in full during this
-extraction (MINER.md §4b), and every claim number cited below was located
-and confirmed against that note's own numbered `### Claim N:` headings in
-document order before writing this section.
+`blog-anthropic-admin-analytics-cost-controls.md`,
+`blog-cursor-wayfair-ml-cost-reduction.md`, and
+`docs-github-copilot-cli-sdk-session-credit-limits.md` were re-read in full
+during this extraction (MINER.md §4b), and every claim number cited below
+was located and confirmed against that note's own numbered `### Claim N:`
+headings in document order before writing this section.
 
 - **Corroborates**:
   - `docs-ghaw-cost-management.md` Claim 5 (`skip-if-match` as the
@@ -237,6 +238,21 @@ document order before writing this section.
     per-tool per-employee cap): both describe a dollar-denominated
     spending ceiling on an AI-tool credential as the governance mechanism.
     See **Contradicts** below for where the two diverge structurally.
+  - `docs-github-copilot-cli-sdk-session-credit-limits.md` Claim 7
+    (Copilot CLI/SDK session limits are soft caps): documents the *same
+    soft-cap enforcement design* this note's Claim 2 describes — the check
+    happens before/at the point a response is known, in-flight work is
+    allowed to complete, and actual usage can therefore exceed the
+    configured number. Its verbatim quote — "Session limits are a soft cap.
+    Since usage is only known after a response returns, a response that's
+    already underway finishes before Copilot stops, so actual usage may
+    slightly exceed the number you set." — is the identical mechanism
+    Vercel describes for API-key budgets, just applied to a different scope
+    (a single session vs. a persistent API key) and a different unit (AI
+    credits at $0.01 each vs. dollars). Two independent vendors (Vercel AI
+    Gateway, GitHub Copilot) converging on the same "check-then-complete,
+    can-slightly-overshoot" spend-cap semantics is a strong corroboration
+    that this is a shared pattern, not a one-off Vercel design choice.
 
 - **Contradicts**: None filed as a formal MINER.md §4a contradiction issue.
   Two tensions are worth flagging explicitly, both judged to be differences
@@ -293,12 +309,20 @@ document order before writing this section.
     tooling layered on top of a platform that does not natively support
     per-key budgets.
   - **The soft-cap/check-at-request-start enforcement detail** (Claim 2):
-    genuinely new and non-obvious information for this corpus — every
-    other spend-cap mechanism documented so far (Uber's per-tool cap,
-    Shopify's spike-cutoff, Anthropic's threshold alerts) is described at
-    a policy level without this kind of implementation-level precision
-    about exactly when the check runs relative to the request it's
-    checking.
+    *not* novel as a pattern — `docs-github-copilot-cli-sdk-session-credit-limits.md`
+    Claim 7 already documents the identical "check-then-complete, can
+    slightly overshoot" soft-cap mechanism for Copilot CLI/SDK session
+    limits (see **Corroborates** above), and did so five days before this
+    note was extracted. What is new here is the *scope and unit* to which
+    that pattern is applied: this is the corpus's first
+    *dollar-denominated, persistent-credential-scoped* soft cap with this
+    implementation-level precision, versus Copilot's *credit-denominated,
+    session-scoped* one. The policy-level cost controls in the corpus
+    (Uber's per-tool cap, Shopify's spike-cutoff, Anthropic's threshold
+    alerts) still lack this kind of precision about exactly when the check
+    runs relative to the request it's checking — but Copilot's session
+    limits do not, so the pattern itself is a documented cross-vendor
+    convention, not a Vercel-only innovation.
   - **Explicit propagation-delay behavior for new/edited budgets** (Claim
     7) and **the archive-not-delete semantics for removed budgets** (Claim
     9): both are specific, previously-undocumented-in-corpus operational
@@ -315,7 +339,13 @@ document order before writing this section.
   routes traffic through it. Explicitly carry forward the soft-cap nuance
   (Claim 2): the guide should not describe this as an exact, hard ceiling —
   a single expensive request can still push spend over the configured
-  limit before the next request is blocked.
+  limit before the next request is blocked. Present this soft-cap behavior
+  as a *cross-vendor pattern* rather than a Vercel quirk: GitHub Copilot's
+  CLI/SDK session limits use the same check-then-complete semantics
+  (`docs-github-copilot-cli-sdk-session-credit-limits.md` Claim 7), so a
+  guide reader should treat "the configured cap can be slightly exceeded by
+  in-flight work" as the expected default for productized spend caps, not a
+  one-off caveat.
 
 - **Chapter 06 (Security Threat Model)**: Add API-key budgets as a
   blast-radius-limiting control for the specific risk scenarios Vercel
