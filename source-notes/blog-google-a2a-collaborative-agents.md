@@ -94,9 +94,7 @@ issue: "#1639"
 - **Confidence**: anecdotal (a general organizational claim, not illustrated
   with a specific example of two separate teams/vendors integrating via A2A
   in this post)
-- **Quote**: (no direct quote; see paraphrase above — the source's own
-  sentence lists the four advantage names together with intervening list
-  text, so no single contiguous fragment captures this claim in isolation)
+- **Quote**: "Different parts of a solution can be built and managed by other colleagues, teams, vendors, or managed agentic services who are domain experts and continuously improving their components."
 - **Our assessment**: This is the organizational (rather than technical)
   argument for A2A: it lets a vendor like Google ship FoldRun as an
   independently maintained agent that any Gemini Enterprise customer can
@@ -156,10 +154,7 @@ issue: "#1639"
   cross-platform IT/DevOps, and secure telecom.
 - **Confidence**: anecdotal (named as an emerging use case, not illustrated
   with a shipped example or named customer in this post)
-- **Quote**: (no direct quote; the source names this domain in a section
-  heading — "Agentic Commerce & Autonomous Payments" — without an
-  accompanying prose sentence detailed enough to quote in isolation without
-  splicing)
+- **Quote**: "Developers are leveraging A2A for transactional integrity, allowing AI agents to securely negotiate deals, verify inventory, and execute B2B purchases seamlessly on behalf of their users."
 - **Our assessment**: Unlike FoldRun, none of the four "what else" domains
   (commerce, data streaming, IT/DevOps, telecom) come with a named product or
   customer in this post — they read as directional signals of where Google
@@ -353,12 +348,15 @@ Source: developers.googleblog.com, same post, SDK repos linked at
   against the broader paraphrased section summary obtained in an earlier
   fetch pass. No quote in this note was reconstructed or paraphrased and
   presented as verbatim.
-- Two claims (4 and 8) have no direct quote because the source's own wording
-  for those points is a section heading plus a longer descriptive sentence
-  that could not be captured as a single contiguous fragment without either
-  exceeding a reasonable quote length or splicing non-adjacent text (per
-  MINER.md §2a.3-4); those claims are supported by paraphrase only, flagged
-  as such in the `Quote` field.
+- Claims 4 (Workload Distribution) and 8 (Agentic Commerce) now carry
+  verbatim quotes. An earlier extraction pass left both as "no direct quote"
+  after the WebFetch summarizer balked at reproducing those passages; a
+  narrower re-fetch confirmed each is in fact a single contiguous sentence in
+  the source ("Different parts of a solution can be built and managed by
+  other colleagues, teams, vendors..." in the Workload Distribution section,
+  and "Developers are leveraging A2A for transactional integrity, allowing AI
+  agents to securely negotiate deals..." in the Agentic Commerce & Autonomous
+  Payments section), so the quotes were added rather than left as paraphrase.
 - Did not follow the "Google Cloud Life Sciences GitHub" or `a2aproject` SDK
   repository links beyond confirming their existence as named sources for the
   FoldRun image and the SDKs — a deeper extraction of those repos (versioning,
