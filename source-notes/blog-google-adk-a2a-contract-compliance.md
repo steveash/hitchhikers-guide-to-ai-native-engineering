@@ -327,6 +327,23 @@ highlighting."
     more structurally constrained termination mechanism (a finite state
     machine) beyond the three Anthropic's post names (time budget,
     convergence threshold, judge agent).
+  - `blog-anthropic-multi-agent-coordination-patterns.md` (Claim 11,
+    "Production systems commonly combine patterns — a documented hybrid pairs
+    orchestrator-subagent overall with shared state for collaboration-heavy
+    subtasks," quoting the vendor: "Production systems often combine patterns.
+    A common hybrid uses orchestrator-subagent for overall workflow with
+    shared state for collaboration-heavy subtask."): that note already names,
+    in the abstract, the exact orchestrator-subagent + shared-state hybrid
+    that this source ships. This source extends Claim 11 from abstract vendor
+    guidance to a concrete, worked, cross-language instance — a
+    `SequentialAgent` orchestrator (Claim 9) wrapping a `ToolContext.state`
+    shared dictionary (Claim 6) with a finite ComplianceStep checkpoint enum
+    (Claim 7) as the shared-state termination mechanism. Claim 11's hybrid is
+    coordinator-plus-shared-state for a *collaboration-heavy subtask*; this
+    source's variant uses the checkpoint enum for *sequential pipeline
+    hand-off and fail-safe routing* rather than for concurrent inter-agent
+    finding propagation, so it is a structurally simpler realization of the
+    same named hybrid, not an exact match.
   - `blog-google-a2a-collaborative-agents.md`: extends that post's abstract
     "Zero Context Pollution" advantage (peer agents "handle their own
     massive dependencies and internal state") with a concrete illustration
@@ -344,12 +361,18 @@ highlighting."
     1-3, especially the 10-15 tool numeric threshold in Claim 1): no prior
     corpus source gives a specific numeric tool-count ceiling as the
     concrete symptom that triggers decomposition.
-  - **A cross-language orchestrator-subagent/shared-state hybrid, shown at
-    the code level** (Claims 6, 7, 9): the corpus's existing multi-agent
-    taxonomy names orchestrator-subagent and shared state as two of five
-    distinct patterns; this source is the first to show them combined in a
-    single shipped pipeline, with the checkpoint enum acting as the
-    termination mechanism for the shared-state component.
+  - **A concrete, shipped, cross-language instance of the orchestrator-subagent/
+    shared-state hybrid** (Claims 6, 7, 9): the hybrid *pattern itself* is not
+    new to the corpus — `blog-anthropic-multi-agent-coordination-patterns.md`
+    (Claim 11) already names it abstractly as "a common hybrid [that] uses
+    orchestrator-subagent for overall workflow with shared state for
+    collaboration-heavy subtask." What is new here is the first *concrete,
+    worked, shipped* realization of that hybrid at the code level, and the
+    first spanning a language boundary (Python orchestrator, Go sub-agent via
+    A2A), with a finite ComplianceStep checkpoint enum acting as the
+    termination mechanism for the shared-state component. See Cross-References
+    → Extends for how this source's sequential-pipeline variant differs from
+    Claim 11's collaboration-heavy-subtask framing.
   - **An explicit language-choice rule tied to determinism, not
     familiarity** (Claim 10): "put the ambiguous work behind an LLM, put
     the policy-verdict work behind deterministic non-LLM logic" is a
