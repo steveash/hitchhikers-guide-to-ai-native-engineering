@@ -1482,6 +1482,47 @@ degraded state rather than continuing to retry. The autoCompact case is the
 only measured production cost of omitting one in our corpus.
 [source: failure-alex000kim-claudecode-source-leak, Lesson 1] [emerging]
 
+### 7. No Dollar Ceiling on Unsupervised Agent Spend
+
+A consecutive-failure circuit breaker (anti-pattern #6) bounds a retry loop
+you own in code. It does nothing for spend you *can't* guard that way — a
+hosted or third-party agent, a fan-out that spawns work you never see, a demo
+key that catches unexpected traffic, or a developer experimenting with no
+sense of per-model cost. For those, cap the credential. Vercel AI Gateway
+added a dollar-denominated budget on an API key: set a limit and the gateway
+rejects further requests on that key once spend exceeds it, pooled across
+every provider and model routed through the key (currently confirmed for
+Vercel AI Gateway; whether other gateways ship the same primitive is not yet
+documented).
+[source: blog-vercel-ai-gateway-api-key-budgets, Claims 1, 3] [settled]
+
+```bash
+vercel ai-gateway api-keys create --name <NAME> --budget <DOLLARS> --refresh-period <PERIOD>
+# --refresh-period: daily | weekly | monthly | none
+```
+[source: blog-vercel-ai-gateway-api-key-budgets, Claim 5] [settled]
+
+Treat it as a blast-radius backstop, not an exact stop. The budget is a soft
+cap checked at the *start* of each request, so the request that crosses the
+line still completes — a $10 key one $50 request from its limit can land at
+$60 before the next request is blocked — and a newly-set budget takes up to a
+few minutes to enforce.
+[source: blog-vercel-ai-gateway-api-key-budgets, Claims 2, 7] [settled]
+
+A cap bounds the damage; it does not remove the cause. Waste usually traces to
+design-time defaults — a premium model wired onto classification-grade work,
+unbounded loops, verbose context — set during prototyping and never revisited
+before production, which is why the durable fix moves the cost decision
+upstream to those defaults rather than leaving it at the billing layer.
+[source: blog-thoughtworks-kamelman-token-crisis, Claims 8, 9, 13] [anecdotal]
+
+**Rule**: For any agent whose loop you can't guard in code — hosted,
+third-party, or fan-out — put a dollar budget on the credential it spends
+through as a soft blast-radius backstop, then fix the upstream default (model
+tier, loop bound, context size) that made the runaway spend possible.
+[source: blog-vercel-ai-gateway-api-key-budgets, Claim 4;
+blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
+
 ---
 
 ## Quick Reference: Harness File Inventory
@@ -1514,6 +1555,8 @@ failure-alex000kim-claudecode-source-leak (Lesson 1),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
 failure-sukit-parallel-session-ceiling (Lessons 2, 3),
+blog-vercel-ai-gateway-api-key-budgets (Claims 1, 2, 3, 4, 5, 7),
+blog-thoughtworks-kamelman-token-crisis (Claims 8, 9, 13),
 docs-github-copilot-vs-april-2026 (Claim 1),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
@@ -1523,4 +1566,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-06-21*
+*Last updated: 2026-07-09*

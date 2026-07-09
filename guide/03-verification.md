@@ -1001,6 +1001,42 @@ Without those controls the number measures retrieval, not coding ability, and
 the gap widens with every model generation.
 [source: blog-cursor-reward-hacking-benchmarks, Claims 8, 9, 10] [emerging]
 
+## Vendor "Token Savings" Claims Are Marketing Until You A/B Them
+
+A tool's advertised efficiency percentage describes the tool author's best
+case, not your workload. JetBrains AI benchmarked the "Caveman"
+prompt-compression skill — advertised at "65% output token saved" — across 82
+paired SkillsBench tasks on `claude-sonnet-5`, and measured an 8.5%
+output-token reduction (592k → 542k), roughly 7.6x smaller than the claim.
+The 65% figure came from the skill's own promotional copy, never from a
+measurement.
+[source: blog-jetbrains-caveman-token-savings-test, Claims 1, 2] [settled]
+
+The gap is mechanical and generalizes to any "talk tersely" technique: the
+skill compresses only the agent's narration, but agentic output tokens are
+dominated by code, diffs, and tool calls, which it leaves untouched. The
+advertised figure belongs to chat-style Q&A, not coding agents.
+[source: blog-jetbrains-caveman-token-savings-test, Claim 3] [emerging]
+
+Two traps make a careless self-test worse than none:
+
+- **Small samples overstate the effect.** A 10-task pilot "showed" a 30%
+  saving that dissolved to 8.5% at 82 tasks — discount any single-digit-task
+  "we tested it" number.
+  [source: blog-jetbrains-caveman-token-savings-test, Claim 6] [settled]
+- **Token savings ≠ dollar savings.** The full run cost 11.6% *more*
+  ($40.60 vs. $36.39) despite fewer tokens, because one dependency-audit task
+  crossed the 200k long-context pricing tier. Trimming average tokens can
+  still net-lose money if it moves a few expensive tasks across a pricing
+  cliff.
+  [source: blog-jetbrains-caveman-token-savings-test, Claim 7] [settled]
+
+**Rule**: Before adopting any prompt-compression or efficiency technique on
+its advertised savings, run a paired A/B on your own task distribution, size
+it past a 10-task pilot, and compare dollars — not just tokens — at the
+pricing-tier level.
+[source: blog-jetbrains-caveman-token-savings-test, Claims 1, 6, 7] [settled]
+
 ---
 
 *Sources for this chapter:
@@ -1010,6 +1046,7 @@ blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
+blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
@@ -1027,4 +1064,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-06-27*
+*Last updated: 2026-07-09*

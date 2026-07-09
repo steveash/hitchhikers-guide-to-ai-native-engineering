@@ -460,6 +460,16 @@ way MCP servers are.
 [source: blog-sankalp-claude-code-20, Claim 4;
 blog-bswen-mcp-token-cost, Claim 1 (cross-reference)] [emerging]
 
+A fourth location sits outside Sankalp's list:
+`~/.claude/projects/<project>/memory/`. Claude Code will write structured
+memory files here — and it may do so on its own initiative. Given only a
+plain-language instruction to delegate coding to cheaper subagents, Fable
+wrote a persistent `memory/delegate-coding-to-subagents.md` codifying the
+policy, without being told to persist anything. Audit this directory: what
+lands there as standing "policy" can include one-off remarks the model chose
+to make durable.
+[source: blog-simonwillison-fable-judgement, Claim 5] [anecdotal]
+
 ### The hidden persistence layer: session JSONL files
 
 decker's failure report is also the most practitioner-accessible writeup
@@ -1231,6 +1241,7 @@ failure-htdt-godogen-game-generation (Lessons 1, 2; Recovery 1),
 research-wasnotwas-context-compaction (Claims 1-8),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
-failure-claudemd-ignored-compaction (cross-reference)*
+failure-claudemd-ignored-compaction (cross-reference),
+blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-05-14*
+*Last updated: 2026-07-09*

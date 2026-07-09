@@ -362,6 +362,13 @@ sequence. The review burden is distributed across models, not across your
 attention budget.
 [editorial]
 
+Routing is also a cost lever, not only a throughput one. In Cursor's
+first-party telemetry, cost per accepted line of code varied roughly 7x
+across model families (cost per agent request nearly 9x), and 84% of power
+users already run multiple models each week — routing planning, frontend,
+debugging, and cheap execution to different models.
+[source: blog-cursor-cfo-council, Claims 8, 9] [settled]
+
 ### Model mixing across orchestration tiers
 
 A second multi-model pattern — distinct from kevinsync's serial Claude-then-Codex
@@ -381,10 +388,38 @@ work. The economic logic: routing and follow-up questions are latency-sensitive
 but quality-tolerant; drafting is the opposite.
 [source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8] [anecdotal]
 
-**Rule**: When you split work between an orchestrator and subagents, run the
-orchestrator on the cheaper, faster model and the subagents on the more
-capable one — not the reverse.
-[source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8] [anecdotal]
+The reverse assignment is also documented. Told, in a single Claude Code
+instruction, to delegate coding to a cheaper model —
+
+> For all coding tasks use your judgement to decide an appropriate lower
+> power model and run that in a subagent
+
+— Fable kept the top-tier model in the *main loop* for judgment, review, and
+synthesis and downgraded the *implementation* subagents (sonnet for
+substantive edits, haiku for trivial ones), recording its own rationale that
+"implementation work rarely needs the top-tier model."
+[source: blog-simonwillison-fable-judgement, Claims 4, 6, 7] [anecdotal]
+
+**Debated: which role gets the capable model.** Spiral puts the capable model
+in the subagents (they draft) and the cheap model in the orchestrator; Fable
+puts the capable model in the orchestrator (it judges and reviews) and the
+cheap model in the subagents (they implement to a fixed plan). The two cases
+answer the same question in opposite directions, and the likely reconciling
+variable is task type rather than layer: Spiral's subagents do
+quality-sensitive drafting, Fable's do quality-tolerant implementation against
+a settled plan [editorial]. The contradiction is tracked in issue #1627.
+
+The judgement-based instruction delegates operational calls — which model,
+when to write tests — not safety boundaries; it is not a license to loosen
+"never" prohibitions.
+[source: blog-simonwillison-fable-judgement, Claim 2] [anecdotal]
+
+**Rule**: When you split work across model tiers, match the model to the
+task's quality-sensitivity — capable model for drafting, judgment, and
+synthesis; cheaper model for quality-tolerant execution — rather than
+assigning by orchestrator-vs-subagent layer.
+[source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8;
+blog-simonwillison-fable-judgement, Claims 6, 7] [anecdotal]
 
 ### Cross-model audit for shortcut detection
 
@@ -697,6 +732,8 @@ blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
 blog-anthropic-managed-agents-dreaming-outcomes (Claim 8),
 blog-anthropic-session-management-1m-context (Claims 1, 2, 4, 10),
+blog-cursor-cfo-council (Claims 8, 9),
+blog-simonwillison-fable-judgement (Claims 2, 4, 6, 7),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
 blog-simonwillison-liteparse-browser (Claims 5, 11),
 discussion-hn-agentic-coding-jobs (Claim 9),
@@ -707,4 +744,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-07-09*
