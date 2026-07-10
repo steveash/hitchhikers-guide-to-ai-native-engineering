@@ -221,6 +221,19 @@ Source: Latent Space, "Ahmad Osman on why local AI is catching up", 2026-06-30
     conventional wisdom assumes, though from different angles (a
     structured 421-product openness/capability dataset there, a workshop
     host's anecdotal impression here).
+  - `blog-ronacher-ai-nationalism-americans-only.md` (Claim 9 — open source
+    is "one of the few paths we have that does not naturally lead to total
+    concentration of power"): Ronacher frames open source as a hedge
+    against nationality-gated, export-controlled *access* to closed models
+    (weights, once public, cannot be un-published or blocked by
+    government directive), which is thematically adjacent to Osman's
+    "existentially important" framing of unrestricted access to run/study/
+    modify AI (Claim 2) and to his enterprise-sovereignty argument (Claim
+    9). Both treat open/local models as a structural access-resilience
+    property, not just a cost/quality choice — though Ronacher's angle is
+    geopolitical/nationality access control while Osman's is provider-side
+    commercial risk, so the overlap is at the "open source resists
+    concentration of control" level rather than the specific mechanism.
   - `blog-cursor-self-hosted-cloud-agents.md` (Claim 3 — the execution
     model splits inference, cloud-side, from tool execution, on-prem):
     This source's Claim 5 (a hosted agent's real advantage is the
@@ -265,6 +278,27 @@ Source: Latent Space, "Ahmad Osman on why local AI is catching up", 2026-06-30
     (Böckeler) to training-time specialization from collected usage data
     (Osman) — as two different paths enterprises might take toward
     reducing reliance on a single large general-purpose model.
+  - `blog-thoughtworks-vega-token-billing-lockin.md` (Claim 8 — a four-part
+    "reclaim sovereignty" prescription: bet on open-source/open-weight
+    models, deploy smaller local/specialized models on owned infrastructure,
+    fine-tune an open-weight model on the company's own codebase as "the
+    true competitive advantage," and use provider-swappable abstraction
+    layers): This is the closest thematic parallel to Osman's Claims 9 and
+    11 in the corpus — both prescribe essentially the same "sovereignty via
+    local/specialized/fine-tuned models" strategy, but from different
+    triggering risks. Vega frames the motivation as token-billing risk
+    (metered consumption-based bills that scale to "an existential threat");
+    Osman (Claim 9) frames it as provider-side quality/pricing/access/policy
+    risk. The fine-tuning-your-own-model piece is near-verbatim overlap:
+    Vega's "training or fine-tuning an open-weight model with your own clean
+    codebases" (Claim 8) and Osman's "collect traces, messages and feedback
+    ... support a more specialized model tuned to the company's particular
+    work" (Claim 11) describe the same in-house-specialization endgame.
+    Crucially, both are asserted with **no** supporting adoption/cost data —
+    Vega names no company that has implemented any of the four practices,
+    and Osman names no adopter for his hybrid/sovereign prediction — so two
+    independent-but-equally-thin sources are making the same prediction (see
+    Guide Impact).
 
 - **Novel**:
   - **The "hardware arena" AIEWF workshop demo** (Claim 3): a named,
@@ -309,6 +343,20 @@ Source: Latent Space, "Ahmad Osman on why local AI is catching up", 2026-06-30
   discussion, though it should be flagged explicitly as Osman's
   prediction/opinion rather than a documented case study, since this
   source names no company or metric that has actually done this.
+- **Chapter 06 (System Architecture) / Chapter 04 — evidentiary caveat if
+  the "sovereignty via local/specialized/fine-tuned models" prediction is
+  cited**: This note (Claims 9, 11) and
+  `blog-thoughtworks-vega-token-billing-lockin.md` (Claim 8) independently
+  prescribe the same in-house-specialization strategy, but arrive at it
+  from different triggering risks (Osman: provider quality/pricing/access/
+  policy risk; Vega: token-billing/metered-consumption risk). Both are
+  asserted with **zero** supporting adoption or cost data — neither names a
+  company that has done it. If the guide cites this prediction, it should
+  present it as a convergent-but-unproven thesis (two independent thin
+  sources agreeing is weak corroboration, not evidence it works) and pair
+  it with the one rigorous reality-check in the corpus,
+  `blog-fowler-boeckeler-local-models-viability.md`, which found local-model
+  viability real but heavily qualified by hardware and harness friction.
 
 ## Extraction Notes
 
