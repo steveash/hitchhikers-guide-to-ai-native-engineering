@@ -253,7 +253,7 @@ Named production GPT workflows (verbatim, condensed):
 
 ## Guide Impact
 
-- **Chapter 05 (Team Adoption) / Chapter 04 (Enterprise Integration Patterns)**: Add BBVA's
+- **Chapter 05 (Team Adoption)**: Add BBVA's
   three-pillar regulated-industry adoption strategy (Claim 3 — trust, governance, structured
   learning; explicit rationale of preventing shadow-IT consumer-tool use) as a second,
   vendor-independent data point alongside the Anthropic Cowork/legal-industry deployment
@@ -269,13 +269,13 @@ Named production GPT workflows (verbatim, condensed):
   "leaders must use the tool themselves" pattern documented in the corpus; pair with Carlos
   Torres Vila's Chair-level quote (Claim 12) as illustrative material, with the caveat that
   it is vision-setting rhetoric, not a description of a deployed capability.
-- **Chapter 04 (Enterprise Integration Patterns)**: Add the custom-GPT creation-volume metric
+- **Chapter 05 (Team Adoption)**: Add the custom-GPT creation-volume metric
   (Claim 6) as a scale calibration point for what grassroots, employee-built-tool adoption
   looks like at 100,000-employee scale, with the explicit caution that only ~20% of created
   GPTs see frequent reuse — the guide should present this as a real trade-off of bottom-up
   tool proliferation (broad experimentation vs. redundancy/waste), not as an unqualified
   success metric.
-- **Chapter 03 (Safety and Verification), if discussing financial-services AI**: Use BBVA's
+- **Chapter 03 (Verification), if discussing financial-services AI**: Use BBVA's
   Credit Analysis Pro GPT (Claim 7) as a contrast case against Kepler's deterministic
   execution/provenance architecture (`blog-anthropic-kepler-verifiable-ai-financial.md`):
   BBVA demonstrates adoption breadth in a credit-risk use case with zero architectural or
