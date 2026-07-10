@@ -245,13 +245,15 @@ Five product-building practices:
   does not discuss; the Kepler note does not describe how its ontology is
   governed, staffed, or kept current, which is precisely the gap this
   article's "treat it as a product" prescription (Claim 8) addresses.
-- **Corroborates** `blog-anthropic-kepler-verifiable-ai-financial.md` Claim
-  4/Claim 9 area (deterministic runtime enforcement, not model output, is
-  what makes a rule trustworthy): this article's Claim 5 (a rule only binds
-  when a deterministic runtime checks it) is the same architectural
-  principle — a model or ontology stating a rule is not itself enforcement —
-  applied to ontology-encoded guardrails specifically rather than to
-  financial computation.
+- **Corroborates** `blog-anthropic-kepler-verifiable-ai-financial.md` Claim 3
+  (Claude is treated as one stage in a pipeline — the surrounding
+  deterministic infrastructure is as load-bearing as the model itself, so
+  "the model output can structurally never be the final number... the
+  architecture enforces it, not a policy"): this article's Claim 5 (a rule
+  only binds when a deterministic runtime checks it) is the same
+  architectural principle — a model or ontology stating a rule is not itself
+  enforcement — applied to ontology-encoded guardrails specifically rather
+  than to financial computation.
 - **Corroborates** `blog-anthropic-selfservice-data-analytics.md` Claim 10
   (the semantic layer is the highest-reliability source of truth, yielding
   the same single metric value across all company surfaces): both sources
