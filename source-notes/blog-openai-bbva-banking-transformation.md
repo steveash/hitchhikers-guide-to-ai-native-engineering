@@ -43,7 +43,7 @@ issue: "#1707"
   experience) plus one named market-level deployment (Peru), and a six-item "Leadership
   lessons" list. Does NOT cover: technical implementation details of any GPT (prompts,
   data pipelines, model versions), cost or licensing terms, any failure mode or rollback,
-  how "efficiency gains" or "monthly/weekly active usage" were measured, or any detail on
+  how "efficiency gains" or "weekly active usage" were measured, or any detail on
   "The Eight" roadmap's eight initiatives beyond the six areas named in prose (customer
   experience, commercial banking, risk, operations, software development, employee
   productivity).
@@ -110,19 +110,13 @@ issue: "#1707"
 - **Quote**: "In Peru, more than 3,000 employees now use an internal AI assistant that has reduced average query handling times from approximately 7.5 minutes to around 1 minute—an efficiency improvement of roughly 80%."
 - **Our assessment**: This is the single most concrete, quantified before/after metric in the article — most other claims (Credit Analysis Pro, Legal Assistant, Client Experience Assistant) give no timing data at all. The 7.5-minute-to-1-minute reduction (≈87% time reduction, which the article rounds to "roughly 80%") is directly comparable to `blog-cursor-coinbase-agent-first-adoption.md` Claim 2 (8 days → under 30 minutes for idea-to-first-PR) and `blog-anthropic-legal-industry-deploy.md`'s cycle-time pilot metric, in that all three name a specific task-completion-time reduction as the adoption evidence. This is the strongest single data point in the source and the one most defensible to cite for "efficiency gains from an AI assistant in a regulated financial-services task," though it remains single-market, self-reported, and without a stated measurement methodology.
 
-### Claim 11: The article reports two different headline usage-growth figures for the same underlying metric — "+70% monthly active usage" in the top summary callout versus "70%+ weekly active usage across deployed employees" in the "Results at a glance" list
-- **Evidence**: Direct textual comparison of two statements in the same article: the page's summary results box states "+70% monthly active usage," while the later "Results at a glance" bulleted list states "70%+ weekly active usage across deployed employees."
-- **Confidence**: anecdotal (an internal inconsistency within a single source; not a claim about BBVA's actual usage, but about the article's own data presentation)
-- **Quote**: "+70% monthly active usage" (top-of-page results summary) ... "70%+ weekly active usage across deployed employees" (Results at a glance list)
-- **Our assessment**: This is not a corpus-level contradiction (per MINER.md §4a, a source disagreeing with itself on a *recommendation* — e.g., different guidance in the intro vs. conclusion — warrants a contradiction issue; this is a metric-definition inconsistency within a single vendor page, not a disagreement in guidance or claim direction). Both figures describe growth or level of usage using the same "+70%" number but attach it to two different measurement windows (monthly vs. weekly), which are not interchangeable for an active-usage metric. This looks like a copy-editing artifact rather than two independently-derived figures. Flagging it here rather than silently picking one framing; the guide should not cite a specific "70% X active usage" figure from this source without noting the ambiguity, and should treat the underlying claim only as "usage grew substantially" rather than citing a specific cadence.
-
-### Claim 12: Six "Leadership lessons" are presented as principles that emerged from BBVA's AI rollout — treating AI as business transformation, building with domain expertise, scaling securely from day one, empowering employees, training leadership early, and shifting from reactive to proactive banking
+### Claim 11: Six "Leadership lessons" are presented as principles that emerged from BBVA's AI rollout — treating AI as business transformation, building with domain expertise, scaling securely from day one, empowering employees, training leadership early, and shifting from reactive to proactive banking
 - **Evidence**: Verbatim bulleted list under the "Leadership lessons" heading, each with a one- or two-sentence elaboration.
 - **Confidence**: anecdotal (vendor-authored/vendor-curated lessons list; no detail on how these six were selected or whether other lessons were considered and excluded)
 - **Quote**: "Treat AI as business transformation: BBVA approached AI as a redesign of customer experience, operations, and ways of working across the organization — not as a standalone innovation effort."
 - **Our assessment**: This "lessons learned" bulleted-list format is structurally identical to `blog-openai-endava-frontiers.md`'s "Lessons learned from Endava" list (Concrete Artifacts there) — both OpenAI customer-story pages use the same template: named metrics box, quoted executives, a "Results at a glance" bullet list, and a closing lessons-learned bullet list. The "treat AI as business transformation, not a standalone innovation effort" lesson here is nearly identical in substance to Endava's "Treat AI adoption as a behavior change, not a software rollout" lesson — this is now two independent OpenAI customer case studies (different industries: banking vs. IT consulting) converging on the identical framing, which is more likely evidence of OpenAI's house editorial framing being applied consistently across customer stories than two companies independently arriving at the same conclusion. The guide should treat this as *OpenAI's preferred narrative frame* for enterprise case studies, corroborating but not independently strengthening the underlying "adoption is organizational change, not tooling" claim already well-established via Anthropic-ecosystem sources.
 
-### Claim 13: Carlos Torres Vila, BBVA's Chair, frames the OpenAI alliance's goal as creating a "smarter, more proactive, and completely personalized banking experience" that anticipates client needs
+### Claim 12: Carlos Torres Vila, BBVA's Chair, frames the OpenAI alliance's goal as creating a "smarter, more proactive, and completely personalized banking experience" that anticipates client needs
 - **Evidence**: Direct pull-quote attributed to the Chair of BBVA, presented as a standalone block quote near the top of the article.
 - **Confidence**: anecdotal (single executive's strategic framing; aspirational language; not a description of a currently operating capability)
 - **Quote**: "Our alliance with OpenAI accelerates the native integration of artificial intelligence across the bank to create a smarter, more proactive, and completely personalized banking experience, anticipating the needs of every client."
@@ -135,14 +129,7 @@ Source: OpenAI, "BBVA puts AI at the core of banking with OpenAI,"
 https://openai.com/index/bbva (published June 11, 2026; retrieved via
 Wayback Machine snapshot of the live page — see Extraction Notes)
 
-Top-of-page results summary (verbatim):
-  ~100,000  employees using ChatGPT Enterprise globally
-  +70%      monthly active usage
-  ~3hrs     saved per employee, per week
-  ↑80%      efficiency gains in selected workflows
-
-"Results at a glance" (verbatim bulleted list — note this restates some of
-the summary figures with different units, see Claim 11):
+"Results at a glance" (verbatim bulleted list):
   - 100,000 employees using ChatGPT Enterprise globally
   - 70%+ weekly active usage across deployed employees
   - ~3 hours saved per employee, per week
@@ -214,7 +201,7 @@ Named production GPT workflows (verbatim, condensed):
   - `blog-openai-endava-frontiers.md`: Both are OpenAI customer-story pages sharing an
     identical article template (metrics summary box, "Results at a glance" bullet list,
     named-executive quotes, closing "Lessons learned" bullet list). BBVA's "Treat AI as
-    business transformation... not a standalone innovation effort" lesson (Claim 12) is
+    business transformation... not a standalone innovation effort" lesson (Claim 11) is
     substantively identical to Endava's "Treat AI adoption as a behavior change, not a
     software rollout" lesson — this is likely evidence of OpenAI's consistent house framing
     across customer stories, not independent convergence by two companies.
@@ -224,11 +211,9 @@ Named production GPT workflows (verbatim, condensed):
     instance of the same mechanical-work/judgment-work division documented in Fong's finance
     workflow note, though with far less operational detail.
 
-- **Contradicts**: None filed. The internal "monthly" vs. "weekly" active-usage figure
-  inconsistency (Claim 11) is a data-presentation artifact within a single vendor page, not
-  a disagreement in claim or guidance direction per MINER.md §4a — it does not warrant a
-  contradiction issue, but is flagged prominently in Claim 11 and here so the Assayer and
-  Smith see it.
+- **Contradicts**: None filed. The article presents no claim that materially opposes an
+  existing source note or disagrees with itself on guidance or claim direction (per
+  MINER.md §4a), so no contradiction issue is warranted.
 
 - **Extends**:
   - `blog-openai-endava-frontiers.md`: extends the corpus's small set of OpenAI enterprise
@@ -258,7 +243,7 @@ Named production GPT workflows (verbatim, condensed):
   - **Named legal-team leverage ratio** (Claim 8 — 40,000 annual inquiries against a
     9-person legal team) is the most extreme headcount-to-volume ratio documented in the
     corpus for any AI-assisted knowledge-work function.
-  - **Board-chair-level executive quote and leadership-training cohort** (Claims 5 and 13):
+  - **Board-chair-level executive quote and leadership-training cohort** (Claims 5 and 12):
     BBVA is the first corpus source to name a company chair/CEO explicitly as a
     trained, active AI tool user, rather than a business-unit or engineering executive.
   - **BBVA/banking as a new regulated-industry vertical** in the corpus's growing set of
@@ -282,7 +267,7 @@ Named production GPT workflows (verbatim, condensed):
 - **Chapter 05 (Team Adoption)**: Add BBVA's leadership-training program (Claim 5 — 250
   leaders including CEO and chairman) as the highest-executive-altitude instance of the
   "leaders must use the tool themselves" pattern documented in the corpus; pair with Carlos
-  Torres Vila's Chair-level quote (Claim 13) as illustrative material, with the caveat that
+  Torres Vila's Chair-level quote (Claim 12) as illustrative material, with the caveat that
   it is vision-setting rhetoric, not a description of a deployed capability.
 - **Chapter 04 (Enterprise Integration Patterns)**: Add the custom-GPT creation-volume metric
   (Claim 6) as a scale calibration point for what grassroots, employee-built-tool adoption
@@ -297,10 +282,10 @@ Named production GPT workflows (verbatim, condensed):
   auditability detail, which is a materially different (and weaker) form of evidence than
   Kepler's production verifiability architecture. The guide should not conflate "a bank is
   using AI for credit analysis" with "a bank has built auditable AI for credit analysis."
-- **Any chapter citing headline usage-growth percentages**: If citing BBVA's usage-growth
-  figure, flag the monthly-vs-weekly inconsistency (Claim 11) rather than citing a specific
-  cadence; the safer citation is "BBVA reports substantial usage growth across its ~100,000
-  ChatGPT Enterprise seats" without repeating the unreconciled "+70%" figure verbatim.
+- **Any chapter citing headline usage figures**: The one usage-level figure in the article
+  is "70%+ weekly active usage across deployed employees" (Results at a glance). Cite it as
+  a weekly-active-usage level, and note it is a single self-reported figure with no stated
+  measurement methodology (sample, window definition).
 
 ## Extraction Notes
 
@@ -322,20 +307,16 @@ Named production GPT workflows (verbatim, condensed):
   followed as sub-pages.
 - The article is genuinely metric-richer than `blog-openai-endava-frontiers.md` (which had
   zero quantitative outcome data): BBVA's version of the OpenAI customer-story template
-  includes a top-of-page metrics summary box, a longer "Results at a glance" list with eight
-  bullets, and three named production GPT use cases plus one named market deployment (Peru)
-  with a specific before/after timing metric. All thirteen claims above are reflected in the
+  includes an eight-bullet "Results at a glance" list, and three named production GPT use
+  cases plus one named market deployment (Peru) with a specific before/after timing metric.
+  All twelve claims above are reflected in the
   article's ~900 words; this is not a case of shallow reading, but the source itself gives
   no methodology for any metric (measurement window, sample size, survey instrument), so
   confidence is capped at "emerging" for the better-evidenced claims and "anecdotal" for the
   named-GPT descriptions that lack any quantitative backing.
-- The monthly-vs-weekly active-usage inconsistency (Claim 11) was verified by re-reading both
-  passages in the extracted text side by side; it is not a copy error introduced during
-  extraction — both figures appear verbatim in the archived source with the same "+70%"/"70%+"
-  number but different time-window labels.
-- No contradiction issue was filed. The one internal inconsistency considered (Claim 11) was
-  judged to be a data-presentation artifact, not a disagreement in claim or recommendation
-  direction that would drive different guide advice — see Cross-References → Contradicts.
+- No contradiction issue was filed: the article contains no claim that materially opposes an
+  existing source note or disagrees with itself on guidance or claim direction — see
+  Cross-References → Contradicts.
 - All cross-reference claim numbers cited above (from `blog-openai-endava-frontiers.md`,
   `blog-anthropic-cowork-deploy-guide.md`, `blog-anthropic-legal-industry-deploy.md`,
   `blog-anthropic-fong-finance-narrative.md`, `blog-anthropic-kepler-verifiable-ai-financial.md`,
