@@ -304,6 +304,95 @@ docs, and routine refactors. Pay for depth on the codepaths whose failures
 hurt most.
 [source: blog-cursor-bugbot-effort-billing, Claims 4, 6] [emerging]
 
+### Vary the reviewer's model, not just its context
+
+A second agent in a fresh context defeats confirmation bias; a second agent
+running a *different vendor's model* defeats the blind spots of the first
+model itself. Shipping sqlite-utils 4.0, Willison ran one pre-release audit
+prompt head-to-head against two frontier models on the identical diff. Fable
+5 flagged ten verified bugs — four of them release blockers (two
+silent-data-loss bugs in the new transaction model, a column-order corruption
+in compound foreign keys, and a CSV import that corrupted a column default) —
+while GPT-5.5, given the identical prompt, surfaced only documentation and
+versioning nits.
+[source: blog-simonwillison-sqlite-utils-40-stable, Claims 10, 11] [emerging]
+
+The asymmetry runs both ways. One release earlier, GPT-5.5 reviewing the same
+diff *after* Fable had already reviewed and fixed it found two more P1
+transaction bugs Fable had missed.
+[source: blog-simonwillison-sqlite-utils-40rc2, Claim 7] [emerging]
+A single model's review — however strong the model, even of another model's
+code — finds a non-overlapping set of defects from a second model's, so the
+two are complementary rather than redundant.
+[editorial]
+
+The prompt that produced the ten-bug report is reusable. It anchors the model
+on shipping stakes and forces it to *exercise* every feature with scratch
+scripts, not just read the diff:
+
+> review the changes on main since the last tagged 3.x release - I am about to
+> ship them as sqlite-utils 4.0, a stable version that promises no
+> backwards-incompatible fixes for a very long time. review the changelog and
+> upgrade guide, and write yourself scratch scripts to try out all of the new
+> features in v4 - save those scripts but don't commit them
+[source: blog-simonwillison-sqlite-utils-40-stable, Claim 9] [emerging]
+
+Treat the second model's report as a hypothesis, not a verdict: Willison
+confirms each finding by pasting it into a *fresh* session of the implementing
+model and having it reproduce the problem, which guards against both reviewer
+false positives and blind trust between two models' outputs.
+[source: blog-simonwillison-sqlite-utils-40rc2, Claim 8] [anecdotal]
+Once skeptical, he now runs cross-vendor review as standard practice: "I've
+started habitually having Anthropic's best model review OpenAI's work and vice
+versa, because I've had that turn up interesting results often enough to be
+valuable."
+[source: blog-simonwillison-sqlite-utils-40rc2, Claim 9] [anecdotal]
+
+**Rule**: Run the second review under a different vendor's model than the one
+that wrote the code — a single model's review, however strong, misses real
+blockers a second model catches.
+[source: blog-simonwillison-sqlite-utils-40rc2, Claim 7; blog-simonwillison-sqlite-utils-40-stable, Claim 10] [emerging]
+
+### Adversarial reviewer isolation at scale
+
+Bun's 11-day Zig-to-Rust rewrite — peaking at 64 parallel Claude instances
+across 4 worktrees, roughly $165K in tokens
+[source: blog-pragmaticengineer-bun-rust-rewrite, Claims 5, 6] [settled] —
+hung its correctness on an adversarial-review harness with a fixed role split:
+one instance implements, two or more *independent* instances review, and a
+fourth applies accepted fixes. The reviewers receive only the diff and are
+told to assume the code is wrong.
+[source: blog-pragmaticengineer-bun-rust-rewrite, Claim 7] [settled]
+
+> The Claude that wrote the code wants the code to get accepted. The Claude
+> that reviews wants to find issues in the code.
+>
+> 1 implementer, 2 or more adversarial reviewers per implementer. The
+> reviewer's only job: find bugs & reasons why the code does not work. The
+> implementer doesn't review. The reviewer doesn't implement.
+[source: blog-pragmaticengineer-bun-rust-rewrite, Claim 7] [settled]
+
+Two mechanisms carry the load that a generic "review this" prompt does not:
+the reviewer sees only the diff, so it can't inherit the implementer's
+reasoning, and the adversarial framing stops it hunting for reasons to
+approve. The bugs this caught were the kind a compiler and a green test run
+both wave through — a use-after-free in process-spawn cleanup, a
+negative-timespec truncation in mtime handling, an eager-evaluation panic in
+CSS `color-mix()` — semantic drift during mechanical translation, not syntax
+errors.
+[source: blog-pragmaticengineer-bun-rust-rewrite, Claim 7] [settled]
+
+The merge gate closed the test-gaming loophole directly: 100% of the suite
+passing on all six platforms plus a manual check that the agent had not
+silently skipped or deleted tests to reach green.
+[source: blog-pragmaticengineer-bun-rust-rewrite, Claim 8] [settled]
+
+**Rule**: Give review agents only the diff and an explicit "assume this is
+wrong" framing, staff at least two reviewers per implementer, and gate the
+merge on the full suite plus a manual check that no tests were skipped or
+deleted.
+[source: blog-pragmaticengineer-bun-rust-rewrite, Claims 7, 8] [emerging]
+
 ---
 
 ## Quality Gates Framework
