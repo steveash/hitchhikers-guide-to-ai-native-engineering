@@ -302,32 +302,50 @@ On-demand access (anytime, not just first visit):
 
 ## Guide Impact
 
-- **Chapter 02 (Understanding Codebases)**: Add "ask Copilot for a
-  repository overview" as a documented first step for practitioners
-  encountering an unfamiliar repository on github.com, alongside existing
-  guidance on reading CLAUDE.md/AGENTS.md and README files. Flag the open
-  question this source leaves unanswered: accuracy/hallucination rate of
-  the generated summary is not documented by GitHub, so practitioners should
-  treat the overview as a fast orientation aid to be verified against the
-  actual code and docs, not a substitute for reading CONTRIBUTING.md or
-  architecture documentation for anything beyond a first pass. Explicitly
-  note the audience distinction from `paper-gloaguen-agentsmd-effectiveness.md`
-  (Claim 7): this feature targets human comprehension speed, and Gloaguen's
-  finding that overview content doesn't speed up agent file-discovery does
-  not bear on this feature's value.
+- **`04-context-engineering.md` (Context Engineering)**: Add "ask Copilot for
+  a repository overview" as a documented human-facing orientation aid for
+  practitioners encountering an unfamiliar repository on github.com. It is a
+  web-surface counterpart to the patterns this chapter already covers under
+  "Specs and Plans as Compressed Context" and "Pre-Session Corpus Loading for
+  Low-Coverage Domains" — a pre-built, purpose/technologies/contribution-
+  guidelines summary a human can pull before loading a repo into a session.
+  This supplements the chapter's existing treatment of AGENTS.md/context files
+  (which are *agent*-consumed) with a parallel *human*-consumed orientation
+  surface. Explicitly note the audience distinction from
+  `paper-gloaguen-agentsmd-effectiveness.md` (Claim 7): this feature targets
+  human comprehension speed on first contact with a repository, whereas
+  Gloaguen measured whether overview content speeds up an autonomous coding
+  *agent*'s file-discovery. Gloaguen's finding that overview content "did not
+  meaningfully reduce" agent navigation steps does not bear on this feature's
+  value for a human reader — the chapter should not cite that finding as
+  evidence against a human-facing overview tool.
 
-- **Chapter 04 (IDE & Editor Integration)**: Note this as a web-surface
-  (github.com), not IDE-surface, feature — it complements but is distinct
-  from IDE-side codebase understanding tools. The guide's IDE integration
-  chapter should cross-reference this as the web-based counterpart for
-  practitioners who first encounter a repository via a browser (e.g.,
-  following a link) before ever opening it in an editor.
+- **`03-verification.md` (Verification)**: Attach the accuracy caveat to the
+  chapter's "Comprehension Debt: The Invisible Risk" section. GitHub documents
+  no accuracy/hallucination rate for the generated overview or the
+  auto-generated README (see Extraction Note 4), so practitioners should treat
+  the overview as a fast first-pass orientation aid to be verified against the
+  actual code and docs — not a substitute for reading CONTRIBUTING.md or
+  architecture documentation for anything beyond a first pass. An unverified
+  AI-generated repository summary accepted as ground truth is exactly the kind
+  of comprehension shortcut this chapter warns accrues comprehension debt;
+  the feature should be framed as an on-ramp to reading the code, not a
+  replacement for it.
 
-- **Chapter 05 (Testing, Deployment, Monitoring)**: Low direct relevance —
-  this source does not address testing, deployment, or monitoring. Do not
-  cite this source for that chapter; the Prospector's suggested relevance to
-  Ch05 is not supported by the source's actual content, which is scoped
-  entirely to repository orientation and README generation.
+- **`01-daily-workflows.md` (Daily Workflows)**: Cross-reference under
+  "Session Structure" as a web-surface first step when starting work on a
+  repository the practitioner has not contributed to before — the overview
+  (and the "summarize the latest changes" chat shortcut from Claim 3) can be
+  pulled on github.com before ever opening the repo in an editor or starting
+  an agent session, complementing rather than replacing the in-session
+  orientation the chapter already describes.
+
+- **Not relevant to `05-team-adoption.md` or `06-security-threat-model.md`**:
+  The Prospector's triage suggested a chapter it labeled "Testing,
+  Deployment, Monitoring," which corresponds to no chapter in this guide. The
+  source is scoped entirely to repository orientation and README generation
+  and touches no testing, deployment, monitoring, team-adoption, or
+  security-threat content — do not cite it for those chapters.
 
 ## Extraction Notes
 
@@ -370,11 +388,16 @@ On-demand access (anytime, not just first visit):
    reflect the existence and described behavior of the feature, not its
    quality in practice.
 
-5. **Ch05 relevance not supported**: The Prospector's triage comment listed
-   Ch05 (Testing, Deployment, Monitoring) as a possibly relevant chapter.
-   After reading the full source, nothing in it touches testing, deployment,
-   or monitoring — the Guide Impact section above recommends against citing
-   this source there.
+5. **Prospector's suggested chapter not supported (and mislabeled)**: The
+   Prospector's triage comment listed a chapter it labeled "Testing,
+   Deployment, Monitoring" as possibly relevant. That label matches no chapter
+   in this guide (the actual chapters are `00-principles` through
+   `06-security-threat-model`; there is no testing/deployment/monitoring
+   chapter). After reading the full source, nothing in it touches testing,
+   deployment, monitoring, or team adoption either — the Guide Impact section
+   above remaps the note's real impact onto `04-context-engineering.md`,
+   `03-verification.md`, and `01-daily-workflows.md`, and records that the
+   Prospector's suggestion is not supported.
 
 6. **No contradictions to file**: Cross-referenced against all Copilot web
    feature notes and the AGENTS.md effectiveness paper in the corpus. No
