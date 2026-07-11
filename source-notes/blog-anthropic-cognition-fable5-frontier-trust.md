@@ -252,9 +252,10 @@ rather than as separable code/config blocks.
 
 - **Corroborates**: `blog-simonwillison-fable-relentlessly-proactive.md`
   Claim 1 (Willison: "After two days of experience with Claude Fable 5 I
-  think the best way to describe it is relentlessly proactive") and Claim 5
-  (Fable exhibiting autonomous, self-directed multi-step problem-solving
-  behavior in a debugging session). This source's Claim 12 (Devin
+  think the best way to describe it is relentlessly proactive") and Claim 3
+  (Fable autonomously wrote its own Python CORS web server — creating
+  infrastructure it was never asked to create — during that debugging
+  session). This source's Claim 12 (Devin
   self-triaging Slack/production issues without being tagged) and Claim 13
   (90% proactive-session forecast) describe the same "acts without being
   asked" behavioral shift from an independent practitioner and company,
@@ -352,7 +353,7 @@ rather than as separable code/config blocks.
   note. All Cross-References either cite existing notes by claim number
   after re-reading the cited note to confirm the number and content
   (`blog-simonwillison-fable-relentlessly-proactive.md` Claim 1 and
-  Claim 5; `blog-anthropic-fable-finding-unknowns.md` Claim 11;
+  Claim 3; `blog-anthropic-fable-finding-unknowns.md` Claim 11;
   `blog-anthropic-harness-long-running.md` Claim 8 and Claim 9;
   `failure-decker-4hr-session-loss.md` Lesson 5, cited by its own "Lesson"
   numbering since that note uses Lessons rather than numbered Claims), or
