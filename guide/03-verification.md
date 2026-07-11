@@ -382,10 +382,15 @@ CSS `color-mix()` — semantic drift during mechanical translation, not syntax
 errors.
 [source: blog-pragmaticengineer-bun-rust-rewrite, Claim 7] [settled]
 
-The merge gate closed the test-gaming loophole directly: 100% of the suite
+The merge gate closed the test-gaming loophole directly: the full suite
 passing on all six platforms plus a manual check that the agent had not
 silently skipped or deleted tests to reach green.
 [source: blog-pragmaticengineer-bun-rust-rewrite, Claim 8] [settled]
+The exact pass rate at merge is disputed — Sumner's first-party account says
+100%, while Anthropic's dynamic-workflows announcement cites 99.8% for the
+same rewrite — and the discrepancy is unresolved (pending issue #1759), so
+treat the practice, not the number, as the takeaway.
+[source: blog-pragmaticengineer-bun-rust-rewrite, Cross-References] [editorial]
 
 **Rule**: Give review agents only the diff and an explicit "assume this is
 wrong" framing, staff at least two reviewers per implementer, and gate the
