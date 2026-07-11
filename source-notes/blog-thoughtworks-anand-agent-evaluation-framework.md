@@ -67,7 +67,7 @@ issue: "#1744"
   the same input produces the same output every time."
 - **Our assessment**: This is the uncontroversial premise the rest of the
   framework builds on. It corroborates the general corpus consensus (e.g.,
-  `blog-langchain-better-harness.md` Claim 6, "agents are famous cheaters,"
+  `blog-langchain-better-harness-evals.md` Claim 6, "agents are famous cheaters,"
   and `blog-langchain-human-judgment-improvement-loop.md` Claim 7, "it's
   impossible to know what an AI agent will do until it runs") that agent
   behavior cannot be fully characterized by static code inspection or
@@ -138,7 +138,7 @@ issue: "#1744"
   Conversation as a unit: Conversation-level evaluations treat a complete
   interaction as the unit under test."
 - **Our assessment**: The "catch regressions" framing directly corroborates
-  `blog-langchain-better-harness.md` Claim 12 ("Once our agent handles a
+  `blog-langchain-better-harness-evals.md` Claim 12 ("Once our agent handles a
   case correctly, we don't want to lose that gain. The eval becomes a
   regression test.") — both sources converge on evals-as-regression-tests
   as the load-bearing role of the unit-eval layer once an agent is working.
@@ -182,7 +182,7 @@ issue: "#1744"
   load-bearing production choice rather than a hypothetical listing.
   LangSmith appears extensively elsewhere in the corpus
   (`blog-langchain-human-judgment-improvement-loop.md`,
-  `blog-langchain-better-harness.md`) as LangChain's own observability
+  `blog-langchain-better-harness-evals.md`) as LangChain's own observability
   platform. The unverified two-thirds of this tool list (Snowglobe,
   Collinear, Rhesis, DeepEval, TruLens, Helicone) should be treated as a
   landscape pointer for further evaluation, not an endorsement — the post
@@ -233,7 +233,7 @@ issue: "#1744"
 - **Our assessment**: This closing claim is the framework's thesis in one
   sentence and is consistent with the entire LangChain "agent improvement
   flywheel" corpus (`blog-langchain-human-judgment-improvement-loop.md`,
-  `blog-langchain-better-harness.md`), both of which treat evaluation as
+  `blog-langchain-better-harness-evals.md`), both of which treat evaluation as
   an ongoing, never-finished system rather than a pre-launch gate. No
   source in the corpus disputes this framing; it functions as corroborating
   consensus rather than a novel or contested position.
@@ -348,7 +348,7 @@ RAG evaluation metrics:
   is evidence that this part of the framework is not merely theoretical — a
   real production RAG pipeline uses exactly this tool pairing for exactly this
   purpose.
-- **Corroborates** `blog-langchain-better-harness.md` Claim 12 (evals become
+- **Corroborates** `blog-langchain-better-harness-evals.md` Claim 12 (evals become
   regression tests once an agent handles a case correctly): this source's
   Layer 2 definition of functional unit evals as automated checks "that catch
   regressions" (Claim 6 here) states the same role for the unit-eval layer
@@ -421,7 +421,7 @@ RAG evaluation metrics:
 - The source is a short, framework-style consultancy blog post. The default
   WebFetch pass returned a paraphrased summary rather than verbatim text
   (consistent with prior extractions in this corpus, e.g.
-  `blog-hamel-eval-smell.md` and `blog-langchain-better-harness.md`); two
+  `blog-hamel-eval-smell.md` and `blog-langchain-better-harness-evals.md`); two
   follow-up passes explicitly requesting short (<40 word), verbatim,
   quotation-marked sentences per named topic were used to obtain the quotes
   above. Quotes were cross-checked for consistency across the two passes.
