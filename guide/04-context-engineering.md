@@ -19,7 +19,7 @@ measurements or first-person failure reports from the post-2025-12 corpus.
 
 Stay in the smart half of the context window. Performance degrades long
 before the auto-compactor fires.
-[source: blog-french-owen-coding-agents-feb-2026, Claim 1] [emerging]
+[source: blog-french-owen-coding-agents-feb-2026, Claim 1] [stale]
 
 Calvin French-Owen (Segment co-founder, ex-OpenAI Codex launch team) puts
 it as bluntly as anyone has:
@@ -34,7 +34,7 @@ under different framing. Sankalp (@dejavucoder), writing about Claude
 Code 2.0, reports:
 
 > "Effective context windows are probably 50-60% or even lesser."
-> [source: blog-sankalp-claude-code-20, Claim 2] [emerging]
+> [source: blog-sankalp-claude-code-20, Claim 2] [stale]
 
 Two unrelated practitioners, two different tools, same number. When the
 qualitative observation ("compaction is lossy, results degrade with full
@@ -60,13 +60,13 @@ on a fresh Claude Code session and recorded the breakdown:
 | Conversation   |  4%              |
 | Free / unused  | 16% (computed)   |
 
-[source: blog-bswen-mcp-token-cost, Claim 6 (companion piece)] [emerging]
+[source: blog-bswen-mcp-token-cost, Claim 6 (companion piece)] [stale]
 
 The conversation is **4%**. The remaining 96% is harness baseline that
 loaded before the user said hello. This is the cleanest single
 demonstration we have that "context engineering" is mostly about
 minimizing the boilerplate, not about being clever with your prompts.
-[source: blog-bswen-mcp-token-cost, Claim 6] [emerging]
+[source: blog-bswen-mcp-token-cost, Claim 6] [stale]
 
 **Caveat**: this is one user's snapshot with one MCP configuration. The
 exact percentages will vary. The shape of the distribution (system overhead dwarfs conversation) is what generalizes. The fix in the
@@ -78,7 +78,7 @@ controllable bar, which is almost always MCP tools.
 When the context window fills, the agent's harness fires compaction --
 typically by sending the full history to an LLM summarizer and replacing
 old context with the summary. This is not free.
-[source: research-wasnotwas-context-compaction, Claim 3] [emerging]
+[source: research-wasnotwas-context-compaction, Claim 3] [stale]
 
 A code-spelunking comparative study of seven coding-agent harnesses
 measured the actual cost of one compaction call:
@@ -86,13 +86,13 @@ measured the actual cost of one compaction call:
 > "one compaction call on a 125,000-token context cost $0.40 -- equivalent
 > to running about 21 follow-up turns at cached rates, because each
 > compaction destroys the KV cache established during prior turns."
-> [source: research-wasnotwas-context-compaction, Claim 2] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 2] [stale]
 
 The dollar number ($0.40) is illustrative; the structural finding is
 solid. Compaction destroys the prompt cache. Cached prefix reads
 cost 0.1x base input pricing; after compaction, the next turn pays full
 1.0x for the entire summarized prefix.
-[source: blog-bswen-mcp-token-cost, Claim 8] [settled]
+[source: blog-bswen-mcp-token-cost, Claim 8] [emerging]
 
 **Rule**: Treat compaction as a budget item. Plan to handoff *before* it
 fires, not to be rescued by it. Your harness's auto-compactor is the
@@ -110,7 +110,7 @@ corroborated. We have spot-verified the Claude Code 89% trigger formula
 against community reports and the `/context` command's behavior, and
 consider the post broadly trustworthy. The $0.40 cost figure is a single
 measurement on one model; cite as illustrative, not exact.
-[source: research-wasnotwas-context-compaction, extraction notes] [emerging]
+[source: research-wasnotwas-context-compaction, extraction notes] [stale]
 
 ### Cache-safe forking refines the compaction cost
 
@@ -162,13 +162,13 @@ post-compaction re-injection list:
 > "[Claude Code] re-injects: recently-read files (sorted by timestamp,
 > within a token budget), any skills invoked during the session, the
 > active plan file."
-> [source: research-wasnotwas-context-compaction, Claim 5] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 5] [stale]
 
 Sankalp confirms the user-side observation:
 
 > "Plan and todo lists are stored as markdown file and they are persisted
 > during compaction."
-> [source: blog-sankalp-claude-code-20, Claim 6] [settled]
+> [source: blog-sankalp-claude-code-20, Claim 6] [emerging]
 
 In Claude Code, **the active plan file survives compaction by name**.
 That makes the plan-as-file pattern the storage layout the harness was designed to preserve, not just a
@@ -183,7 +183,7 @@ French-Owen makes the same point from the budget angle:
 > "Externalizing context into the filesystem (e.g. a plan doc with
 > stages which are checked or not) allows agents to selectively read and
 > remember without filling up the full context."
-> [source: blog-french-owen-coding-agents-feb-2026, Claim 3] [emerging]
+> [source: blog-french-owen-coding-agents-feb-2026, Claim 3] [stale]
 
 ### A concrete spec template
 
@@ -246,7 +246,7 @@ Too vague:
 
 > "Most agent files fail because they're too vague. 'Build me something
 > cool' or 'Make it work better' gives the agent nothing to anchor on."
-> [source: blog-osmani-good-spec, Claim 4] [emerging]
+> [source: blog-osmani-good-spec, Claim 4] [stale]
 
 Too verbose:
 
@@ -288,14 +288,14 @@ The mechanism that operationalizes this in Claude Code is Plan Mode:
 > "Tools like Claude Code offer a Plan Mode... that restricts the agent
 > to read-only operations... refine the plan until there's no room for
 > misinterpretation. Only then do you exit Plan Mode."
-> [source: blog-osmani-good-spec, Claim 7] [emerging]
+> [source: blog-osmani-good-spec, Claim 7] [stale]
 
 Plan Mode is the read-only sandbox where the spec gets refined before
 any code is written. This is the gate that prevents the most common
 context-bloat failure: the agent races into implementation, makes a
 wrong assumption, and burns thousands of tokens generating code against
 the wrong spec.
-[source: blog-osmani-good-spec, Claim 7] [emerging]
+[source: blog-osmani-good-spec, Claim 7] [stale]
 
 ---
 
@@ -340,7 +340,7 @@ The seven-harness comparative study cites code locations for each:
 | Pi           | `contextTokens > contextWindow - reserveTokens` | ~92% |
 | OpenHands    | none (agent must call `request_condensation()`) | n/a |
 
-[source: research-wasnotwas-context-compaction, Claim 1] [emerging]
+[source: research-wasnotwas-context-compaction, Claim 1] [stale]
 
 The 50-99% spread is striking. Gemini CLI's aggressive 50% trigger is a
 deliberate choice and matches French-Owen's "smart half" advice as a
@@ -386,7 +386,7 @@ Sankalp uses Claude Code's built-in command:
 
 > [paraphrased] Author uses `/context` to check usage levels before
 > taking handoff actions.
-> [source: blog-sankalp-claude-code-20, Claim 7] [settled]
+> [source: blog-sankalp-claude-code-20, Claim 7] [emerging]
 
 The same `/context` command is what Cowrie used to discover the 96%
 boilerplate problem. It is the one diagnostic every Claude Code user
@@ -402,13 +402,13 @@ no amount of compaction discipline will save you. French-Owen:
 > "Your work needs to somehow be chunked. If the problem you are trying
 > to solve is 'too big' for the context window, the agent is going to
 > spin on it for a long time and give you poor results."
-> [source: blog-french-owen-coding-agents-feb-2026, Claim 5] [emerging]
+> [source: blog-french-owen-coding-agents-feb-2026, Claim 5] [stale]
 
 This is the practical implication of the smart-half rule: work that
 needs more than ~50% of the window for context (specs, files, history)
 must be decomposed before it goes to the agent. The decomposition is
 your responsibility, not the agent's.
-[source: blog-french-owen-coding-agents-feb-2026, Claim 5] [emerging]
+[source: blog-french-owen-coding-agents-feb-2026, Claim 5] [stale]
 
 ---
 
@@ -426,7 +426,7 @@ study) is the canonical reference for "what state survives":
 > "[Claude Code] re-injects: recently-read files (sorted by timestamp,
 > within a token budget), any skills invoked during the session, the
 > active plan file."
-> [source: research-wasnotwas-context-compaction, Claim 5] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 5] [stale]
 
 Three things make it through:
 1. **Recently-read files** -- timestamp-ordered, budget-limited
@@ -449,7 +449,7 @@ persistent customization:
 | `~/.claude/commands`              | Global slash commands         |
 | `.claude/agents/<name>.md`        | Custom sub-agents             |
 
-[source: blog-sankalp-claude-code-20, Claim 4] [settled]
+[source: blog-sankalp-claude-code-20, Claim 4] [emerging]
 
 These are first-class persistence layers: they are loaded on every
 session, they cost only the tokens of the file content, and they survive
@@ -499,7 +499,7 @@ behavioral, not tooling:
 The architectural rationale is the first thing compaction destroys
 because rationale lives in the back-and-forth dialogue, and the dialogue
 is what gets summarized away.
-[source: failure-decker-4hr-session-loss, Lesson 2] [emerging]
+[source: failure-decker-4hr-session-loss, Lesson 2] [stale]
 
 **Rule**: When you and the agent reach a non-obvious architectural
 decision, write it to a SPEC.md, ADR, or scratchpad file *in the same
@@ -574,7 +574,7 @@ Sankalp's recommended workflow:
 > "I prefer to make Claude write what happened in current session (with
 > some specific stuff) before I kill it and start a new one. I made a
 > `/handoff` command for this."
-> [source: blog-sankalp-claude-code-20, Claim 3] [emerging]
+> [source: blog-sankalp-claude-code-20, Claim 3] [stale]
 
 The pattern, expanded:
 
@@ -638,7 +638,7 @@ backup and resume with `claude --resume <session-id>` to bring back the
 exact context. It is a workaround for the symptom, not a fix for the
 root cause -- but it costs nothing and works on any Claude Code
 installation.
-[source: failure-decker-4hr-session-loss, Recovery Path] [settled]
+[source: failure-decker-4hr-session-loss, Recovery Path] [emerging]
 
 **Rule**: Run the backup script on a cron or `chronic` schedule. The
 combined cost is one `cp -r` per interval; the upside is that any
@@ -652,7 +652,7 @@ Sankalp distinguishes two distinct triggers for `/clear`:
 > "when the context window starts getting full or I feel the model is
 > struggling with a complex task, I want to start a new conversation
 > using `/clear`"
-> [source: blog-sankalp-claude-code-20, Claim 5] [emerging]
+> [source: blog-sankalp-claude-code-20, Claim 5] [stale]
 
 The first trigger is quantitative (`/context` shows >60%). The second
 is behavioral: the model is "struggling" -- responses come back generic,
@@ -783,13 +783,13 @@ recommendation in this section:
 > "Skills are also great because they are *very* context efficient.
 > Unlike MCP calls (which take up thousands of tokens), skills tend to
 > be ~50-100 tokens."
-> [source: blog-french-owen-coding-agents-feb-2026, Claim 2] [emerging]
+> [source: blog-french-owen-coding-agents-feb-2026, Claim 2] [stale]
 
 A 1-2 order-of-magnitude difference is large enough to be a hard rule:
 **prefer Skills over MCP whenever both can do the job.** The convenience
 of an MCP wrapper is rarely worth several thousand tokens of permanent
 overhead.
-[source: blog-french-owen-coding-agents-feb-2026, Claim 2] [emerging]
+[source: blog-french-owen-coding-agents-feb-2026, Claim 2] [stale]
 
 ### MCP servers load before you say hello
 
@@ -798,14 +798,14 @@ Cowrie's central finding:
 > "Every MCP server you connect loads all its tool definitions into
 > Claude's system prompt. Not when you use them -- **before you even
 > start working**."
-> [source: blog-bswen-mcp-token-cost, Claim 1] [settled]
+> [source: blog-bswen-mcp-token-cost, Claim 1] [emerging]
 
 MCP is not pay-per-use. It is pay-per-installed. The cost of an unused
 MCP server is exactly the cost of a heavily used one. This is the
 mechanism behind the 96% boilerplate problem above: every server you
 add is paid for on every session, indefinitely, regardless of whether
 you call any of its tools.
-[source: blog-bswen-mcp-token-cost, Claim 1] [settled]
+[source: blog-bswen-mcp-token-cost, Claim 1] [emerging]
 
 ### Server count maps roughly linearly to tokens
 
@@ -818,7 +818,7 @@ Cowrie's measured table from his own configuration:
 |  6          | ~30k                      |
 |  3          | ~15k                      |
 
-[source: blog-bswen-mcp-token-cost, Claim 2] [emerging]
+[source: blog-bswen-mcp-token-cost, Claim 2] [stale]
 
 The slope (~5-7k tokens per server) is the right order of magnitude
 for typical MCP server schemas (5-30 tools per server, 100-500 tokens
@@ -826,13 +826,13 @@ per tool definition). The exact slope depends on which servers you
 load: a single complex server like `puppeteer` or `playwright` can
 dominate. Treat the table as illustrative; the principle (linear in
 server count, large absolute numbers) is solid.
-[source: blog-bswen-mcp-token-cost, Claim 2] [emerging]
+[source: blog-bswen-mcp-token-cost, Claim 2] [stale]
 
 The brutal arithmetic, in Cowrie's words:
 
 > "If you have a 200k context window and burn 100k on tool definitions,
 > you've already lost half your capacity."
-> [source: blog-bswen-mcp-token-cost, Claim 3] [settled]
+> [source: blog-bswen-mcp-token-cost, Claim 3] [emerging]
 
 Pair this with the smart-half rule and the conclusion is unavoidable:
 **a 15-MCP-server user has burned their entire usable context window on
@@ -1050,41 +1050,41 @@ degradation to a fundamental limitation.
 
 > "not full replacement, but extract + tail preservation. The last 30%
 > of conversation (by character count) is always kept verbatim."
-> [source: research-wasnotwas-context-compaction, Claim 4] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 4] [stale]
 
 > "Two LLM passes: an initial summarization, then a self-critique
 > verification pass."
-> [source: research-wasnotwas-context-compaction, Claim 8] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 8] [stale]
 
 Gemini's combination (aggressive 50% trigger, 30% verbatim tail, two-pass summary with self-critique) is the most quality-conscious
 compaction implementation in the studied set. It costs more per
 compaction but preserves more of the conversation.
-[source: research-wasnotwas-context-compaction, Claims 1, 4, 8] [emerging]
+[source: research-wasnotwas-context-compaction, Claims 1, 4, 8] [stale]
 
 ### Roo Code: tag-and-hide instead of delete
 
 > "Old messages are never deleted. They're tagged with a `condenseParent`
 > UUID and hidden."
-> [source: research-wasnotwas-context-compaction, Claim 7] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 7] [stale]
 
 Roo Code users can in principle reach back into pre-compaction history
 because the original messages are still on disk -- just hidden. Claude
 Code users cannot. If you regularly need to recover specific decisions
 from earlier in a session, harness choice matters.
-[source: research-wasnotwas-context-compaction, Claim 7] [emerging]
+[source: research-wasnotwas-context-compaction, Claim 7] [stale]
 
 ### OpenHands: reversible event store, no compaction by default
 
 > "[OpenHands] maintains an event store: a persistent, append-only log
 > of typed events... Nothing is ever deleted from the persistent store.
 > Compaction is fully reversible."
-> [source: research-wasnotwas-context-compaction, Claim 6] [emerging]
+> [source: research-wasnotwas-context-compaction, Claim 6] [stale]
 
 OpenHands is the existence proof that lossy compaction is a *design
 choice*, not a technical necessity. The lossy LLM-summary pattern is
 the practical default for most users, but it is not the only way to
 build a coding-agent harness.
-[source: research-wasnotwas-context-compaction, Claim 6] [emerging]
+[source: research-wasnotwas-context-compaction, Claim 6] [stale]
 
 **Practical implication**: when you choose a coding-agent tool, the
 compaction policy is part of the choice. Factor it in alongside the

@@ -6,7 +6,7 @@ author: Thierry Donneau-Golencer (Head of Product, Faros AI)
 date_published: 2026-01-07
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: emerging
 issue: "hi-e93.4 — Ch 05 Team Adoption discovery"
 ---
