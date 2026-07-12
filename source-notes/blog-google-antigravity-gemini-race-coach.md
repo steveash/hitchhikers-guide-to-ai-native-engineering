@@ -92,9 +92,9 @@ issue: "#1785"
 
 ### Claim 6: Activating the Pixel 10's on-device TPU for the Gemma 4 edge-reasoning layer was "the breakthrough of the Sonoma test," reaching 40 tokens per second
 - **Evidence**: Stated as the single named technical breakthrough of the event.
-- **Confidence**: emerging (vendor-narrated hardware performance claim; no benchmark methodology, hardware variant, or model size disclosed; **directly contradicted by a source this post itself links as further reading** — see Cross-References → Contradicts and filed issue #1800)
+- **Confidence**: emerging (vendor-narrated hardware performance claim; no benchmark methodology, hardware variant, or model size disclosed; **directly contradicted by a source this post itself links as further reading** — see Cross-References → Contradicts)
 - **Quote**: "The breakthrough of the Sonoma test was the technical activation of the Pixel 10 TPU. By collaborating with Android engineers to activate the on-device TPU, performance surged to 40 tokens per second. This jump provided the real-time reliability required to deliver coaching exactly when the driver needed it."
-- **Our assessment**: This is the single most consequential and most disputed claim in the source. See Claim 9 below (Taha Boushine's essay, linked directly from this post) for a specific, first-hand technical account from the same event stating the opposite: that on-device NPU/TPU access failed and CPU-only inference topped out at 20 tokens/second — half this figure — which the author states meant the model "could never participate in sub-second decisions." A contradiction issue (#1800) has been filed; this should not be cited in the guide as an established Pixel 10 edge-inference performance fact without noting the direct practitioner rebuttal.
+- **Our assessment**: This is the single most consequential and most disputed claim in the source. See Claim 9 below (Taha Boushine's essay, linked directly from this post) for a specific, first-hand technical account from the same event stating the opposite: that on-device NPU/TPU access failed and CPU-only inference topped out at 20 tokens/second — half this figure — which the author states meant the model "could never participate in sub-second decisions." Both sides of this contradiction are documented in full under Cross-References → Contradicts (a standalone tracking issue could not yet be opened — see that section for why); this should not be cited in the guide as an established Pixel 10 edge-inference performance fact without noting the direct practitioner rebuttal.
 
 ### Claim 7: Two startup founders (COI Energy, Bloom Energy) joined the Sonoma cohort to explore applying the same agentic-orchestration pattern to energy-pipeline security and agricultural management
 - **Evidence**: Named founders and named companies, framed as evidence the architecture "translates directly to mission-critical enterprise domains."
@@ -112,7 +112,7 @@ issue: "#1785"
 - **Evidence**: First-hand technical field note by Taha Boushine, a participating GDE, published independently on the author's own site and linked directly by the Google post under "Deep Dives from our GDEs." Verified against the raw page text (not a summarized fetch).
 - **Confidence**: anecdotal but highly specific — names the exact chip (Tensor G5), the exact gating condition (AICore beta-only on Pixel 10 Pro), and the resulting throughput figure
 - **Quote**: "Android's AICore, still in beta, would only run on a Pixel 10 Pro; on the plain Pixel 10 we hit access restrictions and could not use it at all. LiteRT-LM ran everywhere, but it could not load the model onto the Tensor G5, the phone's own NPU, so we were left on the CPU. On the CPU, inference came in around 20 tokens a second. That is fine for a paragraph you read at your leisure and a non-starter for anything that has to keep pace with a car. It is the real reason the model is banned from the corner, and the reason the whole three-tier design has to exist."
-- **Our assessment**: This directly contradicts Claim 6 (the corporate post's "40 tokens per second" TPU breakthrough) on the same hardware class at the same event. It also explains a specific architectural consequence the corporate post never mentions: the author's team built an entire three-tier (Hot/Warm/Paddock) coaching architecture specifically because on-device model inference was too slow to be in the real-time critical path — in-corner guidance used only pre-composed, rule-based phrases with zero model inference. See Cross-References → Contradicts and filed contradiction issue #1800.
+- **Our assessment**: This directly contradicts Claim 6 (the corporate post's "40 tokens per second" TPU breakthrough) on the same hardware class at the same event. It also explains a specific architectural consequence the corporate post never mentions: the author's team built an entire three-tier (Hot/Warm/Paddock) coaching architecture specifically because on-device model inference was too slow to be in the real-time critical path — in-corner guidance used only pre-composed, rule-based phrases with zero model inference. See Cross-References → Contradicts.
 
 ### Claim 10: Taha Boushine's team enforced a strict human-authorship rule — every commit is authored under the human who reviewed and merged it, never under "the AI," specifically to preserve accountability
 - **Evidence**: Stated as the team's organizing principle and repeated as the essay's structural conclusion.
@@ -142,7 +142,7 @@ issue: "#1785"
 - **Evidence**: First-hand account by Rabimba Karanjai, describing a personal/independent follow-on project ("Racecraft"/"Project Koru") inspired by the same collaborator (Ajeet Mirwani) but predating and separate from the three-pod Sonoma field test described in the parent post. Verified against the raw page text.
 - **Confidence**: anecdotal (a single practitioner's own benchmarking on unspecified Pixel hardware, not stated to be the same Pixel 10 units used at Sonoma)
 - **Quote**: "When we finally benchmarked it across the phone's silicon, the result was the one I'd been hoping for since that restaurant: the NPU — the dedicated AI chip — was the fastest lane of all, first word out in 424 ms, while the safety reflex still fires in 5 ms with no model in the loop at all."
-- **Our assessment**: This is a third, independent data point on Pixel on-device Gemma inference that neither confirms nor cleanly resolves the Claim 6/Claim 9 contradiction: it shows NPU-backed inference *can* work for the smaller Gemma 4 E2B variant, whereas Taha Boushine's team (Claim 9) tried "Gemma 3 and Gemma 4" (variant unspecified) and could not load either onto the NPU at all. A plausible reconciling variable — untested by any of these three sources — is model size: the E2B variant may load onto the Tensor G5 where a larger Gemma 4 size does not. This is noted in the filed contradiction issue (#1800) as relevant context, not as a resolution.
+- **Our assessment**: This is a third, independent data point on Pixel on-device Gemma inference that neither confirms nor cleanly resolves the Claim 6/Claim 9 contradiction: it shows NPU-backed inference *can* work for the smaller Gemma 4 E2B variant, whereas Taha Boushine's team (Claim 9) tried "Gemma 3 and Gemma 4" (variant unspecified) and could not load either onto the NPU at all. A plausible reconciling variable — untested by any of these three sources — is model size: the E2B variant may load onto the Tensor G5 where a larger Gemma 4 size does not. This is noted under Cross-References → Contradicts as relevant reconciling context, not as a resolution.
 
 ### Claim 15: The mobile coaching app in one pod's implementation used a "gated inference engine" that blocks model inference during high-lateral-G corners specifically to prevent thermal throttling, triggering inference only on straightaways
 - **Evidence**: Technical README for the "ApexAI" implementation repository (Henry Ruiz, one of the pods' named implementations, linked by the Google post as a deep dive), describing the mobile app's edge-inference optimization.
@@ -180,10 +180,14 @@ Racecraft: The Origin Story      — Rabimba Karanjai — https://rkrants.blogsp
 Beyond the Track                 — David McLaughlin — https://www.linkedin.com/feed/update/urn:li:activity:7470315133571932162/
 ```
 
-### ApexAI three-component architecture (verbatim excerpt, from github.com/haruiz/apexai README)
+### ApexAI three-component architecture (condensed from the github.com/haruiz/apexai README — structure paraphrased, not verbatim)
 
 ```
 Source: raw.githubusercontent.com/haruiz/apexai/main/README.md
+Note: this block condenses/restructures the README's three-component section;
+it is a paraphrase for scannability, not a verbatim excerpt. The only
+character-for-character quote taken from this README is the "Gated Inference
+Engine" sentence in Claim 15 above.
 
 1. Memory Bank Generator — web platform (React+Vite / Node.js+Express / Rust data-ingestion
    engine parsing .vbo logs / Python "generate_coaching_rules_gemini.py" using Gemini 3.5 Flash
@@ -197,7 +201,8 @@ Source: raw.githubusercontent.com/haruiz/apexai/main/README.md
    Optimized Edge Inference:
      - Gated Inference Engine: blocks inference during high-lateral-G corners
        (thermal throttling prevention), fires only on straightaway corner exit
-     - Native LiteRT LM Runtime: replaces legacy Flutter/MediaPipe wrappers
+     - Native LiteRT LM Runtime: entirely replaces legacy Flutter/MediaPipe wrappers
+       to run raw offline LLM inference on the Pixel GPU/CPU
      - Latency Tracking: telemetry-to-audio buffer path logged against a 2-3s window
 ```
 
@@ -241,28 +246,40 @@ Source: same essay, "Silent Bombs Defused Before Track" section
   - `blog-simonwillison-gemini-spark-antigravity.md` and `blog-google-io-2026-developer-keynote.md`: Both already document Antigravity's positioning as an orchestration/agent-harness product. This source corroborates that positioning being extended to a hobbyist/community hardware-integration domain (racing telemetry), not just enterprise SaaS or consumer personal-agent use cases.
 
 - **Contradicts**:
-  - **This source's own Claim 6 vs. Claim 9** — filed as contradiction issue
-    [#1800](https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/issues/1800):
+  - **This source's own Claim 6 vs. Claim 9** (per MINER.md §4a, no verdict is
+    picked here — both sides are laid out and left for human resolution):
     the Google corporate post states Pixel 10 TPU activation was "the
     breakthrough of the Sonoma test" at 40 tokens/second, enabling real-time
-    coaching reliability; a GDE's own linked, first-hand technical account of
-    the same event states Gemma models could not be loaded onto the Pixel
-    10's Tensor G5 NPU at all via LiteRT-LM, and Android AICore was
+    coaching reliability **(Side A)**; a GDE's own linked, first-hand technical
+    account of the same event states Gemma models could not be loaded onto the
+    Pixel 10's Tensor G5 NPU at all via LiteRT-LM, and Android AICore was
     inaccessible outside the Pixel 10 Pro — leaving CPU-only inference at
     ~20 tokens/second, explicitly "the reason the whole three-tier design has
-    to exist." Per MINER.md §4a, no verdict is picked here; see the filed
-    issue for Side A/Side B detail. Claim 13 (Margolis: only 1 of 3 pods got
-    real-time coaching working at all) and Claim 1's own softened framing in
+    to exist" **(Side B)**. Claim 13 (Margolis: only 1 of 3 pods got real-time
+    coaching working at all) and Claim 1's own softened framing in
     McLaughlin's personal LinkedIn post ("it didn't get every corner or piece
     of advice right, and nobody expected it to yet") both independently
-    corroborate the practitioner side (Side B) of this contradiction more
-    than the corporate post's own "breakthrough"/"failure is not an option"
-    framing (Side A) — this additional corroboration was found after the
-    issue was first filed and is noted here and via a follow-up comment on
-    #1800 for the human resolver. (Issue #1800 replaces an earlier attempt,
-    #1798, which was closed/rejected because it cited this note under an
-    incorrect, word-swapped filename and wrong claim numbers; #1800 is filed
-    against the committed filename and the correct Claim 6/Claim 9 numbers.)
+    corroborate the practitioner side (Side B) more than the corporate post's
+    own "breakthrough"/"failure is not an option" framing (Side A). Claim 14
+    (Karanjai's separate Gemma 4 E2B project hitting a 424ms NPU
+    time-to-first-token) suggests model size (E2B vs. a larger Gemma 4) as a
+    plausible, untested reconciling variable.
+  - **Tracking-issue status — no valid open contradiction issue currently
+    exists; one still needs to be filed.** Three attempts to open a standalone
+    contradiction issue for this Claim 6 vs. Claim 9 conflict were all
+    closed/rejected by the triage pre-screen, none on the merits:
+    #1798 (cited this note under an incorrect, word-swapped filename and wrong
+    claim numbers), #1800 (issue body contained no source URL for pre-screen
+    to verify), and #1802 (pre-screen criterion f — the Side A source URL is a
+    duplicate of the still-open source-submission issue #1785, which is the
+    very issue this note is mined from). The last rejection is structural: the
+    pre-screen will reject any contradiction that repeats this source's URL
+    while #1785 remains open. A valid tracking issue should be filed once
+    #1785 has been triaged/closed (or by referencing #1785 rather than
+    repeating its URL, per the #1802 pre-screen guidance). Until then, this
+    Cross-References → Contradicts section is the authoritative in-corpus
+    record of the contradiction; both sides above are complete and no verdict
+    is asserted.
   - No existing corpus source note is contradicted by this source; all
     identified contradictions are internal to this source and its own linked
     deep-dives.
@@ -332,8 +349,9 @@ Source: same essay, "Silent Bombs Defused Before Track" section
   breakthrough" and Claim 3's "proving Trustable AI scales" framing are
   directly undercut by the post's own linked deep-dives (Claims 9 and 13) —
   a concrete illustration that "read the sources a vendor blog post itself
-  cites" is a necessary verification step, not an optional one. Reference
-  contradiction issue #1800.
+  cites" is a necessary verification step, not an optional one. See this
+  note's Cross-References → Contradicts for the full Side A/Side B record
+  (no standalone tracking issue is open yet — see that section).
 - **Chapter 05/06 (Edge ML deployment)**: Add Claim 15's physical-signal-gated
   inference pattern (block model inference during high-G/high-vibration
   conditions to avoid thermal throttling, restrict to lower-stress windows)
@@ -366,21 +384,26 @@ Source: same essay, "Silent Bombs Defused Before Track" section
   (both LinkedIn URLs) initially returned only WebFetch-summarized text; raw
   `curl` fetches of both succeeded and were used to verify/replace every
   quote before writing this note, per MINER.md §2a.
-- **A contradiction issue tracks the Claim 6 vs. Claim 9 conflict**: issue
-  [#1800](https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/issues/1800),
-  covering the Pixel 10 TPU/NPU on-device Gemma inference conflict (40 tok/s
-  breakthrough vs. NPU access failure at 20 tok/s CPU-only). No verdict is
-  asserted in this note per MINER.md §4a — the contradiction is presented
-  with both sides and left for human resolution in the open issue. An earlier
-  attempt to file this, #1798, was closed/rejected: it cited this note under
-  an incorrect, word-swapped filename (`blog-google-race-coach-antigravity-gemini.md`)
-  and wrong claim numbers (Claim 7/Claim 8), so the automated assessment
-  could not locate the note and returned `unresolved`. #1800 re-files against
-  the committed filename (`blog-google-antigravity-gemini-race-coach.md`) and
-  the correct Claim 6 (Side A) / Claim 9 (Side B) numbers. The additional
-  corroborating context found afterward (Margolis's "only 1 of 3 pods"
-  account, Claim 13, and McLaughlin's softened framing) has been reposted as
-  a comment on #1800 (moved from the rejected #1798).
+- **The Claim 6 vs. Claim 9 conflict is documented in this note, but no valid
+  open tracking issue exists yet.** Per MINER.md §4a, no verdict is asserted
+  here — both sides are laid out in full under Cross-References → Contradicts
+  and left for human resolution. Three attempts to open a standalone
+  contradiction issue were all closed/rejected by the triage pre-screen, none
+  on the merits: #1798 (cited this note under an incorrect, word-swapped
+  filename, `blog-google-race-coach-antigravity-gemini.md`, and wrong claim
+  numbers, Claim 7/Claim 8, so the automated assessment could not locate the
+  note); #1800 (re-filed against the correct filename
+  `blog-google-antigravity-gemini-race-coach.md` and Claim 6/Claim 9, but
+  rejected because the issue body contained no source URL for pre-screen to
+  verify); and #1802 (re-filed with both source URLs inline, but rejected
+  under pre-screen criterion f — the Side A source URL duplicates the
+  still-open source-submission issue #1785, which is the very issue this note
+  is mined from). The last rejection is structural: while #1785 is open, the
+  pre-screen will reject any contradiction that repeats this source's URL. A
+  valid tracking issue should be filed once #1785 is triaged/closed (or by
+  referencing #1785 rather than repeating its URL, per the #1802 pre-screen
+  guidance). This is flagged so the Assayer/Smith and a human maintainer can
+  pick it up; it is not left silently unfiled.
 - **No prior corpus source materially overlaps this event**: checked against
   `blog-simonwillison-gemini-spark-antigravity.md`,
   `blog-google-io-2026-developer-keynote.md`,
