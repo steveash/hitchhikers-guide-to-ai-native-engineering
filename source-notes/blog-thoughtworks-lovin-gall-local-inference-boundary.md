@@ -98,14 +98,14 @@ issue: "#1788"
 ### Claim 7: Apple has set a strict 12GB RAM hardware floor for its best on-device models (AFM 3 Core Advanced), which will force consumers to upgrade to premium-tier devices to access the highest-quality local AI
 - **Evidence**: Author's stated hardware requirement plus its business-strategy implication.
 - **Confidence**: emerging (hardware requirement stated as fact from Apple's disclosures; the "forced to upgrade" framing is the authors' business-strategy inference, not an Apple statement)
-- **Quote**: "Apple has also set a strict 12GB RAM physical hardware floor for its best on-device models (AFM 3 Core Advanced). This means that consumers will be forced to upgrade"
-- **Our assessment**: The article does not name which specific device tiers meet the 12GB floor (no "Pro"/"Max" naming appears in the fetched text), but the mechanism is clear and consequential: a RAM floor set at the *model* level functions as a device-upgrade forcing function at the *business* level. This is a concrete example of hardware requirements doubling as a monetization lever — worth flagging alongside the iCloud+ gating (Claim 9) as a second, distinct revenue mechanism tied to the same local/cloud architecture.
+- **Quote**: "Apple has also set a strict 12GB RAM physical hardware floor for its best on-device models (AFM 3 Core Advanced). This means that consumers will be forced to upgrade to more expensive \"Pro\" tier hardware when developers build localized AI apps to require the 12GB substrate."
+- **Our assessment**: The article names the device tier explicitly — the 12GB RAM floor pushes consumers toward "more expensive 'Pro' tier hardware." The mechanism is clear and consequential: a RAM floor set at the *model* level functions as a device-upgrade forcing function at the *business* level, and the article ties it directly to premium ("Pro") device tiers. This is a concrete example of hardware requirements doubling as a monetization lever — worth flagging alongside the iCloud+ gating (Claim 9) as a second, distinct revenue mechanism tied to the same local/cloud architecture.
 
-### Claim 8: To operate within local inference's physical token budget, developers should adopt two named strategies — aggressive context pruning (programmatically stripping boilerplate/irrelevant metadata before feeding input to the local model) and semantic compression (using smaller models to summarize information into dense semantic representations)
-- **Evidence**: Author's prescriptive recommendation, presented as a named pair of strategies.
-- **Confidence**: anecdotal (prescriptive recommendation; no measured before/after token counts or case study demonstrating either technique in production)
-- **Quote**: "Aggressive context pruning. Programmatically stripping out boilerplate and irrelevant metadata before feeding input to the local model." / "Semantic compression. Using smaller models to summarize information into highly dense semantic representations"
-- **Our assessment**: These two techniques are the article's direct practitioner-facing answer to the 4,096-token constraint (Claim 6). Semantic compression in particular — "using smaller models to summarize" — describes a local-tier variant of the same "pre-filter context before the expensive/constrained model sees it" principle documented in `blog-anthropic-claude-foundation-models-apple.md` Claim 2 (Apple's @Generable typed outputs feeding clean structured input to Claude) and `blog-anthropic-harnessing-claude-intelligence.md` Claim 3 (code-execution tool filtering Claude's own tool outputs) — except here the "pre-filter" step is itself another local model doing summarization, not a typed-output mechanism or a code-execution sandbox.
+### Claim 8: To operate within local inference's physical token budget, developers should adopt three named strategies — aggressive context pruning (programmatically stripping boilerplate/irrelevant metadata before feeding input to the local model), semantic compression (using smaller models to summarize information into dense semantic representations), and structured outputs (using AFM 3's native typed-Swift-value output to avoid the token bloat of conversational text that then requires regex parsing)
+- **Evidence**: Author's prescriptive recommendation, presented as a named trio of strategies in a single enumerated list.
+- **Confidence**: anecdotal (prescriptive recommendation; no measured before/after token counts or case study demonstrating any of the techniques in production)
+- **Quote**: "Aggressive context pruning. Programmatically stripping out boilerplate and irrelevant metadata before feeding input to the local model." / "Semantic compression. Using smaller models to summarize information into highly dense semantic representations" / "Structured outputs. Leveraging AFM 3's native capability to output typed Swift values directly, avoiding the token bloat of messy, conversational text that then requires regex parsing"
+- **Our assessment**: These three techniques are the article's direct practitioner-facing answer to the 4,096-token constraint (Claim 6). Two of them are variants of the same "pre-filter context before the constrained model has to spend tokens on it" principle documented elsewhere in the corpus. Semantic compression — "using smaller models to summarize" — puts another local model in front as the pre-filter, paralleling `blog-anthropic-harnessing-claude-intelligence.md` Claim 3 (code-execution tool filtering Claude's own tool outputs). The third strategy, structured outputs, is a *typed-output* mechanism — AFM 3 emitting typed Swift values directly instead of prose that must be regex-parsed — which is a near-exact local-tier instance of `blog-anthropic-claude-foundation-models-apple.md` Claim 2 (Apple's @Generable typed outputs feeding clean structured input to Claude). That the same article that recommends @Generable-style typed outputs at the on-device tier here names "structured outputs" as an explicit token-budget technique is strong corroboration that typed output is a first-class context-economy tool, not just an ergonomics feature.
 
 ### Claim 9: Developers in Apple's App Store Small Business Program (fewer than two million total first-time downloads) receive zero-cost API access to Private Cloud Compute and Apple Foundation Models, which the authors argue reduces those developers' incentive to optimize for local inference
 - **Evidence**: Author's stated program terms plus their business-implication analysis.
@@ -173,7 +173,24 @@ model sessions to a rigid 4,096-token context window."
 
 "Apple has also set a strict 12GB RAM physical hardware floor for its best
 on-device models (AFM 3 Core Advanced). This means that consumers will be
-forced to upgrade"
+forced to upgrade to more expensive "Pro" tier hardware when developers build
+localized AI apps to require the 12GB substrate."
+
+Source: https://www.thoughtworks.com/insights/blog/generative-ai/local-inference-boundary-reflections-apple-afm3-token-economics
+```
+
+### Context-budget strategies for local inference (verbatim, from the article)
+
+```
+"Aggressive context pruning. Programmatically stripping out boilerplate and
+irrelevant metadata before feeding input to the local model."
+
+"Semantic compression. Using smaller models to summarize information into
+highly dense semantic representations"
+
+"Structured outputs. Leveraging AFM 3's native capability to output typed
+Swift values directly, avoiding the token bloat of messy, conversational text
+that then requires regex parsing"
 
 Source: https://www.thoughtworks.com/insights/blog/generative-ai/local-inference-boundary-reflections-apple-afm3-token-economics
 ```
@@ -251,10 +268,11 @@ numbered `### Claim N:` headings in document order.
     app use case where on-device generates daily prompts and Claude finds
     threads across months of entries, which that note flags as an unaddressed
     context-management challenge): this article's 4,096-token local context
-    window (Claim 6) and the context-pruning/semantic-compression
-    prescriptions (Claim 8) supply a concrete numeric constraint and named
-    mitigation techniques for exactly the kind of local-tier context budget
-    problem that use case implies but does not quantify.
+    window (Claim 6) and the three context-budget prescriptions — context
+    pruning, semantic compression, and structured outputs (Claim 8) — supply a
+    concrete numeric constraint and named mitigation techniques for exactly the
+    kind of local-tier context budget problem that use case implies but does
+    not quantify.
   - `blog-simonwillison-siri-ai-wwdc.md` Claim 4 (Core AI PyTorch Extensions
     bridge PyTorch-exported models to Apple hardware via `coreai-torch`):
     this article's Claim 10 (Core AI framework allows arbitrary open-weight
@@ -318,8 +336,13 @@ numbered `### Claim N:` headings in document order.
   existing local-model-as-cost-countermeasure material sourced from
   `blog-thoughtworks-vega-token-billing-lockin.md` Claim 8 — pair with the
   concrete 4,096-token context window and 12GB RAM figures (Claims 6-7) and
-  the context-pruning/semantic-compression mitigation techniques (Claim 8) so
-  practitioners get both the constraint and the named workaround. Also add
+  the three named mitigation techniques — context pruning, semantic
+  compression, and structured (typed-Swift-value) outputs (Claim 8) — so
+  practitioners get both the constraint and the named workarounds. The third
+  technique, structured outputs, doubles as concrete support for the guide's
+  typed-output-as-context-economy thread already sourced from
+  `blog-anthropic-claude-foundation-models-apple.md` Claim 2 (@Generable typed
+  outputs). Also add
   the Small Business Program's zero-cost cloud access (Claim 9) as a
   counterweight: for apps under two million downloads, the economic case for
   investing in local-inference engineering is much weaker than the general
@@ -356,12 +379,14 @@ numbered `### Claim N:` headings in document order.
   of outbound links directly, so this is based on the summarized content
   returned across five fetch passes, none of which surfaced a substantive
   outbound citation distinct from Apple's own WWDC 2026 disclosures.
-- **No specific device names (e.g. "Pro," "Max") were found in the fetched
-  text** for which devices meet the 12GB RAM floor (Claim 7) — this was
-  explicitly checked and confirmed absent, not simply overlooked. The claim is
-  written to reflect only what the article states (a RAM floor exists, and it
-  will force upgrades) without inventing device-tier names the article does
-  not use.
+- **The article names a device tier for the 12GB RAM floor (Claim 7).** The
+  sentence stating the floor continues: consumers "will be forced to upgrade to
+  more expensive 'Pro' tier hardware when developers build localized AI apps to
+  require the 12GB substrate." Claim 7's quote and the physical-constraints
+  Concrete Artifacts block now carry this full sentence rather than truncating
+  it at "forced to upgrade." (An earlier draft of this note incorrectly stated
+  that no device-tier name appeared in the source; it does — "Pro" — in the
+  same sentence quoted in Claim 7.)
 - **No verbatim quote exists for author titles/roles** — the byline gives only
   "Alexandra Lovin and Richard Gall" with no stated job title, unlike several
   other Thoughtworks authors already in the corpus. This is reflected as an
