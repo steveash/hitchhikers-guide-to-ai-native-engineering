@@ -127,6 +127,28 @@ to understand broadly what the code is doing."
   for the guide: "have the agent describe its own change" and "have the agent
   that already reasoned about the change attach that reasoning" are not the
   same mechanism, and Varda's failure is evidence for preferring the latter.
+- **Corroborates**: `blog-ronacher-content-for-contents-sake.md` Claim 10
+  ("Platforms accepting text submissions need friction and 'backpressure'
+  mechanisms against AI-generated content flooding") and Claim 11 ("Using AI
+  agents in communications with others risks becoming an 'energy vampire' —
+  draining recipients' attention without proportional human investment").
+  Ronacher supplies the general mechanism that Varda's tweet is a concrete,
+  named instance of: the generate/evaluate cost asymmetry. Claim 10's quote —
+  "The fact that it was cheap for you to produce does not make it cheap for
+  someone else to receive, and we need to find more creative ways to increase
+  the backpressure." — and that note's assessment that "AI-generated PR
+  descriptions, review comments, issues, and documentation are cheap to produce
+  but require human judgment to evaluate" describe exactly why Varda's team hit
+  a wall: cheap-to-generate change descriptions push the evaluation cost onto
+  every reviewer. Claim 11's "energy vampire" framing —
+  "we need to become more aware of how easily we can turn into energy vampires
+  when we use agents to back us up in interactions with others" — is the same
+  dynamic at the interpersonal level, and its assessment explicitly names "a
+  practitioner who uses AI to generate all their code review comments, PR
+  descriptions, and design proposals" draining a team's attention budget.
+  Varda's "worse than useless... as I tried to review PRs" (Claim 3) is a
+  first-person, named-practitioner report of precisely that asymmetric cost
+  landing on a reviewer, strong enough that the team banned the practice.
 - **Extends**: `blog-latentspace-ainews-meta-harness-summer.md` Claim 4 (a
   secondhand digest paraphrase of a different Kenton Varda tweet critiquing
   Anthropic's per-agent-identity permissioning model as not scaling). Both
