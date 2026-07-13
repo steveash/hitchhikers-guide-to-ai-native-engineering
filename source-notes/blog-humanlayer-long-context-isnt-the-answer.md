@@ -326,6 +326,13 @@ Source: https://www.humanlayer.dev/blog/long-context-isnt-the-answer
   found to materially disagree on the practical value of the 1M-token Claude Code context
   window; filed contradiction issue #1832 per MINER.md §4a before writing this note's
   Cross-References section, and referenced it there rather than picking a verdict.
+  Note on #1832's status: it was auto-closed/`rejected` ~5 minutes after filing by a
+  pre-screen bot for "No URL in issue body" — a mismatched rule, since contradiction
+  issues cite internal `source-notes/` paths by design, not external URLs. The issue has
+  since been reopened and the `rejected` label removed, and an Assayer contradiction
+  re-assessment has been requested now that Side B (this note) exists in the corpus (the
+  prior `unresolved` assessment predated this note and is stale). #1832 is the live
+  tracking issue for this contradiction.
 - The specific Opus 4.6 vs. 4.5 comparison and the "couple of weeks" observation period
   are anecdotal and internal to HumanLayer — no controlled A/B data, sample size, or
   task-suite description is given, which is reflected in the "emerging" overall confidence
