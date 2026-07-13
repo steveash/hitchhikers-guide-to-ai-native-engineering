@@ -469,7 +469,7 @@ and "Using Autonomous Testing in Devin Today" sections
 
 ## Guide Impact
 
-- **Chapter 03 (Agent Reliability / Verification)**: Add the test-plan-
+- **Chapter 03 (Verification)**: Add the test-plan-
   grounded-in-source-code technique (Claim 5) and the annotate-before-acting
   calibration technique (Claim 6) as concrete, transferable mechanisms for
   reducing an agent's tendency to hallucinate success or drift off-target
@@ -479,7 +479,7 @@ and "Using Autonomous Testing in Devin Today" sections
   5) — this source shows two concrete techniques a team can adopt today,
   not just a diagnosis that verification matters.
 
-- **Chapter 04 (Sustained Autonomy / Session Ceilings and Orchestration)**:
+- **Chapter 02 (Harness Engineering)**:
   Add the deterministic-skill-extraction pattern (Claim 7) as a named
   technique for reducing cost and flakiness in repeated agent setup steps,
   and the self-closing skill-proposal loop (agent proposes a newly-learned
@@ -490,8 +490,7 @@ and "Using Autonomous Testing in Devin Today" sections
   `blog-addyosmani-code-agent-orchestra.md`); this source gives a shipped,
   specific example scoped to test setup.
 
-- **Chapter 05/06 (Agent Patterns / harness sections covering computer use
-  or testing infrastructure, if present)**: Add the two-tier test-report
+- **Chapter 03 (Verification)**: Add the two-tier test-report
   design (labeled screenshots for a fast skim, chaptered/scrubbable video
   with dead-time compression for deep review — Claim 10) as a reusable
   reviewability pattern for any harness that needs a human to audit
@@ -500,7 +499,10 @@ and "Using Autonomous Testing in Devin Today" sections
   "cheating") as concrete, current limitations to caution readers about
   when adopting computer-use-based self-verification, alongside the
   general "computer use is still early" caveat already in
-  `blog-anthropic-dispatch-computer-use.md`.
+  `blog-anthropic-dispatch-computer-use.md`. (Devin's computer-use-based
+  testing has no dedicated "Agent Patterns" or "computer use" chapter in
+  the current guide structure — Verification is its closest existing home;
+  the Smith may alternatively treat this as a proposal for new material.)
 
 ## Extraction Notes
 
