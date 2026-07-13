@@ -998,7 +998,7 @@
         "screened_at": "2026-07-12T06:54:07.995027+00:00"
       }
     },
-    "last_scan": "2026-07-12T06:54:07.995041+00:00"
+    "last_scan": "2026-07-13T07:05:30.331946+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1025,20 +1025,28 @@
         "filed_at": "2026-07-12T06:54:17.737693+00:00"
       },
       "https://www.humanlayer.dev/blog/context-forking-to-save-time-trouble-and-tokens": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:03.402167+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:03.402167+00:00",
+        "issue": 1821,
+        "filed_at": "2026-07-13T07:05:34.512071+00:00"
       },
       "https://www.humanlayer.dev/blog/long-context-isnt-the-answer": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:03.402168+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:03.402168+00:00",
+        "issue": 1822,
+        "filed_at": "2026-07-13T07:05:36.405100+00:00"
       },
       "https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:03.402169+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:03.402169+00:00",
+        "issue": 1823,
+        "filed_at": "2026-07-13T07:05:39.893863+00:00"
       },
       "https://www.humanlayer.dev/blog/stop-claude-from-ignoring-your-claude-md": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:03.402171+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:03.402171+00:00",
+        "issue": 1824,
+        "filed_at": "2026-07-13T07:05:41.792004+00:00"
       },
       "https://www.humanlayer.dev/blog/tags/agents": {
         "status": "rejected",
@@ -1081,33 +1089,45 @@
         "screened_at": "2026-06-30T04:38:03.402183+00:00"
       },
       "https://www.humanlayer.dev/blog/writing-a-good-claude-md": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:03.402185+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:03.402185+00:00",
+        "issue": 1825,
+        "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-12T06:54:09.485977+00:00"
+    "last_scan": "2026-07-13T07:05:31.853624+00:00"
   },
   "cognition": {
     "urls": {
       "https://cognition.com": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172426+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172426+00:00",
+        "issue": 1826,
+        "filed_at": "2026-07-13T07:05:45.813098+00:00"
       },
       "https://cognition.com/blog/testing-development": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172441+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172441+00:00",
+        "issue": 1827,
+        "filed_at": "2026-07-13T07:05:47.757644+00:00"
       },
       "https://cognition.com/blog/cognizant-cognition": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172443+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172443+00:00",
+        "issue": 1828,
+        "filed_at": "2026-07-13T07:05:49.650422+00:00"
       },
       "https://cognition.com/blog/cognition-for-government": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172445+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172445+00:00",
+        "issue": 1829,
+        "filed_at": "2026-07-13T07:05:51.581117+00:00"
       },
       "https://cognition.com/blog/auto-triage": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172446+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172446+00:00",
+        "issue": 1830,
+        "filed_at": "2026-07-13T07:05:53.412461+00:00"
       },
       "https://cognition.com/blog/swe-bench-technical-report": {
         "status": "pending",
@@ -1422,6 +1442,6 @@
         "screened_at": "2026-06-30T07:15:58.230869+00:00"
       }
     },
-    "last_scan": "2026-07-12T06:54:10.758887+00:00"
+    "last_scan": "2026-07-13T07:05:33.025553+00:00"
   }
 }
