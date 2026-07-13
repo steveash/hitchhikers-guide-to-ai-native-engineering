@@ -76,8 +76,10 @@ issue: "#1811"
 - **Evidence**: Willison's own tag taxonomy page (`simonwillison.net/tags/conformance-suites/`),
   which defines the term and lists 11 posts tagged with it as of this
   extraction, including this one, "Ladybird adopts Rust, with help from AI"
-  (already in the corpus as part of `blog-simonwillison-andreas-kling.md`,
-  which does not itself discuss the conformance-suite framing), "Scaling
+  (a distinct Willison post that is NOT yet mined in the corpus — do not
+  confuse it with `blog-simonwillison-andreas-kling.md`, which is a
+  *different* Kling post covering Ladybird's PR-acceptance governance
+  policy, not the Rust/LibJS port referenced by this tag entry), "Scaling
   long-running autonomous coding," and "twitter-text-conformance."
 - **Confidence**: emerging (a named, multi-instance pattern tracked by a
   high-signal author over time, but the taxonomy itself is Willison's own
@@ -243,8 +245,10 @@ compatible with each other."
 11 posts tagged as of this extraction, including (most recent first):
   - Rewriting Bun in Rust (this source, 2026-07-08)
   - Ladybird adopts Rust, with help from AI
-    (overlaps corpus note blog-simonwillison-andreas-kling.md, which does not
-    itself discuss the conformance-suite framing)
+    (a distinct Willison post not yet mined in the corpus; NOT the same as
+    corpus note blog-simonwillison-andreas-kling.md, which covers a different
+    Kling piece about Ladybird's PR-acceptance governance policy, not the
+    Rust/LibJS port referenced by this tag entry)
   - Scaling long-running autonomous coding
   - Open Responses
   - A Software Library with No Code
@@ -268,12 +272,16 @@ compatible with each other."
     startup, "barely anyone noticed") — this source quotes the identical cost
     and production-deployment figures from the same primary source, with no
     numeric discrepancy.
-  - `blog-anthropic-dynamic-workflows-claude-code.md` Claim 1 (dynamic
-    workflows "featuring... trial runs, adversarial review") — this source's
-    Claim 4 independently characterizes the rewrite using the same component
-    techniques (dynamic workflows, trial runs, adversarial review), from an
-    external commentator's read of the primary source rather than Anthropic's
-    own announcement.
+  - `blog-anthropic-dynamic-workflows-claude-code.md` Claim 6 (documents that
+    the Bun Zig-to-Rust rewrite was carried out using dynamic workflows) and
+    Claim 4 (names "critical work requiring independent attempts and
+    adversarial testing" as one of the three primary dynamic-workflows use
+    cases) — this source's Claim 4 independently characterizes the same
+    rewrite as "featuring dynamic workflows, trial runs, adversarial review,"
+    from an external commentator's read of the primary source rather than
+    Anthropic's own announcement. (Note: "trial runs" is Willison's own phrase
+    from this PR, not a term used in the cited note; the overlap is on
+    "dynamic workflows" and "adversarial testing/review.")
 - **Extends**: `blog-simonwillison-not-locked-in.md` Claim 5 (Hashimoto:
   "Programming languages used to be LOCK IN, and they're increasingly not
   so," about this same Bun rewrite) — this source supplies the primary
