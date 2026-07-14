@@ -269,7 +269,7 @@ Rollout scope (as reported):
   separating the group that produces reference material (physicians authoring
   responses) from the group that scores against it (a separate physician
   panel) — but discloses no agreement or inter-rater statistics for that
-  separation, unlike LifeSciBench's published 86–98% agreement figures. Same
+  separation, unlike LifeSciBench's published 77.1%–98.3% agreement figures. Same
   design pattern, weaker disclosure.
 - **Corroborates** `blog-hamel-eval-smell.md` Claim 3 ("Domain experts already
   have concrete, nameable techniques for verifying answers manually — and a
@@ -315,7 +315,7 @@ Rollout scope (as reported):
   700,000+ cumulative reviewed responses) than either existing example.
   However, flag clearly in the guide text that this source discloses no
   agreement/inter-rater statistics and no actual benchmark scores for the
-  model it evaluates (contrast with LifeSciBench's published 86–98%
+  model it evaluates (contrast with LifeSciBench's published 77.1%–98.3%
   reviewer-agreement figures) — it should be cited as a *pattern* example, not
   as evidence that the specific capability claim ("comparable to frontier
   Thinking models") is independently verified.
