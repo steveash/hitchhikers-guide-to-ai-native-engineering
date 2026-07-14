@@ -998,7 +998,7 @@
         "screened_at": "2026-07-12T06:54:07.995027+00:00"
       }
     },
-    "last_scan": "2026-07-13T07:05:30.331946+00:00"
+    "last_scan": "2026-07-14T06:44:44.352866+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1095,7 +1095,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-13T07:05:31.853624+00:00"
+    "last_scan": "2026-07-14T06:44:45.782264+00:00"
   },
   "cognition": {
     "urls": {
@@ -1130,40 +1130,58 @@
         "filed_at": "2026-07-13T07:05:53.412461+00:00"
       },
       "https://cognition.com/blog/swe-bench-technical-report": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172448+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172448+00:00",
+        "issue": 1857,
+        "filed_at": "2026-07-14T06:44:48.174883+00:00"
       },
       "https://cognition.com/blog/cognition-open-source-initiative": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172449+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172449+00:00",
+        "issue": 1858,
+        "filed_at": "2026-07-14T06:44:50.205961+00:00"
       },
       "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172451+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172451+00:00",
+        "issue": 1859,
+        "filed_at": "2026-07-14T06:44:52.041560+00:00"
       },
       "https://cognition.com/blog/blockdiff": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172452+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172452+00:00",
+        "issue": 1860,
+        "filed_at": "2026-07-14T06:44:54.127774+00:00"
       },
       "https://cognition.com/blog/sept-24-product-update": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172453+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172453+00:00",
+        "issue": 1861,
+        "filed_at": "2026-07-14T06:44:56.191421+00:00"
       },
       "https://cognition.com/blog/mercedes-benz-cognition": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172455+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172455+00:00",
+        "issue": 1862,
+        "filed_at": "2026-07-14T06:44:58.058261+00:00"
       },
       "https://cognition.com/blog/mcp-marketplace": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172457+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172457+00:00",
+        "issue": 1863,
+        "filed_at": "2026-07-14T06:44:59.908434+00:00"
       },
       "https://cognition.com/blog/how-devin-is-modernizing-cobol-at-fortune-500-companies": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172458+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172458+00:00",
+        "issue": 1864,
+        "filed_at": "2026-07-14T06:45:01.983168+00:00"
       },
       "https://cognition.com/blog/deepwiki": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172459+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172459+00:00",
+        "issue": 1865,
+        "filed_at": "2026-07-14T06:45:03.825679+00:00"
       },
       "https://cognition.com/blog/devin-in-windsurf": {
         "status": "pending",
@@ -1442,6 +1460,6 @@
         "screened_at": "2026-06-30T07:15:58.230869+00:00"
       }
     },
-    "last_scan": "2026-07-13T07:05:33.025553+00:00"
+    "last_scan": "2026-07-14T06:44:46.990773+00:00"
   }
 }
