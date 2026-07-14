@@ -198,34 +198,36 @@ issue: "#1849"
   more of my workflow" questions. Should be read as narrative framing rather than
   independently verified market research.
 
-### Claim 10: Divya Mehta (Hebbia's founding product manager) frames the value of Claude's finance work as coming specifically from connecting it to the right data and ecosystem, not from the model alone
+### Claim 10: Adithya Ramanathan (leads Hebbia's applied AI research) frames the value of Claude's finance work as coming specifically from connecting it to the right data and ecosystem, not from the model alone
 
-- **Evidence**: Named quote from a named product leader at Hebbia.
+- **Evidence**: Named quote from Hebbia's applied AI research lead.
 - **Confidence**: anecdotal (single named quote; practitioner opinion, not a measured
   claim)
 - **Quote**: "When you're connecting it to the right data and putting it in the right
   ecosystem, that's when you get the alpha that finance professionals actually chase."
-  — Divya Mehta, founding product manager, Hebbia
+  — Adithya Ramanathan, who leads Hebbia's applied AI research
 - **Our assessment**: This echoes the harness-over-model-alone framing common across the
   corpus's regulated-industry sources (e.g., Kepler's "the model can't be the whole
-  system," `blog-anthropic-kepler-verifiable-ai-financial.md` Claim 3) — Mehta's framing
-  is data/ecosystem-centric rather than architecture-centric, but the underlying claim
-  is the same: model quality alone does not produce the finance-specific value; the
-  surrounding data connections and system design do.
+  system," `blog-anthropic-kepler-verifiable-ai-financial.md` Claim 3) — Ramanathan's
+  framing is data/ecosystem-centric rather than architecture-centric, but the underlying
+  claim is the same: model quality alone does not produce the finance-specific value; the
+  surrounding data connections and system design do. That this comes from the applied AI
+  research lead — the person closest to the models themselves — makes the "it's not the
+  model alone" framing more notable, not less.
 
-### Claim 11: Adithya Ramanathan (leads Hebbia's applied AI research) frames Hebbia's customer accuracy bar as extremely high and self-imposed by customer expectations in financial diligence
+### Claim 11: Divya Mehta (Hebbia's founding product manager) frames Hebbia's customer accuracy bar as extremely high and self-imposed by customer expectations in financial diligence
 
-- **Evidence**: Named quote from Hebbia's applied AI research lead, in the context of
-  describing why the finance-specific benchmark exists.
+- **Evidence**: Named quote from Hebbia's founding product manager, in the context of
+  describing the stakes customers hold Hebbia to.
 - **Confidence**: anecdotal (single named quote; practitioner characterization)
 - **Quote**: "The bar is extremely high, and our customers hold us to that extremely
-  high bar—and rightfully so." — Adithya Ramanathan, who leads Hebbia's applied AI
-  research
+  high bar—and rightfully so." — Divya Mehta, founding product manager, Hebbia
 - **Our assessment**: This is framing/motivation context for Claim 1 (the standing
   finance benchmark) rather than a new technical claim — it explains *why* Hebbia
   maintains a head-to-head internal benchmark for every model release: the accuracy bar
   in financial diligence is customer-enforced, not just an internal engineering
-  preference.
+  preference. Coming from the founding product manager, it frames the bar as a
+  product/customer commitment rather than a purely engineering-internal standard.
 
 ## Concrete Artifacts
 
