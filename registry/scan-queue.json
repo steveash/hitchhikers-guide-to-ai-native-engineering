@@ -2,23 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.964000+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: I fixed FFmpeg's subtitle conversion (the bug from 2014)",
-          "url": "https://connollydavid.github.io/pgs-release/",
-          "hn_url": "https://news.ycombinator.com/item?id=47415044",
-          "points": 38,
-          "num_comments": 8,
-          "author": "slartibardfast0",
-          "created_at": "2026-03-17T16:39:30Z",
-          "snippet": "FFmpeg converts everything except subtitles across format boundaries. SRT to Blu-ray PGS? &quot;Subtitle encoding currently only possible from text to text or bitmap to bitmap.&quot; Ticket #3819, filed 2014.<p>I built this with Claude Code over a few weeks. Claude wrote most of the encoder, found an integer overflow in the decoder buffer tracking, and ran review from five angles. I read the Panasonic and Sony patents, made the architectural calls, and told it when it was wrong about the spec. W"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-07-10T07:09:45.965071+00:00",
       "payload": {
         "result": {
@@ -4482,6 +4465,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-07-14T06:45:17.126541+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-15T06:46:00.012851+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-15T06:46:00.017682+00:00",
       "payload": {
         "result": {
           "source": "github",
