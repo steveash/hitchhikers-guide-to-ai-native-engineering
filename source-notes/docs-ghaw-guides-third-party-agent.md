@@ -323,10 +323,32 @@ gh aw compile .github/workflows/my-workflow.md --watch
     the same field applied to a third-party engine, decoupled from the
     import-reference pin.
 
-- **Contradicts**: None identified. This guide's compile-time-registration
-  model, secret-naming convention, and network/version-pinning guidance are
-  all consistent with `docs-ghaw-engines-reference.md`'s coverage of the
-  built-in engines. No contradiction issue required.
+- **Contradicts**: **`docs-ghaw-engines-reference.md` Claim 1 / feature
+  matrix — OpenCode credential mechanism and built-in-vs-third-party status.
+  Filed as contradiction issue #1909.** The engines-reference note documents
+  a **built-in** `opencode (experimental)` engine whose required secret is
+  `COPILOT_GITHUB_TOKEN` (its feature-matrix row reads
+  `OpenCode (exp) | COPILOT_GITHUB_TOKEN`, routed through GitHub Copilot
+  infrastructure). This guide's Claim 7 (and the reproduced `opencode-engine.md`
+  YAML) describes an engine *also* declared as `id: opencode` /
+  `experimental: true`, but authenticating via direct provider credentials —
+  `ANTHROPIC_API_KEY` for the default Anthropic provider, `OPENAI_API_KEY`
+  etc. for others (BYOK). Critically, this guide makes **zero mention** of
+  `COPILOT_GITHUB_TOKEN` or of any pre-existing built-in OpenCode engine; it
+  presents the third-party engine-definition-file path as the way to run
+  OpenCode under gh-aw. So the corpus now contains two notes describing an
+  engine with the identical id (`id: opencode`, `experimental: true`) but two
+  different, non-overlapping credential mechanisms, and the sources do not
+  reconcile them. Two questions are left unresolved by the sources and must
+  not be silently collapsed by the Smith: (a) are these two coexisting
+  integration paths (built-in Copilot-routed vs. third-party BYOK) that
+  happen to share an id, or does one supersede the other; and (b) if a
+  workflow `imports:` the third-party `opencode-engine.md` while `engine:`
+  is set to the same `opencode` id, does the imported definition
+  shadow/override the built-in engine or collide with it? Neither note
+  answers these. Per the Miner process, this is filed for human resolution
+  rather than adjudicated here — see issue #1909; no `C-NNN` verdict is
+  assigned in this note.
 
 - **Extends**:
   - `docs-ghaw-engines-reference.md` (which documents only the seven
@@ -334,15 +356,20 @@ gh aw compile .github/workflows/my-workflow.md --watch
     this guide extends the corpus's engine coverage to the previously
     undocumented case of engines *not* in that seven-engine roster —
     third-party engines integrated purely through publisher-distributed
-    `imports:` content, with no gh-aw-side code changes. The engines
-    reference's Claim 1 roster (Copilot, Claude, Codex, Gemini, Crush,
-    OpenCode, Pi) actually already lists OpenCode as one of its seven
-    "supported" engines with `experimental: true` — this guide clarifies
-    that "supported" for OpenCode specifically means "integrable via this
-    third-party mechanism," not "built into the gh-aw binary" the way
-    Copilot/Claude/Codex/Gemini are. That distinction is not drawn in
-    `docs-ghaw-engines-reference.md` and is worth flagging to the Assayer/
-    Smith as a nuance the two notes should be read together on.
+    `imports:` content, with no gh-aw-side code changes. Note, however, that
+    the engines reference's Claim 1 roster (Copilot, Claude, Codex, Gemini,
+    Crush, OpenCode, Pi) already lists OpenCode as one of its seven engines
+    with `experimental: true` — and, unlike this guide, ties it to
+    `COPILOT_GITHUB_TOKEN`. This is **not** a clean "extends" relationship on
+    the OpenCode row specifically: whether "OpenCode" in the engines
+    reference is the *same* engine as the third-party definition described
+    here (differing only in how it is documented) or a *different* built-in
+    engine that merely shares the `id: opencode` string is unresolved by the
+    sources. That unresolved overlap is filed as a contradiction (issue
+    #1909) and captured under the **Contradicts** heading above — do not read
+    this "Extends" bullet as having settled it. The genuinely additive part
+    of this guide is the *mechanism* (third-party `engine.behaviors` imports),
+    which the engines reference does not document at all.
   - `docs-ghaw-custom-agent-for-aw.md` Claim 6 (the authoring agent imports
     workflows from external repositories "with optional customizations like
     engine selection"): this guide extends that by documenting the manual
@@ -386,6 +413,19 @@ gh aw compile .github/workflows/my-workflow.md --watch
   provider-agnostic engines like OpenCode (Claims 6, 7), and (4) flag that
   `gh aw compile` must be re-run after any frontmatter change touching the
   import, engine version, or network fields (Claim 9).
+  - **Do NOT present OpenCode credential/secret guidance without
+    disambiguating the integration path.** This note's Claim 7 says OpenCode
+    authenticates via `ANTHROPIC_API_KEY`/`OPENAI_API_KEY` (third-party
+    engine-definition import, BYOK), whereas `docs-ghaw-engines-reference.md`
+    ties the built-in `opencode (experimental)` engine to
+    `COPILOT_GITHUB_TOKEN`. These are documented under the identical
+    `id: opencode`. When writing any OpenCode secret guidance into the guide,
+    the Smith must explicitly state which path the guidance applies to
+    (built-in experimental engine via Copilot token vs. third-party
+    engine-definition import via provider API key) and must not merge the two
+    into a single "OpenCode needs secret X" statement. This overlap is filed
+    as contradiction issue #1909; treat it as unresolved until a `C-NNN`
+    verdict lands in CONTRADICTIONS.md.
 - **Chapter 05 (Composition & Orchestration)**: Use this guide as the
   concrete example for "how does gh-aw let you bring in agents the platform
   team hasn't built" — a composition pattern distinct from importing
@@ -414,9 +454,16 @@ gh aw compile .github/workflows/my-workflow.md --watch
    may be a coverage gap worth flagging to the Prospector separately). No
    new sub-pages were fetched since the linked references are already in the
    corpus.
-3. **No contradictions found**: reviewed against the three overlapping notes
-   named by the Prospector (`docs-ghaw-engines-reference.md`,
+3. **One contradiction filed (issue #1909)**: reviewed against the three
+   overlapping notes named by the Prospector (`docs-ghaw-engines-reference.md`,
    `docs-ghaw-agentic-authoring.md`, `docs-ghaw-custom-agent-for-aw.md`) plus
    `docs-ghaw-guides-network-configuration.md` and the two GitHub Copilot
-   BYOK notes. All claims are consistent with or extend existing notes. No
-   contradiction issue filed.
+   BYOK notes. Most claims are consistent with or extend existing notes, but
+   this guide's Claim 7 (OpenCode via third-party engine-definition import,
+   authenticating with `ANTHROPIC_API_KEY`/`OPENAI_API_KEY`) materially
+   overlaps `docs-ghaw-engines-reference.md`'s built-in `opencode` engine
+   (authenticating with `COPILOT_GITHUB_TOKEN`) under an identical
+   `id: opencode`. This overlap is filed as contradiction issue #1909 and
+   documented under Cross-References → **Contradicts**; no verdict is assigned
+   in this note. (An earlier draft of this note asserted "Contradicts: None
+   identified" — that was corrected during Assayer rework.)
