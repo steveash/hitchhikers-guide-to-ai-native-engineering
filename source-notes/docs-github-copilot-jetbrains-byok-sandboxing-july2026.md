@@ -50,7 +50,7 @@ issue: "#1880"
 - **Confidence**: settled (product fact stated definitively; no preview qualifier attached)
 - **Quote**: "We've expanded bring your own key support with custom endpoints. You can now configure OpenAI-compatible custom endpoints with API keys to use your own models."
 - **Our assessment**: This is a materially different BYOK mechanism from the named-provider lists documented for VS Code (`docs-github-copilot-byok-vscode.md`, Claim 2: Anthropic, Gemini, OpenAI, OpenRouter, Azure, Ollama, Foundry Local) and JetBrains itself as of June 2 (`docs-github-copilot-jetbrains-cli-enhancements-june2026.md`, Claim 10, which only documented the removal of the Editor Preview flag requirement — not a custom-endpoint capability). "Custom endpoints" means any model server that speaks the OpenAI-compatible API shape can be wired in without GitHub naming it as a supported provider, which is the same pattern the Copilot app used for "any OpenAI-compatible endpoint" (`docs-github-copilot-byok-app.md`, Claim 1). This closes a gap that existed in JetBrains: previously JetBrains BYOK was scoped to named providers (per the June 2 note); now self-hosted or niche OpenAI-compatible model servers are addressable directly.
-- **Our assessment**: The changelog does not state a plan-tier restriction for this feature, unlike the neighboring Claude agent provider customizations feature (Claim 3 below), which is explicitly scoped to "GitHub Copilot Pro and higher." That asymmetry is notable but should not be read as "available on all tiers" — it is simply unstated in this source.
+- **Our assessment**: The changelog does not state a plan-tier restriction for this feature, unlike the neighboring Claude agent provider customizations feature (Claim 3 below), which is explicitly scoped to "GitHub Copilot Pro and higher." The page's lead sentence does contain a tier statement — "This update brings major advances in customization and model provider flexibility to all tiers of GitHub Copilot for JetBrains IDEs" — but this is release-level marketing framing describing the update as a whole, not a per-feature guarantee. It cannot be read as overriding the explicit feature-specific "Pro and higher" gate on Claim 3, which sits in the same changelog; if "all tiers" were literally true per feature, Claim 3's qualifier would be contradictory. The safer reading is that "all tiers" summarizes the release's overall availability while individual features may still carry their own floors (and Claim 3 demonstrably does). So the asymmetry stands: BYOK custom endpoints (Claim 1) and local sandboxing (Claim 4) carry no stated per-feature tier restriction, but the lead sentence's "all tiers" framing is too generic to affirmatively establish that these features are available on Free — it neither states a floor nor rules one out at the feature level.
 
 ### Claim 2: JetBrains now includes a more complete plugin management experience, letting practitioners browse and install plugins through the marketplace or from the source repository
 
@@ -97,6 +97,14 @@ issue: "#1880"
 
 ```
 GitHub Copilot for JetBrains — July 14, 2026 Changelog
+
+LEAD / ABSTRACT (opening sentence, before "What's new"):
+  "This update brings major advances in customization and model
+  provider flexibility to all tiers of GitHub Copilot for JetBrains
+  IDEs."
+  Note: "all tiers" appears only here (release-level framing); it is
+  the ONLY tier statement on the page other than the feature-specific
+  "GitHub Copilot Pro and higher plans" qualifier on item 3 below.
 
 WHAT'S NEW:
   1. Bring your own key custom endpoint support
@@ -237,7 +245,11 @@ GitHub Copilot for JetBrains expands BYOK capabilities
     OpenAI-compatible custom endpoints (Claim 1), not just the named-provider list documented
     for VS Code and the app. Flag that this note does not state a plan-tier restriction for this
     path, in contrast to the neighboring Claude customizations feature (Claim 3), and that this
-    should be verified before the guide states "available on all tiers."
+    should be verified before the guide states "available on all tiers." Note that the changelog's
+    lead sentence does say the update brings these advances "to all tiers of GitHub Copilot for
+    JetBrains IDEs," but that is release-level marketing framing and does not override Claim 3's
+    explicit "Pro and higher" gate — so the guide should still not assert Free-tier availability of
+    BYOK custom endpoints on the strength of the lead sentence alone.
   - Add Claude agent provider *customizations* (Claim 3) as distinct from Claude agent provider
     *selection* (already documented from the June 22 source): customizing a Claude-backed agent
     with custom agents/skills/instructions requires Copilot Pro or higher, in public preview.
