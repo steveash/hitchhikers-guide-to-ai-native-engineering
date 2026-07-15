@@ -282,36 +282,42 @@ from the version quoted in `blog-mattwood-field-and-frontier.md`)
 
 ## Guide Impact
 
-- **Chapter 02 (Planning)**: Extend the existing "JIT planning" /
-  roadmap-half-life guidance (currently anchored only on the Anthropic
-  Claude Code team's "out of date by month three" anecdote via
-  `blog-anthropic-ai-native-engineering-org.md`) with this essay's concrete
-  operational practice: record the *testable conditions* that made a
-  planning decision sound (Claim 8), not just the decision, so the plan
-  carries its own re-evaluation trigger. Add the decay-rate-tiered cadence
-  (Claim 10 — continuous for model selection, slower for workflow design,
-  slowest for purpose) as a specific recommendation for how often different
-  categories of planning assumption should be revisited, replacing any
-  implicit "review everything on the same schedule" default.
+- **Chapter 01 (Daily Workflows — Session Structure / planning)**: Extend the
+  existing "JIT planning" / roadmap-half-life guidance (currently anchored
+  only on the Anthropic Claude Code team's "out of date by month three"
+  anecdote via `blog-anthropic-ai-native-engineering-org.md`) with this
+  essay's concrete operational practice: record the *testable conditions*
+  that made a planning decision sound (Claim 8), not just the decision, so
+  the plan carries its own re-evaluation trigger. Add the decay-rate-tiered
+  cadence (Claim 10 — continuous for model selection, slower for workflow
+  design, slowest for purpose) as a specific recommendation for how often
+  different categories of planning assumption should be revisited, replacing
+  any implicit "review everything on the same schedule" default. (The
+  model-selection tier specifically also feeds Chapter 05's "Model
+  Deprecation Is a Recurring Governance Event" section.)
 
-- **Chapter 03/04 (Organization)**: Add the durable-vs-flexible taxonomy
-  (Claim 12: purpose, customer promises, accountability, security
-  boundaries, and trust-evidence as durable; models, configs, workflow
-  designs, and implementation plans as flexible) as explicit governance
-  guidance for what an organization should lock down versus keep
-  provisional. Pair this with the "artifact becomes evidence for the
-  decision" circularity (Claim 7) as a named failure mode to watch for when
-  auditing why a stale decision has persisted despite contradicting
-  evidence.
+- **Chapter 05 (Team Adoption — governance sections)**: Add the
+  durable-vs-flexible taxonomy (Claim 12: purpose, customer promises,
+  accountability, security boundaries, and trust-evidence as durable;
+  models, configs, workflow designs, and implementation plans as flexible)
+  as explicit governance guidance for what an organization should lock down
+  versus keep provisional — a natural fit alongside "Model Deprecation Is a
+  Recurring Governance Event" and "Common Objections and Real Answers." Pair
+  this with the "artifact becomes evidence for the decision" circularity
+  (Claim 7) as a named failure mode to watch for when auditing why a stale
+  decision has persisted despite contradicting evidence. (The taxonomy's
+  more abstract framing also connects to Chapter 00's "Context Is a Budget"
+  / decision-durability principles.)
 
-- **Chapter 05/06 (Evaluation & Cost-of-Validation)**: Add the "AI agents
-  standing the watch" proposal (Claim 9 — retaining a decision's original
-  test cases so an agent can mechanically re-run them against new models and
-  surface threshold crossings) as a concrete, if unproven, pattern to pilot
-  for continuous re-validation of model-selection and automation-feasibility
-  decisions. Flag it explicitly as an untested proposal from this source,
-  not a validated practice — no tooling, cost, or false-positive data is
-  given in the essay.
+- **Chapter 03 (Verification)**: Add the "AI agents standing the watch"
+  proposal (Claim 9 — retaining a decision's original test cases so an agent
+  can mechanically re-run them against new models and surface threshold
+  crossings) as a concrete, if unproven, pattern for continuous
+  re-validation of model-selection and automation-feasibility decisions —
+  adjacent to the chapter's "Two-Agent Review Pattern" and "CI as
+  Verification Backstop" material on standing, automated re-checks. Flag it
+  explicitly as an untested proposal from this source, not a validated
+  practice — no tooling, cost, or false-positive data is given in the essay.
 
 ## Extraction Notes
 
@@ -341,5 +347,11 @@ from the version quoted in `blog-mattwood-field-and-frontier.md`)
 5. The three separate Prospector triage comments on issue #1892 gave
    slightly different "relevant chapters" lists (Ch02/03/06; Ch01/04/02;
    Ch02/03/05) but converged on the same key question and the same
-   assessment of novelty and existing-note overlap. This note's Guide Impact
-   section synthesizes across all three rather than picking one.
+   assessment of novelty and existing-note overlap. Rather than adopting any
+   of those triage numberings, this note's Guide Impact section was remapped
+   against the actual `guide/*.md` files (00 Principles, 01 Daily Workflows,
+   02 Harness Engineering, 03 Verification, 04 Context Engineering, 05 Team
+   Adoption, 06 Security & Threat Model) and their real section headings —
+   the JIT-planning/decision-trigger material lands in 01 Daily Workflows,
+   the governance taxonomy in 05 Team Adoption, and the agent-monitoring
+   proposal in 03 Verification.
