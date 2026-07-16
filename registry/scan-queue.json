@@ -2,91 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.965071+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Mercury \u2013 No-code orchestration for human and agent teams",
-          "url": "https://www.mercury.build/",
-          "hn_url": "https://news.ycombinator.com/item?id=47758643",
-          "points": 6,
-          "num_comments": 4,
-          "author": "ns90001",
-          "created_at": "2026-04-13T22:16:48Z",
-          "snippet": "Hey HN, I&#x27;m Naveen, one of three co-founders building Mercury (mercury.build).<p>We spent the last year in deploying AI agents for teams in large enterprises. The agents themselves worked fine. The problem was managing them. You&#x27;ve got Claude Code in a terminal, a research agent in a browser tab, a Slack bot somewhere else, a scheduling assistant in yet another window. It&#x27;s chaotic. There&#x27;s no single place to see what&#x27;s running, who&#x27;s doing what, or how things conne"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.966153+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Claude Code OAuth down for >12 hours",
-          "url": "https://news.ycombinator.com/item?id=47762585",
-          "hn_url": "https://news.ycombinator.com/item?id=47762585",
-          "points": 8,
-          "num_comments": 8,
-          "author": "pixel_popping",
-          "created_at": "2026-04-14T07:50:08Z",
-          "snippet": "Claude Code OAuth on 2.1.107 is stuck on `Paste code here if prompted &gt;` - Impossible to paste (tried many methods, INCLUDING typing with xdotool the OAuth), there is a serious error that seems under-reported outside of Reddit &amp; Discord right now, why isn&#x27;t this considered an emergency and isn&#x27;t reported on the status page.<p>It&#x27;s not about the account because the account isn&#x27;t even validated yet, clicking on the link given, success, claude.com gives out the Token, the"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.967226+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Nori CLI, a better interface for Claude Code (no flicker)",
-          "url": "https://github.com/tilework-tech/nori-cli",
-          "hn_url": "https://news.ycombinator.com/item?id=46616562",
-          "points": 37,
-          "num_comments": 9,
-          "author": "csressel",
-          "created_at": "2026-01-14T14:40:51Z",
-          "snippet": "Hi HN, my name&#x27;s Clifford and I&#x27;m one of the creators of Nori. I\u2019ve been using Claude Code heavily since last summer, and after understanding some of the tradeoffs with their TUI implementation, I knew I couldn&#x27;t see myself living for years with this interface as one of my daily-driver tools.<p>It is <i>not</i> a hard problem to make monospace text output performant, so why does Claude Code suffer from flicker and strobing in the terminal (<a href=\"https:&#x2F;&#x2F;github.com&#x2"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.968494+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Abralo \u2013 Free, easy way to run several Claude Code agents in one window",
-          "url": "https://abralo.com/",
-          "hn_url": "https://news.ycombinator.com/item?id=48832797",
-          "points": 25,
-          "num_comments": 16,
-          "author": "cwbuilds",
-          "created_at": "2026-07-08T14:54:59Z",
-          "snippet": "Hi guys,<p>I&#x27;ve been using Claude Code for almost everything lately. Have given one an email account so it can research business leads, draft emails, fact-check them and clear them with me before sending (works really well by the way). I also tend to have a few Claude Code agents running at any one time for coding.<p>I used to create a split terminal to manage them from there, but found working in the terminal all day pretty depressing and, more importantly, found it hard to follow Claude C"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.969666+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Omi \u2013 watches your screen, hears conversations, tells you what to do",
-          "url": "https://github.com/BasedHardware/omi",
-          "hn_url": "https://news.ycombinator.com/item?id=47784914",
-          "points": 19,
-          "num_comments": 13,
-          "author": "kodjima33",
-          "created_at": "2026-04-15T20:38:21Z",
-          "snippet": "Spent 4 months and built Omi for Desktop, your life architect: It sees your screen, hears your conversations and will advise you on what to do next<p>Basically Cluely + Rewind + Granola + Wisprflow + ChatGPT + Claude in one app<p>I talk to claude&#x2F;chatgpt 24&#x2F;7 but I find it frustrating that i have to capture&#x2F;send screenshots of my screen and that it doesn&#x27;t help proactively during my work<p>Whenever omi sees something wrong about my workflow, it will send me a proactive notifi"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-07-10T07:09:45.970821+00:00",
       "payload": {
         "result": {
@@ -4497,6 +4412,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-07-15T06:46:00.017682+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-16T06:50:01.641462+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-16T06:50:01.646424+00:00",
       "payload": {
         "result": {
           "source": "github",

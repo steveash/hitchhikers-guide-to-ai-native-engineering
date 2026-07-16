@@ -1008,7 +1008,7 @@
         "filed_at": "2026-07-15T06:45:46.296732+00:00"
       }
     },
-    "last_scan": "2026-07-15T06:45:41.399341+00:00"
+    "last_scan": "2026-07-16T06:49:36.040043+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1105,7 +1105,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-15T06:45:43.078573+00:00"
+    "last_scan": "2026-07-16T06:49:37.646092+00:00"
   },
   "cognition": {
     "urls": {
@@ -1194,24 +1194,34 @@
         "filed_at": "2026-07-14T06:45:03.825679+00:00"
       },
       "https://cognition.com/blog/devin-in-windsurf": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172461+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172461+00:00",
+        "issue": 1929,
+        "filed_at": "2026-07-16T06:49:40.422761+00:00"
       },
       "https://cognition.com/blog/how-to-automate-failure-triages-and-10x-test-generation-what-weve-learned-deploying-ai-across-hilsil-workflows": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172462+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172462+00:00",
+        "issue": 1930,
+        "filed_at": "2026-07-16T06:49:42.433090+00:00"
       },
       "https://cognition.com/blog/deepwiki-mcp-server": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172463+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172463+00:00",
+        "issue": 1931,
+        "filed_at": "2026-07-16T06:49:44.329747+00:00"
       },
       "https://cognition.com/blog/singapore": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172465+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172465+00:00",
+        "issue": 1932,
+        "filed_at": "2026-07-16T06:49:46.203206+00:00"
       },
       "https://cognition.com/blog/dec-24-product-update": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172466+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172466+00:00",
+        "issue": 1933,
+        "filed_at": "2026-07-16T06:49:48.086285+00:00"
       },
       "https://cognition.com/blog/devin-crowdstrike-outage": {
         "status": "pending",
@@ -1470,6 +1480,6 @@
         "screened_at": "2026-06-30T07:15:58.230869+00:00"
       }
     },
-    "last_scan": "2026-07-15T06:45:44.503396+00:00"
+    "last_scan": "2026-07-16T06:49:38.991358+00:00"
   }
 }
