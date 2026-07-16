@@ -52,8 +52,8 @@ issue: "#1930"
   two customers.
 - **Confidence**: anecdotal (vendor-stated deployment history and customer
   list; no count of total OEMs, no deployment dates beyond "past year")
-- **Quote**: "Over the past year, Cognition has deployed Devin across
-  multiple OEMs on HIL/SIL workflows."
+- **Quote**: "Over the past year, we've deployed Devin across multiple
+  OEMs on HIL/SIL workflows."
 - **Our assessment**: This is the source's scope-setting claim — it
   establishes automotive HIL/SIL as a real, multi-customer deployment
   vertical for Devin rather than a single pilot. Mercedes is named only
@@ -67,8 +67,8 @@ issue: "#1930"
   motivating gap the rest of the post addresses.
 - **Confidence**: anecdotal (industry-condition assertion, no data on
   ticket-volume growth rate or capacity-stagnation figures)
-- **Quote**: "The core challenge persists: requirements and ticket volumes
-  grow while engineering capacity stagnates."
+- **Quote**: "The problem remains - requirements and ticket volumes
+  continue to grow, while engineering capacity hasn't kept up."
 - **Our assessment**: A plausible but unverified industry-condition claim
   used to motivate the case study — read as a problem statement from the
   vendor selling the fix, not an independently surveyed industry finding.
@@ -114,9 +114,9 @@ issue: "#1930"
 - **Confidence**: emerging (named customer, named trigger mechanism and
   action sequence; no accuracy or adoption-rate figure for this specific
   workflow)
-- **Quote**: "At RV Tech, vehicle issues arriving in Slack auto-trigger
-  Devin to pull logs, run diagnostics, and deliver structured triage
-  reports."
+- **Quote**: "At RV Tech, when a vehicle issue arrives in Slack, Devin is
+  auto-triggered to pull logs, run diagnostics, and deliver a structured
+  triage report for teams to review."
 - **Our assessment**: A concrete, named-customer instance of Slack-
   triggered autonomous triage in an automotive/embedded context — extends
   the general "Devin watches a Slack channel and triages" pattern already
@@ -149,8 +149,8 @@ issue: "#1930"
 - **Confidence**: emerging (specific, named mechanism and behavior; no
   count of how many conflicting-requirement flags were raised, no
   false-positive rate for the conflict detection)
-- **Quote**: "One engineer develops the initial Playbook, enabling the
-  team to immediately generate tests from that encoded knowledge."
+- **Quote**: "One engineer works out the initial Playbook, and the rest of
+  the team can immediately generate tests from that encoded knowledge."
 - **Our assessment**: "Playbook" here names a specific artifact — codified,
   reusable domain/framework knowledge that amortizes one expert's setup
   cost across a team — conceptually adjacent to the deterministic "testing
@@ -168,9 +168,9 @@ issue: "#1930"
   before/after rate; no data on whether test quality/coverage held
   constant at the higher throughput, and no time period over which the
   10-15/day rate was sustained)
-- **Quote**: "For RV Tech, implementing these practices led to 'a 10x
+- **Quote**: "For RV Tech, implementing these best practices led to a 10x
   increase in test-generation, from 1-2/day manually to 10-15 tests/day
-  with AI-support.'"
+  with AI-support."
 - **Our assessment**: This is the figure named in the article's own title
   and the headline number of the source. It is a throughput claim only —
   the source does not report whether the 10-15/day tests are equivalent in
@@ -186,8 +186,8 @@ issue: "#1930"
 - **Confidence**: anecdotal (single team's coverage-gap figures; no data
   on how many HIL-to-SIL conversions Devin has actually completed, no
   accuracy/equivalence-verification rate for converted tests)
-- **Quote**: "One team had written only 150 SIL tests against 700–1,000
-  needed HIL tests per program due to capacity constraints."
+- **Quote**: "For one team we spoke to, only 150 SIL tests had been written
+  against 700–1,000 HIL tests needed per program due to staffing capacity."
 - **Our assessment**: This names a specific, checkable coverage gap (150
   vs. 700-1,000) that motivates HIL-to-SIL conversion as a capacity
   problem rather than a pure quality problem — a team isn't necessarily
@@ -204,8 +204,8 @@ issue: "#1930"
   per-stage examples; no data on what fraction of Cognition's automotive
   customers sit at each stage, no time-to-progress figures between stages)
 - **Quote**: "Stage 3: Self-Improving Playbooks Shared Across the
-  Organization ... As Devin encounters issues, it improves its own
-  playbook between runs to increase speed and accuracy."
+  Organization ... As Devin sees issues, it improves its own playbook
+  between runs to increase its speed and accuracy."
 - **Our assessment**: This three-stage model (human-reviewed AI assistance
   → proactive scheduled/event-driven automation → agents recursively
   improving shared playbooks across the org) is a reusable framework for
@@ -226,10 +226,10 @@ issue: "#1930"
   limitations — a vendor naming what its own product cannot yet do
   carries more weight than a positive capability claim, since it works
   against promotional interest)
-- **Quote**: "Mapping broad regulatory language such as 'limitations on
-  braking torque' to the right code sections remains difficult.
-  Compliance standards are written for humans, not machines—bridging that
-  gap challenges AI."
+- **Quote**: "What remains hard is mapping broad regulatory language such
+  as 'limitations on braking torque' to the right sections of code.
+  Compliance standards are written for humans, not machines, and bridging
+  that gap is still a challenge."
 - **Our assessment**: This is the most transferable negative-knowledge
   claim in the source: natural-language regulatory/compliance text does
   not map cleanly to code the way an engineering requirement does, because
@@ -289,8 +289,9 @@ generation-what-weve-learned-deploying-ai-across-hilsil-workflows
   implementation agent separation)
 - "a 10x increase in test-generation, from 1-2/day manually to 10-15
   tests/day with AI-support" (RV Tech)
-- "One team had written only 150 SIL tests against 700–1,000 needed HIL
-  tests per program due to capacity constraints" (HIL-to-SIL motivation)
+- "For one team we spoke to, only 150 SIL tests had been written against
+  700–1,000 HIL tests needed per program due to staffing capacity"
+  (HIL-to-SIL motivation)
 ```
 
 ### Customer testimonial, full attribution
