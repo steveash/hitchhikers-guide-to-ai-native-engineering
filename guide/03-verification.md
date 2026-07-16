@@ -1106,7 +1106,6 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin,
-blog-cognition-verifying-agentic-development (Claims 5, 6, 11)*
+practitioner-dadlerj-tin*
 
 *Last updated: 2026-07-16*
