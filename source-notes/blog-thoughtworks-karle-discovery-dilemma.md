@@ -264,34 +264,54 @@ document order.
 
 ## Guide Impact
 
-- **Chapter 02 / product-and-discovery-workflow sections**: Add the
-  CVP/BVP → AI-archetype-modeling → scenario-conversion → user-validation
-  funnel (Claim 4, 5, 8, Concrete Artifacts) as a concrete, reusable
-  discovery-phase pattern, explicitly citing this as a single practitioner's
-  account (n=1 project, n=8 users) rather than a validated methodology.
-  Currently the guide's product-workflow material (via
-  `blog-openai-endava-frontiers.md`) only names "product discovery" as a
-  phase without procedural detail — this source fills that gap.
-- **Chapter 04 / effective prompting or context-provision sections**: Add
-  Claim 6 (the value came from providing Claude context it couldn't infer —
-  airport psychology, not the archetype-modeling technique itself) as a
-  second, domain-different illustration of the "externalized context is the
-  multiplier, not the tool" principle already sourced from
-  `blog-thoughtworks-kamelman-unbundling-expertise.md` Claim 3/6. Recommend
-  presenting the two sources together: Kamelman for the abstract mechanism,
-  Karle for a concrete non-engineering domain instance of it.
-- **Chapter 06 / AI-assisted research and evaluation sections**: Add Claim
-  13's explicit "works for / doesn't work for" boundary list as a
-  discovery-specific instance of the augment-not-replace framing already
-  present in the corpus for engineering delivery — flag it as one
+- **Coverage-gap flag (for the Prospector / human editors)**: The guide has
+  no product-discovery-methodology home. The closest is Chapter 01
+  (`guide/01-daily-workflows.md`), whose sections are all engineering-session
+  patterns (Session Structure, single-agent/Ralph loops, Multi-Agent
+  Orchestration, When NOT to Delegate), and the only existing corpus mention
+  of "product discovery" is the bare phrase in `blog-openai-endava-frontiers.md`
+  Claim 5 with no procedural detail. This source supplies a concrete
+  discovery funnel but there is no existing chapter/section that "owns" it,
+  so the primary recommendation is that editors decide whether to open one.
+  The precedent `blog-anthropic-jessyan-pm-agentic-era.md` set is to route
+  PM/discovery workflow material into Chapter 01 (Daily Workflows) even
+  though that chapter is engineering-centric — the mappings below follow
+  that precedent, but flag that they extend Chapter 01 beyond its current
+  scope rather than slotting into an existing section.
+- **Chapter 01 (Daily Workflows)**: Following the
+  `blog-anthropic-jessyan-pm-agentic-era.md` precedent (which routes its
+  discovery-vs-building workflow split into this chapter), add the CVP/BVP →
+  AI-archetype-modeling → scenario-conversion → user-validation funnel
+  (Claim 4, 5, 8, Concrete Artifacts) as a discovery-phase workflow pattern,
+  explicitly citing this as a single practitioner's account (n=1 project,
+  n=8 users) rather than a validated methodology. This would be new
+  non-engineering-workflow content in an otherwise engineering-focused
+  chapter — see the coverage-gap flag above.
+- **Chapter 01 (Daily Workflows), "When NOT to Delegate" section**: Add
+  Claim 13's explicit "works for / doesn't work for" boundary list (AI helps
+  with expanding/stress-testing concepts and generating hypotheses; not with
+  predicting adoption, replacing user research, or making strategic
+  decisions) as a discovery-specific instance of the delegate/don't-delegate
+  framing that section already builds for engineering work — flag it as one
   practitioner's generalization from a single project, not an
   industry-validated boundary.
-- **Any chapter cautioning about self-reported validation claims**: Claim 11
-  (AI-surfaced themes "reappeared... without prompting" in user testing) is
-  a useful example of a claim that sounds like independent validation but is
-  actually self-reported by the same person who ran both halves of the
-  comparison, with no blinding and n=8 — worth flagging as a pattern to
-  watch for when practitioners report "AI predicted what users later said."
+- **Chapter 00 (Principles)**: Add Claim 6 (the value came from providing
+  Claude context it couldn't infer — airport psychology, not the
+  archetype-modeling technique itself) as a second, domain-different
+  illustration of the "externalized context is the multiplier, not the tool"
+  principle. This pairs with `blog-thoughtworks-kamelman-unbundling-expertise.md`
+  Claim 3/6, whose Guide Impact already routes that abstract mechanism into
+  Chapter 00 (Principles) — recommend presenting the two together: Kamelman
+  for the abstract mechanism, Karle for a concrete non-engineering domain
+  instance of it.
+- **Chapter 05 (Team Adoption), "Measuring Impact" / "Vanity metrics to
+  avoid" section**: Claim 11 (AI-surfaced themes "reappeared... without
+  prompting" in user testing) is a useful example of a claim that sounds
+  like independent validation but is actually self-reported by the same
+  person who ran both halves of the comparison, with no blinding and n=8 —
+  worth flagging alongside that chapter's existing measurement-rigor cautions
+  as a pattern to watch for when practitioners report "AI predicted what
+  users later said."
 
 ## Extraction Notes
 
