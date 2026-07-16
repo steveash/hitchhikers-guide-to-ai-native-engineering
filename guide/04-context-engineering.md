@@ -45,6 +45,58 @@ advertised size.**
 [source: blog-french-owen-coding-agents-feb-2026, Claim 1;
 blog-sankalp-claude-code-20, Claim 2] [emerging]
 
+### Bigger windows don't buy instruction-following
+
+The smart-half rule has a mechanistic cousin: a model's capacity to
+follow instructions is a fixed property that does not grow with the
+context window. HumanLayer made Opus 4.6 (1M context) their Claude Code
+default at launch, then reverted to Opus 4.5 (~200k) after a couple of
+weeks of production use.
+[source: blog-humanlayer-long-context-isnt-the-answer, Claim 1] [anecdotal]
+
+> "While the context window is dramatically larger, we noticed over the
+> course of a couple of weeks that instruction adherence was dramatically
+> degraded, not just at longer context lengths."
+> [source: blog-humanlayer-long-context-isnt-the-answer, Claim 2] [anecdotal]
+
+The degradation showed up even at absolute token counts that sit
+comfortably inside a 200k model's smart zone — not only near the 1M
+ceiling.
+[source: blog-humanlayer-long-context-isnt-the-answer, Claim 9] [anecdotal]
+
+HumanLayer's frame for this is the **instruction budget**: a measurable
+ceiling on how many instructions a model follows reliably before
+adherence drops off, which context-extension math (e.g. YaRN) does not
+raise — it extends the length the model can attend to, not its ability to
+obey.
+[source: blog-humanlayer-long-context-isnt-the-answer, Claims 4, 5] [emerging]
+
+**Debated: is a bigger context window an upgrade?** Anthropic's
+session-management guidance (already cited in this guide) frames Claude
+Code's 1M window as a straightforward capability gain — more room before
+you must `/compact`. HumanLayer reports the same 1M default degrading
+instruction adherence badly enough to revert. The corpus tracks this as
+an open contradiction (issue #1832).
+[source: blog-humanlayer-long-context-isnt-the-answer, Claim 2] [editorial]
+
+**Our take** [editorial]: Treat a larger advertised window as a bigger
+container, not a smarter model — it widens the gap between what *fits* and
+what the model *handles well*. Before adopting a long-context default for
+instruction-heavy agentic work, test instruction adherence directly;
+retrieval and needle-in-a-haystack benchmarks don't measure it.
+[source: blog-humanlayer-long-context-isnt-the-answer, Claims 4, 8] [editorial]
+
+HumanLayer replaced its relative context-warning threshold ("40% of the
+usable context") with a flat 100k-token ceiling for long-context models —
+because 40% of a 1M window would allow ~400k tokens, far past where
+adherence degrades.
+[source: blog-humanlayer-long-context-isnt-the-answer, Claim 10] [settled]
+
+**Rule**: On a long-context model, set an *absolute* context-warning
+threshold, not a percentage of the window. 100k is HumanLayer's risk
+tolerance, not a physical constant — pick your own absolute ceiling.
+[editorial]
+
 ### Most of the budget is gone before you start
 
 The 96% number deserves its own section. Cowrie (Bswen) ran `/context`
@@ -670,6 +722,75 @@ quality, not just capacity.
 
 ---
 
+## Forking: Reuse Built Context Instead of Rebuilding It
+
+Compaction and handoff both discard context and rebuild. Forking does the
+opposite — it treats accumulated context as a reusable asset. HumanLayer
+frames it as a cross-vendor primitive (Claude Code's `rewind`, "time
+traveling" or "branching" elsewhere) for building high-quality context
+once and reusing it many times.
+[source: blog-humanlayer-context-forking, Claim 1] [emerging]
+
+### The mental model: context as a downward-growing stack
+
+Why you can rewind a session but not surgically edit its middle is
+structural. Picture the context window as an OS stack, each turn a frame
+pushed onto the end:
+
+> "Like a stack, coding agent context windows usually **prevent random
+> access**. You can push things to the end of it by sending a user
+> message, and you can pop (remove) things from the end."
+> [source: blog-humanlayer-context-forking, Claim 3] [emerging]
+
+Random access into the middle is disallowed for three concrete reasons:
+it triggers expensive inference-API cache misses, it mangles accumulated
+context, and it interferes with the harness's internal state tracking —
+e.g. the read-before-edit enforcement that depends on the harness knowing
+which files the agent has already read.
+[source: blog-humanlayer-context-forking, Claims 4, 5] [emerging]
+
+The practical constraint: you can only fork at user-message turn
+boundaries, never mid-tool-call-sequence.
+[source: blog-humanlayer-context-forking, Claim 6] [emerging]
+
+### Fork to explore design paths
+
+Chapter 01 covers rewind as a course-correction move (drop a failed
+attempt, keep the file reads). The less obvious use is proactive: during
+the design phase, build up high-quality context about the problem once,
+then fork it to explore competing approaches from the same base.
+
+> "Once I have accumulated high-quality context about the codebase and
+> problem I'm trying to solve, I'll fork the conversation to explore
+> different design & architectural paths."
+> [source: blog-humanlayer-context-forking, Claim 9] [anecdotal]
+
+This is the judge-panel / multi-attempt-then-select pattern, run inside
+one context lineage rather than across independent sub-agents — cheaper
+when the branches should share the same expensively-built context.
+[editorial]
+
+**Rule**: Reserve sub-agents for work that needs fully isolated context;
+reach for forking when competing branches should share the same
+accumulated context. Build the context once, fork it, keep the best
+branch.
+[source: blog-humanlayer-context-forking, Claim 9] [editorial]
+
+### Caveat: forking's disk effects vary by agent
+
+Fork implementations differ in what they do to the filesystem — some
+rewind code/disk state alongside the conversation, others create a new
+branch or worktree. The source documents the variance but does not
+resolve it per-tool.
+[source: blog-humanlayer-context-forking, Claim 7] [anecdotal]
+
+**Rule**: Before relying on rewind, confirm what your specific agent does
+to the working tree — whether it reverts uncommitted files or only the
+transcript.
+[source: blog-humanlayer-context-forking, Claim 7] [anecdotal]
+
+---
+
 ## Cache Layer Hierarchy
 
 The Claude Code team's first-party description of how their cache is
@@ -1231,6 +1352,8 @@ blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
 blog-anthropic-session-management-1m-context (Claim 1),
 blog-cursor-continual-harness-improvement (Claims 3, 5, 10, 11),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
+blog-humanlayer-long-context-isnt-the-answer (Claims 1, 2, 4, 5, 8, 9, 10),
+blog-humanlayer-context-forking (Claims 1, 3, 4, 5, 6, 7, 9),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
 blog-sankalp-claude-code-20 (Claims 1-7),
@@ -1244,4 +1367,4 @@ practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
 blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-07-16*

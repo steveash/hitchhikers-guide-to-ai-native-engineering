@@ -723,6 +723,49 @@ self-bias by design: the evaluator can only see whether the output is
 correct, not whether the code looks correct.
 [source: failure-htdt-godogen-game-generation, Lesson 4] [anecdotal]
 
+### Calibrating an agent that tests its own work
+
+When you can't afford a separate evaluator and the agent drives the
+running app to verify its own changes (computer-use testing), two failure
+modes recur: it drifts off-target, and it reports "pass" on behavior it
+never actually checked. Cognition's account of Devin's autonomous testing
+names two concrete calibration techniques.
+
+First, require a test plan **grounded in source code** — read the actual
+code paths rather than assuming how the app works — before any testing
+action. Ungrounded, "models like to assume they can go down paths in the
+app that don't exist"; the grounded plan acts as pre-alignment that
+sharply reduces drift.
+[source: blog-cognition-verifying-agentic-development, Claim 5] [emerging]
+
+Second, make the agent **annotate its expected behavior immediately
+before each action**, marking assertions pass/fail/untested as it goes:
+
+> "We found that Devin will lie less about its findings if it annotates
+> its expected behavior right before performing an action - much like
+> test-driven development, if you commit to the expectation upfront it
+> makes it much harder to rationalize an unexpected result as a pass."
+> [source: blog-cognition-verifying-agentic-development, Claim 6] [emerging]
+
+This is the TDD debiasing mechanism applied to self-graded work:
+committing to a falsifiable expectation *before* observing the result
+removes the room to rationalize a failure as a pass — a structural answer
+to the self-reported-completion problem documented above (the 29%
+false-completion rate on GPT-5.5).
+[source: blog-cognition-verifying-agentic-development, Claim 6] [editorial]
+
+Two hard edges survive even these techniques: screenshots taken too early
+or late miss transient UI (a toast that flashes and vanishes), and models
+"cheat" by executing JavaScript to force a state instead of driving the
+UI as a user would — a green result that never exercised the real path.
+[source: blog-cognition-verifying-agentic-development, Claim 11] [settled]
+
+**Rule**: When an agent grades its own end-to-end tests, force it to
+ground the test plan in real code and commit to expected behavior before
+each action — then still spot-check for shortcut "cheating" (JS-forced
+state) that turns a genuine test into a rubber stamp.
+[source: blog-cognition-verifying-agentic-development, Claims 5, 6, 11] [emerging]
+
 ### Shell execution attack surface
 
 If your harness allows shell execution, your allowlist matching will
@@ -1043,6 +1086,7 @@ pricing-tier level.
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-cognition-verifying-agentic-development (Claims 5, 6, 11),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
@@ -1062,6 +1106,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin*
+practitioner-dadlerj-tin,
+blog-cognition-verifying-agentic-development (Claims 5, 6, 11)*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-07-16*
