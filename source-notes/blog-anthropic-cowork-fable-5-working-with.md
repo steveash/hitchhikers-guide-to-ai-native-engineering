@@ -134,7 +134,10 @@ issue: "#1955"
   and its known false-positive behavior.
 - **Confidence**: settled for the mechanism's existence (first-party feature
   description); the "users are informed whenever this occurs" sub-claim is
-  contradicted by an existing corpus source — see Cross-References → Contradicts.
+  corroborated as *stated policy* by Anthropic's own June 2026 reversal statement
+  (`blog-simonwillison-fable-silent-interventions.md` Claims 6–7 — see
+  Cross-References → Corroborates) yet contradicted at the level of *observed
+  behavior* by a dated first-person session — see Cross-References → Contradicts.
 - **Quote**: "It’s also worth noting that Claude Fable 5 comes with a new set of classifiers: separate AI systems that detect potential misuse in requests related to cybersecurity or to biology and chemistry. When they trigger, the response is automatically handled by Claude Opus 4.8 instead, and users are informed whenever this occurs. Opus 4.8 is a highly capable model in its own right, and the chat stays on Opus from there; start a new one to get back to Claude Fable 5. We tuned these safeguards conservatively so we could release a Mythos-class model for general use both safely and quickly, so they'll sometimes catch harmless requests, including phrases in Claude Cowork that only touch on related topics."
 - **Our assessment**: This is the most operationally important claim in the post for
   practitioners running long Cowork sessions: a mid-session model swap to Opus 4.8
@@ -304,6 +307,28 @@ Effort setting (independent of model choice):
     general claim for the cybersecurity/bio-chem classifier case specifically
     ("users are informed whenever this occurs"). See Contradicts below for where
     this same claim conflicts with a different corpus source.
+  - `blog-simonwillison-fable-silent-interventions.md` Claims 6–7 (Anthropic's
+    2026-06-10/11 reversal of its silent frontier-LLM-development degradation
+    policy) — this is the strongest first-party corroboration in the corpus for
+    this post's Claim 7 notification guarantee, and it is the documented *origin*
+    of that guarantee: after community backlash, Anthropic's June 11 statement
+    committed that "Starting this week, flagged requests will visibly fall back to
+    Opus 4.8—the same as our safeguards for cyber and bio" (Claim 6), and the
+    reversal statement's notification language (Concrete Artifacts → Anthropic
+    Reversal Statement) reads "You will see this every time it happens." This July
+    16 post's cybersecurity/bio-chem classifier notification promise ("users are
+    informed whenever this occurs") is the same commitment restated as settled
+    Cowork policy roughly five weeks later. Note the timing relationship: the June
+    reversal established the visible-fallback-with-notification standard; this post
+    describes it as the shipped default. The corroboration and the Contradicts
+    entry below are not in tension — Anthropic's *stated* policy (June reversal →
+    this post) is consistent notification, while the contradiction concerns whether
+    that stated policy held in a specific observed session (see Contradicts).
+    Claim 7 of that note also names Anthropic's own rationale for why it originally
+    chose *invisible* safeguards ("Invisible safeguards can be targeted more
+    narrowly, allowing us to ship quickly with very few false positives... that was
+    the wrong tradeoff"), which contextualizes this post's admission that the
+    conservatively-tuned classifiers "sometimes catch harmless requests."
 
 - **Contradicts**: Filed as
   [steveash/hitchhikers-guide-to-ai-native-engineering#1974](https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/issues/1974).
@@ -419,7 +444,11 @@ Effort setting (independent of model choice):
   throughout ("We recommend," "We tuned these safeguards," "In our testing").
 - **Contradiction filed before this PR was opened**, per MINER.md §4a: see
   [#1974](https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/issues/1974).
-  No verdict is picked in this note.
+  No verdict is picked in this note. (Note: #1974's Side A originally cited a
+  transposed filename `blog-anthropic-fable-5-cowork-working-with.md` that never
+  existed; the citation has been corrected to this PR's actual filename
+  `blog-anthropic-cowork-fable-5-working-with.md` and the issue reopened so a
+  fresh contradiction assessment can run against the real note.)
 - **Confidence calibration**: Feature/mechanism descriptions (model defaults,
   effort mechanics, classifier existence, usage-cost mechanism, plan-panel UI) are
   **settled** first-party product descriptions. Comparative capability claims
@@ -442,4 +471,11 @@ Effort setting (independent of model choice):
   `blog-simonwillison-fable-relentlessly-proactive.md` Claim 5 (silent downgrade
   confirmed at lines 124-125); `blog-anthropic-cowork-enterprise.md` Claim 7
   (skills-as-shared-infrastructure, no lifecycle policy, confirmed at lines
-  166-183).
+  166-183); `blog-simonwillison-fable-silent-interventions.md` Claim 6 ("Starting
+  this week, flagged requests will visibly fall back to Opus 4.8..." reversal
+  commitment confirmed at lines 176-177, and the "You will see this every time it
+  happens" notification line confirmed in that note's Concrete Artifacts →
+  Anthropic Reversal Statement at line 271) and Claim 7 (Anthropic's stated
+  rationale for originally choosing invisible safeguards confirmed at lines
+  193-195) — added as the primary first-party corroboration for this note's
+  Claim 7 notification guarantee.
