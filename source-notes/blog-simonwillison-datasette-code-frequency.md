@@ -145,6 +145,16 @@ and 6 — see Extraction Notes for verification caveats.*
   spike-then-decay pattern" that Miller et al. document at scale. Any guide passage citing
   this source's numbers as evidence of sustained productivity gain should pair it with
   Miller et al.'s decay finding.
+- **Corroborates (via an independent mechanism)** `blog-simonwillison-james-shore-maintenance-costs.md`
+  (Claim 3: if an AI tool doubles code output but also doubles per-unit maintenance costs, the
+  productivity gain "disappears within ~5 months" and the team ends up worse off than if it had
+  never used the tool): this reaches the same "don't read a volume spike as a durable gain"
+  conclusion as the Miller citation above, but through a different causal story — accumulating
+  maintenance cost catching up with the increased code volume, rather than difference-in-differences
+  reversion to baseline. It is also a non-Willison-authored source, so it strengthens the caution
+  independently rather than duplicating it. A guide passage citing this note's 37,022-addition spike
+  should treat the pairing of Miller (empirical decay) and Shore (mechanistic maintenance-cost model)
+  as the load-bearing reason not to read the spike as sustained productivity.
 - **Corroborates** `blog-simonwillison-charity-majors-code-economics.md` (code shifted from
   an expensive, curated asset to a free, disposable, instantly-regenerable one in 2025):
   a 37,022-line addition/9,528-line deletion week is a concrete instance of code being
@@ -165,7 +175,10 @@ and 6 — see Extraction Notes for verification caveats.*
   claims, calls this the best productivity illustration he could find, and it's a screenshot
   of a GitHub chart") but should NOT be cited as measured evidence of a productivity
   multiplier. If used, it should be paired explicitly with `paper-miller-speed-cost-quality.md`
-  to make the point that raw line-change-volume spikes are a weak, easily-transient signal —
+  (empirical decay of addition spikes within months) and `blog-simonwillison-james-shore-maintenance-costs.md`
+  (mechanistic model of maintenance cost overwhelming the gain within ~5 months) — two independent
+  sources reaching the same conclusion — to make the point that raw line-change-volume spikes are a
+  weak, easily-transient signal —
   the guide's "measuring impact" guidance should recommend against using single-repo,
   single-snapshot code-frequency charts as a KPI, using this post as the cautionary example
   of a credible practitioner reaching for exactly that metric because nothing better was
