@@ -1008,7 +1008,7 @@
         "filed_at": "2026-07-15T06:45:46.296732+00:00"
       }
     },
-    "last_scan": "2026-07-16T06:49:36.040043+00:00"
+    "last_scan": "2026-07-17T06:47:44.392506+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1105,7 +1105,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-16T06:49:37.646092+00:00"
+    "last_scan": "2026-07-17T06:47:45.913532+00:00"
   },
   "cognition": {
     "urls": {
@@ -1224,20 +1224,28 @@
         "filed_at": "2026-07-16T06:49:48.086285+00:00"
       },
       "https://cognition.com/blog/devin-crowdstrike-outage": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172467+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172467+00:00",
+        "issue": 1967,
+        "filed_at": "2026-07-17T06:47:47.964502+00:00"
       },
       "https://cognition.com/blog/open-source-initiative-is-back": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172468+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172468+00:00",
+        "issue": 1968,
+        "filed_at": "2026-07-17T06:47:49.615080+00:00"
       },
       "https://cognition.com/blog/introducing-devin": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172470+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172470+00:00",
+        "issue": 1969,
+        "filed_at": "2026-07-17T06:47:51.211480+00:00"
       },
       "https://cognition.com/blog/swe-check-10x-faster": {
-        "status": "pending",
-        "screened_at": "2026-06-30T04:38:14.172471+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T04:38:14.172471+00:00",
+        "issue": 1970,
+        "filed_at": "2026-07-17T06:47:52.795802+00:00"
       },
       "https://cognition.com/blog/ai-productivity": {
         "status": "pending",
@@ -1480,6 +1488,6 @@
         "screened_at": "2026-06-30T07:15:58.230869+00:00"
       }
     },
-    "last_scan": "2026-07-16T06:49:38.991358+00:00"
+    "last_scan": "2026-07-17T06:47:47.024744+00:00"
   }
 }
