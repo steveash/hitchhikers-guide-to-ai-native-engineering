@@ -358,7 +358,7 @@ function register(handler: Handler): Promise<RunResult> {
   handler.setup();
   return handler.run({ retries: 3 });
 }
-# The contract must be written down before this compiles
+// The contract must be written down before this compiles
 ```
 
 ### Six-step process (as named and ordered in source)
@@ -377,10 +377,20 @@ Step 3 — Translate everything
   (implement → review → fix loop; mechanical disk-state work queue; smaller
   models implement, larger models review; unresolved cases flagged
   "// TODO(port): <reason>")
-Step 4 — Compile
-Step 5 — Run (smoke tests)
-Step 6 — Match behavior (full test suite / parity check; "build daemon"
-  serializes rebuilds so only one process ever triggers a rebuild)
+Steps 4, 5, 6 — Compile, run, and match behavior
+  (the source covers these three under a single combined header, not as three
+  separately-ordered steps; its stated rationale, quoted verbatim: "These
+  three steps share the same loop architecture and need progressively less
+  human judgment, so we cover them together." The source also notes step 4 may
+  "often dissolve into step 3 depending on the language and size of the
+  migration.")
+  - Compile (agents may not run this at all depending on size/difficulty;
+    Jarred used an orchestrator script invoking the compiler once across the
+    whole workspace, with "fixer agents" burning down the error list in
+    parallel with adversarial review)
+  - Run (smoke tests)
+  - Match behavior (full test suite / parity check; "build daemon" serializes
+    rebuilds so only one process ever triggers a rebuild)
 ```
 
 ### Why AI changes migration economics (five properties, verbatim bullet list)
