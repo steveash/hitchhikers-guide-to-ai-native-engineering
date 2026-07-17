@@ -165,8 +165,10 @@ to the people it serves."
 Before writing citations below, `blog-thoughtworks-mugrage-claude-outage-infrastructure.md`,
 `blog-simonwillison-fable-mythos-access-directive.md`,
 `blog-ronacher-ai-nationalism-americans-only.md`,
-`blog-fowler-fragments-2026-07-13.md`, and
-`blog-thoughtworks-kamelman-ai-governance-category-error.md` were re-read
+`blog-fowler-fragments-2026-07-13.md`,
+`blog-thoughtworks-kamelman-ai-governance-category-error.md`,
+`blog-latentspace-osman-local-ai-catching-up.md`, and
+`blog-thoughtworks-vega-token-billing-lockin.md` were re-read
 directly (MINER.md §4b) and claim numbers below were confirmed against those
 notes' numbered `### Claim N:` headings in document order.
 
@@ -256,6 +258,49 @@ notes' numbered `### Claim N:` headings in document order.
     of control (whose values are encoded) even when control is not
     concentrated. The two are complementary axes for a guide discussion of
     model-selection risk beyond cost/capability/latency.
+  - `blog-latentspace-osman-local-ai-catching-up.md` Claim 9 (Osman expects
+    hybrid local/cloud AI to grow, driven by enterprises worried that
+    "Providers can change quality, pricing, access or policies," pushing them
+    toward "dedicated, colocated hardware that it controls"): this is
+    essentially the same enterprise-hedge motivation this article's Claims 3
+    (the Upstage CEO citing Anthropic's usage restrictions as the risk
+    sovereign AI prevents) and 10 (sovereign-AI investment as "a reasonable
+    bet under real uncertainty") describe, and independently confirms that
+    "a provider changing a model's quality/pricing/access/policy out from
+    under you" is a recognized driver of sovereign/hybrid AI adoption. The
+    two notes frame the *same* driver at different altitudes, and this is why
+    the citation sits under Extends rather than Corroborates: Osman's framing
+    is enterprise cost/access/control (a company hedging against a commercial
+    counterparty by moving compute to hardware it owns), whereas this
+    article's framing is geopolitical/jurisdictional (nations and regulated
+    sectors hedging against a *foreign* provider and a *foreign* export-control
+    regime — Lumen Sovereign, CADA, the Fable/Mythos block). This is the same
+    enterprise-cost-vs-geopolitical distinction already drawn against
+    Ronacher's *concentration* framing in Claim 7's Extends entry above:
+    Osman's is a market/vendor risk, this article's is a jurisdictional/state
+    risk, and both are complementary conditioning variables for a guide
+    discussion of *why* an organization might choose a sovereign or
+    self-controlled model — the answer differs by whether the feared actor is
+    a vendor or a government. (Osman Claim 9 is graded anecdotal in its own
+    note — a practitioner's forward-looking assessment of a trend he has a
+    commercial interest in — so it corroborates the *existence* of the
+    motivation, not its prevalence.)
+  - `blog-thoughtworks-vega-token-billing-lockin.md` Claim 8 (a four-part
+    "reclaim sovereignty" strategy against token-billing vendor lock-in:
+    open-weight models, local/specialized deployment on owned infrastructure,
+    fine-tuning on your own codebase, and provider-swap abstraction layers):
+    a third distinct corpus use of "sovereignty," here for a *cost/lock-in*
+    concern (metered token billing) rather than this article's
+    geopolitical/jurisdictional concern or Osman's provider-terms-change
+    concern. Vega treats "sovereignty" as an economic countermeasure to
+    recurring API spend; this article would classify Vega's remedy as a
+    *jurisdictional/operational-control* move that does not, on its own, buy
+    the operational resilience (Claim 1) or epistemic control (Claim 7) the
+    article distinguishes. Useful together, the three notes (this one, Osman,
+    Vega) show the single word "sovereign" spanning at least three separable
+    enterprise motivations — geopolitical/jurisdictional, provider-terms
+    hedging, and cost/lock-in — none of which is interchangeable with the
+    others in guide advice.
 
 - **Novel**:
   - **The sovereignty/resilience distinction, argued through CADA's actual
