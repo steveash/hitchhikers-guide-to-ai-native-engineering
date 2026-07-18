@@ -723,6 +723,33 @@ self-bias by design: the evaluator can only see whether the output is
 correct, not whether the code looks correct.
 [source: failure-htdt-godogen-game-generation, Lesson 4] [anecdotal]
 
+### Green tests that never touch the risky code ("Lying Tests")
+
+A passing test suite is only a safety net if it exercises the code you are about
+to change. Two versions of this failure appear in a documented legacy-restoration
+case study. First, a suite can pass while bypassing the volatile paths entirely:
+the tests exercised a local mock reimplementation, so "the actual networking
+code, the thread-unsafe pooling, and the fragile protocol parser—the absolute
+most volatile parts of the system—were being completely bypassed."
+[source: blog-fowler-malykhin-archaeologist-copilot, Claim 3] [anecdotal]
+Acting on the agent's initial advice to refactor that code immediately would have
+kept the tests green while breaking the production paths they never covered.
+
+Second, tests can swallow their own failures. A harness whose body was wrapped in
+a `try/catch` that printed and continued always exited zero — a "Lying Test." The
+fix was to make the baseline honest before trusting it: stripping the `try/catch`
+so the process crashes on failure was, in the author's words, "my very first
+structural change to the legacy codebase," done "to force my verifiable baseline
+to become completely honest."
+[source: blog-fowler-malykhin-archaeologist-copilot, Claim 8] [anecdotal]
+
+**Rule**: Before you trust an existing test suite as the safety net for
+AI-assisted changes, verify it can actually fail — confirm it exercises the real
+risky paths rather than a mock, and that a deliberately broken build turns red. A
+green suite that cannot fail is worse than no suite, because it manufactures false
+confidence.
+[source: blog-fowler-malykhin-archaeologist-copilot, Claims 3, 8] [anecdotal]
+
 ### Shell execution attack surface
 
 If your harness allows shell execution, your allowlist matching will
@@ -1046,6 +1073,7 @@ blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
+blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
@@ -1064,4 +1092,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-07-18*
