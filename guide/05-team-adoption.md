@@ -620,6 +620,31 @@ enabled.
 docs-github-copilot-claude-sonnet4-deprecation, Claims 2, 3, 8;
 blog-thebatch-gpt55-hallucination-kimi-k26, Claim 4] [emerging]
 
+### Deprecation is the soft version; availability shock is the hard one
+
+Deprecation at least names a successor. A model can also vanish with no successor
+and no notice at all. The week of June 13, 2026, a US export-control directive
+required Anthropic to block Fable 5 and Mythos 5 for all non-US nationals, and its
+only compliance path was to shut both models down globally: "The dependency didn't
+degrade; it disappeared overnight."
+[source: blog-thoughtworks-kamelman-sovereign-ai-dependency, Claim 4] [emerging]
+A team "near-entirely reliant on Fable for coding work" switched to Codex within
+hours — survivable only because the alternative already worked: "Resilience
+architecture that hadn't been built couldn't be improvised at that moment."
+[source: blog-thoughtworks-kamelman-sovereign-ai-dependency, Claim 4] [anecdotal]
+
+This is a different failure than vendor lock-in or jurisdictional risk, and moving
+to a domestically-hosted or "sovereign" model does not fix it: assurance tiers
+"define who owns and controls the infrastructure. None of them specify what
+happens when that infrastructure fails."
+[source: blog-thoughtworks-kamelman-sovereign-ai-dependency, Claim 1] [emerging]
+
+**Rule**: Keep a second model provider genuinely runnable — periodically exercised
+on your real workload, not merely configured — so a zero-notice availability shock
+is a config switch rather than an emergency migration. Resilience that isn't built
+before the outage cannot be improvised during it.
+[source: blog-thoughtworks-kamelman-sovereign-ai-dependency, Claims 1, 4] [emerging]
+
 ---
 
 ## Code Review When AI Wrote It
@@ -1335,6 +1360,30 @@ each one owns — maintained as shared team infrastructure alongside the harness
 files this chapter already tells you to standardize.
 [editorial]
 
+### Name a human accountable for the outcome, not just the work
+
+A roster says who owns each piece of work; it does not say who is *accountable*
+if the work goes wrong. Those are different, and only one of them can be an agent.
+Borrowing Apple's term (via GitLab's handbook), a project's Directly Responsible
+Individual (DRI) is the person "ultimately accountable for the success or failure
+of a specific project, initiative, or activity."
+[source: blog-simonwillison-directly-responsible-individuals, Claim 1] [settled]
+An agent can hold none of that — being a DRI is "something that feels uniquely
+human... because humans can take accountability for their actions where machines
+cannot."
+[source: blog-simonwillison-directly-responsible-individuals, Claim 2] [emerging]
+
+DRI is not a rubber stamp on agent output: the role has "final decision-making
+power but should consult and collaborate with relevant stakeholders," and its
+value depends on there being exactly one such person, not a diffuse "the team" or
+"the model."
+[source: blog-simonwillison-directly-responsible-individuals, Claims 4, 5] [settled]
+
+**Rule**: However much of the work an agent performs, assign a single named human
+as the DRI accountable for the outcome — accountability does not transfer to a
+machine, so a task whose only "owner" is an agent has no owner.
+[source: blog-simonwillison-directly-responsible-individuals, Claims 1, 2] [emerging]
+
 ### Give agents a north star
 
 A shared, mission-aligned goal is what makes agent proactivity productive
@@ -1524,7 +1573,9 @@ blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
 blog-cursor-coinbase-agent-first-adoption (Claims 3, 10),
 blog-cursor-nab-legacy-migration (Claims 6, 7),
 blog-faros-claude-code-roi (Claims 1-7),
+blog-simonwillison-directly-responsible-individuals (Claims 1, 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
+blog-thoughtworks-kamelman-sovereign-ai-dependency (Claims 1, 4),
 docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
 docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
@@ -1539,4 +1590,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-06-27*
+*Last updated: 2026-07-18*

@@ -325,6 +325,28 @@ window and pick the threshold that matches your tolerance for context
 degradation.
 [editorial]
 
+### The "dumb zone" in absolute tokens, not just percentages
+
+The smart-half and 60% rules are expressed as a fraction of the window. Dex
+Horthy (HumanLayer) anchors the same degradation boundary — which he calls the
+"dumb zone" — in absolute token counts that scale with window size: he pushes a
+1M-token model to "around 300-400K when it feels right," and stops smaller models
+"at around 100K."
+[source: blog-pragmaticengineer-orosz-horthy-context-engineering, Claim 4] [anecdotal]
+
+The absolute framing matters because a percentage hides the window size. Sixty
+percent of a 200K window (120K) and 60% of a 1M window (600K) are very different
+operating points, and the larger one is already well past Horthy's threshold. The
+mechanism is the same one behind the smart-half rule: a bigger window does not
+make the model smarter, because intelligence is bottlenecked "by deciding which
+parts of the context are relevant for the next decision," not by raw capacity.
+[source: blog-pragmaticengineer-orosz-horthy-context-engineering, Claim 5] [anecdotal]
+
+**Rule**: Set your handoff threshold in absolute tokens, not only a percentage —
+roughly 300-400K for a 1M-token model, ~100K for smaller ones. Treat these as one
+practitioner's directional judgment, not a measured constant.
+[source: blog-pragmaticengineer-orosz-horthy-context-engineering, Claim 4] [anecdotal]
+
 ### Know your harness's compaction trigger
 
 Different harnesses fire compaction at wildly different fill levels.
@@ -766,6 +788,21 @@ rather than letting the error trace accumulate. A fresh session with a
 clean handoff is cheaper than reasoning over a context full of failed
 attempts.
 [source: blog-cursor-continual-harness-improvement, Claim 3] [emerging]
+
+### A concrete trajectory-poisoning signal
+
+Rot has a specific, watchable tell. Horthy names the exact model outputs that
+mean a session has become "trajectory-poisoned": "'You're completely right!' or
+'you're right to push back on that' are phrases that mean it's time to start a
+new session." The mechanism is autoregression — once a mistake → correction →
+mistake loop is in the visible history, "the model calculates that the next most
+probable message is to make another mistake."
+[source: blog-pragmaticengineer-orosz-horthy-context-engineering, Claim 8] [anecdotal]
+
+**Rule**: Treat repeated "you're completely right!"-style capitulations as a
+session-abandonment trigger, not a sign the agent is about to recover. Hand off
+to a fresh session rather than continuing to correct a poisoned one.
+[source: blog-pragmaticengineer-orosz-horthy-context-engineering, Claim 8] [anecdotal]
 
 ---
 
@@ -1233,6 +1270,7 @@ blog-cursor-continual-harness-improvement (Claims 3, 5, 10, 11),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),
+blog-pragmaticengineer-orosz-horthy-context-engineering (Claims 4, 5, 8),
 blog-sankalp-claude-code-20 (Claims 1-7),
 failure-alex000kim-claudecode-source-leak (Lesson 2),
 failure-cursor-ultra-billing-cache-explosion (Lessons 1-3, 6),
@@ -1244,4 +1282,4 @@ practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
 blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-07-18*
