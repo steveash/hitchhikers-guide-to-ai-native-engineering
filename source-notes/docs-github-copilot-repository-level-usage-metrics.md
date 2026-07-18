@@ -44,7 +44,7 @@ issue: "#1990"
   access tiers/scopes for both endpoints (confirmed via the linked docs
   page). Does NOT cover: the exact JSON field names inside the downloaded
   NDJSON report rows (the REST reference page documents only the wrapper
-  response — `download_links`, `report_start_day`, `report_end_day` — not
+  response — `download_links` and a single `report_day` field — not
   the per-repository row schema); whether a `repos-28-day` rolling-window
   variant exists (confirmed absent from the docs page as of this
   extraction — see Claim 5); how repository-level totals relate
@@ -114,8 +114,7 @@ issue: "#1990"
       "https://example.com/copilot-usage-report-1.ndjson",
       "https://example.com/copilot-usage-report-2.ndjson"
     ],
-    "report_start_day": "2025-07-01",
-    "report_end_day": "2025-07-28"
+    "report_day": "2025-07-01"
   }
   ```
 - **Our assessment**: This is the identical signed-URL + NDJSON delivery
@@ -126,13 +125,14 @@ issue: "#1990"
   to a signed URL, parse NDJSON line-by-line, handle URL expiration) can reuse
   that same pipeline component for the repository-level report — this is not a
   new integration pattern, just a new report type using an established
-  delivery mechanism. Note the response schema's example dates
-  (`report_start_day`/`report_end_day` spanning 2025-07-01 to 2025-07-28, a
-  28-day span) is a documentation placeholder inherited from the reference
-  page's shared schema component and does not indicate the `repos-1-day`
-  endpoint itself returns a 28-day window — the endpoint is explicitly a
-  single-day report per its name and the `day=` query parameter (see Claim 5
-  for the absence of a `repos-28-day` variant).
+  delivery mechanism. The wrapper response is even simpler than a date-range
+  object: the schema (titled "Copilot Metrics 1 Day Report" on the reference
+  page) carries only `download_links` plus a single `report_day` field, whose
+  example value is `"2025-07-01"`. The single `report_day` (not a
+  start/end pair) reinforces that this is a single-day report per its name
+  and the `day=` query parameter — there is no 28-day window field in the
+  response, consistent with the absence of a `repos-28-day` endpoint variant
+  (see Claim 5).
 
 ### Claim 4: Each per-repository report entry covers pull requests created and merged by Copilot coding agent, and pull requests reviewed by Copilot code review with suggestion counts broken down by comment type — but only for repositories that had activity that day
 
@@ -312,21 +312,21 @@ GET /orgs/{org}/copilot/metrics/reports/repos-1-day?day=YYYY-MM-DD
   Fine-grained permission required: "Organization Copilot metrics" (read)
 
 # Response schema (identical shape for both endpoints), Status: 200
+# Schema title on reference page: "Copilot Metrics 1 Day Report"
 {
   "download_links": [
     "https://example.com/copilot-usage-report-1.ndjson",
     "https://example.com/copilot-usage-report-2.ndjson"
   ],
-  "report_start_day": "2025-07-01",
-  "report_end_day": "2025-07-28"
+  "report_day": "2025-07-01"
 }
 
 # Report content rule: only repositories with CCA or CCR activity on the
 # specified day are included as rows in the downloaded NDJSON file(s).
 # Exact per-row JSON field names are not documented on this reference page —
-# only the wrapper response (download_links / report_start_day / report_end_day)
-# is specified. The row schema is presumably documented inside the NDJSON
-# file itself or a separate guide not linked from this reference page.
+# only the wrapper response (download_links / report_day) is specified. The
+# row schema is presumably documented inside the NDJSON file itself or a
+# separate guide not linked from this reference page.
 ```
 
 *Source: GitHub REST API reference, "Get Copilot enterprise repository report
@@ -548,7 +548,7 @@ changelogs, cross-checked against the REST API reference page fetched
    counts broken down by comment type" (Claim 4) does not define what the
    comment-type categories are. The fetched REST reference page's endpoint
    description does not enumerate them either — only the wrapper response
-   schema (`download_links`, `report_start_day`, `report_end_day`) is
+   schema (`download_links` and a single `report_day` field) is
    documented on that page; the per-row NDJSON schema, which would presumably
    define the comment-type enum, is not published on the reference page
    reachable from this changelog. This gap is noted in Concrete Artifacts
