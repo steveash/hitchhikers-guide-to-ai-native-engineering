@@ -530,7 +530,14 @@ UNDESIRABLE (introduced by large-scale RL in SWE-1.6):
 - Filed contradiction issue #2050 before writing this note's Cross-References
   → Contradicts section, per MINER.md §4a-§4b. No verdict is asserted here;
   see the issue for full framing and the filer's tentative (non-binding)
-  "debated" recommendation.
+  "debated" recommendation. The issue was initially auto-closed by the
+  pre-screen bot for lacking source URLs in its body ("no URL in issue body,
+  criterion a") — it had been filed before this Side A source note existed. It
+  has since been reopened (2026-07-19) with both source URLs added to the issue
+  body and the `rejected` label removed, so the contradiction is now surfaced
+  in a live, actionable tracking issue as MINER.md §4a requires; the issue
+  number is unchanged (#2050), so the Contradicts pointer above and the Ch03
+  Guide Impact bullet remain valid.
 - Confidence rated `emerging` overall: the post discloses genuinely specific,
   falsifiable technical detail (a GPU-allocation derivation, named hardware,
   a self-replication figure that undercuts a competitor comparison, dogfooding-
