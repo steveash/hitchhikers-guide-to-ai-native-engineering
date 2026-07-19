@@ -2,193 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.982301+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: I replaced Beads with a faster, simpler Markdown-based task tracker",
-          "url": "https://github.com/wedow/ticket",
-          "hn_url": "https://news.ycombinator.com/item?id=46487580",
-          "points": 84,
-          "num_comments": 51,
-          "author": "wild_egg",
-          "created_at": "2026-01-04T13:08:12Z",
-          "snippet": "I&#x27;ve been running long duration coding agents with Claude Code for about 6 months now. Steve Yegge released Beads back in October and I found that giving Claude tools for proper task tracking was a massive unlock. But Beads grew massively in a short time and every release made it slower and more frustrating to use. I started battling it several times a week as its background daemon took to syncing the wrong things at the wrong times.<p>Over the holidays I finally ripped it out and wrote tic"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.983741+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Ask HN: Is Claude Getting Worse?",
-          "url": "https://news.ycombinator.com/item?id=47778035",
-          "hn_url": "https://news.ycombinator.com/item?id=47778035",
-          "points": 9,
-          "num_comments": 20,
-          "author": "sahli",
-          "created_at": "2026-04-15T12:20:05Z",
-          "snippet": "It feels like most Claude Code users have already noticed a quality drop in the Claude models. As a Claude Pro subscriber (Web version; I don&#x27;t use Claude Code), I\u2019ve seen a clear decline over the last couple of weeks. I can\u2019t complete tasks in a single turn anymore. Claude often stops streaming because it hits some internal tool-call&#x2F;turn limit, so I have to keep pressing \u201cContinue.\u201d Each continuation has to re-feed context, which quickly burns through tokens and quota. The model also"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.985140+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: I built a refinery simulator game to explain job to my kids",
-          "url": "https://fuelingcuriosity.com/game.html",
-          "hn_url": "https://news.ycombinator.com/item?id=47338091",
-          "points": 127,
-          "num_comments": 55,
-          "author": "fuelingcurious",
-          "created_at": "2026-03-11T16:56:51Z",
-          "snippet": "Hi HN,\nI\u2019m a chemical engineer and I manage logistics at a refinery down in Texas. Whenever I try to explain downstream operations to people outside the industry (including my kids), I usually get blank stares. I wanted to build something that visualizes the concepts and chemistry of a plant without completely dumbing down the science, so I put together this 5-minute browser game.<p>Here&#x27;s a simple runthrough: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=is-moBz6upU\" rel=\"nofollo"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.986552+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Vanilla JavaScript refinery simulator built to explain job to my kids",
-          "url": "https://fuelingcuriosity.com/game",
-          "hn_url": "https://news.ycombinator.com/item?id=47224637",
-          "points": 7,
-          "num_comments": 10,
-          "author": "fuelingcurious",
-          "created_at": "2026-03-02T21:48:35Z",
-          "snippet": "Hi HN,\nI\u2019m a chemical engineer and I manage logistics at a refinery down in Texas. Whenever I try to explain downstream operations to people outside the industry (including my kids), I usually get blank stares. I wanted to build something that visualizes the concepts and chemistry of a plant without completely dumbing down the science, so I put together this 5-minute browser game.<p>I am not a software developer by trade, so I relied heavily on LLMs (Claude, Copilot, Gemini) to help write the co"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.987986+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: SmallDocs \u2013 Markdown without the frustrations",
-          "url": "https://news.ycombinator.com/item?id=47777633",
-          "hn_url": "https://news.ycombinator.com/item?id=47777633",
-          "points": 92,
-          "num_comments": 50,
-          "author": "FailMore",
-          "created_at": "2026-04-15T11:29:12Z",
-          "snippet": "Hi HN, I\u2019d like to introduce you to SmallDocs (<a href=\"https:&#x2F;&#x2F;sdocs.dev\" rel=\"nofollow\">https:&#x2F;&#x2F;sdocs.dev</a>). SDocs is a CLI + webapp to instantly and 100% privately elegantly preview and share markdown files. (Code: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;espressoplease&#x2F;SDocs\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;espressoplease&#x2F;SDocs</a>)<p>The more we work with command line based agents the more `.md` files are part of our daily lives. Their out"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.989441+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Claude Code's source code has been leaked via a map file in their NPM registry",
-          "url": "https://twitter.com/Fried_rice/status/2038894956459290963",
-          "hn_url": "https://news.ycombinator.com/item?id=47584540",
-          "points": 2095,
-          "num_comments": 1022,
-          "author": "treexs",
-          "created_at": "2026-03-31T09:00:40Z",
-          "snippet": "<a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;Fried_rice&#x2F;status&#x2F;2038894956459290963\" rel=\"nofollow\">https:&#x2F;&#x2F;xcancel.com&#x2F;Fried_rice&#x2F;status&#x2F;2038894956459290963</a><p>Related ongoing thread: <i>The Claude Code Source Leak: fake tools, frustration regexes, undercover mode</i> - <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47586778\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47586778</a>"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.991138+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Launch HN: Sentrial (YC W26) \u2013 Catch AI agent failures before your users do",
-          "url": "https://www.sentrial.com/",
-          "hn_url": "https://news.ycombinator.com/item?id=47337659",
-          "points": 31,
-          "num_comments": 14,
-          "author": "anayrshukla",
-          "created_at": "2026-03-11T16:24:17Z",
-          "snippet": "Hey HN! We&#x27;re Neel and Anay, and we\u2019re building Sentrial (<a href=\"https:&#x2F;&#x2F;sentrial.com\">https:&#x2F;&#x2F;sentrial.com</a>). It\u2019s production monitoring for AI products. We automatically detect failure patterns: loops, hallucinations, tool misuse, and user frustrations the moment they happen. When issues surface, Sentrial diagnoses the root cause by analyzing conversation patterns, model outputs, and tool interactions, then recommends specific fixes.<p>Here&#x27;s a demo if you&#x"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.992744+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: KeelTest \u2013 AI-driven VS Code unit test generator with bug discovery",
-          "url": "https://keelcode.dev/keeltest",
-          "hn_url": "https://news.ycombinator.com/item?id=46526088",
-          "points": 30,
-          "num_comments": 15,
-          "author": "bulba4aur",
-          "created_at": "2026-01-07T13:22:35Z",
-          "snippet": "I built this because Cursor, Claude Code and other agentic AI tools kept giving me tests that looked fine but failed when I ran them. Or worse - I&#x27;d ask the agent to run them and it would start looping: fix tests, those fail, then it starts &quot;fixing&quot; my code so tests pass, or just deletes assertions so they &quot;pass&quot;.<p>Out of that frustration I built KeelTest - a VS Code extension that generates pytest tests and executes them, got hooked and decided to push this project for"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.994379+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Hackobar \u2013 One feed for AI news",
-          "url": "https://hackobar.com/",
-          "hn_url": "https://news.ycombinator.com/item?id=48268406",
-          "points": 5,
-          "num_comments": 4,
-          "author": "rahu_",
-          "created_at": "2026-05-25T16:02:57Z",
-          "snippet": "Hey HN,<p>Out of frustration of keeping up with AI news, I built hackobar. It fetches the AI related news from multiple sources such as HN, arxiv, github trending repos, huggingface, many ai subreddits, twitter handles that cover AI, Tech news outlets, major ai lab blogs and of course the numerous AI news letters that are growing by day.<p>GitHub trending repos isn&#x27;t &quot;news&quot; but as an engineer it matters. you can&#x27;t read every arXiv paper or every HuggingFace drop. HN has the b"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.995922+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Ask HN: Is Claude Code bad for ADHD?",
-          "url": "https://news.ycombinator.com/item?id=46639144",
-          "hn_url": "https://news.ycombinator.com/item?id=46639144",
-          "points": 6,
-          "num_comments": 4,
-          "author": "chriswright1664",
-          "created_at": "2026-01-15T20:52:51Z",
-          "snippet": "I think it might be.<p>I have ADHD. I&#x27;ve posted a little here on that. This one was cool, 142 comments: https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=46610156.<p>Claude is powerful. This week feels like it has moved up a notch (running for 20mins on longer tasks and then getting stuff right). I don&#x27;t know if&#x2F;when&#x2F;how it replaces devs, I know a lot on here have very strong thoughts on it. But for someone like me it is like rocket fuel.<p>But then ADHD. I&#x27;ve realised"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:45.997526+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Semble \u2013 Code search for agents that uses 98% fewer tokens than grep",
-          "url": "https://github.com/MinishLab/semble",
-          "hn_url": "https://news.ycombinator.com/item?id=48169874",
-          "points": 445,
-          "num_comments": 151,
-          "author": "Bibabomas",
-          "created_at": "2026-05-17T15:37:07Z",
-          "snippet": "Hey HN! We (Stephan and Thomas) recently open-sourced Semble. We kept running into the same problem while using Claude Code on large codebases: when the agent can&#x27;t find something directly, it falls back to grep, reading full files or launching subagents. This uses a lot of tokens, and often still misses the relevant code. There are existing tools for this, but they were either too slow to index on demand, needed API keys, or had poor retrieval quality.<p>Semble is our solution for this. It"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-07-10T07:09:45.999139+00:00",
       "payload": {
         "result": {
@@ -4355,6 +4168,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-07-18T06:39:47.082009+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-19T06:52:01.271750+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-19T06:52:01.278087+00:00",
       "payload": {
         "result": {
           "source": "github",
