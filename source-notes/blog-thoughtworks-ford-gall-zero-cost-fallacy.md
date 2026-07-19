@@ -238,7 +238,7 @@ notes' numbered `### Claim N:` headings and verbatim `Quote` fields.
     receiving "worthless drive-by PRs full of hallucinations... insane 10
     thousand line long first time PRs," which motivated Zig's outright LLM
     contribution ban) and `blog-ronacher-content-for-contents-sake.md` Claim
-    5 (the Pi project "routinely getting AI-generated issue requests,
+    7 (the Pi project "routinely getting AI-generated issue requests,
     sometimes even without the knowledge of the author"): both directly
     corroborate this article's Claim 3 (an "alarming volume of low-quality,
     AI-generated pull requests" forcing maintainers into unpaid full-time
