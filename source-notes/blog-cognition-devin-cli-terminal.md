@@ -33,7 +33,7 @@ issue: "#2072"
   `blog-cognition-devin-in-windsurf.md`). This note also draws on four
   official Devin documentation pages fetched as substantive linked
   pages per MINER.md §1: the CLI Quickstart
-  (`docs.devin.ai/cli/quickstart`), Essential Commands
+  (`docs.devin.ai/cli`), Essential Commands
   (`docs.devin.ai/cli/essential-commands`), Hand off to cloud Devins
   (`docs.devin.ai/cli/handoff`), and Subagents
   (`docs.devin.ai/cli/subagents`) — reached via the blog post's
@@ -135,7 +135,7 @@ issue: "#2072"
 - **Confidence**: settled (first-party reference documentation stating
   an explicit, current feature gap for a shipped product, not a
   marketing claim)
-- **Quote**: "Devin is our cloud-based AI software engineer that runs in a virtual machine. It includes features like Playbooks, Secrets, and Knowledge, and other capabilities that are not available in Devin CLI. Devin CLI does not yet support Knowledge, Playbooks, or Secrets from your Devin account. We're actively working on adding support for each of these and plan to roll them out soon." (docs.devin.ai/cli/quickstart)
+- **Quote**: "Devin is our cloud-based AI software engineer that runs in a virtual machine. It includes features like Playbooks, Secrets, and Knowledge, and other capabilities that are not available in Devin CLI. Devin CLI does not yet support Knowledge, Playbooks, or Secrets from your Devin account. We're actively working on adding support for each of these and plan to roll them out soon." (docs.devin.ai/cli)
 - **Our assessment**: This is a specific, falsifiable capability gap
   the blog post itself never mentions — the announcement post frames
   cloud handoff purely as an upgrade path (more compute, sandboxing,
@@ -639,7 +639,7 @@ Root agent (depth 0)
   `www.devin.ai/terminal`), and four official docs pages reached from
   that landing page's "Read Docs" link and the docs site's own
   navigation and `llms.txt` index: CLI Quickstart
-  (`docs.devin.ai/cli/quickstart`), Essential Commands
+  (`docs.devin.ai/cli`), Essential Commands
   (`docs.devin.ai/cli/essential-commands`), Hand off to cloud Devins
   (`docs.devin.ai/cli/handoff`), and Subagents
   (`docs.devin.ai/cli/subagents`). The docs pages were fetched as raw
