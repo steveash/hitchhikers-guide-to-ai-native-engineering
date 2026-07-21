@@ -164,23 +164,31 @@ issue: "#2087"
   session; as in the companion note, no session transcript or duration was independently
   fetched, since the linked Claude.ai session URL requires authentication.
 
-### Claim 9: The PR was merged by a GitHub App-driven Claude Code integration, evidenced by an automated "I'll analyze this and get back to you" comment and a separate "Claude encountered an error" comment linking to a GitHub Actions run
-- **Evidence**: The two comments on `simonw/tools#295`, and the PR's
-  `performed_via_github_app` metadata identifying the `claude` GitHub App (description:
-  "Run Claude Code from your GitHub Pull Requests and Issues to respond to reviewer
-  feedback, fix CI errors, or modify code").
-- **Confidence**: emerging (the comments and app metadata are directly observable, but their
+### Claim 9: The PR carries a GitHub App-driven Claude Code integration, evidenced by a single automated status comment that was edited in place — first posting "I'll analyze this and get back to you," then revised ~22 seconds later to prepend a "Claude encountered an error" block linking to a GitHub Actions run
+- **Evidence**: The one issue comment on `simonw/tools#295` (id `4993355260`, created
+  `2026-07-16T14:56:54Z`, updated `2026-07-16T14:57:16Z` — a `created_at`/`updated_at` gap
+  of ~22 seconds that shows the comment was edited rather than followed by a second comment),
+  plus the PR's `performed_via_github_app` metadata identifying the `claude` GitHub App
+  (description: "Run Claude Code from your GitHub Pull Requests and Issues to respond to
+  reviewer feedback, fix CI errors, or modify code").
+- **Confidence**: emerging (the comment and app metadata are directly observable, but the
   precise cause — e.g., what triggered the error, what "analyze" refers to — is not
   documented anywhere in the PR itself)
-- **Quote**: "I'll analyze this and get back to you." (simonw/tools#295, issue comment)
-- **Quote (error)**: "Claude encountered an error" (simonw/tools#295, issue comment, linking to a GitHub Actions run)
-- **Our assessment**: This indicates Willison's `simonw/tools` repo has the Claude GitHub
-  App installed and wired into CI/PR automation beyond just the ad hoc "Claude Code for web"
-  session that authored the commit — i.e., there's a second, repo-level automation layer
-  that reacts to the PR (and apparently hit an error doing so). The PR merged successfully
-  regardless, so whatever this automation was attempting was not blocking. This is a minor,
-  incidental data point about Willison's repo tooling rather than part of the mermaid-ascii
-  build narrative itself; it is not independently confirmed what the automation was for.
+- **Quote**: "I'll analyze this and get back to you." (simonw/tools#295, issue comment `4993355260`)
+- **Quote (error)**: "Claude encountered an error" (simonw/tools#295, same issue comment, prepended on edit, linking to a GitHub Actions run)
+- **Our assessment**: There is exactly **one** issue comment, not two: the bot posted a
+  boilerplate "I'll analyze this and get back to you." acknowledgment and then edited that
+  same comment ~22 seconds later to prepend a "Claude encountered an error" block linking a
+  GitHub Actions run (queried via `gh api repos/simonw/tools/issues/295/comments`, which
+  returns a single element whose `updated_at` post-dates its `created_at`). This indicates
+  Willison's `simonw/tools` repo has the Claude GitHub App installed and wired into CI/PR
+  automation beyond just the ad hoc "Claude Code for web" session that authored the commit —
+  a second, repo-level automation layer that reacted to the PR and revised its own status
+  message in place to report a mid-flight error, rather than posting a follow-up. The PR
+  merged successfully regardless, so whatever this automation was attempting was not
+  blocking. This is a minor, incidental data point about Willison's repo tooling rather than
+  part of the mermaid-ascii build narrative itself; it is not independently confirmed what
+  the automation was for.
 
 ## Concrete Artifacts
 
@@ -432,10 +440,16 @@ Created:     2023-02-24
   step-by-step reasoning is available for this extraction — Claim 8's "~13 minutes"
   figure is a commit-to-merge timestamp gap, not a session-duration measurement, and is
   described as such rather than conflated with actual working time.
-- Two issue comments on the PR were queried via `gh api` (Claim 9): one is a boilerplate
-  "I'll analyze this and get back to you" acknowledgment, the other links a GitHub Actions
-  run with the message "Claude encountered an error." Neither the triggering event nor the
-  resolution is documented in the PR itself; this is reported as an observed, unexplained
-  artifact rather than interpreted further.
+- The PR's issue comments were queried via `gh api repos/simonw/tools/issues/295/comments`
+  (Claim 9): there is exactly **one** comment (id `4993355260`), not two. It was created at
+  `2026-07-16T14:56:54Z` as a boilerplate "I'll analyze this and get back to you"
+  acknowledgment, then **edited in place** at `2026-07-16T14:57:16Z` (~22 seconds later) to
+  prepend a "Claude encountered an error" block linking a GitHub Actions run — the
+  `updated_at`/`created_at` gap on the single comment is what distinguishes an in-place edit
+  from a second, separate comment. A prior draft of this note misread this as two distinct
+  comments; the corrected reading (one comment revised in place) is the more interesting data
+  point, since the automation revised its own status message rather than adding a follow-up.
+  Neither the triggering event nor the resolution is documented in the PR itself; this is
+  reported as an observed, unexplained artifact rather than interpreted further.
 - No contradictions with existing corpus notes were identified; no contradiction issue was
   filed per MINER.md §4a.
