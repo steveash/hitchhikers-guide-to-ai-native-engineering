@@ -224,6 +224,75 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01UPeaso82zQbKb67TTSVQ2e
 ```
 
+### `mermaid-ascii/main.go` — the `syscall/js` shim (verbatim excerpts, from github.com/simonw/tools/pull/295)
+
+The agent-written WASM entry point exposes exactly one function to JavaScript.
+Its package doc comment explicitly flags the unescaped-HTML hazard behind
+Claim 5 (the reason the page must sanitize rather than use `innerHTML`):
+
+```go
+// It exposes a single function to JavaScript:
+//
+//	renderMermaidAscii(source, {ascii, styleType, direction,
+//	                            paddingX, paddingY, borderPadding})
+//	  -> {output: string} | {error: string}
+//
+// With styleType "html", colored text (mermaid classDef ... color:#hex)
+// is wrapped in <span style='color: ...'> tags. The values inside those
+// tags are NOT escaped by the library, so the page must sanitize the
+// output rather than assigning it to innerHTML directly.
+```
+
+The exported `render` function wraps the library call in a panic-recovery
+`defer` so a Go-side panic degrades to a normal error result instead of
+killing the runtime, and `main()` registers the export and blocks forever to
+keep it callable:
+
+```go
+func render(this js.Value, args []js.Value) (result any) {
+	// A panic would otherwise kill the Go runtime and leave the page with a
+	// dead render function; recover turns it into a normal error result.
+	defer func() {
+		if r := recover(); r != nil {
+			result = map[string]any{"error": fmt.Sprintf("renderer panic: %v", r)}
+		}
+	}()
+```
+
+```go
+func main() {
+	logrus.SetLevel(logrus.ErrorLevel)
+	js.Global().Set("renderMermaidAscii", js.FuncOf(render))
+	// Keep the Go runtime alive so the exported function stays callable.
+	select {}
+}
+```
+
+### `mermaid-ascii/build_wasm.sh` — pinned clone + dependency stripping (verbatim excerpts, from github.com/simonw/tools/pull/295)
+
+The build script clones upstream at a pinned commit (the reproducibility
+practice noted in Claim 4):
+
+```bash
+UPSTREAM=https://github.com/AlexanderGrooff/mermaid-ascii
+# Pinned upstream commit this build is known to work against.
+PIN=a4f23212201cbd62b5a8707b7502b281bb18543f
+```
+
+...then removes the Cobra CLI and Gin web-server entry points after
+identifying (via a code comment asserting import analysis) that only
+`cmd/root.go` and `cmd/web.go` import them — the concrete mechanism behind
+Claim 4's "nothing else imports them":
+
+```bash
+# Strip the CLI (cobra) and web server (gin) so neither ends up in the
+# module, along with tests and their fixtures. Only cmd/root.go and
+# cmd/web.go import those dependencies; the layout/drawing code in cmd/
+# and pkg/ is untouched.
+rm main.go cmd/root.go cmd/web.go
+rm -rf cmd/*_test.go cmd/testdata pkg/*/*_test.go pkg/diagram/testutil
+```
+
 ### PR file/change summary (from GitHub API, `simonw/tools#295`)
 
 ```
