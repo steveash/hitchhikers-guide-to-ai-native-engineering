@@ -625,7 +625,10 @@ Before writing citations below, `blog-cursor-multi-agent-kernels.md`,
 `blog-addyosmani-code-agent-orchestra.md`, and
 `blog-thebatch-gpt55-hallucination-kimi-k26.md` were re-read directly
 (MINER.md §4b) and every claim number cited below was confirmed against
-those notes' numbered `### Claim N:` headings in document order.
+those notes' numbered `### Claim N:` headings in document order. Non-numbered
+material is cited by section name rather than by claim number — e.g.
+`blog-addyosmani-code-agent-orchestra.md`'s "Linked Source 3" section (the
+browser-building run), which is not part of that note's numbered claim list.
 
 - **Corroborates**:
   - `blog-cursor-multi-agent-kernels.md` Claim 2 (planner-worker architecture
@@ -644,8 +647,8 @@ those notes' numbered `### Claim N:` headings in document order.
     competing vendor, strengthening confidence this is a real architectural
     insight rather than one company's house style.
   - `blog-addyosmani-code-agent-orchestra.md` Claim 5 ("The bottleneck is no
-    longer generation. It's verification.") and Claim 3 (Cursor's earlier
-    browser-building run via Osmani's Linked Source 3, "planner-worker-judge
+    longer generation. It's verification.") and its Linked Source 3 section
+    (Cursor's earlier browser-building run, "planner-worker-judge
     hierarchy with hundreds of agents"): this source's review-lens claim
     (Claim 10 here) supplies the mechanism (decorrelated review lenses
     stacking) and an economic argument (review is cheap relative to the work
