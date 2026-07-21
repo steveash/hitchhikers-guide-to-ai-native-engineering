@@ -1008,7 +1008,7 @@
         "filed_at": "2026-07-15T06:45:46.296732+00:00"
       }
     },
-    "last_scan": "2026-07-20T07:03:31.601596+00:00"
+    "last_scan": "2026-07-21T06:51:28.617226+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1105,7 +1105,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-20T07:03:33.474890+00:00"
+    "last_scan": "2026-07-21T06:51:30.426284+00:00"
   },
   "cognition": {
     "urls": {
@@ -1408,24 +1408,34 @@
         "filed_at": "2026-07-20T07:03:53.151339+00:00"
       },
       "https://cognition.com/blog/infosys-cognition": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230802+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230802+00:00",
+        "issue": 2100,
+        "filed_at": "2026-07-21T06:51:32.828713+00:00"
       },
       "https://cognition.com/blog/devin-generally-available": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230818+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230818+00:00",
+        "issue": 2101,
+        "filed_at": "2026-07-21T06:51:34.996290+00:00"
       },
       "https://cognition.com/blog/coding-agents-101-the-art-of-actually-getting-things-done": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230821+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230821+00:00",
+        "issue": 2102,
+        "filed_at": "2026-07-21T06:51:37.033496+00:00"
       },
       "https://cognition.com/blog/devin-can-now-schedule-devins": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230823+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230823+00:00",
+        "issue": 2103,
+        "filed_at": "2026-07-21T06:51:39.060532+00:00"
       },
       "https://cognition.com/blog/devin-2": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230824+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230824+00:00",
+        "issue": 2104,
+        "filed_at": "2026-07-21T06:51:40.951104+00:00"
       },
       "https://cognition.com/blog/cognition-london": {
         "status": "rejected",
@@ -1440,12 +1450,16 @@
         "screened_at": "2026-06-30T07:15:58.230829+00:00"
       },
       "https://cognition.com/blog/how-eight-sleep-uses-devin-as-a-data-analyst": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230831+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230831+00:00",
+        "issue": 2105,
+        "filed_at": "2026-07-21T06:51:42.863964+00:00"
       },
       "https://cognition.com/blog/devin-101-automatic-pr-reviews-with-the-devin-api": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230832+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230832+00:00",
+        "issue": 2106,
+        "filed_at": "2026-07-21T06:51:44.688544+00:00"
       },
       "https://cognition.com/blog/introducing-devin-2-2": {
         "status": "pending",
@@ -1544,6 +1558,6 @@
         "screened_at": "2026-07-18T06:39:25.382232+00:00"
       }
     },
-    "last_scan": "2026-07-20T07:03:34.762160+00:00"
+    "last_scan": "2026-07-21T06:51:31.665898+00:00"
   }
 }

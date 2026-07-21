@@ -2,125 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.016396+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: TheAuditor v2.0 \u2013 A \u201cFlight Computer\u201d for AI Coding Agents",
-          "url": "https://github.com/TheAuditorTool/Auditor",
-          "hn_url": "https://news.ycombinator.com/item?id=46288453",
-          "points": 40,
-          "num_comments": 12,
-          "author": "ThailandJohn",
-          "created_at": "2025-12-16T13:50:15Z",
-          "snippet": "I\u2019m a former Systems Architect (Cisco&#x2F;VMware) turned builder in Thailand. TheAuditor v2.0 is a complete architectural rewrite (800+ commits) of the prototype I posted three months ago.<p>The &quot;A-ha&quot; moment for me didn&#x27;t come from a success; it came from a massive failure. I was trying to use AI to refactor a complex schema change (a foundation change from &quot;Products&quot; to &quot;ProductsVariants&quot;), and due to the scope of it, it failed spectacularly. I realized two "
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.018267+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Launch HN: Nia (YC S25) \u2013 Give better context to coding agents",
-          "url": "https://www.trynia.ai/",
-          "hn_url": "https://news.ycombinator.com/item?id=46194828",
-          "points": 131,
-          "num_comments": 87,
-          "author": "jellyotsiro",
-          "created_at": "2025-12-08T17:10:14Z",
-          "snippet": "Hi HN, I am Arlan and I am building Nia (<a href=\"https:&#x2F;&#x2F;trynia.ai\" rel=\"nofollow\">https:&#x2F;&#x2F;trynia.ai</a>), a context layer for AI coding agents. Nia lets tools like Cursor, Claude Code, and other MCP clients index and query real codebases and documentation so they stop hallucinating against outdated or wrong sources, with applications beyond coding agents to any AI system that requires grounded context across domains.<p>Coding agents are only as good as the context you give "
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.020129+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: AI SDLC Scaffold, repo template for AI-assisted software development",
-          "url": "https://github.com/pangon/ai-sdlc-scaffold/",
-          "hn_url": "https://news.ycombinator.com/item?id=47466513",
-          "points": 27,
-          "num_comments": 12,
-          "author": "pangon",
-          "created_at": "2026-03-21T12:43:09Z",
-          "snippet": "I built an open-source repo template that brings structure to AI-assisted software development, starting from the pre-coding phases: objectives, user stories, requirements, architecture decisions.<p>It&#x27;s designed around Claude Code but the ideas are tool-agnostic. I&#x27;ve been a computer science researcher and full-stack software engineer for 25 years, working mainly in startups. I&#x27;ve been using this approach on my personal projects for a while, then, when I decided to package it up "
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.022022+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Steadwing \u2013 Your Autonomous On-Call Engineer",
-          "url": "https://www.steadwing.com/",
-          "hn_url": "https://news.ycombinator.com/item?id=47270724",
-          "points": 12,
-          "num_comments": 5,
-          "author": "abejith",
-          "created_at": "2026-03-06T04:02:25Z",
-          "snippet": "Hey HN! We\u2019re Abejith and Dev, and we\u2019re building Steadwing (<a href=\"https:&#x2F;&#x2F;www.steadwing.com\" rel=\"nofollow\">https:&#x2F;&#x2F;www.steadwing.com</a>) - an autonomous on-call engineer that diagnoses production incidents&#x2F;alerts, correlates evidence across your stack, and resolves them. You can try it at <a href=\"https:&#x2F;&#x2F;app.steadwing.com&#x2F;signup\" rel=\"nofollow\">https:&#x2F;&#x2F;app.steadwing.com&#x2F;signup</a> (no credit card required and a demo mode is available)"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.023927+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: OpenTiger \u2013 Autonomous dev orchestration that never stops",
-          "url": "https://github.com/Andyyyy64/openTiger",
-          "hn_url": "https://news.ycombinator.com/item?id=47108068",
-          "points": 11,
-          "num_comments": 2,
-          "author": "andyyyy64",
-          "created_at": "2026-02-22T04:10:49Z",
-          "snippet": "Hi HN. I&#x27;ve been running AI coding agents (Claude Code, Codex, etc.) on real repos for a while now. The dirty secret of &quot;autonomous coding&quot; is that agents stop all the time \u2014 quota limits, test failures, policy violations, bad judgement calls. You end up babysitting them.<p>So I asked a different question: what if the system was designed around the assumption that agents WILL fail, and the job of the infrastructure is to never let that failure become a dead end?<p>openTiger is a &"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.025937+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Libretto \u2013 Making AI browser automations deterministic",
-          "url": "https://github.com/saffron-health/libretto",
-          "hn_url": "https://news.ycombinator.com/item?id=47780971",
-          "points": 134,
-          "num_comments": 55,
-          "author": "muchael",
-          "created_at": "2026-04-15T15:57:54Z",
-          "snippet": "Libretto (<a href=\"https:&#x2F;&#x2F;libretto.sh\" rel=\"nofollow\">https:&#x2F;&#x2F;libretto.sh</a>) is a Skill+CLI that makes it easy for your coding agent to generate deterministic browser automations and debug existing ones. Key shift is going from \u201cgive an agent a prompt at runtime and hope it figures things out\u201d to: \u201cUse coding agents to generate real scripts you can inspect, run, and debug\u201d.<p>Here\u2019s a demo: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=0cDpIntmHAM\" rel=\"nofollow\""
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.027887+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Continue \u2013 Source-controlled AI checks, enforceable in CI",
-          "url": "https://docs.continue.dev",
-          "hn_url": "https://news.ycombinator.com/item?id=47049848",
-          "points": 44,
-          "num_comments": 7,
-          "author": "sestinj",
-          "created_at": "2026-02-17T17:08:14Z",
-          "snippet": "We now write most of our code with agents. For a while, PRs piled up, causing review fatigue, and we had this sinking feeling that standards were slipping. Consistency is tough at this volume. I\u2019m sharing the solution we found, which has become our main product.<p>Continue (<a href=\"https:&#x2F;&#x2F;docs.continue.dev\">https:&#x2F;&#x2F;docs.continue.dev</a>) runs AI checks on every PR. Each check is a source-controlled markdown file in `.continue&#x2F;checks&#x2F;` that shows up as a GitHub sta"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-07-10T07:09:46.029847+00:00",
       "payload": {
         "result": {
@@ -4062,6 +3943,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-07-20T07:04:06.640652+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-21T06:51:57.738803+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-21T06:51:57.744722+00:00",
       "payload": {
         "result": {
           "source": "github",
