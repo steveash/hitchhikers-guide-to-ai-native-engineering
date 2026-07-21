@@ -188,7 +188,9 @@ and subagents. These were all things I wished had come out of the box."
 ### Cross-reference verification notes
 `blog-humanlayer-skill-issue-harness-engineering.md`, `blog-anthropic-large-codebase-best-practices.md`,
 `blog-anthropic-claude-code-skills-lessons.md`, `blog-anthropic-claude-managed-agents-selfhosted.md`,
-and `blog-anthropic-harness-long-running.md` were re-read (in full or via their
+`blog-anthropic-harness-long-running.md`, `blog-latentspace-ainews-meta-harness-summer.md`,
+`blog-anthropic-human-agent-teams.md`, and `blog-anthropic-agent-identity-access-model.md`
+were re-read (in full or via their
 `### Claim N:` heading list) during this extraction per MINER.md §4b, and every
 claim number cited below was located and confirmed against that note's own
 numbered claims in document order before writing this section.
@@ -230,8 +232,59 @@ numbered claims in document order before writing this section.
     principle — harness/framework requirements are discovered through
     production use, not fully specified in advance.
 
+- **Terminology collision — "multiplayer" (Claim 12 vs. existing corpus usage)**:
+  This source's Claim 12 introduces "multiplayer agent development" as Qu's
+  named next-priority problem, but "multiplayer" is *already* a load-bearing
+  term in the corpus for an adjacent but distinct concept, and the two usages
+  must not be conflated in the guide:
+  - `blog-anthropic-human-agent-teams.md` Claim 1 uses "multiplayer" for the
+    shift "from single-player (one human, one agent) to multiplayer (teams of
+    humans and agents sharing goals and workspace)" — i.e., humans *and agents*
+    co-occupying a shared workspace (Claude Tag). Its concern is the
+    human-and-agent shared-workspace collaboration surface.
+  - `blog-anthropic-agent-identity-access-model.md` Claim 3 uses "the
+    multiplayer problem" for a permissions/identity question: "when more than
+    one person is steering, whose permissions apply?" in a shared channel —
+    i.e., authority resolution when multiple humans co-steer one agent.
+  - Qu's "multiplayer agent development" (Claim 12) is a *third* sense: a
+    teammate-to-teammate technique- and context-sharing gap between people who
+    each drive their *own* agent individually ("I may have techniques for
+    getting a front-end interface right... but another person may not know
+    them"). It is neither shared-workspace co-occupancy (human-agent-teams'
+    sense) nor co-steering permission resolution (agent-identity's sense) —
+    it is knowledge/technique transfer *between separate human operators*.
+    The Novel section's claim that "no other corpus source frames it this way"
+    is accurate for Qu's specific angle, but the guide must spell out this
+    three-way distinction explicitly rather than let "multiplayer" silently
+    mean three different things across three sources.
+
 - **Contradicts**: None identified as a MINER.md §4a contradiction. No claim in
   this source directly opposes a claim in an existing corpus note.
+
+- **Complicates (first-party account vs. a speculative corpus pointer)**:
+  - `blog-latentspace-ainews-meta-harness-summer.md` Claim 1 names "Vercel's
+    Eve and HarnessAgent" as part of an asserted "brief history of
+    Meta-Harnesses" — a lineage that note's own assessment explicitly grades
+    `anecdotal` and flags as "asserted, not argued... a pointer to go research
+    ... rather than a settled claim." That note defines a meta-harness (front
+    matter) as "architectures that coordinate other agents/harnesses rather
+    than execute tools directly." This source is exactly the research
+    that pointer invites — a first-party, detailed account of `eve`'s origin
+    from its named lead engineer — and it *complicates* the meta-harness
+    classification of `eve`: Qu describes `eve` (Claims 2-3) as a framework for
+    *building* agents, assembled from reusable internal libraries (model/
+    provider switching, fallbacks, resumability) and best-practice primitives
+    (filesystem agents, skills, compaction, subagents), i.e., an
+    agent-building/agent-authoring framework — not, on this evidence, a
+    harness-of-harnesses that coordinates other harnesses per that note's own
+    definition. I am not filing a §4a contradiction issue here: the
+    meta-harness lineage claim is itself self-graded speculative and its own
+    note asks readers to go verify it, so this is a pointer being partially
+    resolved by first-party evidence, not two settled claims in opposition.
+    Recommendation for synthesis: when the guide cites the meta-harness lineage
+    (Chapter 02), it should note that first-party evidence characterizes `eve`
+    as an agent-building framework, leaving its "meta-harness" membership
+    unconfirmed by the one lineage member the corpus now has a direct account of.
 
 - **Extends**:
   - `blog-anthropic-claude-code-skills-lessons.md`: that note documents
@@ -280,6 +333,11 @@ numbered claims in document order before writing this section.
     opposed to human-to-agent context engineering) is not framed this way by
     any other corpus source — it names a collaboration gap specifically
     between people who each use agents, not between a person and their agent.
+    Note, however, that the *word* "multiplayer" is already load-bearing in the
+    corpus for two adjacent-but-distinct senses (shared-workspace human-agent
+    co-occupancy; co-steering permission resolution) — see the "Terminology
+    collision" entry above. Qu's usage is novel in *substance*, not in coining
+    the term; the guide must keep the three senses separate.
   - **A named practitioner (Andrew Qu) whose personal work spans MCP tooling,
     skill-discovery infrastructure (skills.sh), and the agent framework itself**
     (Claim 1): no prior corpus source documents one individual's fingerprints
