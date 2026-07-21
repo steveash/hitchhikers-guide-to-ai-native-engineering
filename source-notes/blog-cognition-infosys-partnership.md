@@ -85,7 +85,7 @@ issue: "#2100"
 
 ### Claim 7: This post follows a near-identical structural template to Cognition's earlier Cognizant partnership announcement — same unattributed byline convention, same "internal adoption then client-base expansion" narrative arc, same closing call-to-action sentence inviting enterprises to contact Cognition's enterprise team — but for a different systems-integrator partner (Infosys vs. Cognizant), a different initial vertical emphasis (Financial Services-first vs. no single named lead vertical), and a three-model deployment taxonomy not present in the Cognizant post (which names no equivalent internal/services/MSP breakdown)
 - **Evidence**: Structural comparison against `blog-cognition-cognizant-partnership.md`'s full reproduced text (see that note's Concrete Artifacts section).
-- **Confidence**: settled (a direct textual/structural comparison between two source documents, not an inference about intent)
+- **Confidence**: emerging (a direct textual/structural comparison between two source documents rather than an inference about intent — but a corpus-internal, meta-structural observation rather than a strongly-evidenced claim about the world, so `emerging` fits this corpus's confidence taxonomy better than `settled`)
 - **Quote**: (no direct quote; see paraphrase above — this is a cross-document structural observation, not a claim quotable from either single source)
 - **Our assessment**: Cognition appears to be running a repeatable announcement format for systems-integrator partnerships (unattributed "By The Cognition Team" byline, internal-then-client-facing narrative, closing enterprise-team CTA). This Infosys post is more operationally specific than the Cognizant post in one respect — it names three distinct deployment models (internal, services-delivery/hybrid-pod, MSP) where the Cognizant post describes only a two-stage internal-then-client rollout with an embedded forward-deployed-engineer support team — suggesting Cognition's own articulation of its SI-partnership playbook has become more granular between the two posts (Cognizant: 2026-01-28; this post: 2026-01-07 — note this Infosys post is actually the *earlier* of the two by three weeks, so the added granularity is not simply "later post is more detailed"; the two posts differ in structure independent of publication order).
 
@@ -215,28 +215,41 @@ enterprise team to learn more."
 
 ## Guide Impact
 
-- **Chapter 04 (Enterprise deployment and orchestration)**: Add this
-  source's three-model deployment taxonomy (Claim 4: Internal Productivity,
-  Services Delivery/hybrid pods, Managed Service Provider) as a named
-  framework for how systems integrators can operationalize autonomous
-  coding agents at increasing levels of customer-environment responsibility.
-  Flag explicitly that the source gives no data on relative adoption or
-  scale across the three models — it is a stated taxonomy, not a measured
-  distribution of effort.
-- **Chapter 04 / Chapter 05 (Scaling and team coordination)**: Add the
-  "hybrid delivery pod" concept (Claim 4) — pairing a human engineer with an
-  autonomous engineer inside a single customer-facing delivery team — as a
-  named team-composition pattern for services-delivery engagements,
-  cross-referenced against the FDE material already in
-  `blog-thebatch-fde-agents-aiact-issue355.md` and
+Note on chapter mapping: the current guide (`guide/00`–`06`) has no chapter
+dedicated to enterprise deployment/orchestration. The closest existing home
+for this source's material is **Chapter 05 (Team Adoption)**, which already
+covers scaling, team-composition, and legacy-migration evidence and already
+hosts the NAB Assembly-migration case study (around line 981). Chapter 02
+(harness-engineering / CLAUDE.md config) and Chapter 04 (context-engineering
+/ context-window budget) are unrelated to this source's content, so it is
+*not* mapped to them.
+
+- **Chapter 05 (Team Adoption)**: Add this source's three-model deployment
+  taxonomy (Claim 4: Internal Productivity, Services Delivery/hybrid pods,
+  Managed Service Provider) as a named framework for how systems integrators
+  can operationalize autonomous coding agents at increasing levels of
+  customer-environment responsibility. This is a team/organization-scaling
+  pattern and fits alongside Chapter 05's existing scaling and
+  team-composition material. Flag explicitly that the source gives no data
+  on relative adoption or scale across the three models — it is a stated
+  taxonomy, not a measured distribution of effort. If the maintainers judge
+  the SI-deployment-model material to be substantial enough, it may warrant
+  its own new section (or a new chapter) rather than being folded into
+  Chapter 05, since no current chapter squarely covers enterprise/SI
+  deployment shapes.
+- **Chapter 05 (Team Adoption)**: Add the "hybrid delivery pod" concept
+  (Claim 4) — pairing a human engineer with an autonomous engineer inside a
+  single customer-facing delivery team — as a named team-composition pattern
+  for services-delivery engagements, cross-referenced against the FDE
+  material in `blog-thebatch-fde-agents-aiact-issue355.md` and
   `blog-latentspace-meurer-agent-engineer-fde.md`.
-- **Chapter 02 / Chapter 04 (legacy migration evidence)**: If the guide
-  cites vendor claims about AI-accelerated legacy migration (COBOL,
-  mainframe, or similar), add this source's COBOL/JCP servlet claim (Claim 3)
-  as a third data point alongside NAB's Assembly-migration claim and
-  PayPal's Java-upgrade claim — but explicitly note it is the weakest-
-  evidenced of the three (no percentage, no before/after timeline, no
-  project count), unlike NAB's and PayPal's quantified figures.
+- **Chapter 05 (Team Adoption), legacy-migration evidence**: This source's
+  COBOL/JCP servlet claim (Claim 3) belongs alongside the NAB
+  Assembly-migration content already in Chapter 05 (around line 981) and
+  PayPal's Java-upgrade claim as a third vendor data point on
+  AI-accelerated legacy migration — but explicitly note it is the
+  weakest-evidenced of the three (no percentage, no before/after timeline,
+  no project count), unlike NAB's and PayPal's quantified figures.
 - Do NOT cite Claim 1's "one of the largest global deployments... to date"
   framing as an independently verified fact in the guide — it should only
   be attributed as Cognition's own characterization of the partnership's
