@@ -69,7 +69,14 @@ issue: "#2139"
   architectures. See Cross-References → Contradicts: this framing directly
   conflicts with `blog-cursor-agent-swarm-model-economics.md`'s description
   of Cursor's own actively-invested, concurrently-writing swarm harness — a
-  contradiction filed as issue #2149, not resolved in this note.
+  contradiction filed as issue #2149. That issue was closed and labeled
+  `rejected` by an automated pre-screen (which expects raw source URLs
+  pasted into the issue body, and flagged that the template's internal
+  source-note file references "does not contain actual web URLs to the
+  sources being compared"); despite the closure an automated Assayer
+  contradiction assessment was still posted on
+  the issue, proposing verdict `debated` / a proposed C-009 entry not yet
+  appended to CONTRADICTIONS.md. No verdict is picked in this note.
 
 ### Claim 2: Cognition's context-engineering principles from the prior post — share as much context as possible between agents, and remember that actions carry implicit decisions that can conflict across parallel writers — still hold and are described as the root cause of most multi-agent fragility
 - **Evidence**: Direct restatement of two named principles from the author's
@@ -459,13 +466,29 @@ Source: cognition.com/blog/multi-agents-working, "Looking Ahead" section
     (100% of a held-out SQL test suite across four model configurations
     vs. 11%-77% under the prior harness) and a from-scratch version-control
     system built specifically to make concurrent agent writes tractable at
-    scale. **Filed as contradiction issue #2149** — not resolved in this
-    note. See that issue for the full Side A/Side B statement; a human or
-    the Smith should decide whether this is a genuine same-claim conflict
-    or a conditioning-variable difference (whether a team is willing to
-    build the kind of bespoke coordination infrastructure — custom VCS,
-    reconciler agents, a shared "Field Guide" — that Cursor's swarm
-    required).
+    scale. **Filed as contradiction issue #2149** — no verdict is picked in
+    this note. The issue was closed and labeled `rejected` by an automated
+    pre-screen that expects raw source URLs in the issue body and flagged
+    the template's internal source-note file references
+    (`source-notes/blog-cognition-multi-agents-working.md`,
+    `source-notes/blog-cursor-agent-swarm-model-economics.md`) with the note
+    that the body "does not contain actual web URLs to the sources being
+    compared." Despite that closure, an automated Assayer
+    contradiction assessment was still posted on the issue: it verified
+    both sides against the live sources and proposed verdict **`debated`**
+    with a proposed **C-009** resolution entry, on the reasoning that the
+    two claims answer different questions (Cognition's is about *breadth of
+    market adoption* for parallel-writer swarms and explicitly carves out
+    simple-verifiable-success-criterion demo tasks — exactly Cursor's
+    SQLite-from-manual benchmark shape — as a known exception, while
+    Cursor's is a single-experiment *technical existence proof* achieved
+    after heavy bespoke coordination infrastructure). That proposed C-009
+    entry has **not** yet been appended to CONTRADICTIONS.md (last committed
+    entry is C-008) and is awaiting human finalization; the conditioning
+    variables the assessment surfaces (task verifiability, unstructured
+    peer-negotiation swarm vs. tree-shaped manager/children delegation, and
+    willingness to build custom VCS / reconciler agents / a shared "Field
+    Guide") are the axis a resolver should weigh.
 
 - **Extends**:
   - `blog-anthropic-multi-agent-coordination-patterns.md` — that post
@@ -610,7 +633,20 @@ Source: cognition.com/blog/multi-agents-working, "Looking Ahead" section
   architectures that point in opposite directions and would lead to
   different guide advice. Filed as **contradiction issue #2149** before
   writing this note; no verdict is picked here — see Cross-References →
-  Contradicts and the issue itself.
+  Contradicts and the issue itself. Status as of extraction: the issue was
+  closed and labeled `rejected` by an automated pre-screen bot that flagged
+  the contradiction template's internal source-note file references as
+  lacking raw web URLs in the issue body — a probable pre-screen
+  miscalibration for contradiction issues, which correctly cite internal
+  source notes that themselves carry `source_url` frontmatter for both
+  sides (https://cognition.com/blog/multi-agents-working and the Cursor
+  post's URL). Notwithstanding the closure, an automated Assayer
+  contradiction assessment was still posted on the issue proposing verdict
+  `debated` / a proposed C-009 entry; that entry has not yet been appended
+  to CONTRADICTIONS.md (last committed entry is C-008) and is awaiting human
+  finalization. The tension is therefore documented and assessed but not
+  formally resolved; this note does not re-file a duplicate issue, since a
+  completed assessment already exists on #2149.
 - Cross-references verified before writing: re-read
   `blog-anthropic-multi-agent-coordination-patterns.md` in full and
   confirmed Claims 2, 3, and 7 by number and content;
