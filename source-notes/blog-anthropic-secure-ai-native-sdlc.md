@@ -47,8 +47,12 @@ issue: "#2128"
 ### Claim 1: Claude now authors about 80% of the code merged into Anthropic's own codebase, and engineers ship 8x as much code per quarter as they did from 2021–2025
 - **Evidence**: Stated as the article's opening framing, dated implicitly to
   "today" (July 2026).
-- **Confidence**: settled (first-party, specific, headline statistic; matches
-  the article's own byline framing)
+- **Confidence**: emerging (first-party and specific, and it matches the
+  article's own byline framing — but no methodology is given for either the
+  80% or the 8x figure, and the 80% is left unreconciled with the "more than
+  50%" figure the same author gave four days earlier, so it is graded to the
+  same "specific first-party statistic, undefined methodology" standard
+  applied to Claims 5 and 7 below rather than treated as settled)
 - **Quote**: "Our software engineers on average ship 8x as much code per
   quarter as they did from 2021 to 2025."
 - **Quote**: "Claude authors about 80% of the code merged into our codebase
@@ -100,13 +104,14 @@ issue: "#2128"
   self-approval rate is given (contrast with the specific 19% Intercom
   auto-approval figure in Claim 7).
 
-### Claim 4: Security guidelines are embedded directly in CLAUDE.md files so that generated code follows secure practices from the moment it's written, backed by an in-session `/security-review` command and hard infrastructure boundaries (egress-allowlisted remote VMs) that bound blast radius if an agent is compromised or prompt-injected
+### Claim 4: Security guidelines are embedded directly in CLAUDE.md files (plus references to org-wide skills) so that generated code follows secure practices from the moment it's written, backed by an in-session `/security-review` command and hard infrastructure boundaries (egress-allowlisted remote VMs) that bound blast radius if an agent is compromised or prompt-injected
 - **Evidence**: Described as the Code-stage control set, combining a prompted
   context file, a slash command, and an infrastructure boundary.
 - **Confidence**: settled (first-party description of shipped internal
   practice and a generally-available product feature)
-- **Quote**: "Those guidelines are encoded in CLAUDE.md files so the code
-  follows best practices the minute it's generated."
+- **Quote**: "At Anthropic, those guidelines are encoded in CLAUDE.md files
+  and references to org-wide skills so the code follows these best practices
+  the minute it's generated."
 - **Quote**: "This generally available command, the productized version of
   our team's internal review workflow, looks for places where potential
   attacker-controllable input enters, scans for suspicious links, and then
@@ -120,7 +125,11 @@ issue: "#2128"
   catching insecure patterns downstream, the practice is to close the loop by
   updating the CLAUDE.md file whenever a vulnerability class is discovered,
   so the same class of bug becomes structurally less likely to be generated
-  again. The egress-allowlisted remote VM detail directly corroborates the
+  again. Note the source scopes the enforcement mechanism to two artifacts,
+  not one: guidelines live "in CLAUDE.md files and references to org-wide
+  skills" — i.e., per-repo context files plus a shared, org-level skill layer
+  that the code follows at generation time, so the security guidance is
+  centrally maintainable rather than duplicated in every repo's CLAUDE.md. The egress-allowlisted remote VM detail directly corroborates the
   "egress allowlisting is your strongest control against prompt injection"
   principle already documented in `blog-anthropic-ciso-guide-agentic-ai.md`
   Claim 10 — this article gives that same control a concrete deployment
@@ -238,12 +247,22 @@ issue: "#2128"
   approvals become authoritative, rather than granted at deployment. This
   gives an operational, staged-trust mechanism to the "agents as insider
   threat" framing that appears more briefly as an analogy (not a governance
-  program) in `blog-anthropic-ciso-guide-agentic-ai.md` Claim 4. The
-  SIEM-routing-with-attribution detail directly corroborates the "every
-  decision attributable and auditable" telemetry principle already
-  established in that same companion piece (Claim 10, "Telemetry to your
-  SIEM over OpenTelemetry" control) — here confirmed as Anthropic's own
-  internal practice, not just a customer-facing product control.
+  program) in `blog-anthropic-ciso-guide-agentic-ai.md` Claim 4. Notably, the
+  identically-named "shadow mode" mechanism is *already* documented in the
+  corpus from a different company: `blog-cursor-security-agents.md` Claim 4
+  and its Concrete Artifacts section describe a three-stage "Stage 1: Shadow
+  mode → PR commenting → blocking gate" rollout for exactly the same purpose
+  (a new automated reviewer earns trust before its output gates merges). Two
+  organizations independently using the same term for the same mechanism is a
+  corroboration, not a novelty — see Cross-References → Corroborates. The
+  SIEM-routing-with-attribution detail sits on the same general telemetry
+  topic covered in that companion piece's Claim 10 ("Telemetry to your SIEM
+  over OpenTelemetry" control), but note the specific "attributable and
+  auditable" phrasing is this article's own wording — the companion piece's
+  Claim 10 documents the SIEM/OpenTelemetry control itself, not that exact
+  framing. Here that control is confirmed as Anthropic's own internal
+  practice (routing every automated approval, tool call, and agent-to-agent
+  message with attribution), not just a customer-facing product control.
 
 ### Claim 10: Intercom, cited as an external example, auto-approves 19% of its pull requests and saw downtime from breaking code changes drop 35% while deployment frequency doubled
 - **Evidence**: A named third-party company's reported metrics, cited within
@@ -385,6 +404,18 @@ EXTERNAL COMPARISON (not an Anthropic statistic)
     not code generation, "became the primary bottleneck" (Claim 5 here) is
     the same bottleneck-shift argument applied to ordinary code review rather
     than vulnerability research specifically.
+  - `blog-cursor-security-agents.md` Claim 4 and its Concrete Artifacts
+    section (a three-stage "Stage 1: Shadow mode → PR commenting → blocking
+    gate" rollout for deploying an autonomous reviewer into a critical path):
+    this article's Governance-stage "shadow mode for all new AI reviewers"
+    (Claim 9 here) uses the *identical term* for the *identical mechanism* —
+    a new automated reviewer runs in a non-authoritative observation mode
+    until it earns trust, before its output counts. Two companies (Anthropic
+    and Cursor) independently converging on "shadow mode" for staged reviewer
+    trust is a stronger data point than either instance alone: it suggests
+    the term is becoming a de facto industry name for the pattern rather than
+    an Anthropic-specific coinage. (Previously mis-listed as Novel — corrected
+    here.)
 
 - **Contradicts**: No formal contradiction issue filed. One internal tension
   worth flagging for editorial awareness: this article states "Claude
@@ -430,9 +461,6 @@ EXTERNAL COMPARISON (not an Anthropic statistic)
     retrospective incident-catch estimate** (Claim 5): new quantified claims
     about review-quality improvement, distinct from the discovery/patching
     statistics already in the corpus.
-  - **"Shadow mode" for onboarding new automated reviewers** (Claim 9): a
-    specific, named staged-trust mechanism not previously documented in the
-    corpus.
   - **Explicit codebase risk-tiering to calibrate review automation**
     (Claim 9): distinct from — but conceptually similar to — the
     Foundation/Enterprise/Advanced organizational maturity tiers in
@@ -456,11 +484,15 @@ EXTERNAL COMPARISON (not an Anthropic statistic)
   six-stage framework for where in the pipeline to place the resulting
   controls.
 
-- **Chapter 06 (Security and Threat Model)**: Add "shadow mode" (Claim 9) as
-  a named, reusable onboarding pattern for any new automated reviewer or
+- **Chapter 06 (Security and Threat Model)**: Present "shadow mode" (Claim 9)
+  as a named, reusable onboarding pattern for any new automated reviewer or
   approval agent — a concrete answer to "how do you safely introduce a new
-  automated gate into an existing pipeline" that the corpus doesn't yet have
-  a name for.
+  automated gate into an existing pipeline." Cite it alongside
+  `blog-cursor-security-agents.md` Claim 4, which documents the same
+  "shadow mode → PR commenting → blocking gate" pattern under the same name
+  at a different company: two independent sources using identical terminology
+  is a stronger basis for naming the pattern in the guide than either alone,
+  and worth calling out explicitly as evidence the term is becoming standard.
 
 - **Chapter 06 (Security and Threat Model)**: When citing the incident-
   response agent's emergent Slack outreach (already recommended for this
