@@ -1,6 +1,6 @@
 # Guide Dashboard
 
-_Generated 2026-07-21 (UTC) by `scripts/generate_dashboard.py`._
+_Generated 2026-07-22 (UTC) by `scripts/generate_dashboard.py`._
 
 Content-derived metrics for the living guide. Refreshed daily by
 `.github/workflows/daily-scan.yml`. For workflow status (PRs, issues,
@@ -9,7 +9,7 @@ scanner queues) see the GitHub Project linked from README.md.
 | Chapter | Sources | Oldest source | Stale % | Lines (Δ7d) |
 |---|---|---|---|---|
 | `guide/00-principles.md` | 8/30 | 2026-02-12 (`paper-gloaguen-agentsmd-effectiveness`) | 83% | 291 (n/a) |
-| `guide/01-daily-workflows.md` | 14/30 | 2026-03-09 (`discussion-hn-agentic-coding-jobs`) | 53% | 747 (n/a) |
+| `guide/01-daily-workflows.md` | 14/30 | 2026-03-09 (`discussion-hn-agentic-coding-jobs`) | 61% | 747 (n/a) |
 | `guide/02-harness-engineering.md` | 22/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 70% | 1569 (n/a) |
 | `guide/03-verification.md` | 24/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 54% | 1095 (n/a) |
 | `guide/04-context-engineering.md` | 16/30 | 2025-12-27 (`blog-sankalp-claude-code-20`) | 68% | 1285 (n/a) |

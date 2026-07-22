@@ -2,91 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.029847+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Dari-docs \u2013 Optimize your docs using parallel coding agents",
-          "url": "https://github.com/mupt-ai/dari-docs",
-          "hn_url": "https://news.ycombinator.com/item?id=48210615",
-          "points": 23,
-          "num_comments": 7,
-          "author": "byhong03",
-          "created_at": "2026-05-20T16:53:07Z",
-          "snippet": "It\u2019s well known at this point that documentation needs to be optimized for AI agents - we\u2019re all pointing our Claude Code &#x2F; Codex &#x2F; Pi agents at documentation, and expecting the models to figure out how to implement a product.<p>This, however, changes the entire optimization problem when writing documentation. Good documentation now becomes more objective - you are solving the very concrete problem: can a dumb harness running the dumbest model implement this reliably?<p>Humans can typi"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.034429+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Orchid \u2013 Local-first record and replay for AI agent debugging",
-          "url": "https://github.com/mario-guerra/orchid-trace",
-          "hn_url": "https://news.ycombinator.com/item?id=48660800",
-          "points": 4,
-          "num_comments": 2,
-          "author": "brightmonkey",
-          "created_at": "2026-06-24T14:48:05Z",
-          "snippet": "Orchid (Orchestration interactive debugger) is a zero-instrumentation proxy that captures every API &amp; LLM call in your agent pipeline, then lets you inspect and replay the entire run locally, step by step. No instrumentation, no vendor lock-in, no cloud dependency. It also provides a visual inspector and MCP server, so you can inspect the session yourself or use your favorite agentic coding IDE to debug your agent runs.<p>I built it because I was tired of debugging agent failures by grepping"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.036474+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Launch HN: Intuned (YC S22) \u2013 Build and run reliable browser automations as code",
-          "url": "https://intunedhq.com",
-          "hn_url": "https://news.ycombinator.com/item?id=48445171",
-          "points": 117,
-          "num_comments": 58,
-          "author": "fkilaiwi",
-          "created_at": "2026-06-08T13:35:27Z",
-          "snippet": "Hey HN, we&#x27;re Faisal and Ahmad from Intuned (<a href=\"https:&#x2F;&#x2F;intunedhq.com\">https:&#x2F;&#x2F;intunedhq.com</a>). We\u2019re building a platform for building, deploying, and maintaining browser automations.<p>Customers primarily use the Intuned AI agent to automate websites that don&#x27;t expose APIs. Common use-cases include scraping data, pulling reports, and submitting forms. As the website changes, our agent also helps automatically heal the automation.<p>On Intuned, browser auto"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.038521+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Launch HN: Expanse (YC P26) \u2013 Unlock Wasted GPU Capacity",
-          "url": "https://news.ycombinator.com/item?id=48356312",
-          "hn_url": "https://news.ycombinator.com/item?id=48356312",
-          "points": 103,
-          "num_comments": 28,
-          "author": "ismaeel_bashir",
-          "created_at": "2026-06-01T13:05:02Z",
-          "snippet": "Hey HN, we\u2019re Ismaeel, Eren, Yafet and Nikodem. We built Expanse (<a href=\"https:&#x2F;&#x2F;expanse.sh&#x2F;\">https:&#x2F;&#x2F;expanse.sh&#x2F;</a>) to increase the effective capacity of your HPC&#x2F;GPU clusters running schedulers&#x2F;orchestrators like Kubernetes and SLURM. We read the source code, job submission script, and the hardware a workload is about to run on to predict what the job actually needs before the cluster sees it. We also flag failures we think are about to happen and su"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-10T07:09:46.040596+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Stripe-no-webhooks \u2013 Sync your Stripe data to your Postgres DB",
-          "url": "https://github.com/pretzelai/stripe-no-webhooks",
-          "hn_url": "https://news.ycombinator.com/item?id=46963177",
-          "points": 66,
-          "num_comments": 30,
-          "author": "prasoonds",
-          "created_at": "2026-02-10T17:14:48Z",
-          "snippet": "Hey HN, stripe-no-webhooks is an open-source library that syncs your Stripe payments data to your own Postgres database:\n<a href=\"https:&#x2F;&#x2F;github.com&#x2F;pretzelai&#x2F;stripe-no-webhooks\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;pretzelai&#x2F;stripe-no-webhooks</a>.<p>Here&#x27;s a demo video: <a href=\"https:&#x2F;&#x2F;youtu.be&#x2F;cyEgW7wElcs\" rel=\"nofollow\">https:&#x2F;&#x2F;youtu.be&#x2F;cyEgW7wElcs</a><p>Why is this useful? (1) You don&#x27;t have to figure out which we"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-07-10T07:09:46.042666+00:00",
       "payload": {
         "result": {
@@ -3975,6 +3890,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-07-21T06:51:57.744722+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-22T06:52:01.060310+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-07-22T06:52:01.065788+00:00",
       "payload": {
         "result": {
           "source": "github",
