@@ -393,11 +393,15 @@ EXTERNAL COMPARISON (not an Anthropic statistic)
     (Claim 4 here — remote coding VMs with egress-allowlisted traffic)
     applies the identical control to a different surface (the coding agent's
     own execution environment rather than Cowork).
-  - `blog-anthropic-ciso-guide-agentic-ai.md` Claim 10 (SIEM telemetry: "any
-    decision is attributable and auditable"): this article's Governance-stage
-    SIEM routing (Claim 9 here) restates the identical attributable/auditable
-    framing as Anthropic's own internal practice, not just a Cowork product
-    feature.
+  - `blog-anthropic-ciso-guide-agentic-ai.md` Claim 10 (which enumerates
+    "SIEM telemetry over OpenTelemetry" as one of the seven prescribed agent
+    controls): this article's Governance-stage SIEM routing (Claim 9 here)
+    sits on the same general telemetry topic, confirming that control as
+    Anthropic's own internal practice rather than only a Cowork product
+    feature. Note the specific "attributable and auditable" phrasing is this
+    article's own wording — it does not appear in the companion note's Claim
+    10, which documents the SIEM/OpenTelemetry control itself, not that exact
+    framing.
   - `blog-anthropic-llms-secure-source-code.md` Claim 1 (discovery has become
     parallelizable; the bottleneck shifted to verification, triage, and
     patching): this article's Test(CI)-stage framing that review capacity,
