@@ -146,7 +146,7 @@ encrypted whereas requests and responses to `http://www.example.com/` were in
 cleartext.
 
 Tags: browsers, firefox, ai, webassembly, generative-ai, llms,
-ai-assisted-programming, claude
+ai-assisted-programming, claude, claude-mythos-fable
 ```
 
 ### Linked artifacts (from the post and thread)
@@ -163,18 +163,17 @@ Puter follow-up tool: https://github.com/HeyPuter/browser.js ("eats a bit less R
 ### HN cost-clarification exchange (verbatim, news.ycombinator.com/item?id=48926939)
 
 ```
-sangeeth96: "$25k of tokens, closer to 30 billion I believe." [initial
-  misreading, later corrected by the same user to "I misunderstood, that's
-  $25k not 25k tokens"]
+sangeeth96: "edit: I misunderstood, that's $25k not 25k tokens :/ time to
+  log off." [initial reader misreading of the "25k" figure, corrected by
+  the same commenter]
 
 coolelectronics: "$25k of tokens, closer to 30 billion I believe. It only
   took a few days to actually get the engine up, the hard parts where most
   of the effort was spent was squeezing out performance and increasing
   stability, as well as attempting the JIT."
 
-rlmineing_dead: "I think it was worded badly — it was 25k WORTH of API
-  billed tokens, but only actually 1 claude max 5x plan, so it was more
-  like 100 dollars"
+rlmineing_dead: "it was 25k WORTH of API billed tokens, but only actually
+  1 claude max 5x plan, so it was more like 100 dollars"
 ```
 
 ## Cross-References
