@@ -362,6 +362,7 @@ Source: cognition.com/blog/multi-agents-working, "By Walden Yan," 04.22.26
 4. Some Practical Multi-agent Experiments
    1) The Code-Review-Loop that's so stupid it shouldn't work
    2) Large, expensive models are back - introducing "Smart Friend"
+      - What Actually Happened with Smart Friend
 5. Looking Ahead: Higher-Level Delegation
 6. What We Know Today
 [1] footnote: Anthropic's multi-agent research system post, published the
@@ -618,7 +619,7 @@ Source: cognition.com/blog/multi-agents-working, "Looking Ahead" section
   convergence references (Claim 14), not as sources of additional claims,
   consistent with MINER.md's guidance to follow substantive linked pages
   only when they would add new information beyond a footnote-level mention.
-  A prior corpus source, `blog-simonwillison-code-w-claude-2026.md`,
+  A prior corpus source, `blog-latentspace-fable-5-mythos-launch.md`,
   already documents Anthropic's "Mythos" model class by name, and
   references to a similar advisor/consult mechanism should be checked
   against that note if a future source mines the "advisor strategy" post
