@@ -1385,11 +1385,10 @@ bottlenecks. Context-needs decomposition asks: what does each agent need to
 know to do its work? Decompose so each agent holds the minimum context it
 actually needs.
 
-### Debated: can multiple agents write concurrently?
-
-The taxonomy above is silent on one axis that two first-party practitioner
-reports now openly disagree on: whether more than one agent should ever write
-to the shared codebase at the same time.
+**Debated: can multiple agents write concurrently?** The taxonomy above is
+silent on one axis that two first-party practitioner reports now openly
+disagree on: whether more than one agent should ever write to the shared
+codebase at the same time.
 
 Cognition, revisiting its own earlier "Don't Build Multi-Agents" position after
 roughly ten months of production deployment, draws the line at single-threaded
@@ -1420,17 +1419,23 @@ held-out query suite in all four model configurations, versus 11–77% for the
 old harness at the four-hour cutoff.
 [source: blog-cursor-agent-swarm-model-economics, Claim 12] [emerging]
 
-**Our take** [editorial]: the two are less opposed than they first look. Cursor's
-result is a single controlled experiment on a task with a cheap, unfakeable
-oracle (a known-answer query suite), reached only after building a custom VCS, a
-reconciler agent, and a shared curated context file — the kind of "simple,
-verifiable success criterion" Cognition argues most real software lacks.
+**Our take** [editorial], provisional: the two are less opposed than they first
+look. Cursor's result is a single controlled experiment on a task with a cheap,
+unfakeable oracle (a known-answer query suite), reached only after building a
+custom VCS, a reconciler agent, and a shared curated context file — the kind of
+"simple, verifiable success criterion" Cognition argues most real software lacks.
 [source: blog-cognition-multi-agents-working, Claim 4] [anecdotal]
 Read the write axis as a conditioning variable, not a settled verdict:
 concurrent writes become viable to the extent you can afford both a cheap
 correctness oracle and bespoke infrastructure to catch and resolve the conflicts
 they create. (This is one experiment on one well-specified build task; whether
 the result transfers to less-verifiable work is not established.)
+
+This contradiction is still open. It is tracked in issue #2149, where an Assayer
+assessment has proposed a `debated` verdict (draft C-009) that has not yet been
+appended to `CONTRADICTIONS.md` (last committed entry is C-008) or received human
+sign-off — so treat the reconciliation above as a working hypothesis, not a
+finalized resolution [editorial].
 
 **Rule**: Before letting a second agent write to shared code, decide whether you
 can afford both a cheap, unfakeable correctness check and the tooling to
