@@ -1385,6 +1385,61 @@ bottlenecks. Context-needs decomposition asks: what does each agent need to
 know to do its work? Decompose so each agent holds the minimum context it
 actually needs.
 
+### Debated: can multiple agents write concurrently?
+
+The taxonomy above is silent on one axis that two first-party practitioner
+reports now openly disagree on: whether more than one agent should ever write
+to the shared codebase at the same time.
+
+Cognition, revisiting its own earlier "Don't Build Multi-Agents" position after
+roughly ten months of production deployment, draws the line at single-threaded
+writes — multi-agent systems work "when writes stay single-threaded and the
+additional agents contribute intelligence rather than actions." The stated
+mechanism is that writes carry implicit, uncoordinated decisions — "style, code
+patterns, how certain edge cases should be handled" — that conflict across
+parallel writers, which is why most production setups keep the extra agents
+read-only (review, search, consultation) around a single writer.
+[source: blog-cognition-multi-agents-working, Claims 1, 2] [emerging]
+
+Cursor points the other way — with infrastructure. It rebuilt its swarm harness
+specifically to make concurrent worker writes tractable, replacing Git (whose
+coarse locks it calls "unworkable" for the volume of hundreds of concurrent
+agents) with a custom version-control system that raised peak throughput from
+roughly 1,000 commits per hour to roughly 1,000 commits per second.
+[source: blog-cursor-agent-swarm-model-economics, Claim 4] [emerging]
+Concurrent writes surfaced five named failure modes — split-brain design,
+planner contention, merge conflicts, megafiles, and ossification — each given a
+dedicated fix (for merge conflicts, a neutral third-party reconciler agent,
+because colliding workers "either overwrite the other change or abandon their
+own").
+[source: blog-cursor-agent-swarm-model-economics, Claims 5, 6, 7, 8, 9] [anecdotal]
+
+In a controlled A/B on the same task, models, and time budget — building SQLite
+from its 835-page manual in Rust — the rebuilt harness passed 100% of a
+held-out query suite in all four model configurations, versus 11–77% for the
+old harness at the four-hour cutoff.
+[source: blog-cursor-agent-swarm-model-economics, Claim 12] [emerging]
+
+**Our take** [editorial]: the two are less opposed than they first look. Cursor's
+result is a single controlled experiment on a task with a cheap, unfakeable
+oracle (a known-answer query suite), reached only after building a custom VCS, a
+reconciler agent, and a shared curated context file — the kind of "simple,
+verifiable success criterion" Cognition argues most real software lacks.
+[source: blog-cognition-multi-agents-working, Claim 4] [anecdotal]
+Read the write axis as a conditioning variable, not a settled verdict:
+concurrent writes become viable to the extent you can afford both a cheap
+correctness oracle and bespoke infrastructure to catch and resolve the conflicts
+they create. (This is one experiment on one well-specified build task; whether
+the result transfers to less-verifiable work is not established.)
+
+**Rule**: Before letting a second agent write to shared code, decide whether you
+can afford both a cheap, unfakeable correctness check and the tooling to
+auto-resolve the conflicts concurrent writes create. If not, keep writes
+single-threaded and give additional agents read-only roles — review, search,
+consultation.
+[source: blog-cognition-multi-agents-working, Claim 1;
+blog-cursor-agent-swarm-model-economics, Claims 6, 7] [anecdotal]
+
 ---
 
 ## Anti-Patterns (With Evidence)
@@ -1545,6 +1600,8 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
+blog-cognition-multi-agents-working (Claims 1, 2, 4),
+blog-cursor-agent-swarm-model-economics (Claims 4, 5, 6, 7, 8, 9, 12),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
@@ -1566,4 +1623,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-07-23*

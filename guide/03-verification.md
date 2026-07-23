@@ -275,6 +275,35 @@ The key is that Agent B operates in a separate context. It does not
 share Agent A's reasoning, assumptions, or confirmation bias.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [emerging]
 
+### Why a clean context beats a shared one
+
+The instinct is to hand the reviewer everything the implementer knew.
+Cognition found the opposite in production: its Devin Review agent works
+best when "the coding and review agents do not share any context
+beforehand." A clean-context reviewer is forced to reason backward from the
+diff and skips the context rot that degrades a model's decisions as its
+window fills — so it re-derives what it needs instead of inheriting the
+implementer's blind spots. In one reported case the reviewer flagged an
+insecure pattern the user had explicitly asked for and the coding agent had
+dutifully implemented.
+[source: blog-cognition-multi-agents-working, Claim 6] [emerging]
+
+Even on PRs Devin itself wrote, the clean-context reviewer catches an
+average of 2 bugs per PR, roughly 58% of them severe (logic errors, missing
+edge cases, security vulnerabilities), and the two agents now iterate
+against each other before a human opens the PR.
+[source: blog-cognition-multi-agents-working, Claim 5] [emerging]
+
+The cost is a synthesis step: the context-rich implementer must filter the
+context-free reviewer's findings against the user's actual instructions, or
+it risks looping, disobeying the user, or doing out-of-scope work.
+[source: blog-cognition-multi-agents-working, Claim 7] [anecdotal]
+
+**Rule**: Give a review agent a fresh context window, not a fork of the
+implementer's. Let it see the diff and re-derive context from the code —
+sharing the generator's reasoning imports the generator's blind spots.
+[source: blog-cognition-multi-agents-working, Claim 6] [emerging]
+
 ### Counter-evidence
 
 Two-agent review adds cost (roughly double the tokens) and latency.
@@ -940,6 +969,21 @@ guarantee than any prose instruction telling the model to "only output
 verified numbers."
 [source: blog-anthropic-kepler-verifiable-ai-financial, Claims 3, 9] [emerging]
 
+Datadog's "Temper" kernel is a second first-party instance of the same
+split, pushed one step further. Its agents emit *specifications* rather than
+application code; a kernel outside the model proves each spec through four
+independent layers — symbolic reasoning, exhaustive state exploration,
+fault-injected deterministic simulation, and randomized property testing —
+and then executes the spec it just proved.
+[source: blog-anthropic-datadog-temper-machine-tool, Claims 8, 9] [emerging]
+Because the artifact that is verified and the artifact that runs are the
+same object, there is "no drift between what was verified and what is
+running" — drift is prevented by construction rather than caught after the
+fact by a review or test pass. Datadog frames the boundary as Kepler does:
+"The compilation step is outside the LLM, the same way you hand Rust code to
+the Rust compiler."
+[source: blog-anthropic-datadog-temper-machine-tool, Claims 8, 12] [emerging]
+
 ---
 
 ## Online Quality Signals
@@ -1069,7 +1113,9 @@ pricing-tier level.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
+blog-anthropic-datadog-temper-machine-tool (Claims 8, 9, 12),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-cognition-multi-agents-working (Claims 5, 6, 7),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
@@ -1092,4 +1138,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-07-18*
+*Last updated: 2026-07-23*
