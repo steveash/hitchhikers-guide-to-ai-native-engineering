@@ -369,7 +369,7 @@ issue: "#2170"
 - **Quote**: "LlamaIndex and LanceDB described a retrieval pipeline for messy
   PDFs that separates pages, chunks, and extracted assets into linked
   multimodal tables, reporting 82% any-page-hit@5 and 74% answer accuracy on
-  a labeled ESG-report benchmark. This pairs with Jerry Liu’s broader
+  a labeled ESG-report benchmark... This pairs with Jerry Liu’s broader
   argument for a dedicated “document context layer” for agents"
 - **Our assessment**: "Document context layer" as a named architectural
   concept (a dedicated layer for document-derived context, distinct from
@@ -392,7 +392,7 @@ issue: "#2170"
   a playable multiplayer world model for Rocket League trained on 10k hours
   of bot-collected data... It runs in real time at 20 fps, and posts
   highlighted a 5B-parameter model running an entire 2v2 match on a single
-  NVIDIA B200, with no explicit physics or rendering engine."
+  NVIDIA B200, with no explicit physics or rendering engine"
 - **Our assessment**: This is a capability demo outside this corpus's usual
   agentic-coding/harness-engineering focus, but it is a concrete data point
   for "world models as interactive simulators moving past toy demos" —
