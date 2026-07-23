@@ -1008,7 +1008,7 @@
         "filed_at": "2026-07-15T06:45:46.296732+00:00"
       }
     },
-    "last_scan": "2026-07-22T06:51:38.579604+00:00"
+    "last_scan": "2026-07-23T06:51:04.097136+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1105,7 +1105,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-22T06:51:39.992579+00:00"
+    "last_scan": "2026-07-23T06:51:05.559741+00:00"
   },
   "cognition": {
     "urls": {
@@ -1504,8 +1504,10 @@
         "screened_at": "2026-06-30T07:15:58.230845+00:00"
       },
       "https://cognition.com/blog/what-we-learned-building-cloud-agents": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230847+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230847+00:00",
+        "issue": 2172,
+        "filed_at": "2026-07-23T06:51:08.305687+00:00"
       },
       "https://cognition.com/website-terms": {
         "status": "rejected",
@@ -1552,22 +1554,30 @@
         "screened_at": "2026-06-30T07:15:58.230865+00:00"
       },
       "https://cognition.com/enterprise-tos-april-2025": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230866+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230866+00:00",
+        "issue": 2173,
+        "filed_at": "2026-07-23T06:51:10.180852+00:00"
       },
       "https://cognition.com/terms-of-service": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230868+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230868+00:00",
+        "issue": 2174,
+        "filed_at": "2026-07-23T06:51:12.062672+00:00"
       },
       "https://cognition.com/enterprise-tos-sept-2025": {
-        "status": "pending",
-        "screened_at": "2026-06-30T07:15:58.230869+00:00"
+        "status": "filed",
+        "screened_at": "2026-06-30T07:15:58.230869+00:00",
+        "issue": 2175,
+        "filed_at": "2026-07-23T06:51:14.029090+00:00"
       },
       "https://cognition.com/frontiercode": {
-        "status": "pending",
-        "screened_at": "2026-07-18T06:39:25.382232+00:00"
+        "status": "filed",
+        "screened_at": "2026-07-18T06:39:25.382232+00:00",
+        "issue": 2176,
+        "filed_at": "2026-07-23T06:51:15.962506+00:00"
       }
     },
-    "last_scan": "2026-07-22T06:51:41.138090+00:00"
+    "last_scan": "2026-07-23T06:51:06.730745+00:00"
   }
 }
