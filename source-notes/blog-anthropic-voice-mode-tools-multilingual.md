@@ -104,11 +104,14 @@ issue: "#2195"
 ### Claim 4: Voice mode can execute actions in a user's connected tools, but Claude asks for permission before using any connected tool
 
 - **Evidence**: First-party statement of a permission gate governing
-  tool-executing actions, plus three named example actions (calendar,
-  Canva, email).
+  tool-executing actions, plus the lead sentence explicitly naming Gmail and
+  Slack as connected tools voice mode reaches, and three named example
+  actions (calendar, Canva, email).
 - **Confidence**: settled (stated product policy for a shipped feature)
-- **Quote**: "Claude will ask for permission before using one of your
-  connected tools."
+- **Quote**: "Starting today, voice mode runs on Claude Opus, Claude Sonnet,
+  and Claude Haiku, reaches the tools you've connected like Gmail and Slack,
+  and speaks many more languages." / "Claude will ask for permission before
+  using one of your connected tools."
 - **Our assessment**: This is the single most guide-relevant claim in the
   source. It confirms Anthropic applies the same "pause before acting on a
   connected system" gate to voice-triggered tool use that
@@ -117,8 +120,13 @@ issue: "#2195"
   before performing irreversible actions"). Voice mode is a new *trigger*
   surface for tool-executing agent behavior, not a new *safety* model — the
   confirm-before-act gate is consistent with the vendor's stated pattern
-  elsewhere. Practitioners building voice-triggered harnesses should treat
-  this permission checkpoint as the expected baseline, not a differentiator.
+  elsewhere. The lead sentence names Gmail and Slack specifically as connected
+  tools voice mode reaches, which — together with the Google Calendar, Canva,
+  and email actions in Claim 5 — pins down the concrete connected-tool set the
+  source actually names (Gmail, Slack, Google Calendar, Canva) rather than
+  leaving it as a generic "connected tools." Practitioners building
+  voice-triggered harnesses should treat this permission checkpoint as the
+  expected baseline, not a differentiator.
 
 ### Claim 5: Voice mode's tool-executing examples span calendar rescheduling, document creation in a third-party design tool, and inbox summarization plus draft replies
 
@@ -186,6 +194,41 @@ issue: "#2195"
   Claim 1 (Opus/Sonnet now available), a team could unexpectedly burn through
   higher-cost-model usage limits via voice sessions that feel casual/spoken
   but are billed the same as an equivalent text conversation.
+
+### Claim 9: The source frames voice mode's intended use as reasoning and decision-support tasks — pitch practice with communication feedback, choosing between offers, reviewing your own process aloud, and brainstorming/validating ideas — distinct from the "from talking to doing" tool-execution examples
+
+- **Evidence**: A stated positioning sentence plus a contiguous "A few things
+  to try" list of four concrete reasoning-oriented example tasks, given
+  separately from and before the "From talking to doing" tool-executing
+  examples in Claim 5.
+- **Confidence**: emerging (concrete stated use cases for a shipped feature,
+  but the framing of *which* tasks suit voice is vendor positioning, not
+  measured outcome)
+- **Quote**: "Voice mode is for practicing for an important pitch meeting,
+  deciding between multiple offers, reviewing your own process out loud, or
+  brainstorming new ideas." / "A few things to try: Practice for an important
+  conversation and ask Claude for feedback on your communication style. Talk
+  through a client pitch and ask Claude to find gaps in your logic. Brainstorm
+  ideas for your product roadmap and ask Claude to validate them with
+  competitive research. Ask Claude to help you evaluate a few different
+  hypotheses for why your last video went viral."
+- **Our assessment**: This is the source's own answer to "when should you
+  reach for voice over text," and it is a distinct category from Claim 5's
+  tool-executing actions. The four "things to try" all share a shape:
+  open-ended reasoning where the user talks through a half-formed position and
+  Claude probes it (find gaps, validate against competitive research, evaluate
+  competing hypotheses, critique communication style) — i.e., voice is
+  positioned for *thinking out loud with a critic*, not just dictation or
+  command issuing. This directly supplies the concrete detail the note's
+  Chapter 01 Guide Impact section previously only gestured at: the source
+  answers the "text vs. voice for a given task" question by naming
+  decision-support and idea-refinement — tasks with no single retrievable
+  answer — as the intended voice territory, while the reversible tool actions
+  in Claim 5 (calendar edit, one-pager, draft replies) are positioned as a
+  separate "from talking to doing" execution phase. The confidence is
+  "emerging" rather than "settled" because, unlike the shipped
+  model/tier/language facts, *which* tasks are best suited to voice is a
+  usage recommendation the vendor asserts without evidence.
 
 ## Concrete Artifacts
 
@@ -301,11 +344,16 @@ Source: claude.com/blog/think-through-hard-problems-in-voice-mode, 2026-07-23
   interaction modality that also triggers tool-executing agent actions. This
   source is the first to document that combination directly from Anthropic.
   If Chapter 01 ever adds a section on choosing between conversational
-  modalities (text vs. voice) for a given task, this source provides the
-  concrete detail that voice-mode model tier is user-selected and that voice
-  sessions consume standard usage limits (Claim 2, Claim 8) — relevant for
-  practitioners weighing "should I do this task by voice or text" beyond
-  convenience alone.
+  modalities (text vs. voice) for a given task, this source answers the
+  question concretely: Claim 9 names the tasks Anthropic positions voice for
+  — pitch practice with communication feedback, deciding between offers,
+  reviewing your own process aloud, and brainstorming/validating ideas — i.e.,
+  open-ended reasoning where you talk through a half-formed position and have
+  Claude probe it, as distinct from the reversible tool-execution actions in
+  Claim 5. It also supplies the mechanical detail that voice-mode model tier is
+  user-selected and that voice sessions consume standard usage limits (Claim 2,
+  Claim 8) — relevant for practitioners weighing "should I do this task by
+  voice or text" beyond convenience alone.
 - **Chapter 02 (Harness Engineering — permission gates / tool-use safety)**:
   This source's Claim 4 is directly citable alongside
   `blog-anthropic-computer-use-best-practices.md` Claim 8 as a second,
