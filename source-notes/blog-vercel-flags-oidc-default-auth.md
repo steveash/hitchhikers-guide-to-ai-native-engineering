@@ -110,8 +110,10 @@ Published: June 24, 2026. Author: Luis Meyer (Software Engineer, Vercel).
 
 ### Cross-reference verification notes
 `blog-vercel-flags-platform-native-feature-flags.md`,
-`blog-anthropic-workload-identity-federation.md`, and
-`blog-vercel-enterprise-apps-and-agents.md` were re-read in full during this
+`blog-anthropic-workload-identity-federation.md`,
+`blog-vercel-enterprise-apps-and-agents.md`,
+`blog-anthropic-zero-trust-ai-agents.md`, and
+`blog-anthropic-enterprise-managed-auth.md` were re-read in full during this
 extraction (MINER.md §4b), and every claim number cited below was located
 and confirmed against that note's own numbered `### Claim N:` headings in
 document order before writing this section.
@@ -137,6 +139,28 @@ document order before writing this section.
     credential philosophy to a different product (Flags evaluation, not
     third-party SaaS connector access) and a different boundary (Vercel
     deployment → Vercel's own Flags backend, not agent → external system).
+  - `blog-anthropic-zero-trust-ai-agents.md` Claim 12 ("Static API keys and
+    shared service-account passwords are no longer a legitimate Foundation
+    posture — short-lived tokens are now the minimum baseline"; quoted in
+    that note as "Static API keys and shared service-account passwords are
+    among the first things an attacker with model-assisted code analysis
+    will find; they are no longer a legitimate entry point, not even at
+    Foundation. Short-lived, narrowly-scoped tokens issued by an identity
+    provider are the new baseline."): this is the *normative* claim that
+    Claim 1's "Our assessment" is gesturing at. The Vercel changelog shows a
+    vendor shipping exactly the posture the zero-trust framework prescribes
+    as the minimum baseline — replacing a static SDK Key that "can be grepped
+    out of a lockfile" with an automatically-issued short-lived token — so
+    this note is not just a second vendor happening to share a pattern with
+    WIF, but a concrete product-level instance of an explicitly-stated
+    industry baseline. `blog-anthropic-enterprise-managed-auth.md` already
+    builds a three-tier convergence around exactly this zero-trust Claim 12
+    (Guide Impact → Chapter 03: "Platform-level: WIF", "Connector-level:
+    enterprise-managed auth", "Spec-level: zero-trust framework (short-lived
+    tokens as minimum baseline everywhere)"); this Vercel Flags note is a
+    clean fourth, product-level data point in that same convergence — a
+    single vendor's own sub-product defaulting to short-lived OIDC tokens
+    rather than static keys.
 
 - **Contradicts**: None identified as a MINER.md §4a contradiction.
 
@@ -202,7 +226,16 @@ document order before writing this section.
   the three named exception cases (Claim 5) as the guide's concrete example
   of where "zero configuration" auth defaults break down: crossing a
   project boundary, leaving the vendor's own runtime, or needing a custom
-  auth scheme.
+  auth scheme. Frame this against the zero-trust baseline explicitly, not
+  just as a two-vendor (WIF/Connect) pattern: `blog-anthropic-zero-trust-
+  ai-agents.md` Claim 12 states that static keys are "no longer a legitimate
+  Foundation posture" and short-lived tokens are "the new baseline," and
+  `blog-anthropic-enterprise-managed-auth.md` already frames a three-tier
+  convergence (Platform/Connector/Spec-level) around that claim. This Vercel
+  Flags change is a concrete product-level data point that the baseline is
+  showing up as a shipped default in commodity developer tooling, not only
+  in security-framework prescriptions — a useful "the industry norm is
+  already the product default" example for the guide.
 
 - **Chapter 05 (Team Adoption) — migration-scope caution**: Contrast this
   source's bare "this change only applies to new projects" scope statement
