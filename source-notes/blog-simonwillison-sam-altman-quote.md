@@ -113,7 +113,7 @@ https://twitter.com/techemails/status/2078854346683678927
   email or the general pattern it illustrates (competitive rather than
   access-driven motivation for an open-model release) with primary-document
   evidence; nothing in the corpus corroborates this claim independently.
-- **Contradicts**: **See filed contradiction issue #2235** (not resolved in
+- **Contradicts**: **See filed contradiction issue #2238** (not resolved in
   this note per MINER.md §4a — no verdict is assigned here). Claim 3 here
   (OpenAI's 2022 internal rationale for releasing an open-weight model was
   to "discourage others from releasing similarly-powerful models" and
@@ -130,8 +130,15 @@ https://twitter.com/techemails/status/2078854346683678927
   controls vs. universal-access rhetoric, also contradicting
   `blog-openai-built-to-benefit-everyone.md`) — #1597 is about *who gets
   access*, this new issue is about *why an open release decision gets made
-  in the first place*. Contradiction filed for human resolution; see
-  CONTRADICTIONS.md once resolved.
+  in the first place*. Filing history: this contradiction was first filed as
+  issue #2235, which was pre-screen-rejected and closed as `not planned` on
+  a mechanical criterion (no external URL in the issue body) rather than on
+  the merits; an Assayer contradiction assessment was nonetheless posted
+  there proposing a `debated` verdict, conditioned on this source note being
+  extracted and merged. It has been re-filed as **#2238** with both primary
+  source URLs inline. Awaiting human resolution; no CONTRADICTIONS.md entry
+  exists yet, and none should be assumed until a `C-NNN` entry is appended
+  there.
 - **Extends**: `blog-simonwillison-open-source-ai-gap-map.md` and
   `blog-simonwillison-inkling-open-weights.md` both document the current
   (2026) open-weights ecosystem and lab openness practices in detail, but
@@ -159,7 +166,7 @@ https://twitter.com/techemails/status/2078854346683678927
   interpretation**, not as evidence of current OpenAI practice.
 - **Chapter 00 (Principles), if/where the guide discusses how much weight
   to give a frontier lab's public "open" or "benefit everyone" framing**:
-  Cite Claim 3 alongside the filed contradiction (issue #2235) as a concrete
+  Cite Claim 3 alongside the filed contradiction (issue #2238) as a concrete
   historical instance — from the lab's own internal communication, not a
   critic's inference — where a plausible-sounding "open source strategy"
   decision was reasoned about in explicitly competitive terms internally,
@@ -210,14 +217,26 @@ https://twitter.com/techemails/status/2078854346683678927
    post and standard site navigation/tag links. Per MINER.md §1, none were
    followed beyond the one attempted (and failed) fetch of the citation
    link itself.
-5. **Contradiction filed**: per MINER.md §4a, filed issue #2235 ("OpenAI's
-   2022 open-weight release rationale: competitive-blocking strategy
-   (internal email) vs. 'power broadly distributed' mission framing (2026
-   public statement)") before writing this note, contrasting this source's
-   Claim 3 against `blog-openai-built-to-benefit-everyone.md` Claims 3 and
-   7. No verdict is assigned in this note; see the issue and (once
-   resolved) CONTRADICTIONS.md. Checked for and did not duplicate the
-   already-filed, related-but-distinct issue #1597.
+5. **Contradiction filed (re-filed once)**: per MINER.md §4a, a contradiction
+   was filed contrasting this source's Claim 3 against
+   `blog-openai-built-to-benefit-everyone.md` Claims 3 and 7 ("OpenAI's 2022
+   open-weight release rationale: competitive-blocking strategy (internal
+   email) vs. 'power broadly distributed' mission framing (2026 public
+   statement)"). The first filing, issue #2235, was auto-rejected by the
+   repo's Tier 1 pre-screen on criterion (a) — no external URL in the issue
+   body — and closed as `not planned`; the rejection was mechanical, not a
+   judgement on the contradiction's merits, and an Assayer assessment
+   proposing a `debated` verdict was posted on the closed issue anyway,
+   explicitly conditioned on this source note being extracted and merged
+   (and warning that it be re-opened as `unresolved` otherwise). Because a
+   closed issue would leave the contradiction to fall through the cracks,
+   it has been **re-filed as #2238**, with both primary source URLs
+   (`simonwillison.net` for Side A, `openai.com` for Side B) inline in the
+   body so it survives pre-screen, and with a pointer back to the prior
+   assessment on #2235. No verdict is assigned in this note; the live issue
+   to follow is #2238, and no CONTRADICTIONS.md entry exists yet. Checked
+   for and did not duplicate the already-filed, related-but-distinct issue
+   #1597.
 6. **Cross-reference verification**: before writing citations above,
    `blog-openai-built-to-benefit-everyone.md`,
    `blog-simonwillison-open-source-ai-gap-map.md`, and
