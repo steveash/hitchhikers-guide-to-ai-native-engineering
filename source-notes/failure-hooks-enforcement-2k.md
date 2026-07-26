@@ -7,7 +7,7 @@ author: meloncafe
 date_published: 2026-03-28
 date_extracted: 2026-03-30
 last_checked: 2026-03-30
-status: current
+status: stale
 confidence_overall: emerging
 issue: "#TBD"
 ---
