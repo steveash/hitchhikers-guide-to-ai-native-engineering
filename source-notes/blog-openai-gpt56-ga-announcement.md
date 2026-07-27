@@ -117,7 +117,7 @@ issue: "#2257"
 - **Evidence**: Direct program-requirement description immediately following the cybersecurity capability claims.
 - **Confidence**: settled (a specific, dated, checkable access-control policy from the vendor)
 - **Quote**: "Individuals can verify their identity and request trusted access, and organizations can apply for their teams. Individual members will need to enable Advanced Account Security with hardware-backed passkeys by September 1 to retain access to our most cyber-capable frontier models; those who do not will return to default access. Users who do not already have hardware-backed passkeys can receive preferred pricing from our partner, Yubico. We are also taking additional steps to restrict access to high-risk entities and in high-risk jurisdictions."
-- **Our assessment**: This extends `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` Claim 4, which documented the Daybreak program's government-level "Trusted Access for Cyber" partnerships with nine named allied governments — this source adds the individual/organizational access tier of the same program, with a concrete enforcement mechanism (hardware-backed-passkey deadline, with automatic downgrade to default access on non-compliance) not previously documented in the corpus. The Yubico partnership for "preferred pricing" is a novel, specific vendor-security-hardware collaboration detail.
+- **Our assessment**: This extends `blog-openai-government-national-security-partnerships.md` Claim 4, which documented the Daybreak program's government-level "Trusted Access for Cyber" partnerships with nine named allied governments/institutions (Australia, Canada, Japan, Republic of Korea, France, Germany, Poland, the Netherlands, and EU institutions like ENISA) — this source adds the individual/organizational access tier of the same program, with a concrete enforcement mechanism (hardware-backed-passkey deadline, with automatic downgrade to default access on non-compliance) not previously documented in the corpus. The Yubico partnership for "preferred pricing" is a novel, specific vendor-security-hardware collaboration detail.
 
 ### Claim 11: Inside OpenAI, GPT‑5.6 accelerated internal AI research measurably — average daily output tokens per active researcher during internal testing were more than twice the highest level observed for GPT‑5.5, the share of research compute devoted to internal coding inference grew 100-fold over the past six months, and internal agentic token usage grew approximately 22-fold over the same period; on an internal "RSI Index" bundle of research-acceleration evaluations, GPT‑5.6 Sol scores a 16.2-point improvement over GPT‑5.5
 - **Evidence**: Direct internal-adoption and internal-evaluation claims in the "GPT‑5.6 accelerates OpenAI" section.
@@ -199,9 +199,10 @@ Zapier/RingCentral/Virgin Atlantic/NVIDIA):
                 "substantial improvements on reasoning, decision making and
                 autonomy" for complex accounting work
 
-Benchmark table (reproduced as scraped from a linearized Wayback Machine
-HTML snapshot — see Extraction Notes on transcription-reliability caveats;
-"—" denotes no reported figure for that model in that row):
+Benchmark table (scraped from a Wayback Machine HTML snapshot and
+re-verified cell-for-cell against that snapshot's preserved table markup —
+see Extraction Notes; "—" denotes no reported figure for that model in
+that row):
 
 PROFESSIONAL
   Eval                                Sol      Terra    Luna     GPT-5.5   Fable5    Opus4.8   Gem3.1ProPrev  Gem3.5Flash
@@ -297,10 +298,11 @@ ABSTRACT REASONING
   - `blog-openai-genebench-pro-case-studies.md` Claim 8 — the 28.7%
     GeneBench Pro score for GPT‑5.6 Sol matches exactly across two
     separately-published OpenAI sources (see Claim 12).
-  - `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` Claim 4 — this
-    page's individual-level Trusted Access for Cyber requirements (Claim
-    10) sit alongside that note's government-level Daybreak partnerships
-    as two access tiers of the same named program.
+  - `blog-openai-government-national-security-partnerships.md` Claim 4 —
+    this page's individual-level Trusted Access for Cyber requirements
+    (Claim 10) sit alongside that note's government-level Daybreak
+    partnerships (nine named allied governments/institutions) as two
+    access tiers of the same named program.
   - `blog-openai-agents-transforming-work.md` and
     `blog-openai-chatgpt-work-ambitious-partner.md` Claim 8 — Claim 11's
     internal-research-acceleration figures corroborate the broader
@@ -422,11 +424,24 @@ ABSTRACT REASONING
   cross-checked (SWE-Bench Pro's Fable 5 figure, GeneBench Pro's Sol
   figure), they matched independently-sourced figures elsewhere in the
   corpus exactly, which raises confidence in the table's general
-  reliability — but the Assayer should spot-check the reconstructed table
-  against a rendered view of the archived page
-  (`web.archive.org/web/20260725.../https://openai.com/index/gpt-5-6`)
-  before treating any individual cell not otherwise cross-referenced in
-  this note as fully verified.
+  reliability.
+- **Benchmark table re-verified against preserved table markup
+  (2026-07-27)**: following Assayer review, the archived page
+  (`web.archive.org/web/20260726234126/https://openai.com/index/gpt-5-6/`,
+  HTTP 200 via `curl`) was re-scraped with `<th>`/`<td>` cell boundaries
+  and `</tr>` row breaks preserved rather than fully linearized. Every row
+  of every one of the 11 domain tables reproduced in Concrete Artifacts
+  matches the archived markup cell-for-cell, including the "—" no-figure
+  cells and the per-domain column sets. The transcription-reliability
+  caveat above is therefore resolved: the table is a faithful reproduction,
+  not an inferred alignment. The 53.6-vs-52.7 Agents' Last Exam gap is
+  confirmed to be a discrepancy *in the source itself* — the prose reads
+  "GPT‑5.6 Sol sets a new high of 53.6" while the Professional table row
+  for Agents' Last Exam reads 52.7% — not a scraping artifact. It remains
+  unresolved as to cause. The Claim 10 quote was also re-verified verbatim
+  against this snapshot (the source interleaves
+  "(opens in a new window)" link-affordance text into that passage, elided
+  in the quote as formatting noise).
 - **No sub-pages followed**: the linked "updated GPT‑5.6 system card" was
   not fetched — it is referenced only as a pointer for further safety
   detail, not quoted from, and following it was judged lower-value than
