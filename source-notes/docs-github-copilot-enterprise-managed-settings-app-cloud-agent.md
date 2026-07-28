@@ -24,7 +24,8 @@ issue: "#2268"
 - **Type**: docs (GitHub official product changelog, July 27, 2026; ~250 words of primary
   announcement text). Followed three linked pages per MINER.md §1: the "Enterprise managed
   settings reference" page (`https://docs.github.com/copilot/reference/enterprise-managed-settings-reference`
-  — the per-key settings table), the "Configure enterprise managed settings" how-to page
+  — the "Supported keys" table, per key and per client), the "Configure enterprise managed
+  settings" how-to page
   (`https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/configure-enterprise-managed-settings`
   — precedence and propagation-timing language), and confirmed the
   "GitHub Community" discussion link (`orgs/community/discussions/199139`) is the same general
@@ -88,9 +89,10 @@ issue: "#2268"
   where the underlying UI behavior (an approval prompt a human could rubber-stamp) exists. For
   Ch02/Ch06: document this as "not all managed-settings keys apply to all clients" rather than
   as an unpatched gap, and flag it as a caveat for anyone building an enterprise governance
-  checklist off the reference page's per-key settings table, which lists each key's type,
-  accepted values, and purpose but records no per-client applicability at all (see Claim 10
-  and Extraction Notes below).
+  checklist off the reference page's "Supported keys" table, which does carry per-client
+  applicability columns for Copilot CLI, VS Code, and the GitHub Copilot app — but has no
+  cloud agent column at all, so the cloud agent's bypass-prompt exclusion is not discoverable
+  from that table (see Claims 9–10 and Extraction Notes below).
 
 ### Claim 3: The Copilot cloud agent enforces plugin and marketplace controls and only uses plugins/marketplaces the enterprise has approved
 - **Evidence**: Official changelog, two adjacent sentences describing cloud agent enforcement
@@ -198,60 +200,71 @@ issue: "#2268"
   only documented the `.github-private` git-based path); this is the first explicit mention of
   MDM and distributed-file deployment as first-class alternatives, not just a fallback.
 
-### Claim 9 (secondary source, lower confidence): The enterprise managed settings reference documents at least two settings keys — `enabledPlugins` and `extraKnownMarketplaces` — and one client-scoped setting, `telemetry`, not previously named in the corpus
+### Claim 9 (secondary source): The enterprise managed settings reference documents six supported keys — including `enabledPlugins`, `extraKnownMarketplaces`, and `telemetry`, none previously named in the corpus — with `telemetry` the only key not supported in the GitHub Copilot app
 - **Evidence**: Linked "Enterprise managed settings reference" page
-  (`https://docs.github.com/copilot/reference/enterprise-managed-settings-reference`), fetched via
-  WebFetch on two separate occasions. Both fetches returned the same six top-level keys:
+  (`https://docs.github.com/copilot/reference/enterprise-managed-settings-reference`), retrieved
+  2026-07-28 as **raw HTML via `curl`** and parsed directly (not through WebFetch's
+  AI-summarization layer — see Extraction Note 2a). The page's "Supported keys" table has the
+  columns Key / Purpose / Copilot CLI / VS Code / GitHub Copilot app, and lists six keys:
   `permissions.disableBypassPermissionsMode`, `permissions.model`, `enabledPlugins`,
-  `extraKnownMarketplaces`, `strictKnownMarketplaces`, and `telemetry`. The second fetch also
-  reproduced the page's key table with per-key type, accepted values, and purpose columns.
-- **Confidence**: emerging (secondary documentation page, both times processed through an
-  AI-summarizing fetch rather than read as raw HTML; not stated in the July 27 changelog itself.
-  The two fetches agree on the key list, which raises confidence above a single reading, but the
-  key names are still not verified against raw page source)
-- **Quote**: (no direct quote; both WebFetch responses were synthesized summaries/tables, not
-  source prose — see Extraction Notes)
+  `extraKnownMarketplaces`, `strictKnownMarketplaces`, and `telemetry`. Every cell is a check
+  icon with `aria-label="Supported"` except `telemetry` under "GitHub Copilot app", which is an
+  x icon with `aria-label="Not supported"`. Reproduced in full under Concrete Artifacts.
+- **Confidence**: emerging (secondary documentation page rather than the changelog itself; the
+  key names, column headers, and support marks are now verified against raw page source, but
+  none of this is stated in the July 27 changelog, and an earlier round of extraction on this
+  same page produced two mutually inconsistent readings via WebFetch — so it is recorded as a
+  docs-page observation rather than a settled product fact)
+- **Quote**: "This property is supported for Copilot CLI and VS Code." (reference page,
+  `telemetry` section) / "Configures OpenTelemetry export, routing Copilot usage data to a
+  collector of your choice" (reference page, `telemetry` row of the "Supported keys" table)
 - **Our assessment**: `enabledPlugins` (enable/disable specific plugins by key) and
   `extraKnownMarketplaces` (add marketplaces, as distinct from `strictKnownMarketplaces`
   restricting to a whitelist) are two settings keys not documented anywhere in the corpus's
-  four prior enterprise-managed-settings notes. `telemetry` is entirely novel — per the second
-  fetch it configures OpenTelemetry export and is described as scoped to VS Code, a governance
-  capability outside the plugin/permission/model-selection categories the corpus has documented
-  so far. The reference-page URL is given above so any reviewer can confirm these key names
-  directly rather than relying on this note's fetches.
+  four prior enterprise-managed-settings notes. `telemetry` is entirely novel — it configures
+  OpenTelemetry export to an enterprise-chosen collector, a governance capability outside the
+  plugin/permission/model-selection categories the corpus has documented so far, and it is
+  scoped to Copilot CLI and VS Code (supported in both), not to VS Code alone. It is the single
+  exception to otherwise-uniform key support across the three clients the table covers: every
+  other key is supported in all of Copilot CLI, VS Code, and the Copilot app. This is a second,
+  independent instance of the per-client capability differentiation Claim 2 documents for
+  bypass-prompt controls — so "not all managed-settings keys apply to all clients" is a general
+  property of this system, not a one-off carve-out for the cloud agent.
 
-### Claim 10 (secondary source, discrepancy noted): The linked how-to page still scopes enterprise managed settings to "Copilot CLI and VS Code," and neither linked docs page mentions the cloud agent, even though the July 27 changelog states the cloud agent is now supported
-- **Evidence**: The "Configure enterprise managed settings" how-to page
-  (`https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/configure-enterprise-managed-settings`),
-  fetched 2026-07-28, states: "With enterprise managed settings, enterprise owners can centrally
-  define and distribute configuration settings to Copilot CLI and VS Code for users on your
-  enterprise's Copilot plan" — omitting both the Copilot app and the cloud agent — and the fetch
-  confirmed the cloud agent is not mentioned anywhere on that page. The "Enterprise managed
-  settings reference" page
-  (`https://docs.github.com/copilot/reference/enterprise-managed-settings-reference`) likewise
-  does not name the cloud agent; its only table is a per-key table (key / type / accepted values
-  / purpose) with no per-client applicability column at all, and its client references are
-  scattered in prose (e.g. `telemetry` described as "Configures OpenTelemetry export for VS
-  Code", bypass-mode notes referencing Copilot CLI and VS Code).
-- **Confidence**: anecdotal (an observation about documentation-page staleness, not a product
-  fact; the supporting fetches are AI-summarized, not raw-HTML-verified)
+### Claim 10 (secondary source, discrepancy noted): Both linked docs pages already list the GitHub Copilot app as a supported client, but neither mentions the Copilot cloud agent, even though the July 27 changelog states the cloud agent is now supported
+- **Evidence**: Both pages retrieved 2026-07-28 as **raw HTML via `curl`** and parsed directly.
+  The "Configure enterprise managed settings" how-to page
+  (`https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/configure-enterprise-managed-settings`)
+  scopes the feature to "supported clients" and then enumerates them in a bulleted list —
+  "Copilot CLI", "VS Code", "The GitHub Copilot app" — with no cloud agent entry. The
+  "Enterprise managed settings reference" page
+  (`https://docs.github.com/copilot/reference/enterprise-managed-settings-reference`) carries a
+  "Supported keys" table whose client columns are Copilot CLI / VS Code / GitHub Copilot app —
+  again with no cloud agent column. A case-insensitive search of the parsed article body of both
+  pages returns **zero** occurrences of "cloud agent"; the how-to page contains no occurrence of
+  the standalone word "agent" at all, and the reference page's only occurrences are in the
+  `agent-skills` example marketplace name and the generic phrase "lets an agent run commands".
+- **Confidence**: anecdotal (an observation about documentation-page freshness at one point in
+  time, not a product fact; the page content is raw-HTML-verified, but the inference that the
+  absence reflects lag rather than an intentional scope limit is ours)
 - **Quote**: "With enterprise managed settings, enterprise owners can centrally define and
-  distribute configuration settings to Copilot CLI and VS Code for users on your enterprise's
-  Copilot plan" (how-to page, as returned by WebFetch in quoted form; the surrounding response
-  was a summary — see Extraction Notes)
-- **Our assessment**: This looks like ordinary documentation lag — the changelog is the
-  first-party announcement of record and is unambiguous about cloud agent support (Claims 1–3
-  above), while both secondary pages had apparently not yet been updated at the time of this
-  extraction (2026-07-28, one day after the changelog's publication). Note that the reference
-  page carries no per-client information for *any* client, so the cloud agent's absence there is
-  weaker evidence of staleness than the how-to page's explicit two-client scoping. We do not
-  treat this as a contradiction requiring a filed contradiction issue (MINER.md §4a) because it
-  is a staleness gap between a changelog and its supporting docs pages, not two sources making
-  opposing claims about the same fact — the docs pages simply haven't caught up yet. Flagging it
-  here so a future source note revisiting these pages can confirm whether the cloud agent has
-  since been added. Practical consequence for readers: per-client applicability of a
-  `managed-settings.json` key currently cannot be looked up in the reference page; the changelogs
-  are the only source that states it.
+  distribute configuration settings to supported clients for users on your enterprise's Copilot
+  plan, ensuring every member works within the same guardrails." (how-to page, opening sentence,
+  immediately followed by "Supported clients are:" and the three-item list above)
+- **Our assessment**: The app half of the July 27 announcement has already landed in the
+  supporting docs — both pages list the GitHub Copilot app — so these pages are not wholesale
+  stale. The gap is narrower and more specific: the **cloud agent alone** is absent from both,
+  one day after the changelog announced it as a supported client. We read this as ordinary
+  documentation lag on the newer of the two surfaces rather than a substantive scope
+  disagreement, since the changelog is the first-party announcement of record and is unambiguous
+  about cloud agent support (Claims 1–3 above). We do not treat this as a contradiction requiring
+  a filed contradiction issue (MINER.md §4a) because it is a staleness gap between a changelog
+  and its supporting docs pages, not two sources making opposing claims about the same fact.
+  Flagging it here so a future source note revisiting these pages can confirm whether a cloud
+  agent column and list entry have since been added. Practical consequence for readers: per-client
+  applicability of a `managed-settings.json` key *can* be looked up in the reference page for
+  Copilot CLI, VS Code, and the Copilot app — but for the cloud agent, the changelogs remain the
+  only source that states which keys apply.
 
 ## Concrete Artifacts
 
@@ -275,6 +288,37 @@ explicitly as the reason in the source).
 Source: github.blog changelog, 2026-07-27 (see Claims 1-3). Table structure is
 this note's synthesis; the changelog itself states client coverage in prose,
 not a table.
+```
+
+### "Supported keys" table, verbatim (reference page, raw HTML, fetched 2026-07-28)
+
+```
+Key                                       | Purpose                                | CLI | VS Code | Copilot app
+------------------------------------------|----------------------------------------|-----|---------|------------
+permissions.disableBypassPermissionsMode  | Disables bypass or YOLO-style          |  Y  |    Y    |     Y
+                                          | allow-all behavior                     |     |         |
+permissions.model                         | Sets auto model selection as the       |  Y  |    Y    |     Y
+                                          | default for new conversations          |     |         |
+enabledPlugins                            | Enables or disables specific plugins   |  Y  |    Y    |     Y
+                                          | by key                                 |     |         |
+extraKnownMarketplaces                    | Adds plugin marketplaces that users    |  Y  |    Y    |     Y
+                                          | can access                             |     |         |
+strictKnownMarketplaces                   | Restricts plugin installation to       |  Y  |    Y    |     Y
+                                          | explicitly listed marketplaces         |     |         |
+telemetry                                 | Configures OpenTelemetry export,       |  Y  |    Y    |     N
+                                          | routing Copilot usage data to a        |     |         |
+                                          | collector of your choice               |     |         |
+
+Column headers are verbatim: "Key", "Purpose", "Copilot CLI", "VS Code",
+"GitHub Copilot app". Purpose text is verbatim (wrapped for width only).
+Y = check icon, aria-label "Supported". N = x icon, aria-label "Not supported".
+
+NOTE: there is no cloud agent column. This table is the only per-client
+applicability information on the reference page, so it cannot answer "does
+key X apply to the cloud agent?" — see Claims 9 and 10.
+
+Source: https://docs.github.com/copilot/reference/enterprise-managed-settings-reference
+(raw HTML via curl, parsed directly; not WebFetch-summarized)
 ```
 
 ### Precedence and propagation rules (July 27, 2026 changelog + linked how-to page)
@@ -359,9 +403,12 @@ https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise
     `docs-github-copilot-enterprise-strict-known-marketplaces.md` implied broader deployment
     mechanisms existed via the "enforcement timing model").
   - **New settings keys** (`enabledPlugins`, `extraKnownMarketplaces`, `telemetry`) per
-    Claim 9 — consistent across two independent fetches of the reference page but still
-    AI-summarized rather than raw-HTML-verified, so graded `emerging`; the reference-page URL is
-    recorded in Claim 9 and Source Context so a reviewer can confirm directly.
+    Claim 9 — now verified against the reference page's raw HTML, including the full "Supported
+    keys" table reproduced under Concrete Artifacts. `telemetry` is the corpus's first
+    enterprise-managed setting outside the plugin/permission/model-selection categories, and the
+    first documented case of a *key* (rather than a client) having partial client coverage:
+    supported in Copilot CLI and VS Code, not supported in the Copilot app. Graded `emerging`
+    because it is a secondary-page fact not stated in any changelog the corpus has extracted.
 
 ## Guide Impact
 
@@ -370,8 +417,16 @@ https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise
     clients: VS Code, Copilot CLI, the Copilot app, and the Copilot cloud agent (Claim 1).
   - Add a caveat table (see Concrete Artifacts) noting that not every capability applies to
     every client — specifically, bypass-prompt control (`disableBypassPermissionsMode`) does not
-    apply to the cloud agent (Claim 2). Practitioners building an enterprise governance checklist
-    from the guide should not assume uniform coverage without checking per-key client support.
+    apply to the cloud agent (Claim 2), and `telemetry` is supported in Copilot CLI and VS Code
+    but not in the Copilot app (Claim 9). Practitioners building an enterprise governance
+    checklist from the guide should not assume uniform coverage without checking per-key client
+    support.
+  - Flag a lookup gap for readers doing exactly that check: the reference page's "Supported keys"
+    table covers Copilot CLI, VS Code, and the Copilot app, and the how-to page's supported-client
+    list names the same three — but as of 2026-07-28 neither includes the cloud agent (Claim 10).
+    Readers verifying which keys apply to a cloud agent must use the changelog, not the docs. If
+    a later revision of the guide re-checks these pages, the fix to watch for is a cloud agent
+    column in that table and a fourth bullet in that list.
   - Document the explicit precedence rule (Claim 4): managed settings override local/developer
     settings for every supported key. This should be stated plainly wherever the guide currently
     describes `managed-settings.json` as a governance mechanism, since no prior guide-facing
@@ -419,26 +474,48 @@ https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise
    which was not fetched — its content is already covered by Claim 8 and by
    `docs-github-copilot-enterprise-managed-plugins-vscode.md`.)
 
-   Responses came back as synthesized summaries/tables rather than quotable prose, so no claim in
-   this note treats them as verbatim source text; Claims 9 and 10 are graded
-   `emerging`/`anecdotal` accordingly, and the URLs above are recorded so a reviewer can verify
-   both against the live pages without guessing. Two exceptions where WebFetch returned clearly
-   quoted strings distinct from the surrounding summary, used as quotes: the how-to page's
-   precedence rule ("For each supported key, the `managed-settings.json` value takes
-   precedence...") in Claim 4/Concrete Artifacts, which closely matches the changelog's own
-   wording on the same point; and the how-to page's two-client scoping sentence in Claim 10.
+   Responses came back as synthesized summaries/tables rather than quotable prose. Every quote
+   this note draws from these two pages has since been re-verified against raw page source (see
+   Note 2a), and the URLs above are recorded so a reviewer can check them directly. The how-to
+   page's precedence rule ("For each supported key, the `managed-settings.json` value takes
+   precedence over any file-based configuration a user sets in their client."), used in Claim 4
+   and Concrete Artifacts, and the "within about an hour" propagation wording in Concrete
+   Artifacts, both appear verbatim in the raw HTML.
 
-2a. **Claim 9 and Claim 10 re-verified after Assayer review**: The reference page was re-fetched
-   independently and returned the same six keys as the first pass
-   (`permissions.disableBypassPermissionsMode`, `permissions.model`, `enabledPlugins`,
-   `extraKnownMarketplaces`, `strictKnownMarketplaces`, `telemetry`), corroborating Claim 9.
-   That re-fetch also **corrected** Claim 10: this note originally described the reference page
-   as carrying a client-support matrix with three client columns (CLI, VS Code, Copilot app) and
-   no cloud agent column. Two independent re-fetches found no client-support matrix on that page
-   at all — its only table is per-key (key / type / accepted values / purpose), with client names
-   appearing only in scattered prose. Claim 10 has been rewritten to rest on the how-to page's
-   explicit "Copilot CLI and VS Code" scoping, which both fetches confirm, rather than on a
-   reference-page column layout that does not exist.
+2a. **Claim 9 and Claim 10 re-verified against raw HTML after two rounds of WebFetch
+   disagreement**: WebFetch processes pages through an AI model before returning them, and on
+   these two docs pages it proved unreliable — across three extraction rounds it produced
+   mutually contradictory readings of the *same* two pages, at different times reporting that
+   the reference page did and did not have a client-support matrix. Per the second Assayer
+   review's suggestion, both pages were therefore re-retrieved with `curl` and the article
+   bodies parsed directly from HTML rather than read through any summarization layer. The raw
+   source settles all three disputed points, and **two prior statements in this note were wrong
+   and have been corrected**:
+   - The reference page **does** have a per-client matrix. Its "Supported keys" table has the
+     columns Key / Purpose / Copilot CLI / VS Code / GitHub Copilot app, reproduced verbatim
+     under Concrete Artifacts. A previous revision of this note claimed the page had "no
+     client-support matrix at all" and that its only table was key / type / accepted values /
+     purpose. That was false — those column names do not appear on the page. What is true, and
+     is what Claims 9–10 now rest on, is that the table has **no cloud agent column**.
+   - `telemetry` is **not** scoped to VS Code alone. Its row is marked supported (check icon,
+     `aria-label="Supported"`) under both Copilot CLI and VS Code, and not supported (x icon,
+     `aria-label="Not supported"`) only under GitHub Copilot app; the page's prose says "This
+     property is supported for Copilot CLI and VS Code." A previous revision described it as
+     "scoped to VS Code," which the raw source contradicts.
+   - The how-to page's opening sentence does **not** read "...to Copilot CLI and VS Code for
+     users on your enterprise's Copilot plan." The live sentence reads "...to supported clients
+     for users on your enterprise's Copilot plan, ensuring every member works within the same
+     guardrails," followed by a bulleted list naming Copilot CLI, VS Code, and The GitHub Copilot
+     app. The earlier quoted string was a WebFetch artifact and has been replaced with the
+     verbatim sentence. This narrows Claim 10: both pages already list the app, so only the
+     cloud agent is missing.
+
+   The one finding stable across every fetch, by both this note and the Assayer, and now
+   confirmed by direct search of the parsed raw HTML, is that neither page mentions the cloud
+   agent anywhere. Claims 9 and 10 are deliberately left at `emerging`/`anecdotal` rather than
+   graded up on the strength of the raw-HTML verification: they remain secondary-page
+   observations not stated in the changelog, and this sub-claim's history of flip-flopping is
+   itself a reason for a reviewer to re-check rather than trust the grade.
 
 3. **Linked Community discussion not re-fetched**: The changelog links to
    `github.com/orgs/community/discussions/199139`, the same URL already characterized in
