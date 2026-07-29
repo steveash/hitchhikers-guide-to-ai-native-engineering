@@ -247,6 +247,38 @@ issue: "#2297"
   textual instruction within the same ruleset are not the same thing and
   should be measured separately.
 
+### Claim 13: The authors' closing verdict is that Ponytail works and is worth installing-and-forgetting for a modest net benefit, but that the advertised 54% should not be expected outside over-building-prone workloads
+- **Evidence**: The post's closing "Verdict" section, synthesizing the cost
+  result (Claim 4), the code result (Claim 5), the quality null result
+  (Claim 10), and the concentration finding (Claim 6) into a practitioner
+  recommendation.
+- **Confidence**: anecdotal (this is the authors' own bottom-line judgment
+  call and adoption recommendation, not an additional measurement —
+  consistent with how the equivalent verdict was graded in
+  `blog-jetbrains-caveman-token-savings-test.md` Claim 8)
+- **Quote**: "Ponytail works. Across 80 paired tasks, it cut the typical bill
+  by 10.3% and reduced code written by 15%, with no quality difference we
+  could detect. It is the first tool in this series that clearly saved money.
+  If you install it and forget about it, you should be modestly better off."
+- **Quote (caveat attached to the verdict)**: "Do not expect the advertised
+  54% everywhere. Ponytail's benchmark uses tasks with obvious over-building
+  traps. Ours did not. In our runs, code fell 31% on larger builds and barely
+  moved on tasks that were already lean. The more over-building your agent
+  does, the more ponytail can cut."
+- **Our assessment**: This is the first unambiguously *positive* adoption
+  recommendation in the three-part series, and it is worth contrasting with
+  the Part 1 verdict on Caveman ("use it if you like it" — a low-risk
+  optional extra, `blog-jetbrains-caveman-token-savings-test.md` Claim 8) and
+  the implicit Part 2 verdict on rtk (no savings / a cost increase). The
+  authors' framing is carefully bounded, though: "modestly better off" and
+  "install it and forget about it" describe a set-and-forget background
+  saving, not a cost-optimization lever worth engineering effort — and the
+  second half of the verdict re-attaches the task-composition condition from
+  Claim 6/Claim 7 directly to the recommendation. Any guide language citing
+  this as a "yes, adopt" data point should carry the conditioning clause with
+  it; the recommendation is genuinely workload-dependent, by the authors'
+  own statement.
+
 ## Concrete Artifacts
 
 ```
@@ -385,7 +417,15 @@ Ponytail (Part 3): advertised -54% code/-22% tokens/-20% cost/-27% time,
   writeup concedes this task-dependence (Claim 7), which is a useful
   template for how the guide should frame *any* vendor efficiency claim —
   look for the vendor's own scope qualifications, not just the headline
-  number.
+  number. Where the guide draws an explicit practitioner "should we adopt
+  this" recommendation for this class of tool, cite Claim 13 (the authors'
+  own closing verdict: "Ponytail works... If you install it and forget about
+  it, you should be modestly better off") rather than the raw percentages —
+  but carry its attached conditioning clause ("Do not expect the advertised
+  54% everywhere") with it, and contrast it against the weaker Part 1 verdict
+  on Caveman (`blog-jetbrains-caveman-token-savings-test.md` Claim 8, "use it
+  if you like it") so the guide reflects that this series has now produced
+  differently-strength recommendations for differently-performing tools.
 
 - **Chapter 04 (Benchmarking methodology)**: Add Claim 9 as a third
   corroborating instance of the series' small-sample-pilot caution
@@ -408,7 +448,11 @@ Ponytail (Part 3): advertised -54% code/-22% tokens/-20% cost/-27% time,
   passes with different prompts, which is the basis for treating them as
   reliable verbatim extractions rather than model paraphrase. Quotes that
   were only paraphrased inconsistently across passes are not used as
-  quoted material in this note.
+  quoted material in this note. The closing "Verdict" passage (Claim 13) was
+  re-fetched and confirmed in two further independent passes with different
+  prompts, both returning the same contiguous four-sentence passage
+  word-for-word; it is quoted here as one unbroken run of sentences rather
+  than spliced.
 - No sub-pages were followed: the post is a self-contained benchmark
   write-up. The two prior posts in the series (Caveman, rtk) are already
   separate source notes in this corpus and were read in full for
