@@ -100,7 +100,7 @@ issue: "#2329"
 ### Claim 8: Vanessa Lee (Shopify) states that Shopify rebuilt its Hydrogen commerce framework down to only the genuinely-hard parts of commerce (analytics, optimistic cart UI, variants) so they work with any frontend framework, with Next.js/Vercel integration available directly through the Vercel Marketplace
 - **Evidence**: Direct quote attributed to Lee in the "Fireside Chat: Tom Occhino & Vanessa Lee (Shopify)" summary, describing a new Vercel/Shopify partnership.
 - **Confidence**: emerging (a named practitioner's first-party description of her own company's architectural decision, at a partner's conference)
-- **Quote**: "We boiled Hydrogen down to parts of commerce that are genuinely hard (analytics, optimistic cart UI, variants) and made them work with any framework. So if you're on Next.js on Vercel, Shopify's commerce primitives now drop in, with integration in Vercel Marketplace."
+- **Quote**: "We boiled Hydrogen down to the parts of commerce that are genuinely hard (analytics, optimistic cart UI, variants) and made them work with any framework. So if you're on Next.js on Vercel, Shopify's commerce primitives now drop in, with an integration in the Vercel Marketplace."
 - **Our assessment**: This is a specific architectural claim about *what* Shopify decided was hard enough to keep centralized (analytics, optimistic cart state, variant handling) versus what it let go framework-agnostic — a concrete, checkable decomposition of "commerce as a service" rather than a generic partnership announcement. No prior corpus source documents Shopify's Hydrogen architecture or this specific commerce-primitive/framework boundary.
 
 ### Claim 9: Vanessa Lee (Shopify) states that Shopify built a new Catalog API because no good open product-search API previously existed, leveraging Shopify's billions of products and millions of merchants to create what she calls the only widespread shopping API, enabling embedded shopping anywhere
@@ -145,6 +145,12 @@ issue: "#2329"
 - **Quote**: (no direct quote; see paraphrase in Our assessment)
 - **Our assessment**: "Agents analyze recorded calls, opening PRs for product team decision-making instead of synthesizing feedback" is a specific, non-obvious design choice worth flagging — rather than having the agent produce a synthesized summary/recommendation directly to a human, it produces a code-review-style artifact (a pull request) that fits into the product team's existing review workflow. Pairing "Vercel deployment guardrails" with "ZoomInfo context-graph permissions" is a two-layer permission-scoping pattern (platform-level deployment guardrails plus product-level data-access graph) that is conceptually adjacent to, but distinct from, the request-scoped-credential pattern already documented in `blog-vercel-enterprise-apps-and-agents.md` Claim 6 — that claim scopes an agent's access to one external service call; this claim scopes an embedded, customer-facing agent's access to whichever data *the requesting end-user* (not the agent's own service identity) is permitted to see.
 
+### Claim 16: Matan Kushner (Vercel) states that Vertex, Vercel's own support agent, automates 91% of support tickets and saves 5,000 engineer-hours a month "without degrading as its context grows"
+- **Evidence**: Direct summary sentence attributed to Kushner in the "Ship Day Sessions - New York" section, pairing two throughput/savings metrics with an explicit claim about performance stability as context accumulates.
+- **Confidence**: anecdotal (a single company's self-reported metric about its own internally-built agent, from a talk at its own conference; no methodology, baseline, context-window size, or degradation measure is given)
+- **Quote**: "Matan Kushner from Vercel broke down how Vertex, Vercel's support agent, now automates 91% of support tickets and saves 5,000 engineer-hours a month without degrading as its context grows."
+- **Our assessment**: The trailing clause is the analytically interesting part and is a separate, checkable assertion from the two headline numbers. "Without degrading as its context grows" is a claim about *context-rot resistance* — that a long-running production agent's answer quality holds up as its accumulated context expands — which is precisely the failure mode the corpus's context-engineering material is concerned with. Note what the recap does *not* supply: no description of how Vertex manages context (compaction? retrieval? sub-agents? a bash-like self-managed scratch space as in Brex's Claim 12?), no definition of "degrading," and no measurement. So this is a strong assertion with essentially no supporting evidence attached — it should be cited, if at all, as a vendor claim that the problem is tractable in production, never as evidence for any particular technique. It sits in interesting tension with Claim 12: Brex reached its context-management win by *reducing* what enters context (bash-only shell, 75% fewer tool calls/tokens), whereas Vertex is asserted to simply not degrade as context *grows* — two different postures toward the same problem, with only the Brex one accompanied by a mechanism.
+
 ## Concrete Artifacts
 
 ### Enterprise Security Platform components (from "Enterprise Security Platform" section, paraphrased list — no verbatim bullet list given in source)
@@ -168,7 +174,7 @@ Source: https://vercel.com/blog/vercel-ship-2026-recap
 
 - "Matan Kushner from Vercel broke down how Vertex, Vercel's support agent,
   now automates 91% of support tickets and saves 5,000 engineer-hours a
-  month."
+  month without degrading as its context grows."
 - "Ryan Coyne from SERHANT walked through S.MPLE, a real estate agent built
   on Vercel that drove a 144% increase in commission income in its first
   full year."
@@ -337,7 +343,12 @@ order before writing this section.
   framing (Claim 10) as a citable design-philosophy statement extending the
   Vercel Markdown-serving pattern already in the corpus, and Shopify's
   Catalog API (Claim 9) as a named example of commerce infrastructure built
-  for agent/API consumption.
+  for agent/API consumption. Claim 16 (Vertex "without degrading as its
+  context grows") is relevant here but is a bare assertion with no mechanism
+  or measurement attached — cite it only as a vendor claim that long-running
+  production agents can hold quality as context accumulates, never as
+  evidence for a specific context-management technique; Claim 12 (Brex) is
+  the citable one where a mechanism is actually named.
 
 - **Chapter 03 (Model Selection Dynamics)**: Add Zhao's "route automatically
   by task, frontier for coding, smaller/faster for support and
@@ -365,16 +376,23 @@ order before writing this section.
    fetch pass. All `Quote` fields in this note were cross-checked between
    the two successful fetch passes for consistency before being used; none
    were taken from the anomalous response.
-2. **No sub-pages followed.** The recap does not inline-link to separate,
-   deeper per-product pages (e.g., a dedicated Vercel Agent or Security
-   Dashboard announcement) distinct from the products' brief treatment in
-   this article itself — every claim above is drawn from the single recap
-   page. Several of the newly-named products (VCR/Docker support, Vercel
-   Services, Vercel Agent, Security Dashboard) likely have more detailed
-   primary-source announcements elsewhere on vercel.com/blog or
-   vercel.com/changelog that were not identified as inline links in this
-   recap and were therefore not fetched; flagged in Guide Impact as
-   candidates for separate source-submission if they become load-bearing.
+2. **Sub-pages: one inline link exists and was not mined.** Correcting an
+   earlier version of this note, which stated the recap inline-links to no
+   deeper per-product pages: re-verification of the Vanessa Lee quote
+   surfaced a "Read more [here]" link immediately following it, pointing to
+   <https://vercel.com/blog/vercel-and-shopify-are-rebuilding-hydrogen> — a
+   dedicated Hydrogen/Shopify announcement. That page was not fetched, so
+   Claims 8-9 rest on the recap's summary alone and should be treated as
+   provisional on Shopify's Hydrogen architecture; the linked page is a
+   candidate for separate source-submission if that material becomes
+   load-bearing in the guide. Apart from that link, every claim above is
+   drawn from the single recap page. Several of the newly-named products
+   (VCR/Docker support, Vercel Services, Vercel Agent, Security Dashboard)
+   likely have more detailed primary-source announcements elsewhere on
+   vercel.com/blog or vercel.com/changelog that were not identified as
+   inline links in this recap and were therefore not fetched; flagged in
+   Guide Impact as candidates for separate source-submission if they become
+   load-bearing.
 3. **Contradiction filed, not resolved.** Per MINER.md §4a, issue #2338 was
    opened for Claim 7 (Shopify auto-merge figure) against
    `blog-bvp-shopify-ai-playbook.md` Claim 3. No verdict is picked in this
@@ -389,9 +407,19 @@ order before writing this section.
 5. **Confidence calibration: emerging.** Individual claims split between
    `settled` (first-party, unambiguous product-feature descriptions: Claims
    2-5) and `anecdotal` (single-company, self-reported, unverified metrics
-   and practices from conference talks: Claims 7, 12-15). The overall rating
+   and practices from conference talks: Claims 7, 12-16). The overall rating
    is `emerging` because the source mixes verifiable product announcements
    with a large volume of third-party conference-quote claims that carry
    real evidentiary weight but no independent verification, and because one
    claim (Claim 7) is now a filed, unresolved contradiction against a more
    directly-sourced existing corpus note.
+6. **Verbatim re-verification pass (Assayer rework).** The Claim 8 (Lee /
+   Hydrogen) and Kushner / Vertex quotes were re-fetched from the source URL
+   twice, with differently-worded requests, and corrected: Claim 8 was
+   missing "the" before "parts of commerce" and read "with integration in
+   Vercel Marketplace" where the source reads "with an integration in the
+   Vercel Marketplace"; the Vertex quote in Concrete Artifacts silently
+   dropped the trailing clause "without degrading as its context grows,"
+   which is now restored and additionally extracted as Claim 16. Both
+   corrected quotes match the source character-for-character across both
+   fetches.
