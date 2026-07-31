@@ -200,12 +200,18 @@ issue: "#2359"
 - **Quote**: "Correlation with microbenchmarks: Microbenchmark results directly guided interventions that reduced the training step time by 21.2%. ICI collective benchmarks identified communication stalls resolved by SparseCore collective offloading, while HBM bandwidth tests identified memory-bound Attention primitives, prompting the adoption of Tokamax Splash Attention."
 - **Our assessment**: This is the post's clearest end-to-end example of the
   full workflow it's arguing for: benchmark → diagnose bottleneck category
-  → apply the category-specific lever → measure improvement. It directly
-  corroborates `blog-google-qwen35-ironwood-moe-optimization.md`'s Claim 5
-  (Ironwood's fourth-generation SparseCores handle irregular MoE
-  memory-access/routing patterns) and that same note's general finding that
-  MoE serving/training on TPU is bottlenecked by routing/collective
-  overhead rather than raw compute — see Cross-References. Followed the
+  → apply the category-specific lever → measure improvement. It is
+  consistent with `blog-google-qwen35-ironwood-moe-optimization.md`'s
+  Claim 5 (that team replaced tensor parallelism with a hybrid 8-way
+  Attention Batch Sharding / DP=8 plus 8-way Expert Parallelism / EP=8
+  scheme for MoE feed-forward layers) and with that note's general finding
+  that MoE serving/training on TPU is bottlenecked by routing/collective
+  overhead rather than raw compute: both sources reach for a
+  collective-communication remedy, though by different means (sharding
+  redesign there, SparseCore offloading here) — see Cross-References. The
+  "fourth-generation SparseCores"/irregular-memory-access framing below
+  comes from the externally linked Ironwood training-guide page, not from
+  that note. Followed the
   post's own linked resource (`cloud.google.com/blog/products/compute/
   training-large-models-on-ironwood-tpus`, one of the "learn more" links)
   for the underlying mechanism: it describes SparseCore collective
@@ -280,12 +286,11 @@ Claim 9) — see Extraction Notes.
 - **Contradicts**: None identified. No existing source note takes a
   position on the Roofline model, TPU microbenchmarking methodology, or
   head_dim/systolic-array alignment that this post's claims oppose.
-- **Extends**: This is the corpus's fourth Google/TPU source note (after
+- **Extends**: This is the corpus's fifth Google/TPU source note (after
   `blog-google-tunix-gemma-reasoning-hackathon.md`,
   `blog-google-tunix-agentic-rl-throughput.md`,
   `blog-google-qwen35-ironwood-moe-optimization.md`, and
-  `blog-google-ray-tpu-serve-data-train.md` — making this the fifth
-  overall). It extends
+  `blog-google-ray-tpu-serve-data-train.md`). It extends
   `blog-google-qwen35-ironwood-moe-optimization.md` specifically by giving
   the general-purpose diagnostic *methodology* (the open-source
   microbenchmark suite plus the Roofline model) that a reader would use to
