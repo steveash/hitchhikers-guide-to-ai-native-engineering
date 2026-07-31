@@ -94,13 +94,15 @@ issue: "#2360"
 ### Claim 7: Extract-phase products are the funding source for a portfolio of Explore-phase projects — mature, profitable products underwrite new experimentation elsewhere in the same organization
 - **Evidence**: Beck's own statement in the "Extract" section, connecting the Extract phase's profit-optimization goal back to the Explore phase's need for resourcing.
 - **Confidence**: emerging (a structural/financial claim about how organizations should relate mature and nascent product lines, asserted rather than demonstrated with a specific company's numbers)
-- **Quote**: "Extract products pay the bills & pay for a portfolio of Explore projects."
+- **Quote**: "You have some Extract products that pay the bills & pay for a portfolio of Explore projects."
 - **Our assessment**: This is the one place the three phases are explicitly tied together as a simultaneous portfolio (rather than a single idea's sequential journey through the phases) — implying an organization runs Explore, Expand, and Extract work concurrently across different initiatives, not that a single company or team occupies one phase at a time.
 
 ### Claim 8: The article names nine dimensions that should differ by phase — finance, team size, project management, personnel, technology, risk management, implementation, marketing, sales — but the accessible text only elaborates a single compact tactical one-liner per phase, not per-dimension detail across those nine categories
 - **Evidence**: Beck's own list, given in the "All Of The Above" section, cross-checked against the actual level of detail provided per phase throughout the rest of the piece.
 - **Confidence**: settled (a direct observation about what content is and isn't present in the accessible text, not a claim requiring outside verification)
-- **Quote**: "Finance, Team size, Project management, Personnel, Technology, Risk management, Implementation, Marketing, Sales"
+- **Quote**: (no single contiguous quote; the nine dimensions appear in the
+  source as nine separate bullet items, reproduced individually in Concrete
+  Artifacts → "Nine dimensions named as phase-dependent" below)
 - **Our assessment**: This matters for calibrating this source's guide impact. The Prospector's triage comments anticipated "concrete changes to finance, team structure, project management, personnel, technology, and risk approach" broken out per phase — on a full read, the article names these nine dimensions as varying by phase but does not work through most of them individually; only the phase-level tactical one-liners (Claims 4-6) are actually given. A guide citation of this source for detailed per-dimension guidance (e.g., "here's specifically how personnel decisions should differ in Explore vs. Expand") would be citing content that isn't present in this piece.
 
 ### Claim 9: The article closes with a pivot from the 3X framework itself to a diagnostic claim about organizational failure generally — "most teams don't have a strategy problem, they have an adaptation problem" — positioned immediately before a call-to-action for Beck's own consulting/advisory services, in a block not explicitly labeled as sponsored or promotional
@@ -138,9 +140,18 @@ Extract
 ```
 Source: Kent Beck, "Canon 3X: Explore/Expand/Extract",
 newsletter.kentbeck.com, 2026-07-30, "All Of The Above" section
+(reproduced as nine separate bullet items, matching the source's structure;
+these are not a single running sentence in the original)
 
-Finance, Team size, Project management, Personnel, Technology,
-Risk management, Implementation, Marketing, Sales
+  - Finance
+  - Team size
+  - Project management
+  - Personnel
+  - Technology
+  - Risk management
+  - Implementation
+  - Marketing
+  - Sales
 ```
 
 ## Cross-References
@@ -151,10 +162,13 @@ Risk management, Implementation, Marketing, Sales
   Explore/Expand/Extract 'Genie' as a metaphor for LLMs Thinkies") and Claim 5
   (Beck describes explaining 3X roughly 20 times over two weeks while
   teaching in Africa, with his friend Nadayar Enegesi observing that no two
-  explanations were the same). That note could only record that "3X" existed
-  as an unglossed term; this note is the corpus's first substantive
-  extraction of what the framework actually claims, confirming it is the
-  same idea that note flagged as "named but not explained."
+  explanations were the same). That note recorded "3X" only as an unglossed
+  term in a list; this note supplies Beck's own first-party definition of
+  what the framework actually claims, confirming it is the same idea that
+  note flagged as named-but-not-explained. (Note that the corpus already had
+  a glossed definition of 3X from a different, third-party source — see
+  **Corroborates** below — so this note is not the corpus's first content on
+  the framework, only its first first-party and most granular one.)
 - **Extends**: `blog-kentbeck-yagni-economics.md` Claim 8 ("YAGNI is... 'a
   meditation on timing,' and building structure too soon is as risky as
   building it too late"). Both sources are Beck arguing that the same action
@@ -166,32 +180,107 @@ Risk management, Implementation, Marketing, Sales
   does not connect the two explicitly in either piece, but they are the same
   underlying "timing/context determines correctness" move applied at
   different altitudes.
-- **Corroborates**: None of the existing kentbeck notes directly corroborate
-  the specific 3X phase mechanics (goal/risk/tactics per phase) — this is a
-  novel framework in the corpus, not a restatement of an existing claim.
+- **Corroborates**: `blog-pragmaticengineer-orosz-kentbeck-career.md` Claim 3
+  ("Software product development has three phases — explore, expand, extract
+  — and how an engineer should code, how a company should hire, and how a
+  team should organize differs across each phase"). That note is **independent
+  third-party testimony** for the same framework: Gergely Orosz's write-up of
+  a Beck interview, quoting "Building software products has three phases:
+  explore, expand, extract... This is Kent's '3X' model. 'Explore' means
+  trying many cheap uncorrelated experiments, 'expand' involves focusing on
+  the one thing that's working and overcoming obstacle after obstacle, while
+  'extract' is a repeatable playbook and economies of scale. How you code,
+  hire, and organize differs across each phase." Two things follow:
+  - That note's closing sentence — "How you code, hire, and organize differs
+    across each phase" — directly anticipates this note's **Claim 8** (the
+    nine named phase-dependent dimensions, three of which are exactly
+    implementation, personnel/team size, and project management). The
+    phase-dependent-practice thesis is therefore attested twice, in two
+    venues, in two different framings (Beck's own newsletter here; a
+    third-party interview write-up there), which raises confidence that it
+    is Beck's settled model rather than one essay's framing choice.
+  - That note's Novel section (line 176) asserts the 3X framework is "not
+    present anywhere else in the corpus" **as of its writing**. This note is
+    the corpus update that assertion was waiting for; the two notes should
+    be read together, and that assertion should now be treated as
+    superseded rather than current.
+  Where the two diverge: Orosz's gloss defines each phase by its
+  characteristic activity ("many cheap uncorrelated experiments" / "focusing
+  on the one thing that's working" / "a repeatable playbook and economies of
+  scale"), while this source adds the goal/risk/tactics breakdown (Claims
+  4-6), the S-curve and two-feedback-loop mechanism (Claims 1-2), and the
+  Extract-funds-Explore portfolio structure (Claim 7). Neither gloss
+  contradicts the other; this one is strictly more granular.
+- **Corroborates**: No *other* existing kentbeck note corroborates the
+  specific 3X phase mechanics (goal/risk/tactics per phase) — within Beck's
+  own corpus presence here, this is the first statement of them.
 - **Contradicts**: None identified. This source does not address AI-agent
   development at all, so it does not conflict with the corpus's existing
   AI-specific claims (e.g., `blog-kentbeck-trust-factory.md`'s "single
   player" genie-erosion diagnosis); it operates at the level of general
   product/idea lifecycle management, which is a different, non-conflicting
   layer.
-- **Novel**:
-  - **The full Explore/Expand/Extract phase definitions (goal, risk, tactics
-    per phase; Claims 4-6)**: prior to this note, the corpus only had the
-    unglossed term "3X" (`blog-kentbeck-xp-long-volatility.md` Claim 3). This
-    is the first substantive content.
+- **Novel** (stated relative to the corpus's *existing* 3X coverage — the
+  unglossed mention in `blog-kentbeck-xp-long-volatility.md` Claim 3 and the
+  glossed third-party definition in
+  `blog-pragmaticengineer-orosz-kentbeck-career.md` Claim 3 — not as though
+  the framework were absent from the corpus before now):
+  - **The per-phase goal / risk / tactics breakdown (Claims 4-6)**: Orosz's
+    note already glossed what each phase *is* (the characteristic activity),
+    but not what each phase's *goal* is, what *risk* defines it, or which
+    *tactics* Beck prescribes for it. The specific tactical one-liners
+    ("Tiny teams, no dependencies, quickly discard failures"; "Throttle
+    growth..."; "Small, safe experiments; roll out successes; optimize
+    costs") are new to the corpus, and "throttle growth" as a deliberate
+    Expand-phase tactic is the most counterintuitive of them.
   - **The logistic-curve/emergence mechanism (Claims 1-2)**: a systems-
     dynamics explanation (reinforcing vs. inhibiting feedback loops) for why
     product growth takes an S-shape, not present elsewhere in the corpus.
+    This is the biggest genuine addition: it supplies a *transition
+    criterion* (which loop currently dominates) that the Orosz gloss lacks —
+    that note explicitly records "no phase durations, transition criteria,
+    or case study are given."
   - **The phase-mismatch-kills-ideas thesis (Claim 3)**: a general
     organizational-diagnosis claim not present in this specific form
-    elsewhere in the corpus.
+    elsewhere in the corpus. Orosz's note reports that practice *differs*
+    by phase; only this source states the sharp negative consequence of
+    getting the phase wrong.
   - **The Extract-funds-Explore portfolio claim (Claim 7)**: a specific
     financial-structure claim about how organizations should relate mature
     and nascent initiatives, novel to the corpus.
 
 ## Guide Impact
 
+- **Placement: consolidate with `blog-pragmaticengineer-orosz-kentbeck-career.md`
+  before drafting.** That note's Guide Impact already recommends introducing
+  3X by name in "Chapter 03 (Product/Team Lifecycle) or wherever
+  phase-dependent practice guidance lives," for harness rigor, review
+  discipline, hiring profile, and process formality. This note recommends
+  **Chapter 05 (Team Adoption)**. These are the same framework, and a Smith
+  drafting from the two notes independently would produce duplicated or
+  fragmented 3X guidance. The two should be consolidated into a **single
+  chapter decision, drafted once, citing both notes**. My argument for
+  Chapter 05 over Chapter 03:
+  - There is no "Chapter 03 (Product/Team Lifecycle)" in the guide.
+    `guide/03-verification.md` is **Verification** ("The bottleneck is no
+    longer generation. It is verification."), which is not where
+    phase-dependent practice guidance lives. The Orosz note's own hedge —
+    "or wherever phase-dependent practice guidance lives" — is the operative
+    clause, and that place is Chapter 05, which already carries the guide's
+    only phase-staged rollout framework (see the next bullet).
+  - Of the four things the Orosz note wants varied by phase, three (review
+    discipline, hiring profile, process formality) are team-adoption
+    concerns; only harness rigor points at Chapter 02, and it points there
+    as a cross-reference rather than as a home for the framework's
+    introduction.
+  - **Caveat the Smith must respect**: per Claim 8 of this note, neither
+    source actually supplies per-dimension detail. Orosz's note states that
+    coding/hiring/organizing differ by phase; this note names nine
+    dimensions. Neither works through what, concretely, a hiring or review
+    decision should look like in Explore vs. Expand. The consolidated guide
+    text should introduce 3X as a *question to ask first*, not as a table of
+    per-phase prescriptions, because no source in the corpus supports the
+    latter.
 - **Chapter 05 (Team Adoption)**: The phase-mismatch
   thesis (Claim 3) is directly usable as a named caution for AI-native
   adoption specifically: a team that adopts one AI-tooling/process posture
@@ -289,7 +378,34 @@ Risk management, Implementation, Marketing, Sales
   (3X named as a recently-baked idea, confirmed at that note's Claim 3
   heading) and Claim 5 (the Africa/Nadayar Enegesi 20-explanations anecdote,
   confirmed); `blog-kentbeck-yagni-economics.md` Claim 8 (YAGNI as "a
-  meditation on timing," confirmed at that note's Claim 8 heading).
+  meditation on timing," confirmed at that note's Claim 8 heading);
+  `blog-pragmaticengineer-orosz-kentbeck-career.md` Claim 3 (the
+  explore/expand/extract three-phase model, confirmed at that note's Claim 3
+  heading, with its quote copied verbatim from that note's `Quote` field).
+- **Revision (2026-07-31, post-Assayer):** the first draft of this note
+  searched only `blog-kentbeck-*` filenames for prior 3X coverage and so
+  missed `blog-pragmaticengineer-orosz-kentbeck-career.md`, a third-party
+  interview write-up that already carried a glossed definition of the
+  framework. That produced a false "first substantive extraction" /
+  "corpus only had the unglossed term" framing and an empty Corroborates
+  section. Corrected in this revision: the Orosz note is now logged as
+  independent second-source corroboration of the phase-dependent-practice
+  thesis, the Novel section is scoped against what that note already
+  established, and the competing chapter placements are reconciled in Guide
+  Impact. Lesson for future extractions of a named framework: search the
+  corpus for the *framework's terms* ("explore expand extract", "3X"), not
+  just for the author's own filenames — third-party coverage of an author's
+  idea will not match an author-name file pattern.
+- **Quote corrections (same revision):** two quoted passages in the first
+  draft were not contiguous verbatim source text and were fixed against the
+  live page. Claim 7 read "Extract products pay the bills & pay for a
+  portfolio of Explore projects," dropping a word from the source's actual
+  sentence, now quoted in full as "You have some Extract products that pay
+  the bills & pay for a portfolio of Explore projects." Claim 8's nine
+  dimensions were quoted as one comma-joined sentence, but they appear in
+  the source as nine separate bullet items; the `Quote` field now says so
+  explicitly and the Concrete Artifacts block reproduces them as bullets.
+  All other quotes were re-confirmed present character-for-character.
 - Confidence rated `emerging` overall: the phase definitions and thesis
   (Claims 1-7) are a coherent, internally consistent framework from a
   foundational practitioner, refined over years of iteration per
