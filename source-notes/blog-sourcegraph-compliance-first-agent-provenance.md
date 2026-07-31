@@ -2,7 +2,7 @@
 source_url: https://sourcegraph.com/blog/compliance-first-ai-proving-agent-provenance
 source_type: blog-post
 title: "Compliance-first AI: Proving Agent Provenance for Regulated Engineering Teams"
-author: Sourcegraph (company blog; contributions credited to six named Sourcegraph staff, no single named byline)
+author: Justin Dorfman (Sourcegraph); six additional Sourcegraph staff credited as contributors in the post footer
 date_published: 2026-07-27
 date_extracted: 2026-07-31
 last_checked: 2026-07-31
@@ -28,10 +28,20 @@ issue: "#2355"
   as the proposed implementation, closes with a compliance-category FAQ block (Change
   Management, GDPR/CCPA, SOC 2/ISO 27001, PCI-DSS, SOX, HIPAA) and a "Schedule a demo"
   call-to-action.
-- **Author credibility**: No individual byline; six Sourcegraph staff are credited
-  ("contributions to this blog post") at the foot of the post. This is company content
-  advancing Sourcegraph's own commercial product (Deep Search, the Sourcegraph MCP
-  server) as the solution to the problem it names. The central claim — that engineering
+- **Author credibility**: Bylined **Justin Dorfman (Sourcegraph)** directly beneath the
+  title and publish date. Six further Sourcegraph staff are credited separately in a
+  footer note — "A special thanks to André Eleuterio, Dora Neumeier, Jamie Lindsay,
+  Makenna Freauf, Matt Tanner, and Stephanie Jarmak for their contributions to this blog
+  post" — as contributors, not co-authors. This is Dorfman's **second** post in the
+  corpus; he is also the author of `blog-sourcegraph-dorfman-repo-security-posture.md`
+  (published 2026-07-10). That matters when weighing how much independent vendor
+  perspective Sourcegraph's corpus entries represent: two of the three Sourcegraph notes
+  are the same author's recurring voice, and both advance a closely related thesis
+  (org-wide, queryable code visibility as the load-bearing security/compliance control)
+  toward the same product line. Treat the two Dorfman notes as one vendor argument
+  developed across two posts, not as two independent corroborating vendor sources.
+  This is company content advancing Sourcegraph's own commercial product (Deep Search,
+  the Sourcegraph MCP server) as the solution to the problem it names. The central claim — that engineering
   and security leaders across banking, healthcare, and large software organizations cite
   "proof," not model capability, as the adoption blocker — is attributed to
   Sourcegraph's own customer conversations, not to any named survey, study, or
@@ -311,11 +321,20 @@ Source: sourcegraph.com/blog/compliance-first-ai-proving-agent-provenance
    were followed — the article's only outbound links are to a "Book a demo" CTA and a
    generic "Schedule a demo" footer link, neither of which contains substantive content
    to extract.
-2. **No individual author byline**: Unlike the two other Sourcegraph posts already in
-   the corpus (Tanner, Dorfman), this post credits six named staff as contributors
-   rather than a single author. The filename slug therefore omits an author name,
-   following the `<type>-<source>-<topic>.md` convention rather than the
-   `blog-<author>-<topic>.md` convention used for the single-byline Sourcegraph posts.
+2. **Byline is Justin Dorfman — same author as an existing corpus note**: The post
+   carries a single byline (Justin Dorfman) beneath the title and publish date. The six
+   names in the footer (André Eleuterio, Dora Neumeier, Jamie Lindsay, Makenna Freauf,
+   Matt Tanner, and Stephanie Jarmak) are credited "for their contributions to this blog
+   post" — contributors, not co-authors. Dorfman already appears in the corpus as the
+   author of `blog-sourcegraph-dorfman-repo-security-posture.md`, so the corpus's
+   `blog-<author>-<topic>.md` convention for single-byline Sourcegraph posts would give
+   this note the slug `blog-sourcegraph-dorfman-compliance-first-agent-provenance.md`.
+   The file retains the `<type>-<source>-<topic>.md` slug it was opened under because the
+   PR, branch, and issue #2355 all key off it; **flagged here for a maintainer rename**
+   rather than renamed unilaterally during rework. Analytically, the consequence is that
+   this note and the repo-security-posture note are one author's successive arguments for
+   the same product category and should be weighted as a single vendor voice, not two
+   independent vendor sources (see Source Context → Author credibility).
 3. **Vendor content, no independent verification of product claims**: Claims 9–11
    (Deep Search's citation behavior, the MCP server's permission inheritance and data
    residency, and the PDF export feature) are first-party descriptions of Sourcegraph's
