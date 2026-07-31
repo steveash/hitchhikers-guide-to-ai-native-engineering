@@ -197,8 +197,9 @@ Source: sourcegraph.com/blog/compliance-first-ai-proving-agent-provenance
     "can you tell agent actions from user actions" but "can you show which files
     informed a specific decision and why." Same underlying observability concern,
     narrower and more retrieval-specific framing here.
-  - `blog-thebatch-fde-agents-aiact-issue355.md` Claim 9 (EU AI Act delay to
-    December 2027 for high-risk systems, with sector-specific compliance deadlines):
+  - `blog-thebatch-fde-agents-aiact-issue355.md` Claim 8 (EU AI Act requirements for
+    high-risk systems delayed from August 2026 to December 2027, with staggered
+    deadlines across AI product categories through August 2028):
     that note documents the regulatory timeline pressure; this article's FAQ block
     names the specific compliance frameworks (SOC 2, ISO 27001, PCI-DSS, GDPR, SOX,
     HIPAA) that regulated engineering teams are already operating under today,
