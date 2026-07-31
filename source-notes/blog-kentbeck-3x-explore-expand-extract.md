@@ -192,7 +192,7 @@ Risk management, Implementation, Marketing, Sales
 
 ## Guide Impact
 
-- **Chapter 05 (Team Adoption) / Chapter 04 (Scaling)**: The phase-mismatch
+- **Chapter 05 (Team Adoption)**: The phase-mismatch
   thesis (Claim 3) is directly usable as a named caution for AI-native
   adoption specifically: a team that adopts one AI-tooling/process posture
   (e.g., the "tiny teams, no dependencies, quickly discard failures" posture
@@ -204,6 +204,35 @@ Risk management, Implementation, Marketing, Sales
   costs), the guide should first ask which of the three phases the
   team/initiative is actually in. This is a **new structural framing**, not
   a replacement for or contradiction of any existing chapter content.
+- **Chapter 05 (Team Adoption) — do not conflate with the existing
+  three-phase model already in that chapter**: `guide/05-team-adoption.md`
+  already carries a three-phase maturity framework under the heading "Stage
+  the harness rollout to match how usage matures" (Phase 1 / months 1-3,
+  dominant usage refactoring-explanation-debugging; Phase 2 / months 3-9,
+  feature implementation; Phase 3 / months 9+, design and planning), sourced
+  from `research-anthropic-ai-transforming-work` Claim 6 plus
+  `practitioner-getsentry-sentry`, and sharpened by
+  `blog-cursor-better-models-ambitious-work` Claims 2-3. It is thematically
+  adjacent to 3X (both are three-phase frameworks governing which practices
+  are appropriate when) but the phase axes are **different**, and a Smith
+  drafting from this note should keep them separate rather than merging
+  them into one numbered sequence:
+  - The existing guide model's axis is **usage composition over calendar
+    time within one adopting team** — the phases advance because engineers
+    progressively use the agent for harder task types, and the phase
+    boundaries are stated in months.
+  - 3X's axis is **which feedback loop currently dominates a given idea's
+    growth loop** (Claims 1-2) — the phases advance (or don't) with the
+    idea's growth dynamics, not with elapsed time, and per Claim 7 an
+    organization runs all three concurrently across different initiatives.
+  So this source **extends rather than corroborates** the existing model:
+  it adds a second, orthogonal question ("which phase is this *initiative*
+  in?") on top of the existing one ("how long has this *team* been
+  adopting, and what are they using the agent for?"). A team can be at
+  guide-Phase 3 harness maturity while running an Explore-phase AI
+  initiative, and vice versa. Recommend that any guide text citing 3X
+  explicitly names it as a distinct axis to avoid readers reading
+  "Phase 1/2/3" and "Explore/Expand/Extract" as the same ladder.
 - **Chapter 05 (Team Adoption)**: Claim 8 is a caution for the guide's own
   citation discipline, not a content recommendation — do not cite this
   source as though it provides detailed, phase-specific finance/personnel/
