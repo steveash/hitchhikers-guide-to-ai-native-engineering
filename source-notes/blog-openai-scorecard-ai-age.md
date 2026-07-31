@@ -352,12 +352,14 @@ before writing this section.
    second contradiction issue for the same underlying tension, re-triggered
    by a closely related follow-up post from the same source, was judged
    not to meet MINER.md §4a's bar ("the contradiction is already filed").
-7. **Confidence calibration: anecdotal.** Nine of this note's ten claims are
+7. **Confidence calibration: anecdotal.** Seven of this note's ten claims are
    individually rated anecdotal — the post is almost entirely prescriptive
    framework and named-but-unexemplified formulas/taxonomies, with no named
    customer, no worked numeric example, and no disclosed methodology beyond
-   the DeepSWE v1.1 chart (Claim 7, rated emerging) and the GPT‑5.6 tier
-   description (Claim 5, rated emerging as a factual product description).
+   the DeepSWE v1.1 chart (Claim 7, rated emerging), the Artificial Analysis
+   Coding Agent Index figure (Claim 6, rated emerging as a specific
+   quantified benchmark statistic), and the GPT‑5.6 tier description
+   (Claim 5, rated emerging as a factual product description).
    This mirrors the confidence profile already assigned to
    `blog-openai-managing-ai-investments-agentic-era.md` (also entirely
    anecdotal at the individual-claim level) — the two posts share the same
