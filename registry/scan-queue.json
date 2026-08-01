@@ -2,74 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-07-11T06:45:17.421968+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Optio \u2013 Orchestrate AI coding agents in K8s to go from ticket to PR",
-          "url": "https://github.com/jonwiggins/optio",
-          "hn_url": "https://news.ycombinator.com/item?id=47520220",
-          "points": 88,
-          "num_comments": 60,
-          "author": "jawiggins",
-          "created_at": "2026-03-25T17:10:21Z",
-          "snippet": "I think like many of you, I&#x27;ve been jumping between many claude code&#x2F;codex sessions at a time, managing multiple lines of work and worktrees in multiple repos. I wanted a way to easily manage multiple lines of work and reduce the amount of input I need to give, allowing the agents to remove me as a bottleneck from as much of the process as I can. So I built an orchestration tool for AI coding agents:<p>Optio is an open-source orchestration system that turns tickets into merged pull req"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-11T06:45:17.426667+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: TheAuditor v2.0 \u2013 A \u201cFlight Computer\u201d for AI Coding Agents",
-          "url": "https://github.com/TheAuditorTool/Auditor",
-          "hn_url": "https://news.ycombinator.com/item?id=46288453",
-          "points": 40,
-          "num_comments": 12,
-          "author": "ThailandJohn",
-          "created_at": "2025-12-16T13:50:15Z",
-          "snippet": "I\u2019m a former Systems Architect (Cisco&#x2F;VMware) turned builder in Thailand. TheAuditor v2.0 is a complete architectural rewrite (800+ commits) of the prototype I posted three months ago.<p>The &quot;A-ha&quot; moment for me didn&#x27;t come from a success; it came from a massive failure. I was trying to use AI to refactor a complex schema change (a foundation change from &quot;Products&quot; to &quot;ProductsVariants&quot;), and due to the scope of it, it failed spectacularly. I realized two "
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-11T06:45:17.431342+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Launch HN: Nia (YC S25) \u2013 Give better context to coding agents",
-          "url": "https://www.trynia.ai/",
-          "hn_url": "https://news.ycombinator.com/item?id=46194828",
-          "points": 131,
-          "num_comments": 87,
-          "author": "jellyotsiro",
-          "created_at": "2025-12-08T17:10:14Z",
-          "snippet": "Hi HN, I am Arlan and I am building Nia (<a href=\"https:&#x2F;&#x2F;trynia.ai\" rel=\"nofollow\">https:&#x2F;&#x2F;trynia.ai</a>), a context layer for AI coding agents. Nia lets tools like Cursor, Claude Code, and other MCP clients index and query real codebases and documentation so they stop hallucinating against outdated or wrong sources, with applications beyond coding agents to any AI system that requires grounded context across domains.<p>Coding agents are only as good as the context you give "
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-07-11T06:45:17.436083+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: AI SDLC Scaffold, repo template for AI-assisted software development",
-          "url": "https://github.com/pangon/ai-sdlc-scaffold/",
-          "hn_url": "https://news.ycombinator.com/item?id=47466513",
-          "points": 27,
-          "num_comments": 12,
-          "author": "pangon",
-          "created_at": "2026-03-21T12:43:09Z",
-          "snippet": "I built an open-source repo template that brings structure to AI-assisted software development, starting from the pre-coding phases: objectives, user stories, requirements, architecture decisions.<p>It&#x27;s designed around Claude Code but the ideas are tool-agnostic. I&#x27;ve been a computer science researcher and full-stack software engineer for 25 years, working mainly in startups. I&#x27;ve been using this approach on my personal projects for a while, then, when I decided to package it up "
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-07-11T06:45:17.440770+00:00",
       "payload": {
         "result": {
@@ -1952,6 +1884,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-07-22T06:52:01.065788+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-08-01T06:50:33.010167+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-08-01T06:50:33.013203+00:00",
       "payload": {
         "result": {
           "source": "github",

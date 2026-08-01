@@ -1046,7 +1046,7 @@
         "filed_at": "2026-07-30T06:53:02.846184+00:00"
       }
     },
-    "last_scan": "2026-07-31T06:59:09.544461+00:00"
+    "last_scan": "2026-08-01T06:50:04.746974+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1143,7 +1143,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-07-31T06:59:11.099344+00:00"
+    "last_scan": "2026-08-01T06:50:06.158239+00:00"
   },
   "cognition": {
     "urls": {
@@ -1614,8 +1614,160 @@
         "screened_at": "2026-07-18T06:39:25.382232+00:00",
         "issue": 2176,
         "filed_at": "2026-07-23T06:51:15.962506+00:00"
+      },
+      "https://cognition.com/about": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372366+00:00"
+      },
+      "https://cognition.com/blog": {
+        "status": "deduped",
+        "screened_at": "2026-08-01T06:50:14.372385+00:00"
+      },
+      "https://cognition.com/careers": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372552+00:00"
+      },
+      "https://cognition.com/contact": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372555+00:00"
+      },
+      "https://cognition.com/events/cognition-bain-dinner-08-05-26": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372557+00:00"
+      },
+      "https://cognition.com/events/devin-for-federal-security-08-07-26": {
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372560+00:00",
+        "issue": 2394,
+        "filed_at": "2026-08-01T06:50:15.389134+00:00"
+      },
+      "https://cognition.com/events/devin-for-security-07-07-26": {
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372561+00:00",
+        "issue": 2395,
+        "filed_at": "2026-08-01T06:50:17.072966+00:00"
+      },
+      "https://cognition.com/events/us-open-09-07-26": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372563+00:00"
+      },
+      "https://cognition.com/events/whats-new-in-devin-06-24-26": {
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372565+00:00",
+        "issue": 2396,
+        "filed_at": "2026-08-01T06:50:18.684987+00:00"
+      },
+      "https://cognition.com/events/whats-new-in-devin-08-05-26": {
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372566+00:00",
+        "issue": 2397,
+        "filed_at": "2026-08-01T06:50:20.309297+00:00"
+      },
+      "https://cognition.com/legal/acceptable-use-policy": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372568+00:00"
+      },
+      "https://cognition.com/legal/data-processing-statement": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372570+00:00"
+      },
+      "https://cognition.com/legal/enterprise-terms-of-service": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372572+00:00"
+      },
+      "https://cognition.com/legal/platform-terms-of-service": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372573+00:00"
+      },
+      "https://cognition.com/legal/privacy-policy": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372575+00:00"
+      },
+      "https://cognition.com/legal/security": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372576+00:00"
+      },
+      "https://cognition.com/legal/service-level-agreement": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372578+00:00"
+      },
+      "https://cognition.com/legal/summit-terms": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372580+00:00"
+      },
+      "https://cognition.com/legal/website-terms-of-use": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372581+00:00"
+      },
+      "https://cognition.com/privacy-choices": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372583+00:00"
+      },
+      "https://cognition.com/report-vulnerability": {
+        "status": "rejected",
+        "screened_at": "2026-08-01T06:50:14.372585+00:00"
+      },
+      "https://cognition.com/research": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372587+00:00"
+      },
+      "https://cognition.com/blog/cognition-doe-genesis-mission": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372588+00:00"
+      },
+      "https://cognition.com/blog/devin-fedramp-high-in-process": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372590+00:00"
+      },
+      "https://cognition.com/blog/devin-fusion": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372592+00:00"
+      },
+      "https://cognition.com/blog/devin-security-vulnerability-remediation-program": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372593+00:00"
+      },
+      "https://cognition.com/blog/frontier-code": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372595+00:00"
+      },
+      "https://cognition.com/blog/frontier-code-1.1": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372597+00:00"
+      },
+      "https://cognition.com/blog/interaction": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372599+00:00"
+      },
+      "https://cognition.com/blog/introducing-devin-security-swarm": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372600+00:00"
+      },
+      "https://cognition.com/blog/ltm-cognition-partnership": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372602+00:00"
+      },
+      "https://cognition.com/blog/making-fable-cheaper-than-opus": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372604+00:00"
+      },
+      "https://cognition.com/blog/measuring-open-source-model-trustworthiness": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372606+00:00"
+      },
+      "https://cognition.com/blog/one-year-of-building-together": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372608+00:00"
+      },
+      "https://cognition.com/blog/swe-1-7": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372609+00:00"
+      },
+      "https://cognition.com/blog/welcoming-tierzero": {
+        "status": "pending",
+        "screened_at": "2026-08-01T06:50:14.372611+00:00"
       }
     },
-    "last_scan": "2026-07-31T06:59:12.397148+00:00"
+    "last_scan": "2026-08-01T06:50:14.372613+00:00"
   }
 }
