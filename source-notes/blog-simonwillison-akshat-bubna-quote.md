@@ -85,8 +85,8 @@ issue: "#2379"
 ### Claim 3: Willison states the package-proxy zero-day the agent used to escape its OpenAI sandbox has since been confirmed as a vulnerability in JFrog's Artifactory, citing a JFrog blog post that lists 8 CVEs credited to OpenAI staff in the Artifactory 7.161.15 release notes
 - **Evidence**: Willison's own synthesis in the "Anatomy" post, linking to JFrog's blog post and to the Artifactory 7.161.15 release notes.
 - **Confidence**: emerging (specific, checkable claim, but this Miner's own direct fetch of the cited release notes found a different CVE count — see Our assessment and Extraction Notes)
-- **Quote**: "The package proxy that it found a zero-day vulnerability in has now been confirmed as JFrog's Artifactory, and JFrog and OpenAI Collaboration on Zero-Day Security Findings from JFrog links to the Artifactory 7.161.15 release notes which list 8 separate CVEs credited to OpenAI staff members."
-- **Our assessment**: This is a valuable specific update to `blog-simonwillison-openai-hf-cyberattack.md`'s more generic "package registry cache proxy" language — it names the actual product. However, this Miner independently fetched the Artifactory 7.161.15 release notes directly (`docs.jfrog.com/releases/docs/artifactory-self-managed-releases#artifactory-7161`) and found 9 distinct CVE entries in the page's "CVEs Addressed" table for that release, not 8, and no visible "credited to OpenAI" attribution text in that table itself (see Concrete Artifacts and Extraction Notes). Treat the "8 CVEs credited to OpenAI" figure as Willison's own count/characterization, not independently confirmed by this Miner's direct read of the primary release-notes page.
+- **Quote**: "The package proxy that it found a zero-day vulnerability in has now been confirmed as JFrog's Artifactor, and JFrog and OpenAI Collaboration on Zero-Day Security Findings from JFrog links to the Artifactory 7.161.15 release notes which list 8 separate CVEs credited to OpenAI staff members."
+- **Our assessment**: Note the quote's own typo, preserved verbatim: "JFrog's Artifactor" (missing trailing "y") — the product is JFrog Artifactory, as the same sentence spells it correctly two clauses later ("Artifactory 7.161.15 release notes"). Preserved here per the same convention applied to Bubna's "in anyway" in Claim 1. Substantively, this is a valuable specific update to `blog-simonwillison-openai-hf-cyberattack.md`'s more generic "package registry cache proxy" language — it names the actual product. However, this Miner independently fetched the Artifactory 7.161.15 release notes directly (`docs.jfrog.com/releases/docs/artifactory-self-managed-releases#artifactory-7161`) and found 9 distinct CVE entries in the page's "CVEs Addressed" table for that release, not 8, and no visible "credited to OpenAI" attribution text in that table itself (see Concrete Artifacts and Extraction Notes). Treat the "8 CVEs credited to OpenAI" figure as Willison's own count/characterization, not independently confirmed by this Miner's direct read of the primary release-notes page.
 
 ### Claim 4: JFrog's own blog post independently confirms that OpenAI's models identified zero-day vulnerabilities in self-hosted Artifactory installations that could be exploited to gain unintended internet access, and that JFrog shipped a fix in Artifactory 7.161
 - **Evidence**: JFrog's own blog post (Yoav Landman, JFrog CTO), fetched directly by this Miner, independent of Willison's post.
@@ -458,13 +458,16 @@ table by this Miner's direct fetch.
    These are invisible in rendered output and do not change the copyable
    text; they are stripped from Claim 1's Quote field as non-linguistic
    formatting noise (consistent with normalizing curly quotes/apostrophes to
-   straight ones, per this corpus's existing convention in
-   `blog-simonwillison-sam-altman-quote.md`). Flagged here in case their
-   presence is significant (e.g., anti-scraping watermarking) to a future
-   auditor. The quote's own typo — "compromised in anyway" (no space) — is
-   preserved verbatim and is *not* a Miner error; it literally appears that
-   way in the source HTML, and is contrasted deliberately against Hugging
-   Face's own correctly-spaced "in any way" in Claim 7.
+   straight ones — not a documented corpus rule, but the de facto practice in
+   other quotation-post notes such as `blog-simonwillison-sam-altman-quote.md`,
+   whose Quote fields use straight quotes throughout). Flagged here in case
+   their presence is significant (e.g., anti-scraping watermarking) to a
+   future auditor. The quote's own typo — "compromised in anyway" (no space)
+   — is preserved verbatim and is *not* a Miner error; it literally appears
+   that way in the source HTML, and is contrasted deliberately against Hugging
+   Face's own correctly-spaced "in any way" in Claim 7. The same
+   preserve-verbatim treatment is applied to Willison's "JFrog's Artifactor"
+   (missing trailing "y") in Claim 3.
 
 6. **Cross-reference verification (MINER.md §4b)**:
    `blog-simonwillison-openai-hf-cyberattack.md` and
