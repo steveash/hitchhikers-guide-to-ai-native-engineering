@@ -1046,7 +1046,7 @@
         "filed_at": "2026-07-30T06:53:02.846184+00:00"
       }
     },
-    "last_scan": "2026-08-01T06:50:04.746974+00:00"
+    "last_scan": "2026-08-02T06:53:45.315965+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1143,7 +1143,7 @@
         "filed_at": "2026-07-13T07:05:43.804127+00:00"
       }
     },
-    "last_scan": "2026-08-01T06:50:06.158239+00:00"
+    "last_scan": "2026-08-02T06:53:46.921705+00:00"
   },
   "cognition": {
     "urls": {
@@ -1708,48 +1708,70 @@
         "screened_at": "2026-08-01T06:50:14.372585+00:00"
       },
       "https://cognition.com/research": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372587+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372587+00:00",
+        "issue": 2420,
+        "filed_at": "2026-08-02T06:53:49.288439+00:00"
       },
       "https://cognition.com/blog/cognition-doe-genesis-mission": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372588+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372588+00:00",
+        "issue": 2421,
+        "filed_at": "2026-08-02T06:53:51.041800+00:00"
       },
       "https://cognition.com/blog/devin-fedramp-high-in-process": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372590+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372590+00:00",
+        "issue": 2422,
+        "filed_at": "2026-08-02T06:53:52.841740+00:00"
       },
       "https://cognition.com/blog/devin-fusion": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372592+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372592+00:00",
+        "issue": 2423,
+        "filed_at": "2026-08-02T06:53:54.800312+00:00"
       },
       "https://cognition.com/blog/devin-security-vulnerability-remediation-program": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372593+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372593+00:00",
+        "issue": 2424,
+        "filed_at": "2026-08-02T06:53:56.726689+00:00"
       },
       "https://cognition.com/blog/frontier-code": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372595+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372595+00:00",
+        "issue": 2425,
+        "filed_at": "2026-08-02T06:53:58.531670+00:00"
       },
       "https://cognition.com/blog/frontier-code-1.1": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372597+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372597+00:00",
+        "issue": 2426,
+        "filed_at": "2026-08-02T06:54:00.296963+00:00"
       },
       "https://cognition.com/blog/interaction": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372599+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372599+00:00",
+        "issue": 2427,
+        "filed_at": "2026-08-02T06:54:02.109341+00:00"
       },
       "https://cognition.com/blog/introducing-devin-security-swarm": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372600+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372600+00:00",
+        "issue": 2428,
+        "filed_at": "2026-08-02T06:54:04.305949+00:00"
       },
       "https://cognition.com/blog/ltm-cognition-partnership": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372602+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372602+00:00",
+        "issue": 2429,
+        "filed_at": "2026-08-02T06:54:06.140464+00:00"
       },
       "https://cognition.com/blog/making-fable-cheaper-than-opus": {
-        "status": "pending",
-        "screened_at": "2026-08-01T06:50:14.372604+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-01T06:50:14.372604+00:00",
+        "issue": 2430,
+        "filed_at": "2026-08-02T06:54:08.085638+00:00"
       },
       "https://cognition.com/blog/measuring-open-source-model-trustworthiness": {
         "status": "pending",
@@ -1768,6 +1790,6 @@
         "screened_at": "2026-08-01T06:50:14.372611+00:00"
       }
     },
-    "last_scan": "2026-08-01T06:50:14.372613+00:00"
+    "last_scan": "2026-08-02T06:53:48.061026+00:00"
   }
 }
