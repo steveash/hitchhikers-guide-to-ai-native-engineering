@@ -76,9 +76,9 @@ issue: "#2429"
 
 ### Claim 4: Cognition built Devin Security Swarm to give security teams the engineering capabilities to ship fixes themselves, and major enterprises are already using it to detect critical vulnerabilities, validate their exploitability at runtime, and ship remediation PRs — finding more verified vulnerabilities at 30% lower cost than the nearest comparable alternative
 - **Evidence**: Direct capability and outcome claim, immediately following the problem framing in Claim 3; the only quantified cost/outcome metric in the post.
-- **Confidence**: anecdotal (vendor's own comparative cost claim; "nearest comparable alternative" is unnamed, and no methodology, sample size, or definition of "verified vulnerability" is given)
+- **Confidence**: anecdotal (vendor's own comparative cost claim, restated without attribution from Cognition's earlier product post; "nearest comparable alternative" is unnamed *in this post*, though the linked source post names it — see assessment)
 - **Quote**: "At Cognition, we built Devin Security Swarm in order to give security teams the engineering capabilities to ship fixes themselves. Major enterprises are already using Devin Security Swarm to detect critical vulnerabilities across the codebase, validate their exploitability at runtime, and ship remediation PRs, finding more verified vulnerabilities at 30% lower cost than the nearest comparable alternative."
-- **Our assessment**: The three-step mechanism described here (detect vulnerabilities → validate exploitability at runtime → ship remediation PRs) matches the same three-stage architecture documented independently in `blog-cognition-devin-federal-security-swarm.md` Claim 1 ("tracing data flows, validating what's actually exploitable at runtime, and shipping reviewed remediation PRs") and `blog-cognition-doe-genesis-mission.md` Claim 8 ("find vulnerabilities... verify whether they're actually exploitable in a safe sandbox, and open remediation pull requests") — a third independent Cognition post converging on the identical detect/verify/remediate shape, which strengthens confidence that this is Cognition's settled product description rather than a one-off framing (though, per those notes, still not independently benchmarked by any of the three posts). The "30% lower cost" figure is new to the corpus and is a *different* metric from the "72% recall at $90.23/run... versus named competitors at 26-68% recall" benchmark flagged as unmined in `blog-cognition-doe-genesis-mission.md`'s Extraction Notes — this post gives a comparative cost-per-outcome figure, not a recall/accuracy figure, and neither number can be reconciled against the other without the unmined benchmark source.
+- **Our assessment**: The three-step mechanism described here (detect vulnerabilities → validate exploitability at runtime → ship remediation PRs) matches the same three-stage architecture documented independently in `blog-cognition-devin-federal-security-swarm.md` Claim 1 ("tracing data flows, validating what's actually exploitable at runtime, and shipping reviewed remediation PRs") and `blog-cognition-doe-genesis-mission.md` Claim 8 ("find vulnerabilities... verify whether they're actually exploitable in a safe sandbox, and open remediation pull requests") — a third independent Cognition post converging on the identical detect/verify/remediate shape, which strengthens confidence that this is Cognition's settled product description rather than a one-off framing (though, per those notes, still not independently benchmarked by any of the three posts). On the "30% lower cost" figure: the phrase "Devin Security Swarm" in this sentence is an inline hyperlink to Cognition's own earlier product post, `/blog/introducing-devin-security-swarm` (published 07.01.26, four weeks before this one), which was fetched during this extraction. That post is the origin of the figure — it states, in near-identical wording, "Security Swarm finds more verified vulnerabilities at 30% lower cost than the nearest comparable alternative," and publishes the benchmark behind it (see Concrete Artifacts → Linked sub-page). The two figures therefore *do* reconcile: on Cognition's 50-vulnerability GHSA benchmark, Devin Security scores 72% recall at $90.23/run against Claude Security's 68% at $131.87/run — the "nearest comparable alternative" by recall — which is 31.6% lower cost at higher recall, i.e. exactly the "more verified vulnerabilities at 30% lower cost" claim restated here without its baseline. This also identifies the benchmark flagged as unmined in `blog-cognition-doe-genesis-mission.md`'s Extraction Notes as the *same* measurement underlying this post's cost claim, not a separate unreconciled metric. Two caveats survive the reconciliation: the benchmark is Cognition's own, run by Cognition on a benchmark of Cognition's construction with no third-party audit, and this post drops both the baseline competitor and the benchmark's existence, so a reader of the LTM post alone cannot tell what "nearest comparable alternative" means.
 
 ### Claim 5: RightLogic's "Managed remediation" pillar ingests findings from the scanners enterprises already run, prioritizes them against business criticality and regulatory exposure, and routes high-confidence fixes to Devin for end-to-end remediation while LTM engineers handle complex tasks requiring human judgment — with every fix reviewed by a person before it merges
 - **Evidence**: First of three named operating pillars, each given its own bolded sub-heading in the post body.
@@ -201,6 +201,56 @@ are productive on day one. LTM customers can learn more about deploying
 Devin at scale here."
 ```
 
+### Linked sub-page: the benchmark behind the "30% lower cost" claim
+
+The phrase "Devin Security Swarm" in the third paragraph above is an inline
+hyperlink to `https://cognition.com/blog/introducing-devin-security-swarm`
+("Introducing Devin Security Swarm," By The Cognition Team, 07.01.26). That
+page is the origin of this post's cost claim and publishes the benchmark
+this post omits. Reproduced verbatim from that page's raw HTML:
+
+```
+"Devin Security Swarm brings engineering capabilities to security teams so
+they can ship fixes themselves. It finds vulnerabilities across the codebase,
+validates that they are exploitable at runtime, and ships remediation PRs.
+Security Swarm finds more verified vulnerabilities at 30% lower cost than the
+nearest comparable alternative."
+
+Performance
+
+"We evaluated Devin Security Swarm on a benchmark of 50 real-world
+vulnerabilities, each tied to a published GitHub Security Advisory (GHSA)
+across repositories in Go, Python, JavaScript, Rust, Ruby, C#, Java, Swift,
+PHP, Elixir, Erlang, C, Kotlin, and Dart."
+
+  Harness            Recall    $/Run
+  Devin Security     72%       $90.23
+  Claude Security    68%       $131.87
+  Codex Security     48%       $118.20
+  Cursor Security    26%       $4.60
+
+"Only Devin found three critical vulnerabilities that other tools missed: a
+PHP sandbox bypass via template injection, an argument injection through
+metadata value parsing, and an overly broad deserialization surface in Spring
+Kafka."
+```
+
+Arithmetic check: $90.23 vs. $131.87 is 31.6% lower cost, against the
+highest-recall competitor in the table (Claude Security, 68% vs. Devin's
+72%) — consistent with "more verified vulnerabilities at 30% lower cost than
+the nearest comparable alternative." Note that Cursor Security is ~19x
+cheaper per run ($4.60) at 26% recall, so "nearest comparable alternative"
+must be read as nearest-by-recall, not nearest-by-price.
+
+This sub-page has substantive content not covered by this note (an "Agentic
+MapReduce" parallel-agent architecture description, configurable scan
+profiles with incremental post-baseline scanning, and a six-week
+"Devin Security Vulnerability Remediation Program" forward-deployed
+engagement) and links onward to two devin.ai posts — `/blog/agentic-map-reduce`
+and `/blog/security-swarm-eval` (evaluation methodology). It warrants its own
+source note; only the material bearing on this post's Claim 4 is extracted
+here. See Extraction Notes.
+
 ## Cross-References
 
 - **Corroborates**: `blog-cognition-devin-federal-security-swarm.md` Claim 1
@@ -225,11 +275,16 @@ Devin at scale here."
 - **Contradicts**: None identified. This source's cost/outcome claims (30%
   lower cost per verified vulnerability; 80% vs. 60% CVE backlog clearance)
   do not oppose any existing source note's claims about Devin Security Swarm
-  or comparable vulnerability-remediation tooling — they are a different,
-  unreconciled metric from the "72% recall at $90.23/run... versus named
-  competitors at 26-68% recall" benchmark flagged as unmined in
-  `blog-cognition-doe-genesis-mission.md`'s Extraction Notes, not a
-  contradiction of it (no shared unit or baseline exists to compare them).
+  or comparable vulnerability-remediation tooling. The 30%-lower-cost figure
+  is not a *separate* metric from the "72% recall at $90.23/run... versus
+  named competitors at 26-68% recall" benchmark flagged as unmined in
+  `blog-cognition-doe-genesis-mission.md`'s Extraction Notes — following
+  this post's inline link to `/blog/introducing-devin-security-swarm`
+  (see Concrete Artifacts → Linked sub-page) shows it is *derived from* that
+  same benchmark ($90.23 vs. Claude Security's $131.87 = 31.6% lower, at 72%
+  vs. 68% recall). The two figures agree; this post simply restates the
+  conclusion without its baseline. The 80%/60% CVE-clearance pair is a
+  distinct LTM-service-level metric with no corpus counterpart to contradict.
 - **Extends**: `blog-cognition-infosys-partnership.md` and
   `blog-cognition-cognizant-partnership.md` — this source follows the same
   unattributed-byline, internal-momentum-then-client-expansion narrative
@@ -299,25 +354,63 @@ Devin at scale here."
   this explicitly.
 - Do NOT cite the 30%-lower-cost or 80%/60% CVE-clearance figures (Claims 4,
   6) as independently verified performance data — both are vendor/partner
-  self-reported figures with no named comparison baseline, methodology, or
-  sample disclosed, and should be attributed explicitly to LTM and
-  Cognition's own joint statement if used in guide prose.
+  self-reported, and should be attributed explicitly to LTM and Cognition's
+  own joint statement if used in guide prose. The two differ in how much
+  backing exists behind them, and the guide should treat them differently:
+  the 30%-lower-cost figure *does* have a disclosed baseline and methodology,
+  but only on the linked sub-page, not in this post (Cognition's own
+  50-vulnerability GHSA benchmark, $90.23 vs. Claude Security's $131.87 —
+  see Concrete Artifacts → Linked sub-page); it is a self-run, self-designed,
+  unaudited vendor benchmark, so it is citable as "Cognition's own published
+  benchmark" with the competitor and sample named, not as a neutral result.
+  The 80%/60% CVE-clearance pair has no disclosed baseline, sample, or
+  methodology anywhere and remains a stated joint target only.
 
 ## Extraction Notes
 
-- **Fetch method**: The source URL was fetched via WebFetch with an explicit
-  instruction to return the full text verbatim, preserving paragraph
-  structure and quotes, rather than summarizing. The returned text was
-  checked for internal consistency (byline, date, pillar structure, both
-  named quotes) and used directly as the basis for every `Quote` field above
-  — no paraphrase or reconstruction was introduced. Per MINER.md §2a, every
-  quoted passage in this note was copied character-for-character from that
-  fetched text.
-- No sub-pages were followed. The post contains one inline hyperlink
-  ("learn more about deploying Devin at scale here," linking to a generic
-  enterprise-contact page) and no links to related technical documentation
-  about Devin Security Swarm's internals; the enterprise-contact link does
-  not meet the MINER.md §1 "substantive linked page" bar.
+- **Fetch method**: The page is Next.js-rendered, so it was fetched as raw
+  HTML via `curl` with a browser user-agent and stripped of script/style/markup
+  with a Python script — the same method used by
+  `blog-cognition-infosys-partnership.md` and
+  `blog-cognition-cognizant-partnership.md`. Every `Quote` field above was
+  copied character-for-character from that raw-HTML extraction, per
+  MINER.md §2a, and all ten were re-verified against a fresh fetch. This
+  matters: a plain WebFetch of the same URL paraphrases at least one sentence
+  (rendering Claim 4's "At Cognition, we built Devin Security Swarm in order
+  to give security teams the engineering capabilities to ship fixes
+  themselves" as "Devin Security Swarm was built to give..."), so WebFetch
+  output alone is not a safe basis for verbatim quotes on this domain. An
+  earlier revision of this note described the fetch method as WebFetch-only;
+  that description was wrong and is corrected here.
+- **Sub-pages followed**: The post body contains three inline hyperlinks, not
+  one (an earlier revision of this note incorrectly stated there was one, and
+  specifically that there were "no links to related technical documentation
+  about Devin Security Swarm's internals" — that was false):
+  1. "LTM BlueVerse" → `https://www.ltm.com/services/blueverse` (LTM vendor
+     marketing page; not fetched — partner-side product marketing, below the
+     MINER.md §1 substantive bar for this note's subject).
+  2. "Devin Security Swarm" → `/blog/introducing-devin-security-swarm`
+     (Cognition's own technical product post, 07.01.26). **Fetched and
+     extracted** — see Concrete Artifacts → Linked sub-page. This is the
+     page `blog-cognition-doe-genesis-mission.md`'s Extraction Notes flagged
+     as a candidate future Miner target for containing the only quantified
+     Security Swarm performance figure in the corpus, and it turns out to be
+     the direct source of this post's "30% lower cost" claim, which
+     materially changed Claim 4's assessment and the Contradicts entry above.
+  3. "here" (in "learn more about deploying Devin at scale here") →
+     `https://www.ltm.com/about-us/partners/cognition-devinAI` — an LTM
+     partner page for Cognition/Devin, not a Cognition enterprise-contact
+     page as an earlier revision of this note stated; not fetched (partner
+     marketing).
+- **Still a candidate Miner target**: `/blog/introducing-devin-security-swarm`
+  should get its own source note. Only the material bearing on this post's
+  Claim 4 (the cost claim and its benchmark) was extracted here; that page
+  additionally describes an "Agentic MapReduce" parallel-agent architecture,
+  configurable scan profiles with incremental post-baseline scanning, and a
+  six-week forward-deployed "Devin Security Vulnerability Remediation
+  Program," and links onward to two further devin.ai posts
+  (`/blog/agentic-map-reduce`, `/blog/security-swarm-eval`) that would
+  document the architecture and evaluation methodology in full.
 - Existing source notes under `source-notes/` were searched for prior
   Cognition SI-partnership posts (`infosys`, `cognizant`) and prior Devin
   Security Swarm coverage (`federal-security-swarm`, `doe-genesis-mission`,
@@ -326,12 +419,13 @@ Devin at scale here."
   numbers cited from those four notes were verified by re-reading each
   note's actual numbered claims (or, for the AINews digest, its exact Claim
   11 text) before citing — none were guessed or approximated.
-- No contradiction meeting the MINER.md §4a filing bar was identified. This
-  source's quantified claims (30% lower cost; 80%/60% CVE clearance) are a
-  different, unreconciled metric from the unmined recall/cost-per-run
+- No contradiction meeting the MINER.md §4a filing bar was identified. After
+  following the linked Security Swarm post, this source's 30%-lower-cost
+  claim resolves to the *same* measurement as the recall/cost-per-run
   benchmark flagged in `blog-cognition-doe-genesis-mission.md`'s Extraction
-  Notes, not an opposing claim about the same measurement — no contradiction
-  issue was filed.
+  Notes, and the two agree ($90.23 vs. $131.87 = 31.6% lower, at higher
+  recall) — agreement, not opposition, so no contradiction issue was filed.
+  The 80%/60% CVE-clearance figures have no corpus counterpart to oppose.
 - Overall confidence is set to `anecdotal`, matching both
   `blog-cognition-infosys-partnership.md` and
   `blog-cognition-cognizant-partnership.md`: every substantive claim in this
