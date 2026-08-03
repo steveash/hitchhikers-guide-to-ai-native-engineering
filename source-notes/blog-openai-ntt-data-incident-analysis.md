@@ -23,7 +23,9 @@ issue: "#2447"
 
 ## Source Context
 
-- **Type**: blog-post (OpenAI customer-story page, `openai.com/index/`, ~900 words;
+- **Type**: blog-post (OpenAI customer-story page, `openai.com/index/`, ~1,400 words of body
+  prose, counted from the archived snapshot's extracted text — section headings, the
+  "Results at a glance" list, and the "Leadership lessons" list included;
   auto-discovered via the `openai-news` trusted feed, published July 22, 2026). Structured
   with the same house template already documented in the corpus for OpenAI enterprise case
   studies — a company-metadata block (Company size, Region, Industry, Products), a headline
@@ -41,7 +43,9 @@ issue: "#2447"
   named individual holds a C-suite title comparable to BBVA's Chair-level quote or AP+'s
   three C-level quotes; Sato and Shono are both AI-function specialists (AI Technology
   Department; Head of Global AI Office), not business-unit or company leadership.
-- **Scope**: Covers the sequencing from companywide ChatGPT Enterprise adoption to Codex
+- **Scope**: Covers the May 2025 start of NTT DATA Group's global strategic partnership with
+  OpenAI and the founding remit of its internal OpenAI Center of Excellence, the sequencing
+  from companywide ChatGPT Enterprise adoption to Codex
   expansion, one named incident-analysis use case with a specific before/after metric, an
   internal-dogfooding strategy ("Client Zero"), nontechnical-employee use cases (expense
   extraction, file organization, Excel data analysis, document summarization, ad hoc
@@ -50,7 +54,9 @@ issue: "#2447"
   lessons" list. Does NOT cover: any headcount figure for the underlying ChatGPT Enterprise
   deployment beyond the 9,000-employee Codex figure, technical implementation detail for the
   incident-analysis workflow (what kind of incident, what systems Codex accessed, what
-  "the full process" consisted of), a rollout timeline with dates, cost or licensing terms,
+  "the full process" consisted of), dated rollout milestones for the ChatGPT Enterprise or
+  Codex deployments themselves (the only date in the article is the May 2025 partnership
+  start — Claim 13 — with no date attached to either deployment), cost or licensing terms,
   or any account from an individual contributor engineer — both quoted voices are from the
   internal AI/CoE function, not from the engineering team that ran the incident analysis.
 
@@ -134,6 +140,38 @@ issue: "#2447"
 - **Quote**: "Treat deployment as the beginning, then continuously improve adoption programs using usage data, surveys, and employee interviews"
 - **Quote**: "Have the CoE identify and generalize high impact use cases, then share them as reusable best practices with appropriate safeguards"
 - **Our assessment**: This five-item "Leadership lessons" list is structurally identical to the bulleted lessons-learned format already documented in `blog-openai-bbva-banking-transformation.md` (six items) and `blog-openai-australian-payments-plus.md` (four items) — a third and fourth instance respectively of OpenAI's consistent house editorial framing for customer-story closers (per the assessment already established in the BBVA note's Claim 11 and corroborated again in the AP+ note's Claim 11). The first lesson here ("make ChatGPT Enterprise part of daily work... before Codex") explicitly names the sequencing logic the rest of the article demonstrates (chat-first adoption as the prerequisite for agentic-tool adoption), making it the most substantively load-bearing of the five, unlike some of the more generic lessons in BBVA's and AP+'s lists.
+
+### Claim 13: NTT DATA Group's companywide ChatGPT Enterprise deployment followed the start of a global strategic partnership with OpenAI in May 2025, and the internal OpenAI CoE was founded with a six-part adoption-support remit — license distribution, technical validation, events, use case development, usage monitoring, and knowledge resources — distinct from the Codex security-guidelines function it later performed (Claim 6)
+- **Evidence**: Direct statement opening the "Companywide ChatGPT Enterprise adoption creates
+  the foundation for Codex" section, giving both the partnership start date and an itemized
+  enumeration of the CoE's founding functions.
+- **Confidence**: settled (a specific, datable partnership start plus a directly-enumerated
+  list of the CoE's founding functions, stated as fact rather than characterized — though
+  "May 2025" dates the *partnership*, not the ChatGPT Enterprise rollout or the CoE's
+  establishment, both of which are described only as following it)
+- **Quote**: "After beginning a global strategic partnership with OpenAI in May 2025, NTT DATA Group moved to deploy ChatGPT Enterprise across the company. It established an internal OpenAI Center of Excellence, or CoE, to support adoption through license distribution, technical validation, events, use case development, usage monitoring, knowledge resources, and the systems employees need to get the most from AI."
+- **Our assessment**: This is the article's only datable adoption-pace anchor, and the most
+  guide-useful fact in it for timeline purposes: roughly 14 months elapsed between the May
+  2025 partnership start and the article's July 22, 2026 publication describing ~9,000 active
+  Codex users (Claim 2) atop a companywide ChatGPT Enterprise base (Claim 3). Treat that as a
+  partnership-to-scale interval, not a rollout duration — the article dates neither the
+  ChatGPT Enterprise deployment nor the Codex expansion, so the actual time-to-9,000 for Codex
+  specifically is unknown and necessarily shorter than 14 months. The comparable corpus
+  datapoint is `blog-openai-bbva-banking-transformation.md` Claim 2 (a 2024 pilot of 3,000
+  employees growing to more than 100,000 globally), which likewise gives endpoints without
+  intermediate milestones; NTT DATA's is the tighter of the two intervals but for a smaller
+  and narrower population (Codex users, not total ChatGPT Enterprise seats). Separately, the
+  CoE's *founding* remit as enumerated here is enablement- and operations-shaped — licenses,
+  technical validation, events, use case development, usage monitoring, knowledge resources —
+  with no control or safety function named; the security-guidelines scope documented in Claim
+  6 ("what data can be used, which systems Codex can connect to...") appears only later, in
+  the Codex-preparation section. The guide should read that as a sequence worth naming — a
+  central AI function that starts as a distribution-and-enablement body and acquires
+  technical-governance responsibilities when an agentic tool arrives — rather than treating
+  the CoE as a governance body from inception. That sequencing is consistent with, and more
+  concrete than, BBVA's "scaling securely from day one" leadership lesson
+  (`blog-openai-bbva-banking-transformation.md` Claim 11), which asserts governance-first
+  posture without describing how the function's scope evolved.
 
 ## Concrete Artifacts
 
@@ -357,6 +395,13 @@ notes' actual numbered `### Claim N:` headings before writing this note; none we
   governance, versioning, or maintenance detail, so it should be cited only as
   corroborating evidence that the pattern generalizes across vendors, not as an additional
   operational how-to.
+- **Chapter 05 (Team Adoption), if discussing how fast enterprise agent adoption actually
+  moves**: Cite the May 2025 partnership start (Claim 13) against the July 2026 ~9,000-user
+  Codex figure (Claim 2) as a datable ~14-month partnership-to-scale interval — one of the
+  few in the corpus with an anchored start date, comparable to
+  `blog-openai-bbva-banking-transformation.md` Claim 2's 2024-pilot-to-100,000 span. Flag
+  that this bounds the interval from above only: the article dates neither deployment, so
+  Codex's own time-to-9,000 is unknown and shorter.
 - **Any chapter citing before/after time-reduction metrics from vendor case studies**:
   NTT DATA's incident-analysis figure (-99.3%, three days of five-engineer effort to 30
   minutes) is the most extreme single before/after reduction figure in the corpus's set of
@@ -389,11 +434,21 @@ notes' actual numbered `### Claim N:` headings before writing this note; none we
   follow-on material for this case study, so none were followed as sub-pages, consistent
   with MINER.md §1's "up to 5 linked pages that seem substantive" guidance (zero of the
   linked pages met that bar).
-- The article is short (~900 words including the metrics box and lessons list) and every
-  substantive sentence in its body is reflected in one of the twelve claims above; this is
-  not a case of shallow reading, but the source itself is thin on operational detail for
-  its headline use case — no description of what the "complex incident analysis" or
-  "critical system" actually were, no rollout timeline with dates, and no
+- The article is short (~1,400 words of body prose including the section headings, the
+  "Results at a glance" list, and the "Leadership lessons" list). Every factual, metric, and
+  named-mechanism statement in the body is reflected in one of the thirteen claims above.
+  Not every sentence is: the remaining body prose is scene-setting and framing that carries
+  no separable claim — the company description ("a Japan based global IT services company
+  spanning consulting, systems development, and operations," captured instead in Source
+  Context), the transition sentences between sections, the vendor characterization of Codex
+  as able to "independently investigate, execute, test, and revise based on an instruction,"
+  and the two closing "Turning organizational knowledge into customer value" paragraphs on
+  the human/AI division of labor (people set direction and evaluate results, AI interprets
+  and moves work forward), whose final paragraph is quoted in full under Concrete Artifacts.
+  This is not a case of shallow reading, but the source itself is thin on operational detail
+  for its headline use case — no description of what the "complex incident analysis" or
+  "critical system" actually were, no dated rollout milestones beyond the May 2025
+  partnership start (Claim 13), and no
   individual-contributor-engineer account of the incident-analysis work itself (both quoted
   individuals are AI-function/CoE staff, not the engineers involved in the incident).
 - No contradiction issue was filed. Reviewed CONTRADICTIONS.md and the corpus's existing
