@@ -206,6 +206,24 @@ degrees, and into the workforce, who are essentially illiterate.'"
 
 ## Cross-References
 
+- **Corroborates**: `blog-bvp-shopify-ai-playbook.md` Claim 8, where Shopify's Farhan
+  Thawar warns engineers about comprehension debt in exactly the same exercise metaphor
+  this essay is built around: "The brain is a muscle. If you stop using your brain — it
+  will atrophy." That note's own assessment says of the Shopify/Anthropic agreement on
+  this point: "This is the strongest convergence in our "Common objections" evidence
+  base." The cluster is already cross-cited by `blog-anthropic-ai-native-engineering-org.md`
+  (Corroborates → Shopify Claim 8) and `blog-thoughtworks-jamieson-flow-game.md`
+  (Corroborates → Shopify Claim 8, as one leg of its three-source
+  comprehension-guardrail convergence). This source belongs in that cluster and supplies
+  what Thawar's one-line assertion leaves unelaborated: a *mechanism* (Claim 7 — the
+  struggle of producing the work is itself where the thinking happens, so skipping it
+  skips the cognition, not just the labor), a *decision procedure* for which tasks to
+  protect (Claims 1–3, the work/gym test), and an *explanation of why individual
+  discipline alone won't hold* (Claim 10, the incentive problem). Note the difference in
+  evidentiary standing: Thawar's version is an operating warning from an executive at a
+  large AI-aggressive engineering org (graded `emerging` there), while Schneier's is a
+  single instructor's classroom judgment (graded `anecdotal` here) — this source
+  deepens the cluster's explanatory content, it does not raise its empirical weight.
 - **Corroborates**: `research-anthropic-ai-transforming-work.md` Claim 8 (Anthropic
   engineers, in their own interview words, name skill atrophy and a "supervision
   paradox" as a present concern: "When producing output is so easy and fast, it gets
@@ -277,14 +295,26 @@ degrees, and into the workforce, who are essentially illiterate.'"
   recommend the guide explicitly warn that this discipline will not hold without
   structural reinforcement (time budgets, explicit "hand-coding" assignments), since
   peer/deadline pressure predictably erodes purely voluntary skill-preservation.
-- **Chapter 05 (Team Adoption)**: Add Miessler's "Socratic trainer" pattern (Concrete
-  Artifacts) as a candidate concrete countermeasure to the skill-atrophy risk already
-  documented in this chapter via `research-anthropic-ai-transforming-work.md` Claim 8
-  and `blog-addyosmani-earning-taste-judgment.md` Claim 11 — rather than only naming the
-  atrophy risk, the guide can point to a working example of an AI system designed to
-  interrogate the human about delegated work as a countermeasure, plus the FT/Futurism
-  hiring-manager anecdote (Concrete Artifacts) as concrete evidence the risk is already
-  visible on the employer side, not just a theoretical future concern.
+- **Chapter 05 (Team Adoption)**: The chapter's skill-atrophy material should be read as
+  one convergence cluster, not a list of separate citations. The corpus already has that
+  cluster: `blog-bvp-shopify-ai-playbook.md` Claim 8 (Thawar's "The brain is a muscle.
+  If you stop using your brain — it will atrophy."), `research-anthropic-ai-transforming-work.md`
+  Claim 8 (the same concern from Anthropic's own engineers), and
+  `blog-addyosmani-earning-taste-judgment.md` Claim 11 (the supervision paradox) — with
+  `blog-anthropic-ai-native-engineering-org.md` and `blog-thoughtworks-jamieson-flow-game.md`
+  already cross-citing the Shopify claim as the anchor. This source should be added to
+  that cluster rather than cited standalone, and it contributes three things the cluster
+  currently lacks: (a) a *mechanism* for the atrophy (Claim 7) where the existing members
+  assert it without explaining it; (b) a *countermeasure* — Miessler's "Socratic trainer"
+  (Concrete Artifacts), a working AI system that interrogates its user about delegated
+  work, where the cluster today names the risk but offers no implemented remedy; and
+  (c) *employer-side* evidence — the FT/Futurism hiring-manager anecdote (Concrete
+  Artifacts) showing the consequence is already visible in hiring behavior, where every
+  existing cluster member documents the atrophy only from the practitioner's own side.
+  Caveat for the Smith: this source is a single instructor's classroom judgment about
+  *writing*, not measured evidence about engineering — it should be presented as the
+  cluster's explanatory and prescriptive layer, not as a fourth independent
+  organizational data point.
 
 ## Extraction Notes
 
@@ -312,7 +342,18 @@ degrees, and into the workforce, who are essentially illiterate.'"
   Claim 13 (confirmed — cited here via its "Our assessment" text, not its direct quote,
   since the direct quote itself is about complicity/engagement rather than skill
   atrophy specifically); `blog-simonwillison-josh-comeau-course-sales-ai.md` Claim 4
-  (confirmed, the "can only answer questions you know to ask" limitation).
+  (confirmed, the "can only answer questions you know to ask" limitation);
+  `blog-bvp-shopify-ai-playbook.md` Claim 8 (confirmed by re-reading that note's Claim 8
+  heading and body directly — the "brain is a muscle" quote and the "strongest
+  convergence" assessment sentence are both copied verbatim from it, as are the
+  cross-citations to it in `blog-anthropic-ai-native-engineering-org.md` and
+  `blog-thoughtworks-jamieson-flow-game.md`, both of which cite it as "Claim 8").
+- Post-review revision: the Assayer's first pass flagged that this note's central
+  atrophy claims (5–7, 10) omitted the corpus's existing gym/exercise-metaphor
+  convergence cluster anchored on `blog-bvp-shopify-ai-playbook.md` Claim 8. That
+  cross-reference and the corresponding Chapter 05 Guide Impact rewrite were added in
+  response; the source URL was re-fetched and the previously verified claim quotes
+  re-checked at the same time (all still match, page still live as of 2026-08-04).
 - The two triage comments on issue #2468 gave differing novelty/chapter assessments
   (medium novelty / Ch00+Ch05 vs. low novelty / Ch00+Ch01+Ch05). This note follows the
   higher-novelty first assessment's chapter scope (Ch00, Ch05) and additionally finds
