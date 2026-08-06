@@ -97,8 +97,18 @@ issue: "#2522"
   occupation groups.
 - **Confidence**: emerging (specific, per-occupation percentages, but same
   undisclosed-methodology caveat as Claim 1)
-- **Quote**: "Once generic work is excluded, outside-occupation tasks account for: 77% of occupation-specific messages from customer experience workers[,] 75% from designers[,] 69% from human resources workers[,] 56% from legal workers[,] 53% from marketers"
-- **Our assessment**: The magnitude here is striking — for customer
+- **Quote** (reproduced with the source's own list structure):
+  > Once generic work is excluded, outside-occupation tasks account for:
+  >
+  > *   77% of occupation-specific messages from customer experience workers
+  > *   75% from designers
+  > *   69% from human resources workers
+  > *   56% from legal workers
+  > *   53% from marketers
+- **Our assessment**: The five percentages above are presented by the
+  source as a bulleted list under an intro line, not as a single running
+  sentence; the claim heading above is this note's own synthesis of that
+  list into one statement. The magnitude here is striking — for customer
   experience workers, more than three-quarters of their occupation-specific
   AI use is nominally "someone else's job." The post frames this as these
   occupations "borrowing" tasks from other roles, but an equally valid
@@ -128,9 +138,14 @@ issue: "#2522"
   the same classification methodology.
 - **Confidence**: emerging (specific, paired inbound/outbound percentages
   for two named occupations)
-- **Quote**: "About 35.2% of messages from designers involve work usually associated with another occupation, while design tasks account for only 1.7% of messages from workers in other fields. Designers draw heavily on outside tasks, but design work itself rarely appears elsewhere. [...] Only 18.5% of engineering messages involve tasks from other fields, but engineering tasks account for 7.4% of messages among workers in other occupations. Engineering is an important source of work that people elsewhere take on, from troubleshooting software to working with technical systems."
-- **Our assessment**: This inbound/outbound asymmetry is the report's
-  most analytically interesting finding — it distinguishes occupations
+- **Quote** (Design paragraph, contiguous): "Design illustrates the first pattern. About 35.2% of messages from designers involve work usually associated with another occupation, while design tasks account for only 1.7% of messages from workers in other fields. Designers draw heavily on outside tasks, but design work itself rarely appears elsewhere."
+- **Quote** (Engineering paragraph, contiguous — a separate, non-adjacent paragraph in the source): "Engineering is closer to the reverse. Only 18.5% of engineering messages involve tasks from other fields, but engineering tasks account for 7.4% of messages among workers in other occupations. Engineering is an important source of work that people elsewhere take on, from troubleshooting software to working with technical systems."
+- **Our assessment**: The source presents these as two separate
+  paragraphs, each with its own topic sentence, describing two distinct
+  directions of crossover; pairing them into a single inbound/outbound
+  asymmetry finding is this note's synthesis, not a claim the post makes
+  in one breath. That said, the asymmetry is the report's most
+  analytically interesting finding — it distinguishes occupations
   that are net *importers* of outside tasks (design) from occupations
   that are net *exporters* of tasks other people pick up (engineering).
   The engineering-as-exporter finding directly corroborates
@@ -307,8 +322,9 @@ writing this section.
 
 - **Extends**: `blog-openai-chatgpt-adoption-signals.md`, which explicitly
   scopes itself to Individual ChatGPT plans and explicitly states it does
-  NOT cover "task-category breakdowns" (that note's Claim 7 and its
-  Cross-References section flag this as an intentional scope boundary).
+  NOT cover "task-category breakdowns" (that statement appears in that
+  note's Source Context → Scope subsection, which flags it as an
+  intentional scope boundary).
   This report fills exactly the gap that note left open — a task-category,
   cross-occupation breakdown of ChatGPT usage — though this post does not
   itself state whether its "work-related U.S. ChatGPT users" population is
@@ -393,12 +409,25 @@ writing this section.
    fetch. A third, targeted fetch was used to check for a byline,
    publication date, pull-quotes, and linked-report details not covered
    by the first verbatim pass.
-2. **No byline or on-page publication date was recoverable** from the
+2. **Claims 3 and 5 were re-fetched and re-quoted after review.** The
+   original draft of this note spliced non-contiguous source text into
+   single `Quote` fields, violating MINER.md §2a Rule 3 — Claim 3 joined
+   five bulleted list items into one inline clause with inserted `[,]`
+   separators, and Claim 5 joined the Design and Engineering paragraphs
+   with `[...]`, silently dropping each paragraph's topic sentence. Both
+   were re-verified against a fresh `r.jina.ai` fetch of the source and
+   rewritten: Claim 3 now reproduces the source's intro line and bullet
+   list in its own structure, and Claim 5 now carries two separate,
+   contiguous paragraph quotes (each including the topic sentence the
+   source printed). The cross-item synthesis moved into `Our assessment`
+   in both cases. The underlying figures were unchanged by this fix —
+   all of them re-confirmed character-for-character against the source.
+3. **No byline or on-page publication date was recoverable** from the
    fetched content — the `date_published` field above (2026-07-27) comes
    from the RSS feed metadata already present in this issue's body
    ("Published: Mon, 27 Jul 2026 03:30:00 GMT," from the `openai-news`
    trusted feed), not from the article page itself.
-3. **The task-crossover heatmap's underlying cell values were not
+4. **The task-crossover heatmap's underlying cell values were not
    recoverable** from the reader-proxy text extraction — it rendered as
    an empty table skeleton with row/column labels (the seven occupations)
    but no populated data cells, the same limitation documented for
@@ -407,16 +436,16 @@ writing this section.
    is therefore drawn from the post's own prose description of the
    heatmap's findings (which occupation groups the top outside-tasks
    appear in), not the heatmap's actual per-cell values.
-4. **The companion "AI Jobs Transition Framework" PDF was not fetched.**
+5. **The companion "AI Jobs Transition Framework" PDF was not fetched.**
    The post links to it (`cdn.openai.com/pdf/the-ai-jobs-transition-framework_report.pdf`)
    as a separate report this post's findings are meant to support, but
    extracting that PDF's own content was out of scope for this note — see
    Claim 10's "Our assessment" for why a future extraction of that PDF is
    recommended as a follow-up source.
-5. **No contradiction with any existing source note was found** during
+6. **No contradiction with any existing source note was found** during
    cross-referencing (see Cross-References → Contradicts), so no
    contradiction issue was filed per MINER.md §4a.
-6. **Population scope is genuinely ambiguous in the source itself** — the
+7. **Population scope is genuinely ambiguous in the source itself** — the
    post says "U.S. ChatGPT users" and "work-related messages" without
    stating whether this spans Individual, Team, Enterprise, and API
    usage, or is restricted like the adoption-signals post to Individual
