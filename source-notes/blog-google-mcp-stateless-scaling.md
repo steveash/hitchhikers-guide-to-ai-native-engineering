@@ -2,7 +2,7 @@
 source_url: https://developers.googleblog.com/scaling-ai-agent-infrastructure-with-the-mcp-stateless-updates/
 source_type: blog-post
 title: "Scaling AI Agent Infrastructure with the MCP Stateless updates"
-author: Kurtis Van Gent (Senior Staff Software Engineer, Google Cloud Data) and Alan Blount (Senior Technical Product Manager)
+author: Kurtis Van Gent (Senior Staff Software Engineer, Google Cloud Data) and Alan Blount (Technical Product Manager, Google Cloud AI)
 date_published: 2026-08-05
 date_extracted: 2026-08-06
 last_checked: 2026-08-06
@@ -27,7 +27,8 @@ issue: "#2524"
   announcement/explainer, published August 5, 2026, describing the MCP Transports
   Working Group's 2026-07-28 spec release candidate)
 - **Author credibility**: Written by two named Google engineers — a Senior Staff
-  Software Engineer on Google Cloud Data and a Senior Technical Product Manager —
+  Software Engineer on Google Cloud Data and a Technical Product Manager on
+  Google Cloud AI —
   not an anonymous team byline. The post states Google "co-founded the MCP Transports
   Working Group" with Hugging Face and other industry partners and "led the charge"
   on the stateless redesign, making Google a primary author of the spec change itself,
@@ -115,9 +116,11 @@ issue: "#2524"
   session state meant an MCP server had to stay warm to serve any client, which is
   incompatible with scale-to-zero serverless billing. Removing that requirement
   means MCP servers can adopt the same cost model as stateless HTTP APIs. This is
-  the concrete "why should I care" answer for Ch06 (production infrastructure
-  patterns) — teams currently running always-on MCP server pods purely to hold
-  session state have a cost-reduction path once they adopt the new spec.
+  the concrete "why should I care" answer for Chapter 02 (Harness Engineering),
+  which is where the corpus already files MCP server deployment constraints (see
+  `docs-ghaw-mcp-gateway-reference.md`'s Guide Impact) — teams currently running
+  always-on MCP server pods purely to hold session state have a cost-reduction
+  path once they adopt the new spec.
 
 ### Claim 4: The GitHub MCP Server has already upgraded to the new spec and removed its Redis session storage entirely, eliminating database reads/writes on every call
 
@@ -153,8 +156,10 @@ issue: "#2524"
   traffic without inspecting the request body. For security and logging teams, this
   is a massive win that drastically lowers the latency and processing overhead at
   the gateway layer."
-- **Our assessment**: This is the single most relevant claim for Ch08 (Observability)
-  and Ch06 (Infrastructure). Before this change, any gateway that wanted to route or
+- **Our assessment**: This is the single most relevant claim for Chapter 04
+  (Observability and Cost — the bucket `docs-ghaw-mcp-gateway-reference.md` already
+  uses for MCP observability) and Chapter 02 (Harness Engineering — MCP server
+  deployment). Before this change, any gateway that wanted to route or
   rate-limit by MCP method/tool name had to parse the JSON-RPC body — deep packet
   inspection, which is expensive and fragile (the body schema can vary). Standard
   HTTP headers let existing HTTP-layer infrastructure (API gateways, WAFs, load
@@ -204,7 +209,8 @@ issue: "#2524"
   and land on a different server instance? The answer — push all resumption state
   into an opaque token the *client* carries and echoes back — is the same pattern
   used by stateless web session tokens (JWTs) and cursor-based pagination, applied
-  here to elicitation. This is directly relevant to Ch03 (Safety and Verification):
+  here to elicitation. This is directly relevant to Chapter 03 (Safety and
+  Verification):
   it is a protocol-level mechanism for confirmation gates on destructive tool calls
   that is compatible with horizontal scaling, extending the elicitation concept
   documented in `blog-anthropic-mcp-production-agents.md` Claim 8 with the specific
@@ -233,9 +239,9 @@ issue: "#2524"
   turn for up to a minute is unacceptable UX. The pattern (return a task handle
   immediately, poll/subscribe for completion) is a standard async-job pattern
   applied to the MCP protocol level rather than left to each server's ad hoc
-  implementation. For Ch06: this is the citable mechanism for "how do agents call
-  slow tools without stalling the conversation," a gap not addressed by any prior
-  MCP-focused source note in the corpus.
+  implementation. For Chapter 02 (Harness Engineering): this is the citable
+  mechanism for "how do agents call slow tools without stalling the conversation,"
+  a gap not addressed by any prior MCP-focused source note in the corpus.
 
 ### Claim 9: The spec introduces a formal deprecation policy (SEP-2577) with a structured Active → Deprecated → Removed lifecycle and a minimum 12-month transition window; Roots, Sampling, and Logging enter deprecation immediately
 
@@ -277,7 +283,8 @@ issue: "#2524"
   is an explicit acknowledgment that statelessness is not a free lunch: removing
   server-side session pinning removes a passive isolation boundary, so the spec
   compensates with explicit token-scoping (Resource Indicators) and
-  issuer-validation requirements. This is directly relevant to Ch03: the
+  issuer-validation requirements. This is directly relevant to Chapter 06
+  (Security & Threat Model), which already covers MCP supply-chain risk: the
   "confused deputy" problem (a client's token for server A being replayed against
   server B) is a real multi-server MCP risk that Resource Indicators specifically
   closes, and it is a new, more precise threat name for the corpus than the general
@@ -521,41 +528,73 @@ Source: developers.googleblog.com, "Why Sessions Were a Production Bottleneck" s
 
 ## Guide Impact
 
-- **Chapter 03 (Standards / Open protocols)**: Add the 2026-07-28 MCP spec release
-  candidate as a major protocol milestone, citing the named SEPs (Claims 2, 5, 6, 7,
-  8, 9, 10). Currently the guide's MCP coverage (via `docs-ghaw-mcps.md` and
-  `blog-anthropic-mcp-production-agents.md`) documents the protocol as it existed
-  under the 2025-11-25 session model; this source documents a breaking transport-level
-  redesign that practitioners deploying or building MCP servers need to know about,
-  including the 12-month deprecation runway for Roots, Sampling, and Logging (Claim 9).
+> Chapter targeting note: chapter numbers below are reconciled against the guide as
+> it exists today (`guide/00-principles.md` … `guide/06-security-threat-model.md`)
+> and against the bucket names other MCP-focused source notes already use, rather
+> than against the Prospector's triage comments on #2524, which proposed three
+> mutually inconsistent chapter sets (including a "Chapter 08" that does not exist).
+> The one intentional carry-over is the "Chapter 04: Observability and Cost" label,
+> which is the bucket `docs-ghaw-mcp-gateway-reference.md` already self-assigns its
+> MCP OpenTelemetry content to; `guide/04-context-engineering.md` has no
+> observability section yet, so that label targets a not-yet-written section and is
+> used here only to keep this note's observability material in the same place as the
+> corpus's existing MCP observability material.
 
-- **Chapter 06 (Production patterns / Infrastructure)**: Add the stateless-core
-  architecture (Claims 1-4) as the current recommended deployment model for
-  production MCP servers: plain round-robin load balancing, serverless/scale-to-zero
-  deployment (Cloud Run, Cloud Functions), and transparent failover, replacing the
-  older guidance implicitly assuming sticky sessions or a shared Redis session store.
-  Cite the GitHub MCP Server Redis-removal example (Claim 4) as concrete evidence.
-  Add the Tasks Extension (Claim 8) as the recommended pattern for MCP tool calls
-  wrapping slow backend operations (10-60+ second payment/backup/sync operations) —
-  return a `taskId` immediately rather than holding the connection open.
+- **Chapter 02 (Harness Engineering)**: This is the primary target. Three additions:
+  - *MCP server deployment model* (Claims 1-4): Add the stateless-core architecture
+    as the current recommended deployment model for production MCP servers — plain
+    round-robin load balancing, serverless/scale-to-zero deployment (Cloud Run,
+    Cloud Functions), and transparent failover — replacing guidance that implicitly
+    assumes sticky sessions or a shared Redis session store. Cite the GitHub MCP
+    Server Redis-removal example (Claim 4) as concrete evidence. This slots
+    alongside `docs-ghaw-mcp-gateway-reference.md`'s existing Chapter 02 material on
+    MCP server containerization and gateway integration.
+  - *Slow tool calls* (Claim 8): Add the Tasks Extension as the recommended pattern
+    for MCP tool calls wrapping slow backend operations (10-60+ second
+    payment/backup/sync operations) — return a `taskId` immediately rather than
+    holding the connection open. This is a more precise answer than the gateway
+    reference note's 60-second tool-invocation timeout knob (its Chapter 02 → "Add
+    the two-timeout operational parameters" item): raising a timeout manages the
+    symptom, the Tasks Extension removes the blocking call.
+  - *Protocol milestone framing*: Where the guide describes MCP itself, note that
+    the 2026-07-28 release candidate is a breaking transport-level redesign (named
+    SEPs in Claims 2, 5, 6, 7, 8, 9, 10) relative to the 2025-11-25 session model
+    that the corpus's existing MCP coverage (`docs-ghaw-mcps.md`,
+    `blog-anthropic-mcp-production-agents.md`) documents — including the 12-month
+    deprecation runway for Roots, Sampling, and Logging (Claim 9).
 
-- **Chapter 08 (Observability)**: Add SEP-2243's HTTP header standardization
+- **Chapter 04 (Observability and Cost)** — matching the label
+  `docs-ghaw-mcp-gateway-reference.md` uses for its MCP OpenTelemetry content, so
+  both halves land in one place: Add SEP-2243's HTTP header standardization
   (`Mcp-Protocol-Version`, `Mcp-Method`, `Mcp-Name` — Claim 5) as the recommended
   mechanism for routing, rate-limiting, and auditing MCP traffic at the gateway
-  layer without deep packet inspection. Cross-reference with
-  `docs-ghaw-mcp-gateway-reference.md`'s existing OpenTelemetry integration as the
-  two halves of an MCP observability stack: standard headers for gateway-layer
-  routing/audit, OpenTelemetry for distributed tracing. Also note the Logging →
-  OpenTelemetry deprecation (Claim 9) as further evidence that OTel is becoming the
-  de facto MCP observability standard rather than protocol-native logging.
+  layer without deep packet inspection. Present it together with that note's
+  existing OpenTelemetry integration as the two halves of an MCP observability
+  stack: standard headers for gateway-layer routing/audit, OpenTelemetry for
+  distributed tracing. Also note the Logging → OpenTelemetry deprecation (Claim 9)
+  as further evidence that OTel is becoming the de facto MCP observability standard
+  rather than protocol-native logging. The scale-to-zero cost consequence of
+  statelessness (Claim 3) belongs here too if the chapter's cost material is the
+  better fit than Chapter 02's deployment material.
 
-- **Chapter 03 (Safety and Verification)** (per Prospector's second triage comment):
-  Add Multi Round-Trip Requests (Claim 7) as the stateless mechanism underlying
-  protocol-level elicitation/confirmation gates for destructive tool calls,
-  extending `blog-anthropic-mcp-production-agents.md` Claim 8's conceptual coverage
-  with the concrete resumption mechanism. Add Resource Indicators (RFC 8707, Claim
-  10) as the specific defense against the "confused deputy" risk in multi-MCP-server
-  agent deployments — a token issued for server A must not be usable against server B.
+- **Chapter 03 (Safety and Verification)**: Add Multi Round-Trip Requests (Claim 7)
+  as the stateless mechanism underlying protocol-level elicitation/confirmation
+  gates for destructive tool calls, extending
+  `blog-anthropic-mcp-production-agents.md` Claim 8's conceptual coverage with the
+  concrete resumption mechanism. This is the same chapter bucket
+  `docs-ghaw-mcp-gateway-reference.md` uses for gateway guard policies and
+  isolation guarantees.
+
+- **Chapter 06 (Security & Threat Model)**: Add Resource Indicators (RFC 8707,
+  Claim 10) as the specific defense against the "confused deputy" risk in
+  multi-MCP-server agent deployments — a token issued for server A must not be
+  usable against server B — and Issuer Verification (RFC 9207) as the defense
+  against redirect-based session hijacking. `guide/06-security-threat-model.md`
+  already has an MCP supply-chain section ("rug-pull tool redefinition"); these are
+  a second, distinct MCP threat class (credential delegation across servers) with a
+  named protocol-level mitigation. Also worth stating the source's own framing —
+  that moving state from transport to application layer removes a passive isolation
+  boundary, so these controls are compensating, not additive.
 
 ## Extraction Notes
 
