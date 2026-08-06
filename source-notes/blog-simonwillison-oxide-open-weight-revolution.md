@@ -77,8 +77,9 @@ issue: "#2518"
 ### Claim 4: An unnamed CTO of a model-training company told Willison that distillation from Western frontier models gives Chinese labs at most roughly a one-month speedup, and that Chinese labs' real advantage is smart training methodology, not distillation
 - **Evidence**: Secondhand anecdote from a single unnamed source, relayed by Willison
 - **Confidence**: anecdotal
+- **Quote**: "their their take was they think distillation might speed you up by about a month, but it's not." (Simon Willison, ~28:25, relaying the CTO's estimate)
 - **Quote**: "The story isn't Chinese labs distill American models. The story is Chinese labs figure out very, very, very smart ways of training models and and and execute on them." (Simon Willison, ~28:48)
-- **Our assessment**: **Contradicts** `blog-simonwillison-afraid-of-chinese-models.md` (Claim 10), which cites Ben Thompson/Meyer-Buhler describing distillation as a "recurring structural advantage" for Chinese labs. Filed as contradiction issue **#2536** — do not treat either claim as settled in the guide without resolution. This source's version is weaker evidence (unnamed source, no data), but it is at least internally consistent with this same episode's account of K3's RL-over-long-tool-call-loops training approach (Claim 3, Claim 5).
+- **Our assessment**: **Contradicts** `blog-simonwillison-afraid-of-chinese-models.md` (Claim 10), which cites Ben Thompson/Meyer-Buhler describing distillation as a "recurring structural advantage" for Chinese labs. Tracked as contradiction issue **#2536** (open, `needs-resolution`) — do not treat either claim as settled in the guide without resolution. This source's version is weaker evidence (unnamed source, no data), but it is at least internally consistent with this same episode's account of K3's RL-over-long-tool-call-loops training approach (Claim 3, Claim 5). Note that Willison's transcript gives the ~one-month figure as the CTO's own estimate without specifying whether it means one month per training run or one month of cumulative generational gap — a distinction the Assayer's assessment on #2536 flags as the key mediating variable, and which this source does not resolve.
 
 ### Claim 5: Kimi K3's RL training infrastructure moved from Linux containers to Firecracker microVMs after the model repeatedly broke out of Linux containers during training
 - **Evidence**: Cantrill and Willison's account of K3's training setup, apparently drawing on public reporting about K3's use of Firecracker VMs
@@ -190,10 +191,17 @@ Chinese open-weight AI-endpoint resale workflow, as described by Willison
   of the same primary source).
 - **Contradicts**: `blog-simonwillison-afraid-of-chinese-models.md` (Claim
   10) on the magnitude of distillation's contribution to Chinese labs'
-  capability gains — filed as contradiction issue **#2536**
+  capability gains — tracked as contradiction issue **#2536**
   ("Chinese open-weight labs' capability gains: distillation as structural
-  advantage vs. marginal ~1-month effect"). Do not resolve in this note;
-  see the issue for the full Side A/Side B writeup.
+  advantage vs. marginal ~1-month effect"), currently **open** and labeled
+  `needs-resolution` / `assessment-complete`. Do not resolve in this note;
+  see the issue for the full Side A/Side B writeup and the Assayer's
+  proposed `debated` verdict. (Tracking history: #2536 was briefly
+  auto-closed by the triage pre-screen as a "duplicate URL" of source issue
+  #2518 — a false positive, since a contradiction-template issue
+  legitimately cites the same URL as its parent source issue. It has been
+  reopened and the `rejected` label removed; the underlying pre-screen bug
+  is filed separately as #2538.)
 - **Extends**: `blog-simonwillison-ptacek-open-weights-pentest.md` and
   `blog-simonwillison-afraid-of-chinese-models.md` (both discuss the
   open-weights-and-security debate this episode's P(doom) framing, Claim 7,
@@ -229,9 +237,14 @@ Chinese open-weight AI-endpoint resale workflow, as described by Willison
   opinion, not empirical, and should be presented as commentary, not
   settled fact.
 - **Do not cite without resolution**: Claim 4 (distillation's magnitude) is
-  actively contradicted by an existing note (see contradiction #2536) —
-  the guide should not adopt either side's framing until that issue is
-  resolved.
+  actively contradicted by an existing note (see contradiction #2536, open
+  and awaiting a human verdict) — the guide should not adopt either side's
+  framing until that issue is resolved. The Assayer's assessment on #2536
+  proposes `debated` and, if the guide must acknowledge the disagreement
+  before resolution, recommends citing this note's Claim 4 at `anecdotal`
+  at most while surfacing the "marginal-per-cycle vs. recurring-and-
+  compounding" mediating frame rather than presenting the two magnitudes as
+  flatly opposed.
 
 ## Extraction Notes
 
