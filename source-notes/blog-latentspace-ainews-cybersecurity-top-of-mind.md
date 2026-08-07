@@ -100,7 +100,7 @@ issue: "#2550"
 - **Evidence**: Digest paraphrase attributing the framing and figures to `@Kseniase_`.
 - **Confidence**: emerging (a specific, named quantitative comparison across three named models on a named target (V8), relayed via digest paraphrase rather than an independently located Google/CodeMender source page; not independently verified by this Miner)
 - **Quote**: "Google's Gemini 3.5 Flash Cyber as a graph-engineering case study: One of the more substantive takes on Google's cyber release came from @Kseniase_, who highlighted Gemini 3.5 Flash Cyber as evidence that a smaller specialized model invoked multiple times in a coordinated pipeline can outperform larger general models on a practical task. Inside CodeMender, Google reportedly calls the model up to five times and aggregates outputs; on V8, this yielded 55 confirmed vulnerabilities vs 47 for general Gemini 3.5 Flash and 36 for Claude Opus 4.6."
-- **Our assessment**: This is the single most concrete, checkable number in the digest and is entirely novel to this corpus — no existing note documents CodeMender, Gemini 3.5 Flash Cyber, or a repeated-invocation-plus-aggregation architecture pattern with a head-to-head vulnerability-count comparison against a general-purpose sibling model and a competing frontier model. It directly **corroborates** the architectural thesis already in the corpus from Fugu (`blog-thoughtworks-omahony-fugu-model-routing-critique.md` Claim 1, `blog-thoughtworks-kamelman-sovereign-ai-dependency.md` Claim 6) and Sakana's Fugu-Cyber (Claim 4 above): three independent vendors (Sakana, Google, and implicitly Wiz/Palo Alto per `blog-anthropic-opus-cybersecurity-partners.md` Claims 3-4) are converging on multi-invocation/orchestration over single-pass monolithic agents specifically for security work. The specific 55/47/36 figures should be flagged as single-source and unverified if cited, pending a primary Google source.
+- **Our assessment**: This is the single most concrete, checkable number in the digest and is entirely novel to this corpus — no existing note documents CodeMender, Gemini 3.5 Flash Cyber, or a repeated-invocation-plus-aggregation architecture pattern with a head-to-head vulnerability-count comparison against a general-purpose sibling model and a competing frontier model. It directly **corroborates** the architectural thesis already in the corpus from Fugu (`blog-thoughtworks-omahony-fugu-model-routing-critique.md` Claim 1, `blog-thoughtworks-kamelman-sovereign-ai-dependency.md` Claim 6) and Sakana's Fugu-Cyber (Claim 4 above): two independent vendors (Sakana and Google) are converging on multi-invocation/orchestration over single-pass monolithic agents specifically for security work. Note that this corpus's other named security-agent deployments are *not* additional evidence for this architecture: `blog-anthropic-opus-cybersecurity-partners.md` Claim 3 describes Wiz Red Agent using a single model (Opus) to chain reasoning *steps* within one agent's process, and its Claim 4 is a velocity metric (a year of pentesting in under three weeks) with no architectural detail at all — neither describes a coordinator routing across a model pool or repeated invocation with output aggregation. The specific 55/47/36 figures should be flagged as single-source and unverified if cited, pending a primary Google source.
 
 ### Claim 6: Poolside released Laguna S 2.1, a 118B-parameter MoE model with 8B active parameters per token under the OpenMDW-1.1 license, small enough to run on a single NVIDIA DGX Spark, explicitly framed by the company as a way to avoid AI intelligence being concentrated in "three or four companies"
 - **Evidence**: Digest paraphrase attributing the release details to `@eisokant` and the strategic framing directly to Poolside.
@@ -344,10 +344,16 @@ top-to-bottom in document order as they appear in each cited note.
   Cyber's repeated-invocation-plus-aggregation architecture, 55 vs. 47 vs.
   36 vulnerabilities on V8) and Claim 4 (Sakana's Fugu-Cyber) as concrete,
   named examples supporting the "orchestration over monolithic single-pass
-  agents" pattern already established in the corpus via Wiz Red Agent and
-  Palo Alto's Unit 42 (`blog-anthropic-opus-cybersecurity-partners.md`
-  Claims 3-4) — this is now a four-vendor pattern (Wiz, Palo Alto, Sakana,
-  Google) rather than a two-vendor one.
+  agents" pattern the corpus already carries from the general-purpose Fugu
+  coverage (`blog-thoughtworks-omahony-fugu-model-routing-critique.md`
+  Claim 1, `blog-thoughtworks-kamelman-sovereign-ai-dependency.md` Claim 6).
+  Applied to security specifically, this is a **two-vendor** pattern (Sakana
+  and Google) — do not count Wiz Red Agent or Palo Alto's Unit 42
+  (`blog-anthropic-opus-cybersecurity-partners.md` Claims 3-4) toward it.
+  Those two are evidence of AI-driven pentesting depth and velocity, not of
+  multi-model orchestration: Wiz runs a single model chaining reasoning steps
+  in one agent process, and the Palo Alto claim reports throughput with no
+  architecture attached.
 
 - **Chapter 01 (Landscape) / policy context**: Add Claim 14 (specific U.S.
   federal policy mechanisms reportedly under consideration against Chinese
