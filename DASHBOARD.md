@@ -1,6 +1,6 @@
 # Guide Dashboard
 
-_Generated 2026-08-06 (UTC) by `scripts/generate_dashboard.py`._
+_Generated 2026-08-07 (UTC) by `scripts/generate_dashboard.py`._
 
 Content-derived metrics for the living guide. Refreshed daily by
 `.github/workflows/daily-scan.yml`. For workflow status (PRs, issues,
