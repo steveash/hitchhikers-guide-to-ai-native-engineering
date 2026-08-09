@@ -209,17 +209,28 @@ issue: "#2587"
   both still experimental/preview-labeled as of their respective
   announcements.
 
-### Claim 10: Copilot CLI's `/rewind` command restores conversation and file changes without requiring Git
+### Claim 10: Copilot CLI's `/rewind` restores the conversation and the files Copilot changed without requiring Git, while preserving edits made after the restore point
 - **Evidence**: "GitHub Copilot CLI" section, third bullet.
 - **Confidence**: settled (product fact stated directly in official
-  changelog, though the underlying mechanism's completeness — e.g., whether
-  it survives arbitrary tool calls — is not detailed)
-- **Quote**: "/rewind now restores conversation and file changes without requiring Git."
-- **Our assessment**: The phrase "now restores... without requiring Git"
-  implies `/rewind` already existed in some form and previously depended on
-  Git for its file-restoration behavior; this source documents the
-  Git-independent version without describing what the prior Git-dependent
-  behavior was. This is notable for cross-vendor terminology convergence:
+  changelog; the source specifies both the Git-independence and the
+  preservation of subsequent edits, but not the mechanism implementing
+  either)
+- **Quote**: "Use /rewind without Git to restore the conversation and files Copilot changed while preserving subsequent edits."
+- **Our assessment**: The source specifies two distinct behaviors, and the
+  second is the more consequential one. First, restoration is
+  Git-independent — the harness tracks the files Copilot itself changed
+  rather than reading the repository's version history, so `/rewind` is
+  usable in a dirty tree, an untracked directory, or a non-Git project.
+  Second, "while preserving subsequent edits" scopes the rollback to
+  Copilot's own writes: edits made after the restore point survive the
+  rewind rather than being reverted along with the agent's changes. That is
+  a narrower and safer operation than a Git-style checkout of a prior
+  state, and it is the citable distinguishing detail. What the source does
+  *not* say is how the two are reconciled when a subsequent edit touches the
+  same lines being rolled back, or what "the files Copilot changed" covers
+  when the agent's changes were made through arbitrary tool calls rather
+  than direct edits. This is notable for cross-vendor terminology
+  convergence:
   `blog-anthropic-session-management-1m-context.md` Claim 4 documents
   Claude Code's own `/rewind` (double-Esc) as its "superior correction
   mechanism," and `blog-humanlayer-context-forking.md` Claim 7 notes that
@@ -233,22 +244,29 @@ issue: "#2587"
   describe Copilot CLI's internals. For Ch04 (Correction Patterns): add
   Copilot CLI `/rewind` alongside Claude Code `/rewind` as evidence that
   rewind-to-a-prior-turn is converging into a standard primitive across
-  major agent CLIs, distinct from Git-based undo.
+  major agent CLIs, distinct from Git-based undo — and cite
+  "preserving subsequent edits" as the concrete behavioral spec that
+  separates an agent-scoped rewind from a wholesale revert to a prior
+  snapshot.
 
-### Claim 11: Copilot CLI's session timeline now displays real-time duration metrics for each tool call as it executes
+### Claim 11: Copilot CLI's timeline shows live tool-call durations, with the stated purpose of identifying slow commands
 - **Evidence**: "GitHub Copilot CLI" section, fourth bullet.
 - **Confidence**: settled (product fact stated directly in official
   changelog)
-- **Quote**: "Timeline displays real-time tool-call execution duration metrics."
-- **Our assessment**: This is a thin but concrete observability addition —
-  a practitioner watching the CLI timeline can now see how long each tool
-  call is taking as it runs, rather than only after completion or not at
-  all. The source gives no further detail (e.g., whether this is visible
-  only in the redesigned terminal from `docs-github-copilot-cli-terminal-ga.md`,
-  or a display threshold for "slow" calls). For Ch04 (Agentic Workflows —
-  Debugging): document live per-tool-call duration as a debugging aid for
-  identifying which specific tool invocation is stalling a session, without
-  needing to wait for the call to finish first.
+- **Quote**: "See live tool-call durations in the timeline to identify slow commands."
+- **Our assessment**: This is a thin but concrete observability addition,
+  and the source states its intended use rather than leaving it to be
+  inferred: the durations are live ("live tool-call durations") and the
+  named purpose is "to identify slow commands." A practitioner watching the
+  CLI timeline can therefore see how long each tool call is taking while it
+  runs, rather than only after completion. The source gives no further
+  detail (e.g., whether this is visible only in the redesigned terminal from
+  `docs-github-copilot-cli-terminal-ga.md`, whether durations are shown for
+  every tool type, or whether any threshold marks a call as "slow"). For
+  Ch04 (Agentic Workflows — Debugging): document live per-tool-call duration
+  as a first-party debugging aid for identifying which specific tool
+  invocation is stalling a session, without needing to wait for the call to
+  finish first.
 
 ## Concrete Artifacts
 
@@ -259,36 +277,67 @@ GitHub Copilot weekly releases — August 3
 Source: github.blog/changelog, published 2026-08-07, retrieved 2026-08-09
 2 minute read
 
+INTRO
+  This week’s updates across GitHub Copilot in the desktop app, CLI, and
+  VS Code help you resume and organize work, review changes, and ask
+  questions without losing context.
+
 GITHUB COPILOT APP
+  [Claim 1]
   - Auto now shows which model handled each completed request, plus AI
-    credit and cache details when they're available.                [Claim 1]
+    credit and cache details when they’re available.
+  [Claim 2]
   - Jump directly into shared sessions, or use /side to explore a
-    parallel question without disrupting your main task.            [Claim 2]
+    parallel question without disrupting your main task.
+  [Claim 3]
   - Apply the updated Impeccable skill to mobile interfaces, diagnose
-    its setup, and run more focused design reviews.                 [Claim 3]
-  - Sessions now start and switch more efficiently.        [not independently
-                                                              claimed — see
-                                                              Extraction Notes]
+    its setup, and run more focused design reviews.
+  [not independently claimed — see Extraction Note 3]
+  - Sessions now start and switch more efficiently.
 
 GITHUB COPILOT CLI
+  [Claim 8]
   - Easily manage multiple concurrent sessions from the Sessions
-    sidebar (< to open, n new, x close, > to close sidebar).         [Claim 8]
+    sidebar. Simply click < (left arrow) to open the Sessions sidebar
+    and use shortcuts to open new sessions (n), close current ones (x),
+    and move between sessions with ease. Click > right arrow to close
+    the sidebar.
+  [Claim 9]
   - Create an isolated worktree and begin a separate conversation with
-    the new experimental /worktree command.                          [Claim 9]
-  - /rewind now restores conversation and file changes without
-    requiring Git.                                                  [Claim 10]
-  - Timeline displays real-time tool-call execution duration metrics. [Claim 11]
+    the new experimental /worktree command. This gives you another
+    workspace for exploring changes without disrupting your current
+    work.
+  [Claim 10]
+  - Use /rewind without Git to restore the conversation and files
+    Copilot changed while preserving subsequent edits.
+  [Claim 11]
+  - See live tool-call durations in the timeline to identify slow
+    commands.
 
 VS CODE 1.132 RELEASE UPDATES
-  - The integrated browser now supports element-level feedback —
-    select and annotate multiple page elements before sending.       [Claim 5]
-  - Dictate in multiple languages — multilingual on-device model by
-    default, configured language / system locale / auto-detect,
-    plus new microphone setup onboarding.                            [Claim 6]
-  - Ask side questions with /btw — side chat sharing context and
-    prompt cache with the primary conversation.                      [Claim 4]
-  - Review Markdown changes in context — diffs open in the
-    experimental hybrid Markdown editor with gutter indicators.      [Claim 7]
+  [Claim 5]
+  - The integrated browser now supports element-level feedback. Select
+    specific elements on a web page, attach a comment to each one, and
+    send that precise visual feedback to the agent. You can select and
+    annotate multiple elements before submitting your message.
+  [Claim 6]
+  - Dictate in multiple languages. Dictation now uses a multilingual
+    on-device model by default, keeping audio on your device. It can
+    follow your configured language, use your system or browser locale, or
+    automatically detect the language. A new onboarding experience also
+    helps you select and test your microphone.
+  [Claim 4]
+  - Ask side questions with /btw. Open a side chat without interrupting
+    the agent’s current turn. The side chat shares the context and
+    prompt cache from your primary conversation, so you can ask about
+    the work already in progress. You can also select text from a
+    response and ask a contextual question about it.
+  [Claim 7]
+  - Review Markdown changes in context. Markdown diffs can now open in
+    the experimental hybrid Markdown editor. The modified document
+    remains editable, while gutter indicators identify added, changed,
+    and deleted content. You can switch between the text diff and hybrid
+    Markdown views from the editor type dropdown.
 ```
 
 ## Cross-References
@@ -415,12 +464,32 @@ document order as they appear in each cited note.
    tags were converted to line breaks before stripping remaining markup —
    producing a verbatim plain-text transcript of every heading and bullet in
    the article, confirmed against the canonical URL
-   (`.../2026-08-07-github-copilot-weekly-releases-august-3/`). All `Quote`
-   fields above are copied character-for-character from that raw-HTML
-   transcript, including original curly-quote punctuation, not from the
-   WebFetch summary. The Assayer should treat the fabricated "Related
-   Updates" list as a WebFetch artifact, not a source claim — it is not
-   referenced anywhere in this note.
+   (`.../2026-08-07-github-copilot-weekly-releases-august-3/`). The Assayer
+   should treat the fabricated "Related Updates" list as a WebFetch
+   artifact, not a source claim — it is not referenced anywhere in this
+   note.
+   - **Quote re-verification after Assayer review (2026-08-09)**: The
+     original version of this note asserted that all eleven `Quote` fields
+     were character-for-character copies of the raw-HTML transcript. That
+     assertion was wrong for two of them: Claim 10's quote read "/rewind now
+     restores conversation and file changes without requiring Git." and Claim
+     11's read "Timeline displays real-time tool-call execution duration
+     metrics." Neither string appears anywhere in the article — both were
+     paraphrases presented as direct quotes, and the Claim 10 paraphrase
+     dropped the materially relevant clause "while preserving subsequent
+     edits." Both quotes have been replaced with the source's actual
+     sentences, and the corresponding claim titles, confidence notes, and
+     "Our assessment" paragraphs were rewritten to match what the source
+     actually says (including removing an inference about a prior
+     Git-dependent `/rewind` that rested only on the fabricated word "now").
+     The article was then re-fetched from the canonical URL and every quoted
+     string in this note — all eleven claim quotes plus every bullet in the
+     Concrete Artifacts digest — was checked by exact substring match
+     (whitespace-normalized only) against the re-extracted transcript. All
+     now match, including original curly-quote punctuation. The Concrete
+     Artifacts digest was also regenerated directly from the transcript, so
+     its bullets are now the source's full sentences rather than the
+     abbreviated renderings the first version used.
 2. **No substantive linked sub-pages**: The article's only outbound links
    are same-page table-of-contents anchors, a "Try the Copilot app" link, an
    "Install the Copilot CLI" link, and an "Explore everything that's new in
