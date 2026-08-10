@@ -268,11 +268,13 @@ issue: "#2604"
   spotlight" pattern `blog-ghaw-weekly-2026-08-03.md` Claim 11 documents for
   the Dead Code Removal Agent (a prior agent revisited with new data), this
   is a same-week launch-and-profile. "Strictly read-only until their final
-  PR" echoes the read-only-until-output posture
-  `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 3 documents for the Dead
-  Code Removal Agent (a PR-as-output, human-reviewed write pattern), giving
-  a second concrete instance of that posture for a different write-enabled
-  codemod agent. The usage tip — pairing coverage-locking agents with a CI
+  PR" echoes the investigate-then-submit posture
+  `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 1 documents for the Dead
+  Code Removal Agent ("find unused code, verify nothing breaks, and open a
+  pull request"), and the PR-as-output authority boundary its Claim 7
+  documents ("The agent does the investigation and the grunt work.
+  Engineers do the judgment call."), giving a second concrete instance of
+  that posture for a different write-enabled codemod agent. The usage tip — pairing coverage-locking agents with a CI
   coverage gate — is new prescriptive guidance not present for the Dead
   Code Removal Agent's usage tip in either prior note. For Ch02/Ch06: add
   PureLock's first-week metrics (3 runs, 15–22 min/run, ~60K tokens total,
@@ -474,12 +476,16 @@ HTML fetched via `curl`, 2026-08-10*
 ## Cross-References
 
 - **Corroborates**:
-  - `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 3 (Dead Code Removal
-    Agent stays read-only, investigating, until it has a complete fix,
-    then submits a single PR — PR-as-output, human-reviewed write pattern):
-    Claim 8 here ("strictly read-only until their final PR" for PureLock)
-    is a second, independent instance of the same read-only-until-output
-    posture for a different daily-scheduled write-enabled codemod agent.
+  - `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 1 (the Dead Code
+    Removal Agent is a daily-scheduled write-enabled codemod agent that
+    "investigates, removes unused code, and submits PRs") and Claim 7
+    (division of labor is bounded — the agent does investigation and grunt
+    work, engineers retain the judgment call via PR review, with
+    PR-as-output as the architectural authority boundary): Claim 8 here
+    ("strictly read-only until their final PR" for PureLock) is a second,
+    independent instance of the same investigate-then-submit,
+    human-reviewed posture for a different daily-scheduled write-enabled
+    codemod agent.
   - `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 2 (dead code removal
     is automation-suitable because its verification feedback loop is
     entirely mechanical — build/vet/test pass or fail): Claim 3 here
@@ -645,4 +651,12 @@ HTML fetched via `curl`, 2026-08-10*
    change is not previously documented), plus `CONTRADICTIONS.md` for
    existing open contradiction entries potentially relevant to this post's
    claims (none found). All `Claim N` citations above were checked against
-   the cited note's actual numbered claims before writing.
+   the cited note's actual numbered claims. One citation initially missed
+   this check and was corrected after Assayer review: the
+   read-only-until-final-PR corroboration was attributed to
+   `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 3 (which is about daily
+   cadence vs. periodic manual review) in both Claim 8's assessment and the
+   Corroborates list; it is now repointed to that note's Claim 1
+   (investigate-then-submit codemod archetype) and Claim 7 (PR-as-output as
+   the agent/engineer authority boundary), which are the claims that
+   actually document the cited behavior.
