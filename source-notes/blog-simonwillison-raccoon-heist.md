@@ -95,10 +95,10 @@ issue: "#2634"
 - **Our assessment**: Unlike many "I asked an AI to build X" case studies where readers must take the author's description on faith, this post is fully auditable: the live demo (https://simonw.github.io/raccoon-heist/), the source repo (https://github.com/simonw/raccoon-heist/), and the transcript (https://simonw.github.io/raccoon-heist/transcript/page-001.html) are all public. This raises the evidentiary bar above typical anecdotal blog-post claims, even though the underlying sample size is still one session by one practitioner.
 
 ### Claim 9: Despite being technically impressive as a one-shot build, the resulting game was gameplay-mediocre, reinforcing that AI-driven implementation speed does not translate into game design quality
-- **Evidence**: Willison's own closing verdict, contrasting the build process's impressiveness with the shipped game's actual play quality.
+- **Evidence**: Willison's own closing verdict on this build, plus a broader generalization he draws from his own prior vibe-coded game projects.
 - **Confidence**: anecdotal
-- **Quote**: "As a finished game project, it's mediocre. As a starting point from a single prompt I think it's very impressive."
-- **Our assessment**: This directly corroborates the "vibe-coded games consistently disappoint on gameplay depth despite technical polish" pattern already in the corpus. It's a useful, blunt calibration point for guide readers: "one-shot, autonomous, well-tooled agentic build" is now demonstrably achievable end-to-end (working 3D game, generated art, mobile support, self-tested), but the bottleneck has moved entirely to game/product design judgment, which the agent did not meaningfully supply even when explicitly given full creative latitude (Claim 1).
+- **Quote**: On this build — "As a finished game project, it's mediocre. As a starting point from a single prompt I think it's very impressive." On the general pattern, from the same closing paragraph — "They've all been deeply disappointing from a gameplay perspective—it turns out designing games that are *fun* remains a uniquely human trait."
+- **Our assessment**: The stronger of these two statements is the general one, and it is worth reading precisely: Willison is generalizing across *his own* repeated attempts ("I've vibe coded up quite a few games now"), which is a within-practitioner repeated observation rather than a cross-practitioner replication. That still exceeds the evidentiary weight of a one-session anecdote, but it is not independent corroboration. Taken at that weight, it's a blunt calibration point for guide readers: "one-shot, autonomous, well-tooled agentic build" is now demonstrably achievable end-to-end (working 3D game, generated art, mobile support, self-tested), but the bottleneck has moved to game/product design judgment, which the agent did not meaningfully supply even when explicitly given full creative latitude (Claim 1). Note that Willison scopes the limitation to himself as well as the model ("more skill and experience than either Claude or I can bring to bear"), so this is not a clean claim that models specifically cannot design fun games.
 
 ## Concrete Artifacts
 
@@ -149,24 +149,16 @@ Audio:                 procedurally generated via WebAudio
 ## Cross-References
 
 - **Corroborates**:
-  - `failure-htdt-godogen-game-generation.md` (Root Cause / Lesson 9, "vibe
-    coded games consistently disappoint from a gameplay perspective" —
-    close paraphrase of the corpus's existing framing, echoed independently
-    here): Willison's own verdict ("it's mediocre... designing games that
-    are fun remains a uniquely human trait" per the Prospector's triage
-    summary) is a second, independent practitioner arriving at the same
-    conclusion — technically capable AI game generation, shallow resulting
-    gameplay — via a completely different model (Claude Fable 5 vs. Godogen's
-    Claude+Gemini+Grok pipeline), tooling, and genre (3D stealth-arcade vs.
-    Godot 2D/3D). Two independent sources reaching the same conclusion via
-    different pipelines raises this from a single anecdote toward an
-    emerging pattern.
-  - `blog-simonwillison-pedalican-sprite-pipeline.md` (Claim 8, skill/prompt
-    directives requiring durable, append-only process documentation as part
-    of the workflow): this source's `notes.md`-per-commit requirement is the
-    same pattern (durable external log of an autonomous agent's own
-    decisions) applied to a different vendor (Claude Fable 5 vs. GPT-5.6 Sol)
-    and domain (full game vs. sprite atlas).
+  - `blog-simonwillison-pedalican-sprite-pipeline.md` (Source Context — the
+    1701-line `notes-on-creating-a-pet.md` notebook file that Willison states
+    was written by the model itself, not by him): this source's
+    `notes.md`-per-commit requirement (Claim 6) produces the same artifact
+    class — a durable external log of an autonomous agent's own decisions,
+    written by the agent — applied to a different vendor (Claude Fable 5 vs.
+    GPT-5.6 Sol) and domain (full game vs. sprite atlas). The difference
+    worth noting for the guide: in pedalican the notebook is an emergent
+    output of the skill, whereas here it is an explicit prompt directive
+    with a commit-coupling requirement, which is the more reproducible form.
   - `blog-simonwillison-claude-fable-5.md` (Claim 9, Fable 5 producing
     publishable-quality API design/tests/code/docs in a single session):
     this source extends that claim from library code to a full creative,
@@ -174,6 +166,21 @@ Audio:                 procedurally generated via WebAudio
     browser testing, deployment), reinforcing that Fable 5's single-session
     end-to-end capability is not limited to conventional software
     engineering tasks.
+
+- **Related but NOT corroborating** (recorded explicitly to prevent a future
+  synthesis from over-reading it):
+  - `failure-htdt-godogen-game-generation.md` does **not** contain an author
+    claim that AI-generated games disappoint on gameplay. Its Root Cause
+    section names three *engineering* bottlenecks (GDScript training-data
+    scarcity, build-time vs. runtime state confusion, agent self-bias in
+    evaluation), and its eight numbered Lessons are all engineering/pipeline
+    lessons. The only gameplay-quality material in that note is in Source
+    Context → Community response, which records HN commenters' skepticism
+    about "output polish and gameplay depth" — third-party commenters, not
+    the author's finding. Claim 9 here therefore stands on Willison's own
+    repeated experience alone; it is **not** a second independent source
+    replicating a Godogen conclusion, because Godogen makes no such
+    conclusion.
 
 - **Contradicts**: None identified against an existing source note. Claim 4's
   "self-administered screenshot QA caught a real bug" is a nuance against,
@@ -230,11 +237,18 @@ Audio:                 procedurally generated via WebAudio
   but keep an independent evaluator for launch-quality visual QA.
 
 - **Chapter on AI-generated game/creative-application quality**: Add Claim 9
-  as a second independent data point (after Godogen) that autonomous,
-  well-tooled agentic builds now reliably clear the "does it technically
+  as the corpus's first substantive data point on this specific question:
+  autonomous, well-tooled agentic builds now clear the "does it technically
   work" bar for small interactive applications, but game/product design
   judgment remains the bottleneck and was not supplied even under an
-  explicit full-autonomy directive.
+  explicit full-autonomy directive. Attribute it carefully — this is one
+  practitioner generalizing across his own repeated attempts ("I've vibe
+  coded up quite a few games now"), not a replication across practitioners,
+  and Willison scopes the limitation to himself as well as the model. Do
+  **not** cite `failure-htdt-godogen-game-generation.md` as corroboration
+  here; that note's author makes engineering claims, not gameplay-quality
+  claims (see Cross-References → "Related but NOT corroborating"). If the
+  chapter wants a second data point, it needs a genuinely new source.
 
 ## Extraction Notes
 
@@ -257,6 +271,19 @@ Audio:                 procedurally generated via WebAudio
 - Three separate (near-duplicate) Prospector triage comments were present on
   the source issue, apparently from repeated triage runs; all three agreed
   on high novelty and blog-post type, so no ambiguity in triage guidance.
+- **Post-review correction (2026-08-12)**: the first draft of this note
+  attributed the "vibe coded games consistently disappoint from a gameplay
+  perspective" framing to `failure-htdt-godogen-game-generation.md` (at a
+  non-existent "Lesson 9") and treated Claim 9 as independent replication of
+  it. That was wrong twice over: the phrasing is Willison's own, in *this*
+  post's closing paragraph, and the Godogen note contains no author claim
+  about gameplay quality at all. Both the Cross-References and Guide Impact
+  entries were rewritten, and the actual Willison sentence was re-fetched
+  and added to Claim 9's Quote field where it belonged in the first place.
+  The `blog-simonwillison-pedalican-sprite-pipeline.md` corroboration was
+  also re-pointed from "Claim 8" (which is about `hatch-pet`-to-`imagegen`
+  skill delegation) to that note's Source Context, where the 1701-line
+  notebook is actually described.
 - No contradiction with an existing source note was found; the one nuance
   worth flagging (Claim 4 vs. Godogen's self-bias warning) is a boundary
   case explained inline, not a genuine conflict, so no contradiction issue
