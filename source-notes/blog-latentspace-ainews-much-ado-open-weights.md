@@ -96,7 +96,7 @@ issue: "#2645"
 - **Evidence**: Digest paraphrase listing named distribution partners.
 - **Confidence**: settled (a list of named, checkable distribution partners) for the factual list; anecdotal for the "supply-chain events" framing (digest's own interpretive claim)
 - **Quote**: "Distribution was immediate and broad: K3 was available day 0 via vLLM @vllm_project, Baseten @baseten, Modal @modal, Fireworks @Kimi_Moonshot, Nebius @Kimi_Moonshot, Together @Kimi_Moonshot, DigitalOcean @Kimi_Moonshot, Cursor @cursor_ai, Cognition/Devin @cognition, Ollama Cloud @ollama, and Dell Enterprise Hub @jeffboudier. That breadth underscores that open-weight frontier launches are now supply-chain events, not just research announcements."
-- **Our assessment**: This extends `blog-simonwillison-inkling-open-weights.md` Claim 12's inference-partner list (Together AI, Fireworks, Modal, Databricks, Baseten) and `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 7's Red Hat AI addition — this source gives the corpus's broadest single-model day-0 partner list yet (11 named partners spanning inference hosts, IDEs, and enterprise hardware vendors), a useful concrete illustration of how fast third-party serving infrastructure now mobilizes around a major open-weight release.
+- **Our assessment**: This extends `blog-simonwillison-inkling-open-weights.md` Claim 12's inference-partner list (Together AI, Fireworks, Modal, Databricks, Baseten) and the broader open-weight inference-partner ecosystem documented in `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 7 — noting that Claim 7's Red Hat AI/DGX B200 item is about serving Thinking Machines' Inkling, a different model, not Kimi K3; K3's own day-0 partner list in this source does not include Red Hat AI. This source gives the corpus's broadest single-model day-0 partner list yet (11 named partners spanning inference hosts, IDEs, and enterprise hardware vendors), a useful concrete illustration of how fast third-party serving infrastructure now mobilizes around a major open-weight release.
 
 ### Claim 6: NVIDIA formally launched the "Open Secure AI Alliance," with Jensen Huang framing its core thesis as: attackers already have strong AI, so defenders need an ecosystem spanning open and closed frontier models plus shared tooling — a claim anchored on the assertion that during the OpenAI/Hugging Face incident, a frontier open-weight model helped contain the intrusion while a closed model blocked essential forensics
 - **Evidence**: Digest paraphrase of NVIDIA's announcement, attributed to `@JensenHuang` and `@nvidia`, with the incident claim echoed by `@AndrewYNg` and `@ZixuanLi_`; confirmed alliance participants included Hugging Face, LangChain, Nous Research, with support voiced by UnslothAI and `@Yuchenj_UW`.
@@ -303,10 +303,12 @@ top-to-bottom in document order as they appear in each cited note.
 
 - **Extends**:
   - `blog-simonwillison-inkling-open-weights.md` Claim 12 and
-    `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 7 (inference
-    partner lists for open-weight models): Claim 5 here gives the corpus's
-    broadest single-model day-0 distribution partner list (11 named
-    partners).
+    `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 7 (the broader
+    open-weight inference-partner ecosystem — note that Claim 7's Red Hat
+    AI/DGX B200 item concerns Thinking Machines' Inkling, a different
+    model, and is not a Kimi K3 distribution partner): Claim 5 here gives
+    the corpus's broadest single-model day-0 distribution partner list
+    (11 named partners).
   - `blog-thoughtworks-gall-kimi-k3-multi-model-era.md` Claim 3
     (self-hosting K3 requires "operating a supercomputer node") and
     `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 7 (4xH100/RoCE,
