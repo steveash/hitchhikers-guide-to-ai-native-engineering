@@ -469,16 +469,57 @@ agent. This becomes visible only when:
 
 ### Mitigating comprehension debt
 
-**1. Use TDD to force understanding before generation.**
+**1. Write the test first — yourself.**
 Writing the test first means you must understand the expected behavior
-before the agent writes any implementation code. NetPace's TDD-first
-workflow is the strongest structural mitigation in our profiled repos.
+before the agent writes any implementation code. NetPace's CLAUDE.md
+makes this mandatory:
 [source: practitioner-frankray78-netpace] [anecdotal]
 
 ```markdown
 TDD (Test-Driven Development) is non-negotiable. Every line of
 production code must be written in response to a failing test.
 ```
+
+**Debated: does TDD *inside the agent loop* buy anything?**
+
+Böckeler's exploratory eval at Thoughtworks ran five batches of matched
+greenfield Python tasks, half built under a fully agent-internal TDD
+workflow and half without, and had an Opus 4.8 judge — blind to which
+workflow produced each solution — rank them:
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 1] [emerging]
+
+> TLDR; Based on Opus's judgment of the quality of the outcomes, there was
+> no clearly discernable difference based on TDD workflow versus no TDD
+> workflow. On the contrary, more than once Opus ranked the non-TDD
+> workflow solutions slightly higher in design and test quality. There was
+> also no meaningful difference in mutation scores across the solutions.
+
+Her proposed mechanism: the non-TDD runs front-loaded a full design
+(architecture, data types, edge cases, contracts) before writing anything,
+while the TDD runs let the design emerge from many locally-minimal
+decisions that were rarely revisited — and behaviour the agent never
+thought to test never got implemented at all.
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 3] [emerging]
+Agent-internal TDD also cost 2.96x-8.5x the tokens depending on task size,
+though the author flags that figure as a rough proxy inflated by cheap
+cache reads.
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 9] [emerging]
+She has stopped instructing her own agents to do it.
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 10] [anecdotal]
+
+**Our take** [editorial]: The two sides are not measuring the same thing.
+Böckeler's experiment covers only the fully autonomous mode — agent writes
+the failing test, agent writes the implementation, no human checkpoint in
+between — and explicitly does not evaluate the mode where the human writes
+the tests.
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Source Context] [emerging]
+That distinction is the whole comprehension argument: the understanding
+comes from *you* specifying the expected behavior, not from the ceremony
+happening somewhere in the transcript. Keep test-first as your own
+discipline. Stop paying several times the tokens to make the agent perform
+it unsupervised, and check the resulting suite by outcome instead — see
+"Mutation testing: check that the suite would notice" under Known
+Verification Failure Modes.
 
 **2. Use the agent for inquiry, not just delegation.**
 Ask "explain this function" and "what edge cases does this miss?"
@@ -749,6 +790,88 @@ risky paths rather than a mock, and that a deliberately broken build turns red. 
 green suite that cannot fail is worse than no suite, because it manufactures false
 confidence.
 [source: blog-fowler-malykhin-archaeologist-copilot, Claims 3, 8] [anecdotal]
+
+### Mutation testing: check that the suite would notice
+
+"Can it fail at all" (above) is the coarse version of the question. The
+finer one — would this suite go red for the *right* reason — is exactly
+what the red-green cycle stops answering once the agent runs both halves
+of it:
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 6] [emerging]
+
+> Watching a test go red is only proof of anything if someone is checking
+> why it went red. When the agent both writes the test and confirms it
+> failed, a red test tells you the agent ran it and saw failure, not that
+> the failure was for the right reason.
+
+Böckeler's substitute for the ceremony is to measure the outcome: "I
+monitor and improve regression quality with the help of mutation testing,
+instead of giving elaborate TDD instructions and hoping for the best."
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 11] [emerging]
+
+#### Example: mutation testing that found two holes in the tests
+
+Willison's `condense-json` 1.1 shipped a Hypothesis property-test suite,
+then validated the *strategies* by planting three named bug classes and
+confirming the suite caught all three. That pass also turned up two real
+weaknesses in the tests themselves:
+[source: blog-simonwillison-condense-json-1-1, Claim 10] [settled]
+
+> The strategies were validated by mutation testing - three planted bugs
+> (equality-semantics, dropped escaping, raw-instead-of-processed patches)
+> are all caught. That process exposed and fixed two real weaknesses: a
+> confusables generator now draws True/False/0/1/0.0/1.0 frequently, and
+> assertions compare canonical JSON alongside ==, because True == 1 makes
+> bool/int corruption invisible to == alone.
+
+The resulting assertion helper is four lines, and it closes a hole no
+green run would ever have reported — a bug swapping a boolean for an
+integer passes a plain `==` check:
+
+```python
+def assert_equivalent(a, b) -> None:
+    """Equality that Python == cannot fake.
+
+    == alone would let a bool/int swap slip through (True == 1), so
+    also compare canonical JSON forms, where they serialize differently.
+    """
+    assert a == b
+    assert json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
+```
+
+*Shipped in `tests/test_properties.py`.
+See [source: blog-simonwillison-condense-json-1-1, Concrete Artifacts]
+for the generator strategies it pairs with.*
+
+**Rule**: Before trusting an agent-written suite, plant a bug you know it
+should catch and confirm it goes red. Enforce the outcome you want (the
+suite notices breakage) rather than the process you hope produces it (the
+agent performed red-green).
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 11;
+blog-simonwillison-condense-json-1-1, Claim 10] [emerging]
+
+### The author who never read the diff ("meat proxy")
+
+Niklas Gruhn names the general failure — relaying a model's output to
+another human unread and unvalidated — then points it at code review,
+where it is now the path of least resistance: paste the ticket into Claude
+Code, don't read the generated code, paste the reviewer's feedback back
+in, iterate.
+[source: blog-simonwillison-gruhn-meat-proxy, Claim 5] [anecdotal]
+
+> That works. But who has done the implementation? The reviewers did, using
+> Claude Code, and you as a meat proxy.
+
+CI stays green and the PR merges, but the reviewer is the only person who
+ever read the code — the entire verification load moved to them, silently.
+The checkable signature is a relayed artifact with no synthesis: a PR
+comment or Slack reply that is "[Model] said:" followed by unedited output.
+[source: blog-simonwillison-gruhn-meat-proxy, Claim 2] [anecdotal]
+
+**Rule**: Make the PR author restate, in their own words, what the diff
+does and why — Gruhn's "certificate" that they read, understood, and
+validated it. If they can't, the review hasn't started.
+[source: blog-simonwillison-gruhn-meat-proxy, Claim 4] [anecdotal]
 
 ### Shell execution attack surface
 
@@ -1073,8 +1196,11 @@ blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
+blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
+blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
+blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
 discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
@@ -1092,4 +1218,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-07-18*
+*Last updated: 2026-08-13*

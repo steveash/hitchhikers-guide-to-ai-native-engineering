@@ -485,6 +485,11 @@ Supabase achieves the same effect through structural parallelism — the
 Docker requirements table appears 4 times across 4 files.
 [source: practitioner-supabase-supabase-js]
 
+NetPace's rule is the example here because of *how* it is repeated, not
+because agent-enforced TDD is settled practice — measured evidence against
+running TDD inside the agent loop is covered in Chapter 03.
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 1] [emerging]
+
 **The technique**: Place your cardinal rule at the top, in the relevant
 section, and at the bottom. Three placements. The agent encounters it
 regardless of where it starts reading.
@@ -1548,6 +1553,7 @@ blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
+blog-fowler-boeckeler-tdd-in-the-agent-loop (Claim 1),
 blog-langchain-harness-memory (Claims 2, 3, 4),
 blog-simonwillison-codex-base-instructions (Claim 6),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
@@ -1566,4 +1572,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-08-13*

@@ -256,6 +256,14 @@ the failing test first, which means you must understand the expected
 behavior before the agent writes any implementation code.
 [source: practitioner-frankray78-netpace] [anecdotal]
 
+That structural effect depends on *you* writing the test. A blind-judged
+Thoughtworks eval of TDD run entirely inside the agent loop — agent writes
+the failing test, agent writes the implementation, no human checkpoint —
+found no quality advantage over skipping TDD, at several times the token
+cost.
+[source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claims 1, 9] [emerging]
+Chapter 03 carries the full debate.
+
 ### The rule
 
 **Before you approve AI-generated code, answer two questions**: (1) What
@@ -281,6 +289,7 @@ you understand, not to help you avoid understanding.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 10; Linked Sources 1, 2, 4, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 13),
+blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 9),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
 practitioner-frankray78-netpace,
@@ -288,4 +297,4 @@ practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-05-10*
+*Last updated: 2026-08-13*
