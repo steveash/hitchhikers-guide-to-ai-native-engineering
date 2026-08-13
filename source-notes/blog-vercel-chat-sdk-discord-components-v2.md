@@ -78,10 +78,10 @@ issue: "#2675"
 - **Our assessment**: This is a safety-relevant default change for any Discord-integrated agent: previously, an `@everyone` or `@here` ping in a server could have triggered the bot to treat itself as addressed and respond, which in an agent context risks a bot firing off a response (and possibly taking action) any time someone pings the whole server, not just when actually addressed. Flipping the default to `false` narrows the bot's default responsiveness surface — a concrete, small-scale instance of the "narrow the agent's default trigger surface" pattern relevant to Ch06 (Security & Threat Model) for any chat-platform-triggered agent.
 
 ### Claim 7: The release also fixes mention-matching so the adapter no longer produces false-positive mention matches for similarly-named Discord users
-- **Evidence**: Listed as a bundled fix in the same release note, without further detail on the underlying matching logic or examples of the false-positive cases it previously produced.
-- **Confidence**: anecdotal (no direct quote could be located for this specific line item across three separate fetches of the source page; the two available characterizations were both AI-paraphrased summaries of the source, not verbatim source text — see Extraction Notes)
-- **Quote**: (no direct quote; see paraphrase in Our assessment — described only as "refined mention detection eliminating false matches with similar usernames" in a fetched summary, not confirmed verbatim against the raw page)
-- **Our assessment**: Minor bug-fix line item; included for completeness since MINER.md asks for concrete artifacts and fixes to be extracted, but this is the weakest-evidenced claim in the note and should not be treated as more than "a bug existed and was fixed" — no detail on scope or severity is available.
+- **Evidence**: A dedicated "Precise mention detection" line item in the same release note, with one worked example of the false-positive case (`@bot-dev`) it eliminates. No detail is given on the underlying matching logic or on how widespread the bug was.
+- **Confidence**: settled (first-party statement of the fixed behavior, with a concrete worked example of the false-positive case it eliminates)
+- **Quote**: "Mentions of similarly named users no longer trigger false matches. A message with `@bot-dev` no longer counts as a bot tag."
+- **Our assessment**: Minor bug-fix line item, but better-specified than a bare "fixed mention matching" note: the `@bot-dev` example shows the failure mode was prefix/substring collision between a bot's name and a similarly-named user, so a bot named `bot` would previously treat a message mentioning `@bot-dev` as addressed to itself. That is a (small) instance of the same over-triggering surface as Claim 6 — a chat-integrated agent acting on messages that were never directed at it — reached through sloppy name matching rather than through global pings.
 
 ## Concrete Artifacts
 
@@ -147,13 +147,17 @@ and sivchari for contributions to this release.
   first-party changelogs co-authored by Josh Singh, documenting adjacent but
   distinct parts of Vercel's agent/chat product surface (AI SDK 7's
   agent-execution and harness-wrapping primitives vs. Chat SDK's
-  platform-specific message-rendering adapters). That note's Cross-References
-  section notes Chat SDK is "part of the SDK family" per the Prospector's
-  triage comment on this issue; this changelog does not itself reference the
-  `ai` package, `HarnessAgent`, or any AI SDK 7 primitive, so the two
-  products should be treated in the guide as related-but-separate layers
-  (agent execution vs. chat-platform UI delivery) rather than assumed to
-  share implementation.
+  platform-specific message-rendering adapters). Note that
+  `blog-vercel-ai-sdk-7-release.md` does not mention Chat SDK anywhere in its
+  text (verified by search) — the framing of Chat SDK as "part of the SDK
+  family" comes from the Prospector's triage comment on issue #2675
+  ([comment](https://github.com/steveash/hitchhikers-guide-to-ai-native-engineering/issues/2675#issuecomment-5276827757)),
+  not from either source. This changelog likewise does not reference the `ai`
+  package, `HarnessAgent`, or any AI SDK 7 primitive. The link between the two
+  products is therefore editorial (shared vendor, shared co-author) rather
+  than documented by either source, and the guide should treat them as
+  related-but-separate layers — agent execution vs. chat-platform UI
+  delivery — rather than assume shared implementation.
 - **Novel**: This is the first source note in the corpus to document Chat
   SDK's adapter-level UI-rendering model specifically (component-based
   message composition, per-adapter content-format configuration, and a
@@ -191,16 +195,20 @@ and sivchari for contributions to this release.
    (7) is proportionate to the source's actual depth, per MINER.md's "if
    you only found 1-2, you probably didn't read deeply enough" guidance;
    this source genuinely does not support 15 substantive claims.
-2. The page was fetched three separate times with different targeted
-   prompts (general summary, verbatim-reproduction request, and a
-   quote-verification pass targeting specific claims) to cross-check
-   wording before treating any string as a verbatim quote. All quotes used
-   above appeared identically, inside quotation marks, across the fetches
-   that targeted them. The one exception is Claim 7 (mention-matching fix),
-   where no fetch produced a quoted source sentence — only paraphrased
-   summaries — so that claim is marked `anecdotal` with no `Quote` field
-   populated, per MINER.md §2a.5, rather than treating a paraphrase as a
-   quote.
+2. The page was fetched several times with different targeted prompts
+   (general summary, verbatim-reproduction request, and quote-verification
+   passes targeting specific claims) to cross-check wording before treating
+   any string as a verbatim quote. All quotes used above appeared
+   identically across the fetches that targeted them. Claim 7
+   (mention-matching fix) was initially graded `anecdotal` with no `Quote`
+   because early summary-oriented fetches returned only paraphrase for that
+   line item; a later verbatim-reproduction fetch surfaced the source's own
+   sentence ("Mentions of similarly named users no longer trigger false
+   matches. A message with `@bot-dev` no longer counts as a bot tag."), so
+   the claim was re-graded `settled` and the quote populated. The lesson for
+   future extractions: a summarizing fetch returning paraphrase for a line
+   item is not evidence that no quotable text exists — request verbatim
+   reproduction before downgrading a claim's confidence.
 3. No sub-pages were followed. The changelog links to Chat SDK's Discord
    adapter documentation and adapter directory (see Concrete Artifacts), but
    these are reference/index pages rather than substantive prose describing
