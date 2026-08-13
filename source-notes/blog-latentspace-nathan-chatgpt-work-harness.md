@@ -140,7 +140,7 @@ issue: "#2674"
 - **Confidence**: anecdotal (a personal management philosophy/heuristic from one engineering leader, not a measured or externally validated framework — no data is given on how "quality at-bats" is operationalized, scored, or tracked in practice)
 - **Quote**: "I think for me, what's important is like at-bats. Are we as a team building the muscle to have not just quantity of at-bats, but quality? Like, are we able to go all the way from, like, generating an idea, building it out, getting the feedback, reacting to that feedback, validating or invalidating the hypothesis, going on to the next idea? Are we able to do that really efficiently?"
 - **Quote (motion vs. progress)**: "I think maybe the trap is like conflating motion and progress. I think motion is much easier now than ever before because of the tooling that we have. But progress requires you to be like very prescriptive and deliberate about like what you're trying to achieve."
-- **Our assessment**: This "motion vs. progress" framing is a sharp, quotable heuristic and is corroborated in spirit by `blog-latentspace-ainews-harness-drift-quantization.md`, which the Prospector's own triage comment cites as containing the same 10M-user growth figures — but that note does not itself contain a "motion vs. progress" framing; this appears to be genuinely novel vocabulary in the corpus for the specific problem of proxy metrics (code commits, lines of code, story points, tokens used, pull requests) losing correlation with real team outcomes once AI increases raw output volume. Nathan explicitly names this proxy-metric breakdown: "the number of tokens you use or the number of pull requests you make are, like, no longer, like, maybe as hypercorrelated with that, is your team able to hit the goal."
+- **Our assessment**: This "motion vs. progress" framing is a sharp, quotable heuristic. `blog-latentspace-ainews-harness-drift-quantization.md`, which the Prospector's triage comment flagged as the nearest corpus neighbour for this interview's user-growth framing, does not itself contain a "motion vs. progress" framing (nor, on re-reading, a 10M figure — see Cross-References); this appears to be genuinely novel vocabulary in the corpus for the specific problem of proxy metrics (code commits, lines of code, story points, tokens used, pull requests) losing correlation with real team outcomes once AI increases raw output volume. Nathan explicitly names this proxy-metric breakdown: "the number of tokens you use or the number of pull requests you make are, like, no longer, like, maybe as hypercorrelated with that, is your team able to hit the goal."
 
 ### Claim 13: There are roughly 100x more people who use software/code-produced tools than people who can write code themselves, and this non-coding "knowledge worker" population is OpenAI's stated next-stage market after developers, with the eventual goal of extending the same agent capability to "everyone"
 - **Evidence**: The article's own framing statement (in the Latent Space introduction, not Nathan's spoken words) plus Nathan's own sequencing framing of developers → knowledge workers → everyone.
@@ -174,9 +174,13 @@ unless noted):
     multiple underlying configuration axes) (Claim 4)
 
 Milestones and figures mentioned:
-  - "10 million" combined ChatGPT Work + Codex users (headline framing,
-    corroborates blog-latentspace-ainews-codex-claude-code-growth.md
-    and blog-latentspace-ainews-harness-drift-quantization.md)
+  - "10 million" combined ChatGPT Work + Codex users (headline framing;
+    the article intro attributes it to a Tibo tweet dated July 21, 2026.
+    This is a LATER point on the trajectory documented in
+    blog-latentspace-ainews-codex-claude-code-growth.md (7M, July 13) and
+    blog-latentspace-ainews-harness-drift-quantization.md (a further ~1M
+    in ~a day, July 14, with no precise total asserted) — a consistent
+    continuation, not the same milestone those two notes record)
   - "O(5 billion) knowledge workers vs O(50 million) developers" —
     unsourced order-of-magnitude framing (article footer pull-quote)
   - Knowledge workers ~20% of Codex user base, growing 3x faster than
@@ -210,19 +214,29 @@ top-to-bottom in document order as they appear in each cited note.
     intro framing, not Nathan's spoken words) and supplies the
     "developers → knowledge workers → everyone" staged strategy this
     growth pattern sits inside.
-  - `blog-latentspace-ainews-codex-claude-code-growth.md` and
-    `blog-latentspace-ainews-harness-drift-quantization.md` — both
-    document the same ~10-million-combined-user milestone from a
-    different genre of source (aggregated tweet digests vs. this
-    first-person interview); this note adds no new number here but
-    corroborates the same figure from OpenAI's own product lead directly.
-  - `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` Claims 1-3
-    (OpenClaw's competitive token share, automatic skill creation, and
-    persistent memory-file architecture) — this source's Claim 6
-    corroborates that OpenClaw is a real, influential personal-agent
-    product (rather than a minor competitor) by having OpenAI's own
-    product lead cite it as direct design inspiration for a
-    headline-feature of a major shipped product.
+  - `blog-latentspace-ainews-codex-claude-code-growth.md` Claims 1-2 and
+    `blog-latentspace-ainews-harness-drift-quantization.md` — these
+    document the *earlier points on the same growth trajectory*, not the
+    same figure. The former tops out at 7 million combined Codex +
+    ChatGPT Work users on July 13, 2026; the latter reports a further
+    ~1M added in roughly a day (July 14) but explicitly cautions that it
+    "should be cited only for the *rate*... not as establishing a new
+    precise total." This interview's 10M figure (announced July 21, per
+    the article intro's embedded Tibo tweet) is a *later* milestone
+    consistent with that trajectory — cite the three together as a
+    continuous growth curve (7M → ~8M → 10M across July 13-21), not as
+    three sources confirming one number.
+  - `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` Claim 1 (Hermes
+    Agent overtaking OpenClaw in daily token consumption on the
+    OpenRouter leaderboard) — this source's Claim 6 corroborates that
+    OpenClaw is a real, influential personal-agent product (rather than a
+    minor competitor) by having OpenAI's own product lead cite it as
+    direct design inspiration for a headline feature of a major shipped
+    product. Note that the cited note's Claims 2-3 (automatic skill
+    creation, persistent memory-file architecture) describe **Hermes
+    Agent's** architecture, not OpenClaw's; OpenClaw appears in that note
+    only as the leaderboard incumbent Hermes overtook and as the larger
+    community skill library Hermes is compared against.
 - **Contradicts**: None identified. No claim in this source was found to
   oppose an existing corpus source note on the same specific question;
   per MINER.md §4a, no contradiction issue was filed.
@@ -343,8 +357,18 @@ top-to-bottom in document order as they appear in each cited note.
   Claims 1, 9, 10; `blog-openai-codex-knowledge-work.md` Claim 2;
   `blog-latentspace-ainews-codex-claude-code-growth.md` Claims 1-2;
   `blog-latentspace-ainews-harness-drift-quantization.md`; and
-  `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` Claims 1-3 were
+  `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` Claim 1 were
   each re-read in full before citing; no claim numbers were guessed.
+  Corrected after Assayer review: an earlier draft of this note cited
+  `blog-thebatch-hermes-openclaw-tml-cybersecurity.md` "Claims 1-3" as
+  documenting OpenClaw's skill creation and memory architecture — those
+  two claims are about Hermes Agent, not OpenClaw, so the citation is now
+  scoped to Claim 1 only. The same draft described
+  `blog-latentspace-ainews-codex-claude-code-growth.md` and
+  `blog-latentspace-ainews-harness-drift-quantization.md` as documenting
+  "the same" 10M milestone; they report 7M (July 13) and an unquantified
+  +~1M rate (July 14) respectively, so both citations are now framed as a
+  growth trajectory this interview's July 21 10M figure continues.
 - No contradiction with any existing source note was found during
   cross-referencing, so no contradiction issue was filed per MINER.md
   §4a.
