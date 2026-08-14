@@ -35,7 +35,8 @@ issue: "#2688"
 - **Scope**: Covers one specific capability change in Claude Tag: replacing a
   per-message binary classifier with channel-context-aware reasoning across four
   response modes, the rubric used to grade those decisions, the "goes to sleep"
-  low-engagement behavior, per-channel plain-language steering, faster initial
+  low-engagement behavior, per-channel plain-language steering, a
+  member-flippable "Respond automatically" UI toggle, faster initial
   acknowledgment latency, and general availability/cost terms. Does NOT cover:
   the underlying model or architecture behind the new reasoning (no model name
   given), agent identity/credentials (see `blog-anthropic-agent-identity-access-model.md`),
@@ -136,9 +137,34 @@ issue: "#2688"
   of Claude Tag's standing-instruction configuration (see Cross-References);
   this post is the first source to give concrete example phrasing for what
   that steering looks like in practice, rather than describing it only as an
-  admin-configured "standing instructions" component.
+  admin-configured "standing instructions" component. Note that this
+  plain-language steering is a *separate* mechanism from the hard on/off UI
+  control documented in Claim 7 — the post presents them as two distinct
+  options in consecutive sentences.
 
-### Claim 7: Claude's proactive judgment operates within the permissions, tools, and scope already configured for it — the new context-awareness does not expand what Claude is authorized to act on
+### Claim 7: Proactive responding can also be turned off outright per channel via a "Respond automatically" toggle, and any channel member — not only an admin — can flip it
+- **Evidence**: Direct description of a UI control in the "How Claude decides
+  when not to speak" section, stated as the sentence immediately following the
+  plain-language steering examples (Claim 6). The phrase "any member can switch
+  'Respond automatically' off" is hyperlinked in the post to
+  `https://claude.com/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off`.
+- **Confidence**: settled (specific first-party description of a shipped,
+  named UI control, with its permission level stated explicitly)
+- **Quote**: "And if you'd rather Claude only spoke in a channel when someone tags it, any member can switch ‘Respond automatically’ off."
+- **Our assessment**: Two details make this worth extracting separately from
+  Claim 6 rather than folding into it. First, this is a deterministic on/off
+  control, not a natural-language instruction: "Never respond here unless
+  someone tags you" (Claim 6) is an instruction the model interprets, whereas
+  "Respond automatically" off is a hard switch — the two produce nominally
+  similar behavior by materially different means, and only the latter is
+  guaranteed rather than steered. Second, the post specifies that *any member*
+  can flip it, which is an unusually permissive default for a channel-wide
+  agent setting: it means proactive behavior can be disabled by any
+  participant who finds it noisy, without an admin in the loop. For teams
+  piloting a proactive agent, this is the concrete, low-effort escape hatch —
+  worth naming explicitly in adoption guidance alongside the softer steering.
+
+### Claim 8: Claude's proactive judgment operates within the permissions, tools, and scope already configured for it — the new context-awareness does not expand what Claude is authorized to act on
 - **Evidence**: Direct scoping statement immediately following the four-mode
   description.
 - **Confidence**: settled (specific first-party architectural boundary
@@ -153,7 +179,7 @@ issue: "#2688"
   — the proactivity engine described here operates inside that existing
   permission boundary rather than superseding or bypassing it.
 
-### Claim 8: The added channel context also produces a faster initial acknowledgment — Claude responds in seconds rather than leaving a silent startup delay before the user can tell it registered the message
+### Claim 9: The added channel context also produces a faster initial acknowledgment — Claude responds in seconds rather than leaving a silent startup delay before the user can tell it registered the message
 - **Evidence**: Direct description in the "The first reply is faster" section,
   distinguishing acknowledgment latency from total task completion time.
 - **Confidence**: settled (specific first-party description of a shipped
@@ -168,12 +194,17 @@ issue: "#2688"
   only the former via the same contextual-reasoning change described in Claims
   2–3, not through any separate latency optimization.
 
-### Claim 9: The update is live today across Claude Tag for Claude Teams and Enterprise customers, and the additional context Claude Tag holds does not count toward usage or spend limits on any plan
-- **Evidence**: Direct availability and pricing statement in the "Live today"
-  section.
+### Claim 10: The update is live today across Claude Tag for Claude Teams and Enterprise customers, and the additional context Claude Tag holds does not count toward usage or spend limits on any plan
+- **Evidence**: Two statements from two different parts of the post, kept
+  together here because they jointly define the availability-and-cost terms.
+  The availability sentence is in the "Live today" section. The cost sentences
+  are in the post's opening/lead section, before the "From passive responder to
+  active participant" heading, where they immediately follow the ~30% figure
+  (Claim 1) — the post states the cost terms up front, not in "Live today."
 - **Confidence**: settled (specific first-party availability and billing
   statement)
-- **Quote**: "This update is now available across Claude Tag, available for Claude Teams and Enterprise customers." / "While holding more context does increase Claude Tag's usage, the additional context Claude Tag holds does not count toward usage or spend limits on any plan."
+- **Quote** (availability, "Live today" section): "This update is now available across Claude Tag, available for Claude Teams and Enterprise customers."
+- **Quote** (cost, opening section): "This update comes at no additional cost today. While holding more context does increase Claude Tag's usage, the additional context Claude Tag holds does not count toward usage or spend limits on any plan."
 - **Our assessment**: The billing statement is notable because it explicitly
   acknowledges the tradeoff (holding more context "does increase Claude Tag's
   usage") while committing that this specific increase is excluded from
@@ -222,6 +253,15 @@ instantly."
 PER-CHANNEL STEERING (example phrasing): "Never respond here unless
 someone tags you," or "Feel free to jump in on anything about the deploy
 pipeline."
+
+HARD OFF SWITCH (distinct from the plain-language steering above, and
+stated in the very next sentence): "And if you'd rather Claude only spoke
+in a channel when someone tags it, any member can switch ‘Respond
+automatically’ off."
+  - control name: "Respond automatically"
+  - who can change it: "any member" (not admin-restricted)
+  - docs link target in the post:
+    claude.com/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off
 ```
 
 ## Cross-References
@@ -267,7 +307,7 @@ pipeline."
     credentials* Claude Tag acts under in a shared channel; this post
     documents a separate but related judgment layer — *whether Claude should
     act at all* in that shared channel, and in what form (Claim 3 here).
-    Claim 7 here ("acts within the boundaries of the permissions, tools, and
+    Claim 8 here ("acts within the boundaries of the permissions, tools, and
     scope you have configured") explicitly anchors the new proactivity
     judgment to the identity/permission model that note describes — the two
     posts describe complementary layers: identity/access defines what Claude
@@ -327,9 +367,13 @@ pipeline."
   the per-channel plain-language steering examples (Claim 6) as concrete,
   copy-pasteable configuration guidance for teams onboarding Claude Tag into
   a channel ("Never respond here unless someone tags you" / topic-scoped
-  opt-in phrasing).
+  opt-in phrasing), and pair them with the hard "Respond automatically"
+  off switch (Claim 7) as the deterministic fallback — guidance should
+  distinguish the two, since only the toggle is a guaranteed off rather than
+  a steered one, and note that any channel member can flip it without an
+  admin.
 
-- **Cost Management**: Note the specific billing carve-out (Claim 9) — the
+- **Cost Management**: Note the specific billing carve-out (Claim 10) — the
   additional channel context Claude Tag now holds for this judgment does not
   count toward usage or spend limits on any plan — as a detail relevant to
   any cost-modeling guidance for Claude Tag deployments, alongside the
@@ -338,26 +382,30 @@ pipeline."
 
 ## Extraction Notes
 
-- **WebFetch limitation and method**: WebFetch returned an AI-generated
-  summary rather than verbatim text on the first fetch. All `Quote` fields
-  in this note were obtained via two follow-up WebFetch calls with
-  progressively more targeted, section-by-section prompts requesting exact
-  verbatim sentences; quotes that were returned identically (word-for-word)
-  across both the general-summary pass and the targeted verbatim pass are
-  treated as reliable. This mirrors the fetch methodology already used for
-  the two prior Claude Tag source notes in this corpus. Assayers should
-  spot-check quotes against the live URL.
-- **Full source read**: The post is a short (four-section) product update.
-  All four sections ("From passive responder to active participant," "How
-  Claude decides when not to speak," "The first reply is faster," "Live
-  today") were fetched and extracted; no sub-pages were linked from the post
-  that required following.
-- **Claim count**: Nine claims were extracted, on the lower end of MINER.md's
-  5–15 guidance. This reflects the source's actual length and scope (a short,
-  single-feature product update) rather than shallow reading — every
-  distinct factual assertion in the post's four sections is represented above,
-  including the scope-boundary statement (Claim 7) and the billing carve-out
-  (Claim 9) that a shallower pass would likely have skipped.
+- **Fetch method**: WebFetch returns an AI-generated summary rather than
+  verbatim text for this URL, so on the rework pass the page HTML was
+  retrieved directly and stripped to plain text, and every `Quote` field
+  above was checked character-for-character against that text. Quotes
+  normalize the source's curly apostrophes to straight ones except where a
+  quotation mark is part of the quoted control name ("Respond automatically").
+  Assayers should still spot-check against the live URL.
+- **Full source read**: The post is a short product update — an opening/lead
+  section plus four headed sections ("From passive responder to active
+  participant," "How Claude decides when not to speak," "The first reply is
+  faster," "Live today"), all of which were extracted. Note that the
+  ~30% figure (Claim 1) and the cost terms (Claim 10) are in the opening
+  section, before the first heading. The post contains one outbound
+  documentation link, on the "Respond automatically" toggle sentence
+  (Claim 7), pointing at
+  `claude.com/docs/claude-tag/users/when-claude-responds`; that docs page was
+  not fetched, so nothing in this note is sourced from it — the link target is
+  recorded only as evidence that the toggle is a documented product control.
+- **Claim count**: Ten claims were extracted, reflecting the source's actual
+  length and scope (a short, single-feature product update) rather than
+  shallow reading — every distinct factual assertion in the post's opening
+  and four sections is represented above, including the scope-boundary
+  statement (Claim 8) and the billing carve-out (Claim 10) that a shallower
+  pass would likely have skipped.
 - **Cross-references verified**: `blog-anthropic-human-agent-teams.md`,
   `blog-anthropic-agent-identity-access-model.md`,
   `blog-latentspace-aiewf-loops-debate-dispatch.md`, and
