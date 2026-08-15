@@ -765,6 +765,43 @@ on the cheaper one.
 [source: blog-anthropic-prompt-caching-everything, Claim 6;
 blog-cursor-continual-harness-improvement, Claims 10, 11] [emerging]
 
+### The cache key includes more than the model — and it expires on a clock
+
+Model choice is not the only setting that invalidates the prefix. Anthropic's
+own session-cost guidance puts reasoning effort in the same bucket: "Set your
+model and effort level before you start. Changing either one mid-conversation
+can bust your prompt cache, which can increase token cost."
+[source: blog-anthropic-maximizing-session-value, Claim 5] [settled]
+
+The cache also has a time-to-live, and it differs by twelve-fold depending on
+how you authenticate: "The cache expires after an hour on a subscription or
+five minutes on an API key." API-key users can restore the one-hour behavior
+with `ENABLE_PROMPT_CACHING_1H=1`.
+[source: blog-anthropic-maximizing-session-value, Claim 4] [settled]
+
+That TTL is what the standing advice depends on: "`/compact` before you take a
+break from your keyboard. The prompt cache expires after an hour, and
+summarizing a conversation is much cheaper while it's still cached."
+[source: blog-anthropic-maximizing-session-value, Concrete Artifacts] [settled]
+On a subscription that leaves an hour of slack; on a default API key it leaves
+five minutes, so an unextended API-key session that sits idle through a meeting
+has already paid for a cold rebuild before you sit back down. [editorial]
+
+The pricing that makes this arithmetic worth doing is now on the record
+first-party. "Reading from the cache costs 0.1x the input price, because the
+server loads the state instead of computing it," writing new tokens into the
+cache costs up to 2x normal input, and "output is priced at roughly 5x input."
+[source: blog-anthropic-maximizing-session-value, Claims 2, 3] [settled]
+That 0.1x cached-read figure is a first-party confirmation of the same
+multiplier already cited from Cowrie's measurements above — two independent
+sources on the same number. [editorial]
+
+**Rule**: Set model and effort level at session start and leave them alone. On
+an API key, set `ENABLE_PROMPT_CACHING_1H=1` so your cache TTL matches the
+one-hour subscription default; without it, treat five idle minutes as the point
+where the next turn pays a full cold rebuild.
+[source: blog-anthropic-maximizing-session-value, Claims 4, 5] [settled]
+
 ### Context rot — when wrong information accumulates
 
 Compaction loses information by summarizing. There is a distinct
@@ -911,6 +948,31 @@ practitioner-getsentry-sentry (cross-reference)] [emerging]
 slash command would do the same job. If yes, skip the server.
 [source: blog-bswen-mcp-token-cost, Claim 5] [editorial]
 
+### Command output is charged to every remaining turn
+
+Tool definitions are the fixed cost. Command output is the variable one, and it
+does not stay where you put it: "Everything that ends up in the conversation, a
+file Claude read or the output of a command it ran, gets sent again on every
+turn after it, for the rest of the session."
+[source: blog-anthropic-maximizing-session-value, Claim 6] [settled]
+
+Claude Code caps the worst case. Past 30,000 characters, "Claude Code writes the
+output to a file and only puts a short preview and the path in the
+conversation," with `BASH_MAX_OUTPUT_LENGTH` available to change the threshold.
+[source: blog-anthropic-maximizing-session-value, Claim 7] [settled]
+
+The cap does not solve the problem it looks like it solves. Anthropic's own
+worked example is a test runner that prints 400 passing tests one line at a
+time: it lands comfortably under the character limit, so nothing spills to a
+file, and all 400 lines are then part of every remaining turn in the session.
+[source: blog-anthropic-maximizing-session-value, Claim 7] [settled]
+
+**Rule**: Add quiet flags to noisy commands — reporters that print only
+failures, `--quiet`, `-q` — or run them in a subagent. Do not rely on the
+30,000-character spill threshold; verbose-but-small output is exactly the case
+it misses.
+[source: blog-anthropic-maximizing-session-value, Claims 6, 7] [settled]
+
 ### Protocol-level efficiency: tool search and programmatic tool calling
 
 Server-count pruning is the harness-side lever. The MCP protocol itself
@@ -1047,6 +1109,27 @@ search runs in a sub-agent and only the answer comes back.
 in later versions. The structural argument (sub-agents as context
 firewalls) is independent of which tool implements it best today.
 [source: blog-french-owen-coding-agents-feb-2026, Claim 6] [anecdotal]
+
+#### The firewall has a toll on the far side
+
+The isolation that keeps a sub-agent's exploration out of the parent context is
+the same isolation that makes the sub-agent start cold. A subagent "gets its own
+context window, with its own system prompt, the tools, and your `CLAUDE.md`, but
+not your conversation," and the consequence is that it "sometimes has to re-read
+things the main session already had, and it's paying for its own turns while it
+does."
+[source: blog-anthropic-maximizing-session-value, Claim 9] [settled]
+
+Anthropic's stated payoff condition is narrow and worth quoting exactly: "It pays
+off when a job produces a lot of output you don't need to keep, like going
+through a log."
+[source: blog-anthropic-maximizing-session-value, Claim 9] [settled]
+
+**Rule**: Delegate to a sub-agent when the task will generate output you want
+discarded, not merely when the task is separable. If the sub-agent would spend
+its first several turns re-reading files the parent already has in context, the
+firewall is costing you more than it saves.
+[source: blog-anthropic-maximizing-session-value, Claim 9] [settled]
 
 ---
 
@@ -1225,12 +1308,17 @@ Code sessions. Items are ordered by cost-to-implement, cheapest first.
 - [ ] Decide your manual handoff threshold (50-60% recommended)
 - [ ] Audit your CLAUDE.md for length: 100-300 lines is the
       target, 500 lines is the hard cap
+- [ ] Turn off servers you don't need for this session with /mcp
+      (session-scoped, cheaper than editing config)
+- [ ] /rename before you /clear if you'll want the session back later
+- [ ] On an API key, export ENABLE_PROMPT_CACHING_1H=1
 ```
 
 [source: blog-bswen-mcp-token-cost, Claims 4, 6, 7;
 blog-sankalp-claude-code-20, Claims 1, 3;
 failure-decker-4hr-session-loss, Recovery Path;
-blog-osmani-good-spec, Claim 1] [editorial]
+blog-osmani-good-spec, Claim 1;
+blog-anthropic-maximizing-session-value, Claims 4, 12] [editorial]
 
 This is the minimum viable context discipline. It will not eliminate
 compaction, but it will give you headroom, recovery, and a written
@@ -1263,6 +1351,7 @@ session.
 *Sources for this chapter:
 blog-anthropic-carta-healthcare-context-engineering (Claims 1, 2, 9),
 blog-anthropic-harnessing-claude-intelligence (Claims 7, 11),
+blog-anthropic-maximizing-session-value (Claims 2-7, 9, 12; Concrete Artifacts),
 blog-anthropic-mcp-production-agents (Claims 10, 11),
 blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
 blog-anthropic-session-management-1m-context (Claim 1),
@@ -1282,4 +1371,4 @@ practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
 blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-07-18*
+*Last updated: 2026-08-15*

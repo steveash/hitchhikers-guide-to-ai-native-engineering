@@ -1151,6 +1151,40 @@ Without those controls the number measures retrieval, not coding ability, and
 the gap widens with every model generation.
 [source: blog-cursor-reward-hacking-benchmarks, Claims 8, 9, 10] [emerging]
 
+### Run the eval on your own repositories, and read it per task
+
+The controls above tell you when to distrust a published number. The
+complementary move is to generate your own. JetBrains does exactly that: "We're
+a coding company, so we have a big evaluation pipeline: large eval sets on
+private repositories, including our monorepo."
+[source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claim 1] [settled]
+
+What makes their reported result usable is its shape, not its headline. The
+aggregate on a model swap was a Python pass rate moving from 28.2% to 44.3%; the
+task-level breakdown was that the new model "solved 18 Python tasks that Opus
+4.8 missed and lost only 2."
+[source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claims 2, 3] [emerging]
+
+An aggregate delta cannot distinguish "+16 points, two regressions" from "+30
+wins, 14 losses," and only the second should stop a rollout. The same eval
+surfaced a second axis a pass rate erases entirely — about 22% fewer steps to
+reach a solution, traced in part to a named behavior: "On Java tasks, Opus 4.8
+repeatedly tried to pull in outside resources that almost never help in our
+environment, while Claude Fable 5 skipped that entirely and worked with the code
+in front of it."
+[source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claim 4] [emerging]
+
+Those figures come from an undisclosed private suite published on the model
+vendor's own blog: no task count, no task composition, no independent
+reproduction. Copy the methodology; do not quote the percentages. [editorial]
+
+**Rule**: Build your eval from your own repositories, and report it as a
+task-level win/loss table plus a steps-to-solution figure rather than a single
+pass rate. The regression column and the efficiency column are the two things an
+aggregate delta hides, and they are the two that decide whether you ship the new
+model.
+[source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claims 1, 3, 4] [emerging]
+
 ## Vendor "Token Savings" Claims Are Marketing Until You A/B Them
 
 A tool's advertised efficiency percentage describes the tool author's best
@@ -1192,6 +1226,7 @@ pricing-tier level.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
+blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
@@ -1218,4 +1253,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-15*
