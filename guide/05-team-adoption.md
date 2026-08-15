@@ -1394,6 +1394,70 @@ recommend onboarding error-message copy revisions that measurably increased
 onboarding success the following week.
 [source: blog-anthropic-human-agent-teams, Claim 7] [emerging]
 
+### Decide when a channel-resident agent should speak
+
+A north star tells a proactive agent what to aim at. It does not tell the agent
+when to open its mouth in a shared channel, which is the decision teams actually
+complain about. Anthropic rebuilt exactly that layer in Claude Tag and published
+the before state: "Previously a lightweight classifier decided when Claude should
+act. It looked at each new message on its own and made one yes-or-no call."
+[source: blog-anthropic-claude-tag-context-awareness, Claim 2] [settled]
+
+The replacement is a choice among four named moves, each with a stated trigger:
+
+```
+Reply inline                        "when the answer is short, verifiable, and
+                                     something the channel doesn't already know"
+Start deeper work in a thread       "when a message deserves real time"
+Route the message to work in flight "when it adds to a workstream Claude
+                                     already has open"
+Say nothing                         "when nothing is called for"
+```
+[source: blog-anthropic-claude-tag-context-awareness, Claim 3] [settled]
+
+The third mode is the one a yes/no classifier cannot express at all: it requires
+the agent to track its own open workstreams per channel and match incoming
+messages against them. [editorial]
+
+The grading criteria are just as portable as the taxonomy. Decisions are graded
+"against a rubric based on principles like how useful the comment is, how
+confident Claude is in the response, and whether there is a person better suited
+to respond."
+[source: blog-anthropic-claude-tag-context-awareness, Claim 4] [settled]
+"Is there a person better suited" is a comparative-advantage test rather than a
+quality test, and it is the criterion most teams leave out when they write a
+proactivity prompt. [editorial]
+
+Two throttles ship with it. The agent stands down where it has repeatedly had
+nothing to offer: "In a channel where, message after message, Claude keeps
+concluding it has nothing to add, it goes to sleep. A @-mention wakes it
+instantly."
+[source: blog-anthropic-claude-tag-context-awareness, Claim 5] [settled]
+And teams get two controls that look similar but work differently — a
+plain-language instruction the model interprets ("Never respond here unless
+someone tags you," or "Feel free to jump in on anything about the deploy
+pipeline.") and a deterministic switch: "And if you'd rather Claude only spoke
+in a channel when someone tags it, any member can switch 'Respond
+automatically' off."
+[source: blog-anthropic-claude-tag-context-awareness, Claims 6, 7] [settled]
+
+Only the toggle is guaranteed rather than steered, and any channel member can
+flip it without an admin in the loop. That makes it the thing to name in the
+pilot announcement — before anyone decides the agent is noise and quietly stops
+reading the channel. [editorial]
+
+None of this widens what the agent may do: "It acts within the boundaries of the
+permissions, tools, and scope you have configured."
+[source: blog-anthropic-claude-tag-context-awareness, Claim 8] [settled]
+
+**Rule**: When you put an agent in a shared channel, specify its response
+decision as a choice among a small set of named actions — answer, escalate to a
+thread, fold into work already open, stay silent — rather than a
+respond/don't-respond judgment, and grade it on whether a human was better
+suited to answer, not only on whether the answer was good. Tell the channel
+where the hard off switch is on day one.
+[source: blog-anthropic-claude-tag-context-awareness, Claims 3, 4, 7] [settled]
+
 ### Expand autonomy in proportion to demonstrated reliability
 
 Anthropic's teams "grant agents autonomy in proportion to demonstrated
@@ -1566,6 +1630,7 @@ survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
 blog-anthropic-ai-native-engineering-org (Claims 1, 6, 7),
+blog-anthropic-claude-tag-context-awareness (Claims 2, 3, 4, 5, 6, 7, 8),
 blog-anthropic-human-agent-teams (Claims 3, 5, 7, 8, 9, 10, 11, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
@@ -1590,4 +1655,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-07-18*
+*Last updated: 2026-08-15*

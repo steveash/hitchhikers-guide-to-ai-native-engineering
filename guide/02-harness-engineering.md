@@ -730,6 +730,92 @@ instruction. At each model upgrade, audit the harness for components built to
 compensate for limitations the new model no longer has.
 [source: blog-anthropic-seeing-like-an-agent, Claims 4, 7, 12] [settled]
 
+### Separate "make a plan" from "attack the plan"
+
+Meta's Muse Code ships three built-in skills that split planning into two
+distinct steps rather than one: `/plan` "turns a task into an approval-gated
+plan", `/grill` "stress-tests that plan until it holds up", and `/goal` "works
+toward successful completion of the specified objective".
+[source: blog-simonwillison-muse-code-spark-12, Claim 7] [settled]
+
+The middle command is the novel one. Plan-then-execute is already the common
+shape (Ch04, §The four-phase loop); what a named `/grill` step adds is a
+verifier for the plan itself, running before any code exists, instead of asking
+the same context that produced the plan to also find its holes. [editorial]
+
+**Rule**: If your harness has a plan mode, add a second command whose only job
+is to attack the plan — enumerate what it assumes, what it does not cover, and
+where it would fail — and run it before you approve.
+[source: blog-simonwillison-muse-code-spark-12, Claim 7] [settled]
+
+---
+
+## Agent Output Ergonomics
+
+Every other section in this chapter shapes what goes *into* the agent. This one
+is about what comes back out to you. HumanLayer's Dex Horthy — who coined the
+term "context engineering" — packaged his answer as an installable skill,
+`show-me`, whose thesis is one line: "tl;dr make your agent converse visually
+instead of in walls of prose."
+[source: blog-humanlayer-show-me-skill, Claim 1] [emerging]
+
+The motivating problem is a claim about a trend, not a measurement: Horthy
+argues agent output has become more jargon-dense and less readable even as model
+capability rose. No comprehension study, transcript comparison, or token
+measurement accompanies it. Treat the symptom as the checkable part and the
+attributed cause as opinion.
+[source: blog-humanlayer-show-me-skill, Claim 2] [anecdotal]
+
+The reusable artifact is the format catalogue: eight representations, each
+scoped to a problem shape rather than offered as a universal default.
+
+```
+component trees      → frontend state hooks and module boundaries
+call stacks          → orchestration and control flow, backend-shaped problems
+diagrams (Mermaid)   → state and sequence, where the client renders inline
+file layouts         → scoping a refactor, locating code
+pseudocode           → algorithmic walkthroughs
+types and signatures → "The shape of the code before any of it exists"
+diff syntax          → incremental change, where most content is unchanged
+html mockups         → prototyping and interactive explainers
+```
+*Extracted from the `show-me` skill's "What's inside" catalogue.*
+[source: blog-humanlayer-show-me-skill, Claim 4; Concrete Artifacts] [anecdotal]
+
+Two entries do work beyond readability. Asking for types and signatures *before*
+implementation turns design review into something cheap enough to actually do:
+"You should be discussing the shape of the code (the types, the signatures, the
+call stacks) before agents get to work on writing it."
+[source: blog-humanlayer-show-me-skill, Claim 5] [anecdotal]
+The same formats applied afterward are a triage tool — "The same techniques can
+also be used to explore large diffs post-hoc to understand what to dig into
+during review."
+[source: blog-humanlayer-show-me-skill, Claim 6] [anecdotal]
+
+### The caution that travels with the recommendation
+
+`show-me` installs with `npx skills add humanlayer/skills --skill show-me` — a
+third-party skill registry, one command, no review step.
+[source: blog-humanlayer-show-me-skill, Claim 8] [settled]
+GitHub's own plugin documentation states what that install can carry: "Plugins
+can include hooks and MCP servers that run code on your machine. Review the
+plugin contents and publisher before installing, especially for plugins from
+community marketplaces."
+[source: docs-github-copilot-agent-plugins-1-0, Claim 10] [settled]
+Nubank's Lucas Palma names the scaled version of the problem: "At one of the
+world's largest digital banks, vetting thousands of AI skills before developers
+use them becomes a supply-chain security problem, not just a DX problem."
+[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claim 6] [anecdotal]
+
+**Rule**: Ask the agent for a structured representation — a call stack, a type
+sketch, a shallow file tree — rather than a prose summary, both before you
+approve a plan and when you are deciding what to read in a large diff. Read any
+third-party skill you install the way you would read an unfamiliar npm
+package's install script; the trust model on every registry documented here is
+"review before install," not sandboxed execution.
+[source: blog-humanlayer-show-me-skill, Claims 5, 6, 8;
+docs-github-copilot-agent-plugins-1-0, Claim 10] [anecdotal]
+
 ---
 
 ## The Harness Shrinks as the Model Grows
@@ -804,6 +890,47 @@ questions for it. The accumulated context is the part you cannot easily move to
 another tool — a harness whose memory behavior you cannot inspect is a
 portability liability.
 [source: blog-langchain-harness-memory, Concrete Artifacts] [emerging]
+
+### The other direction: harness behavior is moving into model training
+
+Cursor's audit moves logic between the harness and the agent at runtime. A
+second migration runs one layer below that: vendors training the model itself
+against harness-shaped trajectories. Meta describes Muse Spark 1.2's training as
+including "rejection sampled harness trajectories and recipe optimizations for
+goals, compaction, and subagents, alongside the integration of the Muse Code
+toolset to maximize harness compatibility."
+[source: blog-simonwillison-muse-code-spark-12, Claim 4] [emerging]
+The model and its terminal coding agent were not shipped as independent
+artifacts: "We co-trained Muse Spark 1.2 with Muse Code to ensure the model
+exhibits its best performance."
+[source: blog-simonwillison-muse-code-spark-12, Claim 1] [settled]
+
+Compaction and subagent delegation are, everywhere else in this guide,
+practitioner disciplines you engineer *around* a fixed model (Ch04). Naming them
+as explicit training targets makes the model/harness boundary a vendor design
+decision that can move between releases — which means a harness tuned against
+one vendor's compaction behavior is not portable evidence about another's.
+[editorial]
+
+The same release ships two harness-architecture patterns worth knowing by name.
+Background agents persist for the session rather than per task — "These
+specialized background agents remain active throughout each session, rather than
+being spawned for individual tasks, helping avoid redundant information
+gathering" — which is the opposite trade from the spawn-per-task sub-agent model
+in Ch04: continuity instead of isolation.
+[source: blog-simonwillison-muse-code-spark-12, Claim 5] [settled]
+And crash recovery is event-sourced: "Muse Code uses a local event log in which
+every model call, tool run, approval, and edit is appended. This single source
+of truth makes the runtime replay-exact and restart-safe."
+[source: blog-simonwillison-muse-code-spark-12, Claim 6] [settled]
+
+**Rule**: When you evaluate a new model, test the harness behaviors you depend
+on — compaction survival, subagent handoff, plan adherence — as first-class eval
+cases rather than assuming them as incidental properties. At least one vendor
+now trains against them directly, so they can change on a model release with no
+harness change on your side (documented for Meta's Muse Spark 1.2; whether other
+vendors train against harness trajectories is not disclosed in any source here).
+[source: blog-simonwillison-muse-code-spark-12, Claim 4] [emerging]
 
 ---
 
@@ -1037,6 +1164,50 @@ Copilot-enabled IDEs adopt the same path is not yet documented). Use
 Copilot-native skills.
 [source: docs-github-copilot-vs-april-2026, Claim 1] [settled]
 [source: docs-github-copilot-vs-april-2026, Claim 2] [emerging]
+
+### The portable core is skills and MCP servers — everything else is per-client
+
+The `.agents/skills/` convergence above was a de-facto convention. As of August
+2026 there is a published standard behind it: "We published Agent Plugins 1.0 on
+August 6 with AWS, Anysphere, Microsoft, OpenAI, and Vercel. Google also joined
+as a core maintainer on the same day." It "packages agent skills and MCP servers
+into one installable plugin that is governed independently of any single vendor."
+[source: docs-github-copilot-agent-plugins-1-0, Claims 1, 2] [settled]
+
+Read the scope before you plan a migration around it. The portable surface is
+exactly two component types:
+
+> "Agent Plugins 1.0 defines skills and MCP servers as portable component types.
+> Other capabilities are client-specific and can use the standard's
+> reverse-domain client extension namespaces. VS Code currently ignores client
+> extension data and directories in Agent Plugins 1.0 packages."
+> [source: docs-github-copilot-agent-plugins-1-0, Claim 7] [settled]
+
+Custom agents, hooks, and slash commands — the harness surfaces this chapter
+spends the most pages on — do not travel. They live in a reverse-domain
+namespace directory that other clients ignore, which is also what keeps the
+migration cheap: adopting the spec is "mostly manifest work: Add $schema to
+plugin.json[;] Keep skills under skills/ and MCP configuration in mcp.json[;]
+Move Copilot-specific files into the com.github.copilot/ directory, which other
+clients ignore".
+[source: docs-github-copilot-agent-plugins-1-0, Claim 4] [settled]
+
+On the client side the interoperability is already shipped rather than
+aspirational. VS Code detects four manifest formats by file location —
+Agent Plugins 1.0 (root `plugin.json` with the canonical `$schema`), GitHub's
+own Copilot format, Anthropic's Claude format (`.claude-plugin/plugin.json`),
+and a legacy OpenPlugin format (`.plugin/plugin.json`) — which is the first
+documented case in this corpus of one vendor's IDE natively reading a
+competitor's agent-plugin manifest.
+[source: docs-github-copilot-agent-plugins-1-0, Claim 6; Concrete Artifacts] [settled]
+
+**Rule**: Package skills and MCP servers to the Agent Plugins 1.0 layout when
+you need them to work across more than one agent client; keep custom agents,
+hooks, and slash commands in a per-client namespace directory and budget to
+maintain them per tool (the four-format detection is documented for VS Code
+specifically; whether Copilot CLI and the Copilot app apply the same rules is
+not stated in the source).
+[source: docs-github-copilot-agent-plugins-1-0, Claims 6, 7] [settled]
 
 ### Production Data as Agent Skills
 
@@ -1392,6 +1563,48 @@ actually needs.
 
 ---
 
+## How Much Does the Harness Actually Move?
+
+This chapter asserts that the harness is the highest-leverage surface you
+control. The first same-model, cross-harness comparison in our corpus puts
+numbers on that — and they do not land where you would expect.
+
+Composio ran one underlying model through three agent harnesses: "Composio's
+comparison using the same Kimi K3 model across three agent harnesses found
+similar success rates but very different speed/cost profiles: Kimi Code 22/28,
+Hermes 21/28, Claude Code 20/28, with Hermes fastest and Kimi Code
+cheapest/token-most-efficient."
+[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claim 12] [emerging]
+
+A two-task spread out of twenty-eight is the kind of gap three runs of the same
+harness could produce; the cost and latency spread is described as large. On
+this benchmark the harness bought almost nothing in raw capability and a great
+deal in efficiency. That remains a strong case for harness engineering — most
+teams are cost- and review-throughput-bound rather than capability-bound (Ch05,
+§Quality assurance is the major bottleneck) — but for a different reason than
+"better harness, better answers." [editorial]
+
+The same digest reports a harness improving itself: "Cline reported that Kimi K3
+spent 17 hours recursively improving the Cline harness, raising Terminal Bench
+performance from 77.5% to 88.8% while reducing run cost from $79 to $49.8."
+[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claim 13] [emerging]
+
+Both figures reach us secondhand through a daily aggregation digest, from the
+vendors themselves, with no published methodology in either case. A
+self-improvement loop scored on the same benchmark it optimizes against is the
+textbook setup for reward-hacking the eval signal — the same construct-validity
+problem Ch03 documents for coding-agent benchmarks generally. Simultaneous
+quality gain *and* cost reduction is the shape of either a real win or a gamed
+one, and nothing in the reporting distinguishes them. [editorial]
+
+**Rule**: When you compare harnesses, hold the model fixed and measure dollars
+and wall-clock alongside task success — success rate is the column where the
+differences are smallest. Before believing any harness-self-improvement number,
+ask whether the eval it improved on was the same signal it optimized against.
+[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claims 12, 13] [emerging]
+
+---
+
 ## Anti-Patterns (With Evidence)
 
 ### 1. Plans That Contain Results
@@ -1554,8 +1767,12 @@ blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claim 1),
+blog-humanlayer-show-me-skill (Claims 1, 2, 4, 5, 6, 8; Concrete Artifacts),
 blog-langchain-harness-memory (Claims 2, 3, 4),
+blog-latentspace-ainews-finance-vertical-aie-nyc (Claims 6, 12, 13),
 blog-simonwillison-codex-base-instructions (Claim 6),
+blog-simonwillison-muse-code-spark-12 (Claims 1, 4, 5, 6, 7),
+docs-github-copilot-agent-plugins-1-0 (Claims 1, 2, 4, 6, 7, 10; Concrete Artifacts),
 discussion-hn-ttal-multiagent-factory (Claims 2, 8, 9),
 failure-alex000kim-claudecode-source-leak (Lesson 1),
 failure-claudemd-ignored-compaction,
@@ -1572,4 +1789,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-15*
