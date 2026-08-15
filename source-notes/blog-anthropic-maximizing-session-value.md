@@ -47,8 +47,8 @@ issue: "#2714"
 ### Claim 1: Token price is fundamentally a proxy for GPU inference time, and every other cost factor in the article scales multiplicatively with the chosen model's base price
 - **Evidence**: First-party statement framing the article's central premise.
 - **Confidence**: settled
-- **Quote**: "You're billed per token, but what you're actually paying for is inference: the time it takes a GPU to run the model."
-- **Our assessment**: This reframes "token count" as a proxy metric rather than the real cost driver — the real driver is GPU-seconds, and token count is how that gets metered. It's a useful mental model for why model choice (Claim 1 continuation: "Everything else we're about to cover gets multiplied by the model's price") dominates every other lever in the article.
+- **Quote**: "You're billed per token, but what you're actually paying for is inference: the time it takes a GPU (or a TPU, or whatever the model happens to be running on) to run the model over your tokens."
+- **Our assessment**: This reframes "token count" as a proxy metric rather than the real cost driver — the real driver is inference time on whatever accelerator is running the model, and token count is how that gets metered. It's a useful mental model for why model choice dominates every other lever in the article: the later model-selection passage states that "everything else we're about to cover gets multiplied by the model's price."
 
 ### Claim 2: Output tokens cost roughly 5x input tokens because decoding runs the model sequentially, one token at a time, while input is processed in parallel
 - **Evidence**: First-party pricing statement with a stated mechanistic reason (decode vs. prefill).
@@ -242,6 +242,14 @@ Environment variables:
   specific sub-clause as our paraphrase of the source's meaning, not a
   verbatim quote, even though it sits next to a genuine quote in the same
   claim.
+  Correction after Assayer review: Claim 1's quote was originally recorded
+  with the parenthetical "(or a TPU, or whatever the model happens to be
+  running on)" and the trailing "over your tokens" silently dropped. The
+  full sentence has been re-fetched from the source and restored verbatim,
+  and the partial "everything else we're about to cover gets multiplied by
+  the model's price" fragment in that claim's assessment was likewise
+  re-verified against the source and is now quoted with the source's own
+  mid-sentence lowercasing.
   For Claim 12's `/autocompact` and `/mcp` items and Claim 4's cache-TTL
   figures, the *slash-command names* and *numbers* (5 min / 1 hr) are
   independently corroborated across separate fetches, though the tool
