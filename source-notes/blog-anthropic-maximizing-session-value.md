@@ -77,7 +77,7 @@ issue: "#2714"
 ### Claim 6: Everything that enters the conversation — files read, command output, prior turns — gets resent on every subsequent turn for the rest of the session, so context is a compounding cost, not a one-time cost
 - **Evidence**: First-party structural explanation of why session length matters for cost.
 - **Confidence**: settled
-- **Quote**: "Everything that ends up in the conversation gets sent again on every turn after it, for the rest of the session."
+- **Quote**: "Everything that ends up in the conversation, a file Claude read or the output of a command it ran, gets sent again on every turn after it, for the rest of the session."
 - **Our assessment**: This is the mechanistic justification for the whole article's advice set (use `/clear` between tasks, avoid noisy command output, use subagents for high-output work) — it names the single structural fact that makes context bloat expensive: it isn't a fixed cost, it's a cost multiplied by every remaining turn in the session.
 
 ### Claim 7: Command output over 30,000 characters is written to a file with only a short preview and the file path kept in the conversation, and this threshold is configurable
@@ -233,9 +233,14 @@ Environment variables:
   directly (copyright-policy refusal from the fetch tool), so this note was
   built from multiple targeted fetches, each asking for exact quotes on a
   specific section (TL;DR, pricing, caching, context accumulation,
-  subagents, opening/closing, named commands/env vars). All quotes above were
-  independently returned as exact strings across at least one of those
-  fetches; none were reconstructed or paraphrased into quote form.
+  subagents, opening/closing, named commands/env vars). Every quote above has
+  been returned as an exact string by at least one of those fetches, with two
+  documented exceptions that are flagged explicitly rather than asserted as
+  verbatim: Claim 5's fast-mode sub-clause (an acknowledged paraphrase, see
+  below) and Claims 1 and 6, whose quotes were initially recorded with
+  material silently elided and have since been re-fetched and restored in
+  full (see the correction entries below). No quote in this note is a
+  reconstruction of text that does not appear in the source.
   Claim 5's mention of "Fast mode is also part of the cache key" is flagged
   inline as a paraphrase boundary because the fetch tool described it in
   indirect speech rather than returning it as a quoted string — treat that
@@ -250,6 +255,14 @@ Environment variables:
   the model's price" fragment in that claim's assessment was likewise
   re-verified against the source and is now quoted with the source's own
   mid-sentence lowercasing.
+  Correction after second Assayer review: Claim 6's quote had the same
+  defect as Claim 1's — the middle clause "a file Claude read or the output
+  of a command it ran" was dropped without an ellipsis, presenting a spliced
+  fragment as a continuous sentence. The full sentence has been re-fetched
+  twice from the source and restored verbatim. The elision did not change
+  the claim's meaning, but the earlier blanket assertion in this section
+  that no quote had been reconstructed or paraphrased was inaccurate as
+  written, and has been narrowed above to state the actual exceptions.
   For Claim 12's `/autocompact` and `/mcp` items and Claim 4's cache-TTL
   figures, the *slash-command names* and *numbers* (5 min / 1 hr) are
   independently corroborated across separate fetches, though the tool
