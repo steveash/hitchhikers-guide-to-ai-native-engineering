@@ -80,7 +80,7 @@ issue: "#2735"
 - **Evidence**: Direct statement contextualizing Astra's evaluation against the prior model generation.
 - **Confidence**: settled (a specific, named-model, named-threshold first-party classification statement)
 - **Quote**: "Previous models, including GPT‑5.6‑Sol, have been evaluated for frontier cyber capabilities and assessed at the High (rather than Critical) threshold."
-- **Our assessment**: This is the clearest single data point establishing that Astra (if confirmed at Critical) would represent a discrete threshold jump, not an incremental one, from the immediately preceding named model in this corpus. It also gives the guide a concrete anchor for where GPT‑5.6‑Sol itself sits in OpenAI's own capability taxonomy — a fact not stated in either `blog-openai-gpt56-ga-announcement.md` or `blog-openai-gpt-red-self-play-robustness.md`, both of which report GPT‑5.6‑Sol's cybersecurity benchmark scores and prompt-injection robustness figures without mapping them onto a named Preparedness Framework tier.
+- **Our assessment**: This is the clearest single data point establishing that Astra (if confirmed at Critical) would represent a discrete threshold jump, not an incremental one, from the immediately preceding named model in this corpus. It corroborates and sharpens `blog-openai-gpt56-ga-announcement.md` Claim 8, which already placed the GPT‑5.6 family on this same Preparedness Framework scale but from the negative direction: "The GPT‑5.6 models are more capable than our earlier models in both biology and cybersecurity but do not cross the Critical threshold in either category." The two statements are consistent, not competing — "High" and "not Critical" are compatible positions on the same ladder. What this post adds is specificity in three respects: the positive tier label ("High") rather than only the negative bound ("not Critical"); attribution to the named `GPT‑5.6‑Sol` variant rather than the "GPT‑5.6 models" family; and scoping to cyber capability alone rather than the paired biology/cybersecurity claim. The other GPT‑5.6‑era note in this corpus, `blog-openai-gpt-red-self-play-robustness.md`, reports prompt-injection robustness figures without mapping them onto any named Preparedness Framework tier.
 
 ### Claim 5: OpenAI is implementing stricter security controls for higher-capability models and associated activities, including isolated testing environments, restricted network and tool access, enhanced model weight protections and encryption, additional monitoring and detection capabilities, and sandboxed execution
 - **Evidence**: First of five separate bullet items under "Steps we are taking."
@@ -166,6 +166,19 @@ Timeline reference:
 ## Cross-References
 
 - **Corroborates**:
+  - `blog-openai-gpt56-ga-announcement.md` Claim 8, which states that "The
+    GPT‑5.6 models are more capable than our earlier models in both biology
+    and cybersecurity but do not cross the Critical threshold in either
+    category." This post's Claim 4 ("Previous models, including
+    GPT‑5.6‑Sol, have been evaluated for frontier cyber capabilities and
+    assessed at the High (rather than Critical) threshold") states the same
+    fact from the positive direction and is fully consistent with it —
+    "High" and "not Critical" are compatible points on the same
+    Preparedness Framework ladder. This post adds the specific positive
+    tier name, pins it to the named Sol variant rather than the GPT‑5.6
+    family as a whole, and scopes it to cyber alone; the GA announcement
+    supplies the corroborating negative bound across both the biology and
+    cybersecurity categories.
   - `blog-openai-gpt5-immunology-mystery.md` Claim 7 and `blog-openai-bio-bug-bounty.md`
     (Preparedness Framework cited as OpenAI's stated mechanism for managing
     biology dual-use risk, with the Bio Bounty Program as one concrete,
@@ -185,8 +198,12 @@ Timeline reference:
     general trend" (`blog-simonwillison-aisi-gpt55-cyber.md` Claim 8).
 - **Contradicts**: None identified. No existing corpus source makes a claim
   about OpenAI's Preparedness Framework thresholds, Astra, or GPT‑5.6‑Sol's
-  cyber-capability tier that opposes what this post states. No
-  contradiction issue filed.
+  cyber-capability tier that opposes what this post states. The nearest
+  adjacent claim — `blog-openai-gpt56-ga-announcement.md` Claim 8's "do not
+  cross the Critical threshold in either category" — was checked
+  specifically and is consistent with this post's Claim 4, not opposed to
+  it (see Corroborates above); it is a weaker bound on the same scale, not
+  a competing tier assignment. No contradiction issue filed.
 - **Extends**:
   - `blog-simonwillison-openai-hf-cyberattack.md`, whose Claim 3 documented
     OpenAI's own account of "GPT‑5.6 Sol and an even more capable
@@ -213,13 +230,18 @@ Timeline reference:
     previously documented in this corpus.
 - **Novel**: The name "Astra" as an OpenAI model (first corpus appearance);
   the explicit textual definition of OpenAI's "Critical" cybersecurity
-  Preparedness Framework threshold (Claim 2); the explicit statement that
-  GPT‑5.6‑Sol sits at "High," not "Critical" (Claim 4); the pausing of
-  internal activities pending stronger security controls as a concrete
-  governance action tied to a specific model (Claim 6); and the
-  application of Chain-of-Thought-based risk monitoring during a model's
-  own training and evaluation phase, not only at deployment (Claim 7), are
-  all first appearances in this corpus.
+  Preparedness Framework threshold (Claim 2); the pausing of internal
+  activities pending stronger security controls as a concrete governance
+  action tied to a specific model (Claim 6); and the application of
+  Chain-of-Thought-based risk monitoring during a model's own training and
+  evaluation phase, not only at deployment (Claim 7), are all first
+  appearances in this corpus. Claim 4's placement of GPT‑5.6‑Sol on the
+  Preparedness Framework ladder is *not* novel — see Corroborates above,
+  where `blog-openai-gpt56-ga-announcement.md` Claim 8 already records the
+  "do not cross the Critical threshold" bound for the GPT‑5.6 family. Only
+  the sharper elements are new: the positive tier label "High" (versus the
+  earlier note's negative "not Critical"), and its attribution to the named
+  Sol variant specifically.
 
 ## Guide Impact
 
@@ -270,6 +292,20 @@ Timeline reference:
   plain-text transcript; all `Quote` fields above were copied
   character-for-character from that extracted text, not reconstructed from
   a WebFetch AI-mediated summary.
+- **Quotes re-verified against a fresh fetch (2026-08-16)**: on rework, the
+  live URL again returned HTTP 403, but `web.archive.org` *was* reachable
+  from this environment, and the same snapshot
+  (`web.archive.org/web/20260811235943/...`) was re-fetched independently
+  (HTTP 200). Every quoted passage in this note was then checked
+  programmatically as an exact whitespace-normalized substring of the
+  freshly re-extracted article text: all ten `Quote` fields (eleven
+  passages, since Claim 8 quotes two adjacent bullets) plus the two
+  verbatim blocks in Concrete Artifacts (the Critical-threshold definition
+  and all five "Steps we are taking" bullets) matched
+  character-for-character, with zero misses. Noting this for future
+  Assayer passes: the prior review could reach neither the live URL nor
+  `web.archive.org` and so had to take quote fidelity on the documented
+  method alone — it is now independently confirmed.
 - **Source is unusually thin**: at ~500 words with no benchmark table,
   chart, transcript, or named external verifier, this is the shortest and
   least data-dense OpenAI Preparedness Framework disclosure in this corpus.
@@ -298,6 +334,13 @@ Timeline reference:
   and `blog-simonwillison-aisi-gpt55-cyber.md` in full and confirmed every
   cited `Claim N` by number and content before writing this note's
   Cross-References section. No claim number was guessed or approximated.
+  On rework, `blog-openai-gpt56-ga-announcement.md` Claim 8 was re-read and
+  its "do not cross the Critical threshold in either category" sentence
+  copied verbatim from that note — the first draft of this note wrongly
+  asserted that no Preparedness Framework tier mapping for GPT‑5.6 existed
+  in the corpus, when that note already supplied the negative bound.
+  Claim 4's assessment, the Corroborates list, and the Novel list have all
+  been corrected accordingly.
 - **No contradiction meeting the MINER.md §4a filing bar was identified**
   — see Cross-References → Contradicts. No contradiction issue was filed.
 - **Three Prospector triage comments were posted to the source issue**,
