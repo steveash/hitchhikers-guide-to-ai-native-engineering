@@ -36,7 +36,7 @@ pipeline is the verification backstop that catches what human review
 misses after a long session.
 [source: practitioner-getsentry-sentry, practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js, practitioner-mikelane-pytest-test-categories,
-practitioner-frankray78-netpace] [settled]
+practitioner-frankray78-netpace] [emerging]
 
 A single CI gate is not enough. Anthropic's own April 2026 postmortem on
 a Claude Code regression reports that the offending pull request "made
