@@ -302,14 +302,41 @@ issue: "#2746"
   outcome-classification monitoring (compare the `authentication_failed`
   misclassification fix documented in `blog-ghaw-weekly-2026-08-03.md`
   Claim 10, a different but adjacent run-classification-accuracy bug class).
-  "Agent Persona Explorer" and "gh-aw-detection" are both named internal
-  tools/features new to this corpus with no prior source explaining what
-  they do beyond these one-line mentions. For Ch06 (Agentic Operations):
-  add the Aider silent-no-safe-outputs failure mode as a second data point
-  (after the `authentication_failed` misclassification) that gh-aw's own
-  operational history includes agent runs that "succeed" by exit code while
-  producing no useful output — reinforcing that run-outcome accuracy is an
-  ongoing engineering concern, not a solved problem.
+  Neither `gh-aw-detection` nor "Agent Persona Explorer" is new to this
+  corpus. `gh-aw-detection` is an already-tracked incremental feature-flag
+  rollout: `blog-ghaw-weekly-2026-06-22.md` Claim 3 documents it expanding
+  from 20% to 50% of agentic workflows (~107 of 214, PR #40698), and
+  `blog-ghaw-weekly-2026-06-29.md` cites that same rollout as the precedent
+  pattern for its own percentage-tracked sandbox-hardening adoption. This
+  week's "30 more agentic workflows" is therefore the next dated increment
+  in an existing rollout — roughly 107 → ~137 workflows migrated — but it
+  cannot be converted into a percentage, because the repository's own
+  workflow population grew from 214 (June 22) to 257 by June 29
+  (`blog-ghaw-weekly-2026-06-29.md` Claim 2), and this post supplies neither
+  a current denominator nor a PR number. The cadence is also worth
+  recording: eight weeks separate the 50% checkpoint from this increment, so
+  the rollout is continuing but is not a weekly-cadence campaign.
+  "Agent Persona Explorer" is likewise already profiled —
+  `blog-ghaw-weekly-2026-06-29.md` Claim 9 covers `agent-persona-explorer`
+  as a persona-based evaluation agent (three of nine worker-archetype
+  personas per run, two scenarios each, scored on clarity, tool selection,
+  security awareness, efficiency, and output quality), and Claim 8 there
+  records a cache-memory history path fix for it (PR #42112). What *is* new
+  here is the use its output is put to: the June 29 profile describes the
+  agent scoring the custom agent's responses, whereas this week's PR
+  converts a persona run's findings into concrete documentation work
+  (missing docs for schedule-based compliance audits, PM digests, and
+  multi-scenario comparisons) — persona evaluation as a docs-coverage
+  discovery mechanism, not only a scoring exercise. For Ch06 (Agentic
+  Operations): add the Aider silent-no-safe-outputs failure mode as a second
+  data point (after the `authentication_failed` misclassification) that
+  gh-aw's own operational history includes agent runs that "succeed" by exit
+  code while producing no useful output — reinforcing that run-outcome
+  accuracy is an ongoing engineering concern, not a solved problem. For
+  Ch04: update the `gh-aw-detection` incremental-feature-flag example
+  (currently sourced from `blog-ghaw-weekly-2026-06-22.md` Claim 3) with
+  this 2026-08-17 continuation point, flagging that the rollout's
+  denominator is no longer known.
 
 ### Claim 10: The Agent of the Week spotlight introduces Issue Arborist, a nightly scheduled agent that analyzes recent open issues and links related ones as sub-issues, with a three-run snapshot showing sub-11-minute runtimes, ~15 GitHub API calls per run, 8–14 safe outputs per run, and zero errors
 
@@ -379,6 +406,42 @@ issue: "#2746"
   a live example of gh-aw's experimentation frontmatter in production use,
   extending the specification notes with a concrete instance rather than
   only the abstract schema.
+
+### Claim 12: v0.87.0 hardened `cache-memory`'s git restore path by scrubbing persisted `.git` config/info state (PR #52944)
+
+- **Evidence**: GitHub Releases page for v0.87.0, "🔧 Internal & Security"
+  section, third bullet; itemized in the same page's "What's Changed" list
+  as PR #52944 ("Harden cache-memory git restore by scrubbing persisted
+  .git config/info state"). Not mentioned in the blog post itself, which
+  compresses the entire release's internal/security work into one
+  confused-deputy/container-removal bullet.
+- **Confidence**: emerging (specific PR, specific subsystem, and
+  specifically named state — `.git` config and info — but no statement of
+  what the concrete risk was, whether it was reachable in practice, or what
+  "scrubbing" removes versus preserves)
+- **Quote**: "Hardened cache-memory git restore by scrubbing persisted .git
+  config/info state."
+- **Our assessment**: This is the first corpus record that `cache-memory`'s
+  restore path can carry `.git` metadata across runs — i.e. that a cached
+  payload may include a git directory whose `config` and `info` state is
+  persisted and restored verbatim on the next run.
+  `docs-ghaw-cache-memory-reference.md` Claim 1 documents the mechanism's
+  storage backend (GitHub Actions Cache, 10GB per-repository limit, LRU
+  eviction) but nothing about what the restored payload may contain or how
+  it is sanitized. The release note does not state the risk; `.git/config`
+  and `.git/info` are conventionally where per-repository remote URLs,
+  `core.hooksPath`, and credential-helper settings live, which is why
+  restoring them unfiltered from a shared cache is a plausible integrity
+  concern — but that reading is our inference, not a stated claim, and the
+  PR's actual threat model is unverified here. This also gives
+  `cache-memory` a two-entry defect history in the corpus: a correctness bug
+  (`blog-ghaw-weekly-2026-06-29.md` Claim 8, cache-memory history path bug
+  in Agent Persona Explorer, PR #42112) and now an integrity hardening. For
+  Ch04 (Safety and Constraints): name cross-run cached state as a trust
+  boundary in its own right — any run that can write to the cache influences
+  what a later run restores — and add this alongside `sandbox.mcp.env`
+  (Claim 8) as a safety-relevant surface warranting a follow-up mining pass
+  once gh-aw documents the restore path's sanitization behavior.
 
 ## Concrete Artifacts
 
@@ -541,6 +604,13 @@ Extraction Notes for the discrepancy against the blog's usage-tip claim.*
     (the `experiments:` frontmatter schema, guardrail metrics): Claim 11
     here corroborates the schema with a live production instance
     (`empty_output_rate == 0` guardrail, `mann_whitney` analysis).
+  - `blog-ghaw-weekly-2026-06-22.md` Claim 3 (`gh-aw-detection` feature flag
+    expanded 20% → 50%, ~107 of 214 workflows, PR #40698), cited in turn as
+    a rollout precedent by `blog-ghaw-weekly-2026-06-29.md`: Claim 9 here
+    ("Migrate 30 more agentic workflows to the gh-aw-detection feature") is
+    the next dated increment of that same rollout, eight weeks later,
+    carrying it to roughly ~137 migrated workflows against an unstated
+    denominator.
 
 - **Contradicts**: None filed at the MINER.md §4a threshold — this post
   does not materially oppose any existing source-note claim. One
@@ -570,6 +640,18 @@ Extraction Notes for the discrepancy against the blog's usage-tip claim.*
     (container/gVisor-level isolation mechanisms): Claim 4 here
     (cloud-hypervisor runtime) is a new, higher isolation tier not
     documented in either existing note.
+  - `docs-ghaw-cache-memory-reference.md` Claim 1 (GitHub Actions Cache
+    backend, 10GB per-repository limit, LRU eviction) and
+    `blog-ghaw-weekly-2026-06-29.md` Claim 8 (cache-memory history path bug
+    in Agent Persona Explorer, PR #42112): Claim 12 here adds the first
+    corpus evidence that the restored payload can carry `.git` config/info
+    state, and the first integrity-class (rather than correctness-class)
+    fix to that mechanism.
+  - `blog-ghaw-weekly-2026-06-29.md` Claim 9 (`agent-persona-explorer` as a
+    persona-based evaluation agent scoring the custom agent across nine
+    worker archetypes): Claim 9 here extends it from a scoring exercise to
+    a discovery mechanism — a persona run's findings converted into filed
+    documentation-gap work.
 
 - **Novel**:
   - **`approve-workflow-run` safe output and its full eligibility-check
@@ -582,6 +664,10 @@ Extraction Notes for the discrepancy against the blog's usage-tip claim.*
     container/gVisor isolation.
   - **`sandbox.mcp.env` key-encoding injection-risk history** (Claim 8):
     first corpus mention of this specific config surface.
+  - **`cache-memory` restore carrying `.git` config/info state** (Claim 12):
+    first corpus evidence about what a cache-memory payload may contain and
+    that it needs sanitizing on restore — the existing cache-memory
+    reference documents capacity and keying, not payload trust.
   - **Issue Arborist** (Claims 10–11): first corpus profile of this named
     agent, and first corpus example of a live production workflow using
     the `experiments:` A/B-testing frontmatter with a guardrail metric.
@@ -607,9 +693,17 @@ Extraction Notes for the discrepancy against the blog's usage-tip claim.*
     than patch" container security policy; flag that the previously
     guide-relevant Serena MCP shared config had a vulnerable image as of
     this release.
-  - Flag cloud-hypervisor runtime (Claim 4) and `sandbox.mcp.env` key
-    encoding (Claim 8) as new safety-relevant surfaces needing a follow-up
-    mining pass once GHAW documents them more fully.
+  - Flag cloud-hypervisor runtime (Claim 4), `sandbox.mcp.env` key
+    encoding (Claim 8), and the `cache-memory` git-restore `.git` state
+    scrub (Claim 12) as new safety-relevant surfaces needing a follow-up
+    mining pass once GHAW documents them more fully. For Claim 12
+    specifically, frame cross-run cached state as a trust boundary: what one
+    run writes into the cache is what a later run restores.
+  - Update the `gh-aw-detection` incremental-feature-flag example (Claim 9),
+    currently sourced from `blog-ghaw-weekly-2026-06-22.md` Claim 3
+    (20% → 50%, ~107 of 214), with this week's +30-workflow continuation
+    (~137 migrated), noting that the denominator is unstated as of
+    2026-08-17 and that the rollout's cadence is multi-week, not weekly.
 
 - **Chapter 02 (Harness Engineering)**:
   - Cite this release (Claim 7) as a concrete, dated data point for the
@@ -696,9 +790,18 @@ Extraction Notes for the discrepancy against the blog's usage-tip claim.*
    `docs-ghaw-practices-experiments.md`,
    `docs-ghaw-practices-experiments-specification.md`,
    `docs-ghaw-deterministic-agentic-patterns.md`,
+   `docs-ghaw-cache-memory-reference.md`,
    `blog-ghaw-custom-linters-three-workflow-loop.md`,
-   `blog-ghaw-weekly-2026-08-03.md`, `blog-ghaw-weekly-2026-03-30.md`, and
+   `blog-ghaw-weekly-2026-08-03.md`, `blog-ghaw-weekly-2026-06-29.md`,
+   `blog-ghaw-weekly-2026-06-22.md`, `blog-ghaw-weekly-2026-03-30.md`, and
    `blog-ghaw-agent-of-the-day-2026-05-28.md`, plus `CONTRADICTIONS.md` for
    existing open entries. No contradiction rises to the MINER.md §4a filing
    bar; see item 3 above for the one discrepancy that was found and
    documented instead.
+
+6. **Claim 12 is appended out of thematic order deliberately.** It covers a
+   v0.87.0 release item (the `cache-memory` git-restore hardening) and so
+   belongs topically beside Claims 4–8, but is numbered last to keep every
+   existing claim number stable for cross-references already written against
+   this note. Claim numbering remains top-to-bottom in document order per
+   MINER.md §4b.
