@@ -33,9 +33,10 @@ issue: "#2776"
   launch announcement ("Claude Science, an AI workbench for scientists, is
   now available," `anthropic.com/news/claude-science-ai-workbench`). This
   note extracts from all three: the landing page overview, the launch
-  announcement (customer case studies and architecture description), and
-  the full eBook (adoption roadmap, skill/connector tables, FAQ for IT/CIO
-  audiences).
+  announcement (Manifold Bio, UCSF, and Allen Institute case studies and
+  architecture description), and the full eBook (Novo Nordisk, Garvan
+  Institute, and Sanofi case studies, adoption roadmap, skill/connector
+  tables, FAQ for IT/CIO audiences).
 - **Author credibility**: First-party Anthropic product marketing and
   deployment documentation — the highest-credibility source for *what the
   product does and how it is architected* (a vendor describing its own
