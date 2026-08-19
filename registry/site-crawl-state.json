@@ -1060,9 +1060,15 @@
       "https://github.github.com/gh-aw/specs/wizard-data-model-specification": {
         "status": "rejected",
         "screened_at": "2026-08-18T06:09:31.737589+00:00"
+      },
+      "https://github.github.com/gh-aw/wizard": {
+        "status": "filed",
+        "screened_at": "2026-08-19T06:09:49.527348+00:00",
+        "issue": 2786,
+        "filed_at": "2026-08-19T06:09:54.219312+00:00"
       }
     },
-    "last_scan": "2026-08-18T06:09:31.737605+00:00"
+    "last_scan": "2026-08-19T06:09:49.527374+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1165,7 +1171,7 @@
         "filed_at": "2026-08-13T06:30:57.104740+00:00"
       }
     },
-    "last_scan": "2026-08-18T06:09:33.562363+00:00"
+    "last_scan": "2026-08-19T06:09:51.182498+00:00"
   },
   "cognition": {
     "urls": {
@@ -1820,6 +1826,6 @@
         "filed_at": "2026-08-03T07:06:23.236993+00:00"
       }
     },
-    "last_scan": "2026-08-18T06:09:34.877483+00:00"
+    "last_scan": "2026-08-19T06:09:52.362584+00:00"
   }
 }
