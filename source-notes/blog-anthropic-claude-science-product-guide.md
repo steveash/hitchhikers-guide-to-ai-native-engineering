@@ -357,8 +357,9 @@ reliability as their number-one barrier to adoption."
 
 - **Novel**: The "skill vs. connector" decision rule (Claim 6) — no prior
   corpus source states this distinction as an explicit design principle
-  ("use a connector when...entitlements matter; use a skill when the
-  answer lives in the public record"). The named background-reviewer
+  ("Use a connector when the answer lives in the organization's own
+  systems...and entitlements matter. Use a scientific data skill when
+  the answer lives in the public record..."). The named background-reviewer
   architecture running by default every session (Claim 3) is more specific
   than any prior corpus description of AI-generated-content review — prior
   sources describe reviewer patterns as something practitioners build
@@ -444,12 +445,16 @@ reliability as their number-one barrier to adoption."
 - The eBook PDF's text layer initially failed to extract via WebFetch
   (returned a refusal citing FlateDecode compression it could not
   decompress). `poppler-utils` (`pdftotext`) was installed via `apt-get`
-  in the sandbox to extract the text layer directly. All quotes in this
-  note were cross-checked against two independent `pdftotext` extractions
-  of the same PDF — one with `-layout` (column-preserving) and one without
-  (natural reading order) — to rule out two-column-layout splicing
-  artifacts before being used as verbatim quotes. Every quote used in this
-  note appears as a contiguous, unsplit passage in both extractions.
+  in the sandbox to extract the text layer directly. The eBook is a
+  landscape two-column layout, and plain `pdftotext` (with or without
+  `-layout`, which produce identical output here) interleaves the two
+  columns line-by-line — so no quote reads as contiguous text in a naive
+  extraction, and quotes must not be verified against one. Reading order
+  was instead reconstructed from `pdftotext -bbox-layout` word
+  coordinates, assigning each line to the left or right column by its
+  x-extent and emitting columns in order. Every quote in this note was
+  verified as a contiguous, unsplit passage in that reconstruction
+  (eBook quotes) or in the launch-announcement text (case-study quotes).
 - The Prospector's three triage comments on this issue disagree with each
   other on novelty (high / high / low) and on which chapters are most
   relevant; this note follows the majority framing (Ch01/Ch02/Ch04/Ch05
