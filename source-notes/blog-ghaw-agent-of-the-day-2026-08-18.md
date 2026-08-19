@@ -183,10 +183,16 @@ issue: "#2777"
   each naming exact file paths and field names — directly supports the
   claim; the "prioritized punch list" framing is the post's own summary)
 - **Quote**: "It doesn't just say \"something's inconsistent\"; it names the schema property, the struct field, the doc section, and the workflow file that uses it, then hands maintainers a prioritized punch list: fix the schema, fix the parser, fix the docs, fix the workflow."
-- **Our assessment**: This corroborates a pattern already established in the
-  corpus (`docs-ghaw-code-quality-monitoring.md` Claim 6 — actionable,
-  specific findings over vague alerts) but applies it to a schema/code/docs
-  drift auditor specifically. For Ch02: the "punch list" output format
+- **Our assessment**: The nearest thing in our corpus is the finding-output
+  discipline in `docs-ghaw-code-quality-monitoring.md` → Concrete Artifacts →
+  "Agent Prompt Analysis Instructions" block, whose issue-creation rules include
+  "Severity: High/Medium/Low with actionable remediation steps". That is an
+  indirect echo, not a corroboration: the code-quality note's *numbered*
+  claims about finding output (Claim 6) are about aggregation and noise
+  control — one issue per category, ≥3 instances, ≤10 issues per run — which
+  is a different concern from per-finding specificity. Claim 7 here is, as
+  far as our corpus goes, the first explicit statement that an audit agent's
+  individual finding must name each artifact involved. For Ch02: the "punch list" output format
   (each finding names the specific artifacts and the specific fix per
   artifact) is a reusable design requirement for any consistency-auditing
   agent — the output should be directly actionable per-source, not a single
@@ -317,13 +323,17 @@ characterization independently of the blog text.
     permissions — consistent with the same read-only audit posture, applied
     here to a four-way cross-file comparison rather than a single-target
     architecture scan.
-  - `docs-ghaw-code-quality-monitoring.md` Claim 6 (per-category, specific,
-    actionable finding structure rather than one issue per file, with
-    concrete remediation steps): Claim 7 here shows the same "specific,
-    actionable, per-artifact" finding discipline applied to a schema/docs/code
-    consistency checker rather than a linting workflow. Both sources
-    corroborate that first-party gh-aw guidance treats vague "something's
-    wrong" alerts as an anti-pattern for automated audit output.
+  - `docs-ghaw-code-quality-monitoring.md` → Concrete Artifacts → "Agent
+    Prompt Analysis Instructions" block, issue-creation rules ("Severity:
+    High/Medium/Low with actionable remediation steps"): a *weak, indirect*
+    echo of Claim 7's per-artifact finding format. Noted here for the Smith's
+    benefit, but it should not be treated as independent corroboration —
+    that line is an unnumbered prompt instruction, and the numbered claim in
+    that note covering finding output (Claim 6) is about issue *aggregation*
+    and noise control (one issue per category, ≥3 instances, ≤10 per run),
+    which is a different concern from how specific an individual finding must
+    be. Claim 7's per-artifact naming requirement stands essentially alone in
+    the corpus.
   - `blog-ghaw-agent-of-the-day-2026-05-28.md` Claim 9 ("Run #100 was just
     another Tuesday" as the target description for mature codemod
     automation): The Notary's "nine daily runs, nine successful completions,
@@ -478,6 +488,16 @@ characterization independently of the blog text.
    `docs-ghaw-code-quality-monitoring.md` in full before writing
    Cross-References. All `Claim N` citations above were verified against the
    actual numbered claims in those notes at the time of writing.
+
+   *Revision (2026-08-19, post-review):* one citation did not survive
+   re-verification. Claim 7's assessment and the Cross-References
+   "Corroborates" list originally cited `docs-ghaw-code-quality-monitoring.md`
+   Claim 6 as support for per-finding specificity. That claim is actually
+   about issue *aggregation* and noise control (one issue per category,
+   ≥3 instances, ≤10 issues per run) — a different concern. Both citations
+   have been rewritten to point at the unnumbered issue-creation rule in that
+   note's Concrete Artifacts section and to state explicitly that the
+   connection is indirect, not corroborating.
 
 6. **No contradictions filed**: See Cross-References → Contradicts. Reviewed
    `CONTRADICTIONS.md` for existing entries on consistency-checking, audit
