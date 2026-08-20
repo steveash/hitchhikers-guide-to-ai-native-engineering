@@ -44,9 +44,11 @@ issue: "#2814"
   Code CLI rather than Air's subscription login — see Cross-References), any Air-specific
   UI screenshots or step-by-step walkthrough beyond prose description, pricing/rate-limit
   detail for Claude subscriptions themselves (see Cross-References for existing corpus
-  coverage of Claude subscription tiers), or a technical specification of "Anthropic's
-  documented flow" the post repeatedly references but does not link with an accessible
-  URL in the extracted article body.
+  coverage of Claude subscription tiers), or the substance of "Anthropic's documented
+  flow" itself — the post links that phrase twice to
+  `https://code.claude.com/docs/en/authentication`, but the linked Anthropic
+  documentation was not fetched or verified as part of this extraction, so nothing
+  in this note independently confirms what that flow specifies.
 
 ## Extracted Claims
 
@@ -63,7 +65,7 @@ issue: "#2814"
 - **Our assessment**: This is the article's central architectural claim and is elaborated with mechanism detail in Claim 4 below. It is a security-relevant design choice: the host application (Air) explicitly disclaims custody of the user's Anthropic credential, shifting trust entirely to Anthropic's own login system.
 
 ### Claim 3: JetBrains states this was its most-requested feature, and that it delayed shipping specifically because it refused to build a custom OAuth workaround that could put a user's Anthropic account at risk, waiting instead for Anthropic's own documented authentication method
-- **Evidence**: Direct first-party statement of internal rationale for the shipping delay, in the article's third paragraph.
+- **Evidence**: Direct first-party statement of internal rationale for the shipping delay, in the article's third paragraph. Unlike the two later references to Anthropic's documented flow (Claim 5), this occurrence of the phrase is plain text with no hyperlink.
 - **Confidence**: settled (first-party account of the vendor's own stated design decision, not a third-party claim)
 - **Quote**: "This was our most-requested feature and it took longer to implement than anyone wanted, including us. But our delay wasn't without good reason: We weren't prepared to ship an OAuth workaround that could put your Anthropic account at risk, so we waited until we could build on Anthropic's documented authentication method."
 - **Our assessment**: JetBrains is explicitly framing a shipping delay as a deliberate security tradeoff rather than a technical limitation — it names the alternative it rejected ("an OAuth workaround") and the reason (risk to the user's Anthropic account). This is a specific, citable example of a vendor prioritizing a sanctioned integration path over a faster but riskier one for third-party account access, worth preserving as a general pattern independent of Air specifically.
@@ -74,11 +76,11 @@ issue: "#2814"
 - **Quote**: "When you click Connect Claude.ai Account, Air doesn't run its own OAuth flow. It invokes Claude's native login interface – the same one that opens when you run Claude in a terminal. Your browser opens, you authorize the connection, and your token stays where Anthropic designed it to stay: with Claude. Claude owns the credential, Claude refreshes it, and Air only ever learns one thing – that you're logged in."
 - **Our assessment**: This is the concrete implementation detail behind Claim 2's higher-level "Air never sees or stores your credentials" statement: Air reuses the identical login surface a practitioner would see running Claude directly in a terminal, rather than presenting its own branded OAuth consent screen. The three-part division of labor ("Claude owns the credential, Claude refreshes it, Air only learns... logged in") is a reusable pattern for evaluating any third-party tool's claim to integrate with a subscription service without handling its credentials directly.
 
-### Claim 5: Air's implementation follows "Anthropic's documented flow for exactly this use case," with credentials handled by Claude itself end-to-end — a claim JetBrains repeats verbatim in the FAQ as evidence the integration is sanctioned rather than an unauthorized workaround
-- **Evidence**: Stated once in the "Air never touches your credentials" section and restated in the FAQ under "Is this permitted by Anthropic?"
-- **Confidence**: settled (direct, repeated vendor assertion; no independent Anthropic confirmation is quoted or linked in the extracted article body)
-- **Quote**: "Air's implementation follows Anthropic's documented flow for exactly this use case. Your credentials are handled by Claude itself, end to end."
-- **Our assessment**: The repetition of this claim — once in the feature description, once verbatim in the FAQ answering "Is this permitted by Anthropic?" — signals JetBrains anticipated practitioner skepticism about whether a third-party IDE tool integrating with a personal Claude subscription is sanctioned use, and chose to answer it explicitly rather than leave it implicit. This is consistent with Claim 3's framing of the delay as driven by a refusal to ship an unsanctioned OAuth workaround.
+### Claim 5: Air's implementation follows "Anthropic's documented flow for exactly this use case," with credentials handled by Claude itself end-to-end — a claim JetBrains restates in the FAQ, both times hyperlinked to Anthropic's own authentication documentation, as evidence the integration is sanctioned rather than an unauthorized workaround
+- **Evidence**: Stated once in the "Air never touches your credentials" section and restated in the FAQ under "Is this permitted by Anthropic?" In both places the phrase naming Anthropic's flow is an anchor pointing to `https://code.claude.com/docs/en/authentication`.
+- **Confidence**: settled (direct, repeated vendor assertion, linked to Anthropic's own authentication docs; the linked page itself was not fetched or independently verified in this extraction, and no Anthropic statement specifically endorsing Air is quoted)
+- **Quote**: "Air's implementation follows Anthropic's documented flow for exactly this use case. Your credentials are handled by Claude itself, end to end." FAQ: "It follows Anthropic's documented authentication flow – credentials are handled by Claude itself, never by Air."
+- **Our assessment**: The repetition of this claim — once in the feature description, once reworded in the FAQ answering "Is this permitted by Anthropic?" — signals JetBrains anticipated practitioner skepticism about whether a third-party IDE tool integrating with a personal Claude subscription is sanctioned use, and chose to answer it explicitly rather than leave it implicit. Both statements hyperlink to Anthropic's own authentication documentation, so the assertion is not bare: JetBrains names the specification it claims to follow. What is still absent is any Anthropic-side statement about Air specifically — the linked doc describes Claude's authentication flow generally, and a practitioner evaluating the "sanctioned" claim would need to read that page and judge whether Air's described behavior conforms. This is consistent with Claim 3's framing of the delay as driven by a refusal to ship an unsanctioned OAuth workaround.
 
 ### Claim 6: The bundled integration, named "Claude Agent," is presented as a first-party integration distinct from previously available ACP-based Claude connections, and includes current model selection with reasoning-effort control, slash commands, MCP servers, skills, permissions/session state, and usage/status reporting
 - **Evidence**: Direct feature enumeration in the "Claude in Air is the full first-party experience" section.
@@ -170,6 +172,11 @@ Air learns only one fact: the practitioner is logged in
         (Air never receives, stores, or holds a copy of the credential itself)
 
 Source: same article, "Air never touches your credentials" section.
+
+Specification JetBrains cites for this flow (linked twice from the article,
+in the credential-custody section and in the "Is this permitted by Anthropic?"
+FAQ answer): https://code.claude.com/docs/en/authentication
+NOTE: that page was not fetched or verified as part of this extraction.
 ```
 
 ### Subscription-access limitations (FAQ, verbatim structure)
@@ -351,7 +358,13 @@ top-to-bottom in document order as they appear in each cited note.
   CLI the tool locates and shells out to (the contrasting GitHub Copilot
   JetBrains-plugin mechanism, Claim 4's Cross-Reference). These are
   materially different trust and setup models even when both are described
-  loosely as "using Claude in your IDE."
+  loosely as "using Claude in your IDE." Where the guide presents this
+  pattern, it should point readers at the specification JetBrains itself
+  cites — `https://code.claude.com/docs/en/authentication`, linked twice from
+  this article — as the primary source for what the sanctioned flow actually
+  requires, rather than resting on the vendor's summary of it. That page has
+  not been extracted into this corpus; doing so would be a reasonable
+  follow-up source for Ch04/Ch05.
 
 - **Chapter 05 (Team Adoption)**: Add Claim 12 (Claude Team seat, no API
   budget, works directly with Air's Claude Agent) as a specific,
@@ -397,19 +410,33 @@ top-to-bottom in document order as they appear in each cited note.
    resolves to a post already present in this corpus as
    `blog-jetbrains-central-cli-cost-origin-story.md`; it was re-read for
    cross-referencing (Claim 13) rather than re-extracted as a duplicate note.
-   No other outbound link in the article body (beyond navigation, footer
-   legal links, and the unlinked "Anthropic's documented flow"/"Anthropic's
-   documented authentication method" phrases, which are not rendered as
-   clickable hyperlinks with a resolvable URL in the fetched HTML) pointed to
-   a substantive, not-yet-covered page.
-4. **"Anthropic's documented flow" is referenced but not linked to a
-   specific, checkable URL** in the extracted article HTML — the phrase
-   appears three times (twice in the feature description, once in the FAQ)
-   as emphasized text, but no `<a href>` target was found wrapping it in the
-   fetched markup. This is flagged as a genuine content gap: the claim that
-   Air's authentication follows an Anthropic-documented method (Claims 3, 5)
-   could not be independently verified against Anthropic's own documentation
-   from this source alone.
+   The other substantive outbound link in the article body is
+   `https://code.claude.com/docs/en/authentication`, which appears twice (see
+   note 4); the remaining in-body links are `air.dev` product mentions and
+   `air.dev/download` release-download CTAs, and everything else on the page
+   is site navigation, share buttons, related-post cards, and footer legal
+   links.
+4. **"Anthropic's documented flow" is hyperlinked to Anthropic's own
+   authentication documentation, which was identified but not independently
+   fetched**: the phrase naming Anthropic's flow appears three times. Two of
+   them — "Anthropic's documented flow" in the "Air never touches your
+   credentials" section and "Anthropic's documented authentication flow" in
+   the FAQ's "Is this permitted by Anthropic?" answer — are anchors pointing
+   to `https://code.claude.com/docs/en/authentication`
+   (`<a href="https://code.claude.com/docs/en/authentication" target="_blank"
+   rel="noopener">`), confirmed in the raw HTML. The third occurrence,
+   "Anthropic's documented authentication method" in the shipping-delay
+   paragraph (Claim 3), is plain text with no anchor. An earlier draft of
+   this note asserted that none of the three was linked; that was an artifact
+   of a tag-stripping step in the extraction pipeline (Extraction Notes #1)
+   that discarded `<a href>` attributes along with the tags, and it has been
+   corrected against the raw markup. The remaining, genuine limit on this
+   note is narrower: the linked Anthropic documentation itself was not
+   fetched or read as part of this extraction, so Claims 3 and 5 record that
+   JetBrains names and cites a specific Anthropic specification, not that
+   Air's implementation was verified to conform to it. A practitioner
+   evaluating the credential-custody pattern (see Guide Impact, Ch04/Ch05)
+   should read that page directly.
 5. **Source is a short, single-page release note (~700 words, three feature
    sections plus a five-question FAQ)**: fourteen claims were extracted,
    covering every substantive statement in the post, including all five FAQ
