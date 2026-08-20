@@ -276,6 +276,30 @@ top-to-bottom in document order as they appear in each cited note.
     tooling does not currently extend visibility into the exact access
     pattern (personal Claude subscriptions) this source describes JetBrains
     encouraging developers to use directly inside Air.
+  - `failure-cursor-pro-silent-billing-switch.md` Lesson 1 ("AI coding tool
+    subscriptions may silently enroll users in post-paid per-token billing when
+    plan limits are hit"): that note (claims are structured as numbered
+    `### Lesson N` headings rather than `### Claim N`, so it is cited by lesson
+    number here) documents a Cursor Pro subscriber silently moved onto
+    per-token "On-Demand" billing on hitting the monthly plan limit, and
+    derives the general evaluation question "For any AI tool subscription with
+    a monthly usage quota, identify in advance what happens when the quota is
+    hit." This source is the mirror-image case for that question and answers
+    only half of it. Claim 1 establishes the steady-state billing mode ("there's
+    no need to purchase API credits and no per-token Console billing"), and
+    Claims 8 and 13 name API billing and JetBrains AI credits as the fallback
+    path for Docker, cloud agents, and automations — but the article is silent
+    on limit-hit behavior. Its only statement on quota is the FAQ's "its models,
+    quota, and limits apply in Air exactly as they do everywhere else," which
+    says Anthropic's own plan limits govern but does not say whether Air hard-
+    stops at the subscription limit or falls through to one of the two paid
+    paths it already knows how to use. Verified against the full article text:
+    no sentence anywhere in the post addresses quota exhaustion. This is a real
+    gap rather than a contradiction — nothing in this source opposes the Cursor
+    note — but it is exactly the gap the Cursor failure report argues
+    practitioners must close with the vendor before hitting the limit, not
+    after, and the guide should carry it as an open question about Air rather
+    than assume the credential-custody design implies a hard stop.
   - `blog-simonwillison-fable-5-permanent.md`: that note documents Anthropic's
     own subscription-tier access rules for a specific model (Claude Fable 5)
     — full inclusion at reduced limits on Max/Team Premium, credit-metered
