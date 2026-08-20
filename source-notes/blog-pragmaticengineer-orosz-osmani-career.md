@@ -117,7 +117,7 @@ issue: "#2813"
 - **Evidence**: Presented as the ninth takeaway, Osmani's own argument with a named illustrative example (Chromium code ownership).
 - **Confidence**: emerging (a specific, structurally-grounded argument — not just an assertion that engineers will matter, but a named mechanism, accountability, plus a concrete existing example of how it already works without requiring authorship)
 - **Quote**: "Addy believes software engineers will always be important because an AI model cannot be accountable. Accountability for code and software is possible even if the accountable party didn't write the code, as is the case in projects like Chromium, where designated engineers own parts of the codebase. They're responsible for approving and rejecting contributions, and for shaping that part of the codebase. Addy reckons that a \"what am I accountable for?\" mindset will be adopted by many software engineers."
-- **Our assessment**: This is nearly the identical claim Osmani makes in `blog-addyosmani-own-the-outer-loop.md` Claim 13 ("Only people can choose. Only people inherit consequence. Agents can be asked to choose, route, merge, and escalate safely inside a policy, but they cannot inherit the consequences") and Claim 9 there ("Addy believes software engineers will always be important because an AI model cannot be accountable" is essentially restated verbatim here), now delivered a month later in an interview rather than a keynote-derived blog post. Two independent renderings of the same core argument, in two different venues, is a meaningful confidence signal that this is Osmani's settled, standing position rather than a one-off framing — similar to how `blog-pragmaticengineer-orosz-kentbeck-career.md` treats Kent Beck's "trust" thesis recurring across his own essay and a third-party interview as evidence of a stable position (see Cross-References). The new, concrete element this episode adds beyond the outer-loop post is the Chromium code-ownership example — a real, verifiable existing structure (designated OWNERS files/reviewers who approve or reject contributions without having authored the code) that grounds the abstract "accountability without authorship" claim in a project practitioners can go look at directly.
+- **Our assessment**: This is nearly the identical claim Osmani makes in `blog-addyosmani-own-the-outer-loop.md` Claim 13 ("Only people can choose. Only people inherit consequence. Agents can be asked to choose, route, merge, and escalate safely inside a policy, but they cannot inherit the consequences"), now delivered a month later in an interview rather than a keynote-derived blog post. Two independent renderings of the same core argument, in two different venues, is a meaningful confidence signal that this is Osmani's settled, standing position rather than a one-off framing — similar to how `blog-pragmaticengineer-orosz-kentbeck-career.md` treats Kent Beck's "trust" thesis recurring across his own essay and a third-party interview as evidence of a stable position (see Cross-References). The new, concrete element this episode adds beyond the outer-loop post is the Chromium code-ownership example — a real, verifiable existing structure (designated OWNERS files/reviewers who approve or reject contributions without having authored the code) that grounds the abstract "accountability without authorship" claim in a project practitioners can go look at directly.
 
 ### Claim 10: Osmani is bullish on software engineering's outlook because every prior reduction in the cost of creating software led to exponentially more software being created, and he expects AI to repeat that pattern at a larger scale
 - **Evidence**: Presented as the tenth takeaway, a historical-pattern argument and prediction.
@@ -214,12 +214,12 @@ notes' numbered `### Claim N:` headings in document order.
     trace) has had to degrade to "understand the most important decisions" as agent output
     volume grew.
   - `blog-addyosmani-own-the-outer-loop.md` Claim 13 ("Only people can choose. Only people
-    inherit consequence... Accountability will scale the factory") and Claim 9's assessment
-    (same phrase, "Addy believes software engineers will always be important because an AI
-    model cannot be accountable," essentially verbatim there too): this episode's Claim 9 is
+    inherit consequence... Accountability will scale the factory"): this episode's Claim 9 is
     the same core argument restated a month later in an independent venue (interview vs.
     keynote-derived blog post), with a new concrete illustration (Chromium code ownership)
-    not present in the earlier post.
+    not present in the earlier post. (Claim 13 is the only claim in that note carrying the
+    accountability argument; the phrase "an AI model cannot be accountable" does not appear
+    there in any form — the recurrence is of the argument, not of the wording.)
   - `blog-addyosmani-earning-taste-judgment.md` Claim 9's "Concrete Artifacts" list (item 3,
     "Build in public near hard problems... almost every real opportunity I've had came from
     work I did in public, never from a job I applied for"): this episode's Claim 2 supplies
@@ -331,9 +331,11 @@ notes' numbered `### Claim N:` headings in document order.
   (cognitive-surrender mitigation, mutual amplification, accountability-without-authorship)
   rather than pure biography or a bare prediction.
 - Cross-reference claim numbers were verified by re-reading the cited notes directly before
-  writing: `blog-addyosmani-own-the-outer-loop.md` Claim 6, Claim 9 (referenced within that
-  note's own Claim 9 text), and Claim 13 (all confirmed); `blog-addyosmani-earning-taste-
-  judgment.md` Claim 7 and Claim 9 (both confirmed); `blog-addyosmani-loop-engineering.md`
+  writing: `blog-addyosmani-own-the-outer-loop.md` Claim 6 and Claim 13 (both confirmed; an
+  earlier draft of this note also cited that note's Claim 9 as restating the accountability
+  argument — that citation was wrong, its Claim 9 is about brownfield-system risk, and it has
+  been removed); `blog-addyosmani-earning-taste-judgment.md`
+  Claim 7 and Claim 9 (both confirmed); `blog-addyosmani-loop-engineering.md`
   Claim 6 (confirmed); `blog-addyosmani-agentic-code-review.md` Claim 9 (confirmed);
   `blog-thoughtworks-kamelman-unbundling-expertise.md` Claim 1 (confirmed);
   `blog-pragmaticengineer-orosz-kentbeck-career.md` Claim 2 (confirmed).
