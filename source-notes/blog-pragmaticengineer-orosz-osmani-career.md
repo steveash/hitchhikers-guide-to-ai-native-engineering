@@ -75,7 +75,7 @@ issue: "#2813"
 - **Evidence**: Presented as the second takeaway, describing the specific hiring path.
 - **Confidence**: anecdotal (self-reported career history, relayed by the interviewer)
 - **Quote**: "Publishing free educational materials helped Addy land a job at Google. A documentary about Google which he watched as a youngster made Addy want to work somewhere like it. Later, Google noticed his work in publishing educational resources about frontend and JavaScript development. The company reached out about a DevRel-and-builder role, and Addy was hired to join the Chrome team."
-- **Our assessment**: A concrete data point that "build in public" led directly to a hiring outcome for this specific practitioner — consistent in shape with Osmani's own later-stated principle in `blog-addyosmani-earning-taste-judgment.md` Claim 9's "Concrete Artifacts" list ("Build in public near hard problems... almost every real opportunity I've had came from work I did in public, never from a job I applied for"). This episode supplies the origin anecdote for a principle he states explicitly elsewhere in the corpus.
+- **Our assessment**: A concrete data point that "build in public" led directly to a hiring outcome for this specific practitioner — consistent in shape with Osmani's own later-stated principle in `blog-addyosmani-earning-taste-judgment.md` → Concrete Artifacts → "The four principles of durable value" section, item 3 ("Build in public near hard problems. [...] almost every real opportunity I've had came from work I did in public, never from a job I applied for"). This episode supplies the origin anecdote for a principle he states explicitly elsewhere in the corpus.
 
 ### Claim 3: Chrome DevTools began as an effort to add browser-native debugging for web applications and grew into something close to an IDE as frameworks and build chains got more complex
 - **Evidence**: Presented as the third takeaway, describing DevTools' origin and evolution.
@@ -99,7 +99,7 @@ issue: "#2813"
 - **Evidence**: Presented as the sixth takeaway, an observational claim about senior-leadership behavior at one company.
 - **Confidence**: anecdotal (a single practitioner's observation of colleagues' behavior, not a survey or measured adoption statistic)
 - **Quote**: "A big culture shift at Google in the last two years has been VPs and SVPs coding on weekends. Naturally, this is because AI tools make coding much easier. During his last two years at Google, it was common for these folks to talk about their weekend side projects and tools they used to build them."
-- **Our assessment**: A concrete, if anecdotal, data point for the broader corpus theme that AI-assisted coding lowers the barrier enough that non-coding-track senior leaders re-engage with hands-on building — directionally consistent with `blog-addyosmani-earning-taste-judgment.md` Claim 9's citation of "Mark Russinovich and Scott Hanselman" (both senior technical leaders) discussing hands-on AI-assisted coding, though that source is about Microsoft, not Google, and about a different mechanism (senior engineers benefiting from agents vs. juniors losing training reps) rather than VP/SVP-level leaders picking coding back up as a weekend hobby. Treat as a distinct, non-overlapping anecdote rather than the same claim.
+- **Our assessment**: A concrete, if anecdotal, data point for the broader corpus theme that AI-assisted coding lowers the barrier enough that non-coding-track senior leaders re-engage with hands-on building — directionally consistent with `blog-addyosmani-earning-taste-judgment.md` Claim 5's citation of Microsoft's Mark Russinovich and Scott Hanselman (both senior technical leaders) on how agents redistribute who does hands-on coding work, though that source is about Microsoft, not Google, and about a different mechanism (senior engineers benefiting from agents vs. juniors losing training reps) rather than VP/SVP-level leaders picking coding back up as a weekend hobby. Treat as a distinct, non-overlapping anecdote rather than the same claim.
 
 ### Claim 7: Cognitive surrender — the erosion of comprehension and memory of what's going on — is a major risk of AI-assisted development; Osmani's mitigation is to understand every major decision an LLM makes, since reading an agent's entire reasoning trace is no longer practical at current output volumes
 - **Evidence**: Presented as the seventh takeaway, Osmani's own definition and prescribed mitigation.
@@ -220,9 +220,10 @@ notes' numbered `### Claim N:` headings in document order.
     not present in the earlier post. (Claim 13 is the only claim in that note carrying the
     accountability argument; the phrase "an AI model cannot be accountable" does not appear
     there in any form — the recurrence is of the argument, not of the wording.)
-  - `blog-addyosmani-earning-taste-judgment.md` Claim 9's "Concrete Artifacts" list (item 3,
-    "Build in public near hard problems... almost every real opportunity I've had came from
-    work I did in public, never from a job I applied for"): this episode's Claim 2 supplies
+  - `blog-addyosmani-earning-taste-judgment.md` → Concrete Artifacts → "The four principles
+    of durable value" section (item 3, "Build in public near hard problems. [...] almost
+    every real opportunity I've had came from work I did in public, never from
+    a job I applied for"): this episode's Claim 2 supplies
     Osmani's own origin anecdote for that general principle — publishing free frontend/JS
     educational content is specifically what got him hired at Google.
   - `blog-pragmaticengineer-orosz-kentbeck-career.md` (same interviewer, same house format):
@@ -335,10 +336,21 @@ notes' numbered `### Claim N:` headings in document order.
   earlier draft of this note also cited that note's Claim 9 as restating the accountability
   argument — that citation was wrong, its Claim 9 is about brownfield-system risk, and it has
   been removed); `blog-addyosmani-earning-taste-judgment.md`
-  Claim 7 and Claim 9 (both confirmed); `blog-addyosmani-loop-engineering.md`
+  Claim 5 and Claim 7 (both confirmed; an earlier draft of this note cited that
+  note's Claim 9 for the Russinovich/Hanselman material in this note's Claim 6 — that
+  citation was wrong, its Claim 9 is the seven-practices list, and the Russinovich/Hanselman
+  material is its Claim 5, which the citation now points to). A re-sweep of that same note
+  also found the "Build in public near hard problems" material had been attributed to
+  Claim 9's Concrete Artifacts list in two places (this note's Claim 2 assessment and the
+  Extends section); it is actually item 3 of that note's separate "The four principles of
+  durable value" artifact section — Claim 9 is the seven-taste-building-practices list — so
+  per MINER.md §4b rule 4 both are now cited by section name rather than by claim number.
+  `blog-addyosmani-loop-engineering.md`
   Claim 6 (confirmed); `blog-addyosmani-agentic-code-review.md` Claim 9 (confirmed);
   `blog-thoughtworks-kamelman-unbundling-expertise.md` Claim 1 (confirmed);
   `blog-pragmaticengineer-orosz-kentbeck-career.md` Claim 2 (confirmed).
+  This verification pass covers inline `Claim N` citations inside each claim's
+  "Our assessment" prose as well as those in the Cross-References section.
 - No contradiction issue filed. The one candidate terminology collision identified
   ("unbundling" used for two different referents by Osmani here vs. Kamelman in
   `blog-thoughtworks-kamelman-unbundling-expertise.md`) was judged to be a different-axis
