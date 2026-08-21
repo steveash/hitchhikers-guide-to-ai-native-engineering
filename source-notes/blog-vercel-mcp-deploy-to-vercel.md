@@ -134,7 +134,7 @@ Parameter         | Type   | Required | Default | Description
 target            | string | Yes      | -       | Deployment target: preview for a shareable non-production URL or production to deploy to production
 name               | string | Yes      | -       | Project name. Vercel creates the project if it does not already exist
 files              | array  | Yes      | -       | File tree to deploy. Provide source files only; Vercel installs dependencies and builds the project
-teamId              | string | No       | -       | The team ID to deploy to. Alternatively the team slug can be used.
+teamId              | string | No       | -       | The team ID to deploy to. Alternatively the team slug can be used. Team IDs start with 'team_'. Can be found by reading `.vercel/project.json` (orgId) or using the `list_teams` tool.
 projectSettings     | object | No       | -       | Build settings including framework, buildCommand, installCommand, outputDirectory, and rootDirectory. Omit this parameter to let Vercel detect the framework and settings automatically
 
 Each object in the files array supports the following fields:
