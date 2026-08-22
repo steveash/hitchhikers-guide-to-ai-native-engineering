@@ -43,10 +43,18 @@ issue: "#2859"
   verification commands (`node --check`, `make build`), and two specific PR
   numbers (#54129 for the August 20 run, #52622 for the August 21 run,
   described as "run #268"). High credibility for first-party platform
-  claims. No Actions run URL is linked for either run (unlike some earlier
-  entries in this series, e.g. the August 17 run cited by run URL in
-  `blog-ghaw-agent-of-the-day-2026-08-20.md`), so the specific run metrics
-  cannot be independently spot-checked against a linked Actions log.
+  claims, and both profiled runs are linked to their Actions logs — "August
+  20 run" links to `github.com/github/gh-aw/actions/runs/32328256109` and
+  "run #268 on August 21" to `.../actions/runs/32443619618` — so the
+  per-run claims are in principle independently spot-checkable, consistent
+  with the run-URL citation practice in earlier entries in this series
+  (e.g. `blog-ghaw-agent-of-the-day-2026-08-20.md`). The shipped work is
+  also linked: "PR #52622" points to `github.com/github/gh-aw/pull/52622`,
+  while the August 20 result is rendered as "PR/issue #54129" pointing to
+  `github.com/github/gh-aw/issues/54129`. The one figure with no
+  corresponding link is the aggregate reliability window (Claim 8): the
+  post does not identify which three runs the "last three runs" summary
+  covers, and only two runs are linked anywhere on the page.
 - **Scope**: Profiles two consecutive daily runs (August 20, run described
   in detail; August 21, run #268, described briefly) of Code Simplifier on
   the `github/gh-aw` repository, plus an aggregate reliability summary
@@ -184,8 +192,11 @@ issue: "#2859"
 ### Claim 7: The August 20 change shipped as PR #54129; the following day's run (run #268, August 21) again completed successfully and shipped a follow-up PR, #52622, continuing the same pattern of small, verifiable wins
 
 - **Evidence**: Direct statement naming both PR numbers and the run number
-  for the second day.
-- **Confidence**: settled (specific PR and run numbers stated directly)
+  for the second day, with each of the two runs and PR #52622 hyperlinked
+  to its GitHub URL on the live page.
+- **Confidence**: settled (specific PR and run numbers stated directly, and
+  linked to their Actions runs / pull request rather than only named in
+  prose)
 - **Quote**: "That PR shipped as PR/issue #54129. The very next day, run #268 on August 21 kept the streak going, again completing successfully and landing a follow-up pull request — PR #52622 — continuing the same pattern of small, verifiable wins."
 - **Our assessment**: Run #268 by August 21 implies the workflow has been
   running roughly daily for close to a year if it began near the series'
@@ -206,9 +217,12 @@ issue: "#2859"
 
 - **Evidence**: Aggregate operational summary covering an unspecified
   "last three runs" window.
-- **Confidence**: anecdotal (aggregate figures stated in prose; no run IDs
-  or Actions URLs given for any of the three runs, so the aggregate cannot
-  be independently spot-checked)
+- **Confidence**: anecdotal (aggregate figures stated in prose with no
+  per-run breakdown, and the post never identifies which three runs the
+  window covers — the two linked Actions runs, August 20 and run #268, are
+  presumably two of the three, but the third is unnamed and the error /
+  missing-tool / block-rate numbers are not attributed to any specific run,
+  so the aggregate cannot be reconstructed from the linked logs)
 - **Quote**: "Across its last three runs, the workflow logged zero errors, zero missing tools, and a near-perfect firewall record (0–1% blocked requests out of well over a hundred network calls each run), evidence that it's operating exactly within its intended, tightly scoped lane."
 - **Our assessment**: A near-zero block rate here is presented as a
   positive reliability signal ("operating exactly within its intended,
@@ -457,13 +471,22 @@ Last-three-run aggregate:
    substance; the curl-derived text preserves the source's original curly
    quotes (’) and em dashes (—), which is the version quoted throughout
    this note. The post is short (roughly 450 words) and was captured in
-   full in both passes; no pagination or truncation was observed.
+   full in both passes; no pagination or truncation was observed. Caveat
+   learned on rework: tag-stripping discards `href` attributes, so the
+   first pass of this note wrongly asserted the post linked no Actions run
+   URLs. Outbound links were re-surveyed by parsing anchors out of the
+   rendered HTML; link *targets* must be extracted separately from link
+   *text*.
 
-2. **No linked sub-pages followed**: The post's only outbound link (in the
-   closing "Try it yourself" section) points to the general
-   `github/gh-aw` repository, not to a specific workflow source file or
-   documentation sub-page, so MINER.md §1's "follow up to 5 linked pages"
-   guidance does not apply here — unlike
+2. **No linked sub-pages followed**: The post body carries four outbound
+   links — the two Actions runs (`.../actions/runs/32328256109` for August
+   20 and `.../actions/runs/32443619618` for run #268), the shipped work
+   (`.../issues/54129` and `.../pull/52622`), and, in the closing "Try it
+   yourself" section, the general `github/gh-aw` repository. None is a
+   workflow source file or documentation sub-page: the run and PR links are
+   citations for the metrics rather than further prose to mine, and the
+   repo link is a generic call to action. So MINER.md §1's "follow up to 5
+   linked pages" guidance does not apply here — unlike
    `blog-ghaw-agent-of-the-day-2026-08-18.md`, where a specific workflow
    YAML file was linked and separately fetched.
 
