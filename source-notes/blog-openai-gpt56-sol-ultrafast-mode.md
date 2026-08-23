@@ -415,6 +415,20 @@ Source: openai.com/index/previewing-ultrafast, August 13, 2026
     hardware-accelerated flagship-model tier — both sources show OpenAI
     leaning on large speed multipliers as a headline marketing figure
     across different product mechanisms.
+  - `blog-cognition-swe17.md` Concrete Artifacts → "Model availability
+    (verbatim, intro section)": "SWE-1.7 is available today in Devin
+    (Web, Desktop, and CLI) via Cerebras at 1000 TPS." Cognition was
+    already shipping a Cerebras-served coding agent at a *higher*
+    throughput figure (1000 TPS vs. Ultrafast's up-to-750 output
+    tokens/second) before this announcement, so the Cerebras-as-inference-
+    accelerator pattern is corroborated across two independent vendors,
+    not unique to OpenAI. The two figures are not directly comparable
+    (different models, different quoted units, both vendor-self-reported),
+    but the pairing is worth carrying into any guide treatment: it shows
+    hardware-accelerated serving being used as a cost/speed positioning
+    play by a frontier lab and by an agent vendor at roughly the same
+    time, and it means "Cerebras partnership" is not by itself a
+    differentiator.
 
 - **Contradicts**: None filed as a formal contradiction issue. See
   Claim 9 for the identified information gap (this source's silence on
@@ -434,16 +448,23 @@ Source: openai.com/index/previewing-ultrafast, August 13, 2026
     either source (see Claim 9).
 
 - **Novel**:
-  - First corpus documentation of Cerebras as a named OpenAI inference
-    hardware partner, and of any inference speed multiplier in the
-    double-digit range (14×) — all prior corpus speed-tier figures for
-    OpenAI and Anthropic (Fast mode variants) top out at roughly 2.5×.
-  - First corpus source describing a speed tier as achieved via a
-    dedicated third-party inference-hardware partnership rather than
-    in-house serving-infrastructure optimization (contrast with the
+  - First corpus documentation of Cerebras as a named **OpenAI**
+    inference hardware partner, and of any inference speed *multiplier*
+    in the double-digit range (14×) — all prior corpus speed-tier
+    multipliers for OpenAI and Anthropic (Fast mode variants) top out at
+    roughly 2.5×. Note the scoping: Cerebras itself is not new to the
+    corpus (see Corroborates → `blog-cognition-swe17.md`); what is new is
+    OpenAI naming Cerebras as its own inference partner, and the
+    magnitude of the claimed multiplier.
+  - First corpus source describing **an OpenAI** speed tier as achieved
+    via a dedicated third-party inference-hardware partnership rather
+    than in-house serving-infrastructure optimization (contrast with the
     kernel-rewrite/load-balancing/speculative-decoding work documented
     for OpenAI's own price-cut efficiency gains in
-    `blog-simonwillison-gpt56-luna-price-drop.md` Claims 7–9).
+    `blog-simonwillison-gpt56-luna-price-drop.md` Claims 7–9). The
+    broader pattern of third-party inference hardware behind a
+    speed/cost claim is *not* novel to the corpus — Cognition's
+    Cerebras-served SWE-1.7 already documents it for a different vendor.
   - First corpus customer testimonials specifically about a speed
     product (as opposed to testimonials about a price cut, a GA launch,
     or general model capability) — four new named companies (Jane
@@ -456,34 +477,71 @@ Source: openai.com/index/previewing-ultrafast, August 13, 2026
 
 ## Guide Impact
 
-- **Chapter 02 (Harness Engineering) / model-selection sections**: Add
-  Ultrafast as a third documented Sol speed option alongside Standard
-  and Fast mode (2.5×/2× price). State clearly that, as of this source,
-  Ultrafast is limited-preview only, has no disclosed pricing or GA
-  date, and its relationship to Fast mode (replaces it? coexists with
-  it? different eligibility?) is not addressed by either vendor source —
-  do not present Ultrafast as generally available or as a documented
-  Fast-mode replacement.
+**First, an honest scoping note.** The guide's chapter list is 00
+Principles, 01 Daily Workflows, 02 Harness Engineering, 03 Verification,
+04 Context Engineering, 05 Team Adoption, 06 Security and Threat Model.
+None of these is a vendor-capability or inference-latency chapter, and
+grepping the guide for "fast mode," "speed tier," "tokens per second,"
+and "latency" turns up only three incidental hits (03-verification.md
+line 280 on two-agent review cost, 01-daily-workflows.md line 387 on
+latency-sensitive routing, 02-harness-engineering.md line 1580 on
+cross-harness speed/cost spread) and no mention of GPT‑5.6, Sol, or any
+named speed tier anywhere in the guide body. There is currently **no
+dedicated home** for vendor speed-tier material, and this note should
+not be read as arguing that one be created for a single limited-preview
+announcement with no pricing and no GA date. The targets below are the
+two places where existing guide prose would actually be changed by this
+source.
 
-- **Chapter 04 (inference optimization / latency patterns)**: Document
-  Cerebras-partnered hardware acceleration as a distinct optimization
-  path from OpenAI's own software/infrastructure-level Fast mode work
-  and Anthropic's fast mode — note explicitly that this source gives no
-  mechanism-level detail (no kernel, chip, or serving-architecture
-  specifics), unlike the companion engineering post OpenAI published for
-  the July 30 Luna/Terra price cut. Add the five named use-case
-  categories (Claim 3) and the internal "overnight batch → same-workday
-  iteration" pattern (Claim 7) as illustrative heuristics for identifying
-  workloads where a large speed multiplier — not a cost cut — is the
-  binding constraint.
+- **Chapter 01 (Daily Workflows) → §Multi-Model Cooperation, specifically
+  §"Model mixing across orchestration tiers"** — the primary target. That
+  section's economic logic is currently stated as a model *swap*:
+  "routing and follow-up questions are latency-sensitive but
+  quality-tolerant; drafting is the opposite," illustrated by the Spiral
+  team running a Haiku lead agent over Opus drafting subagents. This
+  source is the first in the corpus to describe a vendor selling a way
+  out of that tradeoff — a speed dial on the *same* flagship model rather
+  than a downgrade to a smaller one (Claim 2: "Until now, getting
+  real-time speed typically meant choosing a smaller or more specialized
+  model"). Recommend a short addition noting that speed tiers are an
+  emerging third option alongside "use the big model" and "swap to a
+  small one," heavily caveated: Ultrafast is limited-preview, unpriced,
+  and the only quality-parity evidence offered is one cherry-picked demo
+  video (Claim 10), so the latency-sensitive/quality-tolerant swap
+  heuristic remains the guide's operative advice. The internal
+  "overnight batch → same-workday iteration" pattern (Claim 7) and the
+  five use-case categories (Claim 3) are usable as a *screening test* —
+  the workload must be latency-bound rather than cost-bound — which is
+  the practitioner-facing form of this material.
 
-- **Chapter 05 (API capabilities / vendor speed-tier landscape)**: Add
-  the customer testimonials (Claim 5), especially Podium's real-time
-  voice-stack use case and Basis's "tokens per second is not the only
-  barrier — model intelligence is the other" framing, as concrete
-  practitioner-reported motivations for choosing a hardware-accelerated
-  speed tier over a smaller/cheaper model for latency-bound production
-  workloads.
+- **Chapter 02 (Harness Engineering) → §"How Much Does the Harness
+  Actually Move?"** — secondary. That section already establishes that
+  the same model across three harnesses produced similar success rates
+  but very different speed/cost profiles. Ultrafast is the orthogonal
+  axis worth one sentence there: serving-side hardware acceleration
+  changes the speed/cost profile without touching the harness at all, so
+  a team that is latency-bound should check whether the constraint is
+  harness overhead or inference throughput before rewriting config.
+  Include the Fast-mode-vs-Ultrafast ambiguity explicitly (Claim 9):
+  Ultrafast is a *third* Sol speed option alongside Standard and Fast
+  mode (2.5×/2× price), its relationship to Fast mode is unaddressed by
+  either vendor source, and it must not be presented as generally
+  available or as a documented Fast-mode replacement.
+
+- **Not a fit for Chapters 00, 03, 04, 05, or 06.** Chapter 04 is Context
+  Engineering (context-window budgeting), not inference optimization, and
+  Chapter 05 is Team Adoption (scaling practice across an org), not API
+  capabilities — an earlier draft of this note mislabeled both. The
+  customer testimonials (Claim 5) are vendor-published marketing quotes
+  from four companies and do not meet the evidentiary bar for Chapter 05's
+  survey-and-study-grounded adoption material; cite them, if at all, only
+  as directional signal inside the Chapter 01 addition above. Claim 6's
+  "engineers remain responsible for judgment and deployment" qualifier is
+  the one piece with a plausible second home — an autonomy-boundary
+  example for Chapter 03 (Verification) — but it is a vendor's one-line
+  self-description of its own internal practice, not a documented
+  verification pattern, so it is offered as a candidate, not a
+  recommendation.
 
 - No chapter should cite the 14× or 750 output-tokens/second figures as
   independently verified — both are OpenAI's own unaudited numbers, with
