@@ -281,6 +281,26 @@ unmarked prefix before that breakpoint if the marked one misses.
     (the 100-filings example; the "this is also how ultra works" framing)
     that the GA announcement's more benchmark-dense treatment did not
     include.
+  - `blog-simonwillison-gpt56-ga-launch.md` Claims 8, 9, and 10 — an
+    independent, non-OpenAI writeup of the same three mechanics this guide's
+    Claims 8-10 cover, extracted from Willison's GA-day post plus his own
+    direct fetches of the developer docs. Claim 8 documents the identical PTC
+    sandbox description (fresh isolated V8 runtime, no Node.js/network/
+    filesystem/subprocess/console) and the same three-way `allowed_callers`
+    gating (direct vs. programmatic vs. both) that this note's Concrete
+    Artifacts transcribe. Claim 9 documents the Multi-agent API as "the
+    sub-agent pattern now baked into the core API" — but was graded
+    `emerging` there because the docs page Willison linked
+    (`.../guides/tools-multi-agent`) returned "Page not found" at that
+    note's extraction time; this note's Concrete Artifacts retrieve the now-
+    reachable guide at `.../guides/responses-multi-agent`, which supplies the
+    primary-source confirmation that note flagged as missing and asked to be
+    re-verified. Claim 10 independently confirms the 30-minute TTL and the
+    1.25x uncached-rate cache-write charge in this note's caching artifact,
+    and adds two mechanics neither this guide nor its linked docs page
+    surfaced here: a request-wide cap of four new cache writes per request,
+    and the fact that the 1.25x surcharge applies only to GPT‑5.6-and-later
+    models (pre-5.6 cache writes remain free).
   - `blog-anthropic-multi-agent-coordination-patterns.md` Claim 1 (five
     named coordination topologies) and Claim 7 (orchestrator-subagent is
     Anthropic's recommended default pattern) — this guide's description of
