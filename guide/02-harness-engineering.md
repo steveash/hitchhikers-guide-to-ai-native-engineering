@@ -138,13 +138,13 @@ Cursor rules file compensates by inlining the SQL style guide (~100 lines).
 > settings.json permissions, blocking hooks, or CI gates (see "The Enforcement
 > Hierarchy" below).
 > [source: failure-claudemd-ignored-compaction, Lessons 1, 5, 6;
-> failure-hooks-enforcement-2k, Lesson 1] [emerging]
+> failure-hooks-enforcement-2k, Lesson 1] [stale]
 
 Six out of six profiled repos share a common priority order. Lead with
 prohibitions, then surgical corrections, then stack context.
 [source: practitioner-getsentry-sentry, practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba, practitioner-supabase-supabase-js,
-practitioner-dadlerj-tin, practitioner-mikelane-pytest-test-categories] [settled]
+practitioner-dadlerj-tin, practitioner-mikelane-pytest-test-categories] [emerging]
 
 ### 1. Prohibitions First
 
@@ -209,7 +209,7 @@ nx test:auth auth-js
 
 All three formats work. The key principle: prohibitions before positive guidance.
 [source: practitioner-getsentry-sentry, practitioner-frankray78-netpace,
-practitioner-supabase-supabase-js, practitioner-dadlerj-tin] [settled]
+practitioner-supabase-supabase-js, practitioner-dadlerj-tin] [emerging]
 
 ### 2. Surgical LLM-Targeting Rules
 
@@ -244,7 +244,7 @@ LLMs scatter inline imports and default to `unittest.Mock`. Two lines fix both.
 **The pattern**: Identify the 2-5 mistakes your agent makes repeatedly. Write
 a one-line rule for each. Skip everything your linter already catches.
 [source: practitioner-nikolays-postgres-dba,
-practitioner-mikelane-pytest-test-categories] [emerging]
+practitioner-mikelane-pytest-test-categories] [stale]
 
 ### 3. Stack Context (for non-obvious architectures)
 
@@ -272,7 +272,7 @@ Name your CI file and what it checks. Five of six profiled repos reference CI
 in their AI config.
 [source: practitioner-getsentry-sentry, practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js, practitioner-mikelane-pytest-test-categories,
-practitioner-frankray78-netpace] [settled]
+practitioner-frankray78-netpace] [emerging]
 
 ```markdown
 ## CI
@@ -511,7 +511,7 @@ Not all enforcement mechanisms are equal. The following hierarchy ranks them
 by reliability, from strongest to weakest. Use it to decide WHERE to put
 each rule -- the higher up the hierarchy, the more certain the enforcement.
 [source: failure-claudemd-ignored-compaction, Lessons 1, 3, 5;
-failure-hooks-enforcement-2k, Lessons 1, 3] [emerging]
+failure-hooks-enforcement-2k, Lessons 1, 3] [stale]
 
 ```
 1. settings.json permissions     (100% — harness-enforced, immune to compaction and framing)
@@ -533,7 +533,7 @@ CI (level 3). Reserve CLAUDE.md for guidance the model needs to *understand*
 -- the "why" behind decisions, architectural context, and stylistic
 preferences where imperfect compliance is acceptable.
 [source: failure-claudemd-ignored-compaction, Lesson 5;
-failure-hooks-enforcement-2k, Lesson 3] [emerging]
+failure-hooks-enforcement-2k, Lesson 3] [stale]
 
 The ~60% baseline CLAUDE.md compliance measured by Christopher Montes rose
 to 90%+ after deploying a hook-based enforcement system. This is the first
@@ -618,7 +618,7 @@ Three of six profiled repos have no `.claude/settings.json` — all
 enforcement is through prose rules in CLAUDE.md. These are "soft"
 constraints the agent could technically violate.
 [source: practitioner-frankray78-netpace, practitioner-nikolays-postgres-dba,
-practitioner-mikelane-pytest-test-categories] [emerging]
+practitioner-mikelane-pytest-test-categories] [stale]
 
 ---
 
@@ -1633,7 +1633,7 @@ duplication of reference material is a maintenance burden. Know the difference.
 Three repos have no `.claude/settings.json`. NetPace's "TDD is
 non-negotiable" is entirely prompt-enforced — the agent could skip it.
 [source: practitioner-frankray78-netpace, practitioner-nikolays-postgres-dba,
-practitioner-mikelane-pytest-test-categories] [emerging]
+practitioner-mikelane-pytest-test-categories] [stale]
 
 This is now a known structural vulnerability, not just a missed best
 practice. CLAUDE.md prose is followed approximately 70-80% of the time
@@ -1645,7 +1645,7 @@ the only mechanism that is 100% reliable, immune to compaction, and
 immune to the "may or may not be relevant" framing the harness applies
 to CLAUDE.md content.
 [source: failure-claudemd-ignored-compaction, Lessons 1, 5;
-failure-hooks-enforcement-2k, Lesson 1] [emerging]
+failure-hooks-enforcement-2k, Lesson 1] [stale]
 
 **Rule**: If a rule is critical enough to state in your CLAUDE.md at all,
 ask whether it can be enforced with settings.json or a hook instead.
