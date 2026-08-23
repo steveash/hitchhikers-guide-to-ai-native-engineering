@@ -132,7 +132,7 @@ the next turn pays full prefill on the rebuilt cache. The wasnotwas
 measurement captures that second cost, which cache-safe forking does
 not address.
 [source: blog-anthropic-prompt-caching-everything, Claim 11;
-research-wasnotwas-context-compaction, Claim 2] [emerging]
+research-wasnotwas-context-compaction, Claim 2] [stale]
 
 The practical consequence for users: cache-safe forking makes the
 compaction call itself cheap, but the post-compaction rebuild still
