@@ -75,12 +75,18 @@ issue: "#2915"
 
 ## Extracted Claims
 
-### Claim 1: Chat SDK exposes Claude Managed Agents through the same single type-safe handler and multi-platform adapter model it uses for any other chat backend — "swapping a few lines" moves the same agent from a local web demo to Slack, Teams, Discord, WhatsApp, or 30+ other platforms
+### Claim 1: Chat SDK exposes Claude Managed Agents through the same single type-safe handler and multi-platform adapter model it uses for any other chat backend — "swapping a few lines" moves the same agent from a local web demo to Slack, Teams, Discord, or WhatsApp (the changelog claims "30+ other platforms"; the quickstart README says "15+ adapters")
 - **Evidence**: The changelog's own "What you get" bullet list (raw HTML,
   not a fetch-tool paraphrase — verified via `curl` against the page's raw
-  markup) plus the quickstart README's line "Swapping a few lines in the
-  handler moves your agent to Slack, Teams, Discord, WhatsApp, and 30+
-  other platforms."
+  markup), which is the *only* source of the quoted "30+ other platforms"
+  sentence below. The quickstart README makes the same portability point in
+  its own, different words — "The Chat SDK is a universal chat layer: one
+  type-safe handler, 15+ adapters, from Slack and Teams to Discord and
+  WhatsApp." and "Swapping a few lines in `src/bot.ts` moves the analyst to
+  another surface: set up the platform's app following the [adapter
+  docs](https://chat-sdk.dev/adapters), then see the porting notes
+  (`skill.md`, "Two held streams, no webhooks")." — note the different
+  adapter count (see Our assessment).
 - **Confidence**: settled (first-party feature description; the mechanism —
   a `create<Platform>Adapter()` factory per platform — is independently
   confirmed by two other adapter-specific changelogs already in the corpus)
@@ -95,6 +101,20 @@ issue: "#2915"
   adapter boundary sits between Chat SDK's chat surface and Managed Agents'
   session/event API rather than between Chat SDK and an arbitrary model
   call.
+
+  One nuance worth flagging, in the same spirit as Claim 12's
+  changelog/README streaming discrepancy: **the two first-party pages give
+  different adapter counts on the same day.** The changelog says "30+ other
+  platforms"; Anthropic's quickstart README says "15+ adapters." Neither
+  page defines its term, so the gap may be definitional (shipped
+  first-party adapters vs. reachable platforms including community or
+  bridged ones) rather than a factual conflict — but it is not reconciled
+  anywhere in either source. Treat the adapter count as marketing-grade:
+  the *mechanism* (one handler, per-platform adapter factory) is what the
+  corpus independently corroborates; the specific number is not
+  load-bearing and should not be cited in the guide as a fact. We have not
+  filed this as a contradiction issue, because nothing in the guide's
+  advice would change depending on which number is right.
 
 ### Claim 2: The chat server keeps no database of its own — the Managed Agents session is the single source of truth, and the `useChat` conversation ID is literally the Managed Agents session ID
 - **Evidence**: Changelog bullet plus the quickstart README's architecture
