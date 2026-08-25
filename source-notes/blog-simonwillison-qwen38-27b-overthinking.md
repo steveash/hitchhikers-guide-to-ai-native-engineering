@@ -55,7 +55,7 @@ issue: "#2929"
 - **Evidence**: Direct quote of Qwen's documentation, reproduced by Willison, plus his own confirmation that the LM Studio GGUF build he tested preserves that default.
 - **Confidence**: settled (directly quoted vendor documentation, corroborated by the author's own observed runtime behavior)
 - **Quote**: "Qwen3.8 comes with official support for `reasoning_effort`, which can be used to adjust reasoning depth and control cost:" followed by the three bulleted levels: "`xhigh` (default): for complex tasks demanding thorough analysis", "`medium`: balancing accuracy and speed", "`low`: efficient reasoning optimizing for speed and cost" (reproduced in full in Concrete Artifacts below)
-- **Our assessment**: This directly extends `blog-ronacher-what-is-reasoning.md` Claim 5 (reasoning effort is implemented as system-prompt-baked behavior, not a sampling parameter, illustrated there with GPT-OSS's terse `Reasoning: low` directive and DeepSeek DwarfStar's elaborate multi-sentence directive) with a third concrete provider example: Qwen's three-level `xhigh`/`medium`/`low` naming scheme, defaulting to the highest-effort tier. This is a new, provider-specific data point for that note's broader claim that reasoning-effort defaults and naming are not standardized across the industry — and, notably, Qwen ships with the most aggressive default (`xhigh`) of any provider documented so far in this corpus.
+- **Our assessment**: This directly extends `blog-ronacher-what-is-reasoning.md` Claim 5 (reasoning effort is implemented as system-prompt-baked behavior, not a sampling parameter, illustrated there with GPT-OSS's terse `Reasoning: low` directive and DeepSeek DwarfStar's elaborate multi-sentence directive) with a third concrete provider example: Qwen's three-level `xhigh`/`medium`/`low` naming scheme, defaulting to the highest-effort tier. The naming scheme itself is not new to this corpus — `blog-latentspace-ainews-qwen38-max-27b-launch.md` Claim 4 already recorded Qwen exposing "low / medium / xhigh reasoning-effort modes", though for the Qwen3.8-**Max** flagship and sourced only to a third-party summary tweet (`@ZhihuFrontier`), with no indication of which mode is the default. What this claim adds is (a) confirmation that the same three-tier scheme carries down to the open-weight 27B variant, (b) vendor documentation that `xhigh` is the *default*, and (c) via Claims 2-4, the measured practical cost of that default. Qwen remains the most aggressive default (`xhigh`) of any provider documented so far in this corpus.
 
 ### Claim 2: The `xhigh` default produces spectacular over-thinking on trivial creative prompts — a pelican-riding-a-bicycle SVG took 21 minutes and 22,276 reasoning tokens to produce 3,223 tokens of visible output
 - **Evidence**: Direct first-person timing and token-count measurement from Willison's own test run, with a linked reasoning trace for inspection.
@@ -193,13 +193,45 @@ a tweet from Georgi Gerganov (llama.cpp creator)
 
 ### Cross-reference verification notes
 `blog-ronacher-what-is-reasoning.md`, `blog-fowler-boeckeler-local-models-viability.md`,
-`blog-simonwillison-georgi-gerganov.md`, `blog-simonwillison-ornith.md`, and
-`blog-latentspace-ainews-harness-drift-quantization.md` were each re-read
+`blog-simonwillison-georgi-gerganov.md`, `blog-simonwillison-ornith.md`,
+`blog-latentspace-ainews-harness-drift-quantization.md`,
+`blog-latentspace-ainews-qwen38-max-27b-launch.md`, and
+`blog-simonwillison-cors-chat.md` were each re-read
 directly and the specific claim numbers cited above were confirmed against
 each note's numbered `### Claim N:` headings in document order before
-writing this section, per MINER.md §4b.
+writing this section, per MINER.md §4b. The corpus was additionally
+keyword-searched for "Qwen 3.8" and "DGX Spark" across `source-notes/*.md`
+to catch same-model and same-hardware notes that a topic-only scan would
+miss.
 
 - **Corroborates**:
+  - `blog-latentspace-ainews-qwen38-max-27b-launch.md` Claim 4 (Qwen3.8-Max
+    "API exposes low / medium / xhigh reasoning-effort modes," per a
+    third-party summary tweet attributed to `@ZhihuFrontier`): Claim 1 here
+    confirms that same three-tier scheme in the open-weight 27B variant,
+    upgrading the evidence from a third-party summary to Qwen's own quoted
+    model documentation, and adds the piece the launch note did not have —
+    which tier is the default (`xhigh`, the highest). The launch note is
+    this corpus's record of the model family at announcement time
+    (2026-08-04); this note is the hands-on follow-up on the 27B
+    open-weight release (2026-08-16).
+  - `blog-simonwillison-cors-chat.md` Claim 1 (Willison built the CORS Chat
+    browser client in a single day "to help test Qwen 3.8 27B running in LM
+    Studio on both my M5 MacBook Pro and an NVIDIA DGX Spark"): the closest
+    cross-reference in the corpus — same author, same model, same two test
+    machines (this post specifies the Mac as a "128GB M5 Max MacBook Pro"),
+    same LM Studio runtime, published one day apart (2026-08-15 and
+    2026-08-16). That note is the *tooling* Willison built to run the
+    evaluation; this note is the *findings* from it. The cors-chat note's
+    own Cross-References section anticipates this one, recording that
+    benchmark results for Qwen 3.8 27B "appear in Willison's separate
+    next-day post" and were "not yet present in this corpus as of this
+    extraction" — this note closes that gap, and the link should be read as
+    reciprocal. Practical note for the Smith: the two are best cited
+    together, since cors-chat documents the reasoning-effort control
+    surface (its Claim 7 — reasoning effort "none through max" exposed in
+    the UI) that makes the override recommended in Claim 5 here
+    operationally easy.
   - `blog-fowler-boeckeler-local-models-viability.md` Claim 3 (disabling
     reasoning on small local models was faster and same-to-slightly-better
     quality in an automated eval): Claim 5 here (Willison's "run at low or
@@ -244,6 +276,25 @@ writing this section, per MINER.md §4b.
   is the biggest factor" framing).
 
 - **Extends**:
+  - `blog-latentspace-ainews-qwen38-max-27b-launch.md` Claim 11
+    (TeortaxesTex's speculation that Qwen 3.8 Max may be
+    "distillable/OPD-able into Qwen 3.8 27B for task-specific parity,
+    implying a route from flagship capability to laptop-deployable
+    specializations"): Claims
+    8-9 here are the corpus's first real-world test of that launch-time
+    speculation. The "laptop-deployable" framing partly holds and partly
+    does not — the 27B does drive a real agentic coding loop against a real
+    codebase successfully (Claim 8), supporting the capability half of the
+    speculation, but Claim 9's measured 15-30 tok/s on a 128GB M5 Max
+    MacBook Pro and a DGX Spark shows that *deployability* is bounded by
+    throughput rather than capability, with Claim 11 here supplying the
+    architectural reason (dense models are memory-bandwidth-bound). Read
+    together, the launch note's speculative "route to laptop deployment"
+    gains a concrete qualifier: on 2026-08 prosumer hardware the route
+    exists but runs 3-10x slower than hosted APIs. This also sharpens
+    launch-note Claim 8's separate infrastructure-cost argument (the 2.4T
+    flagship is impractical to self-host) — the 27B is practical to
+    self-host, just slow.
   - `blog-ronacher-what-is-reasoning.md` Claim 5 (reasoning effort as
     system-prompt-baked behavior, illustrated with GPT-OSS's `Reasoning:
     low` and DeepSeek DwarfStar's elaborate directive): Claim 1 here adds a
@@ -257,10 +308,16 @@ writing this section, per MINER.md §4b.
     model family) driving an agentic coding loop.
 
 - **Novel**:
-  - **Qwen 3.8 27B's `xhigh` default and its measured cost** (Claims 1-4):
-    the corpus's first quantified reasoning-effort-default cost figures
-    (21 minutes / 22,276 reasoning tokens vs. 137s / 3,715 tokens for an
-    identical prompt) for any local model.
+  - **The measured cost of the `xhigh` default** (Claims 2-4): the corpus's
+    first quantified reasoning-effort-default cost figures (21 minutes /
+    22,276 reasoning tokens vs. 137s / 3,715 tokens for an identical
+    prompt) for any local model. Scoped deliberately: the
+    `xhigh`/`medium`/`low` *naming scheme* of Claim 1 is **not** novel to
+    this corpus — `blog-latentspace-ainews-qwen38-max-27b-launch.md`
+    Claim 4 already documented those three modes for Qwen3.8-Max at launch.
+    What is new here is that `xhigh` is the shipped default, that the
+    scheme carries down to the open-weight 27B, and above all the measured
+    price of leaving that default alone.
   - **The over-thinking-as-scope-creep failure mode** (Claim 4 — the model
     reasoning itself into an unrequested elaborate design rather than the
     simple circle asked for): new to the corpus; prior local-model
