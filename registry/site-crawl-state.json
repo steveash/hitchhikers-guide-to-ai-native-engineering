@@ -1120,19 +1120,99 @@
         "screened_at": "2026-08-26T06:10:30.993783+00:00"
       },
       "https://github.github.com/gh-aw/reference/open-telemetry-attributes": {
-        "status": "pending",
-        "screened_at": "2026-08-26T06:10:30.993785+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-26T06:10:30.993785+00:00",
+        "issue": 3003,
+        "filed_at": "2026-08-27T09:04:33.350209+00:00"
       },
       "https://github.github.com/gh-aw/reference/third-party-agent": {
-        "status": "pending",
-        "screened_at": "2026-08-26T06:10:30.993786+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-26T06:10:30.993786+00:00",
+        "issue": 3004,
+        "filed_at": "2026-08-27T09:04:35.348362+00:00"
       },
       "https://github.github.com/gh-aw/specs/dashboard-language-specification": {
         "status": "rejected",
         "screened_at": "2026-08-26T06:10:30.993788+00:00"
+      },
+      "https://github.github.com/gh-aw/engines/pi": {
+        "status": "rejected",
+        "screened_at": "2026-08-27T09:04:19.393785+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery": {
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393802+00:00",
+        "issue": 3005,
+        "filed_at": "2026-08-27T09:04:37.927057+00:00"
+      },
+      "https://github.github.com/gh-aw/guides/working-with-workflows": {
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393804+00:00",
+        "issue": 3006,
+        "filed_at": "2026-08-27T09:04:39.816946+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/ai-issue-triage": {
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393806+00:00",
+        "issue": 3007,
+        "filed_at": "2026-08-27T09:04:41.626509+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/ai-release-notes": {
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393808+00:00",
+        "issue": 3008,
+        "filed_at": "2026-08-27T09:04:43.990779+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/automated-pr-review": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393810+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/ci-failure-investigation": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393812+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/code-improvement": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393813+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/docs-automation": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393815+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/maintaining-repos": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393817+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/metrics-analytics": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393819+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/multi-repo/code-quality-monitoring": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393820+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/multi-repo/dependabot-rollout": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393822+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/multi-repo/feature-sync": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393824+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/multi-repo/issue-tracking": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393826+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/multi-repo/triage-from-side-repo": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393827+00:00"
+      },
+      "https://github.github.com/gh-aw/gallery/security-review": {
+        "status": "pending",
+        "screened_at": "2026-08-27T09:04:19.393829+00:00"
       }
     },
-    "last_scan": "2026-08-26T06:10:30.993790+00:00"
+    "last_scan": "2026-08-27T09:04:19.393831+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1235,7 +1315,7 @@
         "filed_at": "2026-08-13T06:30:57.104740+00:00"
       }
     },
-    "last_scan": "2026-08-26T06:10:32.442223+00:00"
+    "last_scan": "2026-08-27T09:04:21.060538+00:00"
   },
   "cognition": {
     "urls": {
@@ -1894,6 +1974,6 @@
         "screened_at": "2026-08-26T06:10:34.717748+00:00"
       }
     },
-    "last_scan": "2026-08-26T06:10:34.717764+00:00"
+    "last_scan": "2026-08-27T09:04:22.219488+00:00"
   }
 }
