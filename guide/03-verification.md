@@ -1002,6 +1002,40 @@ derives from user-submitted input, sanitize it before storage — the same
 untrusted-input boundary as §Prompt injection in workflow inputs.
 [source: docs-ghaw-memory-ops, Claim 11] [settled]
 
+### Operational success does not imply memory currency
+
+A memory store can stop tracking reality while the workflow that owns it
+keeps running and keeps producing correct output. The `eslint-refiner`
+agentic workflow filed audit issues daily for roughly seven weeks on a dead
+persistence layer, and found out by cross-checking GitHub rather than from
+any platform warning:
+
+> "this workflow's local repo-memory had gone stale since 2026-07-08 even
+> though the workflow kept running and filing issues daily (verified via
+> GitHub issue search on the `eslint-refiner` tracker ID, 100 issues found
+> through 2026-08-26). Memory has been rebuilt from that ground truth and
+> now records the gap explicitly so future runs don't need to re-derive it."
+> [source: blog-ghaw-agent-of-the-day-2026-08-28, Claim 5] [settled]
+
+The recovery then hit its own silent limit. That reconciliation search
+returned exactly 100 issues — the GitHub search API's page cap — and the
+agent flagged the residual uncertainty instead of declaring the rebuild
+complete: "Re-check for a second page of tracker-id search results next run
+(count hit exactly 100 today, the API page cap)."
+[source: blog-ghaw-agent-of-the-day-2026-08-28, Claim 6] [settled]
+
+§Secrets in agent memory stores treats the memory store as a
+confidentiality boundary. This is the availability-of-truth failure on the
+same store: nothing errored, no output was wrong, and the only detector was
+an independent source of ground truth. [editorial]
+
+**Rule**: Schedule a ground-truth reconciliation for any agent memory store
+that drives continuity — have the workflow re-derive its own history from an
+external record (issue search, git log, an API listing) on a fixed cadence,
+and treat any count that lands exactly on a round API page limit as
+unconfirmed rather than complete.
+[source: blog-ghaw-agent-of-the-day-2026-08-28, Claims 5, 6] [settled]
+
 ---
 
 ## Summary: The Verification Stack
@@ -1230,6 +1264,7 @@ blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
+blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),

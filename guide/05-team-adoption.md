@@ -476,6 +476,29 @@ silent-failure mode is the most dangerous default on the platform for
 multi-repo coordination.
 [source: docs-ghaw-multi-repo-ops, Claim 3] [settled]
 
+### The PAT scope the examples show is not the scope the guidance gives
+
+Once you fix cross-repo auth, the platform's own documentation disagrees
+with itself about how wide that token should be. The feature-sync example
+page says to "Create a PAT with `repo`, `contents: write`, and
+`pull-requests: write` permissions, then store it as a repository secret" —
+one broad token, no source/target distinction drawn.
+[source: docs-ghaw-multi-repo-feature-sync, Claim 8] [settled]
+The MultiRepoOps pattern page says the opposite: "If you only need to read
+from one repo and write to another, scope your PAT to have read access on
+the source and write access only on target repositories."
+[source: docs-ghaw-multi-repo-ops, Claim 7] [settled]
+
+The example pages optimize for a config that works on the first try; the
+pattern pages optimize for least privilege. Take the working YAML from the
+former and the token scope from the latter. [editorial]
+
+**Rule**: Split cross-repo PATs by direction — read on the source repo,
+write only on the targets — and treat any example page's single broad `repo`
+scope as a getting-started shortcut rather than a production posture.
+[source: docs-ghaw-multi-repo-ops, Claim 7;
+docs-ghaw-multi-repo-feature-sync, Claim 8] [settled]
+
 ---
 
 ## Distributing Harness Improvements Across Repos
@@ -961,6 +984,71 @@ of code or PRs [source: blog-cursor-coinbase-agent-first-adoption, Claim 10]
 [emerging]. The analytics vendor (Faros) and the practitioner (Coinbase) now
 converge from independent vantage points: the input metrics that rise most
 reliably under AI adoption are the ones worth measuring least. [editorial]
+
+### Fix the unit before you fix the metric
+
+The metrics above are bad numerators. Matt Wood (AWS Chief AI & Technology
+Officer) names the structural problem underneath them — an AI business case
+sets a precise cost against a vague return: "Most AI business cases start
+with a cost that's easy to count: licenses, model calls, tokens. The return
+sits opposite it as productivity, better decisions, improved experience,
+transformation. Those may all be real. They're also too broad to sit across
+from a number that precise."
+[source: blog-mattwood-unit-of-return, Claim 3] [anecdotal]
+
+His fix is to make both sides share a unit, gated on three questions:
+
+```
+1. What useful result will the system produce?
+2. What evidence will show the result is good enough?
+3. What will the full path to that result cost?
+```
+*Verbatim from the essay's own section headers.*
+[source: blog-mattwood-unit-of-return, Claim 5; Concrete Artifacts]
+[anecdotal]
+
+Question 3 is the one a token bill answers wrongly: "The model call is one
+part of the answer. A system may also search, use other software, check its
+own work, retry or hand off to a person." Build, integration, and
+process-change costs land before the first result; maintenance lands after.
+[source: blog-mattwood-unit-of-return, Claim 8] [anecdotal]
+The payoff is provider substitutability. With the same unit on both sides,
+"The business can move between them and keep getting resolved requests."
+[source: blog-mattwood-unit-of-return, Claim 9] [anecdotal]
+
+This does not retire token counting. Wood keeps it explicitly for operations
+— "Developers will still count tokens to manage cost, monitor response times
+and catch runaway loops" — and rejects token price only as a stand-in for
+business value.
+[source: blog-mattwood-unit-of-return, Claim 10] [anecdotal]
+
+Teams running gh-aw workflows do not have to build the unit; the platform
+emits it. [editorial] The OpenTelemetry attribute reference names the fields
+directly:
+
+```
+gh-aw.outcome.accepted             Accepted count
+gh-aw.outcome.acceptance_rate      Accepted fraction
+gh-aw.outcome.waste_rate           Rejected fraction
+gh-aw.outcome.noop_rate            No-op fraction
+gh-aw.outcome.zero_touch_count     Zero-touch accepted count
+gh-aw.outcome.zero_touch_rate      Zero-touch accepted fraction
+gh-aw.outcome.median_resolution_sec
+```
+
+Cost per accepted result is then a division rather than a research project:
+AI credits consumed (`gh-aw.aic`) over `gh-aw.outcome.accepted`.
+[source: docs-ghaw-open-telemetry-attributes, Claim 6] [settled]
+Per-item spans carry `changed_files`, `additions`, `deletions`, and
+`review_comments` alongside a `zero_touch` boolean, so "are large agent PRs
+rejected more often than small ones" is a query rather than a study.
+[source: docs-ghaw-open-telemetry-attributes, Claim 7] [settled]
+
+**Rule**: Before adding another metric, define the accepted result your
+agents produce, then report value per accepted result and full cost per
+accepted result — full cost including retries, self-checks, handoffs to a
+person, and the build and maintenance the token bill omits.
+[source: blog-mattwood-unit-of-return, Claims 5, 8] [anecdotal]
 
 ### The 27% finding: measure new categories of work
 
@@ -1633,6 +1721,9 @@ blog-anthropic-ai-native-engineering-org (Claims 1, 6, 7),
 blog-anthropic-claude-tag-context-awareness (Claims 2, 3, 4, 5, 6, 7, 8),
 blog-anthropic-human-agent-teams (Claims 3, 5, 7, 8, 9, 10, 11, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
+blog-mattwood-unit-of-return (Claims 3, 5, 8, 9, 10; Concrete Artifacts),
+docs-ghaw-multi-repo-feature-sync (Claim 8),
+docs-ghaw-open-telemetry-attributes (Claims 6, 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
 blog-cursor-coinbase-agent-first-adoption (Claims 3, 10),

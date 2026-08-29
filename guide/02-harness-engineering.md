@@ -1239,6 +1239,70 @@ domain-specific knowledge, extract it into a skill rather than keeping it
 in AGENTS.md.
 [source: practitioner-getsentry-sentry] [editorial]
 
+### Skills That Update Themselves (With a Human in the Merge Path)
+
+A recurring-task skill usually degrades for a persistence reason, not an
+authoring reason. Warp diagnosed its noisy internal code-review agent that
+way after both manual prompt rewrites and AGENTS.md improvements failed to
+scale: "the real issue was that feedback to an agent, no matter what its
+purpose, typically disappears when the session ends, removing critical
+context from the agentic loop."
+[source: blog-anthropic-warp-self-improving-skills, Claim 2] [anecdotal]
+
+The fix is a second skill. An **inner/base skill** holds the domain
+knowledge and runs per task; an **outer/improver skill** runs on a schedule,
+pulls accumulated human feedback, compares what the agent suggested against
+how humans responded, and proposes a small, focused edit to the base skill.
+[source: blog-anthropic-warp-self-improving-skills, Claim 3] [emerging]
+
+Warp's issue-triage agent, end to end:
+
+```
+TRIGGER      New GitHub issue -> Action fires the triage agent
+INNER SKILL  Assigns labels, analyzes feasibility, suggests a fix direction
+GAP          Missed the "ready to spec" label
+FEEDBACK     Maintainer comments on the issue, saying what he expected AND why
+
+IMPROVER SKILL (scheduled, not per-task)
+  1. Authenticates to GitHub
+  2. Runs a Python script bundled with the skill to pull recent issues
+     carrying feedback
+  3. Summarizes the signals into a JSON file, reads that back into context
+  4. Proposes the smallest edit capturing them
+  5. Opens a PR editing the inner skill, describing which signals prompted it
+  6. Human reviews, approves, merges -> next triage run inherits the change
+```
+*Condensed from Warp's worked example.*
+[source: blog-anthropic-warp-self-improving-skills, Claim 7; Concrete
+Artifacts] [emerging]
+
+Steps 2-3 are worth copying whether or not you adopt the whole loop: the
+data gathering is deterministic script work, and the model only reasons over
+the pre-summarized JSON. [editorial]
+
+The governance mechanism is the PR, not a special approval gate — "Because
+skills are plain files, agents are extremely good at updating them. These
+updates, which are reviewable, approvable, and mergeable, can flow through a
+normal PR/code-review workflow; once merged, the next run of the inner skill
+inherits the improvement."
+[source: blog-anthropic-warp-self-improving-skills, Claim 5] [emerging]
+It is load-bearing because the feedback driving the loop is itself untrusted
+input. Warp's own answer to "what happens when the feedback is wrong" is
+"Assume it will be. Don't let the agent accept feedback blindly — give it
+context to sanity-check, filter whose input counts, and keep a human in the
+loop at either the filtering or final-review stage" — but the article never
+shows that filtering mechanism running, and the merge review is the only
+safeguard actually demonstrated.
+[source: blog-anthropic-warp-self-improving-skills, Claim 9] [anecdotal]
+
+**Rule**: When a recurring-task skill drifts, add a scheduled improver skill
+that turns captured feedback into a PR against the base skill, and never
+automate the merge — that review is the only control between one wrong
+comment and a permanently changed instruction file. (Documented for one
+vendor's production deployment; no before/after accuracy figures are
+published anywhere in the source.)
+[source: blog-anthropic-warp-self-improving-skills, Claims 3, 5] [emerging]
+
 ---
 
 ## Process Enforcement via CLAUDE.md
@@ -1763,6 +1827,7 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
+blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifacts),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
