@@ -1004,6 +1004,51 @@ disclosed methodology — verify against your own `/context` baseline before
 relying on the numbers.
 [source: blog-anthropic-mcp-production-agents, Claims 10, 11] [emerging]
 
+### The same lever, arrived at from outside the protocol
+
+Programmatic tool calling is the MCP-native form of "filter before it
+reaches context." Sourcegraph shipped the same idea with no protocol
+involved: Deep Search's **evaluator** runs sandboxed scripts against its
+search APIs — "Added a code execution 'evaluator' tool to Deep Search that
+allows sandboxed Lua scripts to call keyword, regex, commit or diff searches
+and process results programmatically."
+[source: blog-sourcegraph-chan-migrations-less-context, Claim 4] [settled]
+The model never sees the intermediate results: "it can run multiple
+searches, cross-reference data, filter findings, calculate totals, and even
+generate structured artifacts like CSVs, JSON, or SVG reports. The LLM then
+receives only the aggregated findings and the final artifact, keeping your
+context window focused and efficient."
+[source: blog-sourcegraph-chan-migrations-less-context, Claim 3] [emerging]
+
+Two vendors reaching the same architecture from opposite sides of the
+protocol boundary makes "aggregate outside the window, pass in the result" a
+pattern rather than one vendor's feature. [editorial]
+
+The target is a task shape, not agentic coding generally — migrations and
+audits "often require scanning thousands of files," which is where naive
+context-dumping gets expensive fastest.
+[source: blog-sourcegraph-chan-migrations-less-context, Claim 1] [emerging]
+A worked prompt of that shape: "Across all repositories, create a CSV of
+services still using Log4j versions earlier than 2.17. Group the results by
+repository and detected version."
+[source: blog-sourcegraph-chan-migrations-less-context, Concrete Artifacts]
+[settled]
+
+Sourcegraph publishes no before/after token or accuracy number for any of
+it, and the completeness of the generated CSV is asserted rather than
+demonstrated.
+[source: blog-sourcegraph-chan-migrations-less-context, Claims 6, 7]
+[anecdotal]
+
+**Rule**: When the answer to a question is a count, a ranking, or an
+inventory across many files, push the searching and aggregating into an
+execution step and let the model see only the aggregate and the artifact.
+[source: blog-sourcegraph-chan-migrations-less-context, Claims 3, 4]
+[emerging]
+Verify coverage against a subset whose answer you already know before
+trusting the artifact — no source in this corpus quantifies either the
+savings or the completeness. [editorial]
+
 ### The billing window is not the inference window
 
 **Rule**: Never assume your UI context window display predicts your API bill.
@@ -1356,6 +1401,7 @@ blog-anthropic-mcp-production-agents (Claims 10, 11),
 blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
 blog-anthropic-session-management-1m-context (Claim 1),
 blog-cursor-continual-harness-improvement (Claims 3, 5, 10, 11),
+blog-sourcegraph-chan-migrations-less-context (Claims 1, 3, 4, 6, 7; Concrete Artifacts),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
 blog-osmani-good-spec (Claims 1, 3-7),

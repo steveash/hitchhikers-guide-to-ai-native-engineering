@@ -392,6 +392,98 @@ provisions that sandbox for you, ask for their incident history with other
 clients and treat it as your own exposure.
 [source: blog-simonwillison-meta-muse-spark-cyberattack, Claims 3, 4] [anecdotal]
 
+### What the sandbox has to actually enforce
+
+Probing egress tells you the sandbox is real. It does not tell you how to
+build one. Three sources published within weeks of each other converge on
+the same three parts — hard resource ceilings, no ambient authority, and a
+control plane treated as its own attack surface. [editorial]
+
+**Resource limits, from a tested config.** A non-vendor evaluation of smolvm
+(hardware-isolated microVMs via libkrun) ran a 14-test battery — 12 passed,
+2 failed, in a single unreplicated run.
+[source: blog-simonwillison-smolmachines-untrusted-sandbox, Claim 8] [emerging]
+Read it knowing the report was authored by a model and published by Simon
+Willison rather than written by a human evaluator. It gives a copy-adaptable
+default: "Recommended limits: `--cpus 1 --mem 512
+--storage 3 --timeout 30s --unprivileged`, with `/in` mounted read-only and
+`/out` read-write."
+[source: blog-simonwillison-smolmachines-untrusted-sandbox, Claim 5] [settled]
+Those controls held under test: "Offline local images, no-network execution,
+CPU/RAM limits, guest-enforced timeouts, storage quotas, read-only input
+mounts, writable output mounts, and `--unprivileged` all worked as intended,
+with cold starts around 0.6–1.5 seconds and warm executions around 50 ms."
+[source: blog-simonwillison-smolmachines-untrusted-sandbox, Claim 2] [settled]
+One flag does not do what its name implies — `--overlay` does not limit root
+filesystem writes — which is the kind of gap only a test battery finds.
+[source: blog-simonwillison-smolmachines-untrusted-sandbox, Claim 3] [settled]
+
+**No ambient authority.** The common pattern — hand untrusted code an opaque
+token and have a proxy swap in the real credential against an allowlist — is
+subtractive: start with full power, then try to filter it down. "It's
+difficult to anticipate everything a user might do here. Testing this logic
+and making sure it's bulletproof is challenging."
+[source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 9]
+[emerging]
+The additive alternative passes a reference to a pre-scoped function instead
+of a credential:
+
+```typescript
+// Trusted host code
+const getApprovedEmail = () => fetchEmailById(123, auth);
+
+// Untrusted extension code
+export default async function doSomethingWithAnEmail(
+  { getApprovedEmail }: Capabilities,
+) {
+  const email = await getApprovedEmail();
+  // do something with the email
+}
+```
+
+"If we remove ambient I/O, the code can only take actions via the references
+it has been passed. [...] The API credential is never exposed to the
+untrusted code at all. And without some other outbound capability, there's
+no way to leak data." The same shape is cheaper to generate against — a
+TypeScript capability definition is "much easier and token-efficient for an
+LLM than handing it a pile of OpenAPI JSON definitions."
+[source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10]
+[emerging]
+
+**No single component grants egress.** OpenAI's post-incident rebuild states
+this as a design requirement rather than a lesson learned: it has "designed
+these controls so that a single compromise of a workload or supporting
+service does not, by itself, allow for unauthorized access to the internet
+or other internal networks," paired with a separate workload-isolation
+requirement covering any workload that executes model-generated or otherwise
+untrusted code — and, explicitly, any software that could be compromised
+while processing model outputs.
+[source: blog-openai-pacing-model-development-cyber-capabilities, Claim 4]
+[emerging]
+
+**The control plane is not the boundary.** smolvm's HTTP API — the one that
+creates and configures VMs — ships unauthenticated, and the mitigation is
+host-level rather than anything the isolation boundary provides: "The
+unauthenticated HTTP API should be restricted to a Unix socket with
+filesystem permissions."
+[source: blog-simonwillison-smolmachines-untrusted-sandbox, Claim 6] [settled]
+
+Budget for the watching, too. OpenAI's "current estimates put monitoring
+overhead at roughly 20% of the inference compute being monitored, though the
+cost varies substantially across training and evaluation workloads" — the
+first quantified price tag in this corpus for monitoring a model closely,
+self-reported as an estimate rather than a measurement.
+[source: blog-openai-pacing-model-development-cyber-capabilities, Claim 8]
+[emerging]
+
+**Rule**: Give sandboxed code capabilities, not credentials — a reference to
+a pre-scoped function it can call, never a token a proxy has to filter — and
+put explicit CPU, memory, storage, and timeout ceilings on every run. Then
+lock down the API that provisions the sandbox as a control distinct from the
+sandbox itself.
+[source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10;
+blog-simonwillison-smolmachines-untrusted-sandbox, Claims 5, 6] [emerging]
+
 ### Volume, not cleverness, is what breaks the defender
 
 Hugging Face's July 2026 retrospective on the OpenAI-agent intrusion into its
@@ -510,9 +602,12 @@ blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 5, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
+blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
 blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
+blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
+blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
