@@ -129,7 +129,7 @@ issue: "#2992"
 - **Evidence**: Same discussion post, describing the combination rule for the Enterprise teams targeting preview.
 - **Confidence**: emerging (preview feature, Community-discussion source)
 - **Quote**: "Enterprise Teams model access evaluates in a least-restrictive strategy, which means that if a user gets a model from any one enterprise team the user will have access to the model everywhere."
-- **Our assessment**: This corroborates a pattern already documented for a *different* enterprise-team mechanism in `docs-github-copilot-enterprise-team-specialization-managed-settings.md` (issue #2473, Claim 10), which independently states that multi-team `managed-settings.json` overridable-key combination also uses "the least restrictive value for each key." That source governs general `managed-settings.json` keys (e.g., `permissions.model`, `permissions.disableBypassPermissionsMode`); this source governs per-model enable/disable/optional policy specifically. Two independent GitHub sources, three-and-a-half weeks apart, describe "least restrictive wins" as the standing multi-team-membership combination rule across at least two different enterprise-team-scoped mechanisms — suggesting this is a deliberate, consistent design principle for enterprise teams generally, not a one-off rule for either feature. For Ch05: this reinforces the guide's existing recommendation (from issue #2473's Guide Impact) to treat team-membership overlap as a standing governance audit item, now with two independent mechanisms exhibiting the same risk shape: a user in both a locked-down team and a permissive team inherits the permissive team's access.
+- **Our assessment**: This corroborates a pattern already documented for a *different* enterprise-team mechanism in `docs-github-copilot-enterprise-team-specialization-managed-settings.md` (issue #2473, Claim 10), which independently states that multi-team `managed-settings.json` overridable-key combination also uses "the least restrictive value for each key." That source governs general `managed-settings.json` keys (e.g., `permissions.model`, `permissions.disableBypassPermissionsMode`); this source governs per-model enable/disable/optional policy specifically. Two independent GitHub sources, three-and-a-half weeks apart, describe "least restrictive wins" for multi-team membership across two different enterprise-team-scoped mechanisms — consistent enough to be worth watching as a possible standing design principle, but two data points on a single axis do not establish one. The corpus already complicates the generalization: `docs-github-copilot-mcp-allowlists-enterprise.md` (issue #2564, Claims 9 and 11) documents GitHub using the *opposite*, most-restrictive-wins operators (allow = intersection, deny = union) for combining `allowedMcpServers`/`deniedMcpServers` across settings *sources*, in the same managed-settings schema whose team-level `overridable` mechanism is governed by the least-restrictive rule (that note's Claim 5). Those are different combination axes — multi-team membership vs. multi-source layering — and that note explicitly declines to resolve how they interact, filing it as an open question rather than a contradiction (its Cross-References → Contradicts). So the honest reading is narrower: least-restrictive appears to be GitHub's rule for the *multi-team-membership* axis specifically, not a blanket enterprise-teams design principle, and this source is a second data point for that narrower claim. For Ch05: this still reinforces the guide's existing recommendation (from issue #2473's Guide Impact) to treat team-membership overlap as a standing governance audit item, with two mechanisms now exhibiting the same risk shape — a user in both a locked-down team and a permissive team inherits the permissive team's access — while inheriting issue #2564's open caveat that the multi-team rule's interaction with multi-source combination is undocumented.
 
 ## Concrete Artifacts
 
@@ -292,9 +292,12 @@ any user of Copilot Business/Enterprise we'd love to hear from you.
     documents the same "least-restrictive wins" combination rule for a *different* mechanism
     (per-model enterprise-team policy, previewed July 30, 2026) three-and-a-half weeks earlier
     in the discussion timeline. Two independent GitHub sources describing the identical
-    combination principle across two distinct enterprise-team mechanisms is strong evidence this
-    is a deliberate, standing GitHub design pattern for multi-team membership, not a
-    feature-specific rule — see Claim 13's assessment.
+    combination principle across two distinct enterprise-team mechanisms makes least-restrictive
+    the likely rule for the *multi-team-membership* axis specifically — but see the
+    MCP-allowlists entry under Extends before generalizing it further; two data points on one
+    axis are not yet a demonstrated enterprise-teams-wide design principle, and a third in-corpus
+    mechanism in the same schema uses the opposite operators on a neighbouring axis. Claim 13's
+    assessment is hedged accordingly.
   - `docs-github-copilot-org-targeted-model-rules.md` (issue #957, Claim 5) and
     `docs-github-copilot-enterprise-auto-model-default.md` (issue #1542, Claim 5): both restate
     Copilot Business/Copilot Enterprise as the license floor for enterprise Copilot model
@@ -317,6 +320,24 @@ any user of Copilot Business/Enterprise we'd love to hear from you.
     point in time — no contradiction issue filed. The Assayer and Smith should treat issue
     #957's two-state description as historical (May 2026) and this note's four-state
     description as current (August 2026 GA).
+  - `docs-github-copilot-mcp-allowlists-enterprise.md` (issue #2564, August 6, 2026): that source
+    documents a second, independent combination axis inside the *same* enterprise
+    `managed-settings.json` schema — when multiple settings *sources* (MDM, server-managed,
+    file-based) define the same key, `allowedMcpServers` combines by intersection ("A server must
+    be permitted by every source to run," its Claim 9) and `deniedMcpServers` by union ("A server
+    blocked by any source is blocked for all," its Claim 11). Both are most-restrictive-wins
+    operators, i.e. the opposite posture from the least-restrictive multi-team rule this note's
+    Claim 13 documents — and that note's Claim 5 establishes that the MCP keys are themselves
+    `overridable` by enterprise teams, so the two axes provably meet in at least one real
+    configuration. That note's Cross-References → Contradicts already files this as an explicit
+    open question: whether the multi-team "least restrictive wins" rule and the multi-source
+    intersection/union rules are evaluated in a defined order for an `overridable`, multi-team,
+    multi-layer value. This note does not resolve that question, and its per-model
+    enterprise-teams policy (Claims 11–13) adds a *third* mechanism to the same unresolved
+    interaction — the discussion post states the multi-team rule without addressing multi-source
+    layering at all. Per MINER.md §4a this remains a gap between complementary mechanisms rather
+    than a contradiction (no new issue filed; issue #2564's existing caveat covers it), but it is
+    the reason Claim 13's generalization is scoped to the multi-team axis only.
   - `docs-github-copilot-enterprise-auto-model-default.md` (issue #1542): that source documents
     an enterprise-level `model: auto` default (which model-selection *mode* a new conversation
     starts in, among already-available models) as a distinct governance layer from model
@@ -329,7 +350,13 @@ any user of Copilot Business/Enterprise we'd love to hear from you.
   disabled for unconfigured models, or that enterprise model governance is limited to a
   two-state taxonomy going forward — the two-state description in issue #957 is superseded by
   product evolution (see Extends above), not disputed as of a shared point in time. No
-  contradiction issue required per MINER.md §4a.
+  contradiction issue required per MINER.md §4a. One pre-existing open question is inherited
+  rather than newly raised: `docs-github-copilot-mcp-allowlists-enterprise.md` (issue #2564)
+  already flags that the multi-team "least restrictive wins" rule and the multi-source
+  intersection/union rules have no stated evaluation order; this note's Claim 13 adds a third
+  mechanism governed by the multi-team rule without resolving that interaction. Per that note's
+  own reasoning, a contradiction issue would only be warranted if a future source states an
+  evaluation order that conflicts with either rule as independently written.
 
 - **Novel**:
   - First corpus source to document the global default-enablement policy's *enforcement*
@@ -380,7 +407,11 @@ any user of Copilot Business/Enterprise we'd love to hear from you.
     10) as a single governance audit item spanning two independent mechanisms: any enterprise
     granting differentiated access via enterprise teams (whether per-model or per-`managed-
     settings.json`-key) should audit for multi-team membership overlap, since overlap silently
-    grants the more permissive team's access.
+    grants the more permissive team's access. Present this as the rule for the multi-team axis
+    specifically, not as a universal enterprise-teams principle — `docs-github-copilot-mcp-
+    allowlists-enterprise.md` (issue #2564, Claims 9 and 11) documents most-restrictive-wins
+    operators for the multi-*source* axis of the same schema, and its open question about how the
+    two axes combine should be carried into the guide alongside the audit recommendation.
 
 - **Chapter 02 (Harness Engineering / Tooling Landscape)**:
   - Note that model availability (this source) is a distinct, upstream governance layer from
