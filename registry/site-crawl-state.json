@@ -1194,28 +1194,40 @@
         "filed_at": "2026-08-28T09:07:29.795706+00:00"
       },
       "https://github.github.com/gh-aw/gallery/metrics-analytics": {
-        "status": "pending",
-        "screened_at": "2026-08-27T09:04:19.393819+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393819+00:00",
+        "issue": 3061,
+        "filed_at": "2026-08-29T06:10:09.292065+00:00"
       },
       "https://github.github.com/gh-aw/gallery/multi-repo/code-quality-monitoring": {
-        "status": "pending",
-        "screened_at": "2026-08-27T09:04:19.393820+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393820+00:00",
+        "issue": 3062,
+        "filed_at": "2026-08-29T06:10:11.161689+00:00"
       },
       "https://github.github.com/gh-aw/gallery/multi-repo/dependabot-rollout": {
-        "status": "pending",
-        "screened_at": "2026-08-27T09:04:19.393822+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393822+00:00",
+        "issue": 3063,
+        "filed_at": "2026-08-29T06:10:13.113619+00:00"
       },
       "https://github.github.com/gh-aw/gallery/multi-repo/feature-sync": {
-        "status": "pending",
-        "screened_at": "2026-08-27T09:04:19.393824+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393824+00:00",
+        "issue": 3064,
+        "filed_at": "2026-08-29T06:10:15.066004+00:00"
       },
       "https://github.github.com/gh-aw/gallery/multi-repo/issue-tracking": {
-        "status": "pending",
-        "screened_at": "2026-08-27T09:04:19.393826+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393826+00:00",
+        "issue": 3065,
+        "filed_at": "2026-08-29T06:10:16.949241+00:00"
       },
       "https://github.github.com/gh-aw/gallery/multi-repo/triage-from-side-repo": {
-        "status": "pending",
-        "screened_at": "2026-08-27T09:04:19.393827+00:00"
+        "status": "filed",
+        "screened_at": "2026-08-27T09:04:19.393827+00:00",
+        "issue": 3066,
+        "filed_at": "2026-08-29T06:10:19.019123+00:00"
       },
       "https://github.github.com/gh-aw/gallery/security-review": {
         "status": "pending",
@@ -1256,9 +1268,13 @@
       "https://github.github.com/gh-aw/workshop": {
         "status": "pending",
         "screened_at": "2026-08-28T09:07:19.120695+00:00"
+      },
+      "https://github.github.com/gh-aw/patterns/feature-grower": {
+        "status": "pending",
+        "screened_at": "2026-08-29T06:10:05.195000+00:00"
       }
     },
-    "last_scan": "2026-08-28T09:07:19.120697+00:00"
+    "last_scan": "2026-08-29T06:10:05.195015+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1361,7 +1377,7 @@
         "filed_at": "2026-08-13T06:30:57.104740+00:00"
       }
     },
-    "last_scan": "2026-08-28T09:07:20.446912+00:00"
+    "last_scan": "2026-08-29T06:10:06.733646+00:00"
   },
   "cognition": {
     "urls": {
@@ -2020,6 +2036,6 @@
         "screened_at": "2026-08-26T06:10:34.717748+00:00"
       }
     },
-    "last_scan": "2026-08-28T09:07:21.636759+00:00"
+    "last_scan": "2026-08-29T06:10:07.864860+00:00"
   }
 }
