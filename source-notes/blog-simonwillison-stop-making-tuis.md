@@ -431,8 +431,9 @@ Models used: Claude Opus 4.6, GPT-5.4
   weeks did not catch a real defect. The guide should present use-evidence as a
   risk-reducing heuristic, not a correctness guarantee, and should note that this
   limitation applies specifically to tools whose correctness the user is not equipped to
-  independently verify (Ptacek: "I am completely unqualified to evaluate if the numbers
-  and charts being spat out by these tools are credible or accurate").
+  independently verify (Willison, in the March 2026 post that supplies the Claim 9
+  evidence: "I am completely unqualified to evaluate if the numbers and charts being spat
+  out by these tools are credible or accurate!").
 
 - **Chapter 00 (Principles) or wherever CLAUDE.md/Claude Code's own architecture is
   discussed**: If the guide ever cites Ptacek's "stop making TUIs" advice, it should
