@@ -22,7 +22,7 @@ that matches your situation.
 ### The Thin Redirect (multi-tool teams)
 
 Put your guidance in a tool-agnostic file and make CLAUDE.md a pointer.
-[source: practitioner-getsentry-sentry] [settled]
+[source: practitioner-getsentry-sentry] [emerging]
 
 Sentry's CLAUDE.md is 11 bytes:
 
@@ -168,7 +168,7 @@ Direct file manipulation can leave the repository in an inconsistent state
 
 Note the structure: rule, concrete right-vs-wrong examples, and the failure
 mode explaining *why*.
-[source: practitioner-dadlerj-tin] [emerging]
+[source: practitioner-dadlerj-tin] [stale]
 
 **NetPace** uses parallel MUST NEVER / MUST ALWAYS lists:
 [source: practitioner-frankray78-netpace]
@@ -215,7 +215,7 @@ practitioner-supabase-supabase-js, practitioner-dadlerj-tin] [settled]
 
 Do not restate your entire style guide. Instead, identify the specific
 mistakes your AI agent makes and write one-line corrections for each.
-[source: practitioner-nikolays-postgres-dba, practitioner-mikelane-pytest-test-categories] [emerging]
+[source: practitioner-nikolays-postgres-dba, practitioner-mikelane-pytest-test-categories] [stale]
 
 postgres_dba's CLAUDE.md contains exactly two style rules — the two things
 LLMs get wrong in SQL:
@@ -250,7 +250,7 @@ practitioner-mikelane-pytest-test-categories] [emerging]
 
 Tell the agent what your project IS when the answer is not obvious from
 the file tree.
-[source: practitioner-nikolays-postgres-dba, practitioner-dadlerj-tin] [emerging]
+[source: practitioner-nikolays-postgres-dba, practitioner-dadlerj-tin] [stale]
 
 postgres_dba explains its unusual architecture:
 [source: practitioner-nikolays-postgres-dba]
@@ -301,7 +301,7 @@ do not catch (import placement, unittest prohibition).
 NetPace has an `.editorconfig` with ~180 lines of C# naming and formatting
 rules. The CLAUDE.md does not duplicate them — it focuses on TDD workflow
 and architecture rules that no linter can enforce.
-[source: practitioner-frankray78-netpace] [emerging]
+[source: practitioner-frankray78-netpace] [stale]
 
 ### Do not put architecture documentation that belongs elsewhere
 
@@ -335,7 +335,7 @@ by 0.5-2%** while **increasing inference costs by over 20%** (including
 success by ~4% on AGENTbench. The paper is a preprint without significance
 tests on headline numbers and covers Python only — treat as strong
 directional evidence.
-[source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [emerging]
+[source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [stale]
 
 The mechanism: auto-generated content is redundant. When documentation
 was stripped from the codebase, auto-generated AGENTS.md files actually
@@ -343,19 +343,19 @@ improved performance by 2.7% — because the content was just restating
 what the agent could discover by reading the code. In a normal codebase
 with intact documentation, this redundancy wastes context budget and
 dilutes the signal from rules the agent truly needs.
-[source: paper-gloaguen-agentsmd-effectiveness, Claim 3] [emerging]
+[source: paper-gloaguen-agentsmd-effectiveness, Claim 3] [stale]
 
 Worse, auto-generated content introduces **anchoring effects**: mentioning
 a technology (e.g., tRPC) biases the agent toward using it, even if the
 technology is deprecated or not the right choice for the task.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 1] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1] [stale]
 
 **Rule**: Never run `/init` or equivalent auto-generation commands for
 your agent config. Write it by hand. Apply the **filter test** to every
 line: Can the agent discover this by reading the code, config files, or
 tool output? If yes, delete it. Keep only what requires human judgment,
 historical context, or knowledge the codebase does not encode.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 1] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1] [stale]
 
 **Example** — applying the filter test to a hypothetical AGENTS.md:
 
@@ -388,7 +388,7 @@ human judgment.
 
 The three-tier boundary system adds an intermediate tier — "Ask First" —
 for operations that are sometimes appropriate and sometimes dangerous.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [stale]
 
 ```
 Always Do:    "Always run tests before commits"
@@ -399,7 +399,7 @@ Never Do:     "Never commit secrets or API keys"
 This framework comes from GitHub's analysis of 2,500+ agent configuration
 files. It is a complementary tool to the MUST NEVER / MUST ALWAYS pattern,
 not a replacement.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [stale]
 
 ### When to use three tiers vs. two tiers
 
@@ -413,7 +413,7 @@ Use the three-tier pattern when your project involves operations with
 conditional risk — database migrations, API schema changes, permission
 modifications, dependency upgrades. These are not universally dangerous,
 but they require human judgment about timing and context.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [stale]
 
 ### Example: three-tier boundaries for a web application
 
@@ -463,7 +463,7 @@ asking, and everything else is implicitly forbidden.
 
 Repeat your most critical rules. This is not sloppiness — it is a
 deliberate strategy to survive context window pressure.
-[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [emerging]
+[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [stale]
 
 NetPace repeats "TDD is non-negotiable" three times: in the summary, in
 the Core Philosophy heading, and in the closing footer.
@@ -493,7 +493,7 @@ running TDD inside the agent loop is covered in Chapter 03.
 **The technique**: Place your cardinal rule at the top, in the relevant
 section, and at the bottom. Three placements. The agent encounters it
 regardless of where it starts reading.
-[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [emerging]
+[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [stale]
 
 **Caveat**: Repetition improves survival through compaction but does not
 guarantee compliance. One practitioner documented emphatic CLAUDE.md rules
@@ -501,7 +501,7 @@ guarantee compliance. One practitioner documented emphatic CLAUDE.md rules
 ignored. For rules that must be followed 100% of the time, repetition is
 necessary but not sufficient -- use hooks (Ch03) or settings.json
 permissions as the enforcement layer.
-[source: failure-claudemd-ignored-compaction, Lesson 4] [emerging]
+[source: failure-claudemd-ignored-compaction, Lesson 4] [stale]
 
 ---
 
@@ -539,7 +539,7 @@ The ~60% baseline CLAUDE.md compliance measured by Christopher Montes rose
 to 90%+ after deploying a hook-based enforcement system. This is the first
 quantitative before/after measurement in our corpus and directly validates
 the hierarchy above.
-[source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [emerging]
+[source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [stale]
 
 ---
 
@@ -1454,7 +1454,7 @@ pattern from the vendor side. Two independent implementations arriving at the
 same architecture — one from a CLI author, one from Anthropic — is meaningful
 signal that this structure is doing real work.
 [source: discussion-hn-ttal-multiagent-factory, Claims 2, 9] [anecdotal]
-[source: blog-addyosmani-code-agent-orchestra, Claim 4] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 4] [stale]
 
 ### Cleanup as a first-class lifecycle stage
 
@@ -1715,7 +1715,7 @@ failure-hooks-enforcement-2k, Lesson 1] [emerging]
 ask whether it can be enforced with settings.json or a hook instead.
 CLAUDE.md rules are followed ~70-80% of the time. Settings.json
 permissions are followed 100% of the time.
-[source: failure-claudemd-ignored-compaction, Lesson 5] [emerging]
+[source: failure-claudemd-ignored-compaction, Lesson 5] [stale]
 
 ### 4. Very Long Subdirectory Guides
 
