@@ -1,6 +1,6 @@
 # Guide Dashboard
 
-_Generated 2026-08-29 (UTC) by `scripts/generate_dashboard.py`._
+_Generated 2026-08-30 (UTC) by `scripts/generate_dashboard.py`._
 
 Content-derived metrics for the living guide. Refreshed daily by
 `.github/workflows/daily-scan.yml`. For workflow status (PRs, issues,
@@ -10,11 +10,11 @@ scanner queues) see the GitHub Project linked from README.md.
 |---|---|---|---|---|
 | `guide/00-principles.md` | 9/30 | 2026-02-12 (`paper-gloaguen-agentsmd-effectiveness`) | 85% | 300 (n/a) |
 | `guide/01-daily-workflows.md` | 14/30 | 2026-03-09 (`discussion-hn-agentic-coding-jobs`) | 84% | 747 (n/a) |
-| `guide/02-harness-engineering.md` | 27/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 72% | 1792 (n/a) |
-| `guide/03-verification.md` | 28/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 73% | 1256 (n/a) |
-| `guide/04-context-engineering.md` | 17/30 | 2025-12-27 (`blog-sankalp-claude-code-20`) | 82% | 1374 (n/a) |
-| `guide/05-team-adoption.md` | 23/30 | 2025-11-06 (`paper-miller-speed-cost-quality`) | 69% | 1658 (n/a) |
-| `guide/06-security-threat-model.md` | 13/30 | 2026-03-16 (`blog-cursor-security-agents`) | 53% | 519 (n/a) |
+| `guide/02-harness-engineering.md` | 28/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 69% | 1857 (n/a) |
+| `guide/03-verification.md` | 29/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 70% | 1291 (n/a) |
+| `guide/04-context-engineering.md` | 18/30 | 2025-12-27 (`blog-sankalp-claude-code-20`) | 77% | 1420 (n/a) |
+| `guide/05-team-adoption.md` | 26/30 | 2025-11-06 (`paper-miller-speed-cost-quality`) | 61% | 1749 (n/a) |
+| `guide/06-security-threat-model.md` | 16/30 | 2026-03-16 (`blog-cursor-security-agents`) | 43% | 614 (n/a) |
 
 **Source cap**: 30 per chapter (see `hitchhiker.config.json`). 
 Chapters at the cap are marked ⚠ and block new Smith additions until 
