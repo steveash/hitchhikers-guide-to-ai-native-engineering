@@ -152,34 +152,50 @@ issue: "#3098"
 
 ## Concrete Artifacts
 
-### Full bracketed commentary from the commit message (verbatim, via Willison's blockquote and cross-checked against the GitHub commit page)
+### Full bracketed commentary from the commit message (verbatim from the GitHub commit page)
 
 ```
 Source: Linus Torvalds, kernel commit 818bebeb63dd6bf5f4e07e145f6cdbace520a34c
 ("drm/xe: Don't hand out the flat CCS storage as usable VRAM"),
-quoted by Simon Willison at https://simonwillison.net/2026/Aug/22/linus-torvalds/
-(posted 22nd August 2026 at 9:04pm; commit authored/committed 2026-08-20)
+commit authored/committed 2026-08-20. Willison's post
+(https://simonwillison.net/2026/Aug/22/linus-torvalds/, posted 22nd August
+2026 at 9:04pm) quotes only the first four paragraphs of this bracket; the
+closing "one-liner / 24 patches / 18 kernel boot" paragraph and the "- Linus"
+sign-off appear in the commit but not in Willison's blockquote.
 
-And this was a debug session from hell, enormously helped by an AI doing
-much of the grunt-work.
+[ And this was a debug session from hell, enormously helped by an AI
+  doing much of the grunt-work.
 
-I'd like to call it my tireless helper, but the AI several times stated
-flat out that this was impossible and unsolvable and that we should just
-write a report about it.
+  I'd like to call it my tireless helper, but the AI several times
+  stated flat out that this was impossible and unsolvable and that we
+  should just write a report about it.
 
-I suspect those things have been trained by people who may not be quite
-as stubborn as I am.
+  I suspect those things have been trained by people who may not be
+  quite as stubborn as I am.
 
-But while the AI was ready to give up several times, it did keep adding
-debug code and analyzing it faithfully when I pushed. So credit where
-credit is due and I let the AI write the commit message above.
+  But while the AI was ready to give up several times, it did keep
+  adding debug code and analyzing it faithfully when I pushed. So credit
+  where credit is due and I let the AI write the commit message above.
+
+  This is basically a one-liner fixing a bogus "round_up()" to a
+  "round_down()", but there were 24 patches adding more and more debug
+  information to this, and 18 kernel boot to finally narrow it down to
+  this.   - Linus ]
 ```
+
+Note the structure: the entire reflective commentary, including the closing
+"one-liner / 24 patches / 18 kernel boot" sentence and the "- Linus" sign-off, is a
+single contiguous bracketed block written by Torvalds himself. It sits *after* the
+technical bug description reproduced below, which is the part Torvalds attributes to
+the AI ("the commit message above" — see Claim 5).
 
 ### Technical bug description (from the full commit body, via GitHub; AI-authored per Torvalds' own attribution in Claim 5)
 
 ```
 Source: torvalds/linux commit 818bebeb63dd6bf5f4e07e145f6cdbace520a34c
-(preceding text of the same commit, before the bracketed commentary above)
+(the text preceding the bracketed commentary above, plus the commit's
+trailers, which follow it. Reproduced verbatim and in full except for the
+bracketed commentary itself, whose position is marked inline below.)
 
 get_flat_ccs_offset() reads the base of the flat CCS storage from the
 hardware, scales it by the number of enabled L3 nodes, and rounds the
@@ -209,12 +225,26 @@ tables were allocated somewhere else.
 Round down instead, to the page size the allocator works in.  On this
 machine that excludes exactly one page.
 
-This is basically a one-liner fixing a bogus "round_up()" to a
-"round_down()", but there were 24 patches adding more and more debug
-information to this, and 18 kernel boot to finally narrow it down to
-this.   - Linus
+Reading the reserved page afterwards shows what had been writing it:
 
-Fixes: 3717339 ("drm/xe/vram: fix ccs offset calculation")
+	[369] 0xcccc000000000000
+	[371] 0xcc77000000000000
+	[373] 0xcccc000000000000
+	[375] 0xcc77000000000000
+
+compression metadata, two bytes per sixteen, sitting where the driver
+used to hand out memory.
+
+The assertion that should have caught this compares the offset against
+GSMBASE - ccs_size for equality.  That value is 128K aligned, so it
+agrees with the rounded-up offset precisely when the base is not
+aligned - the check cannot fail in the case it exists to catch, and is
+compiled out unless CONFIG_DRM_XE_DEBUG is set.  Replace it with one
+that can fail: CCS storage must not run into GSM.
+
+[ ...bracketed commentary reproduced in full in the preceding artifact... ]
+
+Fixes: 37173392741c ("drm/xe/vram: fix ccs offset calculation")
 Cc: stable@kernel.org
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 ```
@@ -323,9 +353,10 @@ where the prior assertion could not.
   fetched directly via `curl` and successfully read in full (unlike the July 2026 Torvalds note in
   this corpus, whose `lore.kernel.org` primary source was blocked by an anti-bot challenge; GitHub's
   commit page here was accessible). This let the extraction go beyond the blog post's excerpt to
-  the full commit body, providing the technical bug description (Claim 7, Concrete Artifacts) and
-  independently verifiable diff statistics (Claim 6) that are not present in Willison's post at
-  all.
+  the full commit body, providing the technical bug description (Claim 7, Concrete Artifacts),
+  the closing paragraph of Torvalds' bracketed commentary (Claim 6's quote), and independently
+  verifiable diff statistics — none of which appear in Willison's post, whose blockquote covers
+  only the first four paragraphs of the bracket (Claims 1–5).
 - The AI tool/model Torvalds used is not named anywhere in either the blog post or the commit
   message. This note does not speculate on which tool was used; the guide should not attribute
   this account to a specific product.
