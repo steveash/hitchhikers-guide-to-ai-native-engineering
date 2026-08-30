@@ -111,6 +111,26 @@ supporting artifact of any kind.
     productive agent use, though without Osmani's "bottleneck" framing or
     any of the corroborating research Osmani cites (the Anthropic
     comprehension-debt study).
+  - `blog-cognition-verifying-agentic-development.md` Claims 1 and 2 —
+    this is the corpus's concrete answer to the question Willison's Claim 2
+    raises but never answers ("there are other ways to achieve that goal").
+    Claim 1 there corroborates Willison's Claim 1 framing from a production
+    setting: Cognition reports that "For the first time, more Devins are
+    being triggered asynchronously, via events, automations, schedules, and
+    other Devins," which makes verified-without-a-human-watching results a
+    structural requirement rather than a preference — the same instruct/
+    verify pairing Willison names, but driven by a stated mechanism (trigger
+    mode) rather than asserted as a general skill. Claim 2 there names one
+    of the unnamed "other ways": Devin verifying its own work via
+    computer-use tooling — "Devin will spin up the app, click through it,
+    and confirm its changes actually work, the same way an engineer would."
+    Worth flagging for the Smith: where Willison supplies a bare assertion
+    that alternatives to line-by-line review exist, the Cognition note
+    supplies a specific, shipped one plus the supporting techniques
+    (source-grounded test plans, annotate-before-acting, deterministic setup
+    skills). Any guide passage citing this source for "you don't have to
+    read every line" should cite the Cognition note for what to do instead;
+    this source cannot carry that half on its own.
 - **Contradicts**: None filed. There is a directional tension worth noting
   rather than escalating: `blog-simonwillison-udell-human-agent-loop.md`
   Claim 3 documents Jon Udell (a different practitioner, in a different
@@ -189,3 +209,6 @@ supporting artifact of any kind.
   `blog-simonwillison-udell-human-agent-loop.md` Claim 3 was likewise
   re-read; all quoted text above from those notes is copied verbatim from
   them rather than reconstructed from memory.
+  `blog-cognition-verifying-agentic-development.md` Claims 1 and 2 were
+  added on review and verified the same way — both numbered headings were
+  located in that note and the two quoted passages copied verbatim from it.
