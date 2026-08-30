@@ -87,7 +87,7 @@ issue: "#3102"
 - **Evidence**: Chart title text ("Gemini 3.7 Flash — DeepSWE V1.1") and caption ("Source: Datacurve AI; for more details see deepswe.datacurve.ai"), both legible directly in the chart image.
 - **Confidence**: settled (directly legible chart title/caption text, a named independent evaluator)
 - **Quote**: "Source: Datacurve AI; for more details see deepswe.datacurve.ai"
-- **Our assessment**: "DeepSWE" and "Datacurve AI" do not appear elsewhere in this corpus as of this extraction — this is a new benchmark provider/name for future Miners and the Smith to be aware of when they encounter other DeepSWE-sourced charts or claims. The score-vs-cost "efficiency frontier" chart format itself (also seen with different providers/benchmarks in `blog-latentspace-ainews-qwen38-max-27b-launch.md` Claim 5's Vals AI cost-per-test comparison) is becoming a recurring genre for model-launch coverage in this corpus — cost-normalized comparison, not raw capability alone, is increasingly how these launches get covered.
+- **Our assessment**: DeepSWE is *not* new to this corpus — it is already cited by name in at least four prior notes (see Cross-References), the earliest published 2026-07-09, and `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 4 already attributes it to DataCurve. What this chart adds is Gemini-family placement on that benchmark, which no prior note supplies. The score-vs-cost "efficiency frontier" chart format itself (also seen with different providers/benchmarks in `blog-latentspace-ainews-qwen38-max-27b-launch.md` Claim 5's Vals AI cost-per-test comparison) is becoming a recurring genre for model-launch coverage in this corpus — cost-normalized comparison, not raw capability alone, is increasingly how these launches get covered.
 
 ## Concrete Artifacts
 
@@ -148,6 +148,13 @@ were each re-read directly and the specific claim numbers cited below were
 confirmed against each note's numbered `### Claim N:` headings in document
 order before writing this section, per MINER.md §4b.
 
+**Correction (post-Assayer review).** An earlier revision of this note
+asserted that Datacurve AI and its DeepSWE benchmark were new to this
+corpus. That was wrong, and it was a keyword-search miss: a plain grep for
+`DeepSWE` across `source-notes/` returns four prior notes. Those four were
+subsequently re-read in full and their claim numbers verified per §4b, and
+the DeepSWE-related cross-references below were rewritten on that basis.
+
 - **Corroborates**:
   - `blog-simonwillison-gemini35-flash-pricing.md` Claims 2–3 (Gemini 3.5
     Flash launched at a 3x/6x per-token price increase over predecessors,
@@ -165,11 +172,52 @@ order before writing this section, per MINER.md §4b.
     independent angle (third-party benchmark/market-positioning), giving
     the corpus three separate tools/sources tracking Gemini 3.7 Flash's
     launch essentially simultaneously.
+  - `blog-simonwillison-muse-code-spark-12.md` (Concrete Artifacts →
+    "Benchmark names cited (no numeric scores in fetched text)", which lists
+    `Terminal-Bench 2.1` / `DeepSWE 1.1` / `Meta Internal Coding Bench`,
+    sourced from Meta's Muse Code / Muse Spark 1.2 research announcement,
+    published 2026-08-05): that note could cite DeepSWE 1.1 only by name,
+    recording in its Extraction Notes that the announcement "displays
+    Terminal-Bench 2.1, DeepSWE 1.1, and Meta Internal Coding Bench
+    results only as chart images; the fetched text could not extract numeric
+    values from these charts." This note's manual gridline reading is the
+    same problem solved for a different vendor's chart, and it recovers
+    approximate values for two of that note's own subjects: `muse-spark-1.2`
+    (~52%) and `muse-spark-1.1` (~53%) appear as labeled points on the
+    Datacurve chart (see Concrete Artifacts). Those are this Miner's visual
+    estimates from a third party's chart, not Meta's published figures, but
+    they are the first approximate DeepSWE numbers for the Muse Spark family
+    anywhere in the corpus.
+  - Corpus-wide, DeepSWE is an established benchmark here, not a new one:
+    `blog-openai-gpt56-ga-announcement.md` (Concrete Artifacts → CODING
+    benchmark table under Claim 4) and `blog-openai-scorecard-ai-age.md`
+    Claim 7 both carry OpenAI-reported DeepSWE v1.1 figures, and
+    `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claims 3–4 carry
+    Artificial-Analysis- and DataCurve-reported ones. This source extends
+    that set with the first Gemini-family DeepSWE data and the first
+    cost-per-task axis for the benchmark in this corpus, and is evidence
+    that DeepSWE is being picked up as a standard reference point in
+    launch coverage across at least four vendors' releases.
 
-- **Contradicts**: None identified. No existing source note documents
-  Datacurve AI's DeepSWE benchmark, so there is no prior claim in the
-  corpus about Gemini 3.5/3.6/3.7 Flash's DeepSWE-specific standing to
-  compare against.
+- **Contradicts**: None filed. There is, however, a numeric tension worth
+  flagging on the record. `blog-openai-gpt56-ga-announcement.md`'s CODING
+  table reports DeepSWE v1.1 as Sol `72.7%`, Fable5 `69.7%`, GPT-5.5 `67%`,
+  Opus4.8 `59%`, and `blog-openai-scorecard-ai-age.md` Claim 7 quotes
+  OpenAI as saying "GPT‑5.6 Sol reaches a new high of 72.7%, above Claude
+  Fable 5’s 69.9%". This note's chart reading puts GPT-5.6-sol at ~63% and
+  Claude Fable 5 at ~65–69% — i.e. not just lower absolute numbers but the
+  *opposite ordering* of those two models on the same named benchmark
+  version. This is **not** filed as a contradiction issue under MINER.md
+  §4a, on the ground that this note's side is explicitly a visual gridline
+  estimate over a region where labels overlap tightly (Claim 4's stated
+  caveat) and so does not rise to a firm competing claim; the two sides also
+  differ in provenance (vendor self-report vs. third-party leaderboard) and
+  in date (2026-07-09/07-17 vs. 2026-08-14), either of which could explain a
+  gap without either side being wrong. Flagged here rather than buried
+  because if a future Miner recovers exact figures from
+  `deepswe.datacurve.ai` and the ordering flip survives, that *would* be a
+  fileable vendor-self-report-vs-independent-benchmark contradiction, and
+  this note is where the trail starts.
 
 - **Extends**: `blog-latentspace-ainews-qwen38-max-27b-launch.md` Claim 5
   (Vals AI's independent cost-per-test comparison of Qwen3.8-Max against
@@ -180,13 +228,28 @@ order before writing this section, per MINER.md §4b.
   the Vals Index/SWE-bench/Terminal-Bench).
 
 - **Novel**:
-  - Datacurve AI and its "DeepSWE V1.1" benchmark are new to this corpus.
+  - *Not* novel, and corrected from an earlier revision of this note: the
+    DeepSWE benchmark and its DataCurve attribution were both already in the
+    corpus before this extraction — DeepSWE v1.1 figures appear in
+    `blog-openai-gpt56-ga-announcement.md` (published 2026-07-09) and
+    `blog-openai-scorecard-ai-age.md` Claim 7 (2026-07-17), the DataCurve
+    attribution in `blog-latentspace-ainews-kimi-k3-wiki-memory.md` Claim 4
+    (2026-07-18), and the bare benchmark name in
+    `blog-simonwillison-muse-code-spark-12.md` (2026-08-05). What *is* new
+    here is narrower: (a) any Gemini-family DeepSWE placement at all, (b) a
+    cost-per-task axis for the benchmark rather than score alone, and (c)
+    approximate recovered values for the Muse Spark family, which the
+    2026-08-05 note could only record as an unreadable chart image.
   - The specific score-vs-cost positioning of Gemini 3.5 Flash, Gemini 3.6
     Flash, and Gemini 3.7 Flash relative to Claude Opus 5, Claude Fable 5,
     Claude Opus 4.8, Kimi K3, GPT-5.6-sol, Grok 4.5, GPT-5.5, Qwen3.8-Max,
-    and several other current models on a single named benchmark is new —
-    no prior note in the corpus places this many current-generation models
-    on one comparable axis.
+    and several other current models on a single named benchmark is new.
+    The nearest prior comparison is
+    `blog-openai-gpt56-ga-announcement.md`'s CODING table, whose DeepSWE
+    v1.1 row carries seven numeric values — but it is vendor-run, has no
+    cost axis, and its only Gemini column there is Gemini 3.1 Pro Preview
+    (`11.8%`), no Flash generation at all. This chart is third-party-run,
+    plots roughly twenty models, and prices each one per completed task.
   - The editorial framing itself ("GDM back to the forefront" as a
     recovery narrative, not a leadership claim) is a new, source-specific
     positioning claim not present elsewhere in the corpus's Gemini 3.7
@@ -256,8 +319,8 @@ order before writing this section, per MINER.md §4b.
   is the only other substantive artifact available without a paid
   subscription. Per MINER.md's guidance to comment-and-close rather than
   file a thin note when a source is "paywalled... or otherwise
-  unreadable," this Miner judged the chart's concrete, attributable,
-  novel benchmark data (a named evaluator, a named benchmark, ~20 plotted
-  models) to clear the bar for a source note rather than a close-as-blocked
-  outcome — but flags this judgment call explicitly for the Assayer to
-  confirm or overrule.
+  unreadable," this Miner judged the chart's concrete, attributable
+  benchmark data (a named evaluator, a named benchmark already established
+  in this corpus, ~20 plotted models, and the first Gemini-family data on
+  that benchmark) to clear the bar for a source note rather than a
+  close-as-blocked outcome. The Assayer confirmed that judgment on review.
