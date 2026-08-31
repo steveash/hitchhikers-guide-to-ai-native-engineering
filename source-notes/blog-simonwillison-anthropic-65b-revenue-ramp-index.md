@@ -199,7 +199,7 @@ issue: "#3125"
   separate list item in the source's ordered list; reproduced together
   here as the complete dataset — see Concrete Artifacts for the list in
   its original contiguous form)
-- **Our assessment**: These ten figures sum to 62.8%, meaning roughly 37%
+- **Our assessment**: These ten figures sum to 63.0%, meaning roughly 37.0%
   of Anthropic model spend in this dataset falls outside the ten
   individually-listed models (presumably a long tail of smaller/older
   model versions, or non-Claude-model line items Ramp tracks separately) —
@@ -233,8 +233,8 @@ supports the idea that Fable's cost has made it a less popular model:"
 9. Haiku 4.5:   1.0%
 10. Opus 4.5:   0.7%
 
-(Ten listed items sum to 62.8% of total Anthropic model spend; the
-remaining ~37.2% is unaccounted for in the source text.)
+(Ten listed items sum to 63.0% of total Anthropic model spend; the
+remaining ~37.0% is unaccounted for in the source text.)
 ```
 
 ### FT-reported revenue figures (verbatim, via Willison's summary and direct quotes)
