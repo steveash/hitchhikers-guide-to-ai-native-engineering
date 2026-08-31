@@ -16,8 +16,9 @@ issue: "#3127"
 > Three v0.87.x pre-releases (v0.87.5, v0.87.8, v0.87.9) ship `on.cooldown`
 > workflow-trigger gating, a typed `on.stop-after` field that now accepts
 > GitHub Actions expressions, Codex tool-schema failure diagnostics, and
-> intent-driven workflow design guidance, plus five new entries in a
-> 25-grader "trajectory graders" catalog. The Agent of the Week is AI
+> intent-driven workflow design guidance, plus five new entries in the
+> "trajectory grader library" (a ranked 25-entry catalog, per the
+> implementing PRs). The Agent of the Week is AI
 > Moderator, a read-only spam/AI-content moderation workflow running
 > `threat-detection: false` at high trigger volume. The post's own prose
 > calls PR #56614 the "Feature Farmer workflow pattern," but the PR itself
@@ -66,8 +67,8 @@ issue: "#3127"
   description with concrete YAML, validation constraints, and runtime
   behavior)
 - **Quote**: "`on.cooldown` workflow gating (#56998): workflows can now
-  declare a cooldown window to prevent consecutive triggers from
-  accumulating"
+  declare a cooldown window so back-to-back triggers don’t pile up on the
+  same target." (blog post)
 - **Quote**: "Adds a configurable cooldown between agent executions based on
   the latest completed workflow run that executed the `agent` job. -
   **Frontmatter** - Accepts literal Go durations of at least five minutes. -
@@ -146,8 +147,9 @@ issue: "#3127"
 - **Confidence**: settled (specific PR, first-party PR description with
   the exact failing error JSON, the detection function names, and the
   before/after log message text)
-- **Quote**: "Codex harness tool-schema diagnostics (#57256): unsupported-
-  model failures now display dedicated error messages" (blog post)
+- **Quote**: "Codex harness tool-schema diagnostics (#57256):
+  unsupported-model tool-schema failures now surface with a dedicated,
+  readable error message instead of a cryptic provider error." (blog post)
 - **Quote**: "The Daily Go Test Parallelizer workflow crashed with the
   Codex engine failing on a cryptic provider error: `{\"error\": {\"message\":
   \"Invalid value: 'custom'\", \"type\": \"invalid_request_error\", \"param\":
@@ -264,7 +266,7 @@ issue: "#3127"
 ### Claim 6: The gh-aw team's own Trajectory Grader Implementer workflow was itself converted to run as a Feature Grower under the "All You Can Eat" cadence — schedule changed from daily to every 30 minutes, with `skip-if-match` normalized to match on open PR title rather than an issue-body marker
 
 - **Evidence**: Blog prose links "converting the trajectory grader workflow
-  to the 'all-you-can-eat' pattern" to PR #56988, fetched via `gh pr view
+  to the “all-you-can-eat” pattern" to PR #56988, fetched via `gh pr view
   56988 --repo github/gh-aw --json title,body,createdAt,mergedAt`. Not
   listed as a separate bullet in the blog's "Notable Pull Requests"
   section — it appears only as an inline link inside the Feature
@@ -305,9 +307,11 @@ issue: "#3127"
   25-grader catalog contents and the Trajectory IR schema beyond
   `events[]`/`objectives[]` (not independently fetched — the catalog
   README and IR schema live outside this post's linked PRs)
-- **Quote**: "The team also implemented trajectory grader entries:
-  event-entropy-rate, lempel-ziv-trajectory-complexity, policy-near-miss,
-  exploration-error, and exploitation-error." (blog post)
+- **Quote**: "Under the hood, the team also kept implementing new entries in
+  the trajectory grader library — including event-entropy-rate,
+  lempel-ziv-trajectory-complexity, policy-near-miss, exploration-error, and
+  exploitation-error — building out a richer picture of how agents behave
+  across runs." (blog post)
 - **Quote**: "Implements `event-entropy-rate` (Tier 1, rank 10) from the
   trajectory graders catalog: the normalized first-order (bigram) Shannon
   entropy rate of the event process, projected purely from the Trajectory
@@ -748,6 +752,21 @@ was merged, before the other four in this list).*
    "GitHub Actions expressions alongside static values" and inventing
    section wording not present verbatim on the page); all quotes in this
    note are taken from the raw-HTML extraction, not the WebFetch summary.
+
+   **Re-verification pass (post-review)**: Assayer review found that three
+   blog-prose quotes had nonetheless been transcribed as paraphrases
+   (Claims 1, 3, and 7) despite the stated methodology. The page was
+   re-fetched via `curl` and every blog-prose quoted fragment in this note
+   was re-checked character-for-character against the stripped HTML; the
+   three affected quotes are now the source's exact sentences (including
+   its typographic apostrophe and quotation marks), and the remaining
+   blog-prose fragments — Claim 2's contiguous truncation, Claim 4's
+   full-bullet quote, Claim 5's "Feature Farmer workflow pattern," Claim
+   6's inline-link fragment, Claim 8's three ellipsis-separated fragments,
+   and the section names cited in Source Context — were confirmed exact as
+   written. All PR-body and workflow-source quotes were likewise re-checked
+   against `gh pr view` output and `raw.githubusercontent.com` and are
+   verbatim.
 
 2. **Six linked pages were followed and fetched directly**, within (and
    slightly exceeding, given the number of substantive named items this
