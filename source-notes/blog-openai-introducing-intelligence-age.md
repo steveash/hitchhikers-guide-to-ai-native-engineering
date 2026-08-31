@@ -81,7 +81,7 @@ issue: "#3128"
 - **Evidence**: Direct statement of the team's founding premise, following the framing question in Claim 1.
 - **Confidence**: anecdotal (a stated institutional belief/priority, not a measured or externally validated risk ranking)
 - **Quote**: "Our team is founded on the idea that, in the long run, this category of risk is the largest, most serious, and most conceptually challenging to address."
-- **Our assessment**: This is a strong, unqualified prioritization claim — ranking concentration-of-power above other commonly discussed AI risk categories (e.g., misuse, accident, bias) — asserted without comparative argument or evidence for why it outranks those other categories. It is directionally consistent with the "concentrated decision-making" critique already in the corpus (see Cross-References), but this post is the first source where OpenAI itself, rather than an outside critic, states this ranking as its own team's founding premise.
+- **Our assessment**: This is a strong, unqualified prioritization claim — ranking concentration-of-power above other commonly discussed AI risk categories (e.g., misuse, accident, bias) — asserted without comparative argument or evidence for why it outranks those other categories. It is directionally consistent with the "concentrated decision-making" critique already in the corpus (see Cross-References). OpenAI had already named concentration of power as a risk it intends to guard against six weeks earlier, in `blog-openai-government-national-security-partnerships.md` (Claim 6 and Principle 3 of its principles document) — so what is new here is not the risk category but the *ranking*: this is the first corpus source in which OpenAI calls it the largest and most serious category, rather than one risk among several, and does so as a dedicated team's founding premise. Note the authority asymmetry: the earlier, unranked statement is institutional OpenAI policy, while this stronger ranking carries only a personal-opinion disclaimer.
 
 ### Claim 3: Political and military power has historically depended on the large-scale cooperation and consent of many human beings, because the state's monopoly on force and its tax revenue both required willing soldiers, police, and laborers
 - **Evidence**: The essay's central historical argument, illustrated with a David Hume quotation.
@@ -184,11 +184,15 @@ encroaching spirit of power?"
 `blog-openai-policy-ideas-intelligence-age-grants.md`,
 `blog-thoughtworks-kamelman-ai-governance-category-error.md`,
 `blog-simonwillison-encyclical-on-ai.md`,
-`blog-ronacher-ai-nationalism-americans-only.md`, and
-`blog-simonwillison-openai-hf-blackhat-timeline.md` were re-read directly
-(MINER.md §4b) and all claim numbers cited below were confirmed against
-those notes' numbered `### Claim N:` headings in document order before
-writing this section.
+`blog-ronacher-ai-nationalism-americans-only.md`,
+`blog-simonwillison-openai-hf-blackhat-timeline.md`, and
+`blog-openai-government-national-security-partnerships.md` were re-read
+directly (MINER.md §4b) and all claim numbers cited below were confirmed
+against those notes' numbered `### Claim N:` headings in document order
+before writing this section. Material cited from the national-security
+note's four numbered "Our Principles" headings is cited by section name
+(Concrete Artifacts) rather than by claim number, since those headings are
+not numbered claims.
 
 - **Corroborates**:
   - `blog-openai-built-to-benefit-everyone.md` Claim 7 ("we believe the
@@ -212,17 +216,46 @@ writing this section.
     team that this Aug 17 grants post's "Industrial Policy for the
     Intelligence Age" framing appears to feed into (the two posts share the
     "Intelligence Age" name and were published three days apart).
+  - `blog-openai-government-national-security-partnerships.md` Claim 6
+    (OpenAI acknowledging that government AI use "can also concentrate state
+    power, reduce human judgment in consequential decisions, and amplify the
+    harm caused by government mistakes," with its national-security
+    principles framed as the mitigation) and that note's Concrete Artifacts →
+    "The four numbered 'Our Principles' headings" section, Principle 3 ("We
+    have an obligation to ensure AI strengthens democratic institutions and
+    avoids concentration of power"): this is the closest and most
+    authoritative corroboration in the corpus for this source's Claim 2
+    (concentration of power as the top AI risk category) and Claim 5 (balance
+    of power, not radical decentralization). It matters for two reasons.
+    First, it is *earlier* — published July 8, 2026, six weeks before this
+    Aug 20 post — so OpenAI had already named concentration of power as a
+    risk it intends to guard against before the Strategic Futures team
+    launched. Second, it carries a *stronger* authority claim: it is an
+    unsigned institutional OpenAI document with a formal principles PDF,
+    whereas this source is explicitly disclaimed as its author's personal
+    views (Source Context). The two also differ in scope and operational
+    specificity: the national-security note scopes the concern to *government
+    and law-enforcement use of OpenAI technology* and pairs it with named,
+    falsifiable restrictions (that note's Claim 2, the "will not support"
+    list), while this source generalizes the concern to the structure of free
+    society as a whole and offers no mechanism at all. A guide section citing
+    either should cite both, and should treat the national-security document
+    — not this essay — as OpenAI's authoritative statement on the risk.
   - `blog-thoughtworks-kamelman-ai-governance-category-error.md` Claim 5
     (AI deployment decisions "are being made by the smallest possible group
     of people, inside incentive structures that cannot fully assess the
     consequences... for everyone else") and `blog-simonwillison-encyclical-on-ai.md`
     Claim 7 ("AI tends to amplify the power of those who already possess
     economic resources, expertise and access to data"): both are outside
-    critiques of AI power concentration; this source is the first corpus
-    instance of OpenAI itself, via a dedicated internal team, adopting the
-    same risk category as its stated top priority — though, as with the
-    outside critiques, no concrete mechanism accompanies the concern here
-    either.
+    critiques of AI power concentration, and this source adopts the same risk
+    category from inside OpenAI. It is *not*, however, the first corpus
+    instance of OpenAI doing so — `blog-openai-government-national-security-partnerships.md`
+    Claim 6 and Principle 3 got there six weeks earlier and with more
+    institutional weight (see the bullet above). What this source adds over
+    that one is scope and framing, not precedence: an unbounded political-
+    philosophy framing rather than a use-case-scoped policy commitment. As
+    with the outside critiques — and unlike the national-security document —
+    no concrete mechanism accompanies the concern here.
 
 - **Contradicts**: None newly filed. This source's power-distribution
   language (Claim 5, "no single actor... can dominate the rest") sits on
@@ -265,7 +298,25 @@ writing this section.
 - **Novel**:
   - **"Strategic Futures" as a named OpenAI team** with an explicit charter
     to answer how "free society" should be restructured for the AI era —
-    no prior corpus source documents this team's existence.
+    no prior corpus source documents this team's existence. What is novel is
+    the *organizational fact* (a standing OpenAI team whose sole stated
+    mission is long-run political-philosophy analysis of concentration-of-
+    power risk), **not** the risk category itself: see the explicit
+    non-novelty note below.
+  - **Explicitly NOT novel: OpenAI naming concentration of power as a risk it
+    intends to guard against.** `blog-openai-government-national-security-partnerships.md`
+    (July 8, 2026) already did this six weeks earlier — Claim 6 there, plus
+    Principle 3 of its published principles document ("avoids concentration
+    of power") — in an unsigned institutional document, i.e. with a stronger
+    authority claim than this personal-opinion essay. This note does not
+    claim precedence for the risk category. The narrowest defensible novelty
+    here is that this is the first corpus source in which OpenAI (a) ranks
+    concentration of power as the *largest and most serious* AI risk category
+    (Claim 2), rather than naming it as one risk among several, and (b) does
+    so as the founding premise of a team dedicated to that question alone.
+    Both parts of that narrowing should be preserved if this is cited — the
+    unqualified "first OpenAI statement on concentration of power" framing is
+    wrong and should not be reproduced in the guide.
   - **"Bounded legibility"** (Claim 7): a new named governance-mechanism
     concept, distinct from "AI resilience" (`blog-openai-built-to-benefit-everyone.md`
     Claim 8) and from any governance term already in the corpus — the first
