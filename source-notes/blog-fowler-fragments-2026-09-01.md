@@ -99,7 +99,7 @@ issue: "#3161"
 - **Evidence**: NVIDIA's blog post, comparing AVO's action count (6,624) against VISTA's reported action count (7,542) for the same 183 public-set levels, both using Claude Opus 5.
 - **Confidence**: emerging (a specific, named comparison with real numbers, but NVIDIA itself flags it as confounded — different agent backend, observation representation, memory system, and context management between AVO and VISTA)
 - **Quote**: "AVO completed the full 25-environment public set with a 100.00 RHAE score, solving all 183 levels in 6,624 environment actions. For reference, VISTA reports 7,542 environment actions with Claude Opus 5 while completing the same 183 public-set levels." / "This should not be interpreted as a controlled ablation: the two systems differ in agent backend, observation representation, memory, context management, and other implementation details."
-- **Our assessment**: The headline transfer result — the same architecture generalizing from GPU-kernel engineering to an unrelated interactive-reasoning benchmark — is the more load-bearing claim than the specific 12% efficiency number, which NVIDIA itself hedges heavily. The guide should cite the qualitative transfer result (system-level design, not model capability alone, drives long-horizon performance) as the stronger takeaway, and treat the 12%-fewer-actions figure as directional color, not a validated ablation result.
+- **Our assessment**: The headline transfer result — the same architecture generalizing from GPU-kernel engineering to an unrelated interactive-reasoning benchmark — is the more load-bearing claim than the specific 12% efficiency number, which NVIDIA itself hedges heavily. The guide should cite the qualitative transfer result (system-level design, not model capability alone, drives long-horizon performance) as the stronger takeaway, and treat the 12%-fewer-actions figure as directional color, not a validated ablation result. This corpus now has a second, independent, cross-vendor data point on the *same* benchmark and the *same* metric: `blog-openai-arc-agi-3-two-settings.md` Claim 3 documents GPT‑5.6 Sol going from 13.3% to 38.3% RHAE on the ARC-AGI-3 public set with no model change at all, purely from two Responses API settings. Taken together with NVIDIA's result here (Claude Opus 5 at an ARC Prize baseline of roughly 30% on the model alone, versus 100.00 RHAE with the AVO harness wrapped around it), ARC-AGI-3/RHAE performance looks dominated by harness and system design rather than by a model capability ceiling — two different vendors, two different model families, two different intervention scales (a settings change vs. a full architectural harness), same direction and large magnitude. That cross-vendor agreement is materially stronger guide evidence than either result alone, and it is what should be cited, rather than NVIDIA's confounded AVO-vs-VISTA action-count comparison.
 
 ### Claim 7: Mickey Petersen characterizes MCP as "SOAP for Zoomers" in a one-line quip Fowler reproduces without further comment or elaboration
 - **Evidence**: A single quoted line, sourced to an X/Twitter post, with no supporting argument given in Fowler's fragment.
@@ -258,10 +258,24 @@ Real-world contamination — Zenodo (CERN-operated, real DataCite DOIs):
 ### Cross-reference verification notes
 Before writing citations below, `blog-anthropic-harness-long-running.md`,
 `blog-thoughtworks-gall-supervisory-engineering.md`,
-`blog-simonwillison-llm-cliche-highlighter.md`, and
-`blog-thebatch-gpt55-hallucination-kimi-k26.md` were re-read directly
+`blog-simonwillison-llm-cliche-highlighter.md`,
+`blog-thebatch-gpt55-hallucination-kimi-k26.md`, and
+`blog-openai-arc-agi-3-two-settings.md` were re-read directly
 (MINER.md §4b) and claim numbers below were confirmed against those notes'
-numbered `### Claim N:` headings in document order.
+numbered `### Claim N:` headings in document order. A corpus keyword search
+for "ARC-AGI-3" and "RHAE" (which should have been run before the first
+submission of this note, and was not) returns seven other notes.
+`blog-openai-arc-agi-3-two-settings.md` is the only one that extracts the
+benchmark in depth and is cited below; `blog-latentspace-ainews-amd-buys-taalas.md`
+Claim 12 is cited as a third harness-driven ARC-AGI-3 result. The remainder
+are restatements of the same OpenAI case study
+(`blog-openai-builders-guide-gpt56.md` Claim 7,
+`blog-openai-building-abundant-intelligence.md` Claim 7), a bare
+benchmark-table row (`blog-openai-gpt56-ga-announcement.md` Concrete
+Artifacts), a thinner earlier mention of the same Prime Agent claim
+(`blog-latentspace-ainews-deepmind-reshuffle-discovery-loop.md` Claim 9), and
+a passing reference (`blog-openai-full-stack-behind-abundant-intelligence.md`)
+— none add an independent data point beyond the two cited here.
 
 - **Corroborates**:
   - `blog-simonwillison-llm-cliche-highlighter.md` (the tool Fowler links in
@@ -272,6 +286,40 @@ numbered `### Claim N:` headings in document order.
     cited study, 57%/64% per another) — clarifying that the cliché tool
     catches *known, named patterns*, not AI-generated text in general, which
     unaided humans are shown to be unreliable at spotting.
+  - `blog-openai-arc-agi-3-two-settings.md` — **the closest corroboration in
+    the corpus for this note's Claim 6**, and on the identical benchmark and
+    metric. That note's Claim 3 records that "With the official harness,
+    GPT‑5.6 Sol scored 13.3% on the ARC-AGI-3 public set. With retained
+    reasoning and compaction, it scored 38.3%," and its Claim 2 quotes
+    OpenAI stating the two settings "tripled scores and cut output tokens by
+    6x on the public task set" — a roughly 2.9x RHAE swing on ARC-AGI-3 with
+    no change to the model weights at all. This note's Claim 6 is the same
+    finding from the opposite direction and a different vendor: NVIDIA takes
+    Claude Opus 5, whose ARC Prize baseline is reported at approximately 30%
+    on the model alone (see Concrete Artifacts), and reaches 100.00 RHAE by
+    wrapping it in the AVO harness. Two independent labs, two different model
+    families, two very different intervention scales (a pair of API settings
+    vs. a full persistent-memory-plus-supervisor architecture), same
+    benchmark, same metric, same conclusion: on ARC-AGI-3, RHAE is dominated
+    by harness and system design rather than by the model's capability
+    ceiling. Note that the two notes' absolute figures are *not* directly
+    comparable — different models and harnesses, and per that note's Claim 14
+    RHAE is an efficiency-normalized score against a human baseline (capped
+    at 1.15x per level), not a completion percentage. The corroboration is in
+    the direction and magnitude of the harness effect, not in the numbers
+    lining up.
+  - `blog-latentspace-ainews-amd-buys-taalas.md` Claim 12 (Prime Intellect's
+    "Prime Agent" harness claiming 95.5% on ARC-AGI-3, "exceeding the stated
+    human-expert baseline") is a third harness-driven ARC-AGI-3 result
+    pointing the same way, but it is much weaker evidence and should be cited
+    with the skepticism that note already records — that claim is
+    self-reported, unendorsed by ARC, and its commenters specifically
+    disputed "that ARC-AGI-3 is a meaningful harness benchmark." That
+    skepticism applies with some force to NVIDIA's 100.00 RHAE here too:
+    NVIDIA is likewise the harness's builder and its own evaluator. The
+    OpenAI note remains the stronger corroboration because its intervention
+    (two documented API settings) is far more cheaply reproducible than
+    either full harness.
   - `blog-thoughtworks-gall-supervisory-engineering.md` Claim 6 ("The middle
     loop should be treated as a kind of filter stage, one that needs to be
     passed before anything touches your CI/CD pipeline"): this note's Claims
@@ -351,6 +399,22 @@ numbered `### Claim N:` headings in document order.
   task that outlasts a single context window — rather than presenting one as
   superseding the other, since they were built for different task shapes
   (a single continuous 7-day run vs. discrete, checkpointed sprints).
+  Separately, and more strongly: pair Claim 6 with
+  `blog-openai-arc-agi-3-two-settings.md` (Claims 2-3) as a **cross-vendor
+  corroboration on a single benchmark**. Two independent labs now show that
+  ARC-AGI-3 RHAE scores move enormously with harness and system design at a
+  fixed model — OpenAI by flipping two API settings on GPT‑5.6 Sol (13.3% →
+  38.3%), NVIDIA by wrapping Claude Opus 5 (ARC Prize baseline ~30%) in the
+  AVO architecture (100.00 RHAE). Two independent sources making the same
+  harness-matters point on the same benchmark is materially stronger guide
+  evidence than either alone, and it is the form the guide should use: state
+  the converging conclusion, not the individual headline numbers, which come
+  from different models and different harnesses and do not compose. Carry
+  the vendor-self-report caveat in both cases (each lab evaluated its own
+  system) and, per `blog-openai-arc-agi-3-two-settings.md` Claim 14, note
+  that RHAE is an efficiency-normalized score against a human baseline, not
+  a completion rate — so these figures should not be read as "solved N% of
+  levels."
 
 - **Chapter 06 (Deployment & Ops / CI-CD)**: Add Paul Stack's pre-PR
   verification/attestation model (Claims 8-9, Concrete Artifacts) as a
@@ -430,5 +494,12 @@ numbered `### Claim N:` headings in document order.
   results) alongside several claims resting on single, not-yet-peer-reviewed,
   or thirdhand sources (the arXiv preprint's checkpoint-suppression inference,
   the Wikipedia-relayed detection-accuracy studies, Wilke's un-peer-reviewed
-  opinion-blog rebuttal). No claim in this note is corroborated by a second
-  independent source outside its own originating publication.
+  opinion-blog rebuttal). With one exception, no specific figure in this note
+  is corroborated by a second independent source outside its own originating
+  publication. The exception is the *thesis* behind Claim 6 — that ARC-AGI-3
+  RHAE performance is harness-dominated rather than model-capped — which is
+  independently corroborated by `blog-openai-arc-agi-3-two-settings.md` on
+  the same benchmark and metric with a different vendor and model family.
+  The individual numbers still are not cross-validated: NVIDIA's 100.00 RHAE
+  remains a single-source, self-evaluated figure, as does OpenAI's
+  13.3%/38.3% pair. See Cross-References → Corroborates.
