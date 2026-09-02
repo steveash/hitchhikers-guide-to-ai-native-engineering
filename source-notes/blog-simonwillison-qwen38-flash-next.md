@@ -92,10 +92,12 @@ issue: "#3153"
   explicitly flagged by the author as incomplete: "I'm still exploring the
   model")
 - **Quote**: "I've been trying it out on a DGX Spark using these Unsloth quantized models. I'm still exploring the model - so far I've tried the 72.5GB UD-IQ1_S one (producing these pelicans) and the 78.9GB UD-Q2_K_XL (producing these)."
-- **Our assessment**: Notably, both quantizations tried are the two
-  *smallest* available in Unsloth's full GGUF ladder for this model (see
-  Claim 8's full size table, running up to 354GB for BF16) — consistent with
-  fitting comfortably within a single DGX Spark's memory, though Willison
+- **Our assessment**: Notably, both quantizations tried sit at the *bottom*
+  of Unsloth's full-model GGUF ladder for this model — UD-IQ1_S is the
+  smallest of the eleven and UD-Q2_K_XL the third smallest, with UD-IQ1_M
+  (74.5GB) between them (see Claim 8's complete size table, running up to
+  354GB for BF16) — consistent with fitting comfortably within a single
+  DGX Spark's memory, though Willison
   does not state a memory ceiling or explain the choice explicitly. No
   timing, token/second, or side-by-side quality comparison is given between
   the two quantizations, unlike the companion Qwen 3.8 27B post's detailed
@@ -168,15 +170,16 @@ issue: "#3153"
   nor this Miner's fetch of Qwen's own blog page describes or corroborates
   this recommendation directly; it is sourced solely to Unsloth's page.
 
-### Claim 8: Per the Unsloth model card, the full GGUF quantization ladder for this model runs from 72.5GB (UD-IQ1_S, 1-bit) up to 354GB (BF16, full precision), with six intermediate sizes in between
+### Claim 8: Per the Unsloth model card, the full-model GGUF quantization ladder for this model runs from 72.5GB (UD-IQ1_S, 1-bit) up to 354GB (BF16, full precision), with nine intermediate sizes in between
 - **Evidence**: Unsloth's GGUF model card, quantization file listing.
 - **Confidence**: settled (a directly observable repository file listing,
   independently checkable at the linked URL)
-- **Quote**: (no direct quote; see the size table reproduced verbatim in
+- **Quote**: (no direct quote; see the complete size table reproduced in
   Concrete Artifacts below)
-- **Our assessment**: This confirms the two variants Willison tried (Claim 3)
-  are the two smallest quantizations Unsloth offers for this model — he has
-  not yet, as of this post, tried anything from UD-Q3_K_XL (90GB) upward.
+- **Our assessment**: This places the two variants Willison tried (Claim 3)
+  at the bottom of the ladder — the smallest and third-smallest of the eleven
+  full-model quantizations Unsloth offers. He has not yet, as of this post,
+  tried anything from UD-IQ3_XXS (82GB) upward.
   For a DGX Spark, that stops well short of the 192GB Q8_0 or 354GB BF16
   ceiling, so this post gives no evidence about how the model performs at
   higher-precision quantizations on that hardware.
@@ -214,21 +217,36 @@ Source: image alt text on simonwillison.net/2026/Aug/26/qwen38-flash-next/,
 the UD-Q2_K_XL / xhigh reasoning effort output referenced in Claim 4
 ```
 
-### Unsloth GGUF quantization size table (verbatim, from the linked model card)
+### Unsloth GGUF quantization size table (complete listing, from the linked model card)
 
 ```
-UD-IQ1_S    72.5 GB
-UD-Q2_K_XL  78.9 GB
-UD-Q3_K_XL  90 GB
-UD-Q4_K_XL  111 GB
-UD-Q5_K_XL  158 GB
-UD-Q6_K_XL  169 GB
-Q8_0        192 GB
-BF16        354 GB
+Bits     Variant       Size
+1-bit    UD-IQ1_S      72.5 GB
+1-bit    UD-IQ1_M      74.5 GB
+2-bit    UD-Q2_K_XL    78.9 GB
+3-bit    UD-IQ3_XXS    82 GB
+3-bit    UD-Q3_K_XL    90 GB
+4-bit    UD-IQ4_XS     93.7 GB
+4-bit    MTP Q4_K_M    2.79 GB
+4-bit    MTP Q4_K_M    1.91 GB
+4-bit    UD-Q4_K_XL    111 GB
+5-bit    UD-Q5_K_XL    158 GB
+6-bit    UD-Q6_K_XL    169 GB
+8-bit    Q8_0          192 GB
+8-bit    MTP Q8_0      2.79 GB
+16-bit   BF16          354 GB
+16-bit   MTP BF16      7.77 GB
+16-bit   MTP BF16      5.23 GB
 
 Source: huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF, linked from
 simonwillison.net/2026/Aug/26/qwen38-flash-next/ as "these Unsloth
 quantized models"
+
+Miner's note: every row the model card lists is reproduced above, with the
+card's own bit-width grouping preserved. The rows prefixed `MTP` are the
+separate small multi-token-prediction module files (1.91-7.77 GB), not
+full-model quantizations; the eleven remaining rows are the full-model
+ladder discussed in Claims 3 and 8.
 ```
 
 ### Links referenced by the post (verbatim anchor text / destination)
