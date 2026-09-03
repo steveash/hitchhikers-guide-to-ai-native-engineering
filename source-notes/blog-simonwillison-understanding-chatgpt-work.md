@@ -55,13 +55,13 @@ issue: "#3182"
 - **Evidence**: The author's own first-hand product-structure observation, stated as the article's opening organizing claim.
 - **Confidence**: emerging (a specific, named product-structure claim from extensive hands-on use, though based on outsider observation rather than an OpenAI architecture statement)
 - **Quote**: "If you install the ChatGPT desktop app—the app that used to be called Codex—you gain access to a thing called ChatGPT Work that can access files and run programs directly on your computer. Let's call that one Work Local. This one feels more like regular Codex re-skinned to be less intimidating to non-software-developers."
-- **Our assessment**: This corroborates `blog-latentspace-khemani-unpacking-chatgpt-work.md` Claim 8 (Cloud Mode vs. Local Mode, with Local Mode desktop-only and not syncing to web/mobile) and `blog-anthropic`-adjacent framing in `blog-latentspace-nathan-chatgpt-work-harness.md` Claim 1 (Codex and ChatGPT Work share an identical underlying harness, differentiated only at the UX layer) — Willison's outsider "re-skinned Codex" characterization is an independent, externally-observed confirmation of the same harness-sharing architecture Nathan (OpenAI, the product's own lead) describes from the inside. The rest of this article is explicitly scoped to Work Cloud only, which this note follows.
+- **Our assessment**: This corroborates `blog-latentspace-khemani-unpacking-chatgpt-work.md` Claim 8 (Cloud Mode vs. Local Mode, with Local Mode desktop-only and not syncing to web/mobile) and `blog-anthropic`-adjacent framing in `blog-latentspace-nathan-chatgpt-work-harness.md` Claim 1 (Codex and ChatGPT Work share an identical underlying harness, differentiated only at the UX layer) — Willison's outsider "re-skinned Codex" characterization is an independent, externally-observed confirmation of the same harness-sharing architecture Nathan (OpenAI, the product's own lead) describes from the inside. A third and more technical source for the same shared-harness claim is `blog-simonwillison-gpt56-luna-price-drop.md` Claim 10, which reports (from OpenAI's own engineering post) that the agentic harness for *both* Codex and ChatGPT Work is a single Rust orchestration layer — so the "re-skinned Codex" characterization Willison arrives at from outside matches what OpenAI describes as literally one shared harness underneath. The rest of this article is explicitly scoped to Work Cloud only, which this note follows.
 
 ### Claim 2: ChatGPT Work (in both Cloud and Local forms) is gated to paid subscribers at $20/month and up — Free users and $8/month Go users have no access at all
 - **Evidence**: The author's own direct statement of the access tier.
 - **Confidence**: emerging (a specific, checkable pricing/access fact from hands-on use)
 - **Quote**: "Right now, ChatGPT Work (in both flavors) is available only to $20/month and up subscribers. Free users and $8/month Go users do not have access."
-- **Our assessment**: A concrete, verifiable access-tier fact not previously captured with this precision in the corpus's other ChatGPT Work notes (which focus on features and case studies rather than the pricing/access gate). Useful as a grounding detail for any guide discussion that assumes universal ChatGPT Work availability.
+- **Our assessment**: A concrete, verifiable access-tier fact not previously captured with this precision in the corpus's other ChatGPT Work notes (which focus on features and case studies rather than the pricing/access gate). Useful as a grounding detail for any guide discussion that assumes universal ChatGPT Work availability. Worth reading against `blog-openai-chatgpt-work-ambitious-partner.md` Claim 9, where OpenAI's July 9, 2026 launch post states that in the unified ChatGPT desktop app "Chat, Work, and Codex are available on every plan, including Free." That is in tension with Willison's Aug 30 report, but not filed as a contradiction per MINER.md §4a: the two statements are separated by ~7 weeks and describe different things (which modes appear in a desktop app surface vs. which subscription tiers can actually run Work), and no guide advice turns on resolving them. The safe framing for the guide is Willison's dated, hands-on one — treat Work as a paid-tier feature as of Aug 2026 — rather than the launch post's broader phrasing.
 
 ### Claim 3: OpenAI's own official guidance on when to use Chat vs. Work ("use Chat when you want an answer... use ChatGPT Work when you want ChatGPT to complete a task with a clear outcome") is, in Willison's assessment, unhelpful because he has used regular Chat for all of those same task categories for years
 - **Evidence**: The author's direct critique of OpenAI's own published guidance, contrasted against his own multi-year usage pattern.
@@ -105,7 +105,7 @@ issue: "#3182"
 - **Confidence**: emerging (a specific, named risk-framework application from the framework's own creator, though the "protection mechanism is probably the same as Codex's auto-review" claim is explicitly speculative — Willison states he does not know and is guessing)
 - **Quote**: "My lethal trifecta model warns about the risks inherent in any agent system that combines access to private data with exposure to untrusted content and a way to communicate stolen information back to an attacker."
 - **Quote (verdict)**: "ChatGPT Work combines all three!"
-- **Our assessment**: This directly corroborates `blog-simonwillison-openai-lockdown-mode.md` Claim 3 (the lethal-trifecta framework as the theoretical basis for evaluating agent-system risk) — the same author applying the same named framework to a different OpenAI product, reinforcing that OpenAI's own agent products (Lockdown Mode's subject and now ChatGPT Work) are both assessed by their creator as trifecta-complete by default. Unlike the Lockdown Mode article, this piece does not describe any specific mitigation Work has shipped (Lockdown Mode itself is not mentioned here) — Willison explicitly says he is speculating that Work's protection is "the same auto-review mechanism as Codex," which he has not verified. This is a gap worth flagging: if the guide cites Work's security posture, it should not imply Willison has confirmed what defenses exist, only that he has confirmed the risk profile.
+- **Our assessment**: This directly corroborates `blog-simonwillison-openai-lockdown-mode.md` Claim 3 (the lethal-trifecta framework as the theoretical basis for evaluating agent-system risk) — the same author applying the same named framework to a different OpenAI product, reinforcing that OpenAI's own agent products (Lockdown Mode's subject and now ChatGPT Work) are both assessed by their creator as trifecta-complete by default. Unlike the Lockdown Mode article, this piece does not describe any specific mitigation Work has shipped (Lockdown Mode itself is not mentioned here) — Willison explicitly says he is speculating that Work's protection is "the same auto-review mechanism as Codex," which he has not verified. This is a gap worth flagging: if the guide cites Work's security posture, it should not imply Willison has confirmed what defenses exist, only that he has confirmed the risk profile. The mechanism Willison guesses at is documented in the corpus: `blog-openai-chatgpt-work-ambitious-partner.md` Claim 13 describes Auto-review as using OpenAI's "most advanced models to review important actions involving connected tools and APIs before they happen" — so the feature he assumes covers Work does exist and is vendor-described, but that note presents it as an Enterprise/Edu admin governance feature, which is not obviously the same thing as a prompt-injection defense applied to every Work session. Willison's request for transparency stands even against the corpus's best existing answer.
 
 ### Claim 10: Willison identifies two specific, named documentation failures behind why ChatGPT Work is confusing to understand: OpenAI explains Work in terms of what it's for rather than what it actually does, and OpenAI does not publish the system prompt or tool descriptions the agent uses
 - **Evidence**: The author's own direct critique, stated as his diagnosis for why the investigative work behind this entire article was necessary.
@@ -118,7 +118,7 @@ issue: "#3182"
 - **Confidence**: emerging (a specific, reproducible extraction method with a checkable numeric result — the generated site is linked and viewable — though the *content* of what Work reported about itself is self-reported by the model, not independently verified against OpenAI's actual source configuration, so the 223/44 figures reflect what Work says about itself, not a ground-truth audit)
 - **Quote**: "Here's the site it built, which includes details of 223 registered tools—though 6 of those are from my own personal MCPs served via datasette-mcp."
 - **Quote (skills count)**: "It turns out ChatGPT Work uses a lot of skills—44 in fact!"
-- **Our assessment**: This is the most novel and concrete contribution of the article: a reproducible, self-referential prompting technique for making an opaque agent document its own tool/skill surface, directly addressing the documentation gap named in Claim 10. No other source note in this corpus documents a specific tool count (223) or skill count (44) for ChatGPT Work, nor this self-documentation extraction methodology. The caveat about self-reported content applies: a model asked to describe its own tools may omit, mis-describe, or hallucinate details, so the 223/44 figures and the reproduced skill text should be treated as "what Work says about itself when asked," not as ground truth confirmed against OpenAI's actual configuration — Willison does not claim otherwise.
+- **Our assessment**: This is the most novel and concrete contribution of the article: a reproducible, self-referential prompting technique for making an opaque agent document its own tool/skill surface, directly addressing the documentation gap named in Claim 10. No other source note in this corpus documents a specific tool count (223) or skill count (44) for ChatGPT Work, nor this self-documentation extraction methodology. The caveat about self-reported content applies: a model asked to describe its own tools may omit, mis-describe, or hallucinate details, so the 223/44 figures and the reproduced skill text should be treated as "what Work says about itself when asked," not as ground truth confirmed against OpenAI's actual configuration — Willison does not claim otherwise. `blog-simonwillison-gpt56-luna-price-drop.md` Claim 10 supplies a plausible *mechanism* for why a self-referential prompting trick was needed at all: OpenAI's own engineering post describes the Codex/ChatGPT Work harness as using "deferred discovery," which makes integrations, custom MCP tools, skills, and plugins only surfaceable when needed rather than all resident in context up front. If the tool and skill surface is deliberately not loaded by default, no ordinary "what tools do you have?" question would enumerate it — which fits Willison's own experience here that his first prompt surfaced only `web.run` as the browser-related tool (missing the headless-browser capability he had already observed in testing), and that a second, separate prompt was required before the 44 skills appeared at all. Deferred discovery also sharpens the self-reporting caveat above: an inventory the model produces about itself is bounded by what its harness chose to surface at that moment, so 223 and 44 are better read as floors than as audited totals.
 
 ## Concrete Artifacts
 
@@ -209,6 +209,22 @@ top-to-bottom in document order as they appear in each cited note.
     and its own remark that "Ultra is a special mode that more eagerly
     delegates to sub-agents," an independent external confirmation of
     the same feature Nathan describes from inside OpenAI.
+  - `blog-simonwillison-gpt56-luna-price-drop.md` Claim 10 (OpenAI's
+    agentic harness for Codex and ChatGPT Work is a single Rust
+    orchestration layer using "deferred discovery") — a third source for
+    the shared-harness claim in this article's Claim 1, and the most
+    technical of the three: Nathan describes the shared harness as a
+    product decision, Willison here infers it from the outside ("re-skinned
+    Codex"), and OpenAI's engineering post states it as an implementation
+    fact. Note: the shared-harness material in that note is at Claim 10,
+    not Claim 1 (its Claim 1 is the Luna/Terra price cut).
+  - `blog-openai-chatgpt-work-ambitious-partner.md` Claim 13 (Auto-review
+    uses OpenAI's most advanced models to review important actions
+    involving connected tools/APIs before they happen) — this article's
+    Claim 9 guesses that Work's prompt-injection protection "is the same
+    auto-review mechanism as Codex," and that note confirms such a
+    mechanism exists and is vendor-described, though scoped there to
+    Enterprise/Edu governance rather than to every Work session.
   - `blog-simonwillison-openai-lockdown-mode.md` Claim 3 (the "lethal
     trifecta" framework as the basis for evaluating agent-system risk)
     — the same author applying the same named framework to a different
@@ -219,7 +235,15 @@ top-to-bottom in document order as they appear in each cited note.
   documents the article contradicting *itself* (an inline self-correction
   about whether scheduled automations are Work-exclusive), but Willison
   resolves it within the same piece and no guide-impacting decision turns
-  on which version is right, so no contradiction issue was filed.
+  on which version is right, so no contradiction issue was filed. A second,
+  cross-source tension was considered and also not filed: this article's
+  Claim 2 (Free and $8/month Go users have no Work access) sits against
+  `blog-openai-chatgpt-work-ambitious-partner.md` Claim 9 ("Chat, Work, and
+  Codex are available on every plan, including Free"), but the two are ~7
+  weeks apart and describe different things — desktop-app mode visibility
+  vs. subscription-tier entitlement — which is a conditioning/temporal
+  difference rather than opposing guide advice (MINER.md §4a). See Claim 2's
+  assessment for the framing the guide should use.
 - **Extends**:
   - `blog-latentspace-khemani-unpacking-chatgpt-work.md` Claim 6 (browser
     tool credential isolation via a "permission ledger" governing which
@@ -229,6 +253,21 @@ top-to-bottom in document order as they appear in each cited note.
     directly by the user into the browser session rather than passing
     through the model, addressing a different part of the same
     credential-exposure risk (input-time exposure vs. site-access scope).
+  - `blog-simonwillison-gpt56-luna-price-drop.md` Claim 10 ("deferred
+    discovery" makes integrations, custom MCP tools, skills, and plugins
+    only surfaceable when needed) — this article's Claim 11 is, in effect,
+    an empirical consequence of that architectural choice observed from
+    outside: because the tool/skill surface is not resident in context by
+    default, Willison needed a self-referential prompt (and then a second
+    one for skills) to enumerate it at all, and his first pass surfaced
+    only `web.run` rather than the headless browser he had already used.
+    That note names the mechanism; this note shows what it costs a
+    practitioner trying to audit the product.
+  - `blog-openai-chatgpt-work-ambitious-partner.md` Claim 11 (Scheduled
+    Tasks can run once, repeat on a schedule, or monitor for changes and
+    trigger on an event) — this article's Claim 8 adds an outsider's
+    correction that scheduled prompt automations are not Work-exclusive,
+    a boundary detail OpenAI's own launch post does not state.
   - `blog-latentspace-nathan-chatgpt-work-harness.md` Claim 9 (memory
     inheritance) and Khemani's Claim 5 (standalone-vs-heartbeat scheduled
     tasks) — this article's Concrete Artifacts feature list and Claim 8
@@ -270,7 +309,14 @@ top-to-bottom in document order as they appear in each cited note.
   actually has, distinct from vendor marketing copy. Pair with the
   explicit caveat that the resulting inventory is self-reported by the
   model, not independently verified against the vendor's real
-  configuration.
+  configuration. Pair it also with
+  `blog-simonwillison-gpt56-luna-price-drop.md` Claim 10's "deferred
+  discovery" as the architectural reason the technique is necessary: when a
+  harness deliberately keeps tools, skills, and MCP integrations out of
+  context until needed, the agent's own default self-description is
+  incomplete by design, so an auditor must prompt for the inventory
+  explicitly — and should treat the result as a lower bound on what is
+  installed, not a complete list.
 - **Chapter 03 (Multi-Agent Coordination / Computer Use & Sandboxing)**:
   Add Claim 4's sandbox-permissiveness comparison (Work's code-execution
   environment open to the internet by default vs. Claude's code
@@ -331,9 +377,23 @@ top-to-bottom in document order as they appear in each cited note.
   than fetching the linked page separately).
 - **Cross-references verified**: `blog-latentspace-nathan-chatgpt-work-harness.md`
   Claims 1 and 5; `blog-latentspace-khemani-unpacking-chatgpt-work.md`
-  Claims 2, 6, and 8; and `blog-simonwillison-openai-lockdown-mode.md`
-  Claim 3 were each re-read in full before citing; no claim numbers were
-  guessed.
+  Claims 2, 6, and 8; `blog-simonwillison-openai-lockdown-mode.md`
+  Claim 3; `blog-simonwillison-gpt56-luna-price-drop.md` Claim 10; and
+  `blog-openai-chatgpt-work-ambitious-partner.md` Claims 9, 11, and 13
+  were each re-read in full before citing; no claim numbers were guessed.
+  One correction worth recording: the shared-harness / "deferred discovery"
+  material in `blog-simonwillison-gpt56-luna-price-drop.md` is that note's
+  **Claim 10**, not its Claim 1 (Claim 1 there is the Luna 80% / Terra 20%
+  price cut). Cited by the verified number.
+- **Second-pass corpus sweep**: The two same-cluster notes not cited in the
+  first draft were re-checked directly. Neither is subsumed by the
+  Nathan/Khemani notes: `blog-simonwillison-gpt56-luna-price-drop.md`
+  Claim 10 supplies the harness implementation detail (Rust orchestration
+  layer, deferred discovery) that neither of those notes contains, and
+  `blog-openai-chatgpt-work-ambitious-partner.md` supplies the vendor's own
+  Auto-review description (Claim 13) that this article's Claim 9 speculates
+  about, plus a plan-availability statement (Claim 9) in tension with this
+  article's Claim 2. All are now cited at the relevant claims.
 - No contradiction with any existing corpus source note was found during
   cross-referencing (the only self-contradiction found is internal to
   this article itself, Claim 8, and does not meet the MINER.md §4a filing
