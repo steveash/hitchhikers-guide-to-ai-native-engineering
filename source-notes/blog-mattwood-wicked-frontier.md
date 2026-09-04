@@ -37,9 +37,12 @@ issue: "#3217"
   PwC (per the site's About page, `https://mattwood.blog/about/`, fetched
   directly for this extraction). He holds a PhD in machine learning and did a
   postdoctoral fellowship in NLP/bioinformatics at Weill Cornell Medicine.
-  This is the same author and site as `blog-mattwood-field-and-frontier.md`,
+  This is the same author and site as the six prior mattwood.blog notes in the
+  corpus — `blog-mattwood-field-and-frontier.md`,
   `blog-mattwood-unit-of-return.md`, `blog-mattwood-barcode-bargain.md`,
-  `blog-mattwood-half-life-assumption.md`, and `blog-mattwood-for-your-information.md`;
+  `blog-mattwood-half-life-assumption.md`,
+  `blog-mattwood-for-your-information.md`, and
+  `blog-mattwood-how-this-was-made.md`;
   the bio and credibility assessment in those notes apply unchanged here
   (re-verified by re-fetching the About page for this extraction — the text
   is byte-for-byte identical to the version quoted in those sibling notes).
@@ -207,9 +210,10 @@ worked on natural language processing and bioinformatics back when that was
 still a niche."
 
 Source: https://mattwood.blog/about/ (re-fetched 2026-09-04; text unchanged
-from the version quoted in blog-mattwood-field-and-frontier.md,
-blog-mattwood-unit-of-return.md, blog-mattwood-barcode-bargain.md, and
-blog-mattwood-half-life-assumption.md)
+from the version quoted in all six prior mattwood.blog notes —
+blog-mattwood-field-and-frontier.md, blog-mattwood-unit-of-return.md,
+blog-mattwood-barcode-bargain.md, blog-mattwood-half-life-assumption.md,
+blog-mattwood-for-your-information.md, and blog-mattwood-how-this-was-made.md)
 ```
 
 ## Cross-References
@@ -379,11 +383,15 @@ and claim numbers below were confirmed against those notes' numbered
    type) were checked against the corpus's existing accountability,
    delegation, and judgment-relocation material; none argues the opposite —
    see Cross-References → Contradicts for the full reasoning.
-5. `confidence_overall` is rated `anecdotal`, consistent with three of this
-   author's four prior sibling notes (`blog-mattwood-barcode-bargain.md`,
-   `blog-mattwood-half-life-assumption.md`, `blog-mattwood-unit-of-return.md`;
-   only `blog-mattwood-field-and-frontier.md` is rated `emerging`, on the
-   strength of a specific quantified cost-decline figure not present here).
+5. `confidence_overall` is rated `anecdotal`, consistent with four of this
+   author's six prior sibling notes (`blog-mattwood-barcode-bargain.md`,
+   `blog-mattwood-half-life-assumption.md`, `blog-mattwood-unit-of-return.md`,
+   and `blog-mattwood-how-this-was-made.md`). The other two are rated
+   `emerging`: `blog-mattwood-field-and-frontier.md`, on the strength of a
+   specific quantified cost-decline figure not present here, and
+   `blog-mattwood-for-your-information.md`, whose claims were independently
+   verified against the live site's API endpoints rather than resting on the
+   author's assertion alone. Neither kind of support exists in this essay.
    Every claim in this essay beyond the borrowed Rittel-and-Webber definition
    is the author's own argument, illustrated with a single hypothetical,
    unnamed example (the market-entry decomposition) — there is no named
