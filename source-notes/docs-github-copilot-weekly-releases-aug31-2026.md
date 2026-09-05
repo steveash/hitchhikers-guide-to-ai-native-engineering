@@ -220,7 +220,7 @@ issue: "#3249"
 
 - **Evidence**: "VS Code 1.136 release updates" section, third bullet.
 - **Confidence**: emerging (explicitly experimental; cosmetic feature)
-- **Quote**: "Chat backgrounds are now experimental and let you personalize the Agents window with built-in patterns or custom images."
+- **Quote**: "Chat backgrounds are now experimental and let you personalize the Agents window with built-in patterns or your own images."
 - **Our assessment**: A purely cosmetic personalization feature with no
   functional bearing on agentic workflows. No prior corpus source documents
   visual customization of the VS Code Agents window beyond functional UI
