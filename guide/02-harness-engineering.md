@@ -1588,6 +1588,41 @@ specific failure mode you would need to observe to justify the next one. Do
 not pre-build for failure modes you have not seen.
 [source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [settled]
 
+### Debated: skills in one agent, or subagents?
+
+A different first-party Anthropic team reports the opposite default for
+conversational products. Building the commerce blueprint's shopping agent, they
+found that "a single agent with skills consistently has outperformed both the
+one-prompt-for-everything design and the subagent design on quality"
+[source: blog-anthropic-commerce-agents-blueprint, Claim 6] [emerging].
+The named mechanism is loss at the boundary: "Every handoff to a subagent is a
+state-lossy operation, which often impacts the quality"
+[source: blog-anthropic-commerce-agents-blueprint, Claim 7] [emerging].
+Neither post states where one default stops and the other starts; the tension
+is filed as contradiction #3203.
+
+**Our take** [editorial]: the conditioning variable that fits both is whether
+the work is one continuous multi-intent session or a set of separable subtasks.
+A shopping conversation carries the customer's constraints, cart, and prior
+rejections into every turn, and a handoff drops them; a migration across forty
+files carries nothing between them. Ask whether a subagent's result is usable
+without the context you are about to not send it.
+
+If you take the skills route, the same post gives the threshold for what goes
+where: "Anything the agent needs on most turns generally goes in the system
+prompt" — roughly a third or more of traffic — and everything below that
+becomes a skill. Their shopping agent keeps product search in the prompt and
+ships search-discovery, purchase-research, planning-goals, customer-care, and
+memory-personalization as skills.
+[source: blog-anthropic-commerce-agents-blueprint, Claim 8] [emerging]
+
+**Rule**: Keep orchestrator-subagent as the default for decomposable work, and
+switch to one agent with skills when the task is a single multi-intent session
+whose every step depends on accumulated state — then split system prompt from
+skills at "needed on most turns."
+[source: blog-anthropic-multi-agent-coordination-patterns, Claim 7] [settled]
+[source: blog-anthropic-commerce-agents-blueprint, Claims 6, 8] [emerging]
+
 ### Generator-verifier for unattended pipelines
 
 For long-running pipelines where a human cannot review every output — think
@@ -1624,6 +1659,79 @@ context to make coordinated decisions, that boundary generates information
 bottlenecks. Context-needs decomposition asks: what does each agent need to
 know to do its work? Decompose so each agent holds the minimum context it
 actually needs.
+
+### What coordination actually costs, measured
+
+The taxonomy names failure modes qualitatively. One study instrumenting 1,902
+multi-agent coding runs as temporal networks puts numbers on two of them:
+"naming a coordinator does not reliably improve outcomes; direct messaging
+grows nearly quadratically with team size before broadcasts take over; task
+structure strongly shapes communication topology; and replacing repeated 1:1
+messages with shared files cut output tokens by about 42% at eight agents on
+message-heavy work."
+[source: blog-latentspace-ainews-memory-crunch-500-percent, Claim 11] [emerging]
+
+The same study reports a second finding that belongs in any graded agent
+deployment: "agents repeatedly sought hidden grading material, even in sealed
+reruns."
+[source: blog-latentspace-ainews-memory-crunch-500-percent, Claim 11] [emerging]
+
+Read the figures against their sourcing: this reaches the corpus through a daily
+aggregation digest summarizing a named researcher's thread, and the primary
+study was not located. The direction — message volume is the cost, a shared file
+is the fix — is more trustworthy than the 42%. [editorial]
+
+**Rule**: If your agents coordinate by messaging each other, move them onto a
+shared file before you add a coordinator role — messaging volume is the measured
+cost and the coordinator is not the measured fix. Treat any grading fixtures
+your agents can reach as inside their search space.
+[source: blog-latentspace-ainews-memory-crunch-500-percent, Claim 11] [emerging]
+
+### Shared state can emerge by accident — and break the same way
+
+A four-day, ten-engineer Thoughtworks exercise produced the shared-state pattern
+without anyone designing it. Two unrelated practices combined. The first was a
+commit discipline adopted to stop many agents from destabilizing CI:
+
+> "With lot of agents working in one repo, build pipelines suffered. To deal
+> with this we introduced a discipline: our agents were to continually commit
+> and rebase from main."
+> [source: blog-fowler-edwards-alexander-accidental-blackboard, Claim 2] [anecdotal]
+
+The second was a planning convention:
+
+> "We were directing the agents to plan, to scope work to sections in the spec
+> and to create plans linked to those sections. These plans were stored in the
+> repo. All agents were working off the same spec using the same numbered and
+> identified sections. As agents worked, plans were updated to record progress."
+> [source: blog-fowler-edwards-alexander-accidental-blackboard, Claim 3] [anecdotal]
+
+Together they turned a plan line into both a lock and a handoff channel:
+
+> "One agent would mark a line of the plan as in progress, the other agent would
+> see that and not work on that line. When the first agent finished, the other
+> agent would see not only that the work was complete and thus it was released
+> to proceed, but would also be directly delivered notes on how the line had
+> been implemented."
+> [source: blog-fowler-edwards-alexander-accidental-blackboard, Claim 4] [anecdotal]
+
+Then it broke, for a reason unrelated to coordination: "The frequent commits
+were overloading our CI pipeline. We switched to only push when a more coherent
+chunk of change was complete. This deprived the agents of the continuous flow of
+updates on progress."
+[source: blog-fowler-edwards-alexander-accidental-blackboard, Claim 10] [anecdotal]
+The author — who traces the pattern to the Hearsay-II system (1980) and
+Gelernter et al.'s tuple spaces (1986), and whose own research background is in
+it — does not claim the behavior is reproducible: "And because it was
+accidental, I'm not convinced I would be able to reliably prompt our agents into
+doing it again."
+[source: blog-fowler-edwards-alexander-accidental-blackboard, Claims 7, 9] [anecdotal]
+
+**Rule**: If your agents are coordinating through the repository, write the
+channel down as a channel — which file, what a status line means, who clears a
+stale one — because otherwise a capacity decision taken elsewhere (commit
+cadence, CI load, branch policy) will remove it without anyone noticing.
+[source: blog-fowler-edwards-alexander-accidental-blackboard, Claims 2, 10] [anecdotal]
 
 ---
 
@@ -1826,15 +1934,18 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
+blog-anthropic-commerce-agents-blueprint (Claims 6, 7, 8),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifacts),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claim 1),
+blog-fowler-edwards-alexander-accidental-blackboard (Claims 2, 3, 4, 7, 9, 10),
 blog-humanlayer-show-me-skill (Claims 1, 2, 4, 5, 6, 8; Concrete Artifacts),
 blog-langchain-harness-memory (Claims 2, 3, 4),
 blog-latentspace-ainews-finance-vertical-aie-nyc (Claims 6, 12, 13),
+blog-latentspace-ainews-memory-crunch-500-percent (Claim 11),
 blog-simonwillison-codex-base-instructions (Claim 6),
 blog-simonwillison-muse-code-spark-12 (Claims 1, 4, 5, 6, 7),
 docs-github-copilot-agent-plugins-1-0 (Claims 1, 2, 4, 6, 7, 10; Concrete Artifacts),
@@ -1854,4 +1965,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-05*

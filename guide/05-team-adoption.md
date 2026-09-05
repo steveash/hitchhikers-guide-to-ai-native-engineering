@@ -668,6 +668,48 @@ is a config switch rather than an emergency migration. Resilience that isn't bui
 before the outage cannot be improvised during it.
 [source: blog-thoughtworks-kamelman-sovereign-ai-dependency, Claims 1, 4] [emerging]
 
+### The default flipped: models now arrive enabled
+
+Both rules above are written against models leaving. As of September 2026 the
+opposite exposure is live on GitHub Copilot — models arrive turned on unless an
+admin turned them off. The Gemini 3.8 Flash availability notice states it
+directly:
+
+> "Under default model enablement, new models are enabled automatically unless
+> an administrator has turned off the global default or explicitly disables
+> this model."
+> [source: docs-github-copilot-gemini38flash-availability, Claim 6] [settled]
+
+This is product evolution rather than a reversal you can ignore: GitHub's
+global model policy reached full enforcement days before this notice, and the
+opt-in step earlier Gemini rollouts required no longer applies.
+[source: docs-github-copilot-gemini38flash-availability, Claim 6] [settled]
+A governance checklist written against the old behavior now points the wrong
+way — the exposure is no longer a model you relied on disappearing, it is a
+model you never evaluated appearing for your users. [editorial]
+
+One case is unresolved. Claude Fable 5.1 is listed as available to Copilot Pro+,
+Max, Business, and Enterprise users, with no statement either way about the
+data-retention exclusion that kept the prior version out of default enablement.
+[source: docs-github-copilot-weekly-releases-aug31-2026, Claim 1] [settled]
+Check your own policy settings rather than assuming it inherits that exclusion.
+[editorial]
+
+A second scope change landed the same week and needs its own verification pass:
+"Copilot app and CLI now honor content exclusions, keeping sensitive code out of
+context across agentic workflows."
+[source: docs-github-copilot-weekly-releases-aug31-2026, Claim 3] [settled]
+Exclusions previously gated Copilot code review; they now also gate general
+agentic sessions in the app and CLI, which read and act on far more of a
+repository than a review pass does. [editorial]
+
+**Rule**: Audit your Copilot model policy on a fixed cadence rather than in
+response to deprecation notices, and re-verify content-exclusion scope at the
+same time — with default enablement on, no notice is generated for the case
+that now costs you.
+[source: docs-github-copilot-gemini38flash-availability, Claim 6;
+docs-github-copilot-weekly-releases-aug31-2026, Claim 3] [settled]
+
 ---
 
 ## Code Review When AI Wrote It
@@ -1365,6 +1407,18 @@ current heaviest users.
 [source: research-anthropic-ai-transforming-work, Claim 8;
 survey-pragmaticengineer-ai-tooling-2026, Claim 3] [emerging]
 
+The one controlled result in the corpus points at a specific design variable.
+OpenAI's back-to-school report summarizes a randomized study of nearly 1,000
+high-school math students in Turkey: "unrestricted AI improved practice
+performance but reduced later unaided test performance by 17%; a tutor
+configured with teacher-designed hints largely avoided that effect."
+[source: blog-openai-learning-never-stops-report, Claim 6] [emerging]
+The operative difference is not how much AI was used, but whether the tool
+answered directly or required the learner's own attempt first. That variable
+has not been tested on professional engineers reading production diffs, and
+this reaches us as a vendor's summary rather than the paper itself — treat the
+transfer as a hypothesis worth designing against, not a finding. [editorial]
+
 **The defensive practice**: Make code review a deliberate learning ritual,
 not a rubber stamp. Require engineers to be able to *explain* code in their
 PRs, not just to have authored or accepted it. This is the only sustainable
@@ -1722,6 +1776,7 @@ blog-anthropic-claude-tag-context-awareness (Claims 2, 3, 4, 5, 6, 7, 8),
 blog-anthropic-human-agent-teams (Claims 3, 5, 7, 8, 9, 10, 11, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-mattwood-unit-of-return (Claims 3, 5, 8, 9, 10; Concrete Artifacts),
+blog-openai-learning-never-stops-report (Claim 6),
 docs-ghaw-multi-repo-feature-sync (Claim 8),
 docs-ghaw-open-telemetry-attributes (Claims 6, 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
@@ -1735,7 +1790,9 @@ blog-thoughtworks-kamelman-sovereign-ai-dependency (Claims 1, 4),
 docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
 docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
+docs-github-copilot-gemini38flash-availability (Claim 6),
 docs-github-copilot-gpt52-deprecation (Claims 5, 7),
+docs-github-copilot-weekly-releases-aug31-2026 (Claims 1, 3),
 docs-github-copilot-pr-review-metrics (Claims 2, 3, 5, 6),
 docs-github-copilot-usage-metrics-server-side-telemetry (Claims 1, 2, 3, 4),
 discussion-hn-agentic-coding-jobs (Claim 10),
@@ -1746,4 +1803,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-05*

@@ -709,6 +709,40 @@ insight: delegation is not a property of the feature. It is a property
 of the sub-task.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [editorial]
 
+### Finding the delegable substeps inside a request that looks undelegable
+
+The framework above classifies a task you have already sized up. Matt Wood
+(Chief AI & Technology Officer, AWS) gives the procedure for the harder case —
+a request that arrives looking entirely like a "do not delegate" judgment call:
+
+> "Take a request that arrives wicked-looking. Find the substeps inside it that
+> are actually tame — the parts with a clear, checkable target once isolated.
+> Do those with AI. Keep the residue: the part that still needs a person to
+> decide something."
+> [source: blog-mattwood-wicked-frontier, Claim 10] [anecdotal]
+
+Applied to his own example — "prepare a view on whether to enter a new market" —
+the substeps are: pull the relevant market data, model a few pricing scenarios,
+summarize how three comparable companies handled a similar entry, and draft two
+or three framings of the decision. "None of those steps require anyone to have
+already decided what the company should do."
+[source: blog-mattwood-wicked-frontier, Claim 7] [anecdotal]
+
+What is left over is what Wood calls *standing* — "the right to make the call
+and the responsibility to own what follows" — and he argues it is not a
+capability gap that model progress closes: "That gap doesn't close as models
+get more capable. It relocates, to wherever the next consequential definition
+hasn't been made yet."
+[source: blog-mattwood-wicked-frontier, Claim 5] [anecdotal]
+Chapter 05's DRI rule is the same boundary stated as an org practice: the
+residue needs a named human because accountability is the part that cannot be
+delegated. [editorial]
+
+**Rule**: Before filing a request under "do not delegate," decompose it once —
+name the substeps that have a checkable target in isolation, hand those to the
+agent, and keep only the decision that needs standing.
+[source: blog-mattwood-wicked-frontier, Claims 5, 10] [anecdotal]
+
 ---
 
 ## Summary: Daily Workflow Patterns
@@ -733,6 +767,7 @@ Linked Sources 2, 3, 4, 5, 6),
 blog-anthropic-managed-agents-dreaming-outcomes (Claim 8),
 blog-anthropic-session-management-1m-context (Claims 1, 2, 4, 10),
 blog-cursor-cfo-council (Claims 8, 9),
+blog-mattwood-wicked-frontier (Claims 5, 7, 10),
 blog-simonwillison-fable-judgement (Claims 2, 4, 6, 7),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
 blog-simonwillison-liteparse-browser (Claims 5, 11),
@@ -744,4 +779,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-09-05*

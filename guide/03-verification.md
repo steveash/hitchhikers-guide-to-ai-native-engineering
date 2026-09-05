@@ -1036,6 +1036,33 @@ and treat any count that lands exactly on a round API page limit as
 unconfirmed rather than complete.
 [source: blog-ghaw-agent-of-the-day-2026-08-28, Claims 5, 6] [settled]
 
+### The fallback path that skips the check
+
+When a primary model is overloaded and a cheaper one stands in, the failure is
+rarely that the fallback is worse. It is that the fallback reaches the caller
+through a different code path than the one carrying your validation.
+
+A clinical-reasoning agent submitted to Google's AI Agents Challenge hit 503s
+under load on Gemini 3.1 Pro. The fix was not simply adding a spare model:
+
+> "Instead, this team built a fallback to Gemini 3.6 Flash with backoff, and
+> ran the response from either model through the exact same validation function
+> before accepting it: a citation check confirming the answer actually named a
+> real clinical guideline, not just plausible-sounding medical language."
+> [source: blog-google-agents-challenge-engineering-patterns, Claim 8] [anecdotal]
+
+The transferable part is the structure, not the citation check:
+
+> "That's what actually prevents a fallback from quietly lowering your bar: not
+> remembering to apply the same standard twice, but making it structurally
+> impossible to apply it only once."
+> [source: blog-google-agents-challenge-engineering-patterns, Claim 9] [settled]
+
+**Rule**: Route every model and every provider through one shared validation
+function at the call site, so a fallback physically cannot return a result
+without passing the check the primary path passes.
+[source: blog-google-agents-challenge-engineering-patterns, Claim 9] [settled]
+
 ---
 
 ## Summary: The Verification Stack
@@ -1137,6 +1164,35 @@ in-session quality signal and one retention signal separately. A drop
 in either is a regression worth investigating before it becomes user
 disengagement.
 [source: blog-cursor-continual-harness-improvement, Claims 1, 2] [emerging]
+
+### Validating the routing decision, not just the output
+
+Keep Rate and the satisfaction judge grade what the agent produced. If your
+harness routes between models (Ch01, §Model mixing across orchestration tiers),
+there is a second thing to check: whether the router picked the right one.
+Glean's answer is to run the alternatives behind the live choice and grade the
+choice afterwards —
+
+> "There's this continuous learning that gets updated with new real-world
+> traffic, where basically what is happening is that you let the model router
+> do the work for the user, but behind the scenes you run the same task"
+> [source: blog-latentspace-macmanus-glean-model-routing, Claim 8] [emerging]
+
+— against both cheaper and pricier alternatives on "a small fraction" of real
+traffic, with "AI-based judges" scoring how close the router's pick was.
+[source: blog-latentspace-macmanus-glean-model-routing, Claim 8] [emerging]
+
+The mechanism is the citable part of that interview. Its headline figures — a
+claimed 4x cost advantage at $0.45 vs. $1.84 per task, and 50% latency and 25%
+token reductions from a pre-routing filter layer — are unaudited vendor numbers
+with no disclosed task set or methodology.
+[source: blog-latentspace-macmanus-glean-model-routing, Claims 5, 6] [anecdotal]
+
+**Rule**: If you route between models, shadow-run the alternatives on a sampled
+slice of real traffic and score both with a judge. An offline benchmark tells
+you which model is better on average, not whether your router chose correctly
+on your traffic.
+[source: blog-latentspace-macmanus-glean-model-routing, Claim 8] [emerging]
 
 ---
 
@@ -1268,7 +1324,9 @@ blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
+blog-google-agents-challenge-engineering-patterns (Claims 8, 9),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
+blog-latentspace-macmanus-glean-model-routing (Claims 5, 6, 8),
 blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
 blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
@@ -1288,4 +1346,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-05*
