@@ -117,7 +117,7 @@ issue: "#3255"
 - **Evidence**: AINews's Twitter recap, attributed to named account `@ornith_`, with specific reported benchmark scores.
 - **Confidence**: anecdotal (vendor's own launch announcement and self-reported benchmark scores, not independently reproduced)
 - **Quote**: "@ornith_ released Ornith-1.5 in 9B dense, 35B MoE, and 397B MoE variants under MIT, with quantized formats including FP8, GGUF, MLX, and NVFP4. The headline claim is end-to-end self-improvement: the model proposes tasks, generates scaffolds, and produces RL rollouts to create new training experiences. Reported evals are strong across agentic/coding workloads, including Terminal-Bench 2.1: 86.1, SWE-Bench Verified: 86, DeepSWE: 56, HLE: 44.6, and Tool Decathlon: 71.2."
-- **Our assessment**: This directly extends `blog-simonwillison-ornith.md`, which documented Ornith-1.0's self-scaffolding RL training pattern (models generating their own task-specific RL scaffolds). Ornith-1.5 appears to keep the same self-improvement thesis while adding a 397B MoE variant not present in the 1.0 lineup per that note, and MIT-licenses the whole family. This is tangential to this source's GLM/scaling focus but is a relevant, checkable update to an already-tracked model family, so it is preserved here rather than discarded.
+- **Our assessment**: This directly extends `blog-simonwillison-ornith.md`, which documented Ornith-1.0's self-scaffolding RL training pattern (models generating their own task-specific RL scaffolds). Ornith-1.5 keeps the same self-improvement thesis and the same MIT license — neither is new; per that note's Claim 1, Ornith-1.0 was already "an MIT-licensed open-weights model family from DeepReinforce, in four size variants." What genuinely moves is the reported benchmark numbers: this source's Terminal-Bench 2.1: 86.1 and SWE-Bench Verified: 86 are well above the 1.0-397B figures of 77.5 and 82.4 recorded in that note's Claim 5. Note also that this article does not compare 1.5's lineup to 1.0's at all — it only lists 1.5's announced sizes (9B dense, 35B MoE, 397B MoE), which is three of the four sizes that note's Claim 1 records for 1.0 (9B Dense, 31B Dense, 35B MoE, 397B MoE). Whether the 31B Dense variant was actually dropped or merely went unmentioned in the tweet recap is not determinable from this source and should not be asserted either way without checking DeepReinforce's own 1.5 release page. This is tangential to this source's GLM/scaling focus but is a relevant, checkable update to an already-tracked model family, so it is preserved here rather than discarded.
 
 ## Concrete Artifacts
 
@@ -196,8 +196,14 @@ Source: Latent Space AINews, Aug 20, 2026, attributed to @ValsAI.
     angle (capability framing vs. deployment-cost framing).
   - `blog-simonwillison-ornith.md` (Ornith-1.0's self-scaffolding RL training
     pattern): Claim 10 here documents the 1.5 release of the same model
-    family, retaining the self-improvement thesis and adding a 397B MoE
-    variant.
+    family, retaining both the self-improvement thesis and the MIT license
+    that Claim 1 of that note already records for 1.0. The extension is in
+    the reported scores — Terminal-Bench 2.1: 86.1 and SWE-Bench Verified: 86
+    for 1.5, against 77.5 and 82.4 for Ornith-1.0-397B in that note's
+    Claim 5. The size lineups are not compared by this source: it lists only
+    1.5's announced 9B dense / 35B MoE / 397B MoE, three of the four variants
+    that note's Claim 1 lists for 1.0, and the status of 1.0's 31B Dense
+    variant is left undetermined here.
 
 - **Contradicts**: None filed. Jie Tang's "parameter count alone is
   misleading" argument (Claim 1) is not in tension with any existing source
