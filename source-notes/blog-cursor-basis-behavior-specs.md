@@ -47,11 +47,15 @@ issue: "#3250"
   (editor/Markdown-preview/model-switching features), and headline production
   metrics. Does NOT cover: the actual contents of any behavior spec (no
   example spec is reproduced), the judge model or its accuracy/calibration,
-  Braintrust's specific role or product beyond being named as co-releaser of
-  the open standard, the runtime/agent architecture Basis uses to execute
-  work, or any numbers on how many specs exist, how often specs fail, or how
-  much the false-verdict-to-runtime-fix cycle actually improved measured
-  behavior.
+  the runtime/agent architecture Basis uses to execute work, or any numbers on
+  how many specs exist, how often specs fail, or how much the
+  false-verdict-to-runtime-fix cycle actually improved measured behavior.
+  Braintrust's role is named twice but never elaborated: it is a co-releaser
+  of the open standard (Claim 7) and, per the closing "The work itself is the
+  proof" section, the component that "evaluates whether those behaviors
+  appeared in real trajectories" (Claim 5). What the source does NOT give is
+  any product detail behind that role — no model, no interface, no
+  integration description, no link to the standard document.
 
 ## Extracted Claims
 
@@ -161,15 +165,31 @@ issue: "#3250"
 ### Claim 5: A judge receives the behavior spec, the observable trajectory, and the evidence (tool calls, artifacts, retrieved sources, decision records), and returns true, false, or NA, which lets the team evaluate selected parts of a process without needing a complete ground-truth answer for the whole task
 
 - **Evidence**: Direct description of the judging mechanism, immediately
-  following the spec definition (Claim 4).
+  following the spec definition (Claim 4). The judge is unnamed in that
+  section and in the development-loop enumeration, but the article's closing
+  section identifies Braintrust — the standard's co-releaser (Claim 7) — as
+  the component performing exactly this function.
 - **Confidence**: emerging (a described mechanism from a single company; no
   detail on the judge's model, calibration, agreement rate with human
   reviewers, or false-positive/negative rate is given)
 - **Quote**: "The judge receives the spec, the observable trajectory, and the
   evidence (tool calls, artifacts, retrieved sources, decision records). It
   returns true, false, or NA. That lets the team evaluate selected parts of
-  the process without a complete ground-truth answer for the whole task."
-- **Our assessment**: The three-way (true/false/NA) verdict — rather than a
+  the process without a complete ground-truth answer for the whole task." /
+  "Behavior specs make selected expectations explicit. Braintrust evaluates
+  whether those behaviors appeared in real trajectories. Failures tell the
+  team what to change in the runtime."
+- **Our assessment**: The judge is not a generic or in-house component: the
+  closing section attributes trajectory evaluation to Braintrust by name, so
+  on this source's own account the judging step runs on Braintrust's
+  evaluation product rather than on something Basis built internally. The
+  source never states this as an explicit equation ("the judge is
+  Braintrust") — it describes the judge mechanically in one section and names
+  Braintrust as performing that same function in another — so treat the
+  identification as strongly implied by the text rather than declared. It
+  matters for adoption: a team wanting to copy this pattern needs an
+  evaluation platform that can score a recorded trajectory against a spec,
+  not just a prompt template. The three-way (true/false/NA) verdict — rather than a
   binary pass/fail — is a specific, transferable design detail: NA lets the
   judge abstain when a behavior's precondition never arose in a given
   trajectory, avoiding the false-failure noise a binary scheme would produce
@@ -212,27 +232,43 @@ issue: "#3250"
 
 ### Claim 7: Basis and Braintrust released the behavior-spec format as an open standard, grown from Basis's own production-accounting experience, so other teams can define and evaluate agent behavior using the same general format
 
-- **Evidence**: Single stated sentence in the "The development loop" section,
-  naming Braintrust as co-releaser without further detail.
-- **Confidence**: anecdotal (a single unelaborated sentence; no link to the
-  standard, no specification document, no detail on Braintrust's specific
-  contribution or role, and no indication of adoption by any other team)
+- **Evidence**: Two separate textual anchors — a stated sentence in "The
+  development loop" section naming Braintrust as co-releaser, and the closing
+  "The work itself is the proof" section naming Braintrust as the component
+  that evaluates trajectories against the specs (the judge function of Claim
+  5). Neither mentions a link, repository, or version for the standard.
+- **Confidence**: emerging (upgraded from anecdotal: the release claim itself
+  is still a single unelaborated sentence with no locatable specification
+  document, but Braintrust's operational role is independently stated a
+  second time in the article's closing summary, so this is not one throwaway
+  co-branding mention. Still no adoption evidence from any team other than
+  Basis, and no way to inspect the format.)
 - **Quote**: "The behavior-spec approach grew from Basis's experience building
   production agents for accounting. Basis and Braintrust released it as an
   open standard so other teams can define and evaluate agent behavior using
-  the same general format."
+  the same general format." / "Behavior specs make selected expectations
+  explicit. Braintrust evaluates whether those behaviors appeared in real
+  trajectories."
 - **Our assessment**: This is a significant claim for the corpus if it holds
   up — an open, named, cross-vendor specification for agent-behavior
-  evaluation would be a new category of artifact — but the source gives no
-  way to locate or inspect the standard itself (no URL, no repository, no
-  version). This should be treated as a lead for a follow-up source
-  submission (search for a published Basis/Braintrust behavior-spec standard
-  document or repository) rather than as a claim the guide can cite
-  substantively yet. No other corpus source mentions Braintrust in this
-  capacity (checked via `grep -il braintrust source-notes/`; the one existing
-  match, `blog-vercel-eve-integrations-cli.md`, documents Braintrust only as
-  an `eve add instrumentation/braintrust` observability integration, an
-  unrelated product surface).
+  evaluation would be a new category of artifact. Braintrust is not merely a
+  co-branding signature on a standard: the closing section gives it an
+  operational role in Basis's actual production loop (running the evaluation
+  that scores trajectories against specs), which makes the "open standard"
+  release more credible than a bare announcement — the co-releaser is also
+  the party that implements the scoring. What remains missing is the standard
+  itself: no URL, no repository, no version, no format specification, and no
+  named adopter besides Basis. Treat the *format's* existence and portability
+  as a lead for a follow-up source submission (search for a published
+  Basis/Braintrust behavior-spec standard document or repository) rather than
+  as something the guide can cite substantively; treat Braintrust's role as
+  the evaluation engine as textually supported by this source. The only other
+  corpus mention of Braintrust (found via `grep -il braintrust source-notes/`)
+  is `blog-vercel-eve-integrations-cli.md`, which documents it as an
+  `eve add instrumentation/braintrust` observability integration — a
+  different product surface, but consistent with Braintrust being an
+  agent-evaluation/observability platform rather than only a standards
+  co-signer.
 
 ### Claim 8: Basis treats the context an agent reads — prompts, skills, instructions, tool descriptions — with the same rigor as code, because context is written in natural language and the organization and wording of that context (not just its content) changes what the model does next, unlike a traditional program that interprets the same valid code the same way regardless of file organization
 
@@ -345,6 +381,10 @@ A useful behavior spec makes clear:
 Judge inputs: the spec + the observable trajectory + evidence (tool calls,
 artifacts, retrieved sources, decision records)
 Judge output: true / false / NA
+Judge implementation: not named in the mechanism description, but the closing
+section states: "Behavior specs make selected expectations explicit.
+Braintrust evaluates whether those behaviors appeared in real trajectories.
+Failures tell the team what to change in the runtime."
 ```
 
 ### Headline metrics (as published)
@@ -368,8 +408,9 @@ Before writing the citations below, `blog-anthropic-kepler-verifiable-ai-financi
 `blog-lilianweng-harness-engineering-rsi.md` were re-read directly (MINER.md
 §4b) and every claim number cited below was confirmed against those notes'
 numbered `### Claim N:` headings in document order. `blog-vercel-eve-integrations-cli.md`
-was checked via `grep -il braintrust source-notes/*.md` to confirm it was the
-only other corpus mention of Braintrust before writing Claim 7's assessment.
+was found via `grep -il braintrust source-notes/*.md` as the only other corpus
+mention of Braintrust, and its Claim 1 was re-read directly to confirm the
+`instrumentation/braintrust` identifier is cited accurately below.
 
 - **Corroborates**:
   - `blog-anthropic-kepler-verifiable-ai-financial.md` Claim 11 (auditability,
@@ -414,6 +455,17 @@ only other corpus mention of Braintrust before writing Claim 7's assessment.
     optimized" principle, applied to a human-authored evaluation spec rather
     than to read-only infrastructure (Weng's AHE example) or day-one
     architectural provenance design (Kepler).
+  - `blog-vercel-eve-integrations-cli.md` Claim 1 (`eve add` installs named
+    integrations by `<type>/<name>` identifier, with
+    `instrumentation/braintrust` given as one of the worked examples): the
+    only other corpus mention of Braintrust, and the two notes now
+    independently place it in the same category — an agent
+    evaluation/observability platform teams wire into a production agent
+    stack. Vercel's note shows it as an installable instrumentation target;
+    this source shows what that instrumentation is used *for* in one
+    production deployment (scoring recorded trajectories against behavior
+    specs, per Claims 5 and 7). Neither note describes Braintrust's product
+    internals, so this is a weak corroboration of category, not of capability.
 
 - **Contradicts**: None identified. No claim in this source materially
   opposes an existing corpus note's claim in a way that would drive different
@@ -455,8 +507,11 @@ only other corpus mention of Braintrust before writing Claim 7's assessment.
     shared, cross-company evaluation-format standard for agent behavior —
     distinct from benchmark suites (SWE-bench, Terminal-Bench) and from
     single-company internal evaluation frameworks (Kepler's, Carta's, this
-    source's own). Currently under-evidenced (a single sentence, no link) —
-    flagged as a follow-up research target, not a settled claim.
+    source's own). The format itself remains under-evidenced (named in one
+    sentence, never linked or specified), though Braintrust's operational
+    role as the trajectory evaluator is separately stated in the article's
+    closing section — flagged as a follow-up research target, not a settled
+    claim.
   - **Explicit code-vs-context behavioral contrast** (Claim 8): "a
     traditional program interprets the same valid code the same way
     regardless of how neatly the files are organized. With language models,
@@ -471,7 +526,11 @@ only other corpus mention of Braintrust before writing Claim 7's assessment.
   pattern distinct from existing evaluation approaches in the guide: a
   Markdown artifact that defines a judgeable standard of conduct, withheld
   from the agent, scored true/false/NA against a recorded trajectory (Claim
-  5) rather than against a final outcome. Present it alongside Kepler's
+  5) rather than against a final outcome. Note the tooling dependency when
+  presenting it: per this source the scoring is performed by Braintrust, a
+  third-party evaluation platform, not by an in-house script — adopting the
+  pattern means adopting a trajectory-scoring harness, not just writing
+  Markdown. Present it alongside Kepler's
   reasoning/context/execution attribution
   (`blog-anthropic-kepler-verifiable-ai-financial.md` Claim 8) and Carta's
   prompt/context/retrieval attribution
@@ -513,11 +572,14 @@ only other corpus mention of Braintrust before writing Claim 7's assessment.
 
 - **Follow-up research flag (not a guide-content recommendation)**: Claim 7
   (an open Basis/Braintrust behavior-spec standard) is under-evidenced in
-  this source alone. Recommend the Prospector queue a search for a
-  standalone specification document or repository if one exists publicly —
-  if substantiated, it would upgrade Claim 4/5's methodology from
-  "one company's internal practice" to "a named, adoptable open format,"
-  which materially changes how confidently the guide could recommend it.
+  this source alone — the standard is named but never linked or specified,
+  even though Braintrust's role as the evaluation engine is stated twice.
+  Recommend the Prospector queue a search for a standalone specification
+  document or repository if one exists publicly, and for Braintrust-side
+  documentation of behavior-spec scoring — if substantiated, it would upgrade
+  Claim 4/5's methodology from "one company's internal practice" to "a named,
+  adoptable open format with an available implementation," which materially
+  changes how confidently the guide could recommend it.
 
 ## Extraction Notes
 
