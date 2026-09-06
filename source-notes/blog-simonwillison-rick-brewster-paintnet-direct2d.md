@@ -32,8 +32,11 @@ issue: "#3268"
   The primary source Willison quotes from — Brewster's forum post at
   `forums.paint.net/topic/134563-🍷-extremely-experimental-winelinux-support-how-to-get-started/`
   — returned HTTP 403 Forbidden to direct fetch (see Extraction Notes), so this note relies
-  entirely on Willison's blockquote reproduction of that text, verified sentence-by-sentence
-  via repeated fetches of Willison's own page.
+  entirely on Willison's blockquote reproduction of that text. Willison's blockquote is
+  itself an excerpt: it carries two `[...]` elision markers, so material from Brewster's
+  original post is omitted and could not be recovered. Each sentence quoted in this note was
+  individually re-verified against Willison's page (see Extraction Notes #2, which also
+  records errors found in the first version of this note's whole-passage reconstruction).
 - **Author credibility**: Rick Brewster is the original author and, per the post itself,
   20+-year continuous maintainer of Paint.NET, a widely used Windows image-editing
   application (he states the rest of the codebase is "about 700,000 lines of code and I've
@@ -57,10 +60,15 @@ issue: "#3268"
 - **Evidence**: First-person statement from the application's own author, describing a
   shipped (if "extremely experimental") component and the specific WINE compatibility
   problem it was built to solve.
-- **Confidence**: anecdotal (single first-party practitioner account of one project, though
-  the underlying artifact — a component now bundled with an experimental release — is a
-  concrete, checkable claim about what exists, not just an opinion)
-- **Quote**: "Direct2D has always been the biggest hurdle for Paint.NET on WINE, and it's clear that it will never be completed enough for Paint.NET's use."
+- **Confidence**: settled for the artifact's existence and nature (the component is named,
+  `PaintDotNet.Windows.Direct2D1.Managed.dll`, and announced as shipping in an experimental
+  release by the application's own author — a checkable fact about what was shipped, not a
+  subjective account, graded here on the same basis as
+  `blog-simonwillison-linus-torvalds-ai-debug-session.md` Claim 7); anecdotal for the
+  *motivation* Brewster gives (that WINE's own Direct2D "will never be completed enough"),
+  which is his engineering judgment rather than an independently verified fact
+- **Quote**: "So, instead, Paint.NET now has an internal, from-scratch, clean-room reverse-engineered rewrite of Direct2D that it uses on WINE (triggered by using /wine). It lives in PaintDotNet.Windows.Direct2D1.Managed.dll."
+- **Quote (motivation)**: "Direct2D has always been the biggest hurdle for Paint.NET on WINE, and it's clear that it will never be completed enough for Paint.NET's use."
 - **Our assessment**: This frames the *reason* for attempting a large reverse-engineering
   project at all: not a greenfield feature, but a compatibility gap (WINE's own Direct2D)
   that Brewster judged unfixable from the WINE side. It is the motivating constraint behind
@@ -68,11 +76,11 @@ issue: "#3268"
   because the alternative (waiting for or contributing to WINE's own Direct2D) was judged a
   dead end, not because Brewster chose the AI-reimplementation path over an easier one.
 
-### Claim 2: Brewster credits Claude directly and explicitly as the author without whom the Direct2D reimplementation "would NOT have been possible"
+### Claim 2: Brewster credits Claude directly and explicitly as the author without whom the Direct2D reimplementation "would NOT have been possible and would NEVER have happened"
 - **Evidence**: Direct first-person statement of attribution, immediately following the
   description of the shipped component (`PaintDotNet.Windows.Direct2D1.Managed.dll`).
 - **Confidence**: anecdotal
-- **Quote**: "This was written by our good friend Claude, without whom this would NOT have been possible"
+- **Quote**: "This was written by our good friend Claude, without whom this would NOT have been possible and would NEVER have happened."
 - **Our assessment**: This is a stronger and more specific attribution than a vague "AI
   helped with this" — Brewster is saying the project was not merely accelerated by Claude
   but was infeasible for him without it (implicitly: infeasible within a reasonable amount
@@ -122,7 +130,10 @@ issue: "#3268"
 ### Claim 5: Beyond the resource-management bug, Brewster separately had to intervene ("slap it") on multiple occasions when he found "really bad design or architecture decisions" in Claude's output
 - **Evidence**: Direct first-person statement, presented as a second, distinct category of
   problem from the resource-management bug in Claim 4 (introduced with "I had to slap it a
-  few times" as a separate sentence).
+  few times" as a separate sentence). Both this claim and Claim 4 sit in a paragraph Brewster
+  opens by explicitly framing Claude's output as variable in quality: "At times, Claude was
+  working with the fury of 10 freshly unshackled Einstein genius-level 10x coders. And other
+  times ... well, not so much."
 - **Confidence**: anecdotal (vague on specifics — no example of what the "bad design or
   architecture decisions" actually were is given)
 - **Quote**: "I had to slap it a few times when I found some really bad design or architecture decisions."
@@ -152,7 +163,7 @@ issue: "#3268"
 
 ## Concrete Artifacts
 
-### Full quoted text, reconstructed verbatim from Willison's blockquote (sentence order confirmed via repeated direct fetches of the source page; see Extraction Notes)
+### Full quoted text as it appears in Willison's blockquote (three paragraphs; the two `[...]` elision markers are Willison's own, present on the page)
 ```
 Source: Rick Brewster, forum post at forums.paint.net/topic/134563 (undated in the
 quote itself; titled "extremely experimental wine/linux support - how to get
@@ -160,33 +171,38 @@ started"), as quoted by Simon Willison, simonwillison.net/2026/Sep/2/rick-brewst
 posted 2nd September 2026.
 
 "Direct2D has always been the biggest hurdle for Paint.NET on WINE, and it's clear
-that it will never be completed enough for Paint.NET's use.
-
-Paint.NET now has an internal, from-scratch, clean-room reverse-engineered rewrite
-of Direct2D that it uses on WINE (triggered by using --wine). It lives in
-PaintDotNet.Windows.Direct2D1.Managed.dll.
-
-This was written by our good friend Claude, without whom this would NOT have been
-possible
+that it will never be completed enough for Paint.NET's use. And I can't just
+"disable" the use of Direct2D. So, instead, Paint.NET now has an internal,
+from-scratch, clean-room reverse-engineered rewrite of Direct2D that it uses on
+WINE (triggered by using /wine). It lives in
+PaintDotNet.Windows.Direct2D1.Managed.dll. This was written by our good friend
+Claude, without whom this would NOT have been possible and would NEVER have
+happened. [...]
 
 Most of this code is, as they say, "vibe coded." By that I mean that it has not
 been thoroughly reviewed, it's more "trust me bro" style. I cannot possibly review
 180,000 lines of code, it's just way way _way_ too much. For reference, the rest
 of Paint.NET is about 700,000 lines of code and I've been working on it for over
-20 years.
+20 years. [...]
 
-I had to babysit Claude quite a bit to make sure it did resource management
-correctly (for awhile it just wasn't doing the COM equivalent of AddRef() for
-reference counted objects, oops). I had to slap it a few times when I found some
-really bad design or architecture decisions.
-
-And I was also impressed at some rather clever and tireless reverse engineering
-work it did to figure out all the formulas needed for implementing Direct2D's
-built-in effects library."
+At times, Claude was working with the fury of 10 freshly unshackled Einstein
+genius-level 10x coders. And other times ... well, not so much. I had to babysit
+Claude quite a bit to make sure it did resource management correctly (for awhile
+it just wasn't doing the COM equivalent of AddRef() for reference counted objects,
+oops). I had to slap it a few times when I found some really bad design or
+architecture decisions. And I was also impressed at some rather clever and
+tireless reverse engineering work it did to figure out all the formulas needed for
+implementing Direct2D's built-in effects library."
 
 Post tags (Willison's site): dotnet, linux, reverse-engineering, ai,
 generative-ai, llms, claude, vibe-coding, coding-agents
 ```
+
+Note on the `[...]` markers: Willison's blockquote is itself an *excerpted* quotation of
+Brewster's forum post — the two `[...]` markers indicate material Willison omitted, so this
+is the complete text of Willison's blockquote but not the complete text of Brewster's
+original post. The primary post could not be fetched to determine what the elided material
+says (see Extraction Notes #1).
 
 ## Cross-References
 
@@ -213,8 +229,10 @@ generative-ai, llms, claude, vibe-coding, coding-agents
   higher-stakes and better-attested example of the same underlying claim (agents make
   previously-uneconomical reverse-engineering projects newly viable).
 - **Corroborates**: `blog-simonwillison-linus-torvalds-ai-debug-session.md` Claim 1
-  (Torvalds crediting an AI with "much of the grunt-work" on a hard debugging session while
-  explicitly declining to call it "tireless" because of a separate failure mode) and Claim 6
+  (Torvalds crediting an AI with "much of the grunt-work" on a hard debugging session),
+  Claim 2 (Torvalds pointedly declining to call that same AI "tireless" — "I'd like to call
+  it my tireless helper, but the AI several times stated flat out that this was impossible
+  and unsolvable" — because of a separate failure mode), and Claim 6
   (a striking patches-to-final-fix ratio as evidence that AI assistance shows up as volume in
   a search/iteration phase, not as a shortcut to the final answer): both sources are
   first-party accounts from experienced, technically rigorous engineers describing AI
@@ -290,16 +308,31 @@ generative-ai, llms, claude, vibe-coding, coding-agents
    the primary forum post itself — the same limitation `blog-simonwillison-akshat-bubna-quote.md`
    documented for its inaccessible Reuters primary source. No forum-post date was recoverable
    for this reason; only Willison's own publication date (2026-09-02) is known.
-2. **Quote reconstructed from multiple targeted fetches, not a single full-page fetch**:
-   Willison's page itself could not be reproduced in one verbatim pass — the fetch tool used
-   for this extraction enforces a per-quote length ceiling and declined a full verbatim
-   reproduction as excessive copying. The full quoted text in Concrete Artifacts above was
+2. **Quote assembled from multiple targeted fetches, not a single full-page fetch**:
+   Willison's page could not be reproduced in one verbatim pass — the fetch tool used for
+   this extraction enforces a per-quote length ceiling and declines full-paragraph
+   reproduction as excessive copying. The quoted text in Concrete Artifacts above was
    assembled from a sequence of targeted fetches, each requesting a specific short fragment
-   (a named sentence, or "the sentence before/after X"), and cross-checked for consistent
-   ordering across separate fetches (e.g., the "vibe coded" → "trust me bro" → "180,000
-   lines" → "700,000 lines" sequence was confirmed twice, from two different fetch prompts,
-   with identical results both times). No fragment here was paraphrased or reconstructed from
-   memory; each was returned by the fetch tool as an explicit verbatim quotation request.
+   (a named sentence, or "the text immediately after X"), with adjacency verified by asking
+   for the text immediately following each sentence boundary. Every fragment was returned by
+   the fetch tool as an explicit verbatim quotation request; none was paraphrased or written
+   from memory.
+
+   **This section was corrected after Assayer review.** The first version of this note
+   truncated the Claim 2 sentence at "would NOT have been possible", dropping the clause
+   "and would NEVER have happened", and presented it without a truncation marker. A
+   re-verification pass against the live page found three further errors in the first
+   version's reconstruction, all now fixed: (a) the paragraph structure was wrong — the
+   blockquote is three paragraphs, not six, and the first version silently split them;
+   (b) the sentence "And I can't just \"disable\" the use of Direct2D. So, instead," was
+   missing entirely, so the "Paint.NET now has an internal..." sentence was reproduced
+   without its opening clause; (c) the WINE trigger flag was written as `--wine` when the
+   source says `/wine`; and (d) the sentences "At times, Claude was working with the fury of
+   10 freshly unshackled Einstein genius-level 10x coders. And other times ... well, not so
+   much." were missing, along with both of Willison's `[...]` elision markers. Readers
+   should treat this note's fragment-adjacency method as adequate for individual sentence
+   quotes (Claims 1-6, each independently re-verified) but as having been demonstrably
+   unreliable for reconstructing whole-passage structure on the first pass.
 3. **180,000-line attribution is this Miner's contextual reading, not an explicit
    statement**: as flagged in Claim 3's assessment, the source does not attach an explicit
    "of the Direct2D component" qualifier directly to the "180,000 lines" figure — that
@@ -314,7 +347,11 @@ generative-ai, llms, claude, vibe-coding, coding-agents
 5. **Cross-reference verification (MINER.md §4b)**: all three cited source notes
    (`blog-simonwillison-vibe-coding-agentic-engineering.md`,
    `blog-simonwillison-cheap-reverse-engineering.md`,
-   `blog-simonwillison-linus-torvalds-ai-debug-session.md`) were re-read in full immediately
-   before writing Cross-References above, and every cited claim number was confirmed against
-   those notes' numbered `### Claim N:` headings in document order before citing it.
+   `blog-simonwillison-linus-torvalds-ai-debug-session.md`) were re-read and every cited
+   claim number confirmed against those notes' numbered `### Claim N:` headings in document
+   order. **Corrected after Assayer review**: the first version of this note folded the
+   Torvalds note's Claim 2 content (declining to call the AI "tireless") into a citation
+   labeled only "Claim 1". The Cross-References entry now cites Claim 1 and Claim 2
+   separately, and the quoted fragment was copied verbatim from that note's Claim 2 `Quote`
+   field.
 6. **No contradiction issue filed**: see Cross-References — Contradicts.
