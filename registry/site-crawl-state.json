@@ -1288,7 +1288,7 @@
         "filed_at": "2026-08-30T06:09:56.061930+00:00"
       }
     },
-    "last_scan": "2026-09-05T06:09:43.516750+00:00"
+    "last_scan": "2026-09-06T06:09:41.455785+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1389,9 +1389,29 @@
         "screened_at": "2026-08-13T06:30:54.552919+00:00",
         "issue": 2676,
         "filed_at": "2026-08-13T06:30:57.104740+00:00"
+      },
+      "https://www.humanlayer.dev/blog/humanlayer-resources": {
+        "status": "rejected",
+        "screened_at": "2026-09-06T06:09:45.683590+00:00"
+      },
+      "https://www.humanlayer.dev/blog/tags/coding-agents": {
+        "status": "filed",
+        "screened_at": "2026-09-06T06:09:45.683608+00:00",
+        "issue": 3276,
+        "filed_at": "2026-09-06T06:09:48.164251+00:00"
+      },
+      "https://www.humanlayer.dev/blog/tags/resources": {
+        "status": "rejected",
+        "screened_at": "2026-09-06T06:09:45.683610+00:00"
+      },
+      "https://www.humanlayer.dev/blog/tags/software-factories": {
+        "status": "filed",
+        "screened_at": "2026-09-06T06:09:45.683612+00:00",
+        "issue": 3277,
+        "filed_at": "2026-09-06T06:09:49.948326+00:00"
       }
     },
-    "last_scan": "2026-09-05T06:09:45.137388+00:00"
+    "last_scan": "2026-09-06T06:09:45.683613+00:00"
   },
   "cognition": {
     "urls": {
@@ -2050,6 +2070,6 @@
         "screened_at": "2026-08-26T06:10:34.717748+00:00"
       }
     },
-    "last_scan": "2026-09-05T06:09:46.415324+00:00"
+    "last_scan": "2026-09-06T06:09:46.870996+00:00"
   }
 }
