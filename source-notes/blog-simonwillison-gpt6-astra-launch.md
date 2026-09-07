@@ -15,8 +15,9 @@ issue: "#3288"
 
 > Simon Willison's day-one link/notes post on OpenAI's GPT‑6 Astra launch:
 > price parity with Claude Fable 5/5.1 ($10/$50 per million tokens), a mixed
-> benchmark profile (trails Fable 5.1 on Artificial Analysis's Intelligence
-> Index but leads on Coding Agent Index cost-efficiency), a huge harness-
+> benchmark profile (trails both Fable 5.1 and Meta's newly released Muse
+> Spark 1.3 on Artificial Analysis's Intelligence Index, but leads on
+> Coding Agent Index cost-efficiency), a huge harness-
 > dependent swing on ARC-AGI-3 (99.9% vs. 62.7%), and a large jump over
 > GPT‑5.6 Sol on security/reverse-engineering benchmarks — all reported
 > secondhand from vendor/Artificial Analysis data, since Willison had not
@@ -74,11 +75,11 @@ issue: "#3288"
 - **Quote**: "It's going to be API priced at the same rate as Claude Fable 5 and 5.1: $10/million input and $50/million output."
 - **Our assessment**: This is the first corpus documentation of OpenAI matching Anthropic's flagship price point exactly, rather than undercutting or exceeding it. Per `blog-simonwillison-claude-fable-5.md` Concrete Artifacts, $10/$50 is Fable 5's launch pricing (2x Opus 4.8); per `blog-simonwillison-gpt56-sol-launch.md` Concrete Artifacts, GPT‑5.6 Sol launched at $5/$30 — so Astra represents a 2x price jump over its own immediate predecessor (Sol) to land exactly at Fable's price point. This directly extends the cross-vendor flagship-pricing pattern tracked in `blog-simonwillison-gemini35-flash-pricing.md` Claim 5-6 and contradicted/refined in `blog-simonwillison-gpt56-sol-launch.md`'s Contradicts section (that note found Sol held flagship pricing flat rather than raising it) — Astra now shows OpenAI raising its true flagship price 2x over Sol, converging on Fable's rate rather than continuing Sol's flat-pricing pattern.
 
-### Claim 4: Per Artificial Analysis, GPT‑6 Astra scores 61 on the Intelligence Index — equal to GPT‑5.6 Sol and 5 points lower than Claude Fable 5.1
-- **Evidence**: Third-party benchmark aggregator score, cited by Willison.
-- **Confidence**: emerging (third-party aggregate benchmark index; methodology not detailed in this post, though Artificial Analysis is an established third-party source already used elsewhere in the corpus)
-- **Quote**: "GPT-6 Astra scores equal to GPT-5.6 Sol in the Index at 61. This is 5 points lower than Claude Fable 5.1"
-- **Our assessment**: This is a direct, quantified rebuttal to any assumption that Astra is a strict Sol-successor on general intelligence — on this particular aggregate index, Astra does not improve on Sol at all, and trails Fable 5.1. Consistent with Willison's own closing framing (Claim 9 below) that Astra "doesn't win at everything." Practitioners selecting on raw general-intelligence benchmark score alone would still prefer Fable 5.1 per this metric.
+### Claim 4: Per Artificial Analysis, GPT‑6 Astra scores 61 on the Intelligence Index — equal to GPT‑5.6 Sol, 5 points lower than Claude Fable 5.1 (max with fallback), and also behind Meta's newly released Muse Spark 1.3 (max)
+- **Evidence**: Third-party benchmark aggregator score, cited by Willison. Three contiguous sentences give the Sol comparison (equal, at 61), the Fable 5.1 gap (−5 points), and a third competitor comparison against Meta's Muse Spark 1.3 (max) — the latter stated directionally, with no numeric score given for Muse Spark 1.3 anywhere in the post.
+- **Confidence**: emerging (third-party aggregate benchmark index; methodology not detailed in this post, though Artificial Analysis is an established third-party source already used elsewhere in the corpus). The Muse Spark 1.3 comparison is weaker still — directional only, with no figure attached.
+- **Quote**: "GPT-6 Astra scores equal to GPT-5.6 Sol in the Index at 61. This is 5 points lower than Claude Fable 5.1 (max with fallback). The model also trails Meta's newly released Muse Spark 1.3 (max)."
+- **Our assessment**: This is a direct, quantified rebuttal to any assumption that Astra is a strict Sol-successor on general intelligence — on this particular aggregate index, Astra does not improve on Sol at all, and trails *two* other vendors' current flagships (Anthropic's Fable 5.1 and Meta's Muse Spark 1.3), not just Anthropic's. That third-vendor data point matters for guide framing: the post's headline story is an OpenAI-vs-Anthropic price-parity/benchmark duel, but on the general-intelligence index Astra is third at best among the three named frontier models. Note the qualifiers travel with the numbers — the Fable 5.1 comparison is specifically to "max with fallback" and the Muse Spark comparison to "(max)" — so this is a max-effort-configuration comparison, not a default-settings one. Consistent with Willison's own closing framing (Claim 10 below) that Astra "doesn't win at everything." Practitioners selecting on raw general-intelligence benchmark score alone would prefer Fable 5.1 (and, per this sentence, Muse Spark 1.3) over Astra on this metric.
 
 ### Claim 5: At max reasoning effort, GPT‑6 Astra costs about the same as GPT‑5.6 Sol (max) on Artificial Analysis's Coding Agent Index while scoring 2 points higher, and per-task costs less than half of Claude Fable 5 for the same score
 - **Evidence**: Third-party benchmark aggregator cost/score comparison, cited by Willison.
@@ -86,11 +87,11 @@ issue: "#3288"
 - **Quote**: "At max effort, GPT-6 Astra costs about the same as GPT-5.6 Sol (max) while scoring 2 points higher on the Index. Per task, the model is less than half the cost of Claude Fable 5, for the same score."
 - **Our assessment**: This is the sharpest cost-efficiency claim in the post: despite matching Fable's *per-token* price exactly (Claim 3), Astra is claimed to cost less than half of Fable 5 *per completed coding task* at equivalent quality — implying Astra uses substantially fewer tokens (or fewer retries) to reach the same coding-agent outcome. If this holds up under independent verification, it is a meaningful practitioner data point: identical sticker price does not imply identical real-world cost, and per-task cost (not per-token price) is the number that matters for coding-agent budgeting. This is vendor/third-party-sourced and not independently reproduced by Willison himself, so it should be flagged as unverified pending practitioner testing.
 
-### Claim 6: Artificial Analysis's own commentary frames Astra as still trailing Claude Fable on their metrics, despite Astra's Coding Agent Index cost-efficiency lead
-- **Evidence**: Willison links to and paraphrases an Artificial Analysis social-media post.
-- **Confidence**: emerging (third-party commentary, linked but only summarized by Willison rather than fully quoted in the post's own prose)
-- **Quote**: "Artificial Analysis note that Astra is still beaten by Fable"
-- **Our assessment**: This is a useful editorial signal alongside the raw numbers in Claims 4-5: even the source of the favorable Coding Agent Index comparison (Claim 5) does not characterize Astra as an overall win over Fable. Guide language should preserve this nuance — Astra leads on specific cost-efficiency metrics, not on Fable's own turf overall, per the benchmark aggregator's own framing.
+### Claim 6: Willison attributes the Intelligence Index result to Artificial Analysis, framing it as Astra being "still beaten by Fable" on that index specifically
+- **Evidence**: This is the topic sentence Willison uses to introduce the Artificial Analysis Intelligence Index passage quoted in Claim 4 — the same paragraph and the same figure, not a separate finding. Willison links to an Artificial Analysis social-media post as the source.
+- **Confidence**: emerging (third-party commentary, linked but only introduced by Willison rather than independently reproduced)
+- **Quote**: "Artificial Analysis note that Astra is still beaten by Fable on their Intelligence Index"
+- **Our assessment**: Scope matters here and is easy to overstate. This sentence is *attribution and framing for the Intelligence Index number in Claim 4* — nothing more. It is explicitly qualified to "their Intelligence Index"; it is not an overall verdict on Astra versus Fable, and it says nothing about the Coding Agent Index result in Claim 5. Guide language citing it must carry the "on the Intelligence Index" qualifier: the defensible statement is "Artificial Analysis reports Astra behind Fable on their Intelligence Index," not "Artificial Analysis considers Astra beaten by Fable overall." Retained as a separate claim only because it names the attribution chain (Willison → Artificial Analysis) that Claim 4's bare figure does not.
 
 ### Claim 7: On the ARC-AGI-3 benchmark, GPT‑6 Astra scored 99.9% using OpenAI's custom "Provider Adapter harness" (at a stated cost of $19K), versus 62.7% using the default ARC-AGI harness (at a stated cost of $26K) — with the Provider Adapter harness preserving opaque reasoning state between requests and using compaction for longer conversations
 - **Evidence**: Willison cites the ARC-AGI blog (arcprize.org) directly for both scores and both cost figures, plus the stated mechanism for the custom harness.
@@ -130,8 +131,11 @@ API identity and pricing:
   (identical to Claude Fable 5 / 5.1 pricing)
 
 Artificial Analysis benchmark comparison (GPT-6 Astra vs. GPT-5.6 Sol vs.
-Claude Fable 5.1):
-  Intelligence Index:       Astra 61  |  Sol 61 (equal)  |  Fable 5.1: 66 (61+5)
+Claude Fable 5.1 vs. Meta Muse Spark 1.3):
+  Intelligence Index:       Astra 61  |  Sol 61 (equal)
+                            Fable 5.1 (max with fallback): 66 (61+5)
+                            Muse Spark 1.3 (max): score not stated in post —
+                              Astra stated to trail it (direction only)
   Coding Agent Index (max): Astra ≈ Sol(max) cost, Astra +2 points vs. Sol
                             Astra: <50% of Fable 5's per-task cost, same score
 
@@ -196,17 +200,20 @@ own text before use, per MINER.md §4b.
   One point of internal tension within this same post is worth flagging
   rather than silently resolving: Claim 5's cost-efficiency framing
   ("Astra is less than half the cost of Claude Fable 5, for the same
-  [Coding Agent Index] score") sits alongside Claim 6's citation of
-  Artificial Analysis's own view that "Astra is still beaten by Fable"
-  overall, and Claim 4's Intelligence Index result showing Fable 5.1 five
-  points ahead of Astra. These are not contradictory — they measure
-  different things (per-task coding-agent cost-efficiency vs. general
-  intelligence vs. an aggregator's overall characterization) — but a
-  guide passage citing only the favorable Coding Agent Index figure
-  without this context would overstate Astra's competitive position
-  relative to Fable. No contradiction issue filed; this is a
-  conditioning-variable case (MINER.md §4a "When NOT to file"), not a
-  genuine contradiction.
+  [Coding Agent Index] score") sits alongside Claim 4's Intelligence Index
+  result — Fable 5.1 five points ahead of Astra, and Muse Spark 1.3 ahead
+  of it too — which Willison introduces (Claim 6) as Artificial Analysis
+  reporting Astra "still beaten by Fable on their Intelligence Index."
+  These are not contradictory — they measure different things (per-task
+  coding-agent cost-efficiency vs. an aggregate general-intelligence
+  index) — but a guide passage citing only the favorable Coding Agent
+  Index figure without this context would overstate Astra's competitive
+  position relative to Fable. Note also that Claim 6 does *not* supply an
+  independent "overall" verdict to set against Claim 5: it is scoped to the
+  Intelligence Index alone, so the tension here is strictly
+  index-vs-index, not aggregator-verdict-vs-metric. No contradiction issue
+  filed; this is a conditioning-variable case (MINER.md §4a "When NOT to
+  file"), not a genuine contradiction.
 
 - **Extends**:
   - `blog-simonwillison-gpt56-sol-launch.md` Concrete Artifacts (GPT‑5.6
@@ -219,6 +226,17 @@ own text before use, per MINER.md §4b.
     Sol-specific case study to a second model (Astra) and a different,
     even more extreme score/cost profile, while confirming the same
     reasoning-retention-plus-compaction mechanism is the operative variable.
+  - `blog-simonwillison-muse-code-spark-12.md` (Source Context → Scope:
+    that note covers Meta's August 5, 2026 announcement of Muse Spark 1.2,
+    a coding-focused update to Muse Spark 1.1): this post's Claim 4 is the
+    first mention in this corpus of a **Muse Spark 1.3**, described as
+    "newly released" as of September 3, 2026, and places it ahead of both
+    GPT‑6 Astra and GPT‑5.6 Sol on Artificial Analysis's Intelligence
+    Index. That is a version-timeline extension only — this post gives no
+    Muse Spark 1.3 score, pricing, release date, or capability detail, so
+    it establishes the release's existence and relative index standing and
+    nothing more. Muse Spark 1.3 is a candidate for its own Prospector
+    scan; this note should not be cited as a source on that model.
   - `blog-openai-astra-critical-cyber-capabilities.md` and
     `blog-openai-pacing-model-development-cyber-capabilities.md`: extends
     both hedged, pre-launch OpenAI safety disclosures about Astra's
@@ -328,9 +346,11 @@ own text before use, per MINER.md §4b.
   has been independently reproduced by this Miner or by Willison himself
   at time of writing.
 - **No contradiction meeting the MINER.md §4a filing bar was identified.**
-  The one internal tension noted (Claim 5's favorable per-task cost framing
-  vs. Claim 6's "still beaten by Fable" framing vs. Claim 4's Intelligence
-  Index gap) is a conditioning-variable case, not a genuine contradiction,
+  The one internal tension noted (Claim 5's favorable per-task Coding Agent
+  Index cost framing vs. Claim 4's Intelligence Index gap, which Claim 6
+  attributes to Artificial Analysis) is a conditioning-variable case —
+  two different indices measuring different things — not a genuine
+  contradiction,
   and is documented under Cross-References → Contradicts per MINER.md's
   instruction to surface tensions even when not formally filed.
 - **Three duplicate Prospector triage comments** were posted to the source
