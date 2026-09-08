@@ -74,7 +74,7 @@ issue: "#3304"
 - **Evidence**: Direct narrative description contrasting this approach with generic training.
 - **Confidence**: anecdotal (described mechanism with no headcount, meeting count, or before/after adoption comparison isolating this specific intervention from CEO modeling)
 - **Quote**: "Instead of relying on generic training, the business transformation team joined individual team meetings to demonstrate workflows tailored to marketing, finance, recruitment, operations, and other functions."
-- **Our assessment**: This corroborates the "let teams learn in context" leadership lesson already named in `blog-openai-australian-payments-plus.md` Claim 11 ("AP+ found that AI adoption works best when employees see relevant examples from their own teams, not generic training alone") — a second, independent Australian company (also OpenAI's customer) converging on the same role-specific-over-generic-training enablement mechanism. Combined with Claim 1's leadership-modeling framing, this is a two-part adoption mechanism (top-down CEO legitimization + bottom-up role-specific demonstration) rather than either alone.
+- **Our assessment**: This corroborates the "let teams learn in context" leadership lesson named in `blog-openai-australian-payments-plus.md` Claim 11, whose elaboration is quoted in that note's Concrete Artifacts → "Leadership lessons" list: "Let teams learn in context. AP+ found that AI adoption works best when employees see relevant examples from their own teams, not generic training alone." A second, independent Australian company (also OpenAI's customer) converging on the same role-specific-over-generic-training enablement mechanism. Combined with Claim 1's leadership-modeling framing, this is a two-part adoption mechanism (top-down CEO legitimization + bottom-up role-specific demonstration) rather than either alone.
 
 ### Claim 3: Gilbert + Tobin's AI rollout was supported by clear governance guidance — approved tasks, what employees could enter, and how outputs should be reviewed — plus assessed contractual protections, role-based access, data-processing requirements, and administrative controls, before expanding access
 - **Evidence**: Direct narrative description of the governance groundwork laid ahead of the rollout.
@@ -116,7 +116,7 @@ issue: "#3304"
 - **Evidence**: Two named, quantified Codex task examples in the "Moving from assistance to execution with Codex" section.
 - **Confidence**: anecdotal (two specific named task-scale figures — 300 entities, 1,100 files — with stated time savings, but no description of what the audit reports covered substantively, what "checking" the files involved, or how outcomes were verified before use)
 - **Quote**: "For instance, it prepared audit reports covering 300 entities, avoiding a full day of manual work across the entire workflow. Codex also checked and renamed 1,100 files for upload into another system, replacing work that would previously have taken days."
-- **Our assessment**: These are explicitly framed as "tasks that are irregular or difficult to justify automating through conventional, repeatable processes" (per the article's own following sentence) — i.e., one-off or infrequent bulk-operational tasks rather than a standing, repeatable pipeline. This is a distinct category from the standing-practice Codex usage documented in `blog-openai-loveholidays-codex-case-study.md` (routine, ongoing self-service infrastructure workflows) — Gilbert + Tobin's examples read more like ad hoc, high-volume clerical tasks (renaming/organizing files, compiling a structured report across many entities) that would traditionally require either a dedicated script (requiring engineering time to justify writing) or manual labor, with Codex closing that gap for irregular one-off tasks specifically.
+- **Our assessment**: These are explicitly framed as "tasks that are irregular or difficult to justify automating through conventional, repeatable processes" (per the article's own following sentence) — i.e., one-off or infrequent bulk-operational tasks rather than a standing, repeatable pipeline. This is a distinct category from the standing-practice Codex usage documented in `blog-openai-loveholidays-codex-case-study.md` Claims 5 and 6 (recurring, self-service Data Platform and infrastructure workflows with encoded validations, tracked by rising success rates over a year) — Gilbert + Tobin's examples read more like ad hoc, high-volume clerical tasks (renaming/organizing files, compiling a structured report across many entities) that would traditionally require either a dedicated script (requiring engineering time to justify writing) or manual labor, with Codex closing that gap for irregular one-off tasks specifically.
 
 ### Claim 10: The business transformation team used Codex to turn requirements and an existing specification into a working Python application
 - **Evidence**: Single-sentence narrative statement, no further elaboration.
@@ -128,7 +128,7 @@ issue: "#3304"
 - **Evidence**: Direct narrative description of the workflow's function and a named before/after time figure.
 - **Confidence**: anecdotal (a specific named time figure — "up to eight hours" to "minutes" — for an unspecified subset of checks ("selected"), with no incident count, no description of the workflow's underlying architecture, and no detail on what the human sign-off review actually consists of or how long it takes)
 - **Quote**: "Gilbert + Tobin used Codex to help build an AI-enabled workflow for selected conflict, anti-money laundering, politically exposed person, and know-your-customer checks. It completes research and processing steps, then produces a report for human review and sign-off. Selected checks that previously took up to eight hours can now be completed in minutes." — Aviva Leitch, Head of Business Transformation, Gilbert + Tobin (quoted immediately before this passage: "Codex can take AI from being a helper to being a doer. It carries out the steps in an operational workflow, while our people remain responsible for reviewing and approving the result.")
-- **Our assessment**: This is the corpus's first documented example of a coding agent (Codex) used to build a compliance-specific workflow (conflict/AML/PEP/KYC checks) for a regulated professional-services function — the explicit "produces a report for human review and sign-off" design is structurally the same human-in-the-loop gate as `blog-anthropic-legal-industry-deploy.md` Claim 7 (Anthropic's own Legal team's self-review tool that "pre-triages issues before formal Legal review," where "lawyers still read every blog post; the self-review layer just clears the obvious cases") — both are AI-driven pre-processing that narrows a human reviewer's workload without removing the human decision step. Notably, this workflow is described only in terms of a fixed research-and-report-then-review structure — unlike the graduated-autonomy model in `blog-anthropic-abc-legal-managed-agents.md` Claim 6 (agents "earn the right to act independently" after demonstrating consistent agreement with human decisions), there is no indication in this article that Gilbert + Tobin's AML/KYC workflow is designed to ever operate with reduced human review over time; the human-sign-off step appears to be a fixed, permanent feature of the workflow's design rather than a trust-building stage.
+- **Our assessment**: This is the corpus's first documented example of a coding agent (Codex) used to build a compliance-specific workflow (conflict/AML/PEP/KYC checks) for a regulated professional-services function — the explicit "produces a report for human review and sign-off" design is structurally the same human-in-the-loop gate as `blog-anthropic-legal-industry-deploy.md` Claim 7, whose heading describes a self-review tool that "pre-triages issues before formal Legal review" and whose quote records that "Lawyers still read every blog post; the self-review layer just clears the obvious issues so review time can go to the calls that require judgment." — both are AI-driven pre-processing that narrows a human reviewer's workload without removing the human decision step. Notably, this workflow is described only in terms of a fixed research-and-report-then-review structure — unlike the graduated-autonomy model in `blog-anthropic-abc-legal-managed-agents.md` Claim 6 (agents "earn the right to act independently" after demonstrating consistent agreement with human decisions), there is no indication in this article that Gilbert + Tobin's AML/KYC workflow is designed to ever operate with reduced human review over time; the human-sign-off step appears to be a fixed, permanent feature of the workflow's design rather than a trust-building stage.
 
 ### Claim 12: A DevOps team member within the technology function used Codex to build a monitoring "watchtower" for the firm's AWS environment that consolidates operational signals, supports diagnosis and remediation, and escalates issues requiring human attention
 - **Evidence**: Single-paragraph description of an internally built tool, with no named individual (unlike the executive quotes elsewhere in the article).
@@ -213,9 +213,34 @@ section
 `blog-anthropic-legal-industry-deploy.md`,
 `blog-anthropic-abc-legal-managed-agents.md`, and
 `blog-openai-loveholidays-codex-case-study.md` were each re-read directly
-(MINER.md §4b) and the claim numbers cited below were confirmed against
-those notes' actual numbered `### Claim N:` headings in document order
-before writing this note; none were guessed.
+(MINER.md §4b). Every `Claim N` citation below was confirmed against those
+notes' actual numbered `### Claim N:` headings in document order, and every
+passage quoted from them was copied character-for-character from the cited
+file.
+
+A first pass of this note failed that standard in two places, both corrected
+here: it attributed the phrase "Codex can take AI from being a helper to
+being a doer" to `blog-openai-loveholidays-codex-case-study.md` Claim 5 as
+"nearly identical language," when that phrase appears nowhere in the
+loveholidays note (verified by case-insensitive full-file search for both
+"helper" and "doer": zero hits) and is in fact Aviva Leitch's quote in *this*
+source; and it rendered
+`blog-anthropic-legal-industry-deploy.md` Claim 7's quote as "just clears the
+obvious cases" when that note reads "just clears the obvious issues so review
+time can go to the calls that require judgment." Two further citations were
+tightened rather than corrected: the AP+ "let teams learn in context"
+elaboration is quoted from that note's Concrete Artifacts → "Leadership
+lessons" list rather than from Claim 11's own `Quote` fields (Claim 11's
+heading names the lesson; its quote fields cover the other three), and
+Claim 9's loveholidays comparison now cites Claims 5 and 6 explicitly instead
+of characterizing the note as a whole. All remaining cited claim numbers
+(BBVA 3, 5, 11; AP+ 3, 4, 6, 9, 11; Friar 3, 12;
+`blog-anthropic-claude-legal-industry.md` 7 plus its Concrete Artifacts
+connector catalog, where Harvey is listed under "LEGAL AI ASSISTANTS";
+`blog-anthropic-legal-industry-deploy.md` 7; `blog-anthropic-abc-legal-managed-agents.md`
+3, 6) were re-verified individually against the cited files in this pass and
+match — including abc-legal Claim 6's "earn the right to act independently,"
+confirmed verbatim in that note's `Quote` field.
 
 - **Corroborates**:
   - `blog-openai-bbva-banking-transformation.md` Claim 5 (BBVA trained 250
@@ -230,9 +255,12 @@ before writing this note; none were guessed.
     profession-specific concern (that AI use might be seen as an
     inappropriate shortcut to originality/judgment) not raised in either
     prior source.
-  - `blog-openai-australian-payments-plus.md` Claim 11 ("Let teams learn in
-    context. AP+ found that AI adoption works best when employees see
-    relevant examples from their own teams, not generic training alone"):
+  - `blog-openai-australian-payments-plus.md` Claim 11, which names "let
+    teams learn in context" as one of AP+'s four leadership lessons and
+    quotes its elaboration in that note's Concrete Artifacts → "Leadership
+    lessons" list ("Let teams learn in context. AP+ found that AI adoption
+    works best when employees see relevant examples from their own teams,
+    not generic training alone."):
     this source's Claim 2 (Gilbert + Tobin's business transformation team
     joining individual team meetings to demonstrate role-specific workflows
     "instead of relying on generic training") is a second, independent
@@ -273,10 +301,12 @@ before writing this note; none were guessed.
     credible, professionally-adopted legal-AI platform from a second,
     unrelated source (a customer naming it directly, rather than Anthropic
     naming it as a connector partner).
-  - `blog-anthropic-legal-industry-deploy.md` Claim 7 (Anthropic's own
-    Legal team's self-review tool "pre-triages issues before formal Legal
-    review... lawyers still read every blog post; the self-review layer
-    just clears the obvious cases"): this source's Claim 11 (the AML/KYC/
+  - `blog-anthropic-legal-industry-deploy.md` Claim 7, whose heading
+    describes Anthropic's own Legal team's self-review tool as one that
+    "pre-triages issues before formal Legal review" and whose quote records
+    that "Lawyers still read every blog post; the self-review layer just
+    clears the obvious issues so review time can go to the calls that
+    require judgment.": this source's Claim 11 (the AML/KYC/
     conflict-check workflow that "completes research and processing steps,
     then produces a report for human review and sign-off") is the same
     AI-narrows-then-human-decides design pattern, now applied to
@@ -313,16 +343,26 @@ before writing this note; none were guessed.
     graduated autonomy vs. permanently fixed human sign-off — rather than
     assuming one implies or leads to the other.
   - `blog-openai-loveholidays-codex-case-study.md`: extends the corpus's
-    "Codex as a doer, not just a helper" framing (loveholidays' Claim 5:
-    "Codex can take AI from being a helper to being a doer" — nearly
-    identical language to Aviva Leitch's quote in this source) with a
-    second, independent company using the same phrase to describe the same
-    assistance-to-execution shift, but for irregular/one-off operational
-    tasks (audit reports, file renaming) rather than loveholidays'
-    standing, repeatable self-service infrastructure workflows — a
-    meaningfully different usage pattern (ad hoc bulk clerical automation
-    vs. continuous self-service platform) sharing the same descriptive
-    language.
+    record of Codex used as an executor of multi-step work rather than an
+    inline coding assistant, but at the opposite end of the
+    regularity spectrum. loveholidays' Claim 5 documents engineering teams
+    who "encode their best practices, instructions, and validations into
+    workflows that Codex can guide other users through," so that
+    non-specialists can self-serve Data Platform and infrastructure changes
+    — a standing, repeatable platform capability, with Claim 6 reporting
+    rising success rates for exactly those recurring workflows (Data
+    Platform 58%→93%; broader self-service infrastructure 63%→90%). Gilbert
+    + Tobin's Codex examples (Claims 9–12) are instead one-off bulk jobs
+    that this article itself characterizes as "irregular or difficult to
+    justify automating through conventional, repeatable processes." Same
+    tool, materially different usage pattern: continuous self-service
+    platform vs. ad hoc bulk clerical and compliance automation, and the
+    guide should not collapse them into a single "Codex for operations"
+    story. Note that Aviva Leitch's "helper to being a doer" phrasing
+    (Claim 11's quote block) is this source's own articulation of the
+    assistance-to-execution shift — the phrase does not appear in the
+    loveholidays note, so it is new language in the corpus rather than
+    independent convergence on a shared formulation.
   - `blog-openai-bbva-banking-transformation.md` and
     `blog-openai-australian-payments-plus.md`: extends the corpus's set of
     OpenAI regulated-industry customer case studies to a third named
