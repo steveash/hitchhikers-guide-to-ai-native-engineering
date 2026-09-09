@@ -287,7 +287,7 @@ issue: "#3329"
 | vercel/sandbox/arch:latest          | archlinux:latest         | Arch Linux, yay (AUR), base-devel, git                      |
 | vercel/sandbox/ubuntu:latest        | ubuntu:26.04             | Ubuntu + sudo                                               |
 ```
-Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Vercel Managed Images" section.
+Source: https://vercel.com/docs/sandbox/concepts/images — "Vercel Managed Images" section.
 
 ### Image reference resolution forms (verbatim table, from the docs page)
 
@@ -302,7 +302,7 @@ Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Vercel Manag
 | team-slug/project-slug/my-repository@sha256:...              | A specific digest in the referenced team and project   |
 | vcr.vercel.com/team-slug/project-slug/my-repository:v1       | Same as the team-scoped reference, fully qualified URL |
 ```
-Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Image references" section.
+Source: https://vercel.com/docs/sandbox/concepts/images — "Image references" section.
 
 ### SDK usage — selecting a managed image (verbatim, from the changelog)
 
@@ -326,7 +326,7 @@ const sandbox = await Sandbox.create({
   // image: 'vercel/sandbox/ubuntu',            // Use the latest Ubuntu image
 });
 ```
-Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Vercel Managed Images" section.
+Source: https://vercel.com/docs/sandbox/concepts/images — "Vercel Managed Images" section.
 
 ### Custom image build, push, and use (verbatim commands, from the docs page)
 
@@ -349,7 +349,7 @@ try {
   await sandbox.stop();
 }
 ```
-Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Custom images" section.
+Source: https://vercel.com/docs/sandbox/concepts/images — "Custom images" section.
 
 ### Custom-image readiness states (verbatim table, from the docs page)
 
@@ -360,7 +360,7 @@ Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Custom image
 | Preparing   | VCR is preparing a linux/amd64 image.                                                   |
 | Unoptimized | The image is pullable from VCR, but it is not linux/amd64 and cannot be used in Sandbox.|
 ```
-Source: https://vercel.com/docs/vercel-sandbox/concepts/images — "Custom images" section.
+Source: https://vercel.com/docs/sandbox/concepts/images — "Custom images" section.
 
 ## Cross-References
 
@@ -376,7 +376,8 @@ section.
   - `blog-anthropic-claude-managed-agents-selfhosted.md` Claim 3 ("You also
     control the compute: resource sizing and the runtime image are set on
     your side, so agents running compute-heavy work such as long builds or
-    image generation don't strain a shared environment"): that note documents
+    image generation get the CPU, memory, and capacity the task needs"):
+    that note documents
     Vercel Sandbox as one of four pluggable providers for Claude Managed
     Agents, with "runtime image" control described only abstractly from the
     Anthropic integration's point of view. This source is the concrete,
@@ -516,7 +517,7 @@ section.
    (per MINER.md §2a's caution about WebFetch's summarizing pass); both
    returned structurally consistent text, and the second, more explicit fetch
    is the source of every quote in this note from the changelog page. The
-   linked images concept page (`vercel.com/docs/vercel-sandbox/concepts/images`)
+   linked images concept page (`vercel.com/docs/sandbox/concepts/images`)
    was fetched once with an explicit verbatim-reproduction prompt and returned
    what appears to be the page's underlying markdown/frontmatter source
    (including a YAML frontmatter block, docsgraph link metadata, and exact
