@@ -42,7 +42,7 @@ issue: "#3355"
 
 ## Extracted Claims
 
-### Claim 1: End-to-end benchmarks (Terminal-Bench, DeepSWE) are the de facto standard for evaluating coding agents, but a composite score movement gives no insight into which behavior changed or why
+### Claim 1: End-to-end benchmarks (Terminal-Bench, DeepSWE) are the de facto approach for evaluating model performance and flagging what needs deeper investigation, but a composite score movement gives no insight into which behavior changed or why, and the resulting investigations come at a high cost
 - **Evidence**: Opening anecdote naming two specific benchmarks and describing
   the common failure pattern of watching a composite score move without
   understanding the cause.
@@ -83,8 +83,9 @@ issue: "#3355"
   most directly actionable one: "behavioral eval" is defined by contrast with
   "eval of the final outcome," and it corroborates (independently, from a
   different vendor) `blog-thoughtworks-anand-agent-evaluation-framework.md`
-  Claim 6, which names an equivalent concept ("Agents as a unit: individual
-  agents are unit tested to verify that they produce intended outcomes").
+  Claim 6, which names an equivalent concept ("Agents as a unit: Here,
+  individual agents are unit tested to verify that they produce intended
+  outcomes.").
   Google's post supplies the paradigm name ("behavioral guideposts" vs.
   "report cards") that the Thoughtworks post's "Pytest for LLMs" framing
   lacks.
@@ -141,10 +142,15 @@ issue: "#3355"
   alongside prompt tweaks, which is a slightly broader trigger list than
   LangChain's prompt/tool-description-focused taxonomy.
 
-### Claim 7: A robust behavioral evaluation framework separates behavioral assertions into fast, deterministic, unit-style checks that run locally, distinct from the broader (slower, more expensive) end-to-end benchmark suite
+### Claim 7: A robust harness evaluation framework separates behavioral assertions into fast, deterministic, unit-style checks that run locally, distinct from the larger, higher-cost end-to-end benchmark suite
 - **Evidence**: Direct architectural claim under "How a behavioral evaluation
-  architecture works," followed by a concrete shell command showing sub-5-second
-  local execution.
+  architecture works." The "larger, higher-cost" contrast is assembled from two
+  other points in the post rather than stated here: the intro's note that
+  end-to-end investigations "come at a high cost" and the closing section's
+  reference to "larger, end-to-end evaluation suites." A shell command
+  elsewhere in the post carries the comment "Run local behavioral suite in
+  under 5 seconds," which is an unverified assertion in a code comment, not a
+  measurement.
 - **Confidence**: emerging
 - **Quote**: "A robust harness evaluation framework separates behavioral assertions into fast, deterministic, unit-style checks that run locally."
 - **Our assessment**: The "fast, deterministic, local" triad is the practical
@@ -180,9 +186,9 @@ issue: "#3355"
 - **Our assessment**: This is a self-improvement-loop pattern (an LLM
   iteratively editing an artifact — here, its own system prompt — against a
   test signal) that sits in the same family of patterns discussed at length
-  in `blog-lilianweng-harness-engineering-rsi.md` Claim 14, which warns that
-  "a self-improvement loop optimizes whatever signal it is given. If the
-  reward comes from unit tests, the agent may overfit to tests" and
+  in `blog-lilianweng-harness-engineering-rsi.md` Claim 14, which warns:
+  "A self-improvement loop optimizes whatever signal it is given. If the
+  reward comes from unit tests, the agent may overfit to tests" — and it
   recommends evaluators/permission control sit *outside* the loop being
   optimized (held-out tests, trace audits, human review). Google's post
   gestures at a mitigation ("the rest of your test suite acts... as a
@@ -296,8 +302,8 @@ pytest evals/behavioral/ -v
 - **Corroborates**:
   - `blog-thoughtworks-anand-agent-evaluation-framework.md` Claim 6 ("The
     'Pytest' for LLMs... automated, assertion-based checks that catch
-    regressions"; "Agents as a unit: individual agents are unit tested to
-    verify that they produce intended outcomes") — independently converges
+    regressions."; "Agents as a unit: Here, individual agents are unit tested
+    to verify that they produce intended outcomes.") — independently converges
     with this source's Claims 3, 7, 8 on a unit-test-style, discrete-action
     evaluation layer, from a different vendor.
   - `blog-langchain-better-harness-evals.md` Claim 12 ("Once our agent
@@ -403,12 +409,16 @@ pytest evals/behavioral/ -v
   with ellipses that spliced non-adjacent sentence fragments together
   (explicitly disallowed by MINER.md §2a). All quotes in this note were
   re-verified against the locally-parsed, entity-decoded article text and are
-  contiguous fragments from single sentences (a few quotes reconstruct a
-  sentence split across inline bold-tag markup — e.g. "Evals belong to the
-  second phase of development: ensuring forward progress and guarding against
-  regressions" — where the underlying HTML breaks the sentence across `<b>`
-  tags rather than across distinct sentences).
-- The full article is short (single-page, ~850 words of body text, one code
+  contiguous runs of that text — in two cases (Claims 10 and 11) the quote
+  spans two or three *adjacent* sentences quoted in full, which MINER.md §2a
+  permits; no quote splices non-adjacent fragments. Two quotes reproduce a
+  sentence that the underlying HTML breaks across inline `<b>` tags — e.g.
+  "Evals belong to the second phase of development: ensuring forward progress
+  and guarding against regressions." is marked up as `development: <b>ensuring
+  forward progress</b> and <b>guarding against regressions</b>.` — so a
+  naive tag-stripper inserts spaces the rendered page does not show. The
+  quotes as written match the rendered text.
+- The full article is short (single-page, ~1,000 words of body text, one code
   example, one shell command) and entirely self-contained — no sub-pages or
   linked deep-dives were present to follow, aside from a link to "the full
   repo" for the Antigravity SDK example, which is a code repository link, not
