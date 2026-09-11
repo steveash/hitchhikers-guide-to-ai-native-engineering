@@ -243,38 +243,52 @@ issue: "#3379"
   prose — a shared table row grouping several findings by symptom shape can
   make partial-clearance read as full-clearance.
 
-### Claim 7: Package Specification Librarian is not a new agent — it is the current name for a lineage of daily doc-spec workflows in `gh-aw` (`spec-extractor`, `spec-enforcer`, then `spec-librarian`) that has been filing structured specification-audit issues since at least 2026-04-13, five months before this post
-- **Evidence**: `gh api search/issues?q=repo:github/gh-aw+label:pkg-specifications`
-  returns issues tagged `[spec-extractor]` and `[spec-enforcer]` from
-  2026-04-14 through late May, followed by the first `[spec-librarian]`
-  labeled issue, `#34216` ("Specification Audit — 2026-05-23 — 5 issues
-  found"), after which all subsequent audit issues use the `[spec-librarian]`
-  prefix. The workflow's own Actions history (workflow ID 260340165) begins
-  at run #1 on 2026-04-13, the same day the first `spec-extractor`/
-  `spec-enforcer` issues appear.
-- **Confidence**: emerging (the naming lineage is inferred from issue-title
-  prefixes and shared timing, not from a changelog or commit message that
-  explicitly states "renamed from X to Y"; it is possible `spec-extractor`/
-  `spec-enforcer` were always separate, still-active workflows rather than
-  predecessors — this note did not confirm whether those two names still
-  run today)
-- **Quote**: (none from the blog; sourced from GitHub Search API results
-  cited by content per MINER.md §4b, not a fabricated claim number — the
-  blog post itself makes no mention of any prior name or lineage)
-- **Our assessment**: The blog post's framing ("Today's Agent of the Day...")
-  reads as introducing a fresh, possibly recent addition to the gh-aw agent
-  roster. The Actions history says otherwise: workflow ID 260340165 has run
-  daily (with the 13 scattered failures noted in Claim 3) for over 150 runs
-  spanning five months, and the specification-audit-issue pattern in this
-  repository goes back even further under different workflow name prefixes.
-  This is not a contradiction of anything the blog states outright — it
-  never claims the agent is new — but it is a framing gap worth flagging:
-  the "Agent of the Day" series format (a fresh daily spotlight) can make a
-  long-running, mature production workflow read as a novel discovery. For
-  Ch02 (Harness Engineering) / Ch05 (Team Adoption): when citing an "Agent
-  of the Day" post as evidence that a pattern is new or emerging, check the
-  subject workflow's own Actions run history and issue-label history before
-  assuming the post reflects the agent's actual age or maturity.
+### Claim 7: Package Specification Librarian is the audit stage of a concurrently-running three-workflow doc-spec pipeline in `gh-aw` — `spec-extractor` (writes specs), `spec-enforcer` (generates spec-driven tests), `spec-librarian` (audits for drift) — all three scheduled daily, all three still filing issues as of 2026-09-11, and none of them a renamed version of another
+- **Evidence**: `gh api "search/issues?q=repo:github/gh-aw+label:pkg-specifications&sort=created&order=desc"`
+  shows all three prefixes interleaved right up to the present:
+  `[spec-extractor]` #60243 (2026-09-11, the day after this post),
+  `[spec-librarian]` #59985 (2026-09-10), `[spec-extractor]` #59419
+  (2026-09-08), `[spec-librarian]` #58993 (2026-09-06), `[spec-enforcer]`
+  #56878 (2026-08-29). Sorted ascending, the earliest two issues under this
+  label are `[spec-extractor]` #26190 and `[spec-enforcer]` #26194, both
+  2026-04-14, while the earliest `[spec-librarian]` issue is #34216
+  (2026-05-23) — the librarian was *added to* an existing pair roughly six
+  weeks later, not a rename of them. Both sibling workflow sources resolve
+  live on `main` today: `.github/workflows/spec-extractor.md` (`name:
+  Package Specification Extractor`, `schedule: daily`) and
+  `spec-enforcer.md` (`name: Package Specification Enforcer`, `schedule:
+  daily`). Finally, `spec-librarian`'s own Phase 5 report template routes
+  its findings *to* the extractor rather than superseding it (see the
+  Concrete Artifacts "Phase 5 report template" block).
+- **Confidence**: settled (three independent confirmations: both sibling
+  workflow files fetched live and returning HTTP 200 with daily schedules,
+  date-sorted issue history showing all three prefixes active
+  concurrently, and the librarian's own prompt naming `spec-extractor` as
+  a current remediation route)
+- **Quote**: (from the live `spec-librarian.md` workflow source, not the
+  blog) "**Recommendation**: Run the spec-extractor workflow to generate
+  specifications for these packages."
+- **Our assessment**: The three workflows divide the doc-spec lifecycle
+  cleanly and are built differently for their different jobs: the extractor
+  and librarian both run on the `copilot` engine, while the enforcer runs
+  `engine: codex` with `model: openai/gpt-5.3-codex` and `max-turns: 100`
+  (test generation being a longer, more code-heavy task than auditing).
+  All three set `edit: null` in the frontmatter this note fetched and route
+  their output through safe outputs rather than direct writes. The blog
+  post's framing ("Today's Agent of the Day...") profiles the librarian in
+  isolation and never mentions the other two stages, which makes a
+  three-stage production pipeline read as a single standalone agent — and
+  the Actions history compounds this: workflow ID 260340165 has run daily
+  for 153 runs across five months (with the 13 scattered failures noted in
+  Claim 3), so this is a mature production system, not a new addition. For
+  Ch02 (Harness Engineering) / Ch05 (Team Adoption): the reusable finding
+  here is the *pipeline decomposition* — generate specs, enforce them via
+  tests, audit them for drift as three separately-scheduled agents with
+  different engines and different safe outputs, rather than one
+  do-everything documentation agent. When citing an "Agent of the Day"-style
+  spotlight post, check the subject workflow's siblings (its issue-label
+  neighbours and the `.github/workflows/` directory) before assuming the
+  profiled agent works alone.
 
 ### Claim 8: The workflow's own noop-path prompt template contains a stale hardcoded package count ("N/20 packages") left over from when the repository had roughly 20 packages, even though the current repository has 37 — a self-referential documentation-drift bug inside the documentation-drift auditor's own source
 - **Evidence**: The live workflow source's "Phase 5: Generate Report and
@@ -470,6 +484,29 @@ errorutil         | 88%          | 95%      | 95%         | 90%       | 92% (Goo
 workflowcontract  | 0%           | n/a      | n/a         | n/a       | 0% (Critical, no spec)
 ```
 
+### Phase 5 report template: the librarian routes its own findings to `spec-extractor` (from the live workflow source, `.github/workflows/spec-librarian.md`, fetched 2026-09-11)
+
+```markdown
+### 🚨 Missing Specifications
+
+The following packages have no README.md:
+
+| Package | Source Files | Exported Symbols | Priority |
+|---------|------------|-----------------|----------|
+| `cli` | 180 | 95 | High |
+| `workflow` | 400+ | 200+ | High |
+
+**Recommendation**: Run the spec-extractor workflow to generate specifications for these packages.
+```
+
+The same file's stale-spec and action-item templates repeat the routing:
+`- **Recommendation**: Re-run spec-extractor for this package`, and
+`- [ ] Generate specifications for N packages without README.md (use spec-extractor)`
+/ `- [ ] Update stale specifications for N packages (use spec-extractor)`.
+*This is first-party evidence for Claim 7: the auditor treats `spec-extractor`
+as a currently-available companion workflow to hand work off to, not a
+predecessor it replaced.*
+
 ### Audit issue titles and headline numbers across the three most recently fetched runs (fetched via `gh issue view`, 2026-09-11)
 
 ```
@@ -582,9 +619,11 @@ all pages fetched 2026-09-11. 13 failures out of 153 total runs.*
   - **The exact 30/30/20/20 quality-dimension weighting and three named
     quality bands** (Claim 5) — the blog names the four dimensions but not
     the weights or bands; both come only from the live workflow source.
-  - **The `spec-extractor` → `spec-enforcer` → `spec-librarian` naming
-    lineage inferred from issue-label history** (Claim 7) — not mentioned
-    anywhere in the blog post, which frames the agent as if newly featured.
+  - **The three-stage `spec-extractor` / `spec-enforcer` / `spec-librarian`
+    doc-spec pipeline, all three daily and concurrently active** (Claim 7)
+    — not mentioned anywhere in the blog post, which profiles the librarian
+    as a standalone agent; recovered from date-sorted issue-label history
+    plus live fetches of the two sibling workflow sources.
   - **The "N/20 packages" stale hardcoded count inside the auditor's own
     no-issues-found prompt template** (Claim 8) — a self-referential
     documentation-drift artifact inside the drift-detection agent's own
@@ -622,12 +661,16 @@ all pages fetched 2026-09-11. 13 failures out of 153 total runs.*
   audit and drift-detection agents are not exempt from carrying their own
   undetected drift in their prompt source.
 
-- **Chapter 05 (Team Adoption)**: Add the `spec-extractor`/`spec-enforcer`/
-  `spec-librarian` naming-lineage finding (Claim 7) as a caution when citing
-  any "Agent of the Day"-style spotlight post as evidence a pattern is new:
-  check the subject's own Actions and issue-label history, since a mature,
-  months-old production workflow can be spotlighted in a format built around
-  daily novelty.
+- **Chapter 05 (Team Adoption)**: Add the three-stage
+  `spec-extractor` → `spec-enforcer` → `spec-librarian` pipeline (Claim 7)
+  as a worked example of decomposing one documentation concern across three
+  separately-scheduled agents with different engines and different safe
+  outputs — generate, enforce-via-tests, audit-for-drift — rather than one
+  do-everything docs agent. Pair it with a caution when citing any "Agent of
+  the Day"-style spotlight post: the format profiles one agent at a time, so
+  check the subject's siblings and its own Actions run history before
+  concluding the agent works alone or that the pattern is new (this one had
+  already run daily for five months at the time of the post).
 
 ## Extraction Notes
 
@@ -649,10 +692,12 @@ all pages fetched 2026-09-11. 13 failures out of 153 total runs.*
    workflow ID 260340165 (via `gh api
    repos/github/gh-aw/actions/workflows/260340165/runs`, paginated); job/step
    detail for run #138 (via `gh api .../actions/runs/33095152112/jobs`); and
-   the full bodies of issues #57954, #58993, #59985, plus a `gh api
-   search/issues?q=repo:github/gh-aw+label:pkg-specifications` sweep that
-   surfaced the `spec-extractor`/`spec-enforcer` naming lineage (Claim 7) and
-   the earliest `[spec-librarian]` issue, #34216. This follows the same
+   the full bodies of issues #57954, #58993, #59985, plus a date-sorted
+   `gh api "search/issues?q=repo:github/gh-aw+label:pkg-specifications&sort=created"`
+   sweep (run both ascending and descending) that surfaced the
+   `spec-extractor`/`spec-enforcer`/`spec-librarian` pipeline (Claim 7), the
+   earliest `[spec-librarian]` issue #34216, and live fetches of
+   `.github/workflows/spec-extractor.md` and `spec-enforcer.md`. This follows the same
    precedent set by `blog-ghaw-agent-of-the-day-2026-09-08.md` Extraction
    Note 2 and `blog-ghaw-agent-of-the-day-2026-09-03.md` Extraction Note 2:
    independently verifying a first-party blog's claims against its own
@@ -683,12 +728,20 @@ all pages fetched 2026-09-11. 13 failures out of 153 total runs.*
    the two nearest-dated existing "Agent of the Day" notes), not either
    triage comment's claimed overlap list.
 
-5. **The `spec-extractor`/`spec-enforcer` predecessor-workflow hypothesis in
-   Claim 7 is emerging-confidence, not settled**: this note inferred the
-   naming lineage from issue-title prefixes and the coincidence of the
-   workflow's Actions history starting the same day the first
-   `spec-extractor`/`spec-enforcer` issues appear. It did not confirm via a
-   commit history or changelog whether those two workflow names were
-   formally retired, renamed, or are still independently active today — a
-   follow-up source note fetching `.github/workflows/spec-extractor.md` and
-   `spec-enforcer.md` directly (if they still exist) would settle this.
+5. **Claim 7 was corrected during review; an earlier draft of this note had
+   it wrong**: that draft read the `[spec-extractor]`/`[spec-enforcer]`/
+   `[spec-librarian]` issue-title prefixes as a *naming lineage* (one
+   workflow successively renamed), inferred from an unsorted search-API
+   sweep plus the coincidence of the Actions history starting the same week
+   the first extractor/enforcer issues appear. Re-running the same query
+   with `&sort=created&order=desc` falsifies that immediately:
+   `[spec-extractor]` issues continue through 2026-09-11 and
+   `[spec-enforcer]` through 2026-08-29, both overlapping `spec-librarian`'s
+   entire run history. Direct `curl` fetches then confirmed
+   `.github/workflows/spec-extractor.md` and `spec-enforcer.md` both still
+   exist on `main` with `schedule: daily`. The general lesson, recorded here
+   because it generalizes beyond this source: when inferring a *succession*
+   from ordered artifacts, the cheap disconfirming check is whether the
+   supposedly-superseded artifact keeps appearing after the supposed
+   successor starts — sort by date and look at the recent end, not just the
+   old end.
