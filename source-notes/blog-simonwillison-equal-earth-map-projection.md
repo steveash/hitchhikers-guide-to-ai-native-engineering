@@ -196,9 +196,9 @@ prefers-reduced-motion respected on initial autoplay decision
     stated review step, and no cross-model audit. Read together, they bracket the range of
     documented Willison vibe-coding effort levels, from fully narrated multi-step harness
     engineering to a one-sentence "I had it build me this."
-  - [[blog-simonwillison-vibe-coding-agentic-engineering]] Claim 12 territory
-    (blast-radius-conditioned acceptability of unreviewed AI code, drawn from
-    [[blog-simonwillison-liteparse-browser]]): this tool is another zero-stated-review,
+  - [[blog-simonwillison-liteparse-browser]] Claim 12 (browser-native static apps with no
+    server and no data transfer have "almost non-existent" blast radius, which is what
+    makes vibe coding justifiable there): this tool is another zero-stated-review,
     static/client-side, no-data-transfer artifact, consistent with the same blast-radius
     reasoning, though this post does not itself articulate that reasoning — it simply
     ships the tool.
