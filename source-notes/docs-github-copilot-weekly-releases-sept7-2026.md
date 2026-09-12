@@ -157,14 +157,20 @@ issue: "#3399"
   reproduction)
 - **Quote**: "On TerminalBench 2.1, it improved verified task quality by 4.9 percentage points at 67% lower estimated cost compared with Claude Opus 5." / "On this benchmark, HydraFusion comes within 1.5 percentage points of Opus 5 while reducing cost by 36%, demonstrating a compelling quality-cost tradeoff for complex real-world engineering tasks." / "On this benchmark, HydraFusion comes within 0.1 percentage points of Opus 5 at 65% lower cost."
 - **Our assessment**: The one benchmark where HydraFusion *exceeds* the Opus
-  5 baseline (TerminalBench 2.1, +4.9 points) is also the one the post's own
-  "Hill-climbing HydraFusion" section admits was used most heavily during
-  development ("TerminalBench 2.1 provides the most complete sequence of
-  runs... its relative saturation makes broader validation important") —
-  i.e., GitHub's own text flags that the strongest headline number comes
-  from the benchmark HydraFusion was tuned against most, while the two
-  benchmarks with less tuning exposure (DeepSWE, CheckpointBench) show
-  HydraFusion trailing Opus 5 slightly on quality, not exceeding it. This is
+  5 baseline (TerminalBench 2.1, +4.9 points) is also the one GitHub's own
+  "Hill-climbing HydraFusion" section attaches a caveat to. That section
+  says of it: "TerminalBench 2.1 was one of several benchmarks used during
+  development." It then adds, in the next sentence: "Its relative saturation
+  makes broader validation important, so the three-benchmark evaluation also
+  includes DeepSWE's more demanding repository-level tasks." The post does
+  *not* claim TerminalBench was weighted more heavily than the others during
+  tuning — on intent it says the reverse, that the team optimized "across
+  the evaluation sets rather than for any single benchmark" (Claim 8). What
+  it does volunteer is that the benchmark carrying the strongest headline
+  number is the one whose saturation GitHub itself treats as a reason to
+  validate elsewhere, and that the two benchmarks it positions as that
+  broader validation (DeepSWE, CheckpointBench) show HydraFusion trailing
+  Opus 5 slightly on quality rather than exceeding it. This is
   a self-disclosed caveat, not an external critique, and it means the
   practitioner-relevant takeaway is closer to "comparable quality at
   meaningfully lower cost" than "better quality at lower cost," despite the
