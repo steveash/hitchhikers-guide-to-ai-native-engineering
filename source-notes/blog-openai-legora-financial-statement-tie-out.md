@@ -188,6 +188,59 @@ to review, while the final decision stays with the legal expert.
     financial figure reconciliation) while showing much smaller or no gains
     on general/aggregate measures (BAR all-task average; Artificial
     Analysis Intelligence Index).
+  - `blog-anthropic-kepler-verifiable-ai-financial.md` Claim 11
+    (auditability, not accuracy, is the irreducible trust requirement in
+    regulated financial AI — derived from discovery with 147 financial
+    firms and anchored on the quote "How am I supposed to trust something
+    I can't audit?"): this source's Claim 5 (Agent does the exhaustive
+    comparison, expert keeps the judgment call) corroborates that framing
+    from the opposite vendor stack (OpenAI rather than Anthropic), and
+    does so in what the workflow actually ships rather than as a stated
+    principle. The article's described deliverable is not a verdict but a
+    reviewable record — "recording each check" (Claim 3) producing
+    "a granular record of every line item and figure to review," and
+    closing on "a clearer record to review, while the final decision stays
+    with the legal expert." That is Kepler's auditability-first requirement
+    expressed as an output artifact. **The two sources differ in the
+    strength of the guarantee, and this is the useful distinction for the
+    guide, not a contradiction**: Kepler derives auditability
+    *architecturally* — the model is structurally excluded from producing
+    any final auditable number (Kepler Claim 3) and provenance is designed
+    in from inception (Kepler Claim 9, "Provenance has to shape the entire
+    system, not get added at the end"). Legora's case study describes no
+    such separation: the Agent itself performs the checks and generates the
+    record the human reviews, so auditability here rests on the
+    completeness and honesty of the agent's own log, not on a
+    deterministic layer the model cannot bypass. Legora never denies a
+    provenance architecture — the source simply says nothing about its
+    orchestration internals (see Source Context → Scope) — so this is a
+    weaker instance of the same principle, not an opposing claim.
+    Cite them together in Chapter 03 with that asymmetry stated
+    explicitly: human-in-the-loop review of an agent-generated record
+    (Legora) is a strictly weaker verifiability guarantee than
+    human review of deterministically-produced numbers with
+    designed-in provenance (Kepler).
+  - `blog-anthropic-kepler-verifiable-ai-financial.md` Claim 8 (automated
+    evaluation pipelines testing every prompt change, model upgrade, and
+    context modification against known-correct answers at every stage,
+    with failures attributed to reasoning / context / execution): this
+    source's Claim 7 (four planted errors, all four found) is the *other*
+    approach to verifying financial-AI output correctness, and the contrast
+    is instructive. Kepler's is **continuous and stage-attributable**:
+    standing evaluation infrastructure run against every change, designed
+    to localize which layer regressed. Legora's planted-error exercise is
+    **one-off and end-to-end**: a single whole-workflow pass/fail on n=4
+    defects, with no stage attribution and no indication it re-runs on
+    model or prompt changes. Legora's BAR benchmark (Claim 6) is the
+    closer analogue to Kepler's discipline — a repeatable internal
+    benchmark of end-to-end tasks — but Legora discloses no task list,
+    scoring rubric, or task count, where Kepler at least describes the
+    attribution structure and the within-hours new-model benchmarking
+    cadence. Neither is third-party audited, so this is two vendors
+    independently treating internal-eval infrastructure as the correctness
+    story in regulated financial AI; the pairing is worth citing as
+    evidence the *practice* is converging even though neither instance is
+    externally verifiable.
   - `blog-openai-polimill-japan-public-ai-infrastructure.md` Claim 6 (Codex
     "3-5x" development-speed multiplier, self-reported, no baseline
     methodology) and Claim 1 (self-reported adoption scale with no audit):
@@ -206,6 +259,17 @@ to review, while the final decision stays with the legal expert.
   contrast within the same source, not a contradiction between sources —
   both figures are presented by Legora as compatible, simply describing
   different scopes (one task vs. all tasks). No contradiction issue filed.
+  The closest candidate considered and rejected: this source's Claim 5
+  (human-in-the-loop review of an agent-produced record) versus
+  `blog-anthropic-kepler-verifiable-ai-financial.md` Claims 3, 9, and 11
+  (auditability must be enforced architecturally, with the model excluded
+  from producing final auditable numbers). These are not opposing claims —
+  they are the same auditability-first principle at two different strengths
+  of guarantee, and Legora's source is silent on orchestration internals
+  rather than asserting that no deterministic layer is needed. Per
+  MINER.md §4a, a difference in the strength or scope of a claim is a
+  conditioning variable, not a contradiction; both positions are captured
+  in Cross-References → Corroborates above.
 
 - **Extends**:
   - `blog-anthropic-code-w-claude-london-2026.md` Claim 5: that note names
@@ -263,6 +327,33 @@ to review, while the final decision stays with the legal expert.
   is far too small a sample to support a general error-detection-rate
   claim, and that no detail is given on how the four errors were selected
   or whether they were representative of real-world tie-out defect types.
+  **Placement and sequencing** (Chapter 03 already cites
+  `blog-anthropic-kepler-verifiable-ai-financial` in two places, so this
+  addition must not land as a disconnected third financial-AI block):
+  1. Put the planted-error material where the technique already lives —
+     immediately after the existing `#### Example: mutation testing that
+     found two holes in the tests` subsection in `guide/03-verification.md`
+     (~line 812) — as a short second instance showing the same
+     plant-known-defects technique in a non-software domain. It does
+     **not** belong in the `## Architectural Verification: Separate
+     Reasoning from Computation` section (~line 1055), which is about
+     removing the model from the path that produces the final number;
+     Legora describes no such separation.
+  2. Where Claim 5 is used (Chapter 03's human-review material and
+     Chapter 05, below), add an explicit forward pointer to the existing
+     Architectural Verification section stating the asymmetry from
+     Cross-References above: Legora's human reviewing an
+     agent-generated record is a strictly weaker verifiability guarantee
+     than Kepler's human reviewing deterministically-produced numbers with
+     designed-in provenance. Sequence Kepler first (the stronger
+     architectural guarantee) and Legora second (the weaker,
+     record-based form), so the chapter reads as a gradient of
+     verifiability strength rather than two competing vendor anecdotes.
+  3. If the guide adds evaluation-discipline guidance, pair this source's
+     one-off n=4 planted-error check with Kepler's Claim 8 continuous,
+     stage-attributable evaluation pipeline as the two ends of that
+     spectrum — again Kepler first, Legora as the lighter-weight
+     acceptance-test form.
 - **Chapter 05 (Team Adoption)**: Add Claim 5 (Legora's explicit "Agent
   does exhaustive comparison, human makes the judgment call" division of
   labor, stated as central to expanding the platform into audit, tax,
@@ -315,20 +406,39 @@ to review, while the final decision stays with the legal expert.
 4. **Cross-reference verification**: Before writing citations above,
    `blog-anthropic-code-w-claude-london-2026.md`,
    `blog-openai-polimill-japan-public-ai-infrastructure.md`,
-   `blog-simonwillison-gpt6-astra-launch.md`, and
+   `blog-simonwillison-gpt6-astra-launch.md`,
+   `blog-anthropic-kepler-verifiable-ai-financial.md`, and
    `blog-latentspace-meurer-agent-engineer-fde.md` were re-read directly
    (MINER.md §4b), and `guide/03-verification.md` was checked directly for
    the mutation-testing example cited above. All claim numbers cited above
    were confirmed against those notes' numbered `### Claim N:` headings in
-   document order. `blog-openai-gpt56-sol-ultrafast-mode.md` and
+   document order.
+   The initial overlap pass searched the corpus on Legora-, Astra-, and
+   benchmark-related terms and missed the corpus's other
+   financial-verification source; a second pass searching on "financial,"
+   "audit," "auditab," and "verification" surfaced
+   `blog-anthropic-kepler-verifiable-ai-financial.md`, now cited above
+   under Corroborates (Claims 8 and 11) with its Claims 3 and 9 referenced
+   for the architectural contrast. `guide/03-verification.md` was also
+   re-checked for where Kepler is already cited (the
+   `## Architectural Verification: Separate Reasoning from Computation`
+   section, citing Kepler Claims 3 and 9) so the Guide Impact
+   recommendation below sequences this source against that existing
+   material rather than proposing an unrelated addition. `blog-openai-gpt56-sol-ultrafast-mode.md` and
    `blog-latentspace-meurer-agent-engineer-fde.md` were also read in full
    during the overlap-check pass but are not cited above — neither
    contains any claim materially connected to this source's content beyond
    general OpenAI-customer-case-study or agent-engineering-role framing
    already captured via the other cross-references.
 5. **No contradiction filed**: Checked this source's content against the
-   cross-referenced notes above; no material opposition to any existing
-   claim was found — see Cross-References → Contradicts.
+   cross-referenced notes above, including
+   `blog-anthropic-kepler-verifiable-ai-financial.md` on the second pass;
+   no material opposition to any existing claim was found — see
+   Cross-References → Contradicts for the Legora/Kepler candidate that was
+   considered and rejected as a strength-of-guarantee difference rather
+   than a contradiction. Open `contradiction`-labeled issues and
+   `CONTRADICTIONS.md` were checked for an existing entry on financial-AI
+   verifiability; none covers this pairing.
 6. **Confidence rated `anecdotal` overall**: every claim in this source is
    a first-party, vendor-published figure or characterization from a
    single customer case study, with no disclosed benchmark methodology, no
