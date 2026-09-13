@@ -7,7 +7,7 @@ author: sukit
 date_published: 2026-03-30
 date_extracted: 2026-04-13
 last_checked: 2026-04-13
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#57"
 ---

@@ -7,7 +7,7 @@ project_type: cli
 date_extracted: 2026-03-30
 last_checked: 2026-03-30
 commit_analyzed: main branch (HEAD as of 2026-03-30)
-status: current
+status: stale
 ---
 
 # Practitioner Profile: FrankRay78/NetPace

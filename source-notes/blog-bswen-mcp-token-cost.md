@@ -6,7 +6,7 @@ author: Cowrie (Dev @ Bswen)
 date_published: 2026-03-23
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: emerging
 issue: "hi-e93.2"
 ---
