@@ -41,8 +41,8 @@ issue: "#3451"
   in the team's own `github/gh-aw` repository. This note independently
   fetched the live workflow source (`.github/workflows/daily-model-inventory.md`,
   via `curl` from `raw.githubusercontent.com`), the workflow's Actions run
-  history for its most recent ten runs (via `gh api
-  repos/github/gh-aw/actions/workflows/270418692/runs`), the exact body of
+  history back past its last pre-incident success (via `gh api
+  repos/github/gh-aw/actions/workflows/270418692/runs?per_page=40`), the exact body of
   the named issue (`gh issue view 59709 --repo github/gh-aw`), and the
   state/timing of both named pull requests (`gh pr view 59711`/`59703`
   `--repo github/gh-aw`) — none of this was taken from the blog post's own
@@ -54,10 +54,10 @@ issue: "#3451"
   (the `gpt-6-astra` alias gap found on 2026-09-09) and its resolution, and
   a closing characterization of the workflow's "precision and restraint."
   Does NOT cover: the workflow's longer-run reliability history (this note
-  independently found a 3-day failure streak, Sept 6–8, immediately
-  preceding the incident the post describes — see Claim 7), its lifetime
-  run count, or any run other than the three most recent and the one
-  incident singled out.
+  independently found a 13-run failure streak, 2026-08-28 through
+  2026-09-08, immediately preceding the incident the post describes — see
+  Claim 7), its lifetime run count, or any run other than the three most
+  recent and the one incident singled out.
 
 ## Extracted Claims
 
@@ -219,32 +219,46 @@ issue: "#3451"
   same-day narrative to blur and easy to catch with one API call per
   artifact.
 
-### Claim 7: Immediately before the Sept 9 success, the workflow had failed on three consecutive scheduled runs (Sept 6, 7, and 8) — a failure streak the blog post does not mention
-- **Evidence**: `gh api repos/github/gh-aw/actions/workflows/270418692/runs`
+### Claim 7: Immediately before the Sept 9 success, the workflow had failed on thirteen consecutive scheduled runs (#133–#145, 2026-08-28 through 2026-09-08) — a near-two-week outage the blog post does not mention
+- **Evidence**: `gh api
+  repos/github/gh-aw/actions/workflows/270418692/runs?per_page=40`
   (workflow ID resolved via `gh api repos/github/gh-aw/actions/workflows
-  --jq '.workflows[] | select(.path | test("model-inventory"))'`) lists,
-  in order: run #143 (2026-09-06) `conclusion: failure`, run #144
-  (2026-09-07) `failure`, run #145 (2026-09-08) `failure`, run #146
-  (2026-09-09, 11:43:44Z start) `success` — the run that filed issue
-  #59709 roughly ten minutes later.
+  --jq '.workflows[] | select(.path | test("model-inventory"))'`) lists an
+  unbroken run of `conclusion: failure` from run #133
+  (2026-08-28T02:21:58Z) through run #145 (2026-09-08T23:53:56Z) — 13
+  scheduled runs, every one a failure. The last success before the streak
+  is run #132 (2026-08-27T01:00:45Z); the first success after it is run
+  #146 (2026-09-09T11:43:44Z), the run that filed issue #59709. That
+  leaves 13 days 10 hours between consecutive successful runs (#132 →
+  #146). Every failed run in the streak finished in under 90 seconds
+  (44s–78s, `created_at` → `updated_at`), against 10–18 minutes for the
+  workflow's successful runs — i.e. these were fast crashes, not timeouts
+  of real work.
 - **Confidence**: settled (read directly from the Actions API's own
-  per-run `conclusion` field)
+  per-run `conclusion` field, with the lookback extended past the last
+  preceding success so the streak's start is bounded rather than assumed)
 - **Quote**: (no direct blog quote — the post's only reference to any prior
   trouble is the passing phrase "after a version mismatch had briefly
   broken the inventory job itself," with no dates or run count given;
   sourced from the Actions API per MINER.md §4b)
-- **Our assessment**: This independently-found 3-day failure streak gives
-  concrete shape to the blog's vague "briefly broken" phrase, and directly
-  supports Claim 6: PR #59703's Copilot SDK dependency bump merged at
-  11:43:11Z on Sept 9, and the very next scheduled run (#146, 11:43:44Z)
-  succeeded where the prior three had failed — strong evidence #59703 was
-  the fix for this specific streak, landing just ahead of the run that
-  then discovered the `gpt-6-astra` gap. For Ch04 (Context Engineering)
-  or Ch03 (Verification): pulling a workflow's recent run-conclusion
-  history is a one-API-call way to quantify a source's own hand-wave
-  ("briefly broken") into an exact incident window, and is the kind of
-  check that surfaces a genuine near-miss in the sequencing of "the fix"
-  versus "the report" that a same-day recap can otherwise blur together.
+- **Our assessment**: This independently-found 13-run failure streak gives
+  concrete shape to the blog's vague "briefly broken" phrase — and badly
+  undercuts it. "Briefly" here means the workflow produced no successful
+  run for nearly two weeks, so the nightly model-inventory check the post
+  profiles was silently dead for roughly half the period leading up to the
+  incident it celebrates. The streak also directly supports Claim 6: PR
+  #59703's Copilot SDK dependency bump merged at 11:43:11Z on Sept 9, and
+  the very next run (#146, 11:43:44Z, a manual `workflow_dispatch` fired
+  33 seconds later rather than a scheduled run) succeeded where the prior
+  thirteen had failed — strong evidence #59703 was the fix for this
+  specific streak, and that someone kicked the workflow by hand to confirm
+  it, landing just ahead of the run that then discovered the `gpt-6-astra`
+  gap. For Ch04 (Context Engineering) or Ch03 (Verification): pulling a
+  workflow's run-conclusion history *back to the last preceding success*
+  is a one-API-call way to quantify a source's own hand-wave ("briefly
+  broken") into an exact incident window — and the lookback has to reach
+  that last success, or the window it produces is an undercount of
+  whatever the default page size happened to cover.
 
 ### Claim 8: The workflow is characterized by "precision and restraint" — its own report states no other alias gaps existed that day, explains why several existing wildcard patterns still correctly match every other new model, and preserves historical model entries rather than pruning them
 - **Evidence**: Verified against the issue's own text: "No other alias
@@ -386,19 +400,36 @@ network:
 Total: 242 models across five providers
 ```
 
-### Actions run history around the incident (fetched via `gh api repos/github/gh-aw/actions/workflows/270418692/runs`, 2026-09-15)
+### Actions run history around the incident (fetched via `gh api repos/github/gh-aw/actions/workflows/270418692/runs?per_page=40`, 2026-09-15)
+
+Full failure streak, bounded at both ends by a successful run:
 
 ```
+Run #132  2026-08-27T01:00:45Z  success   (last success BEFORE the streak)
+Run #133  2026-08-28T02:21:58Z  failure   <- streak begins
+Run #134  2026-08-28T23:53:52Z  failure
+Run #135  2026-08-29T23:54:08Z  failure
+Run #136  2026-08-30T23:54:09Z  failure
+Run #137  2026-08-31T23:54:04Z  failure
+Run #138  2026-09-01T23:54:11Z  failure
+Run #139  2026-09-02T23:54:07Z  failure
+Run #140  2026-09-03T23:53:59Z  failure
+Run #141  2026-09-04T23:53:53Z  failure
+Run #142  2026-09-05T23:54:10Z  failure
 Run #143  2026-09-06T23:54:05Z  failure
 Run #144  2026-09-07T23:54:07Z  failure
-Run #145  2026-09-08T23:53:56Z  failure
-Run #146  2026-09-09T11:43:44Z  success   (started 33s after PR #59703 merged; filed issue #59709)
+Run #145  2026-09-08T23:53:56Z  failure   <- streak ends (13 consecutive failures)
+Run #146  2026-09-09T11:43:44Z  success   (workflow_dispatch, started 33s after PR #59703 merged; filed issue #59709)
 Run #147  2026-09-09T23:54:13Z  success
 Run #148  2026-09-10T23:53:57Z  success
 Run #149  2026-09-11T23:54:21Z  success   (17m20s)
 Run #150  2026-09-12T23:54:16Z  success   (13m22s)
 Run #151  2026-09-13T23:54:00Z  success   (18m03s)
 Run #152  2026-09-14T23:54:00Z  success   (post-publication)
+
+Elapsed between consecutive successes #132 and #146: 13d 10h 43m.
+Every run in the streak failed in 44-78s (created_at -> updated_at);
+successful runs take 10-18 minutes.
 ```
 
 ### PR timing (fetched via `gh pr view 59711`/`59703 --repo github/gh-aw`, 2026-09-15)
@@ -425,7 +456,11 @@ Run #152  2026-09-14T23:54:00Z  success   (post-publication)
     with a real, recurring history of silent breakage that other gh-aw
     agents or this note's own independent API checks have had to surface —
     not a hypothetically fragile design, but one with at least two
-    documented outage/failure-streak incidents four months apart.
+    documented outage incidents roughly two and a half months apart, and
+    the later one substantially worse: six days broken in June versus 13
+    consecutive failed runs (2026-08-28 to 2026-09-08) in the streak found
+    here. Both outages ran for days without the workflow's own owners
+    surfacing them in the blog's own status posts.
   - `blog-ghaw-weekly-2026-08-17.md` Claim 5 (routine "Model inventory
     refresh" changelog bullets, e.g. adding Gemini 3.7 Flash and Grok 4.6
     to the supported model list): this note's Claim 4/8 show the mechanism
@@ -468,16 +503,19 @@ Run #152  2026-09-14T23:54:00Z  success   (post-publication)
   - `blog-ghaw-weekly-2026-06-15.md` Claim 13 and
     `blog-ghaw-weekly-2026-07-06.md` (whose own Cross-References section
     also references that claim): this note adds a second, independently
-    found reliability incident (the Sept 6–8 failure streak, Claim 7) for
-    the same workflow, four months after the June incident those notes
-    document, suggesting recurring fragility rather than a one-off.
+    found reliability incident (the 13-run, 2026-08-28 to 2026-09-08
+    failure streak, Claim 7) for the same workflow, roughly two and a half
+    months after the June incident those notes document, suggesting
+    recurring fragility rather than a one-off.
 
 - **Novel**:
-  - **The exact Sept 6–8 failure streak and its 33-second-margin fix**
-    (Claim 6, Claim 7, Concrete Artifacts) — recovered only by pulling the
-    workflow's own Actions run history; not mentioned in the blog, whose
-    only reference to prior trouble is the vague phrase "a version
-    mismatch had briefly broken the inventory job itself."
+  - **The exact 13-run failure streak (2026-08-28 to 2026-09-08) and its
+    33-second-margin fix** (Claim 6, Claim 7, Concrete Artifacts) —
+    recovered only by pulling the workflow's own Actions run history back
+    to the last preceding success; not mentioned in the blog, whose only
+    reference to prior trouble is the vague phrase "a version mismatch had
+    briefly broken the inventory job itself" for what was in fact a
+    near-two-week outage.
   - **The live workflow's full scheduling/network/timeout configuration**
     (Claim 10, Concrete Artifacts) — the blog never discusses the
     workflow's actual `on:`/`network:`/`timeout-minutes:` settings.
@@ -506,10 +544,17 @@ Run #152  2026-09-14T23:54:00Z  success   (post-publication)
   concrete least-privilege example for a scheduled agent that only needs a
   handful of named external hosts, not general internet access.
 - **Chapter 03 (Verification) or Chapter 04 (Context Engineering)**: Add
-  the "pull a workflow's recent Actions run-conclusion history with one API
-  call to turn a source's vague 'briefly broken' phrase into an exact
-  incident window" technique (Claim 7) as a lightweight verification method
-  for auditing a status post's own reliability claims (or lack thereof).
+  the "pull a workflow's Actions run-conclusion history to turn a source's
+  vague 'briefly broken' phrase into an exact incident window" technique
+  (Claim 7) as a lightweight verification method for auditing a status
+  post's own reliability claims (or lack thereof) — with the accompanying
+  caveat that the lookback must extend back to the last *preceding
+  success* before any streak length is asserted. The first pass of this
+  note read only the default page of run history, saw three failures, and
+  stated a 3-run streak that was actually 13; the failure mode of the
+  technique is that a truncated window still yields a confident-looking
+  exact number. Bound the streak at both ends, or report it as "at least
+  N."
 
 ## Extraction Notes
 
@@ -524,8 +569,9 @@ Run #152  2026-09-14T23:54:00Z  success   (post-publication)
    appear in the source).
 2. **Independent verification against `github/gh-aw`'s live state**: the
    live workflow source file, the actual body of issue #59709, the
-   timestamps of PRs #59711 and #59703, and the ten most recent Actions
-   runs of the workflow (ID 270418692) were all fetched directly via `gh`
+   timestamps of PRs #59711 and #59703, and the Actions run history of the
+   workflow (ID 270418692) back through run #132 — the last success
+   preceding the Sept incident — were all fetched directly via `gh`
    and `curl` — none of this was taken from the blog's own text. This
    follows the same precedent set by
    `blog-ghaw-agent-of-the-day-2026-09-11.md` Extraction Note 2 and
