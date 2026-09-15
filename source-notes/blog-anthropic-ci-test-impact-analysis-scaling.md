@@ -415,7 +415,7 @@ Source: claude.com/blog, closing section, Sep 14, 2026
   tests – and also even slower ones," because agents don't suffer the
   human context-switch cost of a slow pipeline). This exact tension —
   Erez's "more and slower tests" prediction versus evidence pointing the
-  other direction — is already tracked under closed issue **#1510**
+  other direction — is already tracked under issue **#1510**
   ("CI/CD rigor under AI-generated code: rising verification investment
   (predicted) vs. falling human review (observed)"), whose Side A is this
   same Erez claim. Per MINER.md §4a, a contradiction already filed on the
@@ -426,8 +426,25 @@ Source: claude.com/blog, closing section, Sep 14, 2026
   evidence against Erez's specific "more and slower" prediction, though
   Erez's proposed mechanism (agents don't context-switch on a slow pipeline)
   and this post's mechanism (agents need curated, low-noise test signal)
-  are not strictly incompatible — a future resolution of #1510 should weigh
-  this post's evidence alongside the existing two sides.
+  are not strictly incompatible.
+
+  **State of #1510 as of this extraction (2026-09-15) — it is not an active
+  thread.** The issue is CLOSED as `not planned`, carrying labels
+  `contradiction`, `needs-resolution`, `assessment-complete`, and
+  `rejected`. Its only Assayer assessment (2026-07-04) proposed the verdict
+  `unresolved` rather than a substantive one, explicitly because Side B's
+  source note (`blog-pragmaticengineer-orosz-slow-down-speed-up.md`, source
+  issue #1493) had not been mined at that time, and it recommended the issue
+  be re-opened once that note landed. That precondition has since been met:
+  #1493 is now closed and
+  `source-notes/blog-pragmaticengineer-orosz-slow-down-speed-up.md` exists in
+  the corpus (extracted 2026-07-04). So #1510 is currently a dead issue with
+  no owner, holding a verdict that was only ever provisional. The evidence
+  this note adds should not be assumed to be picked up by anyone: whoever
+  maintains the contradiction backlog should re-open #1510 and re-assess it
+  with both Side B's now-existing source note and this post's Claim 9 in
+  scope. Nothing here assigns a verdict — per MINER.md §4a that remains a
+  human (or Smith + human) decision.
 
 - **Extends**:
   - `blog-anthropic-claude-oncall-cicd.md` (Claim 2 — the four-part on-call
@@ -491,8 +508,11 @@ Source: claude.com/blog, closing section, Sep 14, 2026
   taxonomy (Claim 4), and the "curated test selection over run-everything"
   rationale (Claim 9) as a directly relevant counter-data-point to weigh
   against the "more, slower tests" prediction already in the corpus via
-  `blog-pragmaticengineer-erez-cicd.md` (tracked under contradiction #1510
-  — do not present either position as settled).
+  `blog-pragmaticengineer-erez-cicd.md` (tracked under contradiction #1510,
+  which is currently closed/`rejected` with only a provisional `unresolved`
+  assessment and no CONTRADICTIONS.md entry — see the Contradicts section
+  above; do not present either position as settled, and do not treat #1510
+  as an active thread that will resolve itself).
 
 - **Chapter 03 or 06 (Capacity Planning / Org Practices)**: Add the closing
   advice checklist (Claim 11) as a specific, numeric planning heuristic —
@@ -550,11 +570,17 @@ Source: claude.com/blog, closing section, Sep 14, 2026
   closed `contradiction`-labeled issues were both searched. Issue #1510
   already covers the exact Erez "more and slower tests" claim this source's
   Claim 9 bears on; per MINER.md §4a that existing thread was cited instead
-  of filing a duplicate contradiction issue. No CONTRADICTIONS.md entry
-  currently exists for #1510 despite the issue being closed — that is a
-  pre-existing gap in the ledger, not something introduced by this
-  extraction, and is noted here only so the Assayer/Smith are aware the
-  referenced issue's resolution is not yet recorded in the ledger.
+  of filing a duplicate contradiction issue. The full state of #1510 —
+  closed as `not planned`, labeled `rejected`, assessed only provisionally
+  as `unresolved`, with no CONTRADICTIONS.md entry and no active owner — is
+  documented in the Contradicts section above rather than here, because a
+  reader deciding how much weight to give the cross-reference needs it at
+  the point of citation. Two caveats for the Assayer/Smith: (a) the missing
+  ledger entry is a pre-existing gap, not something introduced by this
+  extraction; and (b) the stated reason #1510's assessment stalled (Side B
+  unmined) no longer holds, so citing it as "already tracked" is accurate
+  only in the narrow sense that an issue exists — it is not accurate in the
+  sense that anyone is currently working it.
 - **Confidence rationale**: Overall confidence is set to `anecdotal` because
   every claim rests on one named engineer's first-person account of a
   system he personally operated and redesigned, with no independent audit,
