@@ -283,6 +283,33 @@ may not justify the cost. Reserve this pattern for: security-sensitive
 changes, architectural decisions, and code that is hard to test.
 [editorial]
 
+### Scaling the pattern: gate per checkpoint, not per project
+
+Two-agent review is sized to one diff. For work too large to be one diff,
+Shopify's Helix system applies the same shape per *checkpoint* — a small,
+ordered slice of a migration — with four gates before the next slice starts:
+
+> "The developer points Helix at a screen. Helix reads the React Native code
+> and proposes a sequence of checkpoints (small, ordered slices of the work)
+> that can be reviewed in minutes. Then, checkpoint by checkpoint, it builds:
+> each one must prove its behavior with tests, match the running app in a
+> visual review, survive two adversarial code reviewers, and get a human's
+> nod before it's committed and the next one starts. Feedback from every
+> review is remembered, so the loop gets more autonomous as the migration
+> progresses."
+> [source: blog-shopify-back-to-native, Concrete Artifacts]
+
+Helix exists because the obvious cheaper path failed. Pointing an LLM at the old
+codebase and asking for the port — even with an up-front pass that freezes the
+research into specs and task files — meant "you end up with a huge amount of
+unmaintainable code that can't be shipped."
+[source: blog-shopify-back-to-native, Claim 8] [emerging]
+
+**Rule**: On work larger than one reviewable diff, gate per checkpoint rather
+than per project: tests, then adversarial agent review, then a human, before the
+next checkpoint begins.
+[source: blog-shopify-back-to-native, Claims 8, 9] [emerging]
+
 ### Effort routing for review agents
 
 Cursor's May 2026 Bugbot update gives the first published quantification of
@@ -605,6 +632,49 @@ For security-focused review, run static analysis first and pass its
 findings to the AI reviewer as anchors — this compensates for LLM recall
 gaps and keeps the review focused on security rather than style.
 [source: discussion-hn-autofix-hybrid-review, Claims 1, 3, 8] [emerging]
+
+### Pattern: select tests instead of running them all
+
+Anthropic's CI team gives an agent-specific reason to prefer test selection over
+exhaustiveness, distinct from the usual cost argument:
+
+> "Many of my peers work at organizations where every test is still run on
+> every change. This works up to a point, but doesn't scale: CI gates get
+> increasingly long, expensive, and untrustworthy. Additionally, humans are
+> great at determining which test failures don't apply to them while agents
+> will require more context and direction. When they get a specific set of
+> valid tests, they can self-verify and iterate more effectively."
+> [source: blog-anthropic-ci-test-impact-analysis-scaling, Claim 9] [emerging]
+
+A human reads an unrelated red test and ignores it. An agent spends turns on it.
+
+**Rule**: If agents are expected to self-verify before asking for review, hand
+them a curated, relevant test set rather than the whole suite — a noisy gate
+costs an agent more than it costs a human.
+[source: blog-anthropic-ci-test-impact-analysis-scaling, Claim 9] [emerging]
+
+### CI load grows faster than code volume
+
+Anthropic reports "a 25x increase in CI jobs over a six month period," driven by
+8x more code shipped per engineer per quarter (80% of it Claude-authored), 10x
+test-count growth, and a nominal headcount increase.
+[source: blog-anthropic-ci-test-impact-analysis-scaling, Claim 1] [anecdotal]
+OpenAI's infrastructure lead reports the same shape independently — "roughly a
+10x increase in load on some systems" in about six months, growth that "at most
+companies... might happen over two or three years."
+[source: blog-pragmaticengineer-orosz-openai-software-factory, Claim 10] [emerging]
+
+Two mechanisms compound, and only one is code volume. The other is PR shape:
+"Claude prefers smaller, more granular PRs... This has translated into more CI
+jobs in a given day," and the daily activity floor rises because agents push
+overnight and on weekends.
+[source: blog-anthropic-ci-test-impact-analysis-scaling, Claim 10] [anecdotal]
+
+**Rule**: Size CI for a 10-25x job-count increase within two quarters of serious
+agent adoption, and keep state out of the processes on that path from the start
+so they can shard horizontally.
+[source: blog-anthropic-ci-test-impact-analysis-scaling, Claim 11;
+blog-pragmaticengineer-orosz-openai-software-factory, Claim 10] [emerging]
 
 ### The coverage gap
 

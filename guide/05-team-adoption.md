@@ -301,6 +301,76 @@ blog-bvp-shopify-ai-playbook, Claim 3] [editorial]
 The mistake is to skip rungs because the *vendor* says you can. The vendor
 benchmarks are not your codebase, your engineers, or your harness.
 
+### The second axis: tier by output risk, not just by team maturity
+
+The ramp moves one dial for the whole team. A second framework moves a different
+dial per use case. Anthropic and Accenture's joint deployment guide sorts
+outputs into four oversight tiers matched to stakes, on the argument that
+"Production systems that apply the same level of human review to every AI
+output, regardless of the stakes, either stall under the review burden or start
+cutting corners in ways that introduce risk."
+[source: blog-anthropic-accenture-pilot-to-production, Claim 14] [settled]
+
+```
+Tier 1  Automated  no human review; output goes directly to the workflow
+                   e.g. code documentation, transcript summaries, reformatting
+                   cadence: quarterly audit of output quality
+
+Tier 2  Sampled    random subset reviewed on a regular cadence
+                   e.g. invoice extraction, ticket classification, CRM fields
+                   cadence: start with a high review rate, lower it as error
+                   patterns stabilize
+
+Tier 3  Reviewed   a human approves every output before it reaches its audience
+                   e.g. client communications, externally distributed financial
+                   analysis, contract language, marketing content
+                   cadence: audit the review process monthly for catch rate/cost
+
+Tier 4  Advisory   AI analyzes; a human decides and produces the output
+                   e.g. credit and lending, hiring screens, clinical findings,
+                   regulatory filings
+                   cadence: every decision documented with an audit trail
+```
+*Condensed from the guide's four-tier oversight table.*
+[source: blog-anthropic-accenture-pilot-to-production, Concrete Artifacts] [settled]
+
+Tiers are meant to move. A process with a low error rate sustained over six
+months to a year is a candidate to graduate to a lighter tier.
+[source: blog-anthropic-accenture-pilot-to-production, Claim 14] [settled]
+
+**Debated: can agent-authored code merge without a human?**
+
+Shopify's answer above is "not yet," applied uniformly across the repo
+[source: blog-bvp-shopify-ai-playbook, Claim 3] [emerging]. OpenAI's answer
+is "depends on the file": changes are classified by risk, and "areas of the
+codebase can opt in to an agent that will auto-approve low risk PRs, removing
+human acceptance as a bottleneck and improving velocity," while high-risk
+changes "invoke more AI code reviews, or mandate that a human reviews it after
+the AI agents finish."
+[source: blog-pragmaticengineer-orosz-openai-software-factory, Claim 12] [emerging]
+
+**Our take** [editorial]: These disagree on the shape of the policy, not on the
+principle. Shopify applies one rung to the whole repo; OpenAI applies the tiering
+above to code specifically, which is what lets some paths sit at Tier 1 while
+others stay at Tier 3. The prerequisite is a risk classification of your
+codebase — without one, "auto-approve low-risk PRs" has no definition of
+low-risk to test against.
+
+Tier 3 is also becoming a product default rather than only a team policy. For
+financial advisors, "Investment recommendations, client communications,
+compliance determinations, and other regulated activities remain subject to
+human review and approval"
+[source: blog-anthropic-claude-financial-advisors, Claim 5] [settled]; for
+small-business workflows, "Every workflow starts in approval mode. Claude drafts
+the work and stages it, then waits for your OK."
+[source: blog-anthropic-smb-workflows-integrations-launch, Claim 9] [settled]
+
+**Rule**: Classify outputs — or codebase paths — by blast radius before you set
+review policy, then set the tier per class. One review rule for everything
+either bottlenecks on the cheap cases or under-reviews the expensive ones.
+[source: blog-anthropic-accenture-pilot-to-production, Claim 14;
+blog-pragmaticengineer-orosz-openai-software-factory, Claim 12] [emerging]
+
 ### Senior engineers should be the early adopters
 
 The Pragmatic Engineer survey's staff+ adoption finding (63.5% vs. 49.7% for
@@ -498,6 +568,40 @@ write only on the targets — and treat any example page's single broad `repo`
 scope as a getting-started shortcut rather than a production posture.
 [source: docs-ghaw-multi-repo-ops, Claim 7;
 docs-ghaw-multi-repo-feature-sync, Claim 8] [settled]
+
+### Fleet changes: route by judgment-vs-doing, default to scripts
+
+The topologies above move *workflows* across repos. A different shape moves a
+single *change* across repos, and its cost-control decision transfers regardless
+of which vendor you use. Sourcegraph's Agentic Batch Changes splits each piece of
+a plan by whether it needs reasoning:
+
+> "For each piece of a plan, Agentic Batch Changes decides whether the change
+> needs judgment or just needs doing. When it needs judgment, it hands the
+> repository to Claude Code or Codex with specific instructions and codebase
+> context. Most of the time it writes a script, because a large migration is
+> mostly the same change made over and over, and running a script is far more
+> efficient than working out the same change a hundred times over."
+> [source: blog-sourcegraph-preston-agentic-batch-changes, Claim 5] [emerging]
+
+The judgment half earns its cost where repos diverge. Mercari's team lead, after
+patching a GitHub Actions environment-variable injection across roughly 80 repos
+from a single prompt, named why a script alone would not have done it: "you're
+able to handle repos that have similar, but not identical setups. A normal
+scripted change would most likely be a text search and replace operation without
+any context of how it's actually used."
+[source: blog-sourcegraph-preston-agentic-batch-changes, Claims 8, 9] [anecdotal]
+
+**Rule**: In any cross-repo change, classify each step as script-able or
+judgment-requiring before running it, and spend agent tokens only on the steps
+where the repos actually differ.
+[source: blog-sourcegraph-preston-agentic-batch-changes, Claim 5] [emerging]
+
+One procurement note: this product prices per merged changeset — "If it opens a
+pull request and your team decides not to merge it, you don't pay for it" — the
+first outcome-based model in our corpus, where every other pricing reference is
+per-token, per-seat, or a platform fee.
+[source: blog-sourcegraph-preston-agentic-batch-changes, Claim 11] [settled]
 
 ---
 

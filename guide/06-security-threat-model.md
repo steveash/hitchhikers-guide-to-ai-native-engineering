@@ -41,6 +41,20 @@ Teams that deferred AI-assisted security review because capable models were
 research-access-only can no longer use that deferral.
 [source: blog-simonwillison-aisi-gpt55-cyber, Claim 1] [emerging]
 
+That forecast now has a demonstrated instance. Calif published WeWorm, a
+zero-click worm that spreads through WeChat calls on both iOS and Android, and
+describes the human contribution as targeting and test-safety judgment: "A worm
+at this scale used to be the kind of thing that took a larger team months. AI can
+already do most of the work here. Our team provided the judgment about what to
+target and how to test it safely."
+[source: blog-simonwillison-calif-weworm, Claim 4] [anecdotal]
+The headline speed figure — "found the bug and wrote the first remote code
+execution (RCE) exploit in about two days," plus one more week for the worm —
+does not reconcile cleanly with the team's own published disclosure log, which
+runs from late July to August 11. Read it as weeks rather than the months such
+work used to take, not as an audited nine days.
+[source: blog-simonwillison-calif-weworm, Claim 3] [emerging]
+
 For AI-native engineering teams, this is the asymmetry: you ship more code
 per developer, your attack surface grows in proportion, and the cost for an
 attacker to find chainable bugs in that surface is collapsing toward zero on
@@ -178,6 +192,42 @@ discovery agents in containers and proof-of-concept detonation in a locked-down
 microVM or VM, and run verification in a context that never sees the finder's
 reasoning.
 [source: blog-anthropic-llms-secure-source-code, Claims 3, 6, 7] [emerging]
+
+### Running the audit on your own project: a worked example
+
+Datasette's maintainers ran what they call their first thorough coding agent
+security audit, using Claude Fable 5.1, GPT-5.6 Sol, and GPT-6 Astra together,
+after an outside contributor filed AI-assisted vulnerability reports.
+[source: blog-simonwillison-datasette-1-0a39, Claims 2, 3] [settled]
+Three process details from it transfer to any team running the same play.
+
+**Sweep for variants, not just the reported bug.** "Several rounds of auditing
+(looking for similar issues to those that were already found) revealed a
+significant number of problems" — each confirmed finding becomes the query for
+the next round.
+[source: blog-simonwillison-datasette-1-0a39, Claim 4] [settled]
+The changelog shows why that pays: the permission bugs are one recurring shape,
+a check that exists on the primary path but is skipped on a case-variant table
+name, a derived full-text-search index, a `?_through=` join target, or a
+primary-key lookup.
+[source: blog-simonwillison-datasette-1-0a39, Claim 7] [settled]
+
+**Split the reproducing test from the fix, across two people.** "For most of the
+issues we split the work: one of us would create the automated tests
+highlighting the issue, then the other would implement the fix. This ensured
+that two separate humans had eyes on each of the issues, in addition to our
+coding agents running different models."
+[source: blog-simonwillison-datasette-1-0a39, Claim 5] [settled]
+
+**The audit's own tests are disclosure material.** Reproducing tests spell out
+exploit mechanics, so the maintainers held some back from the public repo to
+give users time to upgrade.
+[source: blog-simonwillison-datasette-1-0a39, Claim 11] [settled]
+
+**Rule**: Treat every confirmed finding as a search pattern for more of its
+class, give the reproducing test and the fix to different people, and plan the
+delayed-disclosure path for the tests themselves before the audit starts.
+[source: blog-simonwillison-datasette-1-0a39, Claims 4, 5, 11] [settled]
 
 ### Gradual trust rollout: shadow → inform → gate
 

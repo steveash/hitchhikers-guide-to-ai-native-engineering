@@ -409,6 +409,15 @@ variable is task type rather than layer: Spiral's subagents do
 quality-sensitive drafting, Fable's do quality-tolerant implementation against
 a settled plan [editorial]. The contradiction is tracked in issue #1627.
 
+Cognition's Fusion harness is a third case, and it lands with Fable. A frontier
+"lead" plans, reviews, and holds the user-facing surface; a cheaper "sidekick"
+executes — "The lead always reviews the work, identifies problems, and can take
+control back when the sidekick is out of its depth."
+[source: blog-cognition-devin-local-fusion, Claim 6] [emerging]
+Two of the three cases now put the capable model on judgment and review, which
+favors the task-type reading over the orchestrator-vs-subagent-layer reading.
+[editorial]
+
 The judgement-based instruction delegates operational calls — which model,
 when to write tests — not safety boundaries; it is not a license to loosen
 "never" prohibitions.
@@ -420,6 +429,39 @@ synthesis; cheaper model for quality-tolerant execution — rather than
 assigning by orchestrator-vs-subagent layer.
 [source: blog-anthropic-managed-agents-dreaming-outcomes, Claim 8;
 blog-simonwillison-fable-judgement, Claims 6, 7] [anecdotal]
+
+### Retune the pairing, not just the models
+
+A lead/sidekick split is not one configuration you set once and carry across
+model swaps. Cognition names three levers that move when either half changes:
+how prescriptive the lead's brief is, whether the sidekick may push back, and
+how much exploration is delegated.
+
+> "Paired with a weaker sidekick, Fable 5.1 needs to provide more prescriptive
+> briefs. We incur more lead tokens upfront, but avoid extra review rounds
+> later."
+> [source: blog-cognition-devin-local-fusion, Claim 9]
+
+Pushback permission inverts on sidekick strength — "With stronger sidekicks,
+encouraging pushback can help catch mistakes in the lead's plan. Allowing weaker
+sidekicks to be opinionated ends up hurting overall performance and cost" — and
+planning-phase exploration is not delegated at all, because it shapes the lead's
+plan.
+[source: blog-cognition-devin-local-fusion, Claim 9] [emerging]
+
+Picking the cheap half on per-token price is the wrong instinct in Cognition's
+own numbers. Moving the sidekick from GPT-5.6 Luna ($0.20/Mtok) to SWE-2
+($0.75/Mtok, a 275% premium) scored higher *and* cost less per session — 63.4 @
+$2.34 against 62.0 @ $2.39 on FrontierCode — because a stronger sidekick needs
+fewer attempts and generates fewer correction rounds for the lead.
+[source: blog-cognition-devin-local-fusion, Claim 8] [emerging]
+This is a single vendor comparison on a vendor benchmark; the direction
+transfers, the two decimal places do not. [editorial]
+
+**Rule**: Re-tune brief verbosity, sidekick pushback permission, and exploration
+scope on every model swap, and choose the cheaper half on measured cost per task
+rather than price per token.
+[source: blog-cognition-devin-local-fusion, Claims 8, 9] [emerging]
 
 ### Cross-model audit for shortcut detection
 

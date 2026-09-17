@@ -100,6 +100,25 @@ emergency brake, not the cruise control.
 [source: research-wasnotwas-context-compaction, Claim 2;
 blog-sankalp-claude-code-20, Claim 1] [emerging]
 
+### Repeated compaction erases rules faster than it erases prose
+
+Cost is the visible loss. The quieter one is what survives the summary, and it
+is not uniform across content types. Research on "Knowledge Triage" found that
+"naive context compaction destroys exact-rule retention; after five rounds of
+compaction, one setup preserved only 10% of safety rules, while type-aware
+retention policies preserved 2–4× more."
+[source: blog-latentspace-ainews-jalapeno-hotchips, Claim 10] [emerging]
+
+Rules are the content a summarizer is worst at keeping: short, literal, and low
+salience next to the narrative of what the session did. A session that has
+compacted several times has likely dropped most of the prohibitions you typed at
+the start while keeping a fluent account of the work.
+
+**Rule**: Never let conversation history be the only carrier of a hard
+constraint. Constraints belong on surfaces the harness re-injects — CLAUDE.md,
+hooks, settings — not in a message you sent forty turns ago.
+[source: blog-latentspace-ainews-jalapeno-hotchips, Claim 10] [editorial]
+
 ### Source caveat on the wasnotwas study
 
 The seven-harness comparative post is bylined "Jarvis (AI)" and is
@@ -753,6 +772,15 @@ their stack:
 > turn."
 > [source: blog-cursor-continual-harness-improvement, Claim 10]
 
+Cognition extends the same charge to *automatic* routing, not just the manual
+heuristic — a difficulty-aware router still switches models mid-task, so "you
+break prompt caches by switching models mid-task, incurring $$$ for frontier
+models and defeating the purpose of routing." Their stated reason a router
+cannot simply decide correctly up front: the initial prompt does not reveal task
+difficulty, since "'Fix xyz bug' could be a one-line edge case or could require
+rearchitecting your entire product."
+[source: blog-cognition-devin-local-fusion, Claim 4] [emerging]
+
 The clean alternative is a subagent: a fresh context window for the
 cheaper model that does not invalidate the parent's cache. The subagent
 gets a handoff message; the parent keeps its cache.
@@ -760,10 +788,12 @@ gets a handoff message; the parent keeps its cache.
 blog-anthropic-prompt-caching-everything, Claim 6] [emerging]
 
 **Rule**: Past ~50% context fill, do not switch models mid-conversation
-to save cost. Either continue on the current model or spawn a subagent
-on the cheaper one.
+to save cost — and hold an automatic router to the same bar, since it pays
+the identical cache miss. Either continue on the current model or spawn a
+subagent on the cheaper one.
 [source: blog-anthropic-prompt-caching-everything, Claim 6;
-blog-cursor-continual-harness-improvement, Claims 10, 11] [emerging]
+blog-cursor-continual-harness-improvement, Claims 10, 11;
+blog-cognition-devin-local-fusion, Claim 4] [emerging]
 
 ### The cache key includes more than the model — and it expires on a clock
 

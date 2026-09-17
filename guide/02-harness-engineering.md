@@ -818,6 +818,45 @@ docs-github-copilot-agent-plugins-1-0, Claim 10] [anecdotal]
 
 ---
 
+## Design the Codebase for the Agent's Feedback Loop
+
+The harness is not only the files you put around the repo. It is also whether
+your application can be exercised at agent speed. Shopify hit that ceiling
+rebuilding its mobile apps natively: "Agents can make code changes in seconds,
+but it takes them several minutes to test the output. This makes iterating
+extremely slow and manual. It doesn't matter how good the model is if it can't
+test its work quickly, which is especially difficult on mobile."
+[source: blog-shopify-back-to-native, Claim 10] [emerging]
+
+The fix was architectural, not prompt-level:
+
+> "The core principle here is that business logic should be completely decoupled
+> from the UI and be able to run headlessly on desktop. We then make it
+> available to agents via a CLI that allows them to iterate on it in
+> milliseconds instead of minutes without involving simulators."
+> [source: blog-shopify-back-to-native, Claim 10]
+
+The failure mode being designed away is specific: simulator-driven verification
+read app state through the accessibility tree or screenshots, slow and brittle
+enough that the team "found ourselves constantly babysitting them as they
+couldn't reliably build, test, and iterate." The CLI keeps a remote mode for
+cases that genuinely need a simulator, driving the UI by command rather than by
+layout inspection.
+[source: blog-shopify-back-to-native, Concrete Artifacts] [emerging]
+
+**Rule**: Find the slowest step in your agent's edit-test cycle and treat it as
+an architecture problem, not a prompting one — a headless, CLI-addressable core
+is worth building so agents can verify their own work without driving a GUI.
+(Documented for mobile, where simulator latency makes the gap widest; no source
+here measures the same payoff on a web or backend stack.)
+[source: blog-shopify-back-to-native, Claim 10] [emerging]
+
+The corpus already holds this thesis pointed outward — agents work better
+against machine-addressable third-party interfaces than against GUIs. What is
+new here is pointing it inward, at your own product's architecture. [editorial]
+
+---
+
 ## The Harness Shrinks as the Model Grows
 
 The "see like an agent" rule above prescribes auditing the harness at each
@@ -1648,6 +1687,22 @@ teams are cost- and review-throughput-bound rather than capability-bound (Ch05,
 §Quality assurance is the major bottleneck) — but for a different reason than
 "better harness, better answers." [editorial]
 
+**Debated: does the harness move capability, or only cost?**
+
+Composio's number says cost. A paper titled "There Is No Neutral Harness" says
+capability: swapping harnesses "could move scores far more than swapping models,
+with model-pair rankings flipping across scaffolds." Its proposed fix is a
+structured "Harness Card" disclosure standard.
+[source: blog-latentspace-ainews-jalapeno-hotchips, Claim 7] [emerging]
+
+**Our take** [editorial]: These are not the same measurement. Composio held one
+model fixed across three harnesses built for roughly the same job; the paper
+reports rankings *between models* flipping depending on the scaffold each ran
+in. Both can hold — a harness can add little over a comparable harness and
+still be large enough to decide which of two models looks better. Either way the
+consequence is the same: a model comparison that does not disclose its harness
+is not a model comparison.
+
 The same digest reports a harness improving itself: "Cline reported that Kimi K3
 spent 17 hours recursively improving the Cline harness, raising Terminal Bench
 performance from 77.5% to 88.8% while reducing run cost from $79 to $49.8."
@@ -1661,11 +1716,22 @@ problem Ch03 documents for coding-agent benchmarks generally. Simultaneous
 quality gain *and* cost reduction is the shape of either a real win or a gamed
 one, and nothing in the reporting distinguishes them. [editorial]
 
+A Microsoft-led paper runs the same loop offline instead of in-session:
+AutoSaddler "treats the harness as code and patches prompts, tool configs, and
+control logic offline using failure traces, reporting gains of +9.0 on GAIA2,
++9.6 on SWE-Bench Pro, and +10.0 on Terminal-Bench 2.0 over base harnesses."
+[source: blog-latentspace-ainews-jalapeno-hotchips, Claim 6] [emerging]
+The failure-trace input is the part worth copying: it hill-climbs against
+recorded failures rather than against the benchmark it reports. [editorial]
+
 **Rule**: When you compare harnesses, hold the model fixed and measure dollars
 and wall-clock alongside task success — success rate is the column where the
-differences are smallest. Before believing any harness-self-improvement number,
-ask whether the eval it improved on was the same signal it optimized against.
-[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claims 12, 13] [emerging]
+differences are smallest. When you compare *models*, disclose the harness, and
+distrust any ranking that doesn't. Before believing a harness-self-improvement
+number, ask whether the eval it improved on was the same signal it optimized
+against.
+[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claims 12, 13;
+blog-latentspace-ainews-jalapeno-hotchips, Claim 7] [emerging]
 
 ---
 
