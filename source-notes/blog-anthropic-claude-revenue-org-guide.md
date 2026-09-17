@@ -66,7 +66,7 @@ issue: "#3501"
   (Level 0-4) in `blog-anthropic-cowork-deploy-guide.md` Claim 2 — different cardinality,
   different organizing axis (organizational scope here vs. technical capability there), and
   no cross-reference between the two guides despite both being first-party Anthropic Cowork
-  adoption frameworks. See **Contradicts** below; a contradiction issue (#3512) has been
+  adoption frameworks. See **Contradicts** below; a contradiction issue (#3514) has been
   filed rather than silently reconciling the two in this note.
 
 ### Claim 2: Cox Communications achieved a 7x first-year ROI on AI investment while cutting sales-lead validation/enrichment costs 86% and raising accuracy from 18% to 97%
@@ -343,7 +343,7 @@ Stage 4: Critical business processes
 Note: this framework does not reference or map onto the five-level (0-4)
 Cowork maturity model in the April 2026 deployment guide
 (blog-anthropic-cowork-deploy-guide.md Claim 2). See Cross-References →
-Contradicts, and contradiction issue #3512.
+Contradicts, and contradiction issue #3514.
 ```
 
 ### Anthropic Sales Plugin — Commands and Skills (PDF Chapter 3, pages 10-11)
@@ -643,8 +643,9 @@ Getting Started — Phase / Action / Done-when (partial, from 2-page table)
     structured four-stage model organized by organizational scope, with no cross-reference
     between the two guides and a terminal stage ("Critical business processes... Claude
     runs the process end to end") that does not clearly map onto Level 4's "department
-    plugin" ceiling. **Contradiction issue filed: #3512.** Do not treat either model as
-    canonical pending resolution.
+    plugin" ceiling. **Contradiction issue filed: #3514.** (An earlier filing, #3512, was
+    auto-rejected at pre-screen for containing no source URL and is closed; #3514 refiles
+    it with both sides' URLs.) Do not treat either model as canonical pending resolution.
 
 - **Extends**:
   - `blog-anthropic-cowork-deploy-guide.md` Claim 5 (three-phase six-month deployment
@@ -697,7 +698,7 @@ Getting Started — Phase / Action / Done-when (partial, from 2-page table)
 
 - **Chapter on Enterprise & Team Adoption (Ch04/Ch05-06 planned)**: Do NOT present either
   this guide's four-stage maturity model or the April deploy guide's five-level model as
-  "the" Anthropic Cowork maturity model until contradiction #3512 is resolved. If a
+  "the" Anthropic Cowork maturity model until contradiction #3514 is resolved. If a
   maturity-model diagram is needed before resolution, cite both explicitly as separately
   published, non-reconciled Anthropic frameworks rather than picking one silently.
 
@@ -771,7 +772,10 @@ Getting Started — Phase / Action / Done-when (partial, from 2-page table)
   vendor-authored, not independently validated). No single confidence level fits the whole
   source; individual claims are rated appropriately above. The maturity-model claim (Claim
   1) is settled as a description of what this guide prescribes, but its relationship to
-  the corpus's other maturity model is unresolved (see contradiction #3512).
-- **Contradiction filed**: #3512 (Cowork adoption maturity model: five technical levels
-  vs. four organizational-scope stages), filed before this PR per MINER.md §4a. Referenced
-  above under Cross-References → Contradicts and in the Claim 1 artifact.
+  the corpus's other maturity model is unresolved (see contradiction #3514).
+- **Contradiction filed**: #3514 (Cowork adoption maturity model: five technical levels
+  vs. four organizational-scope stages), filed per MINER.md §4a. This supersedes #3512, an
+  earlier filing of the same contradiction that was auto-rejected at pre-screen (no source
+  URL in the issue body) and closed; #3514 carries the same substance plus explicit source
+  URLs for both sides. Referenced above under Cross-References → Contradicts and in the
+  Claim 1 artifact.
