@@ -237,7 +237,13 @@ Source: openrouter.ai/docs/api/api-reference/endpoints/list-all-endpoints-for-a-
 `blog-latentspace-ainews-stripe-buys-openrouter.md`, and
 `blog-simonwillison-deepseek-v4-flash-0731.md` were each read in full before
 drafting this section. Claim numbers below were confirmed against each
-cited note's numbered `### Claim N:` headings in document order.
+cited note's numbered `### Claim N:` headings in document order. Where the
+cited material does not live in a numbered claim, it is cited by section
+name instead, per MINER.md §4b step 4 — this applies to the
+`blog-simonwillison-llm-openrouter-06.md` version-history table below,
+which an earlier draft of this note incorrectly attributed to that note's
+Claim 5 (Claim 5 there is the plugin's seven-release evolution summary and
+does not mention the `-o provider` option).
 
 - **Corroborates**:
   - `blog-simonwillison-deepseek-v4-flash-0731.md` Claim 7 (Willison's own
@@ -273,13 +279,16 @@ cited note's numbered `### Claim N:` headings in document order.
     recommendations) is still subject to the per-provider variance
     documented here regardless of which client library or CLI they use to
     reach OpenRouter.
-  - `blog-simonwillison-llm-openrouter-06.md` Claim 5 (llm-openrouter's
-    `-o provider '{JSON}'` option for custom provider routing, added in
-    0.4): that note documents the *existence* of a provider-routing
-    parameter in the plugin without discussing why a practitioner would need
-    it; this note's Claims 2–11 supply the concrete operational motivation
-    for reaching for that option (or the `provider.only` control documented
-    in Claim 12) in the first place.
+  - `blog-simonwillison-llm-openrouter-06.md` → Concrete Artifacts →
+    "llm-openrouter version history" table, 0.4 row (2025-03-10), which
+    records `-o provider '{JSON}'` for custom provider routing: that note
+    documents the *existence* of a provider-routing parameter in the plugin
+    without discussing why a practitioner would need it; this note's
+    Claims 2–11 supply the concrete operational motivation for reaching for
+    that option (or the `provider.only` control documented in Claim 12) in
+    the first place. (Cited by section rather than claim number: the
+    `-o provider` detail appears only in that note's version-history table,
+    not in any of its five numbered claims.)
 
 - **Novel**:
   - **First in-corpus documentation of provider-level (not model-level)
@@ -298,37 +307,69 @@ cited note's numbered `### Claim N:` headings in document order.
   - **The pinned-fallback-chain-still-fails production incident** (Claim
     11): the first in-corpus first-hand account of a multi-provider pinned
     configuration failing in production despite disabling automatic
-    fallback — directly relevant to any guide discussion of provider/model
-    redundancy strategies.
+    fallback. The closest existing guide coverage is
+    `05-team-adoption.md`'s "Model Deprecation Is a Recurring Governance
+    Event" section, which documents the same silent-disappearance risk for
+    pinned *model identifiers* (GitHub's GPT-5.2 deprecation); no source note
+    in this corpus yet documents it for pinned *provider* lists. See Guide
+    Impact for the recommended placement.
 
 ## Guide Impact
 
-- **Chapter 02 (Harness Engineering — model/provider routing)**: Add Claims
-  1, 9, and 11 as the core lesson: OpenRouter's uniform model-ID API surface
-  does not imply a uniform provider *behavioral* contract, and neither
-  "trust automatic fallback" nor "pin your own provider list" is a complete
-  solution — pinning trades consistency risk for correlated-availability
-  risk (Claim 11). Cite Claim 12's `provider.only` / `/endpoints` controls
-  as the concrete mechanism, paired with OpenRouter's own documented caveat
-  that `only` "may significantly reduce fallback options."
-- **Chapter 02 or 03 (Verification / Defensive Response Handling)**: Add
-  Claims 7–8 ("200 OK, no answer" and "hollow completions") as two distinct,
-  named response-validation failure modes any OpenRouter-routed agent loop
-  should explicitly check for beyond HTTP status: (a) empty `content` with
-  no tool call, and (b) a missing `usage` object entirely. Add Claim 6
-  (tool calls leaking as raw unparsed text) as a third defensive-parsing
-  requirement.
-- **Chapter 05 (Testing / Deployment Practices)**: Add Claim 10 (IP-based
-  rate limiting causing a laptop-vs-prod discrepancy for the same API key)
-  as a specific, actionable testing-methodology caution: pre-deployment
-  provider evaluation should run from production infrastructure, not a
-  developer machine, when evaluating a model-routing provider.
-- **Chapter 03/04 (Model Selection & Cost)**: Add Claim 5 (declared
-  quantization is a poor proxy for output quality on OpenRouter, and
-  filtering by it shrinks the fallback pool) as a caution against using the
-  `quantizations` request parameter as a quality-control mechanism; cite the
-  author's own prescription ("filter on the board, not the bits") as the
-  recommended alternative.
+- **`02-harness-engineering.md` (Harness Engineering)** — new section on the
+  routing-gateway layer of the harness. Add Claims 1, 9, and 11 as the core
+  lesson: OpenRouter's uniform model-ID API surface does not imply a uniform
+  provider *behavioral* contract, and neither "trust automatic fallback" nor
+  "pin your own provider list" is a complete solution — pinning trades
+  consistency risk for correlated-availability risk (Claim 11). Cite Claim
+  12's `provider.only` / `/endpoints` controls as the concrete mechanism,
+  paired with OpenRouter's own documented caveat that `only` "may
+  significantly reduce fallback options." Nearest existing anchor in this
+  chapter is Anti-Pattern "7. No Dollar Ceiling on Unsupervised Agent Spend"
+  (the Vercel AI Gateway material), which is currently the chapter's only
+  treatment of an LLM gateway sitting between the harness and the providers;
+  this note supplies the reliability dimension of that same layer, where
+  that section covers the spend dimension.
+- **`02-harness-engineering.md` (Harness Engineering)** — same new section.
+  Add Claim 5 (declared quantization is a poor proxy for output quality on
+  OpenRouter, and filtering by it shrinks the fallback pool) as a caution
+  against configuring the `quantizations` request parameter as a
+  quality-control mechanism; cite the author's own prescription ("filter on
+  the board, not the bits") as the recommended alternative. This is a
+  provider-selection *configuration* recommendation, which belongs with the
+  other routing-config guidance above rather than in a cost or
+  model-selection discussion — this guide has no such chapter or theme.
+- **`03-verification.md` (Verification)** — new section on validating a
+  routed model response. Add Claims 7–8 ("200 OK, no answer" and "hollow
+  completions") as two distinct, named response-validation failure modes any
+  OpenRouter-routed agent loop should explicitly check for beyond HTTP
+  status: (a) empty `content` with no tool call, and (b) a missing `usage`
+  object entirely. Add Claim 6 (tool calls leaking as raw unparsed text) as a
+  third defensive-parsing requirement. This extends the chapter's existing
+  "Known Verification Failure Modes" section with failure modes that
+  originate in the serving layer rather than in the model's reasoning.
+- **`03-verification.md` (Verification)** — benchmark-methodology material.
+  Add Claim 10 (IP-based rate limiting causing a laptop-vs-prod discrepancy
+  for the same API key) as a specific, actionable evaluation-methodology
+  caution: pre-deployment provider evaluation should run from production
+  infrastructure, not a developer machine. Add Claim 2 (a 20–30 point
+  TAU-Bench swing across providers serving identical weights) as a further
+  reason a published score does not transfer to your deployment. Both sit
+  naturally alongside the chapter's existing "Benchmark Scores Can Measure
+  Retrieval, Not Coding" section, which already makes the more general
+  argument that a benchmark number depends on the conditions under which it
+  was measured.
+- **`05-team-adoption.md` (Team Adoption) → existing "Model Deprecation Is a
+  Recurring Governance Event" section**: Claim 11 is directly on point for
+  this section's thesis that "Workflows that pin specific model identifiers
+  have a shelf life measured in weeks, not months" and that the failure mode
+  is silent. Claim 11 is the same governance risk one layer down — a pinned
+  *provider* list, not a pinned model ID, degrading within two weeks
+  (Cloudflare silently ceasing to serve the model at all is exactly the
+  silent-disappearance pattern that section documents for GitHub's GPT-5.2
+  deprecation). Recommend adding it there as a second, independently-sourced
+  instance, and noting that the governance checklist should cover pinned
+  provider/endpoint configuration alongside pinned model identifiers.
 
 ## Extraction Notes
 
