@@ -6,7 +6,7 @@ author: Sankalp (@dejavucoder)
 date_published: 2025-12-27
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: emerging
 issue: "hi-e93.2"
 ---

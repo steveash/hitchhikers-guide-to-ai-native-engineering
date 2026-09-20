@@ -120,7 +120,7 @@ the cheapest, most durable persistence channel you have.
 The core execution loop for one human + one agent working on a focused
 task. This is what Osmani calls the "conductor" model -- you are
 pair-programming, not managing a fleet.
-[source: blog-addyosmani-code-agent-orchestra, Claim 1] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 1] [stale]
 
 The loop has four steps:
 
@@ -134,7 +134,7 @@ The loop has four steps:
 Each step is a natural checkpoint. The plan step is where you prevent
 bad work, not the verify step. A bad plan produces a large diff you
 must reject; a good plan produces a diff you can review in minutes.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [stale]
 
 ### Example: the loop in practice
 
@@ -174,7 +174,7 @@ For tasks that exceed a single context window (large features, multi-file refact
 "Ralph Wiggum Technique" in the community) is a stateless-but-iterative
 cycle where the agent picks up where it left off by reading persistent
 state rather than relying on conversation history.
-[source: blog-addyosmani-code-agent-orchestra, Claim 6] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 6] [stale]
 
 ### The five-step cycle
 
@@ -195,13 +195,13 @@ Memory persists through four channels, NOT through conversation history:
 | Task state | Remaining work, dependencies | `prd.json`, `tasks.json` |
 | Agent config | Rules, patterns, knowledge | `AGENTS.md` |
 
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 3 (Self-Improving Agents)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 3 (Self-Improving Agents)] [stale]
 
 ### Stopping conditions
 
 Without explicit stop conditions, the Ralph Loop runs forever. Define
 these before starting:
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [stale]
 
 ```
 - Max 50 iterations
@@ -216,7 +216,7 @@ Use this when a task will take more than ~30 minutes of agent time, or
 when you notice the agent starting to lose track of earlier context.
 The deliberate context reset prevents the drift and tunnel vision that
 accumulate in long sessions.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [stale]
 
 ### Counter-evidence
 
@@ -240,12 +240,12 @@ When you move from one agent to multiple agents running in parallel,
 the skill set changes. You stop pair-programming and start managing.
 Osmani frames this as the shift from "conductor" (you play with one
 instrument) to "orchestrator" (you coordinate a section).
-[source: blog-addyosmani-code-agent-orchestra, Claim 1] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 1] [stale]
 
 ### The Factory Model
 
 The six-step production line for multi-agent work:
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [stale]
 
 ```
 1. Plan     — Specs with acceptance criteria
@@ -320,7 +320,7 @@ understand findings before directing follow-up work."
 If an agent has not made significant progress in 15 minutes, it should
 stop and report blockers. This is a management cadence, not a timer --
 you check in on your agents the way a tech lead checks in on a team.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 5 (Coding Agents Manager)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 5 (Coding Agents Manager)] [stale]
 
 ```
 Check-in questions (every 15 minutes):
@@ -599,7 +599,7 @@ the other four are the levers that prevent it.
 3. **The agent ignores a CLAUDE.md rule it was following earlier.**
    Context window pressure pushes earlier instructions out of working
    memory. Restarting reloads the full config.
-   [source: practitioner-frankray78-netpace] [emerging]
+   [source: practitioner-frankray78-netpace] [stale]
 
 4. **Token count is climbing without corresponding code changes.** The
    agent is generating reasoning that does not produce work. Kill and
@@ -618,7 +618,7 @@ the other four are the levers that prevent it.
 Commit before restarting. The Ralph Loop's four memory channels (git
 history, progress log, task state, agent config) are your persistence
 layer. Anything not in one of these channels is lost.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 3] [stale]
 
 If you use tin's lifecycle hooks, the `SessionEnd` hook auto-commits
 for you. If you do not, commit manually.
@@ -631,7 +631,7 @@ for you. If you do not, commit manually.
 Not every task benefits from an agent. The three-part delegation
 framework (adapted from OpenAI's framework, via Osmani) provides
 concrete criteria:
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 5 (Coding Agents Manager)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 5 (Coding Agents Manager)] [stale]
 
 ### Fully delegate (fire and forget)
 
@@ -643,7 +643,7 @@ Tasks that are mechanical, well-specified, and easy to verify:
 - Writing tests for existing, well-understood functions
 
 The agent works unsupervised. You review the final diff.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [stale]
 
 One less obvious category also belongs here: cold-start codebase exploration.
 Give Claude Code an unfamiliar repository and a bounded question, and expect
@@ -663,7 +663,7 @@ Tasks that involve judgment at specific decision points:
 Use the "Ask First" tier from the three-tier boundary system (see
 Chapter 02) to create natural pause points. The agent works, but
 stops for your approval at key decisions.
-[source: blog-addyosmani-code-agent-orchestra, Linked Sources 4, 5] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Sources 4, 5] [stale]
 
 ### Do not delegate
 
@@ -677,7 +677,7 @@ Tasks where the value IS the understanding:
 For these tasks, use the agent for **inquiry** ("explain this code," "what are the failure modes here?"), not delegation. The Anthropic
 study found that conceptual inquiry sessions produced comprehension
 scores above 65%, while pure delegation sessions dropped below 40%.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [stale]
 
 ### The task-size threshold
 
