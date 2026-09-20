@@ -43,7 +43,7 @@ independent sources, treat it as the strongest single rule of thumb in
 this chapter: **assume your effective context window is half its
 advertised size.**
 [source: blog-french-owen-coding-agents-feb-2026, Claim 1;
-blog-sankalp-claude-code-20, Claim 2] [emerging]
+blog-sankalp-claude-code-20, Claim 2] [stale]
 
 ### Most of the budget is gone before you start
 
@@ -98,7 +98,7 @@ cost 0.1x base input pricing; after compaction, the next turn pays full
 fires, not to be rescued by it. Your harness's auto-compactor is the
 emergency brake, not the cruise control.
 [source: research-wasnotwas-context-compaction, Claim 2;
-blog-sankalp-claude-code-20, Claim 1] [emerging]
+blog-sankalp-claude-code-20, Claim 1] [stale]
 
 ### Source caveat on the wasnotwas study
 
@@ -132,7 +132,7 @@ the next turn pays full prefill on the rebuilt cache. The wasnotwas
 measurement captures that second cost, which cache-safe forking does
 not address.
 [source: blog-anthropic-prompt-caching-everything, Claim 11;
-research-wasnotwas-context-compaction, Claim 2] [emerging]
+research-wasnotwas-context-compaction, Claim 2] [stale]
 
 The practical consequence for users: cache-safe forking makes the
 compaction call itself cheap, but the post-compaction rebuild still
@@ -149,7 +149,7 @@ the prescription. A spec or plan file is compressed context: a few
 hundred tokens of structured intent that the agent can re-read on every
 session, instead of rediscovering it conversationally each time.
 [source: blog-french-owen-coding-agents-feb-2026, Claim 3;
-blog-osmani-good-spec, Claim 3] [emerging]
+blog-osmani-good-spec, Claim 3] [stale]
 
 ### The mechanism: plan files survive compaction
 
@@ -176,7 +176,7 @@ clearer prompt format. If you want
 state to make it through a compaction event, put it in the plan, not the
 conversation.
 [source: research-wasnotwas-context-compaction, Claim 5;
-blog-sankalp-claude-code-20, Claim 6] [emerging]
+blog-sankalp-claude-code-20, Claim 6] [stale]
 
 French-Owen makes the same point from the budget angle:
 
@@ -264,7 +264,7 @@ tokens. Osmani's "curse of instructions" is the mechanism behind that
 empirical observation.
 [source: blog-osmani-good-spec, Claim 5;
 failure-claudemd-ignored-compaction, Lessons 1, 5 (cross-reference)]
-[emerging]
+[stale]
 
 **Counter-evidence**: Supabase ships a 931-line CLAUDE.md and treats it
 as their primary agent surface (Ch02). They have the resources to make
@@ -317,7 +317,7 @@ This is the manual analog of French-Owen's "smart half" rule. Sankalp's
 brackets the practitioner consensus. Both numbers are dramatically below
 the harness's auto-compact trigger.
 [source: blog-sankalp-claude-code-20, Claim 1;
-blog-french-owen-coding-agents-feb-2026, Claim 1] [emerging]
+blog-french-owen-coding-agents-feb-2026, Claim 1] [stale]
 
 The lesson is the spread itself: nobody who actually monitors context
 waits for the auto-compactor to fire. Treat 50-60% as your handoff
@@ -370,7 +370,7 @@ default. Claude Code's 89% means by the time the auto-compactor fires,
 the model has been operating in the degraded long-context regime for the
 entire back half of the session.
 [source: research-wasnotwas-context-compaction, Claim 1;
-blog-french-owen-coding-agents-feb-2026, Claim 1] [emerging]
+blog-french-owen-coding-agents-feb-2026, Claim 1] [stale]
 
 **Rule**: Look up your harness's threshold. Set your manual handoff at
 roughly half of it. The auto-compactor is a safety net, not a workflow.
@@ -414,7 +414,7 @@ The same `/context` command is what Cowrie used to discover the 96%
 boilerplate problem. It is the one diagnostic every Claude Code user
 should know.
 [source: blog-bswen-mcp-token-cost, Claim 6;
-blog-sankalp-claude-code-20, Claim 7] [settled]
+blog-sankalp-claude-code-20, Claim 7] [emerging]
 
 ### Chunking work that's too big
 
@@ -458,7 +458,7 @@ Three things make it through:
 Everything else (conversation, intermediate reasoning, the architectural "why" decker lost) is gone after compaction. If you need it preserved,
 it has to land in one of those three buckets.
 [source: research-wasnotwas-context-compaction, Claim 5;
-failure-decker-4hr-session-loss, Lesson 2] [emerging]
+failure-decker-4hr-session-loss, Lesson 2] [stale]
 
 ### Where Claude Code customization lives
 
@@ -480,7 +480,7 @@ particular are a context-cheap form of customization -- configured
 once, reused across sessions, and not subject to per-call overhead the
 way MCP servers are.
 [source: blog-sankalp-claude-code-20, Claim 4;
-blog-bswen-mcp-token-cost, Claim 1 (cross-reference)] [emerging]
+blog-bswen-mcp-token-cost, Claim 1 (cross-reference)] [stale]
 
 A fourth location sits outside Sankalp's list:
 `~/.claude/projects/<project>/memory/`. Claude Code will write structured
@@ -507,7 +507,7 @@ history, tool calls, results. It is not designed to be edited by users,
 but it is preserved on disk and can be backed up trivially. See the
 backup script in "Restart Recovery" below.
 [source: failure-decker-4hr-session-loss, Lesson 3 / Recovery Path]
-[settled]
+[emerging]
 
 ### Write the "why" to a file immediately
 
@@ -529,7 +529,7 @@ turn*. Do not trust the conversation to preserve the "why" through
 compaction. The active plan file is one of the three things the harness
 re-injects; the conversation is not.
 [source: failure-decker-4hr-session-loss, Lesson 2;
-research-wasnotwas-context-compaction, Claim 5] [emerging]
+research-wasnotwas-context-compaction, Claim 5] [stale]
 
 ---
 
@@ -619,13 +619,13 @@ context. Compare to decker's failure case, where the user tried to
 rebuild context conversationally *after* compaction had already
 flattened the dialogue, and spent 45 minutes failing.
 [source: blog-sankalp-claude-code-20, Claim 3;
-failure-decker-4hr-session-loss, Lesson 4] [emerging]
+failure-decker-4hr-session-loss, Lesson 4] [stale]
 
 **Rule**: Generate the handoff document while context is healthy. Do
 not wait until the session feels degraded -- by then, the rationale you
 wanted to capture has already been summarized.
 [source: blog-sankalp-claude-code-20, Claim 3;
-failure-decker-4hr-session-loss, Lesson 4] [emerging]
+failure-decker-4hr-session-loss, Lesson 4] [stale]
 
 ### Anti-pattern: conversational rebuild after compaction
 
@@ -683,7 +683,7 @@ That second signal often arrives *before* the fill percentage would
 predict, because long conversations degrade model performance even when
 they fit in the window.
 [source: blog-sankalp-claude-code-20, Claim 5;
-failure-decker-4hr-session-loss, Lesson 1] [emerging]
+failure-decker-4hr-session-loss, Lesson 1] [stale]
 
 **Rule**: Trust both signals. If the model feels degraded, hand off,
 even if `/context` says you have headroom. The smart-half rule is about
@@ -912,7 +912,7 @@ Pair this with the smart-half rule and the conclusion is unavoidable:
 **a 15-MCP-server user has burned their entire usable context window on
 tool definitions before saying hello.**
 [source: blog-bswen-mcp-token-cost, Claim 3;
-blog-french-owen-coding-agents-feb-2026, Claim 1] [emerging]
+blog-french-owen-coding-agents-feb-2026, Claim 1] [stale]
 
 ### Recommended budget: 3-6 essential servers
 
@@ -934,7 +934,7 @@ line:
 
 > "MCP eats tons of tokens for things that should be bash scripts."
 > [source: blog-bswen-mcp-token-cost, Claim 5 (Reddit quote, approvingly
-> cited)] [emerging]
+> cited)] [stale]
 
 Many MCP servers wrap CLIs that the agent could call directly via Bash
 for free. The wrapper is convenient but expensive. Sentry's `settings.json`
@@ -942,7 +942,7 @@ allowlist of 60+ Bash command prefixes (Ch02) is the structural
 alternative: granular control over what the agent can run, with zero
 per-session token tax for the unused commands.
 [source: blog-bswen-mcp-token-cost, Claim 5;
-practitioner-getsentry-sentry (cross-reference)] [emerging]
+practitioner-getsentry-sentry (cross-reference)] [stale]
 
 **Rule**: Before adding an MCP server, ask whether a bash command and a
 slash command would do the same job. If yes, skip the server.

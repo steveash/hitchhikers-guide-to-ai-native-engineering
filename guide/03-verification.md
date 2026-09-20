@@ -14,7 +14,7 @@ This creates an asymmetry: generation capacity permanently exceeds
 verification capacity. Human review is the safety system, and it is
 always the bottleneck.
 [source: blog-addyosmani-code-agent-orchestra, Claim 5;
-blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [emerging]
+blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [stale]
 
 The evidence for this is both structural and empirical. Structurally,
 a single engineer can run 3-5 agents in parallel, each producing code
@@ -51,7 +51,7 @@ Linters, formatters, type checkers, and test suites run automatically
 and catch mechanical errors without human involvement. This is your
 foundation.
 [source: practitioner-mikelane-pytest-test-categories,
-practitioner-frankray78-netpace] [settled]
+practitioner-frankray78-netpace] [emerging]
 
 pytest-test-categories enforces this with pre-commit hooks:
 
@@ -121,7 +121,7 @@ inject reminder text are still advisory -- one practitioner reports
 "Claude occasionally still ignores hooks as well" for guidance-type
 injection.
 [source: practitioner-frankray78-netpace, practitioner-dadlerj-tin,
-failure-claudemd-ignored-compaction, Lesson 3] [emerging]
+failure-claudemd-ignored-compaction, Lesson 3] [stale]
 
 The distinction matters quantitatively. Christopher Montes measured ~60%
 baseline CLAUDE.md compliance, rising to 90%+ after deploying a
@@ -138,7 +138,7 @@ confirm that compliance drops noticeably after Auto Compact fires.
 The compaction summarizer has no mechanism to distinguish critical
 rules from incidental context -- it compresses everything equally.
 [source: failure-claudemd-ignored-compaction, Lesson 2;
-failure-hooks-enforcement-2k, Lesson 2] [emerging]
+failure-hooks-enforcement-2k, Lesson 2] [stale]
 
 SessionStart hooks are the architectural answer: they fire on startup,
 resume, clear, AND compact. Use them to re-inject critical rules as
@@ -187,7 +187,7 @@ what hooks miss because it runs the full test suite in a clean environment,
 not just the checks the developer configured locally.
 [source: practitioner-getsentry-sentry, practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js, practitioner-mikelane-pytest-test-categories,
-practitioner-frankray78-netpace] [settled]
+practitioner-frankray78-netpace] [emerging]
 
 postgres_dba runs tests across six PostgreSQL versions (13-18):
 
@@ -208,7 +208,7 @@ NetPace runs four CI workflows including CodeQL security analysis:
 ```
 
 [source: practitioner-nikolays-postgres-dba,
-practitioner-frankray78-netpace] [emerging]
+practitioner-frankray78-netpace] [stale]
 
 **Rule**: If your repo does not have CI gates on pull requests, add them
 before adding AI agents. An agent without CI is a machine that writes
@@ -708,7 +708,7 @@ command execution with explicit Allow/Deny/Ask differentiation. Block
 This is more reliable than writing "NEVER run rm -rf" in CLAUDE.md,
 which is subject to the ~70-80% prose compliance ceiling.
 [source: failure-hooks-enforcement-2k, Recovery Path (command_restrictor.py,
-validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [emerging]
+validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [stale]
 
 ### Trust-degradation in automated pipelines
 
