@@ -477,6 +477,9 @@
         "https://simonwillison.net/2026/Sep/12/paul-ford/",
         "https://simonwillison.net/2026/Sep/12/sighting-399708714/",
         "https://simonwillison.net/2026/Sep/13/shot-scraper/",
+        "https://simonwillison.net/2026/Sep/14/commit-rewriter/",
+        "https://simonwillison.net/2026/Sep/14/influences/",
+        "https://simonwillison.net/2026/Sep/14/laurie-voss/",
         "https://simonwillison.net/2026/Sep/2/claudes-new-system-prompt/",
         "https://simonwillison.net/2026/Sep/2/llm-anthropic/",
         "https://simonwillison.net/2026/Sep/2/llm-gemini/",
@@ -504,7 +507,7 @@
         "https://simonwillison.net/2026/Sep/9/terence-tao/",
         "https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything"
       ],
-      "last_scan": "2026-09-20T06:06:48.091931+00:00"
+      "last_scan": "2026-09-21T06:10:43.613255+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -540,7 +543,7 @@
         "https://lucumr.pocoo.org/2026/9/5/latent-powers/",
         "https://lucumr.pocoo.org/2026/9/7/astra-why/"
       ],
-      "last_scan": "2026-09-20T06:06:50.360398+00:00"
+      "last_scan": "2026-09-21T06:10:45.662005+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -577,7 +580,7 @@
         "69d7c7e5f4b5380001c805e3",
         "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-09-20T06:06:55.140841+00:00"
+      "last_scan": "2026-09-21T06:10:50.144870+00:00"
     },
     "github-copilot": {
       "seen": [
@@ -815,7 +818,7 @@
         "https://github.blog/changelog/2026-09-18-github-copilot-weekly-releases-september-14",
         "https://github.blog/changelog/2026-09-18-upcoming-deprecation-of-selected-github-copilot-models-in-mid-october"
       ],
-      "last_scan": "2026-09-20T06:06:52.829049+00:00"
+      "last_scan": "2026-09-21T06:10:47.728321+00:00"
     },
     "anthropic-engineering": {
       "seen": [
@@ -845,7 +848,7 @@
         "https://www.anthropic.com/engineering/swe-bench-sonnet",
         "https://www.anthropic.com/engineering/writing-tools-for-agents"
       ],
-      "last_scan": "2026-09-20T06:06:57.170624+00:00"
+      "last_scan": "2026-09-21T06:10:52.284607+00:00"
     },
     "claude-blog": {
       "seen": [
@@ -1099,7 +1102,7 @@
         "https://claude.com/blog/your-thinking-partner",
         "https://claude.com/blog/zero-trust-for-ai-agents"
       ],
-      "last_scan": "2026-09-20T06:06:59.201639+00:00"
+      "last_scan": "2026-09-21T06:10:54.417774+00:00"
     },
     "cursor-blog": {
       "seen": [
@@ -1171,7 +1174,7 @@
         "https://cursor.com/blog/warp-decode",
         "https://cursor.com/blog/wayfair"
       ],
-      "last_scan": "2026-09-20T06:07:01.324813+00:00"
+      "last_scan": "2026-09-21T06:10:56.543627+00:00"
     },
     "the-batch": {
       "seen": [
@@ -1916,7 +1919,7 @@
         "https://www.deeplearning.ai/the-batch/issue-xvi",
         "https://www.deeplearning.ai/the-batch/issue-xvi/"
       ],
-      "last_scan": "2026-09-20T06:07:03.365767+00:00"
+      "last_scan": "2026-09-21T06:10:58.583529+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
@@ -1996,7 +1999,7 @@
         "https://github.github.com/gh-aw/blog/2026-09-14-weekly-update/",
         "https://github.github.com/gh-aw/blog/2026-09-15-agent-of-the-day/"
       ],
-      "last_scan": "2026-09-20T06:07:05.508466+00:00"
+      "last_scan": "2026-09-21T06:11:00.705924+00:00"
     },
     "sourcegraph": {
       "seen": [
@@ -2071,7 +2074,7 @@
         "https://sourcegraph.com/blog/why-coding-agents-fail-large-codebases",
         "https://sourcegraph.com/blog/why-your-migration-tools-are-failing-your-engineers"
       ],
-      "last_scan": "2026-09-20T06:07:07.779220+00:00"
+      "last_scan": "2026-09-21T06:11:02.992946+00:00"
     },
     "martin-fowler": {
       "seen": [
@@ -2134,7 +2137,7 @@
         "tag:martinfowler.com,2026-09-09:Social-Media-Engagement--summer-2026",
         "tag:martinfowler.com,2026-09-15:Nail-the-Narrative"
       ],
-      "last_scan": "2026-09-20T06:07:10.304438+00:00"
+      "last_scan": "2026-09-21T06:11:05.486458+00:00"
     },
     "openai-news": {
       "seen": [
@@ -2537,6 +2540,7 @@
         "https://openai.com/index/evolved-policy-gradients",
         "https://openai.com/index/evolving-our-structure",
         "https://openai.com/index/expanding-access-to-ai-with-chatgpt-ads",
+        "https://openai.com/index/expanding-ai-access-us-government",
         "https://openai.com/index/expanding-data-residency-access-to-business-customers-worldwide",
         "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows",
         "https://openai.com/index/expanding-economic-opportunity-with-ai",
@@ -2733,6 +2737,7 @@
         "https://openai.com/index/introducing-chatgpt-atlas",
         "https://openai.com/index/introducing-chatgpt-edu",
         "https://openai.com/index/introducing-chatgpt-enterprise",
+        "https://openai.com/index/introducing-chatgpt-financial-services",
         "https://openai.com/index/introducing-chatgpt-futures-class-of-2026",
         "https://openai.com/index/introducing-chatgpt-go",
         "https://openai.com/index/introducing-chatgpt-health",
@@ -3346,7 +3351,7 @@
         "https://openai.com/openai-o1-contributions",
         "https://openai.com/signals/research/2026q1-update"
       ],
-      "last_scan": "2026-09-20T06:07:14.251969+00:00"
+      "last_scan": "2026-09-21T06:11:09.925624+00:00"
     },
     "pragmatic-engineer": {
       "seen": [
@@ -3399,7 +3404,7 @@
         "https://newsletter.pragmaticengineer.com/p/why-ramp-built-inspect",
         "https://newsletter.pragmaticengineer.com/p/why-rust-is-different-with-alice"
       ],
-      "last_scan": "2026-09-20T06:07:16.402363+00:00"
+      "last_scan": "2026-09-21T06:11:12.068498+00:00"
     },
     "jetbrains-ai": {
       "seen": [
@@ -3427,7 +3432,7 @@
         "https://blog.jetbrains.com/?post_type=junie&p=713100",
         "https://blog.jetbrains.com/?post_type=kotlin&p=720155"
       ],
-      "last_scan": "2026-09-20T06:07:18.462331+00:00"
+      "last_scan": "2026-09-21T06:11:14.130493+00:00"
     },
     "google-developers": {
       "seen": [
@@ -3491,7 +3496,7 @@
         "https://developers.googleblog.com/why-go-is-an-ideal-language-for-ai-assisted-software-engineering/",
         "https://developers.googleblog.com/why-we-built-adk-20/"
       ],
-      "last_scan": "2026-09-20T06:07:20.799569+00:00"
+      "last_scan": "2026-09-21T06:11:16.449876+00:00"
     },
     "kent-beck": {
       "seen": [
@@ -3528,7 +3533,7 @@
         "https://newsletter.kentbeck.com/p/why-so-literal",
         "https://newsletter.kentbeck.com/p/you-dont-get-to-create-anything-6cb"
       ],
-      "last_scan": "2026-09-20T06:07:23.002623+00:00"
+      "last_scan": "2026-09-21T06:11:18.614807+00:00"
     },
     "geoffrey-huntley": {
       "seen": [
@@ -3549,7 +3554,7 @@
         "6a3ed2a7c2c506000126383b",
         "6a62218f0f1c8c00017eef0c"
       ],
-      "last_scan": "2026-09-20T06:07:25.064172+00:00"
+      "last_scan": "2026-09-21T06:11:20.678670+00:00"
     },
     "hamel-husain": {
       "seen": [
@@ -3569,7 +3574,7 @@
         "https://hamel.dev/blog/posts/prompt/",
         "https://hamel.dev/blog/posts/revenge/"
       ],
-      "last_scan": "2026-09-20T06:07:27.246646+00:00"
+      "last_scan": "2026-09-21T06:11:22.865214+00:00"
     },
     "thoughtworks": {
       "seen": [
@@ -6327,7 +6332,7 @@
         "https://www.thoughtworks.com/insights/blog/youre-invited-discuss-future-internet",
         "https://www.thoughtworks.com/insights/blog/zhong-tai-radical-approach-enterprise-it"
       ],
-      "last_scan": "2026-09-20T06:07:29.375326+00:00"
+      "last_scan": "2026-09-21T06:11:25.022724+00:00"
     },
     "addy-osmani": {
       "seen": [
@@ -6336,6 +6341,8 @@
         "https://addyosmani.com/blog/agentic-autonomy-levels/",
         "https://addyosmani.com/blog/agentic-code-quality/",
         "https://addyosmani.com/blog/agentic-code-review/",
+        "https://addyosmani.com/blog/agentic-skill-decay/",
+        "https://addyosmani.com/blog/audit-your-agent-files/",
         "https://addyosmani.com/blog/career-advice-age-of-agents/",
         "https://addyosmani.com/blog/cognitive-surrender/",
         "https://addyosmani.com/blog/dont-outsource-learning/",
@@ -6350,7 +6357,7 @@
         "https://addyosmani.com/blog/practical-loop-engineering/",
         "https://addyosmani.com/blog/software-factories/"
       ],
-      "last_scan": "2026-09-20T06:07:31.444707+00:00"
+      "last_scan": "2026-09-21T06:11:29.375355+00:00"
     },
     "latent-space": {
       "seen": [
@@ -6389,6 +6396,7 @@
         "https://www.latent.space/p/ainews-memory-prices-up-500-in-12",
         "https://www.latent.space/p/ainews-much-ado-about-open-weights",
         "https://www.latent.space/p/ainews-muse-glimmer-and-spark-open",
+        "https://www.latent.space/p/ainews-muse-spark-13-matches-gpt",
         "https://www.latent.space/p/ainews-not-much-happened-today-038",
         "https://www.latent.space/p/ainews-not-much-happened-today-07e",
         "https://www.latent.space/p/ainews-not-much-happened-today-173",
@@ -6439,7 +6447,7 @@
         "https://www.latent.space/p/wayfinder-skill",
         "https://www.latent.space/p/xaira"
       ],
-      "last_scan": "2026-09-20T06:07:34.457988+00:00"
+      "last_scan": "2026-09-21T06:11:32.348098+00:00"
     },
     "vercel": {
       "seen": [
@@ -7209,6 +7217,7 @@
         "https://vercel.com/changelog/configure-where-run-state-lives-in-vercel-workflows",
         "https://vercel.com/changelog/configure-which-sources-can-create-deployments-with-deployment-policies",
         "https://vercel.com/changelog/connect-to-and-manage-sandboxes-from-the-dashboard",
+        "https://vercel.com/changelog/connect-v0-apps-to-slack-google-and-100-other-services",
         "https://vercel.com/changelog/consolidated-build-and-deployment-settings",
         "https://vercel.com/changelog/consolidated-commit-status-now-available-for-github",
         "https://vercel.com/changelog/convex-joins-the-vercel-marketplace",
@@ -7951,7 +7960,7 @@
         "https://vercel.com/changelog/zero-configuration-support-for-nitro",
         "https://vercel.com/changelog/zero-data-retention-no-prompt-training-on-ai-gateway"
       ],
-      "last_scan": "2026-09-20T06:07:37.800633+00:00"
+      "last_scan": "2026-09-21T06:11:35.596732+00:00"
     },
     "mattwood": {
       "seen": [
@@ -7998,8 +8007,8 @@
         "https://mattwood.blog/essays/2026/08/the-unit-of-return/",
         "https://mattwood.blog/essays/2026/08/the-wicked-frontier/"
       ],
-      "last_scan": "2026-09-20T06:07:40.185151+00:00"
+      "last_scan": "2026-09-21T06:11:37.703529+00:00"
     }
   },
-  "last_scan": "2026-09-20T06:07:40.185168+00:00"
+  "last_scan": "2026-09-21T06:11:37.703547+00:00"
 }
