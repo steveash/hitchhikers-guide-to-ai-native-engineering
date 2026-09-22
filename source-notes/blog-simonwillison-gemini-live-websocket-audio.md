@@ -84,7 +84,7 @@ issue: "#3605"
 ### Claim 6: Google's official Live API requires audio to be sent as raw 16-bit PCM at 16kHz, little-endian, base64-encoded inside a `realtimeInput.audio` message with an explicit `mimeType` field
 - **Evidence**: Google's official WebSocket get-started tutorial, "Send audio" section, plus matching runnable Python and JavaScript code samples.
 - **Confidence**: settled (official first-party API documentation, and independently confirmed by matching `mimeType: 'audio/pcm;rate=16000'` in Willison's implementation code)
-- **Quote**: "Audio needs to be sent as raw 16-bit PCM audio, 16kHz, little-endian. Construct a BidiGenerateContentRealtimeInput message with the audio data. The mimeType is crucial."
+- **Quote**: "Audio needs to be sent as raw PCM data (raw 16-bit PCM audio, 16kHz, little-endian). Construct a BidiGenerateContentRealtimeInput message with the audio data. The mimeType is crucial."
 - **Our assessment**: This is the concrete input-format contract Claim 5's resampling worklet exists to satisfy. The tutorial's own code samples send raw microphone/file bytes without demonstrating a resampling step at all — a gap the implementation fills, and a gap any practitioner following only the official quickstart would hit as soon as their input device wasn't already natively 16kHz.
 
 ### Claim 7: The implementation schedules received audio playback using the `AudioContext`'s own clock (`audio.currentTime`), chaining each decoded buffer to start exactly when the previous one ends, rather than using JavaScript timers to pace playback
@@ -207,7 +207,7 @@ Endpoint (generic quickstart, v1beta):
 wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=YOUR_API_KEY
 
 Audio format requirement:
-"Audio needs to be sent as raw 16-bit PCM audio, 16kHz, little-endian."
+"Audio needs to be sent as raw PCM data (raw 16-bit PCM audio, 16kHz, little-endian)."
 
 mimeType used in realtimeInput.audio: "audio/pcm;rate=16000"
 ```
