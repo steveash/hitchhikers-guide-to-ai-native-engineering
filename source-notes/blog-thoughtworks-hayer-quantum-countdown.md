@@ -79,7 +79,7 @@ issue: "#3635"
 - **Evidence**: A single unsupported assertion in the executive summary. No example, deployment, incident, or citation is given anywhere else in the article — sections 1 through 4 (encryption collapse, technical debt, regulatory mandates, the four-step roadmap) never mention agents, automation, or machine-to-machine interaction again.
 - **Confidence**: anecdotal (this is the specific claim the Prospector's triage flagged as the novel contribution and asked to verify; extraction confirms it has zero supporting evidence in the source itself)
 - **Quote**: "The rise of autonomous Agentic systems and machine-to-machine interactions further escalates the risk of PQC failure due to automated execution and expanded attack surfaces."
-- **Our assessment**: This is asserted, not argued. The article gives no mechanism for *how* agentic execution specifically escalates PQC risk beyond what any high-volume, automated (non-agentic) machine-to-machine system would already face — nothing here is unique to LLM-driven agents versus, say, existing high-frequency-trading or IoT machine-to-machine traffic. This is the same pattern seen in this author's other corpus entry, `blog-thoughtworks-hayer-agentic-horizon.md` Claim 6, which names "cryptographic identity tokenization" as a requirement for agentic platforms without developing the mechanism (see Cross-References → Extends). The guide should not cite this claim as evidence that agentic systems create a *distinct* PQC risk category without flagging that no such evidence currently exists in the corpus.
+- **Our assessment**: This is asserted, not argued. The article gives no mechanism for *how* agentic execution specifically escalates PQC risk beyond what any high-volume, automated (non-agentic) machine-to-machine system would already face — nothing here is unique to LLM-driven agents versus, say, existing high-frequency-trading or IoT machine-to-machine traffic. This is the same pattern seen in this author's other corpus entry, `blog-thoughtworks-hayer-agentic-horizon.md` Claim 6, which names "cryptographic identity tokenization" as a requirement for agentic platforms without developing the mechanism (see Cross-References → Extends). The corpus does contain one other claim at the agents/quantum-safe-cryptography intersection — `blog-google-a2a-collaborative-agents.md` Claim 9, where Google asserts A2A *delivers* quantum-safe MLS in regulated telecom networks — but that claim points the opposite way (agents as a vehicle for quantum safety, not a source of quantum risk) and is graded `anecdotal` there for precisely the same reason: no named implementation or mechanism. So the corpus currently holds two opposed, unsubstantiated vendor assertions about this intersection and no evidence for either. The guide should not cite this claim as evidence that agentic systems create a *distinct* PQC risk category without flagging that no such evidence currently exists in the corpus.
 
 ### Claim 4: Mosca's Theorem formalizes when quantum risk becomes unacceptable — if data shelf life (X) plus migration time (Y) is greater than or equal to the time until a cryptographically relevant quantum computer exists (Z), the data is already compromised
 - **Evidence**: Presented as an established security-industry risk-timing principle (attributed by name to Michele Mosca, though not directly cited to a paper); the article supplies illustrative figures (10-30 year data shelf life, five-year migration time).
@@ -229,6 +229,23 @@ piece): "If X + Y approaches Z, it is time to act!"
     frames the same underlying phenomenon (PQC key-size growth) as a general
     enterprise migration risk. Read together, they give the guide both the
     abstract claim and a concrete reproduction.
+  - `blog-google-a2a-collaborative-agents.md` (Claim 9): a second, independent
+    corpus data point on the agentic-systems-plus-quantum-safe-cryptography
+    intersection, framed in the opposite direction from this source's Claim 3.
+    That note records Google claiming A2A *delivers* quantum safety — its
+    quoted text is "A2A is being utilized to guarantee quantum-safe,
+    end-to-end Message Layer Security (MLS)" for regulated telecom networks —
+    whereas this article claims agentic systems *escalate* quantum risk. What
+    corroborates across the two is not the direction of the claim but the
+    evidentiary pattern: both are graded `anecdotal` in this corpus for the
+    same reason, that neither source names an implementation, deployment, or
+    mechanism connecting agents to post-quantum cryptography. The a2a note
+    calls its claim "aspirational framing of what A2A's security model
+    *could* support in regulated networks rather than a documented
+    deployment"; the same judgment applies to Claim 3 here. Two vendors
+    asserting opposite versions of an agents/PQC link, neither with a
+    mechanism, reinforces rather than undermines this note's conclusion that
+    Claim 3 should not be cited as an established finding.
   - The companion Thoughtworks piece ("Three steps to post-quantum
     cryptography," see Concrete Artifacts) independently restates both the
     HNDL threat model (Claim 1) and Mosca's Theorem (Claim 4) — since both
@@ -241,7 +258,15 @@ piece): "If X + Y approaches Z, it is time to act!"
   prior note makes a claim about PQC adoption strategy, regulatory
   compliance timelines, or enterprise migration roadmaps that this source
   disagrees with — this is a novel topic area for the corpus (see Novel,
-  below). No contradiction issue filed per MINER.md §4a.
+  below). No contradiction issue filed per MINER.md §4a. The
+  opposite-direction framing in `blog-google-a2a-collaborative-agents.md`
+  Claim 9 (noted under Corroborates) is deliberately *not* filed as a
+  contradiction: the two claims are about different objects (one asserts a
+  protocol provides quantum-safe messaging, the other asserts agentic
+  execution raises quantum exposure) and both are already graded
+  `anecdotal`, so neither rises to a real claim that would drive different
+  guide advice — MINER.md §4a's "one side is so weakly supported it doesn't
+  rise to a real claim" case, applied to both sides.
 
 - **Extends**: `blog-thoughtworks-hayer-agentic-horizon.md` (Claim 6): That
   note, by the same author, names "cryptographic identity tokenization" as
@@ -269,7 +294,10 @@ piece): "If X + Y approaches Z, it is time to act!"
     which covers Claude Mythos finding an attack against the HAWK
     post-quantum signature scheme — a capability-research angle, not an
     enterprise-adoption angle; the two sources do not overlap in claims
-    despite both concerning post-quantum cryptography).
+    despite both concerning post-quantum cryptography). The agents/PQC
+    pairing itself is not novel to the corpus — see
+    `blog-google-a2a-collaborative-agents.md` Claim 9 under Cross-References
+    → Corroborates — but the regulatory and enterprise-adoption framing is.
   - **Mosca's Theorem as a reusable risk-framing formula** (Claim 4): first
     explicit statement of this formula in the corpus.
   - **The four-phase crypto-agility roadmap and CBOM concept** (Claim 11,
