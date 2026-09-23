@@ -667,7 +667,11 @@ Auto-appended firewall warning on THIS PR: blocked domain
    filed issue is `debated` (the mechanism likely needs a conditioning
    variable — finding-type issues vs. report-type issues — rather than one
    side being simply wrong), but the actual verdict is left to the human
-   resolver per MINER.md §4a.
+   resolver per MINER.md §4a. Note for that resolver: #3639 already
+   received a contradiction assessment returning `unresolved` on the
+   grounds that Side B "does not yet exist in the corpus" — that
+   assessment was run before this note was written, so it should be
+   re-run once this note merges and Side B's citation target exists.
 
 4. **Cross-reference check performed** against
    `blog-ghaw-custom-linters-three-workflow-loop.md`,
@@ -678,10 +682,21 @@ Auto-appended firewall warning on THIS PR: blocked domain
    `CONTRADICTIONS.md` (44 open contradiction issues reviewed by title;
    none pre-existing on the auto-expiry/defect-masking topic before this
    note's filing), plus a corpus-wide grep for "sergo" and "phantom" to
-   confirm no prior note already profiled Sergo directly (all six prior
-   hits are cross-reference mentions pointing back at
-   `blog-ghaw-custom-linters-three-workflow-loop.md`, not independent
-   Sergo profiles). All `Claim N` citations above were checked against the
+   confirm no prior note already profiled Sergo directly. That grep hits
+   eight other notes, none of them an independent Sergo profile:
+   `blog-ghaw-custom-linters-three-workflow-loop.md` is the only
+   substantive treatment, and it covers Sergo as one of three workflows
+   in the invent/challenge/apply loop rather than as a dedicated profile;
+   `docs-ghaw-agent-factory-status.md` lists Sergo in a catalog table
+   (name, schedule, engine) only; `blog-ghaw-agent-of-the-day-2026-09-02.md`'s
+   hits are all the branch name `copilot/sergo-fix-linters-silent-delete`,
+   not Sergo the workflow; and the remaining five
+   (`blog-ghaw-weekly-2026-07-06.md`, `blog-ghaw-weekly-2026-07-20.md`,
+   `blog-ghaw-weekly-2026-08-17.md`, `blog-ghaw-agent-of-the-day-2026-08-28.md`,
+   `blog-ghuntley-engineer-away-slop.md`) are comparison or cross-reference
+   mentions that each cite
+   `blog-ghaw-custom-linters-three-workflow-loop.md` by name.
+   All `Claim N` citations above were checked against the
    actual numbered claims in those notes at the time of writing, per
    MINER.md §4b.
 
