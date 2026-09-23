@@ -270,6 +270,24 @@ different Azure Cosmos DB accounts stored in different regions."
     repeatedly characterizes as unusual relative to typical company scaling.
 
 - **Extends**:
+  - `blog-cursor-app-stability.md` Claim 4 ("Feature flag A/B testing (via
+    Statsig) is the primary top-down tool for attributing crashes to specific
+    features") — same third-party tool, a different and non-overlapping
+    operational concern. That note treats Statsig as an *analytics/attribution*
+    dimension (route crash telemetry through flag state to isolate which
+    feature caused a regression); this source's Claim 9 documents the flag
+    SDK itself as a *tail-latency source* in the serving path, via an
+    unjittered 60-second config poll synchronized across every worker in a
+    pod. Read together, the two are independent data points on the cost
+    profile of a production feature-flag SDK: it is both a debugging asset
+    (Cursor) and, at default settings under multi-process deployment, a
+    latency liability (Habitat). `blog-vercel-flags-platform-native-feature-flags.md`
+    already cross-references the Cursor claim for the rollout/attribution
+    axis; this source adds the operational-overhead axis that neither of
+    those two notes covers. Practical synthesis for the guide: a team
+    adopting a flag SDK for the Cursor-style attribution benefit should also
+    audit its refresh interval, config payload size, and jitter settings
+    against the Habitat failure mode.
   - `blog-pragmaticengineer-orosz-openai-software-factory.md` — that note's
     Source Context records the paywalled teaser for section 5 ("Engineering
     for a billion users: how OpenAI scales up its infra... They buy first
@@ -295,15 +313,29 @@ different Azure Cosmos DB accounts stored in different regions."
 - **Novel**: This is the first source in the corpus documenting: Python
   asyncio event-loop scheduling delay as a named, measured tail-latency
   driver with a specific synthetic-canary measurement technique (Claim 8);
-  a named third-party feature-flag SDK (Statsig) causing a synchronized
+  a feature-flag SDK's default refresh behavior causing a synchronized
   per-pod processing stall (Claim 9); aiohttp's TCPConnector LIFO default
   causing an explicitly named "metastable failure" in a production system,
   with an external citation to the Facebook metastable-failure engineering
   literature (Claim 10); and a TAO-inspired constrained-NoSQL-API-plus-CDC
-  design pattern as a deliberate scaling strategy (Claim 12). No prior
-  corpus source discusses Azure Cosmos DB, Statsig, aiohttp connection
-  pooling, or metastable failure states at all (verified by full-corpus
-  grep at extraction time — see Extraction Notes).
+  design pattern as a deliberate scaling strategy (Claim 12).
+
+  Scoping note on what is and isn't new here: Statsig and aiohttp are both
+  already present in the corpus — Statsig substantively in
+  `blog-cursor-app-stability.md` Claim 4 (feature-flag A/B testing for
+  crash attribution) and `blog-vercel-flags-platform-native-feature-flags.md`
+  (named as a third-party flag provider, cross-referencing that same Cursor
+  claim), plus `statsig.anthropic.com` as a network endpoint in
+  `blog-anthropic-claude-code-self-hosted-environments.md`; aiohttp as a
+  named initial participant in `blog-openai-patch-the-planet.md` Claim 5.
+  What is novel is not either tool's first appearance but the specific
+  *failure modes* documented here: unjittered Statsig config polling
+  synchronizing a per-pod stall across all workers (Claim 9), and aiohttp's
+  LIFO connection-reuse default driving runaway load concentration (Claim
+  10). Neither operational failure mode appears anywhere else in the corpus.
+  Azure Cosmos DB, Envoy, Istio, and "metastable failure" do have no prior
+  corpus mentions at all (verified by full-corpus grep — see Extraction
+  Notes).
 
 ## Guide Impact
 
@@ -382,9 +414,21 @@ different Azure Cosmos DB accounts stored in different regions."
   extraction (2026-09-23). A future Prospector pass should watch for part
   two and file it as a related, separate source when it appears — this note
   should not be treated as covering Habitat's storage layer in full.
-- Full-corpus grep confirmed no existing source note mentions Azure Cosmos
-  DB, Statsig, aiohttp, Envoy, Istio, Python's GIL in this exact latency
-  context, or "metastable failure" — supporting the Novel assessment above.
+- Full-corpus grep (`grep -rli` over `source-notes/` for each term) found no
+  existing source note mentioning Azure Cosmos DB, Envoy, Istio, Python's
+  GIL in this exact latency context, or "metastable failure". **Statsig and
+  aiohttp, however, do already appear in the corpus** and an earlier draft of
+  this note incorrectly listed them as absent: Statsig in
+  `blog-cursor-app-stability.md` (Claim 4, feature-flag A/B testing for crash
+  attribution), `blog-vercel-flags-platform-native-feature-flags.md` (named
+  as a third-party flag provider in its Source Context scope note and
+  cross-referencing the Cursor claim), and
+  `blog-anthropic-claude-code-self-hosted-environments.md` (the
+  `statsig.anthropic.com` endpoint, listed as *not* required for self-hosted
+  runners); aiohttp in `blog-openai-patch-the-planet.md` (Claim 5, named
+  initial participant in the security-hardening cohort). The Novel assessment
+  above has been narrowed accordingly — the novelty is the failure modes
+  documented in Claims 9 and 10, not either tool's first corpus appearance.
   Two prior notes independently touch OpenAI infrastructure at a broader
   strategic level (`blog-openai-abbott-texas-infrastructure-letter.md`:
   data-center/grid/water commitments in Texas; a policy letter with no
