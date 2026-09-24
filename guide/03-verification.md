@@ -1255,6 +1255,27 @@ it past a 10-task pilot, and compare dollars — not just tokens — at the
 pricing-tier level.
 [source: blog-jetbrains-caveman-token-savings-test, Claims 1, 6, 7] [settled]
 
+### A per-token price cut is not a per-task cost cut
+
+Model releases need the same check. Claude Fable 5.1 kept Fable 5's input,
+output, and cache-write prices and cut cache reads by 75% ($1.00 → $0.25 per
+million tokens).
+[source: blog-latentspace-ainews-fable-mythos-51-launch, Claim 2] [emerging]
+Artificial Analysis still measured Fable 5.1 at max effort as about 20% *more*
+expensive per task ($3.76). It used about 1.7x the output tokens, and that
+outweighed the roughly $1.40 per task the cache cut saved.
+[source: blog-latentspace-ainews-fable-mythos-51-launch, Claim 3] [emerging]
+On CursorBench, one commentator reported the opposite: costs cut by "almost
+50%" while scoring higher.
+[source: blog-latentspace-ainews-fable-mythos-51-launch, Claim 14] [anecdotal]
+The sign of the change depends on whether your workload is dominated by cache
+reads or by output. [editorial]
+
+**Rule**: Before switching models on a price announcement, rerun a paired
+sample of your own tasks and compare dollars per task. Price-per-token tables
+do not capture changes in how many output tokens the new model spends.
+[source: blog-latentspace-ainews-fable-mythos-51-launch, Claims 2, 3] [emerging]
+
 ---
 
 *Sources for this chapter:
@@ -1269,6 +1290,7 @@ blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
+blog-latentspace-ainews-fable-mythos-51-launch (Claims 2, 3, 14),
 blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
 blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
@@ -1288,4 +1310,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-24*

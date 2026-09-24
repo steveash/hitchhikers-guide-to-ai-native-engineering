@@ -1251,6 +1251,20 @@ the practical default for most users, but it is not the only way to
 build a coding-agent harness.
 [source: research-wasnotwas-context-compaction, Claim 6] [emerging]
 
+The failure case on the other side: after a 27-minute ChatGPT Work session,
+Simon Willison asked for the Python code the agent had already run, and it
+could not produce it:
+
+> "This appears to be because the thread had been compacted. I think any LLM
+> system that uses compaction needs to both preserve the pre-compacted text
+> and make that text available via agent tool calls, to protect against this
+> kind of problem."
+> [source: blog-simonwillison-astra-running-routes, Claims 1, 5] [anecdotal]
+
+Willison says "appears to"; OpenAI has not confirmed compaction as the cause.
+If you will want the code later, have the agent write it to a file during
+the session. [editorial]
+
 **Practical implication**: when you choose a coding-agent tool, the
 compaction policy is part of the choice. Factor it in alongside the
 features you actually use.
@@ -1415,6 +1429,7 @@ research-wasnotwas-context-compaction (Claims 1-8),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
-blog-simonwillison-fable-judgement (Claim 5)*
+blog-simonwillison-fable-judgement (Claim 5),
+blog-simonwillison-astra-running-routes (Claims 1, 5)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-24*

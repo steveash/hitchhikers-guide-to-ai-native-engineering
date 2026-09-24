@@ -179,6 +179,43 @@ microVM or VM, and run verification in a context that never sees the finder's
 reasoning.
 [source: blog-anthropic-llms-secure-source-code, Claims 3, 6, 7] [emerging]
 
+### A finished AI audit is a lower bound, not a clean bill
+
+Datasette ran its first thorough multi-model coding-agent security audit,
+deliberately in rounds hunting for "similar issues," and shipped the fixes as
+1.0a39/0.65.4 on September 10-11, 2026. Five days later an external reporter
+disclosed a table-permission bypass that affected 1.0a39 itself
+(GHSA-h547-rmjf-5m2m, fixed in 0.65.5/1.0a40).
+[source: blog-simonwillison-datasette-0-65-5, Claim 9] [settled]
+The bug sat in the shared identifier-escaping utility that every
+table-permission check relies on, not in any single caller:
+
+```python
+# Vulnerable: Python's `$` also matches just before one trailing "\n",
+# so "secret\n" was emitted unquoted and SQLite read it as "secret"
+_boring_keyword_re = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*$")
+if _boring_keyword_re.match(s) and (s.lower() not in reserved_words):
+
+# Fix (one line):
+if _boring_keyword_re.fullmatch(s) and (s.lower() not in reserved_words):
+```
+*Code lines from the advisory's root-cause and fix sections; comments added.*
+[source: blog-simonwillison-datasette-0-65-5, Claims 1, 2; Concrete Artifacts] [settled]
+
+The reporter named five more validators in the codebase with the same
+`.match()`-against-`$` shape and recommended a repository-wide sweep to
+`.fullmatch()` or `\A...\Z`.
+[source: blog-simonwillison-datasette-0-65-5, Claim 7] [settled]
+Why the audit missed it is not stated by either party. The likely gap is that
+it searched for callers passing untrusted data, not for defects inside the
+primitive those callers trust. [editorial]
+
+**Rule**: After an AI security audit, sweep the shared validation and
+escaping primitives directly for bug *shapes* (such as `$`-anchored `.match()`),
+not only their call sites. Keep the external disclosure channel open: a
+completed audit does not mean no findings remain.
+[source: blog-simonwillison-datasette-0-65-5, Claims 7, 9] [emerging]
+
 ### Gradual trust rollout: shadow → inform → gate
 
 Cursor documents the deployment pattern they used for their own internal
@@ -606,9 +643,10 @@ blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
 blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
+blog-simonwillison-datasette-0-65-5 (Claims 1, 2, 7, 9; Concrete Artifacts),
 blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
 blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-24*

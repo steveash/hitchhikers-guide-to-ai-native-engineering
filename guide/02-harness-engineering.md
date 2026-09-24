@@ -315,6 +315,17 @@ actual agent workflow rules — the novel, high-value content — are compressed
 into the first ~60 lines.
 [source: practitioner-mikelane-pytest-test-categories] [anecdotal]
 
+Prose descriptions of code are also a weak substitute for the code. On
+SWE-bench Verified, natural-language summaries answered 4 of 45 behavioral
+questions about a repository while the source itself answered 27 of 45, and
+a frontier model's summaries scored no better than a 3B model's — the loss
+is in the representation, not the summarizer (Sam-Bodden, arXiv:2607.09691).
+[source: blog-addyosmani-audit-agent-files, Claim 8] [settled]
+
+**Rule**: Where CLAUDE.md needs to orient the agent to a module, give it the
+path to the real code instead of a prose summary of what the code does.
+[source: blog-addyosmani-audit-agent-files, Claim 8] [settled]
+
 ### Do not use examples from the wrong language
 
 NetPace's `/bugmagnet` command uses JavaScript/Jest examples despite being
@@ -336,6 +347,28 @@ success by ~4% on AGENTbench. The paper is a preprint without significance
 tests on headline numbers and covers Python only — treat as strong
 directional evidence.
 [source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [emerging]
+
+**Debated: how much does a good hand-written file help?** A second ablation
+(Khatri, arXiv:2607.27250; Claude Code and Codex, 288 runs on 17 real tasks
+from 3 repositories) found context files made no measurable difference to
+correctness, with equivalence testing bounding any effect to 10-15
+percentage points. They did change *how* the agent worked: in one repository
+the file warned that the full test suite was slow, and Claude ran targeted
+tests instead.
+[source: blog-addyosmani-audit-agent-files, Claim 6] [emerging]
+Gloaguen varies how the file was produced; Khatri varies the context
+strategy. Both put auto-generated or bloated files at the bottom. They
+disagree only on whether a good hand-written file adds a few points of
+success or nothing measurable. [editorial]
+
+The scope that survives both studies is operational fact:
+
+> A context file can tell an agent about expensive commands, generated files,
+> architectural boundaries, or project-specific safety rules. It can't
+> necessarily teach the agent how to make a subtle design decision; the near
+> misses usually came down to implementation judgment, and more repository
+> prose wouldn't have solved those problems.
+> [source: blog-addyosmani-audit-agent-files, Claim 7] [emerging]
 
 The mechanism: auto-generated content is redundant. When documentation
 was stripped from the codebase, auto-generated AGENTS.md files actually
@@ -850,6 +883,64 @@ logic into agent-controlled tools. The two-output framing is corroborated
 by Anthropic and Cursor; the specific multi-repo migration is Cursor's own
 and may not transfer verbatim to your harness.
 [source: blog-cursor-cloud-agent-lessons, Claim 9] [emerging]
+
+### Audit your own config on a calendar, not only at upgrades
+
+The audit above runs when the model changes. Your own CLAUDE.md, skills, and
+memory also go stale between upgrades. Addy Osmani calls this a half-life:
+"Models improve, harnesses add capabilities, codebases change, and the
+instructions we wrote for an older version stay behind."
+[source: blog-addyosmani-audit-agent-files, Claim 1] [emerging]
+Most real config files already show the damage. A study of 100 popular
+repositories (dos Santos et al., arXiv:2606.15828) found lint leakage in 62%
+of AGENTS.md/CLAUDE.md files, context bloat in 42%, and skill leakage in 35%.
+[source: blog-addyosmani-audit-agent-files, Claim 2] [settled]
+The mechanism Osmani found in his own 200+-line files is reactive: "Add a
+rule every time the agent errors."
+[source: blog-addyosmani-audit-agent-files, Claim 3] [anecdotal]
+
+His procedure, condensed:
+
+```
+Every 2-4 weeks:
+  1. Run /doctor inside a Claude Code session. It flags unused skills, MCP
+     servers, and plugins relative to their context cost, an over-specified
+     CLAUDE.md, and slow hooks.
+     (Not `claude doctor` from a shell, which only prints install diagnostics.)
+  2. Review memory separately.
+  3. Occasionally rerun a real task with local skills disabled.
+     Is the result actually worse? If not, the skills are not earning their place.
+  4. Archive stale instructions rather than editing them in place.
+     Any rule that must always hold moves into a test, hook, or permission.
+```
+*Condensed from Osmani's cadence and "archive first" principle.*
+[source: blog-addyosmani-audit-agent-files, Claims 10, 11; Concrete
+Artifacts] [emerging]
+
+Unused skills cost less than they look: only names and descriptions load for
+discovery, capped at a listing budget of 1% of the context window, and a
+skill's body loads only when invoked.
+[source: blog-addyosmani-audit-agent-files, Claim 12] [settled]
+The cost of an idle skill is crowding in that listing, not a full body on
+every turn. [editorial]
+
+Be slow to promote a personal preference into a durable skill or memory entry.
+In 206 real sessions from 13 developers, skills built from one developer's
+history gave small, inconsistent gains, while generic skills pooled across
+developers gave the largest and most consistent ones (Huang et al.,
+arXiv:2608.10319).
+[source: blog-addyosmani-audit-agent-files, Claim 4] [emerging]
+Personalization looked better only when the same preference recurred across
+several similar tasks, and that result comes from an LLM-simulated developer.
+[source: blog-addyosmani-audit-agent-files, Claim 5] [emerging]
+
+**Rule**: Put the config audit on a fixed 2-4 week cadence independent of
+model releases. Archive what `/doctor` or a skills-disabled rerun shows is
+dead weight, and move must-hold rules out of prose into tests, hooks, or
+permissions. (`/doctor` is Claude Code-specific, and its checks are
+described from one user's account, not documented internals. Other
+harnesses need a manual equivalent.)
+[source: blog-addyosmani-audit-agent-files, Claims 1, 10; Concrete Artifacts] [emerging]
 
 ### What stays behind: the harness owns your memory
 
@@ -1825,6 +1916,7 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 ---
 
 *Sources for this chapter:
+blog-addyosmani-audit-agent-files (Claims 1-8, 10-12; Concrete Artifacts),
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifacts),
@@ -1854,4 +1946,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-24*
