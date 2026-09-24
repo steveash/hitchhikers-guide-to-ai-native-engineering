@@ -56,7 +56,7 @@ issue: "#3652"
 - **Evidence**: Author's stated belief, offered as the essay's opening premise; no study or measurement cited.
 - **Confidence**: anecdotal
 - **Quote**: "Readers can detect LLM words in the parts per trillion. However much work you put into scuffing up and humanizing it, an LLM paragraph will register to much of your audience not as writing but as output. So, first the bad news: you have to write for yourself."
-- **Our assessment**: This is an unverified perceptual claim (no reader study, no detection-rate data), but it is the load-bearing premise for the rest of the piece and is echoed independently by Willison (Claim 10 below), which is modest but real corroboration from a second practitioner rather than just restating the same source.
+- **Our assessment**: This is an unverified perceptual claim (no reader study, no detection-rate data), but it is the load-bearing premise for the rest of the piece and is echoed independently by Willison (Claim 10 below), which is modest but real corroboration from a second practitioner rather than just restating the same source. A differently-sourced line of support exists in `blog-ronacher-interpreting-pangram.md` (Claims 5 and 6): a hand-rewritten version of an LLM-generated text, with no sentence left identical, still scored "100% AI" on the Pangram detector. That is an algorithmic-detector experiment rather than evidence about human readers (and that note's Claim 1 records that the author did not *feel* such text read as AI), so it supports the "however much work you put into scuffing up and humanizing it" half of the premise — LLM origin survives heavy humanizing — more directly than the "readers can detect" half. It is still n=1 and still anecdotal, so the claim's confidence grade is unchanged.
 
 ### Claim 2: Rule One — a writer should never use a single word or turn of phrase an LLM suggests, applied strictly even when the suggested phrasing seems better than the original
 - **Evidence**: Stated as an explicit, named rule ("Rule Number One"), with a rationale (frontier models are "supernaturally good at selecting pleasing turns of phrase" in a way that reads as generic once compounded across a piece).
@@ -187,10 +187,53 @@ switching the subject of the sentence.)"
   - Claim 10 above independently corroborates Claim 2/Rule One from a
     second practitioner (Willison) with his own established practice, not
     merely agreement in the abstract.
-- **Contradicts**: None found. This is a genuinely new topic area for the
-  corpus (LLM-assisted prose-writing discipline) with no existing source
-  note making a competing claim about how to use LLMs for personal/editorial
-  writing, so MINER.md §4a does not apply — no contradiction issue filed.
+  - `blog-ronacher-interpreting-pangram.md` Claims 1, 5, and 6 → Claim 1
+    here. Ronacher's Claim 5 is an experiment in which he rewrote every
+    paragraph of an Opus-5-generated text by hand ("not a single sentence is
+    the same") and Pangram still scored it "100% slop"; his Claim 6
+    generalizes this: "I have generally noticed that if you rely on an LLM
+    to give your text structure, it will score badly on Pangram even if you
+    do plenty of edits over it." This is independent, differently-sourced
+    support (a detector experiment rather than a stated reader perception)
+    for Ptacek's premise that LLM prose stays recognizable "however much
+    work you put into scuffing up and humanizing it." Caveat: it measures a
+    trained classifier, not human readers, and Ronacher's Claim 1 notes
+    that such text can be flagged even when the author doesn't *feel* it
+    reads as AI — so it corroborates that the signal survives humanizing,
+    not that "much of your audience" perceives it.
+  - `blog-simonwillison-tom-macwright-accidental-anonymity.md` Claim 5
+    (LLM-generated cold-outreach emails "follow an LLM-like formula" that
+    MacWright recognizes) → Claim 1 here: another practitioner report of
+    human readers recognizing LLM-generated prose, in a different genre
+    (outreach email rather than essays).
+  - `blog-simonwillison-llm-cliche-highlighter.md` Claim 1 (Willison built
+    the tool because he "got frustrated reading yet another article that
+    was crammed with the clichés of LLM-generated writing") and Claim 5
+    (each pattern is a deterministic hand-written regex, not an LLM
+    classifier) → Claims 3 and 8 here. The highlighter is an existing
+    corpus example of recurring, recognizable LLM phrasing, which supports
+    Claim 3's diagnosis that models fall back on a stock register. It also
+    extends Claim 8: Ptacek says repeated turns of phrase and filler words
+    can be spotted "mechanically, but that's tedious" and delegates the job
+    to a model, while Willison turned the same kind of spotting into a
+    deterministic regex tool that has no model in the detection path.
+  - `blog-simonwillison-sophie-alpert-lossless-transformations.md` Claim 1
+    ("every rewrite and rephrase changes the meaning of your writing") and
+    Claim 6 ("It's allowed to use AI tools while brainstorming or drafting
+    your writing and certainly while proofreading") → Claims 2 and 8 here.
+    Alpert's lossy-rewrite argument gives a second rationale for Rule One
+    (LLM-suggested wording loses the author's intent). Her policy draws a
+    similar line between permitted proofreading help and model-authored
+    wording, although it is less strict than Rule One because it also
+    allows AI use while drafting.
+- **Contradicts**: None found, so no contradiction issue was filed under
+  MINER.md §4a. The closest point of tension is with
+  `blog-simonwillison-sophie-alpert-lossless-transformations.md` Claim 6.
+  Alpert allows AI use "while brainstorming or drafting," but Rule One bans
+  every LLM-suggested word. Both are personal or team writing policies with
+  different levels of strictness, and both rest on the same concern about
+  authorial intent (Alpert Claim 1), so this is a difference in strictness
+  rather than two opposed factual claims.
 - **Extends**: `blog-pragmaticengineer-orosz-horthy-context-engineering.md`
   Claim 8 (the phrases "you're completely right!" or "you're right to push
   back on that" signal a trajectory-poisoned coding session that should be
@@ -209,12 +252,11 @@ switching the subject of the sentence.)"
 - **Novel**: The two-rule operational discipline (never use LLM words;
   forbid encouragement) as a named, reusable writing method, the
   context-blind comparison workaround (Claim 6), and the specific
-  system-prompt/kickoff-prompt artifacts are new to the corpus — no
-  existing source note addresses using LLMs for prose writing/editing at
-  all (searched for "writing," "copyedit," "proofread," "prose," "editing"
-  across `source-notes/` before writing this note; matches were all
-  code/documentation generation contexts, not personal-writing-voice
-  contexts).
+  system-prompt/kickoff-prompt artifacts are new to the corpus. Existing
+  notes cover *detecting* or *policing* LLM prose (Pangram, the cliché
+  highlighter, Alpert's and Varda's writing policies — see Corroborates),
+  but none gives a step-by-step method for using a model as a copyeditor
+  while keeping it from supplying the words.
 
 ## Guide Impact
 
@@ -276,6 +318,22 @@ switching the subject of the sentence.)"
    MINER.md §4b. `guide/04-context-engineering.md` was also read directly
    (lines ~805-842) to confirm the existing trajectory-poisoning subsection
    this note's Guide Impact recommendation would extend.
+   After Assayer review, I searched the corpus again for terms that match what the claims
+   actually say: "AI-generated text/prose/writing," "LLM-generated,"
+   "human-written," "cliché," "Pangram," "detect," "ghostwrit," "own
+   voice." Relevant hits were
+   `blog-ronacher-interpreting-pangram.md`,
+   `blog-simonwillison-llm-cliche-highlighter.md`,
+   `blog-simonwillison-sophie-alpert-lossless-transformations.md`, and
+   `blog-simonwillison-tom-macwright-accidental-anonymity.md`. Each cited
+   claim number was checked against those notes' `### Claim N:` headings,
+   and each quoted fragment was copied from them. Also reviewed but
+   not cited: `blog-simonwillison-kenton-varda-change-descriptions.md`
+   (a moratorium on AI-written PR/commit text, which is about a policy
+   for one kind of artifact rather than a writing method) and
+   `blog-ronacher-content-for-contents-sake.md` (the social effects of
+   LLM phrasing on trust, which is adjacent to this note's claims but
+   doesn't bear on any of them).
 5. **confidence_overall: anecdotal.** Every claim in this source rests on
    one or two practitioners' first-person, unreplicated experience — there
    is no benchmark, reader study, or controlled comparison anywhere in the
