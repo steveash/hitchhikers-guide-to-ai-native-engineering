@@ -270,7 +270,7 @@ issue: "#3662"
   in that window (the only commit touching this workflow's file in the run's
   vicinity is the loop.md content commit itself, which is the agent's
   *output*, not an infra fix). `blog-ghaw-cloud-hypervisor-consolidation.md`
-  Claim 1 documents `cloud-hypervisor` as being in **preview** as of
+  Claim 5 documents `cloud-hypervisor` as being in **preview** as of
   2026-09-05, gated to GitHub-hosted Ubuntu x86_64 runners with `/dev/kvm` —
   this outage is concrete evidence that a preview-status sandbox runtime
   reached a fully broken state (100% failure rate) for six consecutive daily
@@ -598,7 +598,7 @@ File Queue" and "Step 3b: Assess optimization potential" sections, fetched
     calls to `api.anthropic.com`, consistent with the AWF-gateway-routing
     requirement): Claim 10 here is a second, independent gh-aw workflow
     showing the identical blocked domain.
-  - `blog-ghaw-cloud-hypervisor-consolidation.md` Claim 1 (`cloud-hypervisor`
+  - `blog-ghaw-cloud-hypervisor-consolidation.md` Claim 5 (`cloud-hypervisor`
     is a preview-status sandbox runtime as of 2026-09-05): Claim 9 here is
     concrete evidence of that preview runtime failing completely for six
     consecutive production runs roughly two to three weeks later.
