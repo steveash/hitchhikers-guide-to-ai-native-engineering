@@ -430,7 +430,7 @@ absolute cutoff rather than rolling cooldown).
 
 ## Guide Impact
 
-- **Chapter 06 (Security Threat Model / Governance & Operations)**: Add a
+- **Chapter 06 (Security and Threat Model)**: Add a
   named example of maintainer-targeted social engineering (video-call
   pretext → malware install or clipboard-command execution) as a distinct
   supply-chain threat category, separate from credential-leak or CI
@@ -441,8 +441,9 @@ absolute cutoff rather than rolling cooldown).
   rights. Cite this source alongside the DPRK "contagious interview"
   attribution to justify treating this as a standing, not one-off, threat
   category.
-- **Chapter 04 (Managing Dependencies)**: Add dependency cooldowns as a
-  concrete, low-cost recommended practice, citing both this source's 7/14
+- **Chapter 06 (Security and Threat Model), alongside "The MCP supply
+  chain: rug-pull tool redefinition" section**: Add dependency cooldowns as a
+  concrete, low-cost recommended supply-chain practice, citing both this source's 7/14
   day analysis (Claim 9, with the 8/10-under-a-week data) and
   `blog-simonwillison-larson-pypi-upload-restriction.md`'s PyPI registry-
   side control as complementary registry-side/consumer-side defenses.
@@ -450,7 +451,7 @@ absolute cutoff rather than rolling cooldown).
   copy-pasteable example, and name the equivalent flags for Renovate,
   pnpm, and uv so the recommendation is actionable regardless of a team's
   package manager.
-- **Chapter 04 (Managing Dependencies)**: Use the `arrayref` incident's
+- **Chapter 06 (Security and Threat Model), same supply-chain material**: Use the `arrayref` incident's
   86–107 minute compromise-to-removal window (Claim 6) as the guide's
   concrete illustrative number for "why even a 1-day cooldown meaningfully
   reduces exposure" — it is a real, recent, first-party-confirmed data
