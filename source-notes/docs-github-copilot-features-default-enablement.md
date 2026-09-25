@@ -25,7 +25,7 @@ issue: "#3691"
 
 - **Type**: docs (GitHub official product changelog, September 24, 2026;
   tagged "Improvement," "1 minute read," tags `copilot` and `enterprise
-  management tools"). One linked documentation page was followed per
+  management tools`). One linked documentation page was followed per
   MINER.md §1: "About default availability of Copilot features and models"
   (`docs.github.com/copilot/concepts/enterprise/default-availability`),
   which turned out to be the same docs page already cited by
