@@ -103,8 +103,8 @@ issue: "#3694"
   .github/workflows"]}` (live workflow source frontmatter)
 - **Our assessment**: This is a stricter blast-radius design than the
   bare `bash: ["*"]` list-form seen in a different gh-aw workflow
-  (`blog-ghaw-agent-of-the-day-2026-09-23.md` Claim 8's cross-reference,
-  Daily Caveman Optimizer's `edit:` + unrestricted `bash: ["*"]`
+  (`blog-ghaw-agent-of-the-day-2026-09-23.md` Cross-References → Extends
+  bullet on ESLint Refiner — Daily Caveman Optimizer's `edit:` + unrestricted `bash: ["*"]`
   combination) — Dependabot Burner instead pins `bash:` to the exact
   literal command strings the remediation needs (compile, install, git
   status/diff, cat/rg for reading), so even with `edit:` enabled the agent
@@ -751,7 +751,9 @@ whether they actually produced output, per Claim 7's caveat.*
   - **An exact-string `bash:` allowlist as a narrower alternative to
     `bash: ["*"]`** (Claim 2): contrasted explicitly with the wildcard
     `bash: ["*"]` pattern already documented in
-    `blog-ghaw-agent-of-the-day-2026-09-23.md` Claim 8's cross-reference.
+    `blog-ghaw-agent-of-the-day-2026-09-23.md` Cross-References → Extends
+    (the ESLint Refiner bullet describing Daily Caveman Optimizer's tools
+    config).
   - **A single-workflow, five-subagent inline decomposition for a
     remediation task** (Claim 3), distinct from the cross-repo
     orchestrator/worker pattern already covered by
