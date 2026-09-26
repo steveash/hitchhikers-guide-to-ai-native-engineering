@@ -748,6 +748,20 @@ is to attack the plan — enumerate what it assumes, what it does not cover, and
 where it would fail — and run it before you approve.
 [source: blog-simonwillison-muse-code-spark-12, Claim 7] [settled]
 
+### Planning Q&A runs out of human attention before it runs out of context
+
+An interview-style plan mode fails on the human side first. Maggie Appleton
+describes where the answers stop meaning anything: "by question 20, you're like
+quite tired and your brain starts shutting down," and when each question comes
+with three options and a recommended one, "you just start being like, yep, A, A,
+enter, A, I agree with you." Gergely Orosz reported the same pattern in the same
+conversation from a separate 36-question session.
+[source: blog-pragmaticengineer-orosz-appleton-design-engineering, Claim 6] [anecdotal]
+
+**Rule**: Give planning Q&A a question budget. Past roughly the twentieth
+question, treat accepted recommendations as unreviewed defaults, not decisions.
+[source: blog-pragmaticengineer-orosz-appleton-design-engineering, Claim 6] [anecdotal]
+
 ---
 
 ## Agent Output Ergonomics
@@ -850,6 +864,44 @@ logic into agent-controlled tools. The two-output framing is corroborated
 by Anthropic and Cursor; the specific multi-repo migration is Cursor's own
 and may not transfer verbatim to your harness.
 [source: blog-cursor-cloud-agent-lessons, Claim 9] [emerging]
+
+### Which scaffolding goes first: emphatic instruction lists
+
+Cursor's September 2026 token-efficiency pass named the category that turned
+out to be dead weight: "Instead of long lists of "DO NOT do this," "You must,"
+or "Important" instructions, we could simply define how a tool behaves and
+models would generally comply. This was true across model families, allowing
+us to trim roughly 66% of our system prompt."
+[source: blog-cursor-improved-token-efficiency, Claim 2] [emerging]
+The same pass also removed prompts that pushed the agent to delegate
+exploration to subagents: "models learned this pattern natively. Removing the
+extra prompting produced more balanced subagent usage."
+[source: blog-cursor-improved-token-efficiency, Claim 11] [anecdotal]
+Cursor judged both changes on live traffic, not offline evals, because evals
+"often represent "hard" problems and don't properly reflect the true
+distribution of user requests."
+[source: blog-cursor-improved-token-efficiency, Claim 3] [emerging]
+
+**Debated: do prohibitions still belong up front?** §What to Put in CLAUDE.md
+recommends putting prohibitions first, such as NetPace's MUST NEVER / MUST
+ALWAYS lists, and §Repetition for Context Resilience recommends repeating
+cardinal rules. Cursor's result cuts the other way, but it comes from a
+vendor's harness system prompt that describes tool behavior. The practitioner
+evidence comes from project CLAUDE.md files that encode project facts a model
+can't infer. [editorial]
+
+**Our take** [editorial]: Keep prohibitions that carry project knowledge, such
+as tin's rule to use `tin thread delete` rather than deleting files under
+`.tin/`. The candidates to cut are emphatic restatements of behavior that a
+tool definition or the model already covers. Cursor's evidence says those are
+the lines a newer model no longer needs.
+
+**Rule**: At each model upgrade, test a harness prompt with its "DO NOT" / "You
+must" / "Important" lists removed, and judge the change on live usage rather
+than a hard-problem eval set. (This is confirmed for Cursor's own system prompt
+across model families. Whether it holds for project-level CLAUDE.md
+prohibitions is not documented.)
+[source: blog-cursor-improved-token-efficiency, Claims 2, 3] [emerging]
 
 ### What stays behind: the harness owns your memory
 
@@ -1030,6 +1082,63 @@ redirects) is the most maintainable for teams. Strategy 2 (parallel files at
 different depths) is reasonable when tools genuinely need different instruction
 density. Strategy 3 (triple parity) creates too much drift risk for most
 teams. Strategy 4 (identical duplication) is strictly worse than a redirect.
+
+### Claude Code now reads AGENTS.md, but only as a whole-project fallback
+
+Claude Code 2.1.277 removes the main disadvantage of Strategy 1: "if there is
+no CLAUDE.md in a folder, Claude will check for and use AGENTS.md."
+[source: blog-simonwillison-claude-code-mods-agents-md, Claim 1] [settled]
+The shipped spec is stricter than that tweet, because the check runs once for
+the whole project rather than folder by folder: "a `CLAUDE.md`,
+`.claude/CLAUDE.md` or `CLAUDE.local.md` in any directory from the root down to
+the working directory leaves the whole project to the engine, and the plugin
+stays out." The organization's managed file and `~/.claude/CLAUDE.md` don't
+count toward that check.
+[source: blog-simonwillison-claude-code-mods-agents-md, Claim 5] [settled]
+
+A root AGENTS.md that loads is indistinguishable from CLAUDE.md downstream. It
+gets the same context placement, the same framing, and the same omission for
+Explore and Plan subagents.
+[source: blog-simonwillison-claude-code-mods-agents-md, Claim 6] [settled]
+Nested AGENTS.md files work differently: "Nested files attach on a text `Read`
+only. The engine also attaches a directory's `CLAUDE.md` for a file
+`@`-mentioned in the prompt, for the IDE's opened file or selection, and for
+the `Read` tool's notebook, image and PDF results." After compaction, they are
+also not restored among the recently read files.
+[source: blog-simonwillison-claude-code-mods-agents-md, Claim 7] [settled]
+
+Sentry's layout shows why this matters. Its 11-byte root `CLAUDE.md` counts as
+the project's own instruction file, so the fallback stays off for the whole
+project, and Sentry's subdirectory AGENTS.md files load only because the root
+AGENTS.md tells the agent to go read them. [editorial]
+
+To load both formats side by side, set the mode explicitly:
+
+```json
+{
+  "pluginConfigs": {
+    "agents-md@builtin": {
+      "options": { "instructionFiles": "claude-md-and-agents-md" }
+    }
+  }
+}
+```
+*From `mods/agents-md/README.md` in `anthropics/claude-code`; goes in
+`~/.claude/settings.json`, `--settings`, or managed settings.*
+[source: blog-simonwillison-claude-code-mods-agents-md, Concrete Artifacts] [settled]
+
+The mechanism is a built-in "mod," and Anthropic labels mods early access: "the
+API these mods are written against may change between releases without notice."
+[source: blog-simonwillison-claude-code-mods-agents-md, Claim 9] [settled]
+
+**Rule**: In Claude Code, any project-level CLAUDE.md, including a one-line
+`@AGENTS.md` redirect, turns the AGENTS.md fallback off for the whole project.
+If you keep a redirect and also have subdirectory AGENTS.md files, route to
+them from the root file or set `instructionFiles` to `claude-md-and-agents-md`.
+If you drop CLAUDE.md entirely, expect nested AGENTS.md files to attach only on
+a text `Read`. (This is confirmed for the `agents-md` mod as of 2.1.277. The mod
+is early access, so re-check after upgrades.)
+[source: blog-simonwillison-claude-code-mods-agents-md, Claims 5, 7, 9] [emerging]
 
 ---
 
@@ -1831,6 +1940,9 @@ blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifa
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
+blog-cursor-improved-token-efficiency (Claims 2, 3, 11),
+blog-pragmaticengineer-orosz-appleton-design-engineering (Claim 6),
+blog-simonwillison-claude-code-mods-agents-md (Claims 1, 5, 6, 7, 9; Concrete Artifacts),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claim 1),
 blog-humanlayer-show-me-skill (Claims 1, 2, 4, 5, 6, 8; Concrete Artifacts),
 blog-langchain-harness-memory (Claims 2, 3, 4),
@@ -1854,4 +1966,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-26*

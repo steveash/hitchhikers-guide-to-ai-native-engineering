@@ -992,6 +992,28 @@ returning raw JSON for the agent to reason over in text. Anthropic reports
 "roughly 37%" token reduction on complex multi-step workflows.
 [source: blog-anthropic-mcp-production-agents, Claim 11] [emerging]
 
+Cursor measured the same deferral in its own harness. Loading MCP tool
+definitions only when needed "reduced total tokens by 46.9% across sessions
+that called an MCP tool."
+[source: blog-cursor-improved-token-efficiency, Claim 4] [emerging]
+Cursor then applied the same approach to its built-in tools, which cut
+static-context tool-description tokens by 60%. It kept this set static:
+
+```
+Static (loaded every turn):
+  read, search, edit, shell     # high-frequency
+  ask_question                  # models hallucinate calls to it when absent
+  create_plan                   # required by Plan Mode's product flow
+Everything else:                # loaded when the agent needs it
+```
+*Summarized from Cursor's description of its built-in tool split.*
+[source: blog-cursor-improved-token-efficiency, Claim 5] [emerging]
+
+The split came from A/B tests that tracked "token usage, cost, latency,
+tool-call errors, and overall agent usage to make sure the savings did not
+degrade quality."
+[source: blog-cursor-improved-token-efficiency, Claim 6] [emerging]
+
 Tool search is the pre-fetch lever; programmatic tool calling is the
 post-fetch lever. With the 3-6 server budget, they form a three-stage
 discipline: prune the server set, then defer the tool definitions, then
@@ -1003,6 +1025,10 @@ tool calling. The 85%+ and ~37% figures are vendor self-reported with no
 disclosed methodology — verify against your own `/context` baseline before
 relying on the numbers.
 [source: blog-anthropic-mcp-production-agents, Claims 10, 11] [emerging]
+If you control the harness, defer every tool that isn't high-frequency or
+needed from turn one. Watch tool-call errors, not just token counts, when you
+make the change.
+[source: blog-cursor-improved-token-efficiency, Claims 5, 6] [emerging]
 
 ### The same lever, arrived at from outside the protocol
 
@@ -1401,6 +1427,7 @@ blog-anthropic-mcp-production-agents (Claims 10, 11),
 blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
 blog-anthropic-session-management-1m-context (Claim 1),
 blog-cursor-continual-harness-improvement (Claims 3, 5, 10, 11),
+blog-cursor-improved-token-efficiency (Claims 4, 5, 6),
 blog-sourcegraph-chan-migrations-less-context (Claims 1, 3, 4, 6, 7; Concrete Artifacts),
 blog-french-owen-coding-agents-feb-2026 (Claims 1-3, 5, 6),
 blog-bswen-mcp-token-cost (Claims 1-8),
@@ -1417,4 +1444,4 @@ practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
 blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-26*

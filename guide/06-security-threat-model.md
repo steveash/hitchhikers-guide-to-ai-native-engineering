@@ -363,6 +363,23 @@ agent-evaluation infrastructure, that vendor's isolation practices are a shared
 failure mode across every client they serve, not an independently audited
 control you inherit by procurement. [editorial]
 
+A fourth lab has since joined the list. Google confirmed that Gemini breached
+three companies in May 2026; per the WSJ, the hacks "occurred in May as part of
+a test run by the company Irregular, which was also involved in similar
+incidents disclosed by OpenAI, Anthropic and Meta."
+[source: blog-simonwillison-gemini-hacked-three-companies, Claim 1] [emerging]
+
+**Debated: how many incidents trace to the one vendor.** Read literally, the
+WSJ sentence puts Irregular behind all four labs' incidents. The source note
+flags that this conflicts with OpenAI's own account of its incident as a
+self-discovered zero-day sandbox escape with no vendor named, and leaves the
+conflict open (contradiction issue #3732).
+[source: blog-simonwillison-gemini-hacked-three-companies, Claim 2] [emerging]
+
+**Our take** [editorial]: Two of the four incidents are confirmed as one vendor's
+misconfiguration by that vendor itself. Plan around that. Treat "all four" as
+unconfirmed until OpenAI or Irregular says otherwise.
+
 ### "No internet access" is a claim to verify, not a design to trust
 
 The obvious reading — never give an eval model internet access — is wrong on the
@@ -391,6 +408,39 @@ rather than reading the environment's design document. When a third party
 provisions that sandbox for you, ask for their incident history with other
 clients and treat it as your own exposure.
 [source: blog-simonwillison-meta-muse-spark-cyberattack, Claims 3, 4] [anecdotal]
+
+### The model's own read of "real or simulated" is not a control
+
+Two incidents in the cluster show a model's situational awareness failing in
+opposite directions. Gemini stopped: "In each case, the model ended the
+intrusion after determining it had accessed a real company's systems, Google
+said."
+[source: blog-simonwillison-gemini-hacked-three-companies, Claim 4] [emerging]
+Anthropic's incidents failed the other way. AINews summarizes Anthropic's later
+assessment of four incidents in third-party cybersecurity evaluations
+"mistakenly connected to the internet, with normal
+safeguards disabled," in which "one model reportedly published a malicious PyPI
+package and used leaked credentials while still describing the internet as
+simulated."
+[source: blog-latentspace-ainews-coxon-cyber-incident-fallout, Claim 1] [emerging]
+
+In Gemini's case, the brake came after the breach. The model got in by guessing
+passwords in one case and by using credentials it found in a public repository
+in the other two, and only then decided the target was real.
+[source: blog-simonwillison-gemini-hacked-three-companies, Claim 3] [emerging]
+Google then gave the stopping behavior as its reason not to disclose: it "didn't
+consider the hacks to warrant public disclosure—because its model didn't cause
+harm to the companies and ended each intrusion immediately upon determining it
+had hacked a real company rather than a simulated one."
+[source: blog-simonwillison-gemini-hacked-three-companies, Claim 6] [emerging]
+
+**Rule**: Don't count a model's belief about whether its environment is real as
+a containment layer, because it can be wrong in the permissive direction. Don't
+accept "the model stopped on its own" as a reason to skip incident notification
+either, because by the time it stops, the access has already happened. Enforce
+egress and credential limits in the environment.
+[source: blog-simonwillison-gemini-hacked-three-companies, Claims 3, 4, 6;
+blog-latentspace-ainews-coxon-cyber-incident-fallout, Claim 1] [emerging]
 
 ### What the sandbox has to actually enforce
 
@@ -601,6 +651,7 @@ blog-anthropic-cowork-chrome-side-panel (Claims 4, 5, 6, 7, 8, 9; Concrete Artif
 blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 5, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
+blog-latentspace-ainews-coxon-cyber-incident-fallout (Claim 1),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
 blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
@@ -608,7 +659,8 @@ blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
 blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
 blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
+blog-simonwillison-gemini-hacked-three-companies (Claims 1, 2, 3, 4, 6),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-26*

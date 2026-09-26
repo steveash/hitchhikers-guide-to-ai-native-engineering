@@ -1029,12 +1029,33 @@ confidentiality boundary. This is the availability-of-truth failure on the
 same store: nothing errored, no output was wrong, and the only detector was
 an independent source of ground truth. [editorial]
 
+GitHub's Copilot Memory builds that check into every read instead of running
+it on a schedule. Each stored repository fact carries a pointer to its
+evidence, and that evidence is re-checked before the fact is used:
+"Repository-level facts are stored with citations pointing to the code that
+supports them. When Copilot finds a fact relevant to its current work, it
+checks those citations against the current branch to confirm the information
+is still accurate. Only validated facts are used."
+[source: docs-github-copilot-agentic-autofix-memory, Claim 8] [settled]
+Entries that are never used don't linger: "any stored fact or preference that
+goes unused is automatically deleted after 28 days," and the timer resets on
+each validated use.
+[source: docs-github-copilot-agentic-autofix-memory, Claim 10] [settled]
+The same check also covers facts learned from pull requests that were closed
+without merging. Those facts affect behavior only if "the current codebase
+still substantiates the information."
+[source: docs-github-copilot-agentic-autofix-memory, Claim 11] [settled]
+
 **Rule**: Schedule a ground-truth reconciliation for any agent memory store
 that drives continuity — have the workflow re-derive its own history from an
 external record (issue search, git log, an API listing) on a fixed cadence,
 and treat any count that lands exactly on a round API page limit as
 unconfirmed rather than complete.
 [source: blog-ghaw-agent-of-the-day-2026-08-28, Claims 5, 6] [settled]
+If you design the memory store yourself, store each fact with a citation to
+the code or record that supports it. Re-check the citation at read time, and
+expire entries that go unused.
+[source: docs-github-copilot-agentic-autofix-memory, Claims 8, 10, 11] [settled]
 
 ---
 
@@ -1276,6 +1297,7 @@ discussion-hn-airun-executable-markdown (Claim 7),
 discussion-hn-autofix-hybrid-review (Claims 1, 2, 3, 8),
 docs-ghaw-chatops (Claims 5, 6, 7),
 docs-ghaw-memory-ops (Claim 11),
+docs-github-copilot-agentic-autofix-memory (Claims 8, 10, 11),
 failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
@@ -1288,4 +1310,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-26*

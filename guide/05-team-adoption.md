@@ -301,6 +301,46 @@ blog-bvp-shopify-ai-playbook, Claim 3] [editorial]
 The mistake is to skip rungs because the *vendor* says you can. The vendor
 benchmarks are not your codebase, your engineers, or your harness.
 
+### Earn a lighter rung with a written certificate, agreed from the top
+
+Anthropic's forward-deployed engineers describe how regulated enterprises move
+up this ramp for modernization work. It rests on two written artifacts agreed
+before any agent runs. The first is a **certificate**, the evidence every change
+must produce: "Each condition should be checkable without a human in the loop,
+so the agentic workflow can iterate on a change until it meets the certificate
+or flag it for human review if it can't." The certificate draws on items from
+an eleven-item menu that includes test results, benchmarks, UI-regression
+checks, parity checks, staging soak time, security scans, and "Independent
+adversarial reviews by Claude, each in a fresh context window, find no blocking
+issues."
+[source: blog-anthropic-modernization-preparation-playbook, Claim 5] [emerging]
+
+Their test for whether a certificate is good enough is how reviewers react to
+it: "A good check on the finished certificate is whether they would be
+comfortable merging on the certificate's evidence alone. If they see their own
+bar in it, the promotion policy in Step 3 can be lighter."
+[source: blog-anthropic-modernization-preparation-playbook, Claim 6] [emerging]
+
+The second artifact is a **promotion policy**, a review path agreed in advance
+and tiered by blast radius and agent confidence. When the same review flag
+keeps coming back, the policy fixes its cause rather than reviewing each
+instance: "When the same kind of flag keeps recurring, fix the cause in the
+agentic workflow or the certificate rather than reviewing each one."
+[source: blog-anthropic-modernization-preparation-playbook, Claim 8] [emerging]
+The directive for the policy has to come from leadership, because "Individual
+approvers hesitate to sign off because they carry the risk of a bad change,
+while leadership carries the larger risk of an aging system." Agreeing on the
+policy beforehand means "responsibility for a bug that reaches production is
+shared, not pinned on whoever approved the change."
+[source: blog-anthropic-modernization-preparation-playbook, Claim 9] [emerging]
+
+**Rule**: Before you let a class of agent changes move to a lighter review
+rung, write down the machine-checkable evidence those changes must carry. Have
+the approvers confirm they would merge on that evidence alone, and get
+leadership to sign the tiered review policy before work starts, not after the
+first incident.
+[source: blog-anthropic-modernization-preparation-playbook, Claims 5, 6, 8, 9] [emerging]
+
 ### Senior engineers should be the early adopters
 
 The Pragmatic Engineer survey's staff+ adoption finding (63.5% vs. 49.7% for
@@ -1724,6 +1764,7 @@ blog-anthropic-carta-healthcare-context-engineering (Claim 7),
 blog-mattwood-unit-of-return (Claims 3, 5, 8, 9, 10; Concrete Artifacts),
 docs-ghaw-multi-repo-feature-sync (Claim 8),
 docs-ghaw-open-telemetry-attributes (Claims 6, 7),
+blog-anthropic-modernization-preparation-playbook (Claims 5, 6, 8, 9),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
 blog-cursor-better-models-ambitious-work (Claims 2, 3, 4),
 blog-cursor-coinbase-agent-first-adoption (Claims 3, 10),
@@ -1746,4 +1787,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-26*
