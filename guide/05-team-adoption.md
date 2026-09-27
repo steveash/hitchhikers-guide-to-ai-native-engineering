@@ -91,7 +91,7 @@ with less infrastructure investment. For solo engineers and small teams, the
 equivalent is a single shared `.env` or secrets manager that holds the API
 keys all clients consume -- the discipline is "one configuration source," not
 "one client."
-[source: blog-bvp-shopify-ai-playbook, Claim 2] [editorial]
+[source: blog-bvp-shopify-ai-playbook, Claim 2] [stale]
 
 ### Standardize the harness files, not the client
 
@@ -114,7 +114,7 @@ All guidance lives in `AGENTS.md` files (root + subdirectories), and an
 agents = ["claude", "cursor"]
 ```
 
-[source: practitioner-getsentry-sentry] [emerging]
+[source: practitioner-getsentry-sentry] [stale]
 
 This is the architectural posture the multi-tool reality demands. Putting
 guidance in a tool-agnostic file means the file remains useful when your team
@@ -149,7 +149,7 @@ to stage the harness rollout in three phases that match this trajectory:
 | Phase 3 (months 9+) | Design and planning | Skills for domain knowledge, plan templates, architecture-decision context |
 
 [source: research-anthropic-ai-transforming-work, Claim 6;
-practitioner-getsentry-sentry] [editorial]
+practitioner-getsentry-sentry] [stale]
 
 A team that tries to ship Phase 3 content on day one will overwhelm the agent
 context budget and the engineers' attention. A team that never expands past
@@ -192,7 +192,7 @@ exactly the rate the AI lets them ship faster. A CLAUDE.md that omits lint,
 test, and typecheck commands is a CLAUDE.md that will let your team's
 cognitive complexity drift up by 41.6% -- which is what Miller et al.
 measured, *persistently*, across 806 adopting projects.
-[source: paper-miller-speed-cost-quality, Claim 2] [emerging]
+[source: paper-miller-speed-cost-quality, Claim 2] [stale]
 
 **Rule**: Before rolling out AI tools to a team, audit the harness to
 guarantee it can run lint, format, typecheck, and tests as documented commands
@@ -257,7 +257,7 @@ long-tail of complexity-driven slowdowns → those slowdowns wash out the
 original velocity gains. The treated repositories still have the Cursor
 config files and presumably still use the tool. The decay is not "people
 stopped using it." The decay is "the quality cost caught up."
-[source: paper-miller-speed-cost-quality, Claims 1, 2, 4, 5] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 1, 2, 4, 5] [stale]
 
 **Rule**: A team rolling out AI tools must invest in quality automation
 *before* the velocity gains decay, not after. By the time the productivity
@@ -296,7 +296,7 @@ mandatory human review. Most teams new to AI tools should start at Rung 1 and
 move up explicitly when they have evidence of stable harness behavior under
 their workload.
 [source: research-anthropic-ai-transforming-work, Claims 4, 5;
-blog-bvp-shopify-ai-playbook, Claim 3] [editorial]
+blog-bvp-shopify-ai-playbook, Claim 3] [stale]
 
 The mistake is to skip rungs because the *vendor* says you can. The vendor
 benchmarks are not your codebase, your engineers, or your harness.
@@ -322,7 +322,7 @@ become the second-wave rollout's documentation. Pilot with juniors and you
 will build a feedback loop where the agent's mistakes go uncorrected and the
 team's harness drifts toward a configuration that does not catch them.
 [source: survey-pragmaticengineer-ai-tooling-2026, Claim 3;
-research-anthropic-ai-transforming-work, Claim 4] [editorial]
+research-anthropic-ai-transforming-work, Claim 4] [stale]
 
 This is uncomfortable advice because it is the opposite of how junior-focused
 training programs are often structured. The honest framing: AI tools can
@@ -369,7 +369,7 @@ consume, and standardize *up* to that layer rather than *down* to the client.
 | Hook scripts (lifecycle enforcement) | Yes | The only 100%-reliable enforcement layer |
 
 [source: practitioner-getsentry-sentry; blog-bvp-shopify-ai-playbook, Claims 1, 2;
-failure-claudemd-ignored-compaction; failure-hooks-enforcement-2k] [emerging]
+failure-claudemd-ignored-compaction; failure-hooks-enforcement-2k] [stale]
 
 ### What to leave personal
 
@@ -403,21 +403,21 @@ they survive the inevitable tool change when procurement catches up. The
 Sentry `@AGENTS.md` redirect pattern (see Chapter 02) is the cheapest
 implementation of this principle.
 [source: survey-pragmaticengineer-ai-tooling-2026, Claim 6;
-practitioner-getsentry-sentry] [emerging]
+practitioner-getsentry-sentry] [stale]
 
 ### License allocation: by verification capacity, not by headcount
 
 Faros's measurement framework includes a counterintuitive operational
 recommendation: **reallocate licenses from low-value to high-value users
 rather than spreading equally.**
-[source: blog-faros-claude-code-roi, Claim 6] [anecdotal]
+[source: blog-faros-claude-code-roi, Claim 6] [stale]
 
 This is consistent with the staff+ adoption pattern (63.5% vs. 49.7%) and the
 verification-capacity finding. A team rolling out Claude Code to 100 engineers
 may get more total value from giving 30 engineers full access plus extensive
 harness investment than from spreading thin licenses across all 100.
 [source: blog-faros-claude-code-roi, Claim 6;
-survey-pragmaticengineer-ai-tooling-2026, Claim 3] [editorial]
+survey-pragmaticengineer-ai-tooling-2026, Claim 3] [stale]
 
 The honest framing: AI tools work best where the verification capacity is
 highest. License allocation should follow verification capacity, not
@@ -679,12 +679,12 @@ adoption.
 **Source 1 (peer-reviewed)**: Miller et al. find a persistent 41.6% increase
 in cognitive complexity post-Cursor adoption, alongside a 30.3% increase in
 static analysis warnings (reliability + maintainability + security).
-[source: paper-miller-speed-cost-quality, Claims 2, 3] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 2, 3] [stale]
 
 **Source 2 (vendor analytics)**: Faros AI's example customer comparison shows
 Team A (5% Claude Code adoption) vs. Team B (60% adoption): "Team B... merging
 47% more pull requests daily but has 35% longer review times."
-[source: blog-faros-claude-code-roi, Claim 3] [anecdotal]
+[source: blog-faros-claude-code-roi, Claim 3] [stale]
 
 **Source 3 (executive interview)**: Farhan Thawar at Shopify describes code
 review as a "big bottleneck" caused by increased AI-generated code volume,
@@ -712,13 +712,13 @@ fix.
 capacity. A senior engineer with an effective harness can produce 47% more PRs
 without working harder. The reviewer at the other end of those PRs has the
 same eight hours and the same attention budget.
-[source: blog-faros-claude-code-roi, Claim 3] [anecdotal]
+[source: blog-faros-claude-code-roi, Claim 3] [stale]
 
 **2. The complexity problem**: Each individual PR is harder to read. The CMU
 finding of a 41.6% persistent cognitive complexity increase means reviewers
 are not just looking at more PRs -- they are looking at PRs that take 41.6%
 more cognitive load to understand per line.
-[source: paper-miller-speed-cost-quality, Claim 2] [emerging]
+[source: paper-miller-speed-cost-quality, Claim 2] [stale]
 
 **3. The trust problem**: The reviewer often does not know what was AI-generated
 and what was human-authored. AI-written code has different failure modes from
@@ -726,7 +726,7 @@ human-written code (plausible-but-wrong API calls, hallucinated function
 signatures, subtle off-by-ones in generated boilerplate). A reviewer who
 treats every PR identically will miss the failure modes specific to AI output.
 [source: paper-miller-speed-cost-quality, Claim 6;
-research-anthropic-ai-transforming-work, Claim 8] [emerging]
+research-anthropic-ai-transforming-work, Claim 8] [stale]
 
 ### Solutions that work
 
@@ -737,7 +737,7 @@ this into a custom workflow with an explicit anti-sycophancy stance:
 > feedback is truthful (the bug is real, for example), and then attempt
 > to address it."
 
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 The same posture should apply to AI-generated code review: do not assume the
 diff is correct because it compiles, do not assume the test passes for the
@@ -751,7 +751,7 @@ each PR carries more risk per line than the pre-AI baseline; reducing review
 depth on a more-complex PR is a worse trade than letting the review backlog
 grow.
 [source: paper-miller-speed-cost-quality, Claims 2, 3, 5;
-blog-bvp-shopify-ai-playbook, Claim 4] [emerging]
+blog-bvp-shopify-ai-playbook, Claim 4] [stale]
 
 **Author tagging.** When a PR involves AI-generated code, tag it explicitly so
 reviewers know to apply AI-specific scrutiny. This is a lightweight,
@@ -839,13 +839,13 @@ The recommended methodology:
 - **Time window**: At least one quarter (Faros recommendation), preferably six
   months (Miller decay timeline). Anything shorter will overstate the gain.
 [source: blog-faros-claude-code-roi, Claim 2;
-paper-miller-speed-cost-quality, Claim 1] [emerging]
+paper-miller-speed-cost-quality, Claim 1] [stale]
 
 For teams that cannot run a true control (most teams), use before-and-after
 measurement on the same team with explicit acknowledgment that this is weaker
 than a cohort design and may attribute changes to AI that were caused by
 other shifts (new hires, on-call changes, refactor sprints).
-[source: blog-faros-claude-code-roi, Claim 2] [editorial]
+[source: blog-faros-claude-code-roi, Claim 2] [stale]
 
 ### The four-layer measurement framework
 
@@ -879,7 +879,7 @@ implementation; Sentry's `sentry-backend-bugs` skill (built on 638 real
 production issues, 27M events) is a more sophisticated one.
 [source: paper-miller-speed-cost-quality, Claims 2, 3;
 blog-bvp-shopify-ai-playbook, Claim 6;
-practitioner-getsentry-sentry] [emerging]
+practitioner-getsentry-sentry] [stale]
 
 ### Available measurement primitives (enterprise GitHub)
 
@@ -1105,16 +1105,16 @@ the typical vendor narrative.
 
 - **Shopify** estimates 20% productivity improvement, characterized by
   Farhan as a "humble estimate."
-  [source: blog-bvp-shopify-ai-playbook, Claim 5] [anecdotal]
+  [source: blog-bvp-shopify-ai-playbook, Claim 5] [stale]
 - **Anthropic** engineers self-report 50% productivity gains, but the same
   report acknowledges that self-reported productivity is the least reliable
   evidence available; the METR study (pre-cutoff) found self-reports wildly
   diverging from instrumented measurement.
-  [source: research-anthropic-ai-transforming-work, Claim 2] [anecdotal]
+  [source: research-anthropic-ai-transforming-work, Claim 2] [stale]
 - **Miller et al.** show that the early velocity spike (281% in month 1)
   decays to zero by month 3 -- meaning any measurement window shorter than
   three months will systematically overstate the durable gain.
-  [source: paper-miller-speed-cost-quality, Claims 1, 4] [emerging]
+  [source: paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 
 The realistic ceiling for organizational productivity gains in a large
 company appears to be in the 10-30% range, with the upper bound requiring
@@ -1123,7 +1123,7 @@ productivity" is marketing. Anything above 30% should be questioned and
 checked against a 6-month measurement window.
 [source: blog-bvp-shopify-ai-playbook, Claim 5;
 paper-miller-speed-cost-quality, Claims 1, 4;
-research-anthropic-ai-transforming-work, Claim 2] [editorial]
+research-anthropic-ai-transforming-work, Claim 2] [stale]
 
 ---
 
@@ -1218,7 +1218,7 @@ with AI. Anthropic's internal data shows usage doubling year-over-year (28%
 → 60% of work). Resistance to *trying* AI tools is no longer a meaningful
 position in the senior tech audience.
 [source: survey-pragmaticengineer-ai-tooling-2026, Claim 4;
-research-anthropic-ai-transforming-work, Claim 1] [emerging]
+research-anthropic-ai-transforming-work, Claim 1] [stale]
 
 **But** here's the part vendors leave out: high adoption is not the same as high effectiveness. The fact that everyone is using these tools is
 not evidence that the tools are working. It is evidence that the tools have
@@ -1233,14 +1233,14 @@ the heaviest agent users at 63.5%, versus 49.7% for regular engineers. The
 pattern is consistent across the Anthropic data, where the heaviest internal
 adoption is in research and infrastructure teams led by senior engineers.
 [source: survey-pragmaticengineer-ai-tooling-2026, Claim 3;
-research-anthropic-ai-transforming-work, Claim 7] [emerging]
+research-anthropic-ai-transforming-work, Claim 7] [stale]
 
 The mechanism is the verification finding: AI is a multiplier on verification
 capacity, and seniors have more of it. Pair this with the >50%-of-engineers-
 can-only-fully-delegate-0-20% finding and the picture is clear: AI is
 sharpest in the hands of someone who can sanity-check the output at speed.
 [source: research-anthropic-ai-transforming-work, Claim 4;
-survey-pragmaticengineer-ai-tooling-2026, Claim 3] [emerging]
+survey-pragmaticengineer-ai-tooling-2026, Claim 3] [stale]
 
 The implication for adoption strategy: do not treat agents as a productivity
 floor for juniors; treat them as a productivity multiplier for seniors who
@@ -1254,7 +1254,7 @@ strongest peer-reviewed evidence in our corpus.
 Miller et al. measured a 281% velocity spike in month 1 that decayed to *zero*
 by month 3. That decay alone disproves any vendor claim that 30-day pilot
 numbers represent durable productivity gains.
-[source: paper-miller-speed-cost-quality, Claims 1, 4] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 
 Self-reported productivity estimates are consistently higher than instrumented
 measurements. Anthropic engineers self-report 50% gains, but the same report
@@ -1263,7 +1263,7 @@ METR study (pre-cutoff) found self-reports wildly diverging from objective
 measurement -- specifically, experienced developers self-reported a 24%
 productivity gain on the same tasks where objective measurement showed a 19%
 *slowdown*.
-[source: research-anthropic-ai-transforming-work, Claim 2] [anecdotal]
+[source: research-anthropic-ai-transforming-work, Claim 2] [stale]
 
 A practitioner summarizing their own experience with unstructured agentic use
 independently arrives at the same pattern as Miller et al.:
@@ -1284,7 +1284,7 @@ outcome -- but that claim needs to be defended, not assumed.
 
 Shopify's "humble 20%" framing is much closer to what the durable evidence
 supports than the typical "5x productivity" vendor pitch.
-[source: blog-bvp-shopify-ai-playbook, Claim 5] [anecdotal]
+[source: blog-bvp-shopify-ai-playbook, Claim 5] [stale]
 
 The honest framing: yes, AI productivity gains are commonly overstated. The
 gains are real but smaller than advertised, transient if you don't pair them
@@ -1297,7 +1297,7 @@ cohort design.
 found a persistent 41.6% increase in cognitive complexity and 30.3% increase
 in static analysis warnings post-Cursor adoption. These are large effects,
 peer-reviewed, and survive matching.
-[source: paper-miller-speed-cost-quality, Claims 2, 3] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 2, 3] [stale]
 
 But the *mechanism* matters. The same paper finds that AI tools amplify
 existing velocity-quality dynamics rather than introducing new bug categories
@@ -1311,7 +1311,7 @@ consistent with both findings: reversion rate captures bugs serious enough to
 revert, but not the slow drift in complexity that the CMU paper measures. A
 team can have flat reversion rates and rising complexity at the same time.
 [source: blog-bvp-shopify-ai-playbook, Claim 6;
-paper-miller-speed-cost-quality, Claims 2, 6] [emerging]
+paper-miller-speed-cost-quality, Claims 2, 6] [stale]
 
 The honest framing: AI does not generate "worse code" per line, but it lets
 teams ship more code, which exposes the limits of their existing quality
@@ -1347,7 +1347,7 @@ Two of the most AI-aggressive engineering organizations on Earth (Shopify and An
 and the most credible voices on AI risks are not AI skeptics; they are AI
 insiders.
 [source: research-anthropic-ai-transforming-work, Claim 8;
-blog-bvp-shopify-ai-playbook, Claim 8] [emerging]
+blog-bvp-shopify-ai-playbook, Claim 8] [stale]
 
 The Miller findings supply the mechanism: if AI-generated code is 41.6% more
 complex on average, then *not reading it carefully* compounds two problems
@@ -1355,7 +1355,7 @@ into one feedback loop. Complexity goes up because AI helped you ship faster.
 Comprehension goes down because you stopped reading carefully. The loop runs
 until someone has to debug code nobody understands.
 [source: paper-miller-speed-cost-quality, Claim 2;
-research-anthropic-ai-transforming-work, Claim 8] [emerging]
+research-anthropic-ai-transforming-work, Claim 8] [stale]
 
 The supervision-paradox concern (that atrophied coding skills undermine the ability to oversee AI output) directly contradicts the "AI lets juniors
 operate at senior level" framing. If senior engineers atrophy, the
@@ -1363,14 +1363,14 @@ verification capacity that the staff+ adoption pattern depends on will erode
 over time. This is not a future risk. It is a present concern raised by the
 current heaviest users.
 [source: research-anthropic-ai-transforming-work, Claim 8;
-survey-pragmaticengineer-ai-tooling-2026, Claim 3] [emerging]
+survey-pragmaticengineer-ai-tooling-2026, Claim 3] [stale]
 
 **The defensive practice**: Make code review a deliberate learning ritual,
 not a rubber stamp. Require engineers to be able to *explain* code in their
 PRs, not just to have authored or accepted it. This is the only sustainable
 counter to comprehension debt at the team level.
 [source: research-anthropic-ai-transforming-work, Claim 8;
-blog-bvp-shopify-ai-playbook, Claim 8] [editorial]
+blog-bvp-shopify-ai-playbook, Claim 8] [stale]
 
 ### Objection 6: "I don't want to be forced to use AI"
 
@@ -1411,7 +1411,7 @@ security partner, not a security guarantor.
 The Miller paper's 30.3% increase in static analysis warnings includes a
 security-warning subcategory, which is evidence in the *opposite* direction:
 AI-generated code triggers more security warnings, not fewer.
-[source: paper-miller-speed-cost-quality, Claim 3] [emerging]
+[source: paper-miller-speed-cost-quality, Claim 3] [stale]
 
 The honest framing: the security-improvement claim should be treated as
 "possibly true on average for some narrow categories of vulnerability,
@@ -1615,7 +1615,7 @@ depended on infrastructure and practices the practitioner had not yet set
 up. When those were added (worktrees, ticket-based task scoping, planning
 first), parallel sessions became possible — but the ramp took weeks, not
 hours.
-[source: failure-sukit-parallel-session-ceiling, Lesson 4] [editorial]
+[source: failure-sukit-parallel-session-ceiling, Lesson 4] [stale]
 
 Benchmark your team's month-1 results against realistic month-1 baselines,
 not against an expert's year-1 workflow. The playbook below reflects the
@@ -1629,14 +1629,14 @@ timeline the evidence actually supports.
 - Build tool-agnostic harness files (CLAUDE.md → AGENTS.md, with
   Sentry-style redirect or equivalent).
   [source: practitioner-getsentry-sentry;
-  survey-pragmaticengineer-ai-tooling-2026, Claim 6] [emerging]
+  survey-pragmaticengineer-ai-tooling-2026, Claim 6] [stale]
 - Stand up a meta-harness layer (LLM proxy, gateway, or shared secrets store)
   proportional to org size.
   [source: blog-bvp-shopify-ai-playbook, Claim 2] [stale]
 - Identify 5-10 senior pilot users with strong review instincts. Allocate
   full-tier licenses to them, not to a representative sample.
   [source: survey-pragmaticengineer-ai-tooling-2026, Claim 3;
-  blog-faros-claude-code-roi, Claim 6] [emerging]
+  blog-faros-claude-code-roi, Claim 6] [stale]
 
 **Months 3-6: Pilot with verification at Rung 1-2.**
 - Pilot users operate at turn-by-turn or action-batch review (no autonomous
@@ -1652,7 +1652,7 @@ timeline the evidence actually supports.
 - Maintain code review depth even as PR volume grows. Resist the bottleneck
   pressure to relax review.
   [source: blog-bvp-shopify-ai-playbook, Claim 4;
-  paper-miller-speed-cost-quality, Claims 2, 3] [emerging]
+  paper-miller-speed-cost-quality, Claims 2, 3] [stale]
 
 **Months 6-12: Expand to second wave with cohort measurement.**
 - Compare pilot-team metrics against a matched non-pilot team across all four
@@ -1660,26 +1660,26 @@ timeline the evidence actually supports.
   [source: blog-faros-claude-code-roi, Claims 1, 2, 4] [stale]
 - Watch for the velocity-decay pattern (281% → 48% → 0%). If month-3 velocity
   has not been sustained by month 6, the harness is the prime suspect.
-  [source: paper-miller-speed-cost-quality, Claims 1, 4] [emerging]
+  [source: paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 - Stage harness expansion from Phase 1 (refactoring) into Phase 2 (feature
   implementation) per the Anthropic usage trajectory.
   [source: research-anthropic-ai-transforming-work, Claim 6] [stale]
 - Address comprehension debt explicitly: require PR authors to be able to
   explain the code, not just to have authored or accepted it.
   [source: research-anthropic-ai-transforming-work, Claim 8;
-  blog-bvp-shopify-ai-playbook, Claim 8] [emerging]
+  blog-bvp-shopify-ai-playbook, Claim 8] [stale]
 
 **Month 12 onwards: Org-wide rollout with continuous measurement.**
 - Maintain the meta-harness as the standardization point. Let clients vary.
   [source: blog-bvp-shopify-ai-playbook, Claims 1, 2;
-  survey-pragmaticengineer-ai-tooling-2026, Claim 2] [emerging]
+  survey-pragmaticengineer-ai-tooling-2026, Claim 2] [stale]
 - Treat productivity gains in the 10-30% range as the realistic ceiling.
   Any number above 30% should be checked against a 6-month window.
   [source: blog-bvp-shopify-ai-playbook, Claim 5;
-  paper-miller-speed-cost-quality, Claims 1, 4] [editorial]
+  paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 - Keep autonomous merges off until the harness produces evidence (not vendor benchmarks) that it can be trusted.
   [source: blog-bvp-shopify-ai-playbook, Claim 3;
-  research-anthropic-ai-transforming-work, Claim 4] [emerging]
+  research-anthropic-ai-transforming-work, Claim 4] [stale]
 
 The playbook is deliberately slow. The honest case for the slowness is
 empirical: the velocity-decay finding means a 30-day sprint will overstate

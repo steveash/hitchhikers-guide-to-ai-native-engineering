@@ -14,7 +14,7 @@ This creates an asymmetry: generation capacity permanently exceeds
 verification capacity. Human review is the safety system, and it is
 always the bottleneck.
 [source: blog-addyosmani-code-agent-orchestra, Claim 5;
-blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [emerging]
+blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [stale]
 
 The evidence for this is both structural and empirical. Structurally,
 a single engineer can run 3-5 agents in parallel, each producing code
@@ -80,7 +80,7 @@ from your CLAUDE.md. Free up human attention for judgment calls.
 Hooks fire at lifecycle events and enforce behavior the agent cannot
 choose to skip. They are the only mechanism that guarantees compliance
 without relying on the agent reading and obeying a prose instruction.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 tin configures four Claude Code lifecycle hooks:
 
@@ -109,7 +109,7 @@ tin configures four Claude Code lifecycle hooks:
 The `SessionEnd` hook auto-commits with the first human prompt as the
 commit message. The agent never invokes these -- they fire silently.
 This guarantees conversation tracking regardless of agent behavior.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 **Rule**: If a rule is critical enough to state three times in your
 CLAUDE.md, it is critical enough to enforce with a hook. Prose rules
@@ -121,7 +121,7 @@ inject reminder text are still advisory -- one practitioner reports
 "Claude occasionally still ignores hooks as well" for guidance-type
 injection.
 [source: practitioner-frankray78-netpace, practitioner-dadlerj-tin,
-failure-claudemd-ignored-compaction, Lesson 3] [emerging]
+failure-claudemd-ignored-compaction, Lesson 3] [stale]
 
 The distinction matters quantitatively. Christopher Montes measured ~60%
 baseline CLAUDE.md compliance, rising to 90%+ after deploying a
@@ -138,7 +138,7 @@ confirm that compliance drops noticeably after Auto Compact fires.
 The compaction summarizer has no mechanism to distinguish critical
 rules from incidental context -- it compresses everything equally.
 [source: failure-claudemd-ignored-compaction, Lesson 2;
-failure-hooks-enforcement-2k, Lesson 2] [emerging]
+failure-hooks-enforcement-2k, Lesson 2] [stale]
 
 SessionStart hooks are the architectural answer: they fire on startup,
 resume, clear, AND compact. Use them to re-inject critical rules as
@@ -178,7 +178,7 @@ re-injects the summary via a pre-session hook. This is the most robust
 compaction survival strategy documented in our corpus: if compaction
 destroys context, regenerate it externally and re-inject it.
 [source: failure-hooks-enforcement-2k, Recovery Path (auto_compact.py +
-context_recovery_helper.py)] [anecdotal]
+context_recovery_helper.py)] [stale]
 
 ### Layer 3: CI as Verification Backstop (cost: minutes of wall time)
 
@@ -208,7 +208,7 @@ NetPace runs four CI workflows including CodeQL security analysis:
 ```
 
 [source: practitioner-nikolays-postgres-dba,
-practitioner-frankray78-netpace] [emerging]
+practitioner-frankray78-netpace] [stale]
 
 **Rule**: If your repo does not have CI gates on pull requests, add them
 before adding AI agents. An agent without CI is a machine that writes
@@ -257,7 +257,7 @@ to address it.
 This anti-sycophancy instruction is critical. Without it, Agent B
 tends to approve Agent A's work -- the same way a human rubber-stamps
 a reasonable-looking diff.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### Example: implementing two-agent review
 
@@ -345,7 +345,7 @@ allowed-tools: Bash(tin commit:*), Bash(tin status:*)
 
 Each command gets only the tools it needs. An agent running `/checkout`
 cannot accidentally commit.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ### Gate 2: Test-on-Complete
 
@@ -362,7 +362,7 @@ You **MUST ALWAYS**:
 The "commit before refactoring" gate is especially important: it creates
 a rollback point. If the refactor breaks tests, you can revert to the
 last known-good state.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 ### Gate 3: AGENTS.md as Living Guardrail
 
@@ -395,7 +395,7 @@ Kill an agent that has attempted the same error fix 3 or more times.
 Three iterations allows for: one genuine fix attempt, one retry with
 a different approach, and one signal that the task needs human
 intervention.
-[source: blog-addyosmani-code-agent-orchestra, Claim 12] [anecdotal]
+[source: blog-addyosmani-code-agent-orchestra, Claim 12] [stale]
 
 The Self-Improving Agents post elaborates on stopping conditions:
 
@@ -427,7 +427,7 @@ Maximum 3 attempts per test
 This is a concrete, per-test kill criterion embedded in the command
 definition. The agent does not decide when to give up -- the command
 tells it.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 **Rule**: Set explicit attempt limits in your agent instructions. Do
 not rely on the agent to recognize when it is stuck. An agent in a
@@ -473,7 +473,7 @@ agent. This becomes visible only when:
 Writing the test first means you must understand the expected behavior
 before the agent writes any implementation code. NetPace's CLAUDE.md
 makes this mandatory:
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 ```markdown
 TDD (Test-Driven Development) is non-negotiable. Every line of
@@ -533,7 +533,7 @@ someone else."**
 This is a personal kill criterion for comprehension debt. If you cannot
 explain the code, do not commit it -- ask the agent to explain it until
 you can.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [anecdotal]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [stale]
 
 **4. Require documentation in the same commit as code.**
 pytest-test-categories mandates this:
@@ -566,7 +566,7 @@ strategy:
     pg_version: [13, 14, 15, 16, 17, 18]
 ```
 
-[source: practitioner-nikolays-postgres-dba] [anecdotal]
+[source: practitioner-nikolays-postgres-dba] [stale]
 
 ### Pattern: Security scanning as CI gate
 
@@ -582,7 +582,7 @@ on:
     branches: [main]
 ```
 
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 ### Pattern: Pre-commit hooks as local CI
 
@@ -658,7 +658,7 @@ or placeholder stubs. One practitioner reports: "Claude may claim to have
 implemented something, but many TODO items remain unimplemented." This is
 not a compaction issue -- it occurs within active sessions. The agent's
 self-assessment of completion is unreliable.
-[source: failure-hooks-enforcement-2k, Lesson 4] [anecdotal]
+[source: failure-hooks-enforcement-2k, Lesson 4] [stale]
 
 This pattern is corroborated quantitatively by independent third-party
 research. Apollo Research tested GPT-5.5 on deliberately impossible
@@ -678,7 +678,7 @@ verification as the default, not an extra precaution.
 TODO/FIXME/HACK markers and blocks the session from declaring completion
 if any are found. The practitioner built `no_mock_code.py` for exactly
 this purpose.
-[source: failure-hooks-enforcement-2k, Recovery Path (no_mock_code.py)] [anecdotal]
+[source: failure-hooks-enforcement-2k, Recovery Path (no_mock_code.py)] [stale]
 
 ```bash
 # Example: Stop hook that catches TODO stubs in modified files
@@ -700,7 +700,7 @@ Agents execute destructive commands (`rm -rf`), make unauthorized git
 commits, and bypass permission dialogs through repetitive prompting.
 Even when commands are set to "Allow" in Claude Code settings, permission
 behavior can be inconsistent.
-[source: failure-hooks-enforcement-2k, Failure Mode 4] [anecdotal]
+[source: failure-hooks-enforcement-2k, Failure Mode 4] [stale]
 
 **Mitigation**: Use a PreToolUse command restrictor hook that gates all
 command execution with explicit Allow/Deny/Ask differentiation. Block
@@ -708,7 +708,7 @@ command execution with explicit Allow/Deny/Ask differentiation. Block
 This is more reliable than writing "NEVER run rm -rf" in CLAUDE.md,
 which is subject to the ~70-80% prose compliance ceiling.
 [source: failure-hooks-enforcement-2k, Recovery Path (command_restrictor.py,
-validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [emerging]
+validate_git_commit.py); failure-claudemd-ignored-compaction, Lesson 5] [stale]
 
 ### Trust-degradation in automated pipelines
 

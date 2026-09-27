@@ -22,7 +22,7 @@ that matches your situation.
 ### The Thin Redirect (multi-tool teams)
 
 Put your guidance in a tool-agnostic file and make CLAUDE.md a pointer.
-[source: practitioner-getsentry-sentry] [emerging]
+[source: practitioner-getsentry-sentry] [stale]
 
 Sentry's CLAUDE.md is 11 bytes:
 
@@ -67,7 +67,7 @@ but delegates depth to existing human documentation.
 ### The Monolith (single-tool, single-developer)
 
 Put everything in one file. Accept the length.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 NetPace's `.claude/CLAUDE.md` is ~450 lines covering TDD enforcement, C#
 coding standards, architecture rules, commit checklists, and test scope
@@ -79,7 +79,7 @@ reads "Last Updated: December 2025 (Simplified - removed custom agents)".
 ### The Terse Redirect-to-External (domain-specific projects)
 
 Keep CLAUDE.md under 30 lines and delegate to an external rule set.
-[source: practitioner-nikolays-postgres-dba] [anecdotal]
+[source: practitioner-nikolays-postgres-dba] [stale]
 
 postgres_dba's entire CLAUDE.md:
 
@@ -119,7 +119,7 @@ repo, handbook) and you want to point rather than duplicate.
 **Caveat**: Claude Code cannot fetch arbitrary URLs unless WebFetch or MCP
 is configured. The external rules may be opaque to the agent. postgres_dba's
 Cursor rules file compensates by inlining the SQL style guide (~100 lines).
-[source: practitioner-nikolays-postgres-dba] [anecdotal]
+[source: practitioner-nikolays-postgres-dba] [stale]
 
 ---
 
@@ -138,7 +138,7 @@ Cursor rules file compensates by inlining the SQL style guide (~100 lines).
 > settings.json permissions, blocking hooks, or CI gates (see "The Enforcement
 > Hierarchy" below).
 > [source: failure-claudemd-ignored-compaction, Lessons 1, 5, 6;
-> failure-hooks-enforcement-2k, Lesson 1] [emerging]
+> failure-hooks-enforcement-2k, Lesson 1] [stale]
 
 Six out of six profiled repos share a common priority order. Lead with
 prohibitions, then surgical corrections, then stack context.
@@ -215,7 +215,7 @@ practitioner-supabase-supabase-js, practitioner-dadlerj-tin] [settled]
 
 Do not restate your entire style guide. Instead, identify the specific
 mistakes your AI agent makes and write one-line corrections for each.
-[source: practitioner-nikolays-postgres-dba, practitioner-mikelane-pytest-test-categories] [stale]
+[source: practitioner-nikolays-postgres-dba, practitioner-mikelane-pytest-test-categories] [emerging]
 
 postgres_dba's CLAUDE.md contains exactly two style rules — the two things
 LLMs get wrong in SQL:
@@ -321,7 +321,7 @@ NetPace's `/bugmagnet` command uses JavaScript/Jest examples despite being
 a C# project, with a disclaimer: "These examples use JavaScript/Jest syntax
 for illustration." This creates a translation burden for the agent and risks
 contaminating output style.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 **Rule**: Use your project's actual language and frameworks in all examples.
 
@@ -407,7 +407,7 @@ Use the two-tier pattern (MUST NEVER / MUST ALWAYS) when your project
 is small, your agent operates in a narrow scope, and every operation is
 clearly safe or clearly dangerous. This is NetPace's situation — a solo
 developer on a CLI tool where TDD is the universal rule.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 Use the three-tier pattern when your project involves operations with
 conditional risk — database migrations, API schema changes, permission
@@ -450,12 +450,12 @@ tin's per-command tool scoping is a programmatic implementation of the
 three-tier pattern: each command declares exactly which tools it can use.
 A `/checkout` command cannot commit; a `/commit` command cannot checkout.
 The boundaries are enforced by settings.json, not by prose.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 Sentry's granular allowlist (60+ specific Bash command prefixes) is the
 "Always Do" tier made explicit — the agent can run listed commands without
 asking, and everything else is implicitly forbidden.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ---
 
@@ -463,7 +463,7 @@ asking, and everything else is implicitly forbidden.
 
 Repeat your most critical rules. This is not sloppiness — it is a
 deliberate strategy to survive context window pressure.
-[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [stale]
+[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [emerging]
 
 NetPace repeats "TDD is non-negotiable" three times: in the summary, in
 the Core Philosophy heading, and in the closing footer.
@@ -493,7 +493,7 @@ running TDD inside the agent loop is covered in Chapter 03.
 **The technique**: Place your cardinal rule at the top, in the relevant
 section, and at the bottom. Three placements. The agent encounters it
 regardless of where it starts reading.
-[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [stale]
+[source: practitioner-frankray78-netpace, practitioner-supabase-supabase-js] [emerging]
 
 **Caveat**: Repetition improves survival through compaction but does not
 guarantee compliance. One practitioner documented emphatic CLAUDE.md rules
@@ -511,7 +511,7 @@ Not all enforcement mechanisms are equal. The following hierarchy ranks them
 by reliability, from strongest to weakest. Use it to decide WHERE to put
 each rule -- the higher up the hierarchy, the more certain the enforcement.
 [source: failure-claudemd-ignored-compaction, Lessons 1, 3, 5;
-failure-hooks-enforcement-2k, Lessons 1, 3] [emerging]
+failure-hooks-enforcement-2k, Lessons 1, 3] [stale]
 
 ```
 1. settings.json permissions     (100% — harness-enforced, immune to compaction and framing)
@@ -533,7 +533,7 @@ CI (level 3). Reserve CLAUDE.md for guidance the model needs to *understand*
 -- the "why" behind decisions, architectural context, and stylistic
 preferences where imperfect compliance is acceptable.
 [source: failure-claudemd-ignored-compaction, Lesson 5;
-failure-hooks-enforcement-2k, Lesson 3] [emerging]
+failure-hooks-enforcement-2k, Lesson 3] [stale]
 
 The ~60% baseline CLAUDE.md compliance measured by Christopher Montes rose
 to 90%+ after deploying a hook-based enforcement system. This is the first
@@ -580,7 +580,7 @@ single invocation.
 
 Sentry's `.claude/settings.json` uses 60+ specific Bash command prefixes.
 Each tool is individually listed:
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ```json
 "Bash(git diff:*)", "Bash(git log:*)", "Bash(git status:*)"
@@ -590,13 +590,13 @@ Not `"Bash(git:*)"`. They also scope WebFetch to documentation domains
 (`"WebFetch(domain:develop.sentry.dev)"`, `"WebFetch(domain:react.dev)"`),
 include MCP permissions for internal tools (`mcp__sentry__search_issues`),
 and set `"includeCoAuthoredBy": false`.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### The Per-Command Scope (minimal-privilege per operation)
 
 tin scopes tool permissions to individual slash commands rather than globally.
 Each command declares only the specific subcommands it needs:
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ```yaml
 # branches.md frontmatter
@@ -610,7 +610,7 @@ allowed-tools: Bash(tin commit:*), Bash(tin status:*)
 ```
 
 Each command gets only the specific subcommands it needs.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ### No Settings at All (prompt-only enforcement)
 
@@ -629,7 +629,7 @@ practitioner-mikelane-pytest-test-categories] [emerging]
 NetPace's `/bugmagnet` is a 767-line custom command encoding a complete
 testing methodology with 5 phases, explicit user pause points, and a
 30+ category edge case checklist.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 Key structural elements: phase gates ("pause and wait for user input"),
 attempt limits ("Maximum 3 attempts per test"), assertion quality checks
@@ -639,12 +639,12 @@ documentation standard (root cause, code location, proposed fix).
 The command is language-agnostic and portable. Its Common Edge Case Checklist
 (~220 lines) covers numeric boundaries, date/time edge cases, Unicode,
 file path limits, and geographic data formats.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 ### Workflow Commands (PR, review, setup)
 
 Sentry uses three targeted commands for specific workflows:
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 **`/gh-pr`** — creates a PR, checks if the diff mixes `static/` with
 `src/`/`tests/`, and splits into separate PRs if so. Enforces backend-first
@@ -656,12 +656,12 @@ landing when frontend depends on new APIs.
 > feedback is truthful (the bug is real, for example), and then attempt
 > to address it.
 
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### Conversational Commands (context-then-prompt)
 
 tin's slash commands implement a two-phase interaction pattern:
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ```markdown
 If $ARGUMENTS is provided, checkout that branch:
@@ -676,7 +676,7 @@ branches, then ask the user which branch to checkout.
 When the user provides an argument, execute immediately. When they do not,
 show context and prompt for input. This makes commands usable both as
 quick fire-and-forget operations and as guided workflows.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ### Design commands the way the agent perceives them
 
@@ -939,7 +939,7 @@ vendors train against harness trajectories is not disclosed in any source here).
 Hooks run automatically at lifecycle events without the agent's awareness.
 They are the only mechanism that enforces behavior the agent cannot choose
 to skip.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 tin configures four Claude Code lifecycle hooks in `.claude/settings.json`:
 [source: practitioner-dadlerj-tin]
@@ -1023,7 +1023,7 @@ tin maintains byte-for-byte identical CLAUDE.md and AGENTS.md (both 78 lines).
 **Advantage**: Simple to understand.
 **Disadvantage**: Any edit must be applied to both files. Sentry's redirect
 pattern (`@AGENTS.md`) avoids this.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 **Our take** [editorial]: Strategy 1 (tool-agnostic canonical file with
 redirects) is the most maintainable for teams. Strategy 2 (parallel files at
@@ -1039,7 +1039,7 @@ teams. Strategy 4 (identical duplication) is strictly worse than a redirect.
 
 Sentry's root AGENTS.md acts as a router, directing agents to load the
 right guide based on what files they are editing:
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ```markdown
 - **Backend** (`src/**/*.py`) -> `src/AGENTS.md` (backend patterns)
@@ -1050,7 +1050,7 @@ right guide based on what files they are editing:
 
 Each subdirectory guide is self-contained. The root file serves as a router,
 not a summary.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 The nesting pattern Sentry uses informally is now specified verbatim in
 OpenAI Codex's publicly-inspectable `base_instructions` (the system prompt
@@ -1126,7 +1126,7 @@ system can contribute to AI config, let it — but use clear delimiters.
 ### External Skill Repositories
 
 Sentry's `agents.toml` pulls skills from external repositories:
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ```toml
 [[skills]]
@@ -1145,7 +1145,7 @@ source = "getsentry/warden"
 With `pin = false` and `gitignore = true`, skills update dynamically. The
 `.claude/skills/` directory is a symlink to `.agents/skills/`, bridging
 Claude Code's expected path to the tool-agnostic location.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 As of April 2026, GitHub Copilot in Visual Studio now discovers skills
 from `.claude/skills/` and `.agents/skills/` alongside its existing
@@ -1216,7 +1216,7 @@ production issues (27M events, 65k+ users). Each check is ordered by
 frequency and impact, includes "not a bug" guardrails, and uses a
 confidence threshold (HIGH = report with fix, MEDIUM = needs verification,
 LOW = do not report).
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ```markdown
 Check 1: Metric Subscription Query Errors — 113 issues, 3,035,640 events
@@ -1225,7 +1225,7 @@ Check 7: Database Constraint Violations — 22 issues, 2,962,198 events
 ```
 
 If you have a bug tracker with categorized issues, you can build this.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### Domain-Specific Skills as Workflow Guides
 
@@ -1237,7 +1237,7 @@ guide), `notification-platform` (9-step notification system guide), and
 **Pattern**: If a task requires more than 5 steps and involves
 domain-specific knowledge, extract it into a skill rather than keeping it
 in AGENTS.md.
-[source: practitioner-getsentry-sentry] [editorial]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### Skills That Update Themselves (With a Human in the Merge Path)
 
@@ -1356,7 +1356,7 @@ its own branch, index, and file state. Without them, multiple Claude
 instances running against the same checkout will write to the same files
 and your git state becomes a collision waiting to happen. With them, you
 can run 5-10 concurrent agents without any instance stomping on another.
-[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [stale]
 
 ### Setup
 
@@ -1383,7 +1383,7 @@ nightmare. A worktree scoped to one ticket at a time stays clean.
 > important is, that you keep atomical small tasks and increments, and
 > whenever possible merge things. to many hanging worktrees can quickly
 > also become a nightmare managing" — sukit
-[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [stale]
 
 ### Reference: an 11-step concurrent workflow
 
@@ -1411,7 +1411,7 @@ steps adapted from the original GitLab-specific workflow for generality):
 Key constraint from the same practitioner: "I can only keep 3 threads like
 this going at once. Sometimes it's only 1 or 2, depending on complexity.
 Smaller is better. Try to stay atomic and avoid feature creep in each MR."
-[source: failure-sukit-parallel-session-ceiling, Lesson 3] [anecdotal]
+[source: failure-sukit-parallel-session-ceiling, Lesson 3] [stale]
 
 Step 7 — spinning up a second Claude instance as a reviewer inside the
 same worktree — is the harness move that makes the workflow self-correcting
@@ -1677,7 +1677,7 @@ NetPace's `.claude/plans/aot-investigation.md` contains both the blank
 template ("After completing all tests, fill this section") AND filled-in
 results from an actual investigation run ("AOT Compilation Status: BROKEN").
 This mixes template with data, making the plan unreusable.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 **Fix**: Keep plan templates clean. Store investigation results in a
 separate file or in a git commit message.
@@ -1709,7 +1709,7 @@ the only mechanism that is 100% reliable, immune to compaction, and
 immune to the "may or may not be relevant" framing the harness applies
 to CLAUDE.md content.
 [source: failure-claudemd-ignored-compaction, Lessons 1, 5;
-failure-hooks-enforcement-2k, Lesson 1] [emerging]
+failure-hooks-enforcement-2k, Lesson 1] [stale]
 
 **Rule**: If a rule is critical enough to state in your CLAUDE.md at all,
 ask whether it can be enforced with settings.json or a hook instead.
@@ -1722,7 +1722,7 @@ permissions are followed 100% of the time.
 Sentry's `src/AGENTS.md` is ~700 lines. This risks overwhelming agent
 context windows. Extract stable content into skills; keep guides focused
 on rules that change.
-[source: practitioner-getsentry-sentry] [editorial]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### 5. CLAUDE.md as Architecture Dump
 

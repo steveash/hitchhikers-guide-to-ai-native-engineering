@@ -29,7 +29,7 @@ to address it.
 
 This is anti-sycophancy applied to code review. The agent is told to
 distrust feedback -- including feedback from other agents.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 Five of six profiled repos enforce CI gates on pull requests. The CI
 pipeline is the verification backstop that catches what human review
@@ -112,13 +112,13 @@ You **MUST ALWAYS**:
 
 This is not a vague instruction to "follow TDD." It is a specification
 with unambiguous success and failure criteria.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 Sentry takes a different approach to the same principle: domain-specific
 skills with explicit acceptance criteria. The `sentry-backend-bugs` skill
 encodes patterns from 638 real production issues with confidence thresholds
 (HIGH = report with fix, MEDIUM = needs verification, LOW = do not report).
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### The rule
 
@@ -175,7 +175,7 @@ postgres_dba demonstrates the same principle at the extreme: its entire
 CLAUDE.md is ~30 lines, containing exactly two style rules that LLMs
 consistently get wrong (lowercase SQL keywords, `<>` not `!=`). Everything
 else is delegated to CI and an external rule repository.
-[source: practitioner-nikolays-postgres-dba] [anecdotal]
+[source: practitioner-nikolays-postgres-dba] [stale]
 
 ### The rule
 
@@ -204,12 +204,12 @@ The profiled repos show a clear pattern: the most effective configurations
 are not the longest. postgres_dba's 30-line CLAUDE.md is arguably more
 effective per-byte than supabase's 931-line version, because every line
 in postgres_dba carries novel, non-discoverable information.
-[source: practitioner-nikolays-postgres-dba, practitioner-supabase-supabase-js] [stale]
+[source: practitioner-nikolays-postgres-dba, practitioner-supabase-supabase-js] [emerging]
 
 Sentry solves the length problem architecturally: a thin root CLAUDE.md
 (11 bytes) redirects to AGENTS.md, which acts as a router to subdirectory
 guides. The agent loads only the guide relevant to the files it is editing.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ```
 - Backend (src/**/*.py) -> src/AGENTS.md
@@ -249,12 +249,12 @@ Simon Willison's heuristic, cited in the Good Spec post: "I won't commit
 code I couldn't explain to someone else." This is the practitioner version
 of the comprehension principle -- a personal rule that forces understanding
 before approval.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [anecdotal]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4] [stale]
 
 NetPace's TDD-first workflow enforces comprehension structurally: you write
 the failing test first, which means you must understand the expected
 behavior before the agent writes any implementation code.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 That structural effect depends on *you* writing the test. A blind-judged
 Thoughtworks eval of TDD run entirely inside the agent loop — agent writes

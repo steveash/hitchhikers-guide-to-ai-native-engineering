@@ -88,7 +88,7 @@ Commit your work. Update any progress tracking files. If you are using
 hooks, the close may happen automatically.
 
 tin auto-commits on session end via a `SessionEnd` lifecycle hook:
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ```json
 {
@@ -106,7 +106,7 @@ The hook creates a git commit using the first human prompt as the
 commit message. The agent never invokes it -- it fires silently. This
 guarantees no session ends without a checkpoint, regardless of whether
 you remembered to commit.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 **If you do not have auto-commit hooks**: Commit manually before ending
 the session. Context evaporates when the session dies. Git history is
@@ -225,12 +225,12 @@ full codebase context that was deliberately reset. If task N modifies
 files that task N+1 depends on, the fresh agent must rediscover that
 context by reading git history. For tightly coupled changes, a single
 long session with careful context management may be more efficient.
-[source: blog-addyosmani-code-agent-orchestra, Claim 6 assessment] [editorial]
+[source: blog-addyosmani-code-agent-orchestra, Claim 6 assessment] [stale]
 
 None of our six practitioner profiles use the Ralph Loop explicitly,
 though tin's auto-commit-on-session-end hook is a partial implementation
 of the "commit and reset" pattern.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ---
 
@@ -263,7 +263,7 @@ pays off only when you have 3+ agents running concurrently.
 
 Do not run more agents than you can meaningfully review. Start with 3.
 Scale based on your review capacity, not your machine's capacity.
-[source: blog-addyosmani-code-agent-orchestra, Claim 8] [anecdotal]
+[source: blog-addyosmani-code-agent-orchestra, Claim 8] [stale]
 
 The number 3 is not sacred -- but the **mode** matters. Osmani reports
 running 4-5 background agents plus 3-5 human-in-the-loop sessions; Boris
@@ -283,7 +283,7 @@ With git worktrees and atomic task scoping, the same practitioners report
 reaching 5-10 concurrent sessions (see Chapter 02, §Git Worktrees for
 Parallel Work, for the concrete infrastructure and a reference workflow).
 [source: blog-addyosmani-code-agent-orchestra, Claim 8 assessment;
-failure-sukit-parallel-session-ceiling, Lessons 2, 3] [anecdotal]
+failure-sukit-parallel-session-ceiling, Lessons 2, 3] [stale]
 
 **Rule**: If you are rubber-stamping diffs because you have too many
 agents running, you have too many agents running. Reduce until every
@@ -331,7 +331,7 @@ Check-in questions (every 15 minutes):
 
 If the answer to the last two is yes, kill the agent and reassess the
 task spec. A stuck agent does not unstick itself with more tokens.
-[source: blog-addyosmani-code-agent-orchestra, Claim 12] [anecdotal]
+[source: blog-addyosmani-code-agent-orchestra, Claim 12] [stale]
 
 ### Multi-Model Cooperation
 
@@ -354,7 +354,7 @@ in-flight tasks:
 > 35 concurrent features makes any sense, but I'd definitely encourage
 > people to try multi-model cooperation since they all seem to have
 > different sensibilities." — kevinsync
-[source: failure-sukit-parallel-session-ceiling, Lesson 5] [anecdotal]
+[source: failure-sukit-parallel-session-ceiling, Lesson 5] [stale]
 
 This sidesteps the 2-3 interactive-session ceiling: instead of tracking
 three in-flight agents simultaneously, you hand off between two models in
@@ -461,12 +461,12 @@ Sentry's `/gh-pr` command encodes a complete PR creation workflow:
 switch to a working branch, commit, create the PR, and critically --
 check if the diff mixes frontend and backend files, splitting into
 separate PRs if necessary.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 The frontend/backend split is enforced by CI, but the slash command
 catches it BEFORE the CI run, saving a round trip. This is a workflow
 command that embodies an organizational constraint.
-[source: practitioner-getsentry-sentry] [anecdotal]
+[source: practitioner-getsentry-sentry] [stale]
 
 ### Testing as a workflow command
 
@@ -474,7 +474,7 @@ NetPace's `/bugmagnet` is a 767-line command encoding a complete testing
 methodology: 5 phases, explicit pause points for human approval between
 phases, a 3-attempt limit per test, and a 30+ category edge case
 checklist. It is a complete testing session in a single invocation.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 Key design elements worth stealing:
 
@@ -488,14 +488,14 @@ Key design elements worth stealing:
 The scope constraint is critical. Without it, the agent "helpfully" fixes
 bugs it discovers during testing, producing a diff that mixes test
 additions with production code changes.
-[source: practitioner-frankray78-netpace] [anecdotal]
+[source: practitioner-frankray78-netpace] [stale]
 
 ### Context-then-prompt commands
 
 tin's slash commands implement a two-phase interaction pattern: if the
 user provides an argument, execute immediately. If not, show context
 first and ask for input.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ```markdown
 If $ARGUMENTS is provided, checkout that branch:
@@ -509,7 +509,7 @@ This makes commands usable both as quick operations (`/checkout main`)
 and as guided workflows (`/checkout` with no argument prompts a branch
 selection). Each command declares only the specific tools it needs via
 `allowed-tools` frontmatter, enforcing least-privilege per invocation.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ### When to create a workflow command
 
@@ -594,7 +594,7 @@ the other four are the levers that prevent it.
 2. **The same error appears 3+ times.** The agent is looping. A fresh
    context will not magically fix the underlying problem, but it will
    stop the token burn. Reassess the task spec before restarting.
-   [source: blog-addyosmani-code-agent-orchestra, Claim 12] [anecdotal]
+   [source: blog-addyosmani-code-agent-orchestra, Claim 12] [stale]
 
 3. **The agent ignores a CLAUDE.md rule it was following earlier.**
    Context window pressure pushes earlier instructions out of working
@@ -622,7 +622,7 @@ layer. Anything not in one of these channels is lost.
 
 If you use tin's lifecycle hooks, the `SessionEnd` hook auto-commits
 for you. If you do not, commit manually.
-[source: practitioner-dadlerj-tin] [anecdotal]
+[source: practitioner-dadlerj-tin] [stale]
 
 ---
 
@@ -707,7 +707,7 @@ Tests (fully delegate):
 The same feature decomposes into three delegation levels. The key
 insight: delegation is not a property of the feature. It is a property
 of the sub-task.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [editorial]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [stale]
 
 ---
 
