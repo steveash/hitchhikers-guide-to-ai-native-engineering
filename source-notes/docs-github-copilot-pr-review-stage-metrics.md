@@ -59,10 +59,13 @@ issue: "#3750"
   and final review to merge."
 - **Our assessment**: This is the first documented per-row field for the
   `repos-1-day` report since its July 17, 2026 general availability
-  release (`docs-github-copilot-repository-level-usage-metrics.md`), whose
-  Claim 3 explicitly noted that "the row schema is presumably documented
-  inside the NDJSON file itself... not published on the reference page."
-  This changelog is that missing row-schema documentation arriving via a
+  release (`docs-github-copilot-repository-level-usage-metrics.md`). That
+  note's Claim 3 establishes that the endpoint response is only a wrapper
+  (`download_links` / `report_day`), "not inline per-repository data", and
+  its Concrete Artifacts section notes that "Exact per-row JSON field names
+  are not documented on this reference page" and that the row schema is
+  "presumably documented inside the NDJSON file itself or a separate guide
+  not linked from this reference page." This changelog is that missing row-schema documentation arriving via a
   feature announcement rather than a reference-page update — the REST API
   reference page at `docs.github.com/rest/copilot/copilot-usage-metrics`
   still contained zero occurrences of the string `pull_request_review_times`
@@ -352,8 +355,9 @@ Unchanged: pull_requests.* fields on the same row are not modified by
 
 - **Extends** `docs-github-copilot-repository-level-usage-metrics.md`
   Claim 3 (the `repos-1-day` wrapper response returns only `download_links`
-  and `report_day`; the per-repository row schema was "not published on
-  the reference page" as of July 18, 2026): This changelog is the first
+  and `report_day`, "not inline per-repository data"; per that note's
+  Concrete Artifacts section, "Exact per-row JSON field names are not
+  documented on this reference page"): This changelog is the first
   source in the corpus to document a concrete field inside that per-row
   schema (`pull_request_review_times`). It does not fill the whole gap —
   it documents one new field, not the complete row schema — but it is
