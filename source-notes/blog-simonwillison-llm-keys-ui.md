@@ -209,9 +209,11 @@ this section.
 
 - **Corroborates**:
   - `blog-simonwillison-datasette-tailscale.md` Claim 1 (Tailscale/local-network
-    reachability without public internet exposure) and Claim 6 (`--all`-style,
-    userspace, no-root network opt-in): this source's Claim 6 (`--all` prints
-    a URL per assigned IPv4 address, explicitly naming Tailscale) is a second,
+    reachability without public internet exposure) and Claim 2 (Datasette
+    itself binds only to 127.0.0.1; the Tailscale sidecar handles all external
+    connectivity): this source's Claim 6 (the server binds to localhost by
+    default; `--all` prints a URL per assigned IPv4 address, explicitly naming
+    Tailscale) is a second,
     independently-shipped Willison tool using the same "reach my machine over
     a private network by explicit opt-in flag" design, this time in the `llm`
     ecosystem rather than Datasette's.
