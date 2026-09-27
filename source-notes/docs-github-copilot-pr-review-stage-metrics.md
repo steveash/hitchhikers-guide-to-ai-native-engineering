@@ -383,6 +383,27 @@ Unchanged: pull_requests.* fields on the same row are not modified by
   code review itself speeds up or slows down the human review stages this
   field times, because Copilot's own review activity is explicitly
   excluded from the timing calculation (see Claim 4 above).
+- **Extends** `docs-github-copilot-usage-metrics-adoption-phase-review-velocity.md`
+  Claim 2 (`avg_pull_requests_minutes_to_review` "reports the median time,
+  in minutes, from PR creation to its first review", on the
+  `totals_by_ai_adoption_phase` array, July 7, 2026): That field is the
+  closest prior art in the corpus — an existing "time to first review"
+  aggregate. This note's `median_minutes_ready_to_first_review` (Claim 1)
+  measures a similar interval but starts the clock at a different event:
+  the July 7 field is defined from when the PR "is created", while this
+  field is defined from "the pull request becoming ready for review."
+  **Mediating variable for anyone comparing the two:** for PRs opened as
+  drafts, the creation-anchored clock includes the draft period and the
+  ready-anchored clock does not, so the July 7 number should be
+  systematically ≥ this one for draft-heavy workflows. (Our inference
+  from the two definitions — neither changelog mentions drafts
+  explicitly.) The two also differ in reviewer scope (this field counts
+  only human reviews per Claim 4; the July 7 note records that how
+  "first review" is defined for Copilot-only-reviewed PRs is not
+  documented), in aggregation grain (per-repository daily row vs.
+  per-adoption-phase cohort), and in statistics (median + p90 vs. median
+  only). The two "time to first review" numbers should not be treated as
+  interchangeable.
 - **Corroborates** `docs-github-copilot-code-review-usage-metrics-aggregate.md`
   Claim 3 (passive users are those whose code reviews were auto-triggered
   by a repository or organization policy, without requiring the user to
@@ -400,11 +421,17 @@ Unchanged: pull_requests.* fields on the same row are not modified by
   materially the same blanket statement used in the April 8 changelog,
   continuing the pattern across the Copilot metrics changelog series.
 - **Novel**:
-  - **First stage-level (not aggregate) PR review timing primitive**: All
-    prior Copilot metrics sources in the corpus report either a single
-    aggregate cycle-time number (`median_minutes_to_merge_copilot_reviewed`,
-    April 8) or user/PR counts. This is the first field to decompose review
-    time into ordered sub-stages with per-stage percentiles.
+  - **First multi-stage decomposition of PR review time**: Prior Copilot
+    metrics sources in the corpus already report single-number review
+    timing aggregates — a cycle-time-to-merge median
+    (`median_minutes_to_merge_copilot_reviewed`, April 8) and a
+    time-to-first-review median (`avg_pull_requests_minutes_to_review`,
+    July 7, per `docs-github-copilot-usage-metrics-adoption-phase-review-velocity.md`
+    Claim 2). So "time to first review" on its own is not new. What is
+    new is splitting review time into three ordered stages (ready → first
+    review → final review → merge) with a median and p90 for each stage;
+    no earlier source in the corpus covers the first-to-final-review or
+    final-review-to-merge stages.
   - **First documented per-row field for the `repos-1-day` report**: As
     noted above, the row-level schema for this report was an open gap in
     the corpus as of July 17, 2026.
