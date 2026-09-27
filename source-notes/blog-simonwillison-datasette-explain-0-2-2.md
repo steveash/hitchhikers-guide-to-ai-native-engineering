@@ -146,13 +146,18 @@ issue: "#3748"
 - **Confidence**: settled (first-party changelog, directly verifiable)
 - **Quote**: "Now tested against both Datasette 0.64.x and the Datasette 1.0 alphas" / "Switched from `setup.py` to `pyproject.toml`"
   *(Source: GitHub release body, tag `0.2.1`, api.github.com/repos/simonw/datasette-explain/releases)*
-- **Our assessment**: This shows the plugin's maintenance work has
-  historically tracked Datasette's own alpha/stable dual-branch release
-  pattern (documented at the Datasette-core level in
-  `blog-simonwillison-datasette-1-0a39.md` Claim 6) at the plugin level too —
-  ensuring a plugin keeps working across both lines is a recurring
-  maintenance cost in this ecosystem, not a one-off concern specific to
-  Datasette core.
+- **Our assessment**: This shows that, at least in this February 2024
+  release, the plugin's maintenance work explicitly targeted compatibility
+  with both a Datasette stable line (0.64.x) and the 1.0 alpha series. The
+  corpus does not establish a standing dual-branch maintenance policy for
+  Datasette core; the closest related evidence is
+  `blog-simonwillison-datasette-1-0a39.md` Claim 6, which documents a single
+  security release where fixes landed on main and a selected subset was
+  backported to the 0.65.x stable line so both versions shipped the same
+  day. Together the two are consistent with stable and alpha lines
+  coexisting in the ecosystem. This source shows one plugin release testing
+  against both lines, and the other shows one core release shipping to both.
+  Neither shows how often that happens.
 
 ### Claim 8: A live, publicly-viewable demo of the plugin exists on the author's own hosted Datasette instance, running against his own blog's database
 - **Evidence**: README demo link with a pre-filled example query (a join
@@ -239,11 +244,14 @@ here as plain text.*
 ## Cross-References
 
 - **Corroborates**:
-  - `blog-simonwillison-datasette-1-0a39.md` Claim 6 (Datasette core
-    maintains parallel 0.65.x-stable and 1.0-alpha lines, with plugin authors
-    needing to track both): this source's Claim 7 shows the same dual-branch
-    reality one layer down, at the plugin-compatibility level — a plugin
-    author explicitly testing against both lines in the same release.
+  - `blog-simonwillison-datasette-1-0a39.md` Claim 6 (fixes for one
+    security release were developed on main, and then a selected subset was
+    backported to the 0.65.x stable line so both versions could ship the
+    same day): weak corroboration only. That claim documents one
+    release's backport decision, not a standing policy. This source's
+    Claim 7 is a similarly one-off data point one layer down: a single
+    plugin release (0.2.1) that was tested against both a stable line
+    (0.64.x) and the 1.0 alphas.
   - `blog-simonwillison-sqlite-column-provenance.md` (introspecting SQL
     structure — source columns, in that case — without necessarily executing
     the query against real data): both sources document Willison building or
@@ -261,9 +269,32 @@ here as plain text.*
   ("one side is so weakly supported it doesn't rise to a real claim"), no
   contradiction issue was filed.
 
-- **Extends**: None identified. No existing corpus note covers
-  datasette-explain specifically or as-you-type SQL plan/validation tooling
-  in Datasette.
+- **Extends**:
+  - `blog-simonwillison-lobsters-sqlite-migration.md` Claims 6–7. Claim 6
+    there documents a production incident: the first Lobsters SQLite
+    deploy was reverted after read-only traffic spiked every CPU to 100%.
+    The cause, found later, was "SQLite doing full table scans on the
+    largest tables in the database for 2 of queries". Claim 7 records the
+    engineer's wish to "Fail if you encounter any full table scans" in a
+    test. A commenter answers that SQLite bytecode-instruction counts can
+    serve as a proxy for query-plan shape. That note and this source
+    tackle the same problem: catching a bad SQLite query plan (such as a
+    full table scan) before it reaches production. They take different
+    approaches:
+    - **datasette-explain (this source)** is human-facing and live. It
+      shows the `EXPLAIN QUERY PLAN` output while a person is writing the
+      query in an editor. Catching a problem depends on someone reading
+      the plan and noticing the scan.
+    - **Lobsters Claim 7** is an automated CI check. A test fails based
+      on plan-shape evidence, with no human reading the plan. The same
+      note's Claim 7 assessment adds a caveat: the check is only reliable
+      against sufficiently large test tables.
+
+    The live-display approach would not have prevented the Lobsters
+    incident unless someone had explicitly inspected those specific
+    queries. That limitation is why the automated approach matters more
+    for regression-proofing. It is also why this source doesn't change
+    the Guide Impact verdict below.
 
 - **Novel**: First corpus documentation of datasette-explain and of a
   "constantly re-run EXPLAIN QUERY PLAN as the user types" interaction
@@ -317,5 +348,6 @@ here as plain text.*
 - **Existing-notes search**: Searched `source-notes/` for prior
   datasette-explain coverage (none found) and for adjacent SQL-introspection
   and query-plan concepts (`blog-simonwillison-sqlite-column-provenance.md`,
-  `blog-simonwillison-datasette-agent-write-sql.md`, both reviewed in full
+  `blog-simonwillison-datasette-agent-write-sql.md`, and
+  `blog-simonwillison-lobsters-sqlite-migration.md`, all reviewed in full
   for the Cross-References above).
