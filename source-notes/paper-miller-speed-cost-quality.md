@@ -6,7 +6,7 @@ author: Hao He, Courtney Miller, Shyam Agarwal, Christian Kästner, Bogdan Vasil
 date_published: 2025-11-06
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: settled
 issue: "hi-e93.4 — Ch 05 Team Adoption discovery"
 ---

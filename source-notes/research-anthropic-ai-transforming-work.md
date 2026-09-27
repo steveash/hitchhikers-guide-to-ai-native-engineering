@@ -6,7 +6,7 @@ author: Saffron Huang, Bryan Seethor, Esin Durmus, Kunal Handa, Miles McCain, Mi
 date_published: 2025-12-02
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: emerging
 issue: "hi-e93.4 — Ch 05 Team Adoption discovery"
 ---

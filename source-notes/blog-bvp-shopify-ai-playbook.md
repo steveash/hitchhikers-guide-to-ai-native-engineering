@@ -6,7 +6,7 @@ author: Taj Shorter (Bessemer Venture Partners), interviewing Farhan Thawar (VP 
 date_published: 2026-04-01
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: emerging
 issue: "hi-e93.4 — Ch 05 Team Adoption discovery"
 ---

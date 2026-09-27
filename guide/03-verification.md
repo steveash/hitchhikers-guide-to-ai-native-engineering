@@ -22,7 +22,7 @@ at machine speed. Empirically, Anthropic's study of 52 engineers found
 that those who delegated to AI scored 17% lower on comprehension quizzes
 -- with the largest drops in debugging capability. Velocity metrics
 stayed green while understanding degraded invisibly.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [stale]
 
 The implication: you need layered verification that does not depend
 entirely on your attention span at 4pm on a Friday.
@@ -128,7 +128,7 @@ baseline CLAUDE.md compliance, rising to 90%+ after deploying a
 hook-based enforcement system. That remaining ~10% gap is why blocking
 hooks (exit 2) and settings.json permissions exist: for rules where
 90% is not good enough.
-[source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [emerging]
+[source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [stale]
 
 #### The compaction failure mode
 
@@ -167,7 +167,7 @@ relevant" framing the harness applies to CLAUDE.md content:
 For per-prompt reinforcement at minimal token cost, add a UserPromptSubmit
 hook that injects a single-line motto (~15 tokens per prompt, ~750 tokens
 over a 50-turn session).
-[source: failure-claudemd-ignored-compaction, Recovery Path, Workaround 1] [emerging]
+[source: failure-claudemd-ignored-compaction, Recovery Path, Workaround 1] [stale]
 
 #### The context recovery pipeline
 
@@ -234,7 +234,7 @@ are the ones that require human judgment.
 Use a second agent to review the first agent's output. This is not
 a replacement for human review -- it is an additional layer between
 CI and human review.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 5 (Coding Agents Manager)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 5 (Coding Agents Manager)] [stale]
 
 The pattern:
 
@@ -273,7 +273,7 @@ gaps. Do NOT assume the implementation is correct."
 
 The key is that Agent B operates in a separate context. It does not
 share Agent A's reasoning, assumptions, or confirmation bias.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 5] [stale]
 
 ### Counter-evidence
 
@@ -311,7 +311,7 @@ hurt most.
 Quality gates are decision points where work pauses for approval or
 automated verification before proceeding. They prevent runaway agents
 from compounding errors across multiple steps.
-[source: blog-addyosmani-code-agent-orchestra, Claim 11] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Claim 11] [stale]
 
 ### Gate 1: Plan Approval
 
@@ -321,7 +321,7 @@ diffs.
 
 The three-tier boundary system structures what the agent can do
 without asking:
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 4 (Good Spec)] [stale]
 
 ```
 Always Do:    "Always run tests before commits"
@@ -374,13 +374,13 @@ LLM-generated AGENTS.md files reduced success rates by 0.5-2% while
 increasing inference costs by over 20%. Developer-written context files
 improved success by ~4% on AGENTbench. (Preprint, Python-only, no
 significance tests on headline numbers.)
-[source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [emerging]
+[source: paper-gloaguen-agentsmd-effectiveness, Claims 1-2] [stale]
 
 **Rule**: Never let an agent auto-generate your AGENTS.md via `/init`
 or similar commands. Write it yourself. Apply the filter test: can the
 agent discover this by reading the code? If yes, delete it from AGENTS.md.
 Keep only what requires human knowledge.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [stale]
 
 ---
 
@@ -406,7 +406,7 @@ The Self-Improving Agents post elaborates on stopping conditions:
 - 3+ failures on same task = skip and flag for human
 ```
 
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 3 (Self-Improving Agents)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 3 (Self-Improving Agents)] [stale]
 
 ### What stuck looks like
 
@@ -442,7 +442,7 @@ Comprehension debt is the gap between code that exists and your team's
 understanding of that code. AI-generated code creates comprehension debt
 by default because you did not write it -- and the act of writing is how
 engineers build mental models.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6 (Comprehension Debt)] [stale]
 
 ### The numbers
 
@@ -453,7 +453,7 @@ Anthropic's randomized controlled trial (52 engineers):
   - **Delegation** (below 40% comprehension): "Write the function for me"
   - **Conceptual inquiry** (above 65% comprehension): "Explain how this handles X"
 
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [stale]
 
 ### Why metrics miss it
 
@@ -465,7 +465,7 @@ agent. This becomes visible only when:
 - A bug requires understanding the full call chain across 10 files
 - A new team member asks "why does it work this way?" and nobody knows
 
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [stale]
 
 ### Mitigating comprehension debt
 
@@ -526,7 +526,7 @@ Ask "explain this function" and "what edge cases does this miss?"
 The comprehension study found that conceptual inquiry sessions produced
 above-65% comprehension scores -- better than the control group in some
 cases.
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [stale]
 
 **3. Apply Willison's rule: "I won't commit code I couldn't explain to
 someone else."**
@@ -612,7 +612,7 @@ Tests cannot fully answer correctness. You cannot write tests for
 unspecified behaviors. This is the fundamental limitation of CI as a
 verification layer -- it catches regressions against known requirements,
 but it cannot catch "this code does something we never thought to test."
-[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [emerging]
+[source: blog-addyosmani-code-agent-orchestra, Linked Source 6] [stale]
 
 **Rule**: CI is necessary but not sufficient. Use it to catch known
 failure modes. Use human review and two-agent review to catch unknown
