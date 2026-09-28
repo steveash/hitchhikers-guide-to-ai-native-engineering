@@ -94,6 +94,18 @@ issue: "#3767"
   further — asserting a specific dollar-per-hour production cost for
   software development as a whole, not just code generation — with
   substantially less evidentiary support than the claim it builds on.
+  The underlying "below minimum wage" thesis is, however, not resting on
+  Huntley alone in this corpus: Matt Pocock, interviewed by Gergely Orosz
+  in a podcast published 2026-09-17 (ten days before this post), makes the
+  same assertion independently — "the tactical stuff has gone below minimum
+  wage in a lot of countries"
+  (`blog-pragmaticengineer-orosz-pocock-ai-skills.md` Claim 13, rated
+  `anecdotal`). Pocock scopes it to tactical/junior-level coding rather than
+  "software development" as a whole, and offers no figure or methodology
+  either, so this convergence does not make the $10.42/hour number any more
+  verifiable. It does mean the directional claim — that the market value of
+  hands-on coding labor has fallen below minimum wage — now has two
+  independent practitioner sources rather than one.
 
 ### Claim 2: Computing's democratization is like smartphone cameras making everyone a photographer
 
@@ -538,6 +550,14 @@ itself, hit a subscriber paywall.)
     effectively free and instant" in 2025) — a more carefully sourced,
     `emerging`-confidence version of the economic premise Claim 1 here
     (minimum-wage cost) extends into a specific, unsupported dollar figure.
+  - `blog-pragmaticengineer-orosz-pocock-ai-skills.md` Claim 13 (Matt
+    Pocock: "the tactical stuff has gone below minimum wage in a lot of
+    countries") — an independent practitioner, with no connection to
+    Huntley, converging on the same "below minimum wage" framing as Claim 1
+    here, in a podcast published ten days before this post. Pocock's version
+    is narrower (tactical coding, not all of software development) and
+    carries no dollar figure, so it corroborates the directional thesis but
+    not the $10.42/hour number.
   - `blog-ghuntley-miami-hot-takes.md` Claim 1 ("dead-end profession"),
     Claim 3 ("gated vs. malleable"), and Claim 9 ("tokens are cheaper than
     humans") — this post's Claims 1, 2, and 7 restate the same author's
