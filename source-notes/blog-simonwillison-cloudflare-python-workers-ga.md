@@ -23,7 +23,8 @@ issue: "#3764"
 
 - **Type**: blog-post — Simon Willison's linkblog entry, September 21, 2026. This is a
   short commentary post (a handful of sentences) that links to Cloudflare's own GA
-  announcement at `blog.cloudflare.com/python-workers-ga/` (authored by Dominik Picheta)
+  announcement at `blog.cloudflare.com/python-workers-ga/` (co-authored by Gyeongjae
+  Choi, Dominik Picheta, and Hood Chatham)
   as the primary technical source. Willison adds his own framing (why the implementation
   is "neat") and one detail not emphasized in Cloudflare's post: the local development
   tooling. Both the linkblog entry and the linked Cloudflare announcement were read for
@@ -162,17 +163,22 @@ issue: "#3764"
   can mean on this platform, moving it from "stateless request handlers only" toward
   "general-purpose async Python backend."
 
-### Claim 7: The same socket-support work that enabled database drivers also unblocked AI/ML ecosystem libraries including `openai`, `langchain`, and `mcp`, which were previously hindered by missing socket operations
+### Claim 7: AI/ML ecosystem libraries including `openai`, `langchain`, and `mcp` now run natively in Python Workers, enabled by two combined changes: an upstream contribution routing `requests`/`httpx` through the JavaScript `fetch` API, plus the low-level socket support from Claim 6
 
-- **Evidence**: Cloudflare's GA announcement names these three libraries specifically as
-  now-supported, attributing their prior breakage to the same missing-socket-operations
-  gap addressed in Claim 6.
-- **Confidence**: settled (named specific packages in the vendor announcement, consistent
-  with the socket-support mechanism described in Claim 6)
-- **Quote**: (no direct quote captured verbatim; see paraphrase — WebFetch summarized:
-  "The announcement highlights support for libraries including `openai`, `langchain`,
-  and `mcp`. These were previously hindered by missing socket operations, which have now
-  been addressed.")
+- **Evidence**: Cloudflare's GA announcement explains that `openai` and `langchain` rely
+  on HTTP clients (`requests`/`httpx`) that did not work because of missing low-level
+  socket operations. Cloudflare describes two distinct contributions that together fixed
+  this: (1) an upstream change so these HTTP clients can route requests through the
+  JavaScript `fetch` API in WebAssembly environments, and (2) the new low-level socket
+  support described in Claim 6. The post names `openai`, `langchain`, and `mcp` as the
+  now-supported libraries.
+- **Confidence**: settled (named specific packages and a specific two-part mechanism in
+  the vendor announcement)
+- **Quote**: "To solve this, we contributed upstream to ensure these HTTP clients can
+  route requests directly through the JavaScript fetch API in WebAssembly environments."
+  (Cloudflare GA post, "Building AI agents and pipelines in Python" section), followed by:
+  "As a result, you can now run AI libraries like openai, langchain, and mcp natively in
+  Python Workers."
 - **Our assessment**: This is the claim most directly relevant to this guide's subject
   matter: Cloudflare Workers is now a viable deployment target specifically for the
   Python AI/agent tooling stack (OpenAI client library, LangChain, MCP), not just for
@@ -228,27 +234,27 @@ issue: "#3764"
   cost to Python Workers to "point the existing app at `workers.asgi`" rather than a
   rewrite — assuming the app doesn't hit the threading/multiprocessing wall (Claim 3).
 
-### Claim 10: The Python Workers GA release team credited by name includes Gyeongjae Choi, Dominik Picheta, and Hood Chatham, with Picheta and Chatham identified as Pyodide core maintainers
+### Claim 10: The Python Workers GA release announcement is credited to Gyeongjae Choi, Dominik Picheta, and Hood Chatham, with Choi and Chatham identified as Pyodide core maintainers
 
-- **Evidence**: Willison names these three people in his commentary as the release team,
-  and characterizes Picheta and Chatham's role as Pyodide core maintainers.
-- **Confidence**: anecdotal (single-source attribution from Willison's commentary; not
-  independently cross-checked against a Cloudflare team page or the Pyodide project's own
-  maintainer list)
-- **Quote**: (no direct quote captured verbatim for this specific attribution sentence;
-  WebFetch reported it as: "The release team includes Gyeongjae Choi, Dominik Picheta,
-  and Hood Chatham—the latter two being Pyodide core maintainers, underscoring the
-  collaboration with the Python community." Note: Cloudflare's GA blog post itself is
-  attributed to "Dominik Picheta" as author per a separate WebFetch pass, which is at
-  least partially consistent with this claim.)
-- **Our assessment**: If accurate, Pyodide core maintainers working directly at
-  Cloudflare (or in close collaboration with Cloudflare on this feature) explains why
-  Python Workers tracks Pyodide's own release cadence and ecosystem developments (PEP
-  783, WASM wheels) so closely rather than lagging behind as a downstream consumer. This
-  is a credibility signal for treating Cloudflare's Pyodide integration as well-informed
-  rather than a superficial wrapper, but the claim itself is thin (a name-drop in a short
-  linkblog post) and should not be treated as more than anecdotal without further
-  corroboration.
+- **Evidence**: Willison names these three people as the credited authors of the release
+  announcement, and identifies Gyeongjae Choi and Hood Chatham (not Picheta) as Pyodide
+  core maintainers. The Cloudflare GA post's own byline lists the same three co-authors.
+- **Confidence**: anecdotal for the maintainer characterization (single-source statement
+  from Willison's commentary; not independently cross-checked against the Pyodide
+  project's own maintainer list); the co-authorship itself is corroborated by the
+  Cloudflare post's byline.
+- **Quote**: "The release announcement is credited to Gyeongjae Choi, Dominik Picheta, and
+  Hood Chatham - Gyeongjae and Hood are both Pyodide core maintainers."
+- **Our assessment**: Willison frames this as evidence that "Python Workers represent a
+  significant investment in the wider Python ecosystem by Cloudflare." If accurate, two
+  Pyodide core maintainers co-authoring Cloudflare's GA announcement suggests close
+  involvement between the Pyodide project and Cloudflare on this feature, which would
+  help explain why Python Workers tracks Pyodide ecosystem developments (PEP 783, WASM
+  wheels) closely rather than lagging behind as a downstream consumer. This is a
+  credibility signal for treating Cloudflare's Pyodide integration as well-informed
+  rather than a superficial wrapper, but the maintainer characterization is a single
+  sentence in a short linkblog post and should not be treated as more than anecdotal
+  without further corroboration.
 
 ### Claim 11: Python Workers integrate with Cloudflare's platform services: D1, R2, Workers AI, Hyperdrive, Durable Objects, Queues, and Workflows
 
@@ -381,10 +387,11 @@ Willison's local path (macOS/arm64):
     Workers-connect-API-based socket support enabling `asyncpg`/`aiomysql` is new to the
     corpus — no prior source documents how (or whether) a WASM-sandboxed Python runtime
     can speak raw database wire protocols.
-  - **AI/ML library support gated on socket operations**: The specific claim that
-    `openai`, `langchain`, and `mcp` were blocked by missing socket support (not by
-    Pyodide/WASM limitations generally) is a new, specific technical detail not
-    documented elsewhere in the corpus.
+  - **AI/ML library support gated on networking**: The specific claim that `openai`,
+    `langchain`, and `mcp` were blocked because their HTTP clients (`requests`/`httpx`)
+    lacked low-level socket operations — fixed by combining upstream `fetch`-routing
+    changes with new socket support — is a new, specific technical detail not documented
+    elsewhere in the corpus.
   - **`multiprocessing`/`threading` non-functional in a *server-side* Pyodide runtime**:
     prior corpus coverage of this limitation (`pyodide-asgi-browser.md`) was in a browser
     context where the constraint might plausibly have been attributed to browser
@@ -430,7 +437,8 @@ Willison's local path (macOS/arm64):
 
 - **Willison's post is very short** (five sentences of original commentary); the
   substantive technical content lives in the linked Cloudflare GA announcement
-  (`blog.cloudflare.com/python-workers-ga/`, authored by Dominik Picheta) and
+  (`blog.cloudflare.com/python-workers-ga/`, co-authored by Gyeongjae Choi, Dominik
+  Picheta, and Hood Chatham) and
   Cloudflare's own reference documentation (`developers.cloudflare.com/workers/languages/python/`
   and its `stdlib/` sub-page). All three pages were fetched and read for this extraction,
   consistent with MINER.md's instruction to follow substantive linked pages (up to 5).
