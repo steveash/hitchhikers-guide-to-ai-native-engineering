@@ -25,13 +25,13 @@ issue: "#3805"
 
 ### Claim 1: The Academy now offers four role-based pathways rather than one knowledge-worker curriculum
 - **Evidence**: Page's pathway list and the opening description of the expansion.
-- **Confidence**: settled (first-party description of the product portfolio)
+- **Confidence**: emerging (single first-party description of the product portfolio; not independently confirmed)
 - **Quote**: "Today, we’re expanding OpenAI Academy with new courses for developers, leaders, educators, and college students."
 - **Our assessment**: This fulfils the June roadmap promise to "introduce new learning paths for additional roles and use cases" (`blog-openai-academy-training-courses.md`, Claim 10) about three months later. The pathway names are: Apply AI at Work (knowledge workers), Build with AI (developers), Lead AI Adoption (leaders), and Teach and Learn with AI (educators and students).
 
 ### Claim 2: The three June courses are now presented as a single "Apply AI at Work" pathway with the same progression
 - **Evidence**: The knowledge-worker section describes basics, then reusable workflows, then directing agents with checkpoints.
-- **Confidence**: settled
+- **Confidence**: emerging (single first-party description; the course-to-pathway mapping is not stated)
 - **Quote**: "These join Apply AI at Work, which helps people build foundational skills, create repeatable workflows, and direct work with agents."
 - **Our assessment**: The June names (AI Foundations, Applied AI Foundations, Agents and Workflows) are not used for the pathway here; "AI Foundations" appears only in the education paragraph. The article does not say whether the three courses were renamed, merged, or remain as modules, so treat the mapping as unconfirmed. The progression matches June Claim 2, which described it as a single graduated path.
 
@@ -61,9 +61,9 @@ issue: "#3805"
 
 ### Claim 7: Passing a course assessment earns a badge, giving learners a way to demonstrate skill
 - **Evidence**: Direct statement of the mechanic.
-- **Confidence**: settled as to the mechanic; the value of the badge is unevidenced
+- **Confidence**: emerging
 - **Quote**: "Learners earn an OpenAI Academy course badge by passing the course assessment."
-- **Our assessment**: A change from June, where completion certificates were pitched as a champion-discovery signal (June Claim 7). Passing an assessment is a stronger signal than completion, and it partly addresses the June Claim 15 observation that completion alone does not prove behavior change. Assessment format and difficulty are unspecified.
+- **Our assessment**: A change from June, where completion certificates were pitched as a champion-discovery signal (June Claim 7). Passing an assessment is a stronger signal than completion, and it partly addresses the June Claim 15 observation that completion alone does not prove behavior change. Assessment format and difficulty are unspecified. The mechanic itself is stated directly by the vendor; the value of the badge as a skill signal is unevidenced, since no pass rates or outcome data are given.
 
 ### Claim 8: The pedagogy is "use AI to learn AI," with learners practicing on real tasks
 - **Evidence**: Design statement on how the courses work.
@@ -115,10 +115,10 @@ Standfirst: "Role-based learning helps employees, developers, leaders, educators
 
 ## Guide Impact
 
-- **Chapter 05 (Team Adoption)**: Update any description of OpenAI Academy from "three courses" (`blog-openai-academy-training-courses.md` Claims 2-5) to the four role-based pathways (Claim 1 here), keeping the caveat that the mapping between the old course names and Apply AI at Work is unconfirmed (Claim 2).
-- **Chapter 05 (Team Adoption)**: Where training assessment or the June "certificate as champion discovery" mechanism (June Claim 7) is discussed, add the assessment-gated badge (Claim 7 here) as the newer mechanic, noting no pass-rate data exists.
-- **Chapter 09 (Organizational Adoption & Change)**: Cite the leadership course (Claim 5) as evidence that vendors now treat adoption ownership and governance as a distinct teachable role, separate from end-user training.
-- **Chapter 06 (Practitioners' Adoption Strategies)**: Note the Build with AI pathway (Claim 4) as vendor-provided developer upskilling that lists evals and production operations; do not treat it as evidence of course quality.
+- **Chapter 05 (Team Adoption) — no current anchor for OpenAI Academy or certificates**: `guide/05-team-adoption.md` does not mention OpenAI Academy, course certificates, or badges anywhere, so there is no existing description to correct from "three courses" to four pathways. No change is recommended unless a vendor-training passage is added; if one is, it should describe the four role-based pathways (Claim 1), keep the caveat that the mapping between the June course names and Apply AI at Work is unconfirmed (Claim 2), and present the assessment-gated badge (Claim 7) as a skill signal with no published pass-rate or outcome data.
+- **Chapter 05 → "Verification Before Autonomy" → "Senior engineers should be the early adopters"**: That section's closing paragraph contrasts its advice with how "junior-focused training programs are often structured." Claim 3 (delegation, checkpoints, and human review taught explicitly, with the human "retaining responsibility for the final result") and Claim 4 (Codex track framed around "maintaining control over review and quality") could be cited there as evidence that vendor training now names review discipline as a taught topic. The section's point still holds: course copy is not evidence that the training produces verification skill.
+- **Chapter 05 → "Forming the Human-Agent Team" → "Name a human accountable for the outcome, not just the work"**: The leadership course (Claim 5) teaches learners to "define ownership and governance" for an AI initiative. This is a weak corroborating data point that vendors treat adoption ownership as a distinct role from end-user use. Cite it only as vendor framing (anecdotal), not as support for the DRI argument's substance.
+- **Chapter 05 → "Pulling It Together: A Rollout Playbook"**: If the playbook adds a training step, the Build with AI pathway (Claim 4) can be named as vendor-provided developer upskilling that lists evals and production operation. Do not treat it as evidence of course quality; no content depth or outcomes are published.
 
 ## Extraction Notes
 
