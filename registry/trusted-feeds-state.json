@@ -510,6 +510,9 @@
         "https://simonwillison.net/2026/Sep/21/jev/",
         "https://simonwillison.net/2026/Sep/22/llm-anthropic/",
         "https://simonwillison.net/2026/Sep/22/llm-typesafe/",
+        "https://simonwillison.net/2026/Sep/22/llm/",
+        "https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/",
+        "https://simonwillison.net/2026/Sep/22/therealcornpop/",
         "https://simonwillison.net/2026/Sep/3/gpt6-astra/",
         "https://simonwillison.net/2026/Sep/4/astra-pelicans/",
         "https://simonwillison.net/2026/Sep/4/august-newsletter/",
@@ -531,7 +534,7 @@
         "https://simonwillison.net/2026/Sep/9/terence-tao/",
         "https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything"
       ],
-      "last_scan": "2026-09-29T06:08:13.056767+00:00"
+      "last_scan": "2026-09-30T06:08:16.369266+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -564,10 +567,11 @@
         "https://lucumr.pocoo.org/2026/8/24/anger-anxiety-agency/",
         "https://lucumr.pocoo.org/2026/9/12/pdoom/",
         "https://lucumr.pocoo.org/2026/9/14/interpreting-pangram/",
+        "https://lucumr.pocoo.org/2026/9/29/deser/",
         "https://lucumr.pocoo.org/2026/9/5/latent-powers/",
         "https://lucumr.pocoo.org/2026/9/7/astra-why/"
       ],
-      "last_scan": "2026-09-29T06:08:15.251266+00:00"
+      "last_scan": "2026-09-30T06:08:19.176069+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -604,7 +608,7 @@
         "69d7c7e5f4b5380001c805e3",
         "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-09-29T06:08:21.055384+00:00"
+      "last_scan": "2026-09-30T06:08:24.245682+00:00"
     },
     "github-copilot": {
       "seen": [
@@ -855,9 +859,10 @@
         "https://github.blog/changelog/2026-09-25-github-copilot-weekly-releases-september-21",
         "https://github.blog/changelog/2026-09-25-updates-to-github-copilot-for-slack-and-microsoft-teams",
         "https://github.blog/changelog/2026-09-25-usage-metrics-api-adds-pull-request-review-stages",
-        "https://github.blog/changelog/2026-09-28-claude-sonnet-5-5-in-github-copilot"
+        "https://github.blog/changelog/2026-09-28-claude-sonnet-5-5-in-github-copilot",
+        "https://github.blog/changelog/2026-09-29-gpt-6-1-sol-in-github-copilot"
       ],
-      "last_scan": "2026-09-29T06:08:18.690674+00:00"
+      "last_scan": "2026-09-30T06:08:22.024599+00:00"
     },
     "anthropic-engineering": {
       "seen": [
@@ -887,7 +892,7 @@
         "https://www.anthropic.com/engineering/swe-bench-sonnet",
         "https://www.anthropic.com/engineering/writing-tools-for-agents"
       ],
-      "last_scan": "2026-09-29T06:08:23.145374+00:00"
+      "last_scan": "2026-09-30T06:08:26.277437+00:00"
     },
     "claude-blog": {
       "seen": [
@@ -900,6 +905,7 @@
         "https://claude.com/blog/agent-identity-access-model",
         "https://claude.com/blog/agent-view-in-claude-code",
         "https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic",
+        "https://claude.com/blog/agents-you-can-coach-how-asana-builds-human-agent-teams-with-claude",
         "https://claude.com/blog/ai-ci-cd-on-call",
         "https://claude.com/blog/ai-code-migration",
         "https://claude.com/blog/amazon-bedrock-general-availability",
@@ -1149,7 +1155,7 @@
         "https://claude.com/blog/your-thinking-partner",
         "https://claude.com/blog/zero-trust-for-ai-agents"
       ],
-      "last_scan": "2026-09-29T06:08:26.413099+00:00"
+      "last_scan": "2026-09-30T06:08:28.980122+00:00"
     },
     "cursor-blog": {
       "seen": [
@@ -1223,7 +1229,7 @@
         "https://cursor.com/blog/warp-decode",
         "https://cursor.com/blog/wayfair"
       ],
-      "last_scan": "2026-09-29T06:08:28.503213+00:00"
+      "last_scan": "2026-09-30T06:08:31.013521+00:00"
     },
     "the-batch": {
       "seen": [
@@ -1968,7 +1974,7 @@
         "https://www.deeplearning.ai/the-batch/issue-xvi",
         "https://www.deeplearning.ai/the-batch/issue-xvi/"
       ],
-      "last_scan": "2026-09-29T06:08:30.543086+00:00"
+      "last_scan": "2026-09-30T06:08:33.056645+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
@@ -2055,7 +2061,7 @@
         "https://github.github.com/gh-aw/blog/2026-09-28-agent-of-the-day/",
         "https://github.github.com/gh-aw/blog/2026-09-28-weekly-update/"
       ],
-      "last_scan": "2026-09-29T06:08:35.065150+00:00"
+      "last_scan": "2026-09-30T06:08:35.197402+00:00"
     },
     "sourcegraph": {
       "seen": [
@@ -2131,7 +2137,7 @@
         "https://sourcegraph.com/blog/why-coding-agents-fail-large-codebases",
         "https://sourcegraph.com/blog/why-your-migration-tools-are-failing-your-engineers"
       ],
-      "last_scan": "2026-09-29T06:08:37.334733+00:00"
+      "last_scan": "2026-09-30T06:08:37.493250+00:00"
     },
     "martin-fowler": {
       "seen": [
@@ -2141,6 +2147,7 @@
         "https://martinfowler.com/bliki/InterrogatoryLLM.html",
         "https://martinfowler.com/bliki/MythicalManMonth.html",
         "https://martinfowler.com/bliki/ParacelsusMaxim.html",
+        "https://martinfowler.com/bliki/SensibleDefault.html",
         "https://martinfowler.com/bliki/VibeCoding.html",
         "https://martinfowler.com/fragments/2026-04-02.html",
         "https://martinfowler.com/fragments/2026-04-09.html",
@@ -2162,6 +2169,7 @@
         "https://martinfowler.com/fragments/2026-09-08.html",
         "https://martinfowler.com/fragments/2026-09-16.html",
         "https://martinfowler.com/fragments/2026-09-24.html",
+        "https://martinfowler.com/fragments/2026-09-29.html",
         "https://martinfowler.com/rachels-ramblings/citizens-agents-experts.html",
         "https://martinfowler.com/rachels-ramblings/code-review.html",
         "https://martinfowler.com/rachels-ramblings/conductor-developer.html",
@@ -2196,7 +2204,7 @@
         "tag:martinfowler.com,2026-09-15:Nail-the-Narrative",
         "tag:martinfowler.com,2026-09-24:Healthy-Feedback"
       ],
-      "last_scan": "2026-09-29T06:08:40.377075+00:00"
+      "last_scan": "2026-09-30T06:08:41.017346+00:00"
     },
     "openai-news": {
       "seen": [
@@ -2388,6 +2396,7 @@
         "https://openai.com/index/building-more-helpful-chatgpt-experiences-for-everyone",
         "https://openai.com/index/building-openai-with-openai",
         "https://openai.com/index/building-self-improving-tax-agents-with-codex",
+        "https://openai.com/index/building-standards-next-phase-ai",
         "https://openai.com/index/building-the-compute-infrastructure-for-the-intelligence-age",
         "https://openai.com/index/building-towards-age-prediction",
         "https://openai.com/index/built-to-benefit-everyone",
@@ -2609,6 +2618,7 @@
         "https://openai.com/index/expanding-economic-opportunity-with-ai",
         "https://openai.com/index/expanding-on-how-voice-engine-works-and-our-safety-research",
         "https://openai.com/index/expanding-on-sycophancy",
+        "https://openai.com/index/expanding-openai-academy-with-new-learning-paths",
         "https://openai.com/index/expanding-our-presence-in-brazil",
         "https://openai.com/index/expanding-stargate-to-michigan",
         "https://openai.com/index/expedia-jochen-koedijk",
@@ -3426,7 +3436,7 @@
         "https://openai.com/openai-o1-contributions",
         "https://openai.com/signals/research/2026q1-update"
       ],
-      "last_scan": "2026-09-29T06:08:44.542003+00:00"
+      "last_scan": "2026-09-30T06:08:44.458983+00:00"
     },
     "pragmatic-engineer": {
       "seen": [
@@ -3450,6 +3460,7 @@
         "https://newsletter.pragmaticengineer.com/p/optiver",
         "https://newsletter.pragmaticengineer.com/p/pushing-software-engineering-limits",
         "https://newsletter.pragmaticengineer.com/p/revisiting-no-silver-bullets-in-the",
+        "https://newsletter.pragmaticengineer.com/p/shopify-native-mobile",
         "https://newsletter.pragmaticengineer.com/p/slow-down-to-speed-up",
         "https://newsletter.pragmaticengineer.com/p/state-of-the-job-market-2026",
         "https://newsletter.pragmaticengineer.com/p/stop-being-skeptical-about-ai-for",
@@ -3482,7 +3493,7 @@
         "https://newsletter.pragmaticengineer.com/p/why-rust-is-different-with-alice",
         "https://newsletter.pragmaticengineer.com/p/windows-and-ai"
       ],
-      "last_scan": "2026-09-29T06:08:46.684241+00:00"
+      "last_scan": "2026-09-30T06:08:47.249891+00:00"
     },
     "jetbrains-ai": {
       "seen": [
@@ -3510,7 +3521,7 @@
         "https://blog.jetbrains.com/?post_type=junie&p=713100",
         "https://blog.jetbrains.com/?post_type=kotlin&p=720155"
       ],
-      "last_scan": "2026-09-29T06:08:48.745162+00:00"
+      "last_scan": "2026-09-30T06:08:49.301814+00:00"
     },
     "google-developers": {
       "seen": [
@@ -3578,7 +3589,7 @@
         "https://developers.googleblog.com/why-go-is-an-ideal-language-for-ai-assisted-software-engineering/",
         "https://developers.googleblog.com/why-we-built-adk-20/"
       ],
-      "last_scan": "2026-09-29T06:08:51.242889+00:00"
+      "last_scan": "2026-09-30T06:08:51.560170+00:00"
     },
     "kent-beck": {
       "seen": [
@@ -3598,6 +3609,7 @@
         "https://newsletter.kentbeck.com/p/itchy-brain",
         "https://newsletter.kentbeck.com/p/long-vol-what-is-volatility",
         "https://newsletter.kentbeck.com/p/long-volatility-development",
+        "https://newsletter.kentbeck.com/p/mathematicians-heres-a-way-to-think",
         "https://newsletter.kentbeck.com/p/passing-tests-bore-me",
         "https://newsletter.kentbeck.com/p/reject-change-sometimes",
         "https://newsletter.kentbeck.com/p/run-right-and-fast-for-the-adaptive",
@@ -3615,7 +3627,7 @@
         "https://newsletter.kentbeck.com/p/why-so-literal",
         "https://newsletter.kentbeck.com/p/you-dont-get-to-create-anything-6cb"
       ],
-      "last_scan": "2026-09-29T06:08:53.383271+00:00"
+      "last_scan": "2026-09-30T06:08:54.438238+00:00"
     },
     "geoffrey-huntley": {
       "seen": [
@@ -3637,7 +3649,7 @@
         "6a62218f0f1c8c00017eef0c",
         "6ab8ac397b962e0001fab435"
       ],
-      "last_scan": "2026-09-29T06:08:55.442982+00:00"
+      "last_scan": "2026-09-30T06:08:56.484086+00:00"
     },
     "hamel-husain": {
       "seen": [
@@ -3657,7 +3669,7 @@
         "https://hamel.dev/blog/posts/prompt/",
         "https://hamel.dev/blog/posts/revenge/"
       ],
-      "last_scan": "2026-09-29T06:08:57.582856+00:00"
+      "last_scan": "2026-09-30T06:08:58.600459+00:00"
     },
     "thoughtworks": {
       "seen": [
@@ -4169,6 +4181,7 @@
         "https://www.thoughtworks.com/insights/blog/architecture/data-lake-table-formats",
         "https://www.thoughtworks.com/insights/blog/architecture/demystify-software-architecture-patterns",
         "https://www.thoughtworks.com/insights/blog/architecture/domain-driven-design-in-functional-programming",
+        "https://www.thoughtworks.com/insights/blog/architecture/engineering-the-harness-a-practical-pattern-for-reliable-coding-agents",
         "https://www.thoughtworks.com/insights/blog/architecture/hexagonal-architecture-explained-practical-example",
         "https://www.thoughtworks.com/insights/blog/architecture/how-can-on-site-servers-enable-richer-retail-experiences-part-one",
         "https://www.thoughtworks.com/insights/blog/architecture/how-can-on-site-servers-enable-richer-retail-experiences-part-two",
@@ -6418,7 +6431,7 @@
         "https://www.thoughtworks.com/insights/blog/youre-invited-discuss-future-internet",
         "https://www.thoughtworks.com/insights/blog/zhong-tai-radical-approach-enterprise-it"
       ],
-      "last_scan": "2026-09-29T06:08:59.715038+00:00"
+      "last_scan": "2026-09-30T06:09:01.942176+00:00"
     },
     "addy-osmani": {
       "seen": [
@@ -6444,7 +6457,7 @@
         "https://addyosmani.com/blog/practical-loop-engineering/",
         "https://addyosmani.com/blog/software-factories/"
       ],
-      "last_scan": "2026-09-29T06:09:01.768503+00:00"
+      "last_scan": "2026-09-30T06:09:04.078765+00:00"
     },
     "latent-space": {
       "seen": [
@@ -6524,6 +6537,7 @@
         "https://www.latent.space/p/forward-deployed-engineer-best-practices",
         "https://www.latent.space/p/forward-deployed-engineers-aiewf",
         "https://www.latent.space/p/glean-model-routing",
+        "https://www.latent.space/p/good-start-labs",
         "https://www.latent.space/p/inference-eng",
         "https://www.latent.space/p/lovable-future-of-saas",
         "https://www.latent.space/p/modal2026",
@@ -6542,7 +6556,7 @@
         "https://www.latent.space/p/wayfinder-skill",
         "https://www.latent.space/p/xaira"
       ],
-      "last_scan": "2026-09-29T06:09:04.975854+00:00"
+      "last_scan": "2026-09-30T06:09:06.952612+00:00"
     },
     "vercel": {
       "seen": [
@@ -7213,6 +7227,7 @@
         "https://vercel.com/changelog/automatic-pnpm-v10-support",
         "https://vercel.com/changelog/automatic-recursion-protection-for-vercel-serverless-functions",
         "https://vercel.com/changelog/aws-databases-now-available-on-the-vercel-marketplace",
+        "https://vercel.com/changelog/aws-privatelink-is-now-available-on-pro-and-enterprise",
         "https://vercel.com/changelog/axios-package-compromise-and-remediation-steps",
         "https://vercel.com/changelog/block-vercel-deployment-promotions-with-github-actions",
         "https://vercel.com/changelog/bookmark-domains-on-vercel-domains",
@@ -7466,6 +7481,7 @@
         "https://vercel.com/changelog/full-sandbox-egress-firewall-now-available-on-hobby-plan",
         "https://vercel.com/changelog/function-invocations-now-billed-per-unit",
         "https://vercel.com/changelog/function-start-type-now-available-in-runtime-logs",
+        "https://vercel.com/changelog/fx-ai-sdk-harness-adapter",
         "https://vercel.com/changelog/gemini-3-1-flash-lite-is-now-on-ai-gateway",
         "https://vercel.com/changelog/gemini-3-1-pro-is-live-on-ai-gateway",
         "https://vercel.com/changelog/gemini-3-5-flash-on-ai-gateway",
@@ -7835,6 +7851,7 @@
         "https://vercel.com/changelog/server-timing-header",
         "https://vercel.com/changelog/service-tiers-now-available-on-ai-gateway",
         "https://vercel.com/changelog/session-tracing-now-available",
+        "https://vercel.com/changelog/set-per-user-budgets-on-ai-gateway",
         "https://vercel.com/changelog/set-team-wide-defaults-for-deployment-protection",
         "https://vercel.com/changelog/set-up-coding-agents-in-one-command-with-ai-gateway",
         "https://vercel.com/changelog/shai-halud-supply-chain-campaign-expanded-impact-and-vercel-response",
@@ -8087,7 +8104,7 @@
         "https://vercel.com/changelog/zero-configuration-support-for-nitro",
         "https://vercel.com/changelog/zero-data-retention-no-prompt-training-on-ai-gateway"
       ],
-      "last_scan": "2026-09-29T06:09:08.484656+00:00"
+      "last_scan": "2026-09-30T06:09:10.243360+00:00"
     },
     "mattwood": {
       "seen": [
@@ -8134,8 +8151,8 @@
         "https://mattwood.blog/essays/2026/08/the-unit-of-return/",
         "https://mattwood.blog/essays/2026/08/the-wicked-frontier/"
       ],
-      "last_scan": "2026-09-29T06:09:10.733323+00:00"
+      "last_scan": "2026-09-30T06:09:12.325367+00:00"
     }
   },
-  "last_scan": "2026-09-29T06:09:10.733340+00:00"
+  "last_scan": "2026-09-30T06:09:12.325385+00:00"
 }
