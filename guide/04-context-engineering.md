@@ -944,9 +944,29 @@ per-session token tax for the unused commands.
 [source: blog-bswen-mcp-token-cost, Claim 5;
 practitioner-getsentry-sentry (cross-reference)] [emerging]
 
+**Counter-evidence: the test assumes an unfettered terminal agent.** Simon
+Willison concedes the bash-script case — "there's almost no reason to use MCPs
+if you are running a full-blown terminal agent (Claude Code, Codex, Meta Muse,
+OpenClaw etc) with unfettered internet access - just let it call APIs
+directly" — and argues it stops there.
+[source: blog-simonwillison-mcp-constrained-agent-value, Claim 1] [anecdotal]
+Two of the four things he says a constrained agent needs are "A way to handle
+authentication that doesn't allow the agent to directly access API keys" and
+"Strong audit logging for what's going on" — neither of which a raw Bash
+allowlist provides.
+[source: blog-simonwillison-mcp-constrained-agent-value, Claims 3, 5] [settled]
+One practitioner in the same thread runs a fleet of sandboxed Claude Code
+instances that share files stored on AWS without ever seeing AWS credentials:
+the agents get MCP tools against a virtual `agentfiles://` filesystem, and an
+outer orchestrator performs the real operations and keeps the audit log.
+[source: blog-simonwillison-mcp-constrained-agent-value, Claim 9] [anecdotal]
+
 **Rule**: Before adding an MCP server, ask whether a bash command and a
-slash command would do the same job. If yes, skip the server.
-[source: blog-bswen-mcp-token-cost, Claim 5] [editorial]
+slash command would do the same job. If yes, skip the server — unless the
+agent must not hold the underlying credentials or every call must be audited,
+in which case the MCP boundary is what you are paying the tokens for.
+[source: blog-bswen-mcp-token-cost, Claim 5;
+blog-simonwillison-mcp-constrained-agent-value, Claims 1, 3, 5] [editorial]
 
 ### Command output is charged to every remaining turn
 
@@ -1394,6 +1414,7 @@ session.
 ---
 
 *Sources for this chapter:
+blog-simonwillison-mcp-constrained-agent-value (Claims 1, 3, 5, 9),
 blog-anthropic-carta-healthcare-context-engineering (Claims 1, 2, 9),
 blog-anthropic-harnessing-claude-intelligence (Claims 7, 11),
 blog-anthropic-maximizing-session-value (Claims 2-7, 9, 12; Concrete Artifacts),
@@ -1417,4 +1438,4 @@ practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
 blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-01*

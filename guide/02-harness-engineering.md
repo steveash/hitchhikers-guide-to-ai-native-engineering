@@ -541,6 +541,40 @@ quantitative before/after measurement in our corpus and directly validates
 the hierarchy above.
 [source: failure-hooks-enforcement-2k, Lesson 3 (Montes measurement)] [emerging]
 
+### Promote a rule up the hierarchy once it repeats
+
+The hierarchy says where a rule *should* live; it does not say where to write
+it first. Thoughtworks' harness pattern starts in prose and promotes on
+recurrence: "Prose is the starting point; where a rule can be reliably encoded,
+mechanical enforcement is the stronger option" — a custom lint rule, a type
+check, or an architecture test that runs in the agent loop.
+[source: blog-thoughtworks-nandyala-pani-engineering-the-harness, Claim 10] [emerging]
+
+Vercel's design-guidance team applies the same idea per correction: "Each
+correction a reviewer records gets landed in the narrowest place that can
+consistently enforce it." Their routing table, paraphrased from the post:
+[source: blog-vercel-design-md-on-brand-pages, Claim 8; Concrete Artifacts] [emerging]
+
+```
+judgment change        -> prose in design.md
+reusable mechanic      -> stylesheet primitive
+mechanically checkable -> deterministic check in code
+harness problem        -> stays in harness
+single-model failure   -> hold out of rules until it repeats
+```
+
+A table-width complaint, for example, landed as both a design.md rule and a
+deterministic layout check. Every rule was then re-run against seven frozen
+scenarios, because "a change that helped one artifact could quietly hurt
+another."
+[source: blog-vercel-design-md-on-brand-pages, Claims 7, 8] [emerging]
+
+**Rule**: When the same correction shows up twice, move it out of prose and
+into the narrowest mechanical check that can enforce it (lint rule, type
+check, test, stylesheet), and re-run your fixed scenarios before keeping it.
+[source: blog-thoughtworks-nandyala-pani-engineering-the-harness, Claim 10;
+blog-vercel-design-md-on-brand-pages, Claims 7, 8] [emerging]
+
 ---
 
 ## .claude/settings.json — Permission Models
@@ -1825,6 +1859,8 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 ---
 
 *Sources for this chapter:
+blog-thoughtworks-nandyala-pani-engineering-the-harness (Claim 10),
+blog-vercel-design-md-on-brand-pages (Claims 7, 8; Concrete Artifacts),
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifacts),
@@ -1854,4 +1890,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-01*

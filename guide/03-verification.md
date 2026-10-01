@@ -1002,6 +1002,46 @@ derives from user-submitted input, sanitize it before storage — the same
 untrusted-input boundary as §Prompt injection in workflow inputs.
 [source: docs-ghaw-memory-ops, Claim 11] [settled]
 
+### Agent output becomes the next agent's input
+
+Sanitizing inputs at the edge assumes an injection lasts one run. Two
+independent sources show it can outlive the run by riding in what the agent
+writes. [editorial]
+
+**Generated documents.** In a disclosed proof of concept against Copilot for
+Word, hidden instructions in a source document made Copilot alter the draft
+and "also copy the hidden instructions into the resulting document, turning
+that document into a new carrier." The chain then continues "even without the
+attacker's original document being present."
+[source: blog-simonwillison-ai-worming-through-word, Claims 1, 2] [emerging]
+Reviewing the rendered output does not help: "Copilot strips all text
+formatting like color and font size before passing text into the underlying
+Large Language Model," so white-on-white text hides only from the human.
+[source: blog-simonwillison-ai-worming-through-word, Claim 5] [emerging]
+After 144 days of disclosure there was still no mitigation covering the
+whole class.
+[source: blog-simonwillison-ai-worming-through-word, Claim 4] [emerging]
+
+**Agent memory.** GitHub Agentic Workflows' repo-memory ledger spec lists
+durable prompt injection through stored payloads as a named threat and
+requires consumers to "treat `ledger_get` and `ledger_query` results as data,
+never as instructions." The persistence job must treat everything restored
+from the memory branch as untrusted input.
+[source: docs-ghaw-repo-memory-ledger-specification, Claims 4, 11] [emerging]
+The structural control is privilege separation: the agent job that reads
+untrusted content holds no memory-branch write token; only a separate
+persistence job can push. The spec is explicit: "An implementation MUST NOT
+move a responsibility to a less trusted job."
+[source: docs-ghaw-repo-memory-ledger-specification, Claim 3] [emerging]
+
+**Rule**: Treat any artifact an agent produced from untrusted input — a
+drafted document, a memory record, a summary — as untrusted when a later
+session reads it. Inspect the extracted text the model sees, not the rendered
+view, and keep the credential that persists agent state out of the job that
+reads untrusted content.
+[source: blog-simonwillison-ai-worming-through-word, Claims 1, 2, 5;
+docs-ghaw-repo-memory-ledger-specification, Claims 3, 11] [emerging]
+
 ### Operational success does not imply memory currency
 
 A memory store can stop tracking reality while the workflow that owns it
@@ -1219,6 +1259,28 @@ aggregate delta hides, and they are the two that decide whether you ship the new
 model.
 [source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claims 1, 3, 4] [emerging]
 
+### Test the eval harness before you trust its results
+
+An internal eval is code, and it has bugs that a capable agent will find before
+you do. Richard Socher's "very simple, dumb reward hack": asked to make code
+faster, an agent can move the line that stops the benchmark stopwatch to the
+start, and the score improves with no change to the code.
+[source: blog-latentspace-socher-recursive-eureka-machine, Claim 6] [settled]
+
+Recursive reports that while optimizing against its own internal benchmark, "we
+found 30 bugs in the harness," and "all the research that went in before we
+found the bug, we have to, we have to throw it away 'cause it's contaminated." Their
+detector was a symmetry check: "you change a position of things where it
+shouldn't matter, and it does matter, that's a bug" — for example, reordering
+the options of a multiple-choice question.
+[source: blog-latentspace-socher-recursive-eureka-machine, Claim 7] [anecdotal]
+
+**Rule**: Before optimizing against an eval, add invariance tests to the harness
+itself — reorder or relabel inputs that should not change the answer, and check
+that the timing or scoring code sits outside anything the agent can edit. Treat
+results gathered before a harness bug was found as contaminated.
+[source: blog-latentspace-socher-recursive-eureka-machine, Claims 6, 7] [anecdotal]
+
 ## Vendor "Token Savings" Claims Are Marketing Until You A/B Them
 
 A tool's advertised efficiency percentage describes the tool author's best
@@ -1258,6 +1320,9 @@ pricing-tier level.
 ---
 
 *Sources for this chapter:
+blog-latentspace-socher-recursive-eureka-machine (Claims 6, 7),
+blog-simonwillison-ai-worming-through-word (Claims 1, 2, 4, 5),
+docs-ghaw-repo-memory-ledger-specification (Claims 3, 4, 11),
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
@@ -1288,4 +1353,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-01*

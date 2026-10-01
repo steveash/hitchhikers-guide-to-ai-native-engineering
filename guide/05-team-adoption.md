@@ -921,6 +921,31 @@ These fields are a no-cost starting point for teams before investing in
 a full Faros-style cohort study — if you are on GitHub Enterprise Cloud,
 you already have access.
 
+A September 2026 addition breaks review wait time into stages. Each
+`repos-1-day` row of the repository-level report now carries a
+`pull_request_review_times` array with a median and p90 for three stages:
+[source: docs-github-copilot-pr-review-stage-metrics, Claim 1] [settled]
+
+```
+ready for review -> first review   → waiting for someone to look at it
+first review     -> final review   → back-and-forth between reviewers
+final review     -> merge          → sitting approved but unmerged
+```
+
+GitHub's rationale: "Each of those points to a different fix, and the
+90th percentile beside the median shows when a handful of slow pull requests
+is driving the delay"; no outcome data backs that claim yet.
+[source: docs-github-copilot-pr-review-stage-metrics, Claim 6] [anecdotal]
+Only human reviews are timed: "Reviews from Copilot code review, other bots,
+and the author are ignored."
+[source: docs-github-copilot-pr-review-stage-metrics, Claim 4] [settled]
+
+**Rule**: When review is the bottleneck, find out which stage is slow before
+you change the review process. Do not use these timings to judge whether
+Copilot review sped up your human reviewers, because Copilot's own reviews
+are excluded.
+[source: docs-github-copilot-pr-review-stage-metrics, Claims 1, 4, 6] [anecdotal]
+
 ### A measurement discontinuity to watch: June 15, 2026
 
 Copilot daily-active-user counts are not comparable across June 15, 2026. Before
@@ -1562,6 +1587,31 @@ missteps" report, so recurring mistakes are recorded and avoided rather than
 repeated.
 [source: blog-anthropic-human-agent-teams, Claim 10] [anecdotal]
 
+### Separate working with a shared agent from training it
+
+Once an agent is shared, every user's feedback is a potential edit to its
+behavior for everyone. Asana splits the two permissions: "While anyone can give
+an agent feedback on a task, only admins and editors can commit feedback to
+permanent memory, as well as undo, or delete from that memory."
+[source: blog-anthropic-asana-coachable-agents, Claim 5] [anecdotal]
+Editors are matched to the standard the agent applies — Asana's comms team
+edits the writing agent, while the CPO can draft with it but not change it.
+As Asana's CPO puts it: "Not everybody on the team needs to understand these
+concepts, like skills and behavior and memory."
+[source: blog-anthropic-asana-coachable-agents, Claims 5, 6] [anecdotal]
+
+```
+Anyone:            feedback applies to the current task only
+Admins / editors:  can commit feedback to permanent memory, undo it, or delete it
+```
+*Paraphrased from Asana's memory write policy.*
+[source: blog-anthropic-asana-coachable-agents, Concrete Artifacts] [anecdotal]
+
+**Rule**: For each shared agent, name the one or two domain owners who may
+write its permanent memory, and keep everyone else's feedback scoped to the
+task at hand.
+[source: blog-anthropic-asana-coachable-agents, Claims 5, 6] [anecdotal]
+
 ### Run the pre-launch self-assessment
 
 Anthropic offers five yes/no questions for a team forming a human-agent
@@ -1714,6 +1764,8 @@ in early 2026.
 ---
 
 *Sources for this chapter:
+docs-github-copilot-pr-review-stage-metrics (Claims 1, 4, 6),
+blog-anthropic-asana-coachable-agents (Claims 5, 6; Concrete Artifacts),
 survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
@@ -1746,4 +1798,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-01*
