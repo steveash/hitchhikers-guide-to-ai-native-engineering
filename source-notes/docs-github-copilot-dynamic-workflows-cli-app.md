@@ -38,7 +38,7 @@ issue: "#3853"
 ### Claim 3: Workflows are distinct from `/fleet`: fleet delegates and coordinates subagents, a workflow executes a process defined in code
 - **Evidence**: Explicit contrast in the post.
 - **Confidence**: emerging
-- **Quote**: "Unlike"  /  "/fleet" is where Copilot delegates work to subagents and coordinates their work in parallel (see Extraction Notes; sentence is split by link formatting)
+- **Quote**: "a dynamic workflow carries out a process defined in code"
 - **Our assessment**: Useful taxonomy: model-orchestrated (fleet) vs code-orchestrated (workflow) multi-agent. Maps to the guide's autonomy-vs-determinism decision.
 
 ### Claim 4: Workflows can run commands/tools/services, parallelize independent tasks, pass structured results between stages, and have subagents verify each other
@@ -97,5 +97,5 @@ Example use case (source): "Using code to find unresolved review comments on mer
 
 ## Extraction Notes
 
-- Read the full changelog page. The "Unlike /fleet" sentence is split across inline code formatting in the page text, so Claim 3's quote is a fragment rather than a full verbatim sentence; the full sentence reads, in the source, "Unlike `/fleet`, where Copilot delegates work to subagents and coordinates their work in parallel, a dynamic workflow carries out a process defined in code."
+- Read the full changelog page. The "Unlike /fleet" sentence is split across inline code formatting in the page text, so Claim 3's quote is a contiguous fragment; the full sentence reads, in the source, "Unlike `/fleet`, where Copilot delegates work to subagents and coordinates their work in parallel, a dynamic workflow carries out a process defined in code."
 - Linked docs ("Creating a dynamic workflow") were not followed; source is thin on specifics, hence `emerging`.
