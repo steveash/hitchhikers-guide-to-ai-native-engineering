@@ -1050,6 +1050,62 @@ accepted result — full cost including retries, self-checks, handoffs to a
 person, and the build and maintenance the token bill omits.
 [source: blog-mattwood-unit-of-return, Claims 5, 8] [anecdotal]
 
+### Unknown is not zero; activity is not success
+
+Cost per accepted result is only as honest as the agent telemetry under it.
+[editorial] GitHub's draft Unified Agent Session Specification makes the
+failure modes normative. Its gap analysis lists the defects that motivated
+it, including pre-spec formatters that counted missing tool results as
+success and a duration defaulted to zero where none was recorded.
+[source: docs-ghaw-unified-agent-session-specification, Claims 2, 3]
+[settled]
+
+```
+1. Absence is not zero:
+   "It MUST NOT fabricate source identifiers, timestamps, model names, tool
+    outcomes, duration, cost, token counts, or turn counts to fill missing
+    fields."
+2. A start alone is never a success:
+   "A dangling call or ambiguous completion MUST NOT receive a success
+    checkmark or count toward successful-tool statistics."
+3. Run outcome and session outcome are separate signals:
+   "A failed workflow does not by itself establish a failed agent session
+    (T-UAS-048)."
+```
+[source: docs-ghaw-unified-agent-session-specification, Claims 2, 3, 4]
+[settled]
+
+The spec's partial-trace example shows the three-state outcome a dashboard
+needs: a call that started and never returned is pending, not a success.
+
+```json
+[
+  { "type": "tool.execution_start", "data": { "toolCallId": "native-pending", "toolName": "bash", "command": "inspect" } },
+  { "type": "tool.execution_complete", "timestamp": "2026-10-02T00:00:03Z",
+    "data": { "toolCallId": "native-orphan", "toolName": "bash", "success": false, "output": "", "error": { "message": "Permission denied." } } }
+]
+```
+[source: docs-ghaw-unified-agent-session-specification, Claim 3; Concrete
+Artifacts] [settled]
+
+For cost specifically, a missing cost defaulted to 0 under-reports spend.
+Turns or tokens greater than zero are evidence that the agent did something,
+not that it finished the task.
+[source: docs-ghaw-unified-agent-session-specification, Claims 2, 4]
+[settled]
+Layered telemetry can also double-count. An agent's own token report and a
+proxy's token tracker describe the same API calls, and "A merger MUST NOT
+sum overlapping agent, firewall, or accounting observations to produce
+another session total."
+[source: docs-ghaw-unified-agent-session-specification, Claim 7] [emerging]
+
+**Rule**: In any agent cost or outcome dashboard, store missing values as
+null rather than 0. Count a tool call as successful only when a matching
+completion reports success, and take each total from a single telemetry
+layer rather than adding a proxy's count to the agent's.
+[source: docs-ghaw-unified-agent-session-specification, Claims 2, 3, 7]
+[emerging]
+
 ### The 27% finding: measure new categories of work
 
 The Anthropic transformation report contains the most under-discussed metric

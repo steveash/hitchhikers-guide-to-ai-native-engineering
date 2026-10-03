@@ -1588,6 +1588,60 @@ specific failure mode you would need to observe to justify the next one. Do
 not pre-build for failure modes you have not seen.
 [source: blog-anthropic-multi-agent-coordination-patterns, Claim 12] [settled]
 
+### When you can write the DAG, write it in code
+
+The evolution test above asks whether you can write the workflow DAG before
+it runs. GitHub's dynamic workflows (public preview in Copilot CLI and the
+Copilot app) answer "yes" by making the orchestration a program rather than
+a prompt: "The steps, when to involve agents, and how to use their results
+are all defined in code, while agents handle the parts that need analysis or
+judgment."
+[source: docs-github-copilot-dynamic-workflows-cli-app, Claim 1] [emerging]
+GitHub contrasts this with `/fleet`, its model-orchestrated mode, in the
+same product: "a dynamic workflow carries out a process defined in code."
+[source: docs-github-copilot-dynamic-workflows-cli-app, Claim 3] [emerging]
+
+One of GitHub's examples shows where the boundary sits: "Using code to find
+unresolved review comments on merged pull requests, then asking two models
+whether the comments still matter. The workflow’s code only reports findings
+when both agree."
+[source: docs-github-copilot-dynamic-workflows-cli-app, Concrete Artifacts]
+[emerging]
+
+```
+# Shape of that example (illustrative pseudocode, not the Copilot API)
+comments = find_unresolved_review_comments(merged_prs)   # code: query
+for c in comments:                                         # code: fan-out
+    a = model_a.ask("Does this comment still matter?", c)  # agent: judgment
+    b = model_b.ask("Does this comment still matter?", c)  # agent: judgment
+    if a.yes and b.yes:                                    # code: agreement gate
+        report(c)
+```
+[editorial]
+
+GitHub's case for code-owned control flow is "reliability and
+observability," and it publishes no measurement behind that.
+[source: docs-github-copilot-dynamic-workflows-cli-app, Claim 2] [anecdotal]
+The practitioner signal points the same way from the failure side. Dan Luu
+reports "not finding these ultra vibed orchestrators useful b/c reliability
+(w.r.t. completing tasks)."
+[source: blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claim 2]
+[anecdotal]
+A roundup of harness-engineering discussion summarizes the field as
+"coordination costs make deep multi-agent trees mostly unjustified today."
+[source: blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claim 6]
+[emerging]
+
+**Rule**: When you can list a process's steps before it runs, put the steps,
+fan-out, and accept/reject gates in code and call agents only at the
+judgment nodes. Keep plain chat for one-off work (code-defined workflows are
+currently documented as a public preview in GitHub Copilot, and no vendor
+has published reliability data comparing them with model-orchestrated
+delegation).
+[source: docs-github-copilot-dynamic-workflows-cli-app, Claims 1, 7;
+blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claim 6]
+[emerging]
+
 ### Generator-verifier for unattended pipelines
 
 For long-running pipelines where a human cannot review every output — think
@@ -1798,12 +1852,35 @@ before production, which is why the durable fix moves the cost decision
 upstream to those defaults rather than leaving it at the billing layer.
 [source: blog-thoughtworks-kamelman-token-crisis, Claims 8, 9, 13] [anecdotal]
 
+A model-tier upgrade can also raise spend without any runaway. After rolling
+GPT-6 Astra out to about 3,500 engineers, Databricks reported roughly 60%
+higher total coding spend. The roundup that relayed this notes the model "is
+not universally cheaper everywhere, as Databricks is now reporting +60%
+overall spend when their AI Engineers switch to Astra."
+[source: blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claim 3]
+[anecdotal]
+Databricks did not respond with a ban. It gave the tier its own budget:
+"Notably, access increased total coding spend by ~60%, so Databricks created
+a dedicated Astra sub-budget to encourage selective use."
+[source: blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claim 4]
+[anecdotal]
+The figure is secondhand and not adjusted for output, so it says nothing
+about whether the extra spend paid for itself.
+[source: blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claim 3]
+[anecdotal]
+
 **Rule**: For any agent whose loop you can't guard in code — hosted,
 third-party, or fan-out — put a dollar budget on the credential it spends
 through as a soft blast-radius backstop, then fix the upstream default (model
 tier, loop bound, context size) that made the runaway spend possible.
 [source: blog-vercel-ai-gateway-api-key-budgets, Claim 4;
 blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
+
+**Rule**: When you roll out a more expensive model tier, give it its own
+sub-budget instead of folding it into the general pool. Total spend is
+the number to watch, whatever per-task benchmarks say.
+[source: blog-latentspace-ainews-reality-checks-gas-town-astra-cost, Claims 3, 4]
+[anecdotal]
 
 ---
 

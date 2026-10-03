@@ -288,6 +288,47 @@ failure that keeps you up at night is a deleted production database, remove the
 delete verb from the agent's tool list entirely rather than prompting it not to.
 [source: blog-anthropic-ciso-guide-agentic-ai, Claims 3, 10] [settled]
 
+### Computer use is the widest tool grant: keep it last
+
+GitHub now ships computer use in Copilot CLI and the Copilot app (public
+preview, macOS and Windows). It gives the agent a general GUI action space:
+"reading accessible app content and visual context, clicking controls,
+entering and editing text, pressing keys, scrolling, dragging, and navigating
+workflows across applications."
+[source: docs-github-copilot-computer-use-desktop-apps, Claims 1, 2] [settled]
+GitHub positions it as the fallback for "workflows in legacy and GUI-only
+software that do not provide an API, command-line interface, or MCP
+integration."
+[source: docs-github-copilot-computer-use-desktop-apps, Claim 3] [emerging]
+
+The documented controls, in order of scope:
+
+```
+/computer on | show | off     # opt-in per CLI session; app has a settings toggle
+per-app approval              # "always allow" list the user can review or reset
+macOS Accessibility +         # OS-level grants to the host process
+  Screen Recording
+org managed settings          # can disable the feature; no finer control documented
+```
+[source: docs-github-copilot-computer-use-desktop-apps, Claims 4, 5, 6, 7;
+Concrete Artifacts] [emerging]
+
+Two of these controls are standing grants. The OS permissions attach to the
+host process, which makes them wider than any per-app approval. The "always
+allow" list also persists once an app is on it. The announcement does not
+say how either interacts with prompt injection from on-screen content.
+[source: docs-github-copilot-computer-use-desktop-apps, Claims 4, 5]
+[editorial]
+
+**Rule**: Treat GUI control as the bottom of the tool ladder (API or MCP
+first, then CLI, then computer use). Turn it on per session only for apps
+with no programmatic interface, and prune the always-allow list when the
+task ends. This is currently documented for GitHub Copilot CLI and app; the
+announcement does not say whether per-app approvals constrain the OS-level
+grants.
+[source: docs-github-copilot-computer-use-desktop-apps, Claims 3, 4, 7]
+[emerging]
+
 ### Design controls around the model's future capability, not today's limits
 
 Least agency matters more than it looks because an agent's behavior can change
