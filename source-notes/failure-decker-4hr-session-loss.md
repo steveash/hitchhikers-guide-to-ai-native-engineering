@@ -7,7 +7,7 @@ author: decker (@gonewx)
 date_published: 2026-02-21
 date_extracted: 2026-04-08
 last_checked: 2026-04-08
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "hi-e93.2"
 ---
