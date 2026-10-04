@@ -25,19 +25,19 @@ issue: "#3889"
 
 ### Claim 1: S3 standard storage has had no list-price drop in a decade
 - **Evidence**: A table of seven dated price points (2006–2016) and the statement that the price is unchanged today. No link to AWS pricing archives in the post itself.
-- **Confidence**: emerging (concrete and checkable, but unsourced in the post)
+- **Confidence**: anecdotal (concrete and in principle checkable, but unsourced in the post and not independently verified by us)
 - **Quote**: "One thing I find notable about S3 today is that, while it used to drop in price reasonably often, there hasn't been a price drop in a full decade"
-- **Our assessment**: Plausible and easy to verify against the AWS price-history archive. Note "a full decade" is Willison's rounding of Dec 2016 → Sep 2026. Applies to the headline S3 Standard rate only.
+- **Our assessment**: Plausible, but we have not checked it against AWS's own pricing history; treat as unverified until someone does. Note "a full decade" is Willison's rounding of Dec 2016 → Sep 2026. Applies to the headline S3 Standard rate only.
 
 ### Claim 2: S3 prices fell steeply from 2006 to 2016, then flattened
 - **Evidence**: The table: $0.150 (2006-03-14) → $0.140 → $0.125 → $0.095 → $0.085 → $0.030 (2014-04-01) → $0.023 (2016-12-01). That is roughly an 85% decline, with the biggest single cut (0.085 → 0.030) in April 2014.
-- **Confidence**: emerging
+- **Confidence**: anecdotal (single unsourced table; not cross-checked against AWS)
 - **Quote**: "2014-04-01  $0.030/GB-month"
 - **Our assessment**: The decline percentage is our arithmetic, not the source's. The shape (steep then flat) matters for cost models that assume continued Moore's-law-style storage deflation.
 
 ### Claim 3: The current price is still $0.023/GB-month
 - **Evidence**: Assertion by the author as of 2026-09-27.
-- **Confidence**: emerging
+- **Confidence**: anecdotal (author's assertion; not rechecked against current AWS pricing)
 - **Quote**: "Today it's still $0.023/GB-month."
 - **Our assessment**: Time-sensitive; should be rechecked against AWS pricing before the guide cites it.
 
@@ -63,9 +63,9 @@ S3 price history (Simon Willison, simonwillison.net/2026/Sep/27/hn-49871741/)
 
 ## Guide Impact
 
-- **Chapter 05 (Economics)**: At most a one-line footnote that storage unit prices should be modeled as flat, not deflating, when budgeting artifact/transcript/trace retention for agent systems. Not enough to justify a standalone section; the post gives no AI-specific evidence.
+- **No current chapter fits; reference-only.** The guide has no economics or cost-modeling chapter (`guide/05-team-adoption.md` is Team Adoption). If a cost-modeling section is ever added, this note supports at most a one-line footnote that storage unit prices should be modeled as flat, not deflating, when budgeting artifact/transcript/trace retention for agent systems. Not enough to justify a standalone section; the post gives no AI-specific evidence.
 
 ## Extraction Notes
 
 - Fetched the page and verified the quote and table against the raw HTML. No sub-pages were followed except noting the post links to the HN thread (not read; the post is a repost of one comment).
-- Source is very thin; the Prospector rated it low novelty/low priority. Confidence is capped at anecdotal overall. No contradictions filed.
+- Source is very thin; the Prospector rated it low novelty/low priority. All claims are graded anecdotal: the table is unsourced in the post and we did not independently verify it against AWS pricing history. No contradictions filed.
