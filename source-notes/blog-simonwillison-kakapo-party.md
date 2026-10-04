@@ -24,42 +24,36 @@ issue: "#3887"
 ## Extracted Claims
 
 ### Claim 1: Claude Opus 5.5 produced a usable pixel-art canvas animation from one prompt plus three reference photos
-- **Evidence**: Author's own report; the result is published as a live tool at tools.simonwillison.net/kakapo-party, with a claude.ai transcript linked. Described as having 20+ birds, confetti, balloons, streamers, a disco ball and music-synced dance moves (per the tool's blurb).
+- **Evidence**: Author's own report; the result is published as a live tool at tools.simonwillison.net/kakapo-party, with a claude.ai transcript linked. The tool's blurb on the post describes kākāpō jumping and dancing, confetti bursts, balloons, streamers, a disco ball and dance moves synced to music; it does not state a bird count. The author chose Opus 5.5 for the task on the strength of unsourced community reputation ("some buzz") for pixel-art animation.
 - **Confidence**: anecdotal
 - **Quote**: "Here's the transcript, and this is the resulting page. It's pretty great!"
-- **Our assessment**: Plausible but a single run, judged subjectively by the author; no mention of retries. Useful as a data point on Opus 5.5's visual/creative code generation, not as a benchmark. Note the prompt is also image-grounded: photos supplied "just to remind you what they look like".
+- **Our assessment**: Plausible but a single run, judged subjectively by the author; no mention of retries. Useful as a data point on Opus 5.5's visual/creative code generation, not as a benchmark. Note the prompt is also image-grounded: photos supplied "just to remind you what they look like". The model-selection motive ("I had seen some buzz around how good Claude Opus 5.5 was at creating pixel art animations.") is hearsay about the model, so we record it only as context for why this model was picked, not as evidence of its capability.
 
-### Claim 2: Willison picked Opus 5.5 for this because of community buzz about its pixel-art ability
-- **Evidence**: Hearsay ("some buzz"); no cited source.
-- **Confidence**: anecdotal
-- **Quote**: "I had seen some buzz around how good Claude Opus 5.5 was at creating pixel art animations."
-- **Our assessment**: Shows model selection by capability reputation in practice. Unverified claim about the model; treat as a lead, not evidence.
-
-### Claim 3: A short, loosely specified natural-language prompt was sufficient for the generation step
+### Claim 2: A short, loosely specified natural-language prompt was sufficient for the generation step
 - **Evidence**: The full prompt is reproduced in the post: references, medium (animated pixel art, HTML5 canvas), subject, mood, and one hard numeric constraint (at least 20 birds).
 - **Confidence**: anecdotal
 - **Quote**: "I need you to make an animation in animated pixel art on HTML 5 canvas of obviously pixel art kakapo jumping up and down having a party with confetti and suchlike - there should be at least 20 of them"
 - **Our assessment**: The prompt pattern (reference images + explicit output medium + one countable acceptance criterion) is reusable. The interactive features (click/Space for confetti) were not requested in the prompt, so they came from the model's elaboration — the post's blurb describes them but we cannot confirm this from the prompt alone.
 
-### Claim 4: Claude Code can turn a three-line spec into a working Playwright video-capture script
+### Claim 3: Claude Code can turn a three-line spec into a working Playwright video-capture script
 - **Evidence**: Prompt and the complete resulting script are reproduced; the author says the output "was exactly what I needed for my final slide". Transcript linked.
 - **Confidence**: anecdotal
 - **Quote**: "Claude Code used Playwright (transcript here) and produced this video, which was exactly what I needed for my final slide:"
 - **Our assessment**: Credible; Playwright's `record_video_dir` makes this a small task. The spec is behavioral (duration, delay, spread of clicks) rather than implementation-level — the agent chose the tool and the coordinates.
 
-### Claim 5: The script was short and self-contained (PEP 723 inline dependencies)
+### Claim 4: The script was short and self-contained (PEP 723 inline dependencies)
 - **Evidence**: The script opens with an inline `# /// script` dependency block, so it can be run directly with a tool like `uv run`; ~35 lines.
 - **Confidence**: anecdotal
 - **Quote**: "Here's the full Playwright script it used, which was pleasingly short:"
 - **Our assessment**: The agent's choice of inline script metadata (the post doesn't say how it was run) lets throwaway automation stay a single file with no project setup. Our inference, not the author's claim.
 
-### Claim 6: Prompt constraints map directly onto script structure
+### Claim 5: Prompt constraints map directly onto script structure
 - **Evidence**: Prompts: "15s long", "don't start clicking until 3s in", "several clicks are spread around the clickable area". Script: first click at t=3.0, ten clicks at timed offsets across centre/corners/edges, and a final sleep to 16.0s.
 - **Confidence**: anecdotal
 - **Quote**: "don't start clicking until 3s in"
 - **Our assessment**: The agent satisfied the constraints faithfully (and padded 16.0s to cover the 15s requirement, with video trimming left to the user — unverified whether the output was exactly 15s). Good evidence that concrete numeric constraints in a prompt are reliably honored in simple scripts.
 
-### Claim 7: Generation and capture were split across two different agent surfaces
+### Claim 6: Generation and capture were split across two different agent surfaces
 - **Evidence**: Chat interface (claude.ai-style, with transcript share) for design/generation; local Claude Code session for file-system and browser work against `file:///Users/simon/Downloads/kakapo-party.html`.
 - **Confidence**: anecdotal
 - **Quote**: "so I downloaded the HTML and told a local Claude Code session:"
@@ -126,12 +120,13 @@ with sync_playwright() as p:
 
 ## Guide Impact
 
-- **Chapter 03 (code generation)**: Optional short example of an image-grounded prompt pattern (reference photos + medium + one countable constraint), citing Claim 3. Anecdotal only; do not present as a benchmark.
-- **Chapter 05 (tooling/automation)**: Optional example that timing-and-coverage requirements stated behaviorally in a prompt can yield a one-file Playwright capture script (Claim 4, Claim 6), alongside `blog-simonwillison-shot-scraper-video.md`. No existing recommendation is contradicted.
-- Overall: low impact; a supporting illustration rather than a driver of change. Chapter numbers follow the Prospector's triage and were not re-verified against `guide/`.
+- **`guide/01-daily-workflows.md` → "When NOT to Delegate" → "Fully delegate (fire and forget)"**: Optional one-line anecdotal example alongside the existing `blog-simonwillison-gpt55-codex-plugin` example. The video-capture task fits the section's criteria (mechanical, well-specified, easy to verify by watching the output): a three-line behavioral spec with numeric timing constraints yielded a one-file Playwright script used as-is (Claim 3, Claim 5).
+- **`guide/04-context-engineering.md` → MCP server load discussion (the passage noting that a complex server like `puppeteer` or `playwright` adds substantial context load)**: Optional supporting note that for one-off browser automation the agent can write a plain Playwright script instead of loading a browser MCP server (Claim 3, Claim 4), alongside `blog-ghaw-playwright-cli-only.md` (Claim 3). Anecdotal only.
+- The image-grounded generation prompt (Claim 2) has no natural home in the current guide; no guide change warranted for it.
+- Overall: low impact; a supporting illustration rather than a driver of change. No existing recommendation is contradicted.
 
 ## Extraction Notes
 
 - Read the full post via raw HTML. The two linked transcripts (claude.ai share and gisthost) and the live tool were not opened, so claims about the animation's features rely on the tool's blurb on the blog page and the author's description.
-- The post is short; seven claims is near its ceiling. Several claims are our inferences from the script and are flagged as such in "Our assessment".
-- The Prospector triage comments mention "20+" birds; the prompt asked for "at least 20", and the blurb doesn't state a count.
+- The post is short; six claims is near its ceiling (the original Claim 2, about community buzz over Opus 5.5, was folded into Claim 1 after review). Several claims are our inferences from the script and are flagged as such in "Our assessment".
+- The Prospector triage comments mention "20+" birds; the prompt asked for "at least 20", and the blurb doesn't state a count, so the note does not claim one.
