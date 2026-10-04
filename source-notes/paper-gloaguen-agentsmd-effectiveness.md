@@ -6,7 +6,7 @@ author: Thibaud Gloaguen, Niels Mündler, Mark Niklas Müller, Veselin Raychev, 
 date_published: 2026-02-12
 date_extracted: 2026-03-30
 last_checked: 2026-03-30
-status: current
+status: stale
 confidence_overall: emerging
 issue: "N/A — enqueued from blog-addyosmani-code-agent-orchestra extraction"
 ---
