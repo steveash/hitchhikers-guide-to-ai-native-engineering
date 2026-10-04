@@ -121,7 +121,7 @@ with sync_playwright() as p:
 ## Guide Impact
 
 - **`guide/01-daily-workflows.md` → "When NOT to Delegate" → "Fully delegate (fire and forget)"**: Optional one-line anecdotal example alongside the existing `blog-simonwillison-gpt55-codex-plugin` example. The video-capture task fits the section's criteria (mechanical, well-specified, easy to verify by watching the output): a three-line behavioral spec with numeric timing constraints yielded a one-file Playwright script used as-is (Claim 3, Claim 5).
-- **`guide/04-context-engineering.md` → MCP server load discussion (the passage noting that a complex server like `puppeteer` or `playwright` adds substantial context load)**: Optional supporting note that for one-off browser automation the agent can write a plain Playwright script instead of loading a browser MCP server (Claim 3, Claim 4), alongside `blog-ghaw-playwright-cli-only.md` (Claim 3). Anecdotal only.
+- **`guide/04-context-engineering.md` → MCP server load discussion (the per-server token-cost passage noting that a single complex server like `puppeteer` or `playwright` "can dominate")**: Optional supporting note that for one-off browser automation the agent can write a plain Playwright script instead of loading a browser MCP server (Claim 3, Claim 4), alongside `blog-ghaw-playwright-cli-only.md` (Claim 3). Anecdotal only.
 - The image-grounded generation prompt (Claim 2) has no natural home in the current guide; no guide change warranted for it.
 - Overall: low impact; a supporting illustration rather than a driver of change. No existing recommendation is contradicted.
 
