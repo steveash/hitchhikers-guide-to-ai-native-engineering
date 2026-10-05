@@ -33,7 +33,7 @@ issue: "#3905"
 ### Claim 2: Four sub-skills make up "shaping the build"
 - **Evidence**: Author's taxonomy, illustrated with a skills-map graphic and examples.
 - **Confidence**: emerging
-- **Quote**: "The key skills for shaping the build are:"  (followed by the list: "Driving the build loop", "Making product decisions", "Communicating and leading", "High-agency ownership")
+- **Quote**: "The key skills for shaping the build are:" (followed by the list: Driving the build loop, Making product decisions, Communicating and leading, High-agency ownership)
 - **Our assessment**: The list is a useful checklist. It is not validated, but it lines up with the job-posting analysis summarized in the Latent Space note.
 
 ### Claim 3: Driving the build loop means high-velocity, small-batch shipping and choosing the next step among prototype, MVP, features, or enterprise-grade
@@ -117,7 +117,7 @@ issue: "#3905"
 ### Claim 16: "Expose a tool and give the model explicit criteria for using it" is a new agentic design pattern
 - **Evidence**: Editorial interpretation of SelfCompact.
 - **Confidence**: anecdotal
-- **Quote**: "The rubric approach introduces a new[agentic design pattern](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance): exposing a tool and giving the model explicit criteria for using it."
+- **Quote**: "exposing a tool and giving the model explicit criteria for using it."
 - **Our assessment**: Reasonable generalization, but one paper doesn't establish a pattern. Compare Claude Code-style compaction triggers that are purely threshold-based.
 
 ## Concrete Artifacts
