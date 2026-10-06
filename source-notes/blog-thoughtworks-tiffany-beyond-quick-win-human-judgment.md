@@ -32,7 +32,7 @@ issue: "#3931"
 ### Claim 2: Automating the easy work shifts the bottleneck and leaves humans with only hard cases, degrading sustainability and service quality
 - **Evidence**: Illustrative chatbot scenario (password reset, order tracking, opening times); no reported numbers.
 - **Confidence**: anecdotal
-- **Quote**: "A business deploys an AI chatbot to handle routine operations such as password reset, order tracking (\"where is my order?\" or WISMO), store opening times, etc."
+- **Quote**: "A business deploys an AI chatbot to handle routine operations such as password reset, order tracking" (opening of the scenario sentence; the sentence continues with the WISMO example and "store opening times, etc.")
 - **Our assessment**: Plausible and well-known in contact-centre practice; the mechanism (task-mix shift) generalizes to coding agents absorbing easy tickets while reviewers see only hard diffs. Hypothetical here, not measured.
 
 ### Claim 3: Easy work acted as a buffer and reward for human staff; removing it overnight is a hidden cost
@@ -100,12 +100,14 @@ Attribution: Tiffany, Thoughtworks Insights, 2026-10-01 (paraphrased structure; 
 - **Corroborates**: `blog-addyosmani-human-judgment-relocates.md` (Claim 15: human judgment relocates rather than disappears; Claim 5: human cognitive bandwidth does not scale); `blog-langchain-human-judgment-improvement-loop.md` (Claim 8 and Claim 11: production data and human review feed improvement, the operational version of the data-quality loop).
 - **Contradicts**: none found. No existing note argues human judgment should be eliminated in a way that opposes this post; no contradiction issue filed.
 - **Extends**: `blog-thoughtworks-kamelman-delegation-architecture.md` (bounded autonomy framing) and `blog-thoughtworks-srinivasan-xiong-agent-reliability-operating-model.md` (Claim 9: failures feed a continuous control loop) by adding the human-sustainability dimension.
-- **Novel**: The fatigue loop (task-mix shift after automation erodes the "buffer and reward" of human work) and the efficiency loop's reinvestment requirement; neither appears as an explicit claim in the notes checked.
+- **Related (human fatigue, different mechanism)**: `blog-thoughtworks-mugrage-is-developer-experience-dead.md` (Claim 4: verification fatigue, the cost of reviewing agent-generated code) is the closest corpus analogue: both describe humans left with the cognitively heavier share of the work once AI takes on generation. `blog-pragmaticengineer-orosz-appleton-design-engineering.md` (Claim 6: decision fatigue by roughly question 20 in agent-driven planning Q&A), the approval-fatigue motivation in `blog-anthropic-claude-code-auto-mode.md` (Scope section), and the "decision fatigue" point in `blog-anthropic-human-agent-teams.md` (Claim 4: workspace-level boundaries) cover fatigue caused by interaction overhead, not by losing the easy work.
+- **Novel (qualified)**: The specific mechanism here, where automating routine work removes the "buffer and reward" that easy tasks provided, so the human workload becomes all edge cases, was not found as an explicit claim in the notes checked. Those notes are the four above plus `blog-simonwillison-pahlsson-notini-less-human-agents.md` (about agent behavioural flaws, not human workload) and `blog-simonwillison-udell-human-agent-loop.md` (Claim 8 caps the worklist at five to seven items for human context limits, which is related to workload sustainability but is not task-mix erosion). The efficiency loop's reinvestment requirement was also not found as an explicit claim in those notes. This is not an exhaustive corpus search.
 
 ## Guide Impact
 
-- **Ch07 (Governance)**: Could add a one-line caution that automation of easy work shifts the human workload to harder cases, citing this source as anecdotal framing alongside Osmani Claim 15. Low priority; do not present as evidence.
-- **Ch05 (Operating patterns)**: The three-loop checklist could be cited as a pre-rollout questionnaire, labeled as an opinion-piece framework.
+- **`guide/05-team-adoption.md` → "How AI Changes Who Does the Iteration Work"**: Could add a one-line caution that automating easy work shifts the human workload to harder cases (Claims 2-3), citing this source as anecdotal framing alongside Osmani Claim 15 and Mugrage Claim 4. Low priority; do not present as evidence.
+- **`guide/05-team-adoption.md` → "Forming the Human-Agent Team → Run the pre-launch self-assessment"** (or "Pulling It Together: A Rollout Playbook"): The three-loop checklist and leadership questions (Claims 4-8) could be cited as extra pre-rollout questions, labelled as an opinion-piece framework.
+- **`guide/00-principles.md` → "The Comprehension Work Is the Job"**: Claim 1 ("Human judgment is not a cost to eliminate") could serve as a supporting framing quote. It is an assertion, not evidence.
 - No chapter should change a recommendation on this source alone.
 
 ## Extraction Notes
