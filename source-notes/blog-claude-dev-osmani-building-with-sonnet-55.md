@@ -32,13 +32,13 @@ issue: "#3981"
 ### Claim 2: Sonnet 5.5 is half the price of Opus 5.5 on every token class except cache reads
 - **Evidence**: Pricing table: input $2 vs $4, output $10 vs $20, 5-min cache write $2.50 vs $5, 1-hour write $4 vs $8, cache read $0.20 for both.
 - **Confidence**: settled (published price list, as of the post date)
-- **Quote**: "US-only inference (" followed by `inference_geo: "us"` ") costs 1.1 times the standard price." (see Concrete Artifacts for the table)
-- **Our assessment**: Quote field intentionally points to the table because the HTML splits the sentence around inline code. Useful for routing/cost reasoning; verify prices before citing in the guide.
+- **Quote**: "All Sonnet 5.5 prices, including batch processing and prompt caching, match Sonnet 5's, so swapping the model ID doesn't change your per-token bill."
+- **Our assessment**: The table is reproduced under Concrete Artifacts. Useful for routing/cost reasoning; verify prices before citing in the guide.
 
 ### Claim 3: `thinking: {"type": "disabled"}` now returns 400; `between_tools` replaces it, with strict limits
 - **Evidence**: Before/after code; list of limits.
 - **Confidence**: settled (API behavior, first-party)
-- **Quote**: "`thinking: {\"type\": \"disabled\"}` returns a 400 error. Send the new" is not verbatim in source; use: "With between_tools, thinking only happens between tool calls, and total response time is the same or faster."
+- **Quote**: "With between_tools, thinking only happens between tool calls, and total response time is the same or faster."
 - **Our assessment**: A breaking change for any harness that disabled thinking. Limits: works only at low/medium/high (400 at xhigh/max), accepts no `display`, `budget_tokens` or `block_binding`, and effort can't change mid-conversation. Source says: "between_tools works at low, medium and high effort. At xhigh or max it returns a 400 error; to run there, use adaptive thinking."
 
 ### Claim 4: Forced `tool_choice` (`any` or `tool`) returns 400; use `auto` + `strict: true` + `additionalProperties: false`
@@ -194,5 +194,5 @@ High-res image tier up to 2576 px; a 2000x1500 image costs ~2.5x the tokens vs S
 
 - Fetched the page HTML and read the full text (all sections through Availability). Did not follow the linked migration or prompting guides.
 - WebFetch's summarizer would not reproduce text verbatim, so quotes were taken from the raw HTML text. Inline-code formatting in the HTML is flattened in quotes; escaped inner quotes reflect the source's own double quotes.
-- Claim 2's quote is a partial sentence around inline code; Claim 3's quote field is the verbatim sentence about `between_tools`, and the `disabled` 400 behavior is described in Our assessment from the source's "returns a 400 error" statement.
+- The `thinking: disabled` 400 behavior in Claim 3 is stated in the source ("returns a 400 error") and described in Our assessment rather than quoted, because inline code flattens awkwardly.
 - Vendor performance claims and the Epic testimonial are unverified.
