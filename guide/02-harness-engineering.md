@@ -816,6 +816,34 @@ package's install script; the trust model on every registry documented here is
 [source: blog-humanlayer-show-me-skill, Claims 5, 6, 8;
 docs-github-copilot-agent-plugins-1-0, Claim 10] [anecdotal]
 
+### Tell the agent which stops you want, and how to report at the end
+
+Anthropic's Opus 5.5 guide names a failure mode of long runs: the model sometimes
+stops partway to report and ask whether to continue. The fix is a CLAUDE.md rule,
+because "It follows instructions that name these stops."
+[source: blog-claude-dev-osmani-getting-the-most-out-of-opus-55, Claim 5] [emerging]
+The guide's suggested rule keeps the destructive-action stops in place:
+
+```
+When a step doesn't need my input, keep going. Put status notes in the same message as your next action.
+Stop and ask only when you can't continue without me, or before anything destructive: deleting data, force-pushing, or changing anything outside this repository.
+```
+*Suggested CLAUDE.md rule from "Getting the most out of Opus 5.5".*
+[source: blog-claude-dev-osmani-getting-the-most-out-of-opus-55, Concrete Artifacts] [emerging]
+
+The prose rule does not replace the permission layer: "Keep permission prompts on
+for destructive commands too."
+[source: blog-claude-dev-osmani-getting-the-most-out-of-opus-55, Claim 6] [settled]
+The same guide suggests setting the end-of-run report format in CLAUDE.md so that
+what the agent needs from you comes first: "End every run with three headings:
+Blocked on me, Changed, Found."
+[source: blog-claude-dev-osmani-getting-the-most-out-of-opus-55, Claim 9] [anecdotal]
+
+**Rule**: For long autonomous runs, list in CLAUDE.md the specific conditions
+under which the agent should stop, and the headings of its final report. Back the
+destructive-action stops with permission prompts, not just prose.
+[source: blog-claude-dev-osmani-getting-the-most-out-of-opus-55, Claims 5, 6, 9] [anecdotal]
+
 ---
 
 ## The Harness Shrinks as the Model Grows
@@ -1852,6 +1880,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
-practitioner-mikelane-pytest-test-categories*
+practitioner-mikelane-pytest-test-categories,
+blog-claude-dev-osmani-getting-the-most-out-of-opus-55 (Claims 5, 6, 9)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-08*

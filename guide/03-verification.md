@@ -304,6 +304,40 @@ docs, and routine refactors. Pay for depth on the codepaths whose failures
 hurt most.
 [source: blog-cursor-bugbot-effort-billing, Claims 4, 6] [emerging]
 
+### Effort buys edge cases, not the right approach
+
+Anthropic's breakdown of 370 Fable 5.1 attempts on Terminal-Bench 3.0 shows what
+the effort setting does and does not change. A model judge classified the
+failures, so the categories are approximate:
+
+```
+                         low (73k median tokens)   max (222k)
+passed                   140                       214
+missed a case             59                        24
+a bug its tests missed    40                        14
+misread a requirement     45                        26
+wrong/incomplete fix      31                        10
+picked the wrong reading  25                        47
+```
+*Fig B, "Spending your effort" (claude.dev).*
+[source: blog-claude-dev-thariq-spending-your-effort, Claim 9; Concrete Artifacts] [emerging]
+
+The traced low-effort failures follow one pattern. The agent edited code before
+building or running the reproducer, and "did not check that its new test would
+have caught the original bug." The higher-effort runs reproduced first and tested
+against a reference implementation
+[source: blog-claude-dev-thariq-spending-your-effort, Claim 12] [emerging]. Effort
+cannot fix a wrong reading of the task, but a spec can: with a detailed spec from
+an up-front interview, the four effort levels produced similar designs and
+implementations
+[source: blog-claude-dev-thariq-spending-your-effort, Claim 6] [anecdotal].
+
+**Rule**: Settle the approach with a spec or an interview, build at low or medium
+effort, then verify at high effort. Higher effort catches edge cases, but it does
+not catch a misread requirement. (Switching effort mid-session may cost a cache
+rebuild; see ch04, "Debated: Is effort part of the cache key?")
+[source: blog-claude-dev-thariq-spending-your-effort, Claims 6, 7, 9] [anecdotal]
+
 ---
 
 ## Quality Gates Framework
@@ -1138,6 +1172,42 @@ in either is a regression worth investigating before it becomes user
 disengagement.
 [source: blog-cursor-continual-harness-improvement, Claims 1, 2] [emerging]
 
+### Turn every win into a ratchet
+
+Anthropic's two-week claude.ai performance sprint merged more than 3,000
+agent-written changes for a ~3.1x geometric-mean speedup across 13 field
+measurements, with no customer-facing incident or rollback. These are self-reported
+results, produced with an internal model
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Claim 1] [emerging].
+The gate that let the agent move fast was a deterministic metric that CI enforced.
+The team rejected wall-clock time as the gate: "Wall-clock time is what users feel,
+but it’s noisy, and milliseconds are too flaky to use as a CI gate." Instead they
+used instruction counts, V8 call counts, React commits, style recalcs and DOM
+mutations, and each metric had to show that it tracked wall-clock time before it
+stayed
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Claim 3] [emerging].
+Each benchmark then had two jobs: a number the agent could move in the lab, and
+"a guardrail in CI with a number that could only ratchet down." PRs that raise the
+count fail CI, and a daily job lowers each ceiling when the count drops
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Claim 4] [emerging].
+
+The validation prompt the team gave the agent:
+
+```
+@Claude please prove that hill climbing against each of these can result in measurable wall clock perf wins. we’ll unship the benches for any candidates that cannot prove that
+```
+*From the claude.ai sprint retrospective.*
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Concrete Artifacts] [emerging]
+
+The source does not say how legitimate feature work gets an exception to a ceiling
+that only goes down
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Claim 4] [emerging].
+
+**Rule**: When an agent is optimizing a metric, gate CI on a deterministic proxy
+that you have shown tracks the user-facing number. Lower the ceiling automatically
+after each win, so a later change cannot quietly give the gain back.
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Claims 3, 4] [emerging]
+
 ---
 
 ## Benchmark Scores Can Measure Retrieval, Not Coding
@@ -1286,6 +1356,8 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin*
+practitioner-dadlerj-tin,
+blog-claude-dev-thariq-spending-your-effort (Claims 6, 7, 9, 12),
+blog-anthropic-claude-ai-3x-faster-hill-climbing (Claims 1, 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-08*

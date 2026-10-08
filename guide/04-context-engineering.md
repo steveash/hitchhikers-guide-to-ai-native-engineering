@@ -176,7 +176,14 @@ clearer prompt format. If you want
 state to make it through a compaction event, put it in the plan, not the
 conversation.
 [source: research-wasnotwas-context-compaction, Claim 5;
-blog-sankalp-claude-code-20, Claim 6] [emerging]
+blog-sankalp-claude-code-20, Claim 6] [stale]
+
+Both of those sources are now past the staleness window, but Anthropic's own
+Opus 5.5 usage guide gives the same instruction for the current model generation:
+keep the task list in a file such as `TASKS.md`, because older turns get
+summarized as context fills, and "A list in a file survives that, and it shows
+you at a glance what's done and what's left."
+[source: blog-claude-dev-osmani-getting-the-most-out-of-opus-55, Claim 8] [emerging]
 
 French-Owen makes the same point from the budget angle:
 
@@ -796,11 +803,42 @@ That 0.1x cached-read figure is a first-party confirmation of the same
 multiplier already cited from Cowrie's measurements above — two independent
 sources on the same number. [editorial]
 
-**Rule**: Set model and effort level at session start and leave them alone. On
-an API key, set `ENABLE_PROMPT_CACHING_1H=1` so your cache TTL matches the
-one-hour subscription default; without it, treat five idle minutes as the point
-where the next turn pays a full cold rebuild.
+**Debated: Is effort part of the cache key?**
+
+The August session-cost guidance lists an effort change alongside a model switch
+as a cache-busting action
+[source: blog-anthropic-maximizing-session-value, Claim 5] [settled]. Six weeks
+later, a Claude Code engineer's post on effort describes Fable 5.1 and Opus 5.5 as
+responding to effort "without breaking the prompt cache in Claude Code," and
+builds its recommended loop on changing effort mid-session:
+
+```
+1. Give Claude a spec and ask it to interview me about any details I'm missing
+2. Implement it on low effort
+3. Review to make sure it got the gist of it correct, iterate on low effort as needed
+4. Verify and test on high effort
+```
+*Feature loop from "Spending your effort" (claude.dev).*
+[source: blog-claude-dev-thariq-spending-your-effort, Claims 7, 14] [anecdotal]
+
+On the OpenAI side, GPT-6 Astra lists adjustable reasoning without cache
+invalidation among its Codex and API features
+[source: blog-thebatch-issue-370-shaping-build-astra-fable-transcription, Claim 8] [settled].
+
+**Our take** [editorial]: The newer post is one unmeasured assertion and names
+specific models, so it narrows the older rule rather than retiring it. On Opus 5.5
+or Fable 5.1 in Claude Code, try the low-build/high-verify switch, then check
+the cache-read versus cache-write tokens on the turn after the switch. On older
+models, or anywhere you have not checked, treat effort as part of the cache key.
+Model switches still bust the cache either way.
+
+**Rule**: Set the model at session start and leave it alone. Do the same with effort
+unless you have confirmed that your model and harness keep the cache across an
+effort change. On an API key, set `ENABLE_PROMPT_CACHING_1H=1` so your cache TTL
+matches the one-hour subscription default; without it, treat five idle minutes as
+the point where the next turn pays a full cold rebuild.
 [source: blog-anthropic-maximizing-session-value, Claims 4, 5] [settled]
+[source: blog-claude-dev-thariq-spending-your-effort, Claim 14] [anecdotal]
 
 ### Context rot — when wrong information accumulates
 
@@ -1415,6 +1453,9 @@ research-wasnotwas-context-compaction (Claims 1-8),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
-blog-simonwillison-fable-judgement (Claim 5)*
+blog-simonwillison-fable-judgement (Claim 5),
+blog-claude-dev-osmani-getting-the-most-out-of-opus-55 (Claim 8),
+blog-claude-dev-thariq-spending-your-effort (Claims 7, 14),
+blog-thebatch-issue-370-shaping-build-astra-fable-transcription (Claim 8)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-08*

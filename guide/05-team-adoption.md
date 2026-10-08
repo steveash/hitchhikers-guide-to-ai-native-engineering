@@ -795,6 +795,28 @@ contradicting the review-is-the-bottleneck finding. Treat it as a hypothesis
 about where the trust/verify line is heading — not as license to drop review
 depth today, which the rest of this section argues against. [editorial]
 
+**Debated: Is per-PR human review still happening?**
+
+Orosz's October 2026 industry survey reports that the line has already moved,
+whatever the policy says. One mid-sized-startup engineer told him "Everyone is
+playing the theater of doing reviews," and Linear's data shows AI-only reviews
+rising. The evidence is one anonymous quote plus Orosz's generalization to "most
+companies"
+[source: blog-pragmaticengineer-orosz-state-of-tech-industry-2026, Claim 11] [emerging].
+Anthropic's claude.ai performance sprint is a counter-example at high volume. It
+merged more than 3,000 agent-written changes in two weeks, and "Every PR went
+through automated review with at least one human approval, unit tests always came
+before optimizations". The changes shipped behind short-lived flags with staged
+rollouts, and there was no customer-facing incident or rollback
+[source: blog-anthropic-claude-ai-3x-faster-hill-climbing, Claims 1, 9] [emerging].
+
+**Our take** [editorial]: The survey describes how review fails under volume
+pressure, and the sprint shows what holds at that volume. A single human approval
+was enough there because tests, flags, staged rollout and CI ratchets (see ch03,
+"Turn every win into a ratchet") carried most of the verification load. If your
+reviews have become a formality, add those layers before you accept the
+formality.
+
 ### Anti-pattern: trust the merge gate to catch quality
 
 Some teams respond to the review bottleneck by leaning harder on CI as the
@@ -948,6 +970,37 @@ sum of those breakdowns runs below the DAU total by design
 Do not compare DAU across it without accounting for the coverage change, and
 expect breakdown sums to fall short of the top-line count for proxy-heavy orgs.
 [source: docs-github-copilot-usage-metrics-server-side-telemetry, Claims 1, 2, 3, 4] [settled]
+
+### A second discontinuity: agent activity lost in the Copilot SDK move
+
+A change to the client side broke the agent numbers in the opposite direction.
+GitHub's diagnostic signature: "agent activity or agent lines of code falling while
+Copilot usage kept growing"
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claim 1] [settled].
+The cause was that IDEs moved agent sessions onto the Copilot SDK, and "Those
+sessions didn't identify which IDE they came from"
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claim 2] [settled].
+The effect hit two surfaces at once: "Most of that activity was left out of
+reports, and some was counted as Copilot CLI activity"
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claim 3] [settled].
+The fix ships in IDE updates, starting with VS Code, and "The gap persists for any
+developer on an affected IDE version until they update"
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claims 4, 7] [settled].
+"We can't backfill missing data"
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claim 5] [settled].
+Billing was not affected
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claim 6] [settled].
+
+The recovery will show up as a gradual climb in agent activity as developers
+update their IDEs, which looks the same as organic growth on a chart. Over the
+same period, CLI agent numbers are inflated by the misattributed sessions.
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claims 3, 5] [editorial]
+
+**Rule**: Do not report an IDE agent-adoption decline, a CLI-versus-IDE split, or
+a recovery trend from Copilot metrics for the affected period. Mark the gap as
+unrecoverable and track the IDE version distribution until your fleet is on fixed
+versions.
+[source: docs-github-copilot-ide-agent-sdk-metrics-attribution-fix, Claims 1, 3, 5, 7] [settled]
 
 ### Vanity metrics to avoid
 
@@ -1744,6 +1797,9 @@ practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
-failure-hooks-enforcement-2k*
+failure-hooks-enforcement-2k,
+docs-github-copilot-ide-agent-sdk-metrics-attribution-fix (Claims 1-7),
+blog-pragmaticengineer-orosz-state-of-tech-industry-2026 (Claim 11),
+blog-anthropic-claude-ai-3x-faster-hill-climbing (Claims 1, 9)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-08*
