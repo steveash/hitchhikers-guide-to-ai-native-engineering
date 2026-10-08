@@ -32,8 +32,8 @@ issue: "#3978"
 ### Claim 2: Discovery never auto-adds a model; the user reviews provider/endpoint and chooses to use it for the session or add it without switching
 - **Evidence**: Described flow in the changelog (pick discovered model → review provider and endpoint → confirm).
 - **Confidence**: settled
-- **Quote**: "Discovery doesn’t automatically add models."
-- **Our assessment**: A sensible human-in-the-loop gate: a local port that answers like Ollama cannot silently become the model receiving code context. The review of endpoint matters because the endpoint could be a non-local host. The two confirm options ("Add and use for this session" / "Add without switching") are as reported by the Prospector triage; the fetch tool summarized rather than reproduced them, so they are not quoted here.
+- **Quote**: "Discovery doesn’t automatically add models. Choose a discovered model, review its provider and endpoint, then confirm Add and use for this session or Add without switching"
+- **Our assessment**: A sensible human-in-the-loop gate: a local port that answers like Ollama cannot silently become the model receiving code context. The review of endpoint matters because the endpoint could be a non-local host. The two confirm option labels are verified against the live page (rendered in bold there).
 
 ### Claim 3: The new model is usable immediately, without restarting the CLI
 - **Evidence**: Changelog statement.
@@ -66,10 +66,10 @@ issue: "#3978"
 - **Our assessment**: The key contribution. "Local inference" and "no egress" are separate properties. Corroborates the VS Code finding in `docs-github-copilot-byok-vscode.md` Claim 7 (local models still need the Copilot service) for a different surface, the CLI. Teams adopting local models for privacy must configure offline behavior separately.
 
 ### Claim 8: Offline mode is an explicit `COPILOT_OFFLINE=true` setting, and remote providers can still receive prompts and code context even then
-- **Evidence**: Changelog statement per the fetched summary (not verbatim-quotable; the fetch tool paraphrased this part).
+- **Evidence**: Two consecutive changelog sentences, verified verbatim against the live page on 2026-10-08.
 - **Confidence**: settled
-- **Quote**: (no direct quote; see paraphrase in Our assessment)
-- **Our assessment**: The changelog says offline mode requires setting `COPILOT_OFFLINE=true` and that a remote provider configured in the CLI still receives prompts and code context over the network. So offline mode governs GitHub-side connectivity, not where a configured provider lives. A threat-model check should therefore list every configured provider endpoint, not just whether a local model is selected. Verify exact wording against the live page before the Smith quotes it.
+- **Quote**: "In the CLI, offline mode remains an explicit choice through COPILOT_OFFLINE=true ." and "A remote provider can still receive prompts and code context over the network, even in offline mode." (two separate sentences, adjacent in the source)
+- **Our assessment**: Offline mode governs GitHub-side connectivity, not where a configured provider lives. A threat-model check should therefore list every configured provider endpoint, not just whether a local model is selected. The changelog defers details to the "CLI provider and offline-mode documentation", which was not followed; exact telemetry semantics of offline mode remain unverified here.
 
 ### Claim 9: Intelligent routing with local models is announced but not yet available here
 - **Evidence**: One-line announcement; details deferred to the Microsoft Command Line blog.
@@ -80,28 +80,28 @@ issue: "#3978"
 ## Concrete Artifacts
 
 ```
-Source: changelog entry, 2026-10-07 (fetched summary; only the quoted strings above are verbatim)
+Source: changelog entry, 2026-10-07 (all values below verified against the live page, 2026-10-08)
 Minimum CLI version: 1.0.94-0
 Command: /model
 Env var for offline mode: COPILOT_OFFLINE=true
-Confirm options (per Prospector triage): "Add and use for this session" | "Add without switching"
+Confirm options: "Add and use for this session" | "Add without switching"
 Requirements: Ollama running; model pre-installed; tool calling + streaming support
 ```
 
 ## Cross-References
 
 - **Corroborates**: `docs-github-copilot-byok-vscode.md` Claim 7 (local models still involve the Copilot service); `docs-github-copilot-byok-app.md` Claim 1 (Ollama among supported providers).
-- **Contradicts**: None found. (The "Copilot service still required" statements in VS Code docs and this entry's "not offline by default" are consistent, though this entry shows an explicit `COPILOT_OFFLINE` option exists in the CLI.)
+- **Contradicts (scoped / possible update)**: `docs-github-copilot-byok-vscode.md` Claim 7 states that local models via BYOK "still requires the Copilot service" and that fully offline use is not supported. This entry shows the CLI has an explicit offline mode (`COPILOT_OFFLINE=true`). The two are on different surfaces (VS Code vs CLI) and different dates, so this is most likely a surface-scoped difference or a sign that Claim 7's "fully offline is not supported" no longer holds for the CLI — not a head-on contradiction. The guide should not generalize Claim 7 to all Copilot surfaces. No contradiction issue filed because the claims are conditioned on different surfaces; the Smith should scope any "offline not supported" statement to VS Code.
 - **Extends**: `docs-github-copilot-byok-app.md` Claim 2 and Claim 5 (manual provider config and frontier+local hybrid → CLI auto-discovery); `docs-github-copilot-cli-auto-model-selection-task-based-routing.md` Claim 3 (`/model` switching).
 - **Novel**: CLI `/model` Ollama discovery flow; the `COPILOT_OFFLINE=true` setting; the explicit statement that local model ≠ offline ≠ telemetry-off.
 
 ## Guide Impact
 
 - **Chapter 02**: When describing local/BYOK model options for Copilot CLI, add `/model` Ollama discovery (CLI 1.0.94-0+) and its prerequisites (pre-installed, tool calling, streaming).
-- **Chapter 06**: Add a threat-model caveat: selecting a local model does not stop telemetry or prompt egress; offline mode is a separate explicit setting and does not stop a configured remote provider from receiving code context. Audit configured provider endpoints.
+- **Chapter 06**: Add a threat-model caveat: selecting a local model does not stop telemetry or prompt egress (Claim 7); offline mode is a separate explicit setting (`COPILOT_OFFLINE=true`) and does not stop a configured remote provider from receiving code context (Claim 8, verbatim-verified). Audit configured provider endpoints. Provisional detail: what offline mode does and does not disable beyond this is unverified until the CLI offline-mode docs are mined.
 
 ## Extraction Notes
 
 - Read the single changelog page; linked docs (CLI provider setup, offline mode) and the Microsoft Command Line blog were not followed. The offline-mode docs would be the best follow-up for exact telemetry semantics.
-- The fetch tool returned summaries; quotes were obtained via a second targeted fetch for exact sentences. Claim 8 has no verbatim quote for that reason.
+- Rework (2026-10-08): re-fetched the raw page HTML and verified all quotes, including Claim 2's confirm-option labels and Claim 8's offline-mode sentences, verbatim. (The source renders `COPILOT_OFFLINE=true` in code formatting followed by " ." — the space is preserved in the quote.)
 - Entry is short; 9 claims is near the ceiling of what it supports.
