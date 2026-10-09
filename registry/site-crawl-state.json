@@ -1304,9 +1304,39 @@
         "screened_at": "2026-10-03T06:12:56.738769+00:00",
         "issue": 3881,
         "filed_at": "2026-10-03T06:13:00.689514+00:00"
+      },
+      "https://github.github.com/gh-aw/engines/agy": {
+        "status": "rejected",
+        "screened_at": "2026-10-09T06:11:38.288785+00:00"
+      },
+      "https://github.github.com/gh-aw/guides/deploy-work-queue": {
+        "status": "filed",
+        "screened_at": "2026-10-09T06:11:38.288803+00:00",
+        "issue": 4018,
+        "filed_at": "2026-10-09T06:11:42.421897+00:00"
+      },
+      "https://github.github.com/gh-aw/patterns/daily-report-portfolio": {
+        "status": "filed",
+        "screened_at": "2026-10-09T06:11:38.288805+00:00",
+        "issue": 4019,
+        "filed_at": "2026-10-09T06:11:44.449968+00:00"
+      },
+      "https://github.github.com/gh-aw/patterns/linter-factory": {
+        "status": "filed",
+        "screened_at": "2026-10-09T06:11:38.288806+00:00",
+        "issue": 4020,
+        "filed_at": "2026-10-09T06:11:46.311371+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/work-queue": {
+        "status": "rejected",
+        "screened_at": "2026-10-09T06:11:38.288807+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/work-queue-specification": {
+        "status": "rejected",
+        "screened_at": "2026-10-09T06:11:38.288809+00:00"
       }
     },
-    "last_scan": "2026-10-08T06:10:44.503331+00:00"
+    "last_scan": "2026-10-09T06:11:38.288810+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1429,7 +1459,7 @@
         "filed_at": "2026-09-06T06:09:49.948326+00:00"
       }
     },
-    "last_scan": "2026-10-08T06:10:45.932027+00:00"
+    "last_scan": "2026-10-09T06:11:39.869076+00:00"
   },
   "cognition": {
     "urls": {
@@ -2130,6 +2160,6 @@
         "screened_at": "2026-09-26T06:10:25.978470+00:00"
       }
     },
-    "last_scan": "2026-10-08T06:10:47.072064+00:00"
+    "last_scan": "2026-10-09T06:11:41.003047+00:00"
   }
 }
