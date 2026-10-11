@@ -6,7 +6,7 @@ author: Don Syme, Peli de Halleux, Mara Kiefer (GitHub Agentic Workflows team)
 date_published: 2026-01-13
 date_extracted: 2026-04-19
 last_checked: 2026-04-19
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#166"
 ---
