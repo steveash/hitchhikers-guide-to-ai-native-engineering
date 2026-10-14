@@ -24,7 +24,7 @@ issue: "#4094"
 ## Extracted Claims
 
 ### Claim 1: Haiku 5.5 list price matches GPT-6 Luna up to 100,000 tokens, a 10x cut from Haiku 4.5
-- **Evidence**: Price figures read from Anthropic's announcement and compared with Haiku 4.5's $1/$5.
+- **Evidence**: Price figures as stated in Willison's post (Haiku 4.5 at $1/$5; Haiku 5.5 at $0.10/$0.50 up to 100,000 tokens). Anthropic's announcement was not read for this note (tracked in #4055).
 - **Confidence**: settled (published list prices)
 - **Quote**: "The new Haiku exactly matches the price of GPT-6 Luna—$0.10/$0.50—up to 100,000 tokens."
 - **Our assessment**: Resolves the pending state in `blog-simonwillison-claude-sonnet-55.md` Claim 8 and the 10x gap in `blog-simonwillison-opus55-gpt6-sol-luna-price-war.md` Claim 12. Prices are as of 2026-10-07.
@@ -53,7 +53,7 @@ issue: "#4094"
 - **Quote**: "The new Haiku doesn’t let you disable reasoning, and defaults to medium."
 - **Our assessment**: Matters for latency/cost-sensitive uses of a "fast" model: the cheap tier now always pays a reasoning cost, so callers must explicitly set `low`. Haiku 4.5 had no reasoning levels.
 
-### Claim 6: Reasoning effort spans a ~44x cost and ~44x latency range on one prompt (low: 0.0936¢/7s; max: 3.3826¢/5m09s)
+### Claim 6: Reasoning effort spans a ~36x cost and ~44x latency range on one prompt (low: 0.0936¢/7s; max: 3.3826¢/5m09s)
 - **Evidence**: Two runs of the pelican-SVG prompt via `llm -m claude-haiku-5.5 ... -o thinking_effort low`; costs and times quoted. Willison reports a good bicycle frame at everything above low.
 - **Confidence**: anecdotal (n=1 per level)
 - **Quote**: "The low effort pelican cost 0.0936 cents and took 7 seconds."
@@ -92,7 +92,7 @@ issue: "#4094"
 ## Concrete Artifacts
 
 ```
-# Source: Simon Willison, "Claude Haiku 5.5", 2026-10-07
+# Source: Simon Willison, "Claude Haiku 5.5", 2026-10-07 (commands copied verbatim from the post's code block)
 llm install -U llm-anthropic
 llm anthropic refresh
 llm -m claude-haiku-5.5 "Generate an SVG of a pelican riding a bicycle" -o thinking_effort low
