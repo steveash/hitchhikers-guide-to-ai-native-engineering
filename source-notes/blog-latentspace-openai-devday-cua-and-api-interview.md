@@ -44,7 +44,7 @@ issue: "#4110"
 ### Claim 4: App Shots give the model the accessibility representation (links, untruncated text), not just pixels, and are engineered to be token-efficient
 - **Evidence**: Describes inspecting the raw attachment in Codex/ChatGPT; screenshots lose link targets and truncate calendar titles.
 - **Confidence**: anecdotal
-- **Quote**: "the screenshot doesn’t include where the link goes."
+- **Quote**: "The screenshot doesn’t include where the link goes."
 - **Our assessment**: Useful Ch04 point: structured UI state beats images for context quality per token. The token-efficiency "art" is not described, so nothing to copy beyond the principle.
 
 ### Claim 5: As agents get faster, remaining time is dominated by waiting on the target app, so triggering the next LLM step should be event-driven where possible
@@ -86,7 +86,7 @@ issue: "#4110"
 ### Claim 11: The Decisions API is the same Luna weights with constrained output, parallel batching of questions and a latency-tuned stack, built in about a week after Jev; it is no reasoning, faster and weaker at long-horizon tasks
 - **Evidence**: Handa and Weinstein explain it directly; prototype to near-launch in roughly one week; hill-climbing on latency.
 - **Confidence**: anecdotal
-- **Quote**: "We’re building this purely on top of the same Luna weights that we have."
+- **Quote**: "We’re, like, building this purely on top of the same Luna weights that we have."
 - **Our assessment**: Notable that the "decision model" category is, at first release, a serving-layer feature, not a new model; calibration is acknowledged as open. Supports the guide treating this as a routing/classification primitive, not a reasoner.
 
 ### Claim 12: Decision models suit fast classification and the "talker" front-end of a talker/thinker split (GPT Live), with internal use for support-ticket classification
@@ -98,7 +98,7 @@ issue: "#4110"
 ### Claim 13: Caching: 30-minute hit guarantees, a preview 12-hour guarantee for an extra cache-write fee, explicit pre-warming, and a cache diagnostics tool
 - **Evidence**: Product details stated by Handa; 12-hour window is "in preview", not public.
 - **Confidence**: anecdotal
-- **Quote**: "We have, like, a 12-hour caching guarantee, that we offer so that you have, like, guaranteed cache hits"
+- **Quote**: "So we have, like, a 12-hour caching guarantee, that we offer so that you have, like, guaranteed cache hits"
 - **Our assessment**: Concrete, actionable Ch04 detail for long-lived single-thread personal agents; pre-warming lets you pay the cache write ahead of time and fan out many instances. Pricing numbers are not given (only "25% cheaper" cache reads, said by the host), so verify against docs.
 
 ### Claim 14: Two compaction modes in Responses API (server-side threshold-triggered, and manual /compact), with big coding agents preferring manual; Agents API bundles compaction in the harness; file-based techniques are being tried
