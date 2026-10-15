@@ -791,6 +791,34 @@ green suite that cannot fail is worse than no suite, because it manufactures fal
 confidence.
 [source: blog-fowler-malykhin-archaeologist-copilot, Claims 3, 8] [anecdotal]
 
+### The suite you can see is not every consumer
+
+A suite that can fail can still be the wrong oracle. Google's ADK maintainers
+ran Gemini 4 Argon overnight against a ~205,000-line Python repo with a
+performance goal. One change removed three internal imports from
+`llm_agent.py`: "all 16,892 open-source tests passed, yet 25 internal Google
+test targets failed because they patched those exact attributes." The fix was
+lazy module accessors that load on first use and stay patchable.
+[source: blog-google-adk-gemini-4-argon-overnight-optimization, Claim 7] [emerging]
+
+The maintainers scored the run on a benchmark the agent could not optimize
+against: "Before either round ran we wrote an independent holdout benchmark
+(bench_turn.py) that Argon never saw."
+[source: blog-google-adk-gemini-4-argon-overnight-optimization, Claim 8] [emerging]
+Of six proposed optimizations they shipped two. The rejects included a +17%
+cache gain measured only on a synthetic benchmark (and built on a weak
+reference that could return stale data after garbage collection), a check that
+read a private OpenTelemetry attribute, a rewrite with no holdout latency
+change, and a lookup index that only sped up synthetic replay tests.
+[source: blog-google-adk-gemini-4-argon-overnight-optimization, Claim 6] [emerging]
+
+**Rule**: When an agent optimizes toward a metric, judge the result on a
+holdout benchmark written before the run and hidden from the agent, and count
+downstream consumers' tests (including mocks that patch your module
+attributes) as part of the oracle; a green suite in your own repo does not
+cover them.
+[source: blog-google-adk-gemini-4-argon-overnight-optimization, Claims 6, 7, 8] [emerging]
+
 ### Mutation testing: check that the suite would notice
 
 "Can it fail at all" (above) is the coarse version of the question. The
@@ -1036,6 +1064,50 @@ and treat any count that lands exactly on a round API page limit as
 unconfirmed rather than complete.
 [source: blog-ghaw-agent-of-the-day-2026-08-28, Claims 5, 6] [settled]
 
+### A failed read looks like a quiet day
+
+Anthropic's reference scheduled agent (a weekday "daily brief" that reads
+Slack and GitHub and posts to Slack on Claude Managed Agents) documents the
+input-side version of the same silence: "If an MCP server is down or its token
+has expired, the run still starts, just without that server's tools." The
+session logs the error, but the agent simply finds nothing to report, so an
+outage reads as a slow day.
+[source: blog-claude-dev-building-effective-agent-automations, Claim 2] [emerging]
+A safety limit fails the same way: "A run that hits its cap pauses instead of
+failing, so a cap set too low looks like a brief that went quiet."
+[source: blog-claude-dev-building-effective-agent-automations, Claim 11] [anecdotal]
+
+The post's operating rules, verbatim:
+
+```
+Read each source from a bookmark, not a fixed time window.
+Report a failed read as unreadable, never as a quiet day.
+Re-check every item right before posting.
+Count a post as sent only when Slack confirms it, then update bookmarks and ledger.
+Re-read your preferences every run, from a store the agent can't edit.
+Give the agent read-only access wherever it only reads, and cap what each run can spend.
+```
+*[source: blog-claude-dev-building-effective-agent-automations, Concrete Artifacts]*
+
+The mechanics: a per-source timestamp in `bookmarks.json` replaces "the last
+24 hours", because "A late run leaves a gap and an early run repeats items"
+[source: blog-claude-dev-building-effective-agent-automations, Claim 1] [emerging];
+on a failed read the bookmark stays put, so the next run backfills
+[source: blog-claude-dev-building-effective-agent-automations, Claim 2] [emerging].
+The run record is marked "posting" before the send and "posted" (with the
+message ID) only after Slack returns `"ok": true`, or "maybe posted" when the
+result is unclear; ledger and bookmarks move only after confirmation
+[source: blog-claude-dev-building-effective-agent-automations, Claim 3] [emerging].
+These are design rules from one vendor template, with no reported failure
+rates, and they are enforced by prose in `agent.md` rather than by code
+[editorial].
+
+**Rule**: For any unattended agent, advance each source's high-water mark only
+after a successful read, make "could not read X" a required line of its output,
+and record an external side effect as done only after the destination confirms
+it.
+[source: blog-claude-dev-building-effective-agent-automations, Claims 1, 2, 3] [emerging]
+
 ---
 
 ## Summary: The Verification Stack
@@ -1262,9 +1334,11 @@ blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-claude-dev-building-effective-agent-automations (Claims 1, 2, 3, 11; Concrete Artifacts),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
+blog-google-adk-gemini-4-argon-overnight-optimization (Claims 6, 7, 8),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
@@ -1288,4 +1362,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-15*

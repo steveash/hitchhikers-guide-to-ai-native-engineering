@@ -400,13 +400,29 @@ substantive edits, haiku for trivial ones), recording its own rationale that
 "implementation work rarely needs the top-tier model."
 [source: blog-simonwillison-fable-judgement, Claims 4, 6, 7] [anecdotal]
 
+Block runs the same split at migration scale. "Fable focuses on the
+higher-level design work: data models, API specs, algorithms. It then directs
+up to dozens of smaller, more cost-effective models like Opus or Sonnet to do
+the individual tasks, such as making the actual file edits and running tests"
+[source: blog-anthropic-block-fable-orchestration-migrations, Claim 1] [anecdotal],
+with about a thousand Fable-orchestrated PRs merged in a single migration
+[source: blog-anthropic-block-fable-orchestration-migrations, Claim 3] [anecdotal].
+Block benchmarks model and effort level together for each use case ("Every
+single use case we benchmark, we check not just every model but every effort
+level of every model")
+[source: blog-anthropic-block-fable-orchestration-migrations, Claim 6] [anecdotal].
+The interview reports no cost, quality, or revert figures, and Anthropic
+published it about its own model.
+[source: blog-anthropic-block-fable-orchestration-migrations, Source Context] [anecdotal]
+
 **Debated: which role gets the capable model.** Spiral puts the capable model
 in the subagents (they draft) and the cheap model in the orchestrator; Fable
-puts the capable model in the orchestrator (it judges and reviews) and the
-cheap model in the subagents (they implement to a fixed plan). The two cases
+and Block put the capable model in the orchestrator (it designs, judges and
+reviews) and cheaper models in the subagents (they edit files and run tests
+against a fixed plan). The two cases
 answer the same question in opposite directions, and the likely reconciling
 variable is task type rather than layer: Spiral's subagents do
-quality-sensitive drafting, Fable's do quality-tolerant implementation against
+quality-sensitive drafting, Fable's and Block's do quality-tolerant implementation against
 a settled plan [editorial]. The contradiction is tracked in issue #1627.
 
 The judgement-based instruction delegates operational calls — which model,
@@ -730,6 +746,7 @@ a checkpoint.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 1, 5, 6, 8, 12;
 Linked Sources 2, 3, 4, 5, 6),
+blog-anthropic-block-fable-orchestration-migrations (Claims 1, 3, 6; Source Context),
 blog-anthropic-managed-agents-dreaming-outcomes (Claim 8),
 blog-anthropic-session-management-1m-context (Claims 1, 2, 4, 10),
 blog-cursor-cfo-council (Claims 8, 9),
@@ -744,4 +761,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-10-15*

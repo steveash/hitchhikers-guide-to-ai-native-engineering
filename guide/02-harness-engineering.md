@@ -1667,6 +1667,60 @@ differences are smallest. Before believing any harness-self-improvement number,
 ask whether the eval it improved on was the same signal it optimized against.
 [source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claims 12, 13] [emerging]
 
+### Hold the harness fixed and vary the model: the answer depends on the tier
+
+The Composio run held the model fixed. Naresh Jain ran the other comparison:
+one task, two models, 10 paired runs with and without a behavioral harness
+(OpenAPI/AsyncAPI contracts, examples, contract-driven mocks, test reports),
+scored by 178 acceptance tests the inner harness never saw.
+
+```
+GPT-6 Sol (frontier, 10-run averages)
+Harness  Tokens       Time          Est. cost  Accepted
+Yes      11,331,970   19m 53s       ~$2.679    10/10
+No        1,076,371    6m 51s       ~$0.406    10/10
+
+GPT-6 Luna (cost-optimized, 10-run averages)
+Harness  Tokens       Time          Est. cost  Accepted
+Yes      22,933,648   35 min        ~$0.273    10/10
+No        5,860,736   15m 56s       ~$0.086     3/10
+```
+*[source: blog-fowler-jain-are-harnesses-worth-the-cost, Concrete Artifacts]*
+
+For the frontier model the harness cost about 7x more for no acceptance gain
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 1] [emerging];
+for the cheap model it turned 3/10 into 10/10
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 2] [emerging].
+The unharnessed failures were not syntax errors: each failed app still passed
+at least 144 of 178 checks, and the misses sat at protocol boundaries,
+resiliency paths and integration seams: a 503 instead of a 202 at a timeout
+boundary, a Spring serializer adding a `__TypeId__` header that broke the Kafka
+wire contract, `ORDER_API_API_KEY` read where `ORDER_API_KEY` was supplied
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 4] [emerging].
+
+Read the limits before acting on the numbers: one greenfield Java task, n=10,
+low reasoning effort, an unusually detailed brief
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 9] [settled];
+guides and sensors were added together, so their separate effects are
+unknown [source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 10]
+[settled]; and the costs exclude writing and maintaining the contracts
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 12] [settled].
+Sol's 10/10 baseline is also a ceiling: the task left no room for the harness
+to help it [editorial].
+
+Jain's conclusion is a hypothesis he did not test: "Model capability changes
+when and how often sensors run, not whether an independent verification gate
+is needed" — continuous sensors for inconsistent cheap models, a final gate
+for frontier ones
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claim 8] [anecdotal].
+
+**Rule**: Keep an independent acceptance gate built from human-written
+contracts for every model, but size the in-loop harness to the model tier —
+run sensors continuously when a cheaper model does the implementation, and
+measure whether that overhead buys anything before paying it on a frontier
+model.
+[source: blog-fowler-jain-are-harnesses-worth-the-cost, Claims 1, 2, 8] [anecdotal]
+
 ---
 
 ## Anti-Patterns (With Evidence)
@@ -1832,6 +1886,7 @@ blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
 blog-cursor-cloud-agent-lessons (Claims 9, 10),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claim 1),
+blog-fowler-jain-are-harnesses-worth-the-cost (Claims 1, 2, 4, 8, 9, 10, 12; Concrete Artifacts),
 blog-humanlayer-show-me-skill (Claims 1, 2, 4, 5, 6, 8; Concrete Artifacts),
 blog-langchain-harness-memory (Claims 2, 3, 4),
 blog-latentspace-ainews-finance-vertical-aie-nyc (Claims 6, 12, 13),
@@ -1854,4 +1909,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-15*
