@@ -2,40 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-10-08T06:10:43.988748+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Tell HN: Installing Cursor on iOS irreversibly changes your privacy settings",
-          "url": "https://news.ycombinator.com/item?id=48737226",
-          "hn_url": "https://news.ycombinator.com/item?id=48737226",
-          "points": 249,
-          "num_comments": 34,
-          "author": "zkldi",
-          "created_at": "2026-06-30T18:33:59Z",
-          "snippet": "Just hit this today and I&#x27;m furious. I installed the Cursor iOS app to see what it had.<p>I&#x27;ve been on `Privacy Mode (Legacy)` for a long time, which is the &quot;Do not store my code&quot; setting. A year or so ago they marked this as &quot;Legacy&quot; and hid it under a &quot;Extra options&quot; menu. They added a new Privacy Mode which is significantly more wishy-washy about what it might store - it includes a clause of &quot;Code may be stored for Background Agents or Other Featur"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
-      "queued_at": "2026-10-08T06:10:43.991163+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: First Claude Code client for Ollama local models",
-          "url": "https://github.com/21st-dev/1code",
-          "hn_url": "https://news.ycombinator.com/item?id=46722285",
-          "points": 44,
-          "num_comments": 27,
-          "author": "SerafimKorablev",
-          "created_at": "2026-01-22T17:26:12Z",
-          "snippet": "Just to clarify the background a bit. This project wasn\u2019t planned as a big standalone release at first. On January 16, Ollama added support for an Anthropic-compatible API, and I was curious how far this could be pushed in practice. I decided to try plugging local Ollama models directly into a Claude Code-style workflow and see if it would actually work end to end.<p>Here is the release note from Ollama that made this possible: <a href=\"https:&#x2F;&#x2F;ollama.com&#x2F;blog&#x2F;claude\">https:&"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-10-08T06:10:43.994917+00:00",
       "payload": {
         "result": {
