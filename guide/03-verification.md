@@ -283,6 +283,35 @@ may not justify the cost. Reserve this pattern for: security-sensitive
 changes, architectural decisions, and code that is hard to test.
 [editorial]
 
+### Cap the review-fix loop
+
+Step 3 is a loop, and when both author and reviewer are agents it does not
+converge on its own. On the Claude Code team, one CLI PR ran more than fifty
+review/fix rounds overnight, and git blame on the repeated flags showed about
+59% were on code present since the first pass: "The reviewer was rarely
+finding new bugs, it was finding a few more old ones each round."
+[source: blog-claude-dev-claude-code-team-code-review, Claim 9] [emerging]
+
+The team added four controls: a three-round cap ("After three rounds, the
+reviewer asks the author to step back and reconsider the approach"),
+re-review of only the new diff, flagging the bug class instead of each
+instance, and no repeated findings. Internal PRs, before → after (first-party,
+no sample size or time window, recall impact of diff-only re-review not
+reported):
+
+```
+Pass after one review and fix round   65%  -> 78%
+Need five or more rounds              8.9% -> 1.5%
+Mean reviews to pass                  2.08 -> 1.32
+```
+
+[source: blog-claude-dev-claude-code-team-code-review, Claim 10; Concrete Artifacts] [emerging]
+
+**Rule**: When an agent fixes what an agent reviewer flags, cap the loop at
+three rounds, re-review only the new diff, and after the third round have the
+author reconsider the approach instead of patching again.
+[source: blog-claude-dev-claude-code-team-code-review, Claims 9, 10] [emerging]
+
 ### Effort routing for review agents
 
 Cursor's May 2026 Bugbot update gives the first published quantification of
@@ -1212,12 +1241,22 @@ Those figures come from an undisclosed private suite published on the model
 vendor's own blog: no task count, no task composition, no independent
 reproduction. Copy the methodology; do not quote the percentages. [editorial]
 
+Google's agent-eval playbook turns the regression column into a merge gate:
+the PR check enforces a global pass threshold, and "Even if the overall score
+holds steady, the build fails if any previously passing metric regresses."
+[source: blog-google-developers-evaluating-agents-vibe-check, Claim 13] [emerging]
+The same playbook freezes the golden dataset while tuning, because "Every time
+you add or remove a test, though, you invalidate your baseline"
+[source: blog-google-developers-evaluating-agents-vibe-check, Claim 6] [emerging].
+Neither rule comes with measurements, and a noisy LLM judge will make a
+zero-regression gate flaky. [editorial]
+
 **Rule**: Build your eval from your own repositories, and report it as a
 task-level win/loss table plus a steps-to-solution figure rather than a single
-pass rate. The regression column and the efficiency column are the two things an
-aggregate delta hides, and they are the two that decide whether you ship the new
-model.
+pass rate. In CI, fail the gate on any previously passing task or metric that regresses,
+even when the aggregate holds.
 [source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claims 1, 3, 4] [emerging]
+[source: blog-google-developers-evaluating-agents-vibe-check, Claim 13] [emerging]
 
 ## Vendor "Token Savings" Claims Are Marketing Until You A/B Them
 
@@ -1262,12 +1301,14 @@ blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
+blog-claude-dev-claude-code-team-code-review (Claims 9, 10; Concrete Artifacts),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
+blog-google-developers-evaluating-agents-vibe-check (Claims 6, 13),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
 blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
 blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
@@ -1288,4 +1329,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-17*

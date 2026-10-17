@@ -287,7 +287,7 @@ Rung 2: Action-batch review        (review 5-10 actions at a time)
 Rung 3: Task-level review          (review the diff at task completion)
 Rung 4: Multi-task review          (review groups of related task diffs)
 Rung 5: Sampled review             (review a fraction; trust the harness for the rest)
-Rung 6: Autonomous (theoretical)   (no human in the loop -- not yet observed in production)
+Rung 6: Autonomous (risk-tiered)   (no human approval for low-risk change classes only)
 ```
 
 Anthropic's data implies the median internal usage is somewhere between Rung 2
@@ -297,6 +297,14 @@ move up explicitly when they have evidence of stable harness behavior under
 their workload.
 [source: research-anthropic-ai-transforming-work, Claims 4, 5;
 blog-bvp-shopify-ai-playbook, Claim 3] [editorial]
+
+Rung 6 now exists in production for one change class at one team: the Claude
+Code team merges docs, copy, internal-only features, and additive changes
+behind a flag with no human approval once automated review and security
+checks are green.
+[source: blog-claude-dev-claude-code-team-code-review, Claim 7] [emerging]
+See "Let the change set the approval tier" under Code Review When AI Wrote It
+for the controls around that tier and the counter-position.
 
 The mistake is to skip rungs because the *vendor* says you can. The vendor
 benchmarks are not your codebase, your engineers, or your harness.
@@ -794,6 +802,61 @@ it sits at the aggressive end of the same trajectory Fung describes rather than
 contradicting the review-is-the-bottleneck finding. Treat it as a hypothesis
 about where the trust/verify line is heading — not as license to drop review
 depth today, which the rest of this section argues against. [editorial]
+
+**Let the change set the approval tier, not the author.** The Claude Code team
+scales required human approvals by risk, and a classifier assigns the tier
+from the change: "The change sets the tier, not the author."
+[source: blog-claude-dev-claude-code-team-code-review, Claim 7] [emerging]
+
+```
+Risk    Examples                                                              Human approvals
+Low     Docs, copy, internal-only features, additive changes behind a flag    None required once automated review and security checks are green
+Medium  Ordinary product changes, and changes to sensitive areas such as      One person
+        caching, the auto-updater, or system prompts
+High    The highest-risk code, plus a small set of paths that always need two Two people
+        people
+```
+
+A second classifier asks whether a change needs another person even when its
+tier says otherwise, and only authors on a trusted list get the lighter
+paths, so the author still matters for eligibility.
+[source: blog-claude-dev-claude-code-team-code-review, Claim 7] [emerging]
+Around the tiers: "An agent's approval never counts as a person's, either";
+whoever prompted the change is a required reviewer; and approvals bind to a
+specific commit, so commits the system can't vouch for (an agent push, a
+hand-resolved merge) need re-approval.
+[source: blog-claude-dev-claude-code-team-code-review, Claim 8] [emerging]
+Open findings from the bug review or the security review block merge until a
+later commit fixes them or someone closes the thread with a reason.
+[source: blog-claude-dev-claude-code-team-code-review, Claim 6] [anecdotal]
+The guardrail metric is explicit: "Revert and incident rates are the
+guardrail: if they rise, we haven't saved human time, we've only moved it."
+The team reports merged PRs more than doubled June–September while the share
+reverted fell by more than 40%, with no absolute numbers.
+[source: blog-claude-dev-claude-code-team-code-review, Claim 1] [emerging]
+
+**Debated: zero-human merges for low-risk changes**
+
+The Claude Code team's Low tier ships with no human approval, but the team
+names the missing safety valve: "We don't yet have circuit breakers that
+tighten approval when those numbers move; engineers here want them before
+more code moves to zero-human merges."
+[source: blog-claude-dev-claude-code-team-code-review, Claim 14] [anecdotal]
+Uber holds the other position: code review is a "big bottleneck" even with AI
+review and risk scores, a human still reviews every PR, and "green lane"
+auto-landing for low-risk PRs is a future possibility, not current practice.
+[source: blog-pragmaticengineer-orosz-ubers-ai-infra-from-the-inside, Claim 9] [anecdotal]
+
+**Our take** [editorial]: A zero-human tier is defensible only with all three
+of the Claude Code team's preconditions: a change-based classifier, blocking
+automated bug and security review, and revert/incident rates under watch.
+Holding per-PR review depth, argued above, still applies to the Medium and
+High tiers; tiering decides which changes get human review at all.
+
+**Rule**: Set required human approvals by the change's risk class, starting
+strict and loosening with evidence; never count an agent's approval as a
+person's, and bind every approval to a commit.
+[source: blog-claude-dev-claude-code-team-code-review, Claims 7, 8; Concrete Artifacts] [emerging]
 
 ### Anti-pattern: trust the merge gate to catch quality
 
@@ -1721,7 +1784,9 @@ blog-anthropic-ai-native-engineering-org (Claims 1, 6, 7),
 blog-anthropic-claude-tag-context-awareness (Claims 2, 3, 4, 5, 6, 7, 8),
 blog-anthropic-human-agent-teams (Claims 3, 5, 7, 8, 9, 10, 11, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claim 7),
+blog-claude-dev-claude-code-team-code-review (Claims 1, 6, 7, 8, 14; Concrete Artifacts),
 blog-mattwood-unit-of-return (Claims 3, 5, 8, 9, 10; Concrete Artifacts),
+blog-pragmaticengineer-orosz-ubers-ai-infra-from-the-inside (Claim 9),
 docs-ghaw-multi-repo-feature-sync (Claim 8),
 docs-ghaw-open-telemetry-attributes (Claims 6, 7),
 blog-bvp-shopify-ai-playbook (Claims 1-9),
@@ -1746,4 +1811,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-17*
