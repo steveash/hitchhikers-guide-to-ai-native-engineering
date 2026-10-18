@@ -6,7 +6,7 @@ author: autocracy101 (zackautocracy)
 date_published: 2026-04-01
 date_extracted: 2026-04-14
 last_checked: 2026-04-14
-status: archived (site returning 403 as of extraction date; content preserved in Chinese
+status: stale
   translation at github.com/TUARAN/ccunpacked-zh and corroborated by HN discussion
   news.ycombinator.com/item?id=47597085)
 confidence_overall: emerging
