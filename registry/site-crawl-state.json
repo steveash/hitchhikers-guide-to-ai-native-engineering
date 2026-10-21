@@ -1342,9 +1342,13 @@
       "https://github.github.com/gh-aw/specs/admission-service-specification": {
         "status": "rejected",
         "screened_at": "2026-10-20T06:10:36.065193+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/webhook-gateway-specification": {
+        "status": "rejected",
+        "screened_at": "2026-10-21T06:10:16.566188+00:00"
       }
     },
-    "last_scan": "2026-10-20T06:10:36.065210+00:00"
+    "last_scan": "2026-10-21T06:10:16.566205+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1467,7 +1471,7 @@
         "filed_at": "2026-09-06T06:09:49.948326+00:00"
       }
     },
-    "last_scan": "2026-10-20T06:10:37.777439+00:00"
+    "last_scan": "2026-10-21T06:10:18.193603+00:00"
   },
   "cognition": {
     "urls": {
@@ -2170,8 +2174,52 @@
       "https://cognition.com/blog/american-forge-fellowship": {
         "status": "rejected",
         "screened_at": "2026-10-17T06:09:35.856131+00:00"
+      },
+      "https://cognition.com/team-spotlights": {
+        "status": "rejected",
+        "screened_at": "2026-10-21T06:10:21.694770+00:00"
+      },
+      "https://cognition.com/team-spotlights/alex-dengler": {
+        "status": "filed",
+        "screened_at": "2026-10-21T06:10:21.694789+00:00",
+        "issue": 4255,
+        "filed_at": "2026-10-21T06:10:23.158604+00:00"
+      },
+      "https://cognition.com/team-spotlights/daniella-grimberg": {
+        "status": "filed",
+        "screened_at": "2026-10-21T06:10:21.694791+00:00",
+        "issue": 4256,
+        "filed_at": "2026-10-21T06:10:25.685779+00:00"
+      },
+      "https://cognition.com/team-spotlights/jorge-zreik": {
+        "status": "filed",
+        "screened_at": "2026-10-21T06:10:21.694793+00:00",
+        "issue": 4257,
+        "filed_at": "2026-10-21T06:10:28.262801+00:00"
+      },
+      "https://cognition.com/team-spotlights/michael-beyne": {
+        "status": "filed",
+        "screened_at": "2026-10-21T06:10:21.694794+00:00",
+        "issue": 4258,
+        "filed_at": "2026-10-21T06:10:30.061950+00:00"
+      },
+      "https://cognition.com/team-spotlights/nick-wong": {
+        "status": "filed",
+        "screened_at": "2026-10-21T06:10:21.694795+00:00",
+        "issue": 4259,
+        "filed_at": "2026-10-21T06:10:32.472560+00:00"
+      },
+      "https://cognition.com/team-spotlights/salima-ghadimi": {
+        "status": "filed",
+        "screened_at": "2026-10-21T06:10:21.694797+00:00",
+        "issue": 4260,
+        "filed_at": "2026-10-21T06:10:34.369212+00:00"
+      },
+      "https://cognition.com/team-spotlights/willy-xiao": {
+        "status": "pending",
+        "screened_at": "2026-10-21T06:10:21.694798+00:00"
       }
     },
-    "last_scan": "2026-10-20T06:10:38.912220+00:00"
+    "last_scan": "2026-10-21T06:10:21.694799+00:00"
   }
 }
