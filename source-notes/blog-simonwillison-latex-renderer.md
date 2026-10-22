@@ -29,8 +29,8 @@ issue: "#4267"
 - **Quote**: "I want a tool where you can link to it with a fragment hash #code-here and it treats that code as LaTeX and renders it really effectively."
 - **Our assessment**: Delegating library choice to the agent ("Use the best available latex render library from a CDN (consider WebAssembly too)") worked here: the post reports MathJax 4.1.3 and faster-latex 0.3.1. The post doesn't show whether the agent evaluated alternatives, so this is an outcome, not a demonstrated process.
 
-### Claim 2: The XSS question was not in the initial spec; it was raised as a follow-up after the first build, and resolved by referencing an existing in-repo mechanism
-- **Evidence**: Prompt order as reported by the author. The first prompt contains no security requirement; the second is the security prompt.
+### Claim 2: The XSS question was not in the initial spec; it was raised as a follow-up prompt, and resolved by referencing an existing in-repo mechanism
+- **Evidence**: Prompt order as reported by the author ("Here's the sequence of prompts I used"). The first prompt contains no security requirement; the second is the security prompt. The post does not say whether a working build existed before the second prompt.
 - **Confidence**: anecdotal
 - **Quote**: "Safe from XSS? We could run in an iframe sandbox like we do on the SVG markdown render project"
 - **Our assessment**: This confirms the Prospector's question to verify: the sandbox was added reactively. The post doesn't say whether the agent's first draft was actually unsafe or what it answered, so we can't tell if "Safe from XSS?" exposed a real hole or just prompted hardening. Useful as an example of a human security review prompt that costs one line, but it is also a counterexample to "secure by default" agent output.
@@ -69,8 +69,7 @@ issue: "#4267"
 
 ```
 Prompt 1 (Simon Willison, "LaTeX renderer", 2026-10-15; Claude Code, Opus 5.5 Extra):
-I want a tool where you can link to it with a fragment hash #code-here and it treats that code as LaTeX and renders it really effectively.
-(first sentence only; remainder in source)
+I want a tool where you can link to it with a fragment hash #code-here and it treats that code as LaTeX and renders it really effectively. It should also support a prefix which means the latex is compressed with a custom compression dictionary optimized for latex. Use the best available latex render library from a CDN (consider WebAssembly too). If loaded without a fragment hash show an editor you can paste latex into and then toggle to a "rendered" view. That rendered view should be bookmarkable. The #fragment view should let you switch to edit source too.
 
 Prompt 2:
 Safe from XSS? We could run in an iframe sandbox like we do on the SVG markdown render project
