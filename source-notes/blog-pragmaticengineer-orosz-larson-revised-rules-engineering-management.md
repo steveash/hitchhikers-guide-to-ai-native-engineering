@@ -45,7 +45,7 @@ issue: "#4278"
 - **Evidence**: Larson's personal experience after stepping back from a 250-person org at Carta to a 25-person tech org at Imprint.
 - **Confidence**: anecdotal
 - **Quote**: "line management can be a lot more engaging for executives these days because the tools for line management and the tools for writing software are really good"
-- **Our assessment**: The quote above is a fragment of the longer sentence; confirm wording against the page. Single-person experience.
+- **Our assessment**: Quote verified verbatim against the page. Single-person experience.
 
 ### Claim 5: AI has made some engineers more productive but less happy, and one engineer retired because AI destroyed the ability to be "in the flow"
 - **Evidence**: A single secondhand anecdote.
