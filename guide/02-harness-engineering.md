@@ -1610,6 +1610,49 @@ runs. If the verifier prompt contains the word "good" without a definition,
 the early-victory failure mode is loaded and pointed at production.
 [source: blog-anthropic-multi-agent-coordination-patterns, Claim 2] [settled]
 
+### Gate scheduled agents with deterministic pre-checks
+
+A scheduled agent that wakes up, looks around and finds nothing to do still
+pays for a model session. gh-aw's PR Sous Chef runs every five minutes, but
+only behind a `skip-if-no-match` search for open, non-draft PRs (excluding
+Dependabot, Renovate and anything labeled `broccoli`). The model starts only
+when a candidate PR exists, and the search itself spends no model tokens.
+[source: blog-ghaw-agent-of-the-day-2026-10-19, Claim 2] [anecdotal]
+The workflow is also read-only "with a concurrency group so runs queue instead
+of overlapping," which keeps a slow run from colliding with the next
+five-minute tick.
+[source: blog-ghaw-agent-of-the-day-2026-10-19, Claim 3] [anecdotal]
+
+Issue Monster stacks three gates in front of its dispatch agent, then trims the
+input before the model sees it:
+
+```
+schedule: every 30 minutes + workflow_dispatch
+skip if >=5 open Copilot draft PRs (excluding label "broccoli")
+skip-if-no-match: requires >=1 open issue
+skip-if-check-failing: build, test, lint-go, lint-js
+pre-step: candidate search + rate-limit scan of recent Copilot PRs
+```
+*Gate summary as described in the post's prose; the frontmatter itself is not
+published.*
+[source: blog-ghaw-agent-of-the-day-2026-10-20, Claims 2, 3, 4; Concrete Artifacts] [anecdotal]
+
+The gh-aw team describes the healthy result this way: "A run that finds nothing
+to do, costs almost nothing and changes nothing is a healthy one."
+[source: blog-ghaw-agent-of-the-day-2026-10-19, Claim 7] [anecdotal]
+But a broken gate that never matches is just as quiet, so a quiet run alone
+doesn't prove the workflow is healthy.
+[source: blog-ghaw-agent-of-the-day-2026-10-19, Claim 7] [editorial]
+
+**Rule**: Put cheap deterministic checks in front of any scheduled agent: is
+there work, is CI green, is the downstream queue under its cap. That way the
+model runs only when there is something to act on. Pair the gate with a
+liveness signal so a gate that never fires is not mistaken for a quiet, healthy
+workflow. (Currently shown for gh-aw's `skip-if-*` frontmatter; other
+schedulers need an equivalent pre-step.)
+[source: blog-ghaw-agent-of-the-day-2026-10-19, Claims 2, 7;
+blog-ghaw-agent-of-the-day-2026-10-20, Claims 2, 3, 4] [anecdotal]
+
 ### Decompose by context, not by work type
 
 The post's design principle for splitting work across agents:
@@ -1661,11 +1704,30 @@ problem Ch03 documents for coding-agent benchmarks generally. Simultaneous
 quality gain *and* cost reduction is the shape of either a real win or a gamed
 one, and nothing in the reporting distinguishes them. [editorial]
 
+**Debated: does the harness move success rate?**
+
+A second same-weights comparison points the other way. In Hugging Face's
+multi-harness RL experiment, relayed by another AINews digest: "The same weights
+score 62% under Mini-SWE-Agent and 33% under Claude Code."
+[source: blog-latentspace-ainews-reflection-beam-501b-a23b, Claim 6] [emerging]
+The model trained in that experiment was the 2.6B-parameter LFM2.5, not a
+frontier model; the run used one task family and one seed; and the digest does
+not say what differed between the two harnesses.
+[source: blog-latentspace-ainews-reflection-beam-501b-a23b, Claims 6, 7; Concrete Artifacts] [anecdotal]
+
+**Our take** [editorial]: Composio's frontier-model run put three harnesses
+within two tasks of each other. The Hugging Face small-model run found a
+near-2x gap. Model size is the obvious difference between the two, and neither
+result is strong enough to settle the question. Measure the success column for
+your own model. Don't assume it is flat.
+
 **Rule**: When you compare harnesses, hold the model fixed and measure dollars
-and wall-clock alongside task success — success rate is the column where the
-differences are smallest. Before believing any harness-self-improvement number,
+and wall-clock alongside task success. Don't assume success rate is the
+column that barely moves: one same-weights comparison found a two-task spread
+and another a near-2x gap. Before believing any harness-self-improvement number,
 ask whether the eval it improved on was the same signal it optimized against.
-[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claims 12, 13] [emerging]
+[source: blog-latentspace-ainews-finance-vertical-aie-nyc, Claims 12, 13;
+blog-latentspace-ainews-reflection-beam-501b-a23b, Claim 6] [emerging]
 
 ---
 
@@ -1852,6 +1914,9 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
-practitioner-mikelane-pytest-test-categories*
+practitioner-mikelane-pytest-test-categories,
+blog-latentspace-ainews-reflection-beam-501b-a23b (Claims 6, 7),
+blog-ghaw-agent-of-the-day-2026-10-19 (Claims 2, 3, 7),
+blog-ghaw-agent-of-the-day-2026-10-20 (Claims 2, 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-22*

@@ -93,6 +93,53 @@ keys all clients consume -- the discipline is "one configuration source," not
 "one client."
 [source: blog-bvp-shopify-ai-playbook, Claim 2] [editorial]
 
+### Put spend controls on the gateway
+
+The gateway is also where cost governance belongs. Thoughtworks' internal
+gateway offers three fixed tiers instead of a model menu: "People choose a
+tier, high, medium or light, not a model or a provider." What sits behind each
+tier is swapped centrally.
+[source: blog-thoughtworks-nolan-renting-the-frontier, Claim 10] [emerging]
+
+```
+Tier     Backing model (swapped centrally)   Intended work
+high     frontier                            complex agentic coding, strategy, research
+medium   state-of-the-art open-weight        drafting, summarizing, code assistance, analysis
+light    high-efficiency open-weight         classification, extraction, routing
+```
+*Paraphrased from the article's tier description.*
+[source: blog-thoughtworks-nolan-renting-the-frontier, Claim 10] [emerging]
+
+Underneath the tiers, "Every request is metered and attributed to a person, a
+workload and a business unit, with budgets per person and per unit, and spend
+charged back to the unit that creates it."
+[source: blog-thoughtworks-nolan-renting-the-frontier, Claim 11] [emerging]
+
+At real companies, per-person caps work more like speed bumps than ceilings.
+Across Orosz's 27-company interview set: "It’s normal to have a spending cap in
+place at medium-and-above spenders, where additional spend needs to be
+justified. Most people say the caps are easily avoided." The caps he lists run
+from a $1,000 soft cap with a short justification form to a $4,000 hard cap.
+[source: blog-pragmaticengineer-orosz-roi-of-ai-spend, Claim 5] [emerging]
+One ~100-person AI company turns the justification step into a waste audit:
+"When needing a limit increase, you run an AI skill that looks for common
+reasons why you might be burning tokens." Only after that do you ask your
+manager.
+[source: blog-pragmaticengineer-orosz-roi-of-ai-spend, Claim 13] [anecdotal]
+
+Two cautions. Thoughtworks publishes no quality data for its open-weight middle
+tier, so putting everyday code assistance there is the author's design choice,
+not a demonstrated result. And the article's headline "$40M to $11M" compares
+two forecasts, not realized spend.
+[source: blog-thoughtworks-nolan-renting-the-frontier, Claims 9, 10] [editorial]
+
+**Rule**: Meter and attribute every request at the gateway, and give users
+stable tiers rather than model names so model swaps don't break their habits.
+Attach a cheap justification step to every budget increase, ideally an
+automated audit for wasted tokens.
+[source: blog-thoughtworks-nolan-renting-the-frontier, Claims 10, 11;
+blog-pragmaticengineer-orosz-roi-of-ai-spend, Claims 5, 13] [anecdotal]
+
 ### Standardize the harness files, not the client
 
 The next layer up the standardization stack is the harness files themselves --
@@ -985,6 +1032,27 @@ of code or PRs [source: blog-cursor-coinbase-agent-first-adoption, Claim 10]
 converge from independent vantage points: the input metrics that rise most
 reliably under AI adoption are the ones worth measuring least. [editorial]
 
+Recent interview data shows a PR-count failure that Faros's PR-splitting
+example misses: PRs got bigger instead of more numerous. At a 5,000-employee
+public company, PR frequency stayed flat, and then: "Meanwhile, PRs have
+exploded in size and have 3x as many lines of code per change request as
+before."
+[source: blog-pragmaticengineer-orosz-roi-of-ai-spend, Claim 11] [anecdotal]
+At three companies that held their review standards, PR volume rose or held
+steady while delivery velocity barely moved: "When the focus is on quality,
+velocity probably does not increase all that much."
+[source: blog-pragmaticengineer-orosz-roi-of-ai-spend, Claim 10] [anecdotal]
+The one credible velocity gain in the same set came from a process metric that
+predated AI. A multinational team lead with five years of plan-board history
+reports: "On average we close 3x more user stories per month since feb/march."
+[source: blog-pragmaticengineer-orosz-roi-of-ai-spend, Claim 12] [anecdotal]
+
+**Rule**: If you report PR throughput, report lines per PR next to it. Anchor
+velocity on a work-item metric you were already tracking before AI adoption,
+such as stories or tickets closed, so the before/after comparison uses a stable
+unit.
+[source: blog-pragmaticengineer-orosz-roi-of-ai-spend, Claims 11, 12] [anecdotal]
+
 ### Fix the unit before you fix the metric
 
 The metrics above are bad numerators. Matt Wood (AWS Chief AI & Technology
@@ -1744,6 +1812,8 @@ practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
-failure-hooks-enforcement-2k*
+failure-hooks-enforcement-2k,
+blog-pragmaticengineer-orosz-roi-of-ai-spend (Claims 5, 10, 11, 12, 13),
+blog-thoughtworks-nolan-renting-the-frontier (Claims 9, 10, 11)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-22*

@@ -1138,6 +1138,44 @@ in either is a regression worth investigating before it becomes user
 disengagement.
 [source: blog-cursor-continual-harness-improvement, Claims 1, 2] [emerging]
 
+### Tune the judge's threshold before trusting its verdicts
+
+An automated judge, whether an LLM or a decision model, returns a score, and
+the API usually turns that score into a boolean at 0.50. Hamel Husain and
+Antaripa Saha: "We’ve also noticed people using the default decision threshold
+of 0.50 without checking whether it works well for their task. This can leave a
+lot of performance on the table."
+[source: blog-hamel-decision-models-for-evals, Claim 1] [emerging]
+Their fix needs only labeled traces and the scores you already saved. Here is
+the prompt they give a coding agent:
+
+```
+Using my saved model scores and binary labels (1 means failure), tune a decision threshold to maximize F1 while requiring at least 80% precision and 80% recall. Use stratified five-fold cross-validation, choosing thresholds on the training examples and measuring performance on the remaining examples. If comparing models, use the same splits for each. Only select thresholds that meet both minimums on the training examples. If none qualifies, report that rather than relaxing either requirement. Report validation precision, recall, and F1, along with any splits where no threshold qualified or validation performance fell below my minimums. Compare with the default threshold of 0.50. Reuse the saved scores without making new model calls.
+```
+*Verbatim from hamel.dev.*
+[source: blog-hamel-decision-models-for-evals, Claim 3; Concrete Artifacts] [emerging]
+
+The precision and recall minimums act as a go/no-go gate *before* any F1
+optimization. On the authors' dataset, two of the models compared stayed
+below the 80%/80% floor even after tuning.
+[source: blog-hamel-decision-models-for-evals, Claim 2] [emerging]
+The floor is fragile at small sample sizes: on 98 traces, no threshold met both
+minimums in 36 of 100 training splits for one model.
+[source: blog-hamel-decision-models-for-evals, Claim 3] [emerging]
+
+Scores are not probabilities until you check. In one reliability bin, "one group
+of Clef Flash traces had an average predicted failure probability of about 8%,
+but 60% contained failures." Recalibrating is not automatically safe either:
+"OpenAI’s probabilities got slightly worse with the version of Platt scaling we
+used."
+[source: blog-hamel-decision-models-for-evals, Claims 7, 8] [emerging]
+
+**Rule**: Before an automated judge gates anything, set the precision and recall
+minimums its job requires. Then tune its threshold with cross-validation on
+labeled traces, and compare models only after tuning. Measure calibration
+before you treat its scores as confidence bands such as "act above 0.9."
+[source: blog-hamel-decision-models-for-evals, Claims 2, 3, 7, 10] [emerging]
+
 ---
 
 ## Benchmark Scores Can Measure Retrieval, Not Coding
@@ -1286,6 +1324,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin*
+practitioner-dadlerj-tin,
+blog-hamel-decision-models-for-evals (Claims 1, 2, 3, 7, 8, 10)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-22*
