@@ -2,23 +2,6 @@
   "items": [
     {
       "scanner": "failures",
-      "queued_at": "2026-10-14T06:09:21.108406+00:00",
-      "payload": {
-        "result": {
-          "source": "hn",
-          "title": "Show HN: Breadcrumb, record everything on your mac + context manager for AI",
-          "url": "https://innerloop.works/breadcrumb",
-          "hn_url": "https://news.ycombinator.com/item?id=49924943",
-          "points": 49,
-          "num_comments": 8,
-          "author": "jv22222",
-          "created_at": "2026-10-01T17:58:37Z",
-          "snippet": "Hi HN, I&#x27;m Justin.<p>Breadcrumb records everything you do on your Mac (screen + meetings + AI transcripts + what you and your AI decided) and turns it into memory your AI can search. It&#x27;s local and encrypted.<p>You can also teach it rules by talking to it and it makes sure the right rules turn up in the right context. Works with Claude Code &#x2F; Codex &#x2F; Cursor &#x2F; opencode.<p>All of this is exposed to your AI as 30+ MCP tools (here&#x27;s the definitions): <a href=\"https:&#x2"
-        }
-      }
-    },
-    {
-      "scanner": "failures",
       "queued_at": "2026-10-14T06:09:21.110538+00:00",
       "payload": {
         "result": {
@@ -2227,6 +2210,38 @@
     {
       "scanner": "failures",
       "queued_at": "2026-10-21T06:10:48.086699+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: consolidate internal + external link checking on lychee (retire the two custom awk extractors)",
+          "url": "https://github.com/genealogix/glx/issues/890",
+          "reactions": 0,
+          "comments": 1,
+          "author": "isaacschepp",
+          "created_at": "2026-05-21T18:26:48Z",
+          "body_snippet": "## Context\n\nGLX currently runs **two** link-checking paths backed by **two** bespoke shell scripts:\n\n- `check-links.yml` \u2192 `scripts/check-links.sh` \u2014 internal/relative markdown links, on every PR.\n- `lychee.yml` \u2192 `scripts/extract-external-urls.sh` + `lychee` \u2014 external `https?://` links, weekly.\n\nTwo problems with the status quo:\n\n1. Both shell scripts carry the **same** code-block-aware `awk` extractor, and that extractor depends on a GNU-awk-only construct that breaks `make check-links` outsi"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-10-23T06:11:19.895903+00:00",
+      "payload": {
+        "result": {
+          "source": "github",
+          "title": "Discussion: replace post-hoc compact-changelog with file-per-change tooling (evaluate changie for 2026)",
+          "url": "https://github.com/genealogix/glx/issues/858",
+          "reactions": 0,
+          "comments": 2,
+          "author": "isaacschepp",
+          "created_at": "2026-05-15T18:41:08Z",
+          "body_snippet": "## Summary\n\n`compact-changelog.md` exists because agentic edits create duplicate `### Added` sections, self-cancelling Added/Removed pairs, and follow-up Fixed entries that should fold into the original Added. **File-per-change tools eliminate this class of problem at the source by writing each change to its own file**, then assembling at release time. The compact-changelog command is, at best, post-hoc cleanup of a problem that need not exist.\n\nThis is a Discussion, not a Bug or Enhancement \u2014 i"
+        }
+      }
+    },
+    {
+      "scanner": "failures",
+      "queued_at": "2026-10-23T06:11:19.898921+00:00",
       "payload": {
         "result": {
           "source": "github",
