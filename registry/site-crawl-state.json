@@ -1408,11 +1408,13 @@
         "filed_at": "2026-10-24T06:10:46.243194+00:00"
       },
       "https://github.github.com/gh-aw/troubleshooting/error-messages": {
-        "status": "pending",
-        "screened_at": "2026-10-23T06:11:00.108078+00:00"
+        "status": "filed",
+        "screened_at": "2026-10-23T06:11:00.108078+00:00",
+        "issue": 4341,
+        "filed_at": "2026-10-25T06:10:09.694164+00:00"
       }
     },
-    "last_scan": "2026-10-24T06:10:31.161929+00:00"
+    "last_scan": "2026-10-25T06:10:05.202422+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1535,19 +1537,23 @@
         "filed_at": "2026-09-06T06:09:49.948326+00:00"
       },
       "https://www.humanlayer.dev/blog/open-sourcing-humanlayer": {
-        "status": "pending",
-        "screened_at": "2026-10-24T06:10:34.421669+00:00"
+        "status": "filed",
+        "screened_at": "2026-10-24T06:10:34.421669+00:00",
+        "issue": 4342,
+        "filed_at": "2026-10-25T06:10:11.687508+00:00"
       },
       "https://www.humanlayer.dev/blog/tags/humanlayer": {
         "status": "rejected",
         "screened_at": "2026-10-24T06:10:34.421686+00:00"
       },
       "https://www.humanlayer.dev/blog/tags/open-source": {
-        "status": "pending",
-        "screened_at": "2026-10-24T06:10:34.421689+00:00"
+        "status": "filed",
+        "screened_at": "2026-10-24T06:10:34.421689+00:00",
+        "issue": 4343,
+        "filed_at": "2026-10-25T06:10:14.079844+00:00"
       }
     },
-    "last_scan": "2026-10-24T06:10:34.421691+00:00"
+    "last_scan": "2026-10-25T06:10:06.863989+00:00"
   },
   "cognition": {
     "urls": {
@@ -2302,6 +2308,6 @@
         "screened_at": "2026-10-23T06:11:03.973353+00:00"
       }
     },
-    "last_scan": "2026-10-24T06:10:35.630535+00:00"
+    "last_scan": "2026-10-25T06:10:08.014926+00:00"
   }
 }
