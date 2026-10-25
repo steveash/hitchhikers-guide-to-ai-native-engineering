@@ -6,7 +6,7 @@ author: elondemirock
 date_published: 2026-02-03
 date_extracted: 2026-04-14
 last_checked: 2026-04-14
-status: archived (project disappeared ~56 days post-launch; repo and website inaccessible)
+status: stale
 confidence_overall: anecdotal
 issue: "#79"
 ---

@@ -6,7 +6,7 @@ author: Travis McPeak (Cursor/Anysphere)
 date_published: 2026-03-16
 date_extracted: 2026-04-19
 last_checked: 2026-04-19
-status: current
+status: stale
 confidence_overall: emerging
 issue: "#161"
 ---

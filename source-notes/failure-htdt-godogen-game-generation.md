@@ -7,7 +7,7 @@ author: Alex Ermolov (htdt)
 date_published: 2026-03-16
 date_extracted: 2026-04-15
 last_checked: 2026-04-15
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#69"
 ---
