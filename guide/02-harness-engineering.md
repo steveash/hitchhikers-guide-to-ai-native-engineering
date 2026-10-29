@@ -1798,12 +1798,45 @@ before production, which is why the durable fix moves the cost decision
 upstream to those defaults rather than leaving it at the billing layer.
 [source: blog-thoughtworks-kamelman-token-crisis, Claims 8, 9, 13] [anecdotal]
 
+Vercel's soft cap is not an outlier. Three other vendors document spend
+controls that each stop spend differently, so a cap that acts as a ceiling in
+one product can be only an alert or a suggestion in another. [editorial]
+
+```
+Anthropic Claude apps gateway   caps per user / IdP group / org, by day, week or month;
+                                group and org caps are per-developer defaults each member
+                                inherits, not a shared pool; in-CLI warnings at 75% and
+                                95%; HTTP 429 at the cap until reset or an admin raise
+GitHub Copilot (GitHub App)     no budget per app or installation, so agent spend pools
+                                into the org budget; an alert-only budget never stops
+                                spend, and a hard cap needs "Stop usage when budget
+                                limit is reached"
+gh-aw admission gate            cooperative, not a hard cap: workflow editors can remove
+                                it, and concurrent runs can overshoot a shared budget
+```
+[source: blog-anthropic-claude-code-google-cloud-costs-roi, Claims 3, 4] [settled]
+[source: docs-github-copilot-server-to-server-authentication, Claims 7, 8] [emerging]
+[source: blog-ghaw-activation-gate-admission, Claim 8] [anecdotal]
+
+GitHub's admin docs also warn that the read-only permission an agent app
+needs does not make it free: "In this context, Read-only does not mean that
+the app cannot incur costs."
+[source: docs-github-copilot-server-to-server-authentication, Claim 7] [emerging]
+
 **Rule**: For any agent whose loop you can't guard in code — hosted,
 third-party, or fan-out — put a dollar budget on the credential it spends
 through as a soft blast-radius backstop, then fix the upstream default (model
 tier, loop bound, context size) that made the runaway spend possible.
 [source: blog-vercel-ai-gateway-api-key-budgets, Claim 4;
 blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
+
+**Rule**: Before you rely on a cap, check what it does at the limit: whether
+it rejects requests or only alerts, and whether it applies to each identity
+or to a shared pool. An agent identity that has no cap of its own spends from
+the budget your engineers use.
+[source: blog-anthropic-claude-code-google-cloud-costs-roi, Claims 3, 4;
+docs-github-copilot-server-to-server-authentication, Claims 7, 8;
+blog-ghaw-activation-gate-admission, Claim 8] [anecdotal]
 
 ---
 
@@ -1825,6 +1858,9 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 ---
 
 *Sources for this chapter:
+blog-anthropic-claude-code-google-cloud-costs-roi (Claims 3, 4),
+blog-ghaw-activation-gate-admission (Claim 8),
+docs-github-copilot-server-to-server-authentication (Claims 7, 8),
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
 blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifacts),
@@ -1854,4 +1890,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-29*

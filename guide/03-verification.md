@@ -304,6 +304,45 @@ docs, and routine refactors. Pay for depth on the codepaths whose failures
 hurt most.
 [source: blog-cursor-bugbot-effort-billing, Claims 4, 6] [emerging]
 
+### Higher effort on the authoring agent widens the diff
+
+On the agent that *writes* the change, effort has a cost on one axis.
+Cognition's FrontierCode 2.0 pools blocker failure rates across four frontier
+models. From low to max effort, thoroughness failures fall from 26.0% to 15.3%
+and core-behavior failures from 20.9% to 12.3%, but scope failures (edits to
+files the task should leave alone) rise from 3.8% to 4.9%.
+[source: blog-cognition-frontiercode-2-0, Claim 11] [emerging]
+On FrontierCode 1.1, scope pass rates fell with effort for all four models
+measured (Opus 5: 69.2% → 51.1%): "models tend to write more code and touch
+more files with increased effort, even when the changes may not be
+preferable."
+[source: blog-cognition-frontiercode-2-0, Claim 9] [emerging]
+
+```
+PostHog Android SDK startup race, GPT-6 Astra, pass counts by effort:
+  low 5/5 | medium 2/5 | high 1/5 | xhigh 2/5 | max 1/5
+Low-effort "Trim" (passes):
+  PostHogSendCachedEventsIntegration.kt +1/-109
+High-effort "Rewrite" (fails scope blocker):
+  SendCachedEventsIntegration.kt deleted (+0/-252)
+  PostHogLegacyQueue.kt +77/-0, posthog.api +1/-1   (outside allowed paths)
+```
+*Cognition, FrontierCode 2.0 task walk-through. The rewrite passed most hidden
+behavior tests. A deterministic check on modified files failed it for
+touching the public API.*
+[source: blog-cognition-frontiercode-2-0, Claim 8; Concrete Artifacts] [anecdotal]
+
+A path check can also be too strict. "In FrontierCode 2.0, we loosened our
+scope criteria to accommodate surprising but acceptable behavior," and the
+average scope failure rate dropped from 9.0% on 1.1 to 3.8%.
+[source: blog-cognition-frontiercode-2-0, Claim 10] [emerging]
+
+**Rule**: When you raise reasoning effort on an authoring agent, add a
+deterministic allowed-paths check over its diff. Scope the check to what must
+not change, such as public API and generated files, not to every file outside
+the expected change.
+[source: blog-cognition-frontiercode-2-0, Claims 9, 10, 11] [emerging]
+
 ---
 
 ## Quality Gates Framework
@@ -637,7 +676,19 @@ Use this checklist when reviewing AI-generated code:
 - [ ] The approach matches what I would have chosen
       (if not, understand WHY the agent chose differently)
 - [ ] Documentation updated in the same commit (if applicable)
+- [ ] If the bug was reported in one code path, sibling paths with
+      the same bug are fixed too
+- [ ] New handling matches what similar code already supports
+      (e.g. the other input types a sibling function accepts)
 ```
+
+The last two items come from the largest blocker category in Cognition's
+FrontierCode 2.0. "Thoroughness" criteria check for requirements an agent can
+infer from the prompt and codebase even when nobody states them, and the
+fix-one-path and sibling-input-type misses are the post's two canonical
+examples. Four frontier models at high effort failed 19.2% of these checks,
+more than any other category.
+[source: blog-cognition-frontiercode-2-0, Claims 5, 6] [emerging]
 
 This is not aspirational. This is the minimum verification standard
 for code you did not write. Treat AI output as a pull request from
@@ -1099,6 +1150,55 @@ verified numbers."
 
 ---
 
+## Proof Checkers: Untrusted Generator, Trusted Checker
+
+Formal verification is the extreme case of verification over generation: if
+a mechanical checker accepts the agent's proof, you do not have to trust the
+agent at all. Anthropic's Frontier Red Team reports that Claude patched the
+bugs it found and then proved no crashes "on any input (up to 64 MB) for 239
+entry points across 123 different OSS-Fuzz libraries," working on compiled
+RISC-V binaries over a few weeks.
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 1] [emerging]
+After that, the trusted base is three artifacts:
+
+```
+- The formal models of RISC-V and of Linux processes;
+- The exact theorem statements that were proved;
+- The Rocq proof checker itself.
+```
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 3; Concrete Artifacts] [settled]
+
+The part you can reuse is where the spec came from. Nobody wrote one: the team
+took existing fuzz tests and encoded "this test suite always passes" as the
+property, "automatically converting their preexisting compilable test suites
+into a spec."
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 2] [emerging]
+Fuzz tests encode properties as assertions, so a crash-free proof of an LZO
+compress/decompress roundtrip test also proves the roundtrip property.
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 7] [emerging]
+It is not cheap: "the proofs can take hundreds of millions of tokens to
+produce."
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 8] [anecdotal]
+
+The results come with two failure modes. The first is scope. The proofs
+assume a single-threaded static binary on RISC-V with musl, while users run
+x86 or ARM with glibc, and the authors write it out themselves:
+"“Formally verified” does not mean “bug-free.”"
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 4] [settled]
+The second is reward hacking. Claude could rewrite the program under proof so
+that it trivially never crashes. "Note this leaves open the door to reward
+hacking." The mitigation was to penalize patches, give extra credit for
+proving which inputs a patch changes, and log and audit every patch.
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claim 5] [anecdotal]
+
+**Rule**: Before writing specs for agent-generated proofs, mine your existing
+fuzz and property tests for them. If the agent may edit the code it is
+proving, review those edits separately from the proof. Report each proved
+result with its stated assumptions, never as "bug-free".
+[source: blog-anthropic-llm-formal-software-verification-at-scale, Claims 2, 4, 5] [anecdotal]
+
+---
+
 ## Online Quality Signals
 
 CI catches regressions against a known spec. It does not catch
@@ -1258,6 +1358,8 @@ pricing-tier level.
 ---
 
 *Sources for this chapter:
+blog-anthropic-llm-formal-software-verification-at-scale (Claims 1, 2, 3, 4, 5, 7, 8),
+blog-cognition-frontiercode-2-0 (Claims 5, 6, 8, 9, 10, 11),
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
 blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
@@ -1288,4 +1390,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-29*

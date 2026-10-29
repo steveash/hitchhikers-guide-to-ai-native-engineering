@@ -1022,6 +1022,20 @@ and catch runaway loops" — and rejects token price only as a stand-in for
 business value.
 [source: blog-mattwood-unit-of-return, Claim 10] [anecdotal]
 
+Anthropic's own ROI guidance for Claude Code applies the same fix to PRs,
+because "a typo fix and a feature release are both one PR." The unit it
+recommends is a merged PR of a defined class, identified by labels, a ticket
+ID, and whether Claude was involved. Some units are not PRs at all, such as a
+service cutover or an incident closed at its root cause.
+[source: blog-anthropic-claude-code-google-cloud-costs-roi, Claim 11] [emerging]
+Claude Code's built-in telemetry does not count that unit. Its PR metric
+counts the PRs Claude Code *creates*, not the ones that merge, so the vendor
+says to join it with source-control and ticketing data before reporting
+anything.
+[source: blog-anthropic-claude-code-google-cloud-costs-roi, Claim 12] [settled]
+The article reports no outcome data, so treat this as vendor-recommended
+method rather than evidence that the method works. [editorial]
+
 Teams running gh-aw workflows do not have to build the unit; the platform
 emits it. [editorial] The OpenTelemetry attribute reference names the fields
 directly:
@@ -1714,6 +1728,7 @@ in early 2026.
 ---
 
 *Sources for this chapter:
+blog-anthropic-claude-code-google-cloud-costs-roi (Claims 11, 12),
 survey-pragmaticengineer-ai-tooling-2026 (Claims 1-6),
 research-anthropic-ai-transforming-work (Claims 1-8),
 paper-miller-speed-cost-quality (Claims 1-6),
@@ -1746,4 +1761,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-29*

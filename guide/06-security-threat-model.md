@@ -288,6 +288,50 @@ failure that keeps you up at night is a deleted production database, remove the
 delete verb from the agent's tool list entirely rather than prompting it not to.
 [source: blog-anthropic-ciso-guide-agentic-ai, Claims 3, 10] [settled]
 
+### Answer "whose identity?" with a short-lived workload credential
+
+For question 2, a concrete answer is now documented in more than one place.
+An unattended agent gets its own identity and a narrow credential that
+expires, instead of borrowing a person's standing token. [editorial]
+
+GitHub's Copilot SDK (public preview) lets a service authenticate as a GitHub
+App installed on an organization. The app holds one read-only permission and
+passes the SDK an installation token that expires after one hour. Suspending
+or uninstalling the app cuts its access.
+[source: docs-github-copilot-server-to-server-authentication, Claims 3, 4, 10] [emerging]
+
+```typescript
+// Copilot SDK docs, server-to-server authentication
+const client = new CopilotClient({
+  connection: RuntimeConnection.forStdio(),
+  gitHubToken: token,
+  useLoggedInUser: false,
+});
+```
+
+`useLoggedInUser: false` turns off automatic credential discovery, including
+environment-variable tokens such as `COPILOT_GITHUB_TOKEN`. An unattended agent
+configured this way cannot quietly fall back to a developer's stored
+credentials.
+[source: docs-github-copilot-server-to-server-authentication, Claim 5] [emerging]
+gh-aw keeps the identity-minting permission out of the agent job entirely. It
+grants `id-token: write` to its isolated admission and completion-callback
+jobs, "not to the agent merely because admission is enabled."
+[source: blog-ghaw-activation-gate-admission, Claim 9] [anecdotal]
+Thoughtworks recommends a finer grain still, "short-lived, task-scoped
+credentials for every sub-agent and tool invocation," and says agents should
+not inherit standing user OAuth tokens. It describes no issuance mechanism.
+[source: blog-thoughtworks-tiffany-product-risk-gdpr-ai-act-agents, Claim 6] [emerging]
+
+**Rule**: Give each unattended agent its own workload identity with a narrow,
+expiring credential. Turn off fallback to developer credentials, and keep
+token-minting permissions in jobs the agent does not run. (Currently
+documented for the GitHub Copilot SDK and gh-aw. Per-tool-invocation
+credentials are recommended but have no published implementation.)
+[source: docs-github-copilot-server-to-server-authentication, Claims 3, 5;
+blog-ghaw-activation-gate-admission, Claim 9;
+blog-thoughtworks-tiffany-product-risk-gdpr-ai-act-agents, Claim 6] [anecdotal]
+
 ### Design controls around the model's future capability, not today's limits
 
 Least agency matters more than it looks because an agent's behavior can change
@@ -594,6 +638,9 @@ the agent cannot reach.
 ---
 
 *Sources for this chapter:
+blog-ghaw-activation-gate-admission (Claim 9),
+blog-thoughtworks-tiffany-product-risk-gdpr-ai-act-agents (Claim 6),
+docs-github-copilot-server-to-server-authentication (Claims 3, 4, 5, 10),
 blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-ciso-guide-agentic-ai (Claims 1, 2, 3, 4, 7, 8, 10),
@@ -611,4 +658,4 @@ blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-29*
