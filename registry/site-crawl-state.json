@@ -1416,9 +1416,13 @@
       "https://github.github.com/gh-aw/introduction/ai-transparency": {
         "status": "rejected",
         "screened_at": "2026-10-27T06:10:49.939621+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/token-broker-specification": {
+        "status": "rejected",
+        "screened_at": "2026-10-31T06:07:27.431283+00:00"
       }
     },
-    "last_scan": "2026-10-30T06:09:02.411130+00:00"
+    "last_scan": "2026-10-31T06:07:27.431299+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1557,7 +1561,7 @@
         "filed_at": "2026-10-25T06:10:14.079844+00:00"
       }
     },
-    "last_scan": "2026-10-30T06:09:04.078458+00:00"
+    "last_scan": "2026-10-31T06:07:28.878011+00:00"
   },
   "cognition": {
     "urls": {
@@ -2332,6 +2336,6 @@
         "screened_at": "2026-10-30T06:09:06.461324+00:00"
       }
     },
-    "last_scan": "2026-10-30T06:09:06.461345+00:00"
+    "last_scan": "2026-10-31T06:07:30.015448+00:00"
   }
 }
