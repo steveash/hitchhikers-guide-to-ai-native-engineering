@@ -1212,12 +1212,40 @@ Those figures come from an undisclosed private suite published on the model
 vendor's own blog: no task count, no task composition, no independent
 reproduction. Copy the methodology; do not quote the percentages. [editorial]
 
+A one-line system-prompt edit needs the same treatment as a model swap. In a
+staged four-case demo, Google pasted an unrelated persona prompt into an
+agent. Lint, unit tests, and type checks all passed, but the LLM-judge mean fell
+from 4.0 to 2.75 because the agent "ignored the weather tool, hallucinated
+conditions."
+[source: blog-google-agents-cli-eval-hill-climbing, Claims 2, 3] [anecdotal]
+A model swap landed on the same 2.75 mean for a different reason: the drop
+was concentrated in one out-of-scope case where "the cheaper model refused with
+a hedge about the event."
+[source: blog-google-agents-cli-eval-hill-climbing, Claim 4] [anecdotal]
+The demo's gate is a script that "exits non-zero when the drop exceeds a
+threshold":
+
+```
+FAIL: mean dropped 4.000 → 2.750 (drop 1.250 > threshold 0.1)
+exit: 1
+```
+[source: blog-google-agents-cli-eval-hill-climbing, Claim 6; Concrete Artifacts] [emerging]
+
+With four cases, one case moves the mean by a full point, so a 0.1 threshold on
+that set is noise. Copy the exit-code gate, but run it on a regression set large
+enough to be meaningful, and read the per-case diff when it fires. [editorial]
+
 **Rule**: Build your eval from your own repositories, and report it as a
 task-level win/loss table plus a steps-to-solution figure rather than a single
 pass rate. The regression column and the efficiency column are the two things an
 aggregate delta hides, and they are the two that decide whether you ship the new
 model.
 [source: blog-anthropic-jetbrains-fable5-evaluation-deployment, Claims 1, 3, 4] [emerging]
+Gate system-prompt edits on the same eval as model swaps, with a script that
+exits non-zero on regression, because static checks pass on a prompt change
+that breaks tool use.
+[source: blog-google-agents-cli-eval-hill-climbing, Claim 2] [anecdotal]
+[source: blog-google-agents-cli-eval-hill-climbing, Claim 6] [emerging]
 
 ## Vendor "Token Savings" Claims Are Marketing Until You A/B Them
 
@@ -1265,6 +1293,7 @@ blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
+blog-google-agents-cli-eval-hill-climbing (Claims 2, 3, 4, 6; Concrete Artifacts),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
@@ -1288,4 +1317,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-31*

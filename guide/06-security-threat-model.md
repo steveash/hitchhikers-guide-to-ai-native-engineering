@@ -336,6 +336,83 @@ because first-use trust is unvetted, gate which servers can be added with a
 registry allowlist rather than relying on change-detection alone.
 [source: docs-github-copilot-vs-june-2026, Claims 3, 4] [settled]
 
+### The editor extension is supply chain too
+
+The agent's host is attack surface, not just its tools. On 2026-10-29 the
+Cursor VS Code Extension Marketplace served `Anthropic.claude-code` 2.1.312 and
+2.1.313 (Windows and macOS) for about 11 hours, and Cursor states "These
+malicious versions of the extension were not developed by Anthropic." The
+extension identifier matched the official one; the contents did not. Cursor's
+notice does not explain how the builds were published.
+[source: blog-cursor-malicious-claude-code-extension-notice, Claim 1] [emerging]
+
+The payload needed nothing beyond the developer's own account: "The extension
+runs malicious code that attempts to install a persistent SSH backdoor."
+[source: blog-cursor-malicious-claude-code-extension-notice, Claim 2] [emerging]
+Removing the extension does not undo that: "Uninstalling the extension may not
+be sufficient — the payload drops standalone persistence scripts that keep
+running."
+[source: blog-cursor-malicious-claude-code-extension-notice, Claim 4] [emerging]
+Cursor's response checklist (structure paraphrased from the notice; IOCs
+deliberately omitted):
+
+```
+1. Run the impact check (look for the attacker-labeled key in SSH authorized_keys)
+2. Search endpoint, network, and extension-installation telemetry for IOCs
+3. Isolate hosts showing payload execution or backdoor installation
+4. Remove unauthorized SSH key, persistence mechanisms, tunnel processes; assess rebuild
+5. Rotate credentials and sessions reachable from affected hosts, from a trusted system
+```
+[source: blog-cursor-malicious-claude-code-extension-notice, Concrete Artifacts] [emerging]
+
+Step 5 applies even though the payload only collected environment-variable
+names: "The limited env-var collection does not rule out later credential
+access over the backdoor."
+[source: blog-cursor-malicious-claude-code-extension-notice, Claim 5] [emerging]
+Auto-update is what turned an 11-hour window into exposure for anyone whose
+editor updated during it. The notice does not recommend version pinning,
+cooldowns, or an install inventory. Those are our inference, but without a
+record of who installed which version and when, you cannot scope an exposure
+window like this one. [editorial]
+
+**Rule**: Treat an agent-extension install or auto-update as trusting the
+marketplace, not the publisher name. When a build is compromised, clean up the
+host (authorized keys, launch agents or scheduled tasks, running processes) and
+rotate every credential reachable from it, working from a different machine.
+Uninstalling the extension is not remediation.
+[source: blog-cursor-malicious-claude-code-extension-notice, Claims 1, 4, 5] [emerging]
+
+### Agent configuration that lives outside Git
+
+The "whose identity?" and "what observability?" questions get harder when a
+team-shared agent's configuration is not code. GitHub's Copilot *shared*
+automations (rolling out; private or internal repositories only) are repo-owned
+cloud-agent workflows: "anyone with write access can edit it," actions "are
+attributed to Copilot, rather than to any one user," and the configuration is
+"not committed to Git, so they are not versioned alongside your code or managed
+through pull requests."
+[source: docs-github-copilot-shared-automations, Claims 1, 3, 7, 9; Source Context] [emerging]
+
+What remains as scope control is the tool list and a budget. "Selecting tools
+is the main way you control the scope of an automation," but MCP-server tools
+are not limited to the repository, so a write-access editor who adds one widens
+the automation's reach past the repo. AI-credit limits can be set per run
+(minimum 30 credits) and per day, week, or month; the daily, weekly, and
+monthly limits do not stop a run already in progress.
+[source: docs-github-copilot-shared-automations, Claim 8] [emerging]
+The one compensating review control is on by default: "If your repository
+requires at least one pull request approval, an additional approval is required
+by default for pull requests created by a shared automation." Admins can turn
+it off in rulesets.
+[source: docs-github-copilot-shared-automations, Claim 6] [emerging]
+
+**Rule**: For GitHub Copilot shared automations, assume any write-access user
+can change what the agent does under Copilot's identity without a PR. Keep the
+extra-approval default, set per-run credit limits, and re-check the tool list
+for MCP tools after edits. If you need the agent's configuration reviewed like
+code, use a Git-versioned format instead.
+[source: docs-github-copilot-shared-automations, Claims 1, 6, 7, 8] [emerging]
+
 ---
 
 ## The Sandbox Is the Control — Even When Someone Else Runs It
@@ -484,6 +561,45 @@ sandbox itself.
 [source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10;
 blog-simonwillison-smolmachines-untrusted-sandbox, Claims 5, 6] [emerging]
 
+### A runtime is not a sandbox: enforce egress below the application
+
+An engine that runs untrusted code without `fs` or `process` limits what the
+code can do. It does not isolate it. A Claude Opus 5.5-authored evaluation of
+webframe, a webview-based JavaScript runner published by Simon Willison,
+found the stock tool ships with full network (including localhost), persistent
+storage, and no time or memory limits, and concluded "webframe is not a sandbox
+by itself."
+[source: blog-simonwillison-webframe-evaluation, Claim 1] [emerging]
+
+The easily missed gap is that a page-level policy covers subresources but not
+navigation. A strict CSP blocked fetch, XHR, image, beacon, and WebSocket
+exfiltration, but a top-level navigation still got out:
+
+| Attack | CSP page only | + `unshare -rn` |
+|---|---|---|
+| fetch/XHR/img/beacon/WebSocket, `file:///etc/passwd` | blocked | blocked |
+| top-level `location.href` to localhost | request arrived | blocked |
+
+[source: blog-simonwillison-webframe-evaluation, Claim 3; Concrete Artifacts] [emerging]
+
+The harness's own output channel is a target too. Hostile code that shares a
+JavaScript context with the harness's hooks can forge the result it returns.
+Tagging the real result with a random per-call nonce, and accepting only the
+nonce-prefixed line, turns forgery into denial of service.
+[source: blog-simonwillison-webframe-evaluation, Claim 5] [emerging]
+The combination that held against the report's 20 hostile snippets was an
+empty network namespace, an ephemeral profile plus bubblewrap, a timeout with
+process-group kill, a fresh process per call, and the nonce-tagged result.
+The report says it held "against every attack I tried", which is bounded by
+what one model thought to try, and it lists cgroup limits as still missing.
+[source: blog-simonwillison-webframe-evaluation, Claim 2] [emerging]
+
+**Rule**: Enforce a sandbox's egress at the network layer (an empty network
+namespace or an equivalent), not with an in-app policy like CSP, and accept
+results only through a channel the untrusted code cannot write to, such as a
+nonce-tagged line.
+[source: blog-simonwillison-webframe-evaluation, Claims 3, 5] [emerging]
+
 ### Volume, not cleverness, is what breaks the defender
 
 Hugging Face's July 2026 retrospective on the OpenAI-agent intrusion into its
@@ -600,6 +716,7 @@ blog-anthropic-ciso-guide-agentic-ai (Claims 1, 2, 3, 4, 7, 8, 10),
 blog-anthropic-cowork-chrome-side-panel (Claims 4, 5, 6, 7, 8, 9; Concrete Artifacts),
 blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 5, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
+blog-cursor-malicious-claude-code-extension-notice (Claims 1, 2, 4, 5; Concrete Artifacts),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
 blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
@@ -609,6 +726,8 @@ blog-simonwillison-bobby-holley (Claims 1, 7),
 blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
 blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
+blog-simonwillison-webframe-evaluation (Claims 1, 2, 3, 5; Concrete Artifacts),
+docs-github-copilot-shared-automations (Claims 1, 3, 6, 7, 8, 9; Source Context),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-31*
