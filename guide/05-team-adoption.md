@@ -900,7 +900,7 @@ pull_requests.median_minutes_to_merge_copilot_reviewed
   → Does NOT measure: cycle time for non-Copilot-reviewed PRs.
 ```
 
-[source: docs-github-copilot-pr-review-metrics, Claims 2, 3] [emerging]
+[source: docs-github-copilot-pr-review-metrics, Claims 2, 3] [stale]
 
 The first field is an **adoption metric** — it tells you whether Copilot
 review touched a PR, not whether the review helped. The second field is a
