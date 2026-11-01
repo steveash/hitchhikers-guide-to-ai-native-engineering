@@ -6,7 +6,7 @@ author: GitHub (official changelog)
 date_published: 2026-04-08
 date_extracted: 2026-04-15
 last_checked: 2026-04-15
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#91"
 ---

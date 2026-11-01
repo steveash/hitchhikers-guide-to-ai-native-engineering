@@ -604,7 +604,7 @@ repos:
 For security-focused review, run static analysis first and pass its
 findings to the AI reviewer as anchors — this compensates for LLM recall
 gaps and keeps the review focused on security rather than style.
-[source: discussion-hn-autofix-hybrid-review, Claims 1, 3, 8] [emerging]
+[source: discussion-hn-autofix-hybrid-review, Claims 1, 3, 8] [stale]
 
 ### The coverage gap
 
@@ -891,7 +891,7 @@ Claude Code's `bashSecurity.ts` (from the source map leak) implements
 #   - Malformed token bypass (additional, discovered in security review)
 ```
 
-[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [stale]
 
 Three lessons:
 1. **Zsh is meaningfully more dangerous than bash** for harness tool use —
@@ -906,7 +906,7 @@ Three lessons:
 audit for the three non-obvious bypass classes above. The 23-check count
 is a floor, not a ceiling — the comment history implies new bypasses are
 discovered during audits.
-[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 4] [stale]
 
 ### Cross-system intersection bugs
 

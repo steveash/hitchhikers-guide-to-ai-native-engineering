@@ -6,7 +6,7 @@ author: sanketsaurav (Sanket Saurav, co-founder, DeepSource; YC W20)
 date_published: 2025-12-11
 date_extracted: 2026-04-15
 last_checked: 2026-04-15
-status: current
+status: stale
 confidence_overall: emerging
 issue: "#48"
 ---
