@@ -1422,7 +1422,7 @@
         "screened_at": "2026-10-31T06:07:27.431283+00:00"
       }
     },
-    "last_scan": "2026-11-03T06:08:17.025578+00:00"
+    "last_scan": "2026-11-04T06:08:16.183288+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1561,7 +1561,7 @@
         "filed_at": "2026-10-25T06:10:14.079844+00:00"
       }
     },
-    "last_scan": "2026-11-03T06:08:18.716371+00:00"
+    "last_scan": "2026-11-04T06:08:17.630350+00:00"
   },
   "cognition": {
     "urls": {
@@ -2334,8 +2334,12 @@
       "https://cognition.com/blog/corridor-joining-cognition": {
         "status": "rejected",
         "screened_at": "2026-10-30T06:09:06.461324+00:00"
+      },
+      "https://cognition.com/blog/practical-guide-to-security-november-2026": {
+        "status": "rejected",
+        "screened_at": "2026-11-04T06:08:19.809441+00:00"
       }
     },
-    "last_scan": "2026-11-03T06:08:19.878406+00:00"
+    "last_scan": "2026-11-04T06:08:19.809458+00:00"
   }
 }
