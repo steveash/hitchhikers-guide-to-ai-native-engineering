@@ -484,6 +484,47 @@ sandbox itself.
 [source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10;
 blog-simonwillison-smolmachines-untrusted-sandbox, Claims 5, 6] [emerging]
 
+### The page that renders model output is part of the sandbox
+
+If your product renders LLM-generated HTML or artifacts, the iframe sandbox
+is only as strong as the page around it. Parameter Labs reported, and
+OpenAI fixed, a ChatGPT exploit in which the per-frame sandbox held but
+the parent page did not. A third-party math-input component on the main
+page accepted messages from any window, and the HTML those messages
+carried was written into the page unsanitized.
+[source: blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Claim 1] [emerging]
+The injected markup created a new iframe without sandbox restrictions.
+[source: blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Claim 2] [emerging]
+The CSP blocked inline scripts, but "It did, however, allow scripts from
+YouTube". A YouTube endpoint that echoed a callback parameter back as
+JavaScript then gave code execution on the chatgpt.com origin.
+[source: blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Claim 3] [emerging]
+The delivery channel was a share link, which turned "an ordinary public
+ChatGPT share into attacker-controlled JavaScript" in any signed-in
+victim's browser.
+[source: blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Claim 4] [emerging]
+
+```
+1. Sandboxed preview frame -> postMessage -> parent-page handler -> unsanitized HTML into DOM
+2. Injected markup creates a frame lacking sandbox restrictions
+3. CSP allowlists YouTube; an endpoint reflects JS via a callback param -> script on app origin
+4. Authenticated API calls -> private data -> exfiltrated to an external server
+Trigger: victim opens a crafted share URL
+```
+*Failure points only, per [source:
+blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Concrete Artifacts].*
+
+**Rule**: For any surface that renders model-generated HTML, have every
+parent-page message handler verify both the sender's origin and the
+specific sending window. Never accept raw HTML across windows, and keep
+dynamically created frames sandboxed. Treat CSP as a backup control, not
+the boundary.
+[source: blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Claim 6] [settled]
+
+Audit every CSP-allowlisted script host for callback-style reflection,
+because each one sits inside your trust boundary.
+[source: blog-parameterlabs-chatgpt-account-takeover-sandbox-escape, Claim 3] [emerging]
+
 ### Volume, not cleverness, is what breaks the defender
 
 Hugging Face's July 2026 retrospective on the OpenAI-agent intrusion into its
@@ -604,6 +645,7 @@ blog-cursor-security-agents (Claims 1, 4, 5, 9),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
 blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
+blog-parameterlabs-chatgpt-account-takeover-sandbox-escape (Claims 1, 2, 3, 4, 6; Concrete Artifacts),
 blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
 blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
@@ -611,4 +653,4 @@ blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-05*

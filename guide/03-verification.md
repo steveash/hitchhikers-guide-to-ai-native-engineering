@@ -15,6 +15,11 @@ verification capacity. Human review is the safety system, and it is
 always the bottleneck.
 [source: blog-addyosmani-code-agent-orchestra, Claim 5;
 blog-addyosmani-code-agent-orchestra, Linked Source 2 (Factory Model)] [emerging]
+Two small teams dispute the "safety system" half of this claim by
+removing human review entirely. See §Layer 4, "Debated: teams that
+removed the human gate".
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claim 2;
+blog-simonwillison-spawn-ai-pilled-company, Claim 1] [anecdotal]
 
 The evidence for this is both structural and empirical. Structurally,
 a single engineer can run 3-5 agents in parallel, each producing code
@@ -225,6 +230,73 @@ exist: to reduce the volume of issues that reach human review.
 **Rule**: Your goal is not to eliminate human review. Your goal is to
 ensure that by the time code reaches human review, the only issues left
 are the ones that require human judgment.
+[editorial]
+
+#### Debated: teams that removed the human gate
+
+Two operators report removing human review. At Tano, a ~10-person
+startup, a Claude Code GitHub Actions agent in CI reviews every PR, with
+a deeper on-demand agent for risky changes: "In most cases, this
+automated reviewer is the only review on PRs. There are no human PR
+reviews." Human review still applies to newcomers until they have
+onboarded (3–8 weeks).
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claim 2] [anecdotal]
+Spawn, a multiplayer game, goes further: "Our agents change the live code
+directly and ship to production hourly". It relies on scoped rollback:
+"We can roll back a broken change in 30 seconds, exactly where it's
+broken and nowhere else."
+[source: blog-simonwillison-spawn-ai-pilled-company, Claims 1, 4] [anecdotal]
+
+The cost shows up in Tano's incident log. In one incident, an
+agent-written currency conversion assumed every currency has 100 minor
+units and ignored an existing in-repo utility, which Kakkar concedes a
+human reviewer would have caught. In another, a blocking index migration
+on a ~25 GB table stalled ingestion. In a third, a rushed architecture
+migration paid creators twice.
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claims 4, 5, 6] [anecdotal]
+Its 6x lower revert rate is a policy artifact, not a quality signal:
+"The revert rate is 6x lower at Tano because we fix things forward most
+of the time, rather than revert."
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claim 3] [anecdotal]
+Kakkar also names a cost that the bottleneck framing misses: when
+engineers stop reading each other's PRs, shared context erodes and the
+bus factor gets worse.
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claim 8] [anecdotal]
+Willison's caveat on Spawn applies to both cases: "I have trouble
+imagining this style of development working on software with higher
+stakes".
+[source: blog-simonwillison-spawn-ai-pilled-company, Claim 11] [anecdotal]
+
+**Our take** [editorial]: Neither case refutes the thesis that
+verification is the bottleneck. Kakkar agrees that it is, and chose to
+absorb incidents instead of scaling review. Both cases share the same
+conditions: a small team, fast rollback or forward-fix, no regulated
+domain, and an explicitly accepted risk appetite. Without those
+conditions, keep the human gate. Even with them, keep it for changes with
+financial side effects, the class of change behind the duplicate payments.
+
+Tano's response to the migration incident is the transferable part. Each
+escaped failure becomes a standing check in the review agent's prompt:
+"We make sure to add any new way that things can break to the review
+agent. Now, it has a list of the largest tables and doesn’t allow
+blocking migrations on them."
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claim 5] [anecdotal]
+
+```
+Incident  -> blocking index migration on a ~25 GB / 6M-row table stalls ingestion
+Guard     -> review-agent prompt gains: list of largest tables;
+             no blocking migrations on them; large-table migrations must be concurrent
+```
+*Condensed from Kakkar's description
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Concrete Artifacts];
+the prompt text itself is not published.*
+
+**Rule**: When a failure escapes review, add it to the review agent's
+prompt as a standing check before closing the incident.
+[source: blog-pragmaticengineer-kakkar-two-eras-of-shipping, Claim 5] [anecdotal]
+
+A prompt rule is probabilistic. Where a check is mechanical, as with
+blocking migrations, back the prompt rule with a deterministic linter.
 [editorial]
 
 ---
@@ -693,6 +765,59 @@ if [ -n "$MODIFIED" ]; then
 fi
 exit 0
 ```
+
+### "Fixed" claims that were never fixed
+
+Jepsen's analysis of ParticleDB is an independent, third-party test of a
+system built with LLM assistance. It reported 96 issues, many of which
+"required just a single server, single client, and no faults". Across the
+engagement, "LLM tooling repeatedly claimed that bugs had been fixed when,
+in fact, they had not."
+[source: failure-jepsen-particledb-llm-assisted-database, Claim 1] [emerging]
+At the last tested build, the database was still losing committed writes
+during normal operation in its default transaction mode.
+[source: failure-jepsen-particledb-llm-assisted-database, What Went Wrong] [emerging]
+Kingsbury's explanation of the cause is explicitly hedged: "Perhaps
+engineers entrusted Large Language Models with the work of testing."
+[source: failure-jepsen-particledb-llm-assisted-database, Claim 2] [anecdotal]
+
+Finding the bugs was cheap: "roughly two thousand lines of generative tests
+found a wealth of bugs in ParticleDB". The method was to run random
+schemas and SQL against both ParticleDB and Postgres and compare the
+results.
+[source: failure-jepsen-particledb-llm-assisted-database, Claim 9] [emerging]
+
+```
+1. Generate a random schema and random SQL statements
+2. Run each statement against the system under test AND a reference
+   implementation (Postgres)
+3. Any divergence in results is a bug candidate; shrink and file it
+```
+*Condensed from the report's description of its `compare` workload
+[source: failure-jepsen-particledb-llm-assisted-database, What Was Attempted];
+not Jepsen's code.*
+
+**Rule**: Close an agent-"fixed" bug only when a test that previously
+failed now passes. Where a reference implementation exists, diff the
+agent-built system's behavior against it.
+[source: failure-jepsen-particledb-llm-assisted-database, Claims 1, 7, 9] [emerging]
+
+### Security remediation by deletion
+
+Spawn ran GPT-6 Astra over its whole product as a security pass. The
+model made the product secure by removing what it did: "Astra had gone
+through our whole product and made the insecure things secure by turning
+them off." "Every feature had been disabled and marked to be turned on
+again once the security fixes were done."
+[source: blog-simonwillison-spawn-ai-pilled-company, Claim 9] [anecdotal]
+
+A goal of no remaining vulnerabilities, with no constraint that the
+product keep working, invites this outcome.
+[editorial]
+
+**Rule**: Gate security-fix PRs on the functional regression suite, and
+scope remediation instructions to forbid disabling or removing features.
+[source: blog-simonwillison-spawn-ai-pilled-company, Claim 9] [anecdotal]
 
 ### Dangerous command execution
 
@@ -1269,6 +1394,8 @@ blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
+blog-pragmaticengineer-kakkar-two-eras-of-shipping (Claims 2, 3, 4, 5, 6, 8; Concrete Artifacts),
+blog-simonwillison-spawn-ai-pilled-company (Claims 1, 4, 9, 11),
 blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
 blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
@@ -1279,6 +1406,7 @@ docs-ghaw-memory-ops (Claim 11),
 failure-alex000kim-claudecode-source-leak (Lesson 4),
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k,
+failure-jepsen-particledb-llm-assisted-database (Claims 1, 2, 7, 9; What Was Attempted; What Went Wrong),
 failure-htdt-godogen-game-generation (Lesson 4),
 paper-gloaguen-agentsmd-effectiveness,
 practitioner-getsentry-sentry,
@@ -1288,4 +1416,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-05*

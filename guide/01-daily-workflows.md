@@ -369,6 +369,41 @@ users already run multiple models each week — routing planning, frontend,
 debugging, and cheap execution to different models.
 [source: blog-cursor-cfo-council, Claims 8, 9] [settled]
 
+Before building a router, check that the cheap option is actually cheaper.
+Google tested this on a 50-task coding-agent benchmark (single run per
+setup, Gemini models only). Capping `maxOutputTokens` at 300 did not
+reduce thinking tokens on easy tasks, and it broke 7 of 25 hard tasks:
+"Capping the model's output at 300 tokens didn't save any money on easy
+tasks." A router that sent easy tasks to the capped model therefore cost
+slightly more than no router: "If your cheap option doesn't actually make
+the model think less on easy tasks, no router can save you money."
+[source: blog-google-cost-per-task-classifier-routing, Claims 4, 5] [emerging]
+The strongest baseline used no router at all. Gemini 3.8 Flash at
+`thinkingLevel: "LOW"` solved all 50 tasks. A classifier router on top of
+that matched its accuracy, and its benefit was mostly lower latency, with
+only small cost savings.
+[source: blog-google-cost-per-task-classifier-routing, Claims 6, 7] [emerging]
+Routers also overfit. A regex-and-prompt-length heuristic scored 93.8% on
+the 16 tasks it was written against and 70.6% on 34 held-out tasks.
+[source: blog-google-cost-per-task-classifier-routing, Claim 3] [emerging]
+
+The order of operations the benchmark supports:
+
+```
+1. Baseline: one model at the lowest thinking/effort setting that passes your eval set
+2. Cheap arm: confirm it actually spends fewer thinking tokens, not just fewer output tokens
+3. Router: evaluate on held-out tasks, never only on the tasks you wrote it against
+4. Escalation target: pick it from observed failures of the cheaper tier
+```
+*Condensed from [source: blog-google-cost-per-task-classifier-routing,
+Claims 3, 5, 6, 8].*
+
+**Rule**: Tune the thinking level on a single model before you build a
+router, and control reasoning spend with the thinking parameter rather
+than the output-token cap. (This is currently shown on Gemini only.
+Whether other reasoning-model APIs behave the same way is untested.)
+[source: blog-google-cost-per-task-classifier-routing, Claims 4, 6] [emerging]
+
 ### Model mixing across orchestration tiers
 
 A second multi-model pattern — distinct from kevinsync's serial Claude-then-Codex
@@ -733,6 +768,7 @@ Linked Sources 2, 3, 4, 5, 6),
 blog-anthropic-managed-agents-dreaming-outcomes (Claim 8),
 blog-anthropic-session-management-1m-context (Claims 1, 2, 4, 10),
 blog-cursor-cfo-council (Claims 8, 9),
+blog-google-cost-per-task-classifier-routing (Claims 3, 4, 5, 6, 7, 8),
 blog-simonwillison-fable-judgement (Claims 2, 4, 6, 7),
 blog-simonwillison-gpt55-codex-plugin (Claim 3),
 blog-simonwillison-liteparse-browser (Claims 5, 11),
@@ -744,4 +780,4 @@ practitioner-frankray78-netpace,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-11-05*

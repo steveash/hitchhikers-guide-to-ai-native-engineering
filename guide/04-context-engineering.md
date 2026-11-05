@@ -802,6 +802,40 @@ one-hour subscription default; without it, treat five idle minutes as the point
 where the next turn pays a full cold rebuild.
 [source: blog-anthropic-maximizing-session-value, Claims 4, 5] [settled]
 
+### Message threads cut latency, not tokens
+
+Anthropic's Messages API has a `thread` parameter, currently in public
+beta: "The first request includes the full conversation and starts a
+thread. Each request after that includes only the new messages and the ID
+of the previous response."
+[source: blog-anthropic-message-threads, Claim 2] [settled]
+Threads do not save money or context: "While each request is smaller with
+message threads, Claude still reads the full conversation on every turn,
+so token usage stays the same."
+[source: blog-anthropic-message-threads, Claim 5] [settled]
+Threads also run on their own five-minute clock: "A thread expires 5
+minutes after its last request and your client then resends the full
+conversation to start a new one."
+[source: blog-anthropic-message-threads, Claim 4] [settled]
+The payoff is time to first token on very large contexts. Anthropic
+reports a ~35% drop in median TTFT for 500k–1M-token requests in Claude
+Code but publishes no methodology.
+[source: blog-anthropic-message-threads, Claim 6] [anecdotal]
+
+```
+Request 1:    thread param + FULL conversation   -> starts thread, returns response ID
+Request 2..n: thread param + NEW messages + previous response ID
+Idle > 5 min after last request -> thread expires -> client resends FULL conversation
+Billing/tokens: unchanged
+```
+*Lifecycle as summarized in [source: blog-anthropic-message-threads,
+Concrete Artifacts]; the article ships no code sample.*
+
+**Rule**: Treat threads as a latency optimization only. Keep the full
+history client-side so that you can resend it after expiry, and leave
+your compaction and caching decisions unchanged.
+[source: blog-anthropic-message-threads, Claims 4, 5] [settled]
+
 ### Context rot — when wrong information accumulates
 
 Compaction loses information by summarizing. There is a distinct
@@ -1397,6 +1431,7 @@ session.
 blog-anthropic-carta-healthcare-context-engineering (Claims 1, 2, 9),
 blog-anthropic-harnessing-claude-intelligence (Claims 7, 11),
 blog-anthropic-maximizing-session-value (Claims 2-7, 9, 12; Concrete Artifacts),
+blog-anthropic-message-threads (Claims 2, 4, 5, 6; Concrete Artifacts),
 blog-anthropic-mcp-production-agents (Claims 10, 11),
 blog-anthropic-prompt-caching-everything (Claims 2, 3, 5, 6, 11),
 blog-anthropic-session-management-1m-context (Claim 1),
@@ -1417,4 +1452,4 @@ practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
 blog-simonwillison-fable-judgement (Claim 5)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-05*
