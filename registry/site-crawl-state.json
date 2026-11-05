@@ -1422,7 +1422,7 @@
         "screened_at": "2026-10-31T06:07:27.431283+00:00"
       }
     },
-    "last_scan": "2026-11-04T06:08:16.183288+00:00"
+    "last_scan": "2026-11-05T06:08:19.794616+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1559,9 +1559,17 @@
         "screened_at": "2026-10-24T06:10:34.421689+00:00",
         "issue": 4343,
         "filed_at": "2026-10-25T06:10:14.079844+00:00"
+      },
+      "https://www.humanlayer.dev/blog/humanlayer-joins-factory": {
+        "status": "rejected",
+        "screened_at": "2026-11-05T06:08:22.420614+00:00"
+      },
+      "https://www.humanlayer.dev/blog/tags/announcements": {
+        "status": "rejected",
+        "screened_at": "2026-11-05T06:08:22.420631+00:00"
       }
     },
-    "last_scan": "2026-11-04T06:08:17.630350+00:00"
+    "last_scan": "2026-11-05T06:08:22.420634+00:00"
   },
   "cognition": {
     "urls": {
@@ -2338,8 +2346,14 @@
       "https://cognition.com/blog/practical-guide-to-security-november-2026": {
         "status": "rejected",
         "screened_at": "2026-11-04T06:08:19.809441+00:00"
+      },
+      "https://cognition.com/blog/swe-2-flash": {
+        "status": "filed",
+        "screened_at": "2026-11-05T06:08:24.452519+00:00",
+        "issue": 4540,
+        "filed_at": "2026-11-05T06:08:26.270455+00:00"
       }
     },
-    "last_scan": "2026-11-04T06:08:19.809458+00:00"
+    "last_scan": "2026-11-05T06:08:24.452536+00:00"
   }
 }
