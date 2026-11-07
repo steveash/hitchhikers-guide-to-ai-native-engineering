@@ -1295,13 +1295,32 @@ shows that filtering mechanism running, and the merge review is the only
 safeguard actually demonstrated.
 [source: blog-anthropic-warp-self-improving-skills, Claim 9] [anecdotal]
 
+Thoughtworks reaches the same gate on its own: "The rule is that you should
+automate the proposal and keep the approval." It adds three preconditions a
+harness must meet before it edits itself:
+
+```
+An evaluation harness, so improvement is measured rather than asserted.
+Provenance, so every self-authored change can be attributed, reviewed and reverted.
+A rollback path, so a bad iteration costs an afternoon rather than a quarter.
+```
+*Geraldo, "The harness is a product" (argument, no deployment data).*
+[source: blog-thoughtworks-geraldo-harness-is-a-product, Claim 10; Concrete Artifacts] [emerging]
+
+Warp's PR-based loop already supplies provenance and rollback. The
+precondition it does not show is the eval, which is why the rule below adds
+one. [editorial]
+
 **Rule**: When a recurring-task skill drifts, add a scheduled improver skill
 that turns captured feedback into a PR against the base skill, and never
 automate the merge — that review is the only control between one wrong
-comment and a permanently changed instruction file. (Documented for one
-vendor's production deployment; no before/after accuracy figures are
-published anywhere in the source.)
-[source: blog-anthropic-warp-self-improving-skills, Claims 3, 5] [emerging]
+comment and a permanently changed instruction file. Before switching the loop
+on, have an eval that scores the base skill, so each improver PR arrives with
+a measured result attached. (The loop is documented for one vendor's production
+deployment with no published before/after figures; the eval precondition is a
+consultancy proposal, not a measured result.)
+[source: blog-anthropic-warp-self-improving-skills, Claims 3, 5;
+blog-thoughtworks-geraldo-harness-is-a-product, Claim 10] [emerging]
 
 ---
 
@@ -1852,6 +1871,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
-practitioner-mikelane-pytest-test-categories*
+practitioner-mikelane-pytest-test-categories,
+blog-thoughtworks-geraldo-harness-is-a-product (Claim 10; Concrete Artifacts)*
 
 *Last updated: 2026-08-15*

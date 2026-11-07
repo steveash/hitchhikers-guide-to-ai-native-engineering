@@ -949,6 +949,41 @@ Do not compare DAU across it without accounting for the coverage change, and
 expect breakdown sums to fall short of the top-line count for proxy-heavy orgs.
 [source: docs-github-copilot-usage-metrics-server-side-telemetry, Claims 1, 2, 3, 4] [settled]
 
+Since November 5, 2026, you can query that coverage gap directly. The usage
+metrics API flags each user, per day, on whether editor telemetry arrived and
+whether their IDEs and extensions meet minimum versions:
+
+```
+Per-user (enterprise + org user reports, 1-day and 28-day):
+  client_telemetry_present        true | false | null
+  usage_metrics_requirements      per IDE / Copilot extension: met | unmet | unknown
+Daily counts (enterprise + org 1-day reports; each day_totals entry in 28-day reports):
+  missing_client_telemetry_user_count
+  below_usage_metrics_minimum_user_count
+```
+*GitHub changelog, "Usage metrics API flags telemetry and version gaps."*
+[source: docs-github-copilot-usage-metrics-telemetry-version-gap-flags, Claims 1, 2, 3; Concrete Artifacts] [settled]
+
+Users without client telemetry still count as active, "but their reports lack
+detail such as lines of code, feature breakdowns, and model breakdowns."
+[source: docs-github-copilot-usage-metrics-telemetry-version-gap-flags, Claim 4] [settled]
+Any feature-, model- or LOC-level figure therefore describes only the
+telemetry-present subset, and should be reported with that denominator.
+[editorial]
+
+Three pipeline traps come with the fields. An upgrade push will not close the
+whole gap: "A user can meet every version minimum and still be missing
+telemetry (e.g., they’re behind a proxy)." The two counts overlap, so they
+cannot be added together or summed across days. A null means the data is
+unavailable, not false or zero, and days before November 5 have no values.
+[source: docs-github-copilot-usage-metrics-telemetry-version-gap-flags, Claims 7, 8, 9] [settled]
+
+**Rule**: Cross-tabulate `client_telemetry_present` against
+`usage_metrics_requirements` rather than treating version compliance as
+coverage. Count unique affected users from per-user rows, never by summing
+daily counts, and keep null as a third state in your pipeline.
+[source: docs-github-copilot-usage-metrics-telemetry-version-gap-flags, Claims 7, 8, 9] [settled]
+
 ### Vanity metrics to avoid
 
 Faros enumerates the metrics that look like productivity wins but measure
@@ -1744,6 +1779,7 @@ practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
-failure-hooks-enforcement-2k*
+failure-hooks-enforcement-2k,
+docs-github-copilot-usage-metrics-telemetry-version-gap-flags (Claims 1, 2, 3, 4, 7, 8, 9; Concrete Artifacts)*
 
 *Last updated: 2026-08-15*

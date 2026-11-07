@@ -492,6 +492,54 @@ lands there as standing "policy" can include one-off remarks the model chose
 to make durable.
 [source: blog-simonwillison-fable-judgement, Claim 5] [anecdotal]
 
+### Say what memory is for, not how to write it
+
+Anthropic's memory evals found that scripting the write policy backfires on
+current models. On a CL-Bench task, a fixed rule ("record only failures")
+removed much of the memory gain for Opus 5 and Opus 4.7: "For stronger models,
+giving them freedom to judge salience was more effective than setting fixed
+rules in advance, and those rules could end up weakening performance."
+[source: blog-anthropic-components-of-agent-memory, Claim 5] [emerging]
+
+Steering still pays on older models: telling Sonnet 4.6 to read memory and test
+its theories nearly doubled its score, while Sonnet 5 read memory unprompted 9
+of 10 times.
+[source: blog-anthropic-components-of-agent-memory, Claim 6] [emerging]
+
+The opposite failure is bloat. In one Pokémon Red run per model, roughly
+10,000 steps in:
+
+```
+Sonnet 3.7: 413 memory files across 225 folders, 1 badge
+Fable 5:    9 files in 2 folders + global.md, 4 badges
+            global.md = dashboard: current goal, prewritten gym plan, model's own rules for using memory
+            locations/ = route navigation plans
+            gameplay/  = strategies learned about how the game works
+```
+*From Anthropic's memory post; single runs, different model generations.*
+[source: blog-anthropic-components-of-agent-memory, Claim 4; Concrete Artifacts] [anecdotal]
+
+Fable 5 "used memory for things the game didn’t explicitly tell it"; Sonnet
+3.7 at one point spent 17 steps reorganizing files and took no game actions.
+[source: blog-anthropic-components-of-agent-memory, Claim 4] [anecdotal]
+
+The injected layer has a hard ceiling: Claude Code auto memory loads only the
+first 200 lines or 25 KB of `MEMORY.md`, so that file has to stay an index that
+links out to detail files.
+[source: blog-anthropic-components-of-agent-memory, Claim 9] [emerging]
+
+This applies to cross-session agent memory only. Anthropic's definition
+explicitly excludes compaction, so it does not loosen the "write the why to a
+file immediately" rule below.
+[source: blog-anthropic-components-of-agent-memory, Claim 1] [settled]
+
+**Rule**: In memory instructions, tell the agent what memory is for and leave
+the decision of what to record to the model. Add how-to steering only for older
+models, and keep `MEMORY.md` an index under the 200-line / 25 KB load limit.
+(Measured on Anthropic-internal evals of Claude models only, with one write rule
+ablated on one task.)
+[source: blog-anthropic-components-of-agent-memory, Claims 5, 6, 9] [emerging]
+
 ### The hidden persistence layer: session JSONL files
 
 decker's failure report is also the most practitioner-accessible writeup
@@ -840,6 +888,53 @@ probable message is to make another mistake."
 session-abandonment trigger, not a sign the agent is about to recover. Hand off
 to a fresh session rather than continuing to correct a poisoned one.
 [source: blog-pragmaticengineer-orosz-horthy-context-engineering, Claim 8] [anecdotal]
+
+### Stale code comments are context too
+
+Some of the bad context in a session comes from the repo, not from the session
+itself. Google measured one case across its internal agent traces: it checked
+every inline `TODO(bug/...)` an agent read against the bug tracker and the
+user's prompt. "Of the millions of file-reading sessions, 13% of sessions
+exposed the agent to inline TODO(bug/...) or FIXME(bug/...) bug references."
+[source: blog-google-developers-saccone-agent-distraction, Claims 3, 4] [emerging]
+
+```
+Sessions exposed to TODO(bug/...) / FIXME(bug/...)   13%
+  Encounters where agent acted on the bug ID          6%   (94% ignored)
+    of which unprompted by developer                  83%
+      Unprompted detours on closed bugs               41%  (32% fixed/verified, 9% obsolete/won't-fix, 2% duplicate/restricted)
+      Unprompted detours on open bugs                 57%  (61% lookup only, 39% edited code)
+Per-session overhead of unprompted detours (p<0.0001):
+  +70% steps, +77% tokens, +105% wait time
+```
+*Google Developers Blog, "Agent Distraction" (observational, Google monorepo).*
+[source: blog-google-developers-saccone-agent-distraction, Claims 5, 6, 7; Concrete Artifacts] [emerging]
+
+Most encounters are ignored, so this is a tail cost, but an expensive one: the
+overhead holds after controlling for developer, task type, model tier and files
+read. The two detour types need different fixes. Closed-ticket dead ends are
+stale context that cleanup can delete. Open-bug scope creep is not something cleanup
+removes: in one described trajectory, an agent decided unprompted to "fix"
+`ModelDownloaderV1`, and when the developer challenged it, the model admitted
+the scope increase was wrong.
+[source: blog-google-developers-saccone-agent-distraction, Claims 6, 7; Concrete Artifacts] [emerging]
+
+Deleting these comments takes care. Google's cleanup agent checks the history of
+the bug, the file and the codebase before it proposes removing a TODO, because a
+TODO may still be load-bearing. It reports thousands of removals over six months
+with more than 95% reviewer acceptance. That number measures reviewer agreement;
+the post reports no before/after distraction rate.
+[source: blog-google-developers-saccone-agent-distraction, Claim 9] [emerging]
+
+This is the read-side twin of Ch03's TODO-as-completion failure: the same
+markers that let an agent fake completion also pull later agents off task. For open-bug detours, a
+scope boundary in the prompt or plan is the remaining lever. [editorial]
+
+**Rule**: Treat `TODO`/`FIXME` references to closed tickets as context debt
+for agents, and clean them up with a pass that checks the bug and file history
+before it deletes anything. (Single-organization observational study; the
+cleanup's effect on the distraction rate is untested.)
+[source: blog-google-developers-saccone-agent-distraction, Claims 6, 9] [emerging]
 
 ---
 
@@ -1415,6 +1510,8 @@ research-wasnotwas-context-compaction (Claims 1-8),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
-blog-simonwillison-fable-judgement (Claim 5)*
+blog-simonwillison-fable-judgement (Claim 5),
+blog-anthropic-components-of-agent-memory (Claims 1, 4, 5, 6, 9; Concrete Artifacts),
+blog-google-developers-saccone-agent-distraction (Claims 3, 4, 5, 6, 7, 9; Concrete Artifacts)*
 
 *Last updated: 2026-08-15*

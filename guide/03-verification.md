@@ -1255,6 +1255,23 @@ it past a 10-task pilot, and compare dollars — not just tokens — at the
 pricing-tier level.
 [source: blog-jetbrains-caveman-token-savings-test, Claims 1, 6, 7] [settled]
 
+### A per-token price cut is the same trap on the vendor side
+
+A lower per-token rate does not mean cheaper completed work, because token use
+per task can go up at the same time. Kimi K3.1 Pro's list price fell one-third
+from K3, yet Artificial Analysis and Arena (as relayed by Latent Space) put its
+cost per task at roughly unchanged on the AA Intelligence Index ($1.98, with
+output tokens per task rising from 48K to 55K), 29% lower on Arena WebDev
+($1.23 median), and 15% *higher* on the AA Cyber Index ($2.81).
+[source: blog-latentspace-ainews-kimi-k31-pro-cost-per-task, Claims 1, 2; Concrete Artifacts] [emerging]
+
+**Rule**: Price a model swap by re-running your own task set and comparing cost
+per completed task, not the per-token rate. The same price cut can lower,
+hold, or raise your bill depending on workload. (Figures are second-hand
+through a digest; the digest itself notes that per-token comparisons "concern
+per-token list prices, not measured cost per successful task.")
+[source: blog-latentspace-ainews-kimi-k31-pro-cost-per-task, Claims 1, 3] [emerging]
+
 ---
 
 *Sources for this chapter:
@@ -1286,6 +1303,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin*
+practitioner-dadlerj-tin,
+blog-latentspace-ainews-kimi-k31-pro-cost-per-task (Claims 1, 2, 3; Concrete Artifacts)*
 
 *Last updated: 2026-08-15*
