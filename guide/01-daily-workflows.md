@@ -303,7 +303,7 @@ implements quality control through system prompt directives:
  Never hand off understanding to another worker."
 ```
 
-[source: failure-alex000kim-claudecode-source-leak, Lesson 3] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 3] [stale]
 
 This is what Anthropic's team found necessary to encode in production:
 coordinators naturally drift toward approval and delegation without
@@ -313,7 +313,7 @@ invitation to forward a summary rather than understand it.
 **Rule**: When writing coordinator prompts, include explicit
 anti-rubber-stamping language. Name the specific failure mode: "You must
 understand findings before directing follow-up work."
-[source: failure-alex000kim-claudecode-source-leak, Lesson 3] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 3] [stale]
 
 ### The 15-minute cadence
 

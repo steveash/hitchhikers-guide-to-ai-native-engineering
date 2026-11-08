@@ -7,7 +7,7 @@ author: Alex Kim (alex000kim)
 date_published: 2026-03-31
 date_extracted: 2026-04-14
 last_checked: 2026-04-14
-status: current
+status: stale
 confidence_overall: emerging
 issue: "#20"
 ---

@@ -6,7 +6,7 @@ author: "Federico Cassano & Sasha Rush (Cursor Research)"
 date_published: 2026-03-17
 date_extracted: 2026-04-19
 last_checked: 2026-04-19
-status: current
+status: stale
 confidence_overall: emerging
 issue: "#162"
 ---

@@ -22,7 +22,7 @@ that matches your situation.
 ### The Thin Redirect (multi-tool teams)
 
 Put your guidance in a tool-agnostic file and make CLAUDE.md a pointer.
-[source: practitioner-getsentry-sentry] [emerging]
+[source: practitioner-getsentry-sentry] [stale]
 
 Sentry's CLAUDE.md is 11 bytes:
 
@@ -549,7 +549,7 @@ the hierarchy above.
 
 Claude Code's permission system has three levels and four context tiers
 (from the Claude Code architecture map):
-[source: blog-ccunpacked-claude-code-architecture, Claim 14] [emerging]
+[source: blog-ccunpacked-claude-code-architecture, Claim 14] [stale]
 
 ```
 # Permission system (3 levels)
@@ -574,7 +574,7 @@ The **four-tier hierarchy** answers "where should I put this
 configuration?": outer tiers override inner ones. A project-level deny
 overrides a session-level prompt; a call-level override applies to a
 single invocation.
-[source: blog-ccunpacked-claude-code-architecture, Claim 14] [emerging]
+[source: blog-ccunpacked-claude-code-architecture, Claim 14] [stale]
 
 ### The Granular Allowlist (enterprise / high-security)
 
@@ -1751,7 +1751,7 @@ Before the three-line circuit breaker shipped, 1,279 sessions were retrying
 autoCompact 50+ times in a row in a single session — one session reached
 3,272 consecutive failures. The entire $250K API calls/day waste was
 preventable with a single constant.
-[source: failure-alex000kim-claudecode-source-leak, Lesson 1] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 1] [stale]
 
 The three-failure threshold is instructive: it counts *consecutive* failures,
 not total failures. Transient errors self-heal before the breaker trips;
@@ -1762,7 +1762,7 @@ implementation — apply the same pattern to any retry loop in a custom harness.
 After N consecutive failures (3 is a reasonable default), trip to a safe
 degraded state rather than continuing to retry. The autoCompact case is the
 only measured production cost of omitting one in our corpus.
-[source: failure-alex000kim-claudecode-source-leak, Lesson 1] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 1] [stale]
 
 ### 7. No Dollar Ceiling on Unsupervised Agent Spend
 
