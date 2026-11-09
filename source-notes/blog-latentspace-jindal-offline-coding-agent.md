@@ -56,7 +56,7 @@ issue: "#4607"
 ### Claim 6: Give the agent the exact test command; a small model otherwise guesses the wrong test runner
 - **Evidence**: Observed failure: the agent proposed pytest for a unittest-based project.
 - **Confidence**: anecdotal (one observation)
-- **Quote**: "It initially proposed pytest, although this project uses Python's built-in unittest."
+- **Quote**: "It initially proposed pytest, although this project uses Python’s built-in unittest."
 - **Our assessment**: Matches the general guidance of encoding build/test commands in agent instructions, and is arguably more important for small local models. The fix is a prompt-level one; the author's task prompt does not include the command in the demonstrated run, only in the advice.
 
 ### Claim 7: Keep original tests unchanged and verify the result independently of the agent
@@ -68,19 +68,19 @@ issue: "#4607"
 ### Claim 8: A model's download size is not its memory requirement; a 64k context raises memory needs
 - **Evidence**: Table of download sizes (Qwen3.5 4B 3.3–4.0 GB; 9B 6.6–7.6 GB; 27B 17–20 GB); a cited third-party budget (Voltti) of 12–16 GB for the 9B build. No measurement on the author's laptop.
 - **Confidence**: emerging (consistent with other sources, but the figure is second-hand)
-- **Quote**: "Download size isn't a RAM requirement."
+- **Quote**: "Download size isn’t a RAM requirement."
 - **Our assessment**: Directionally right and corroborated by Fowler/Böckeler. The specific 12–16 GB figure is borrowed and unverified; the author does not report her own RAM usage.
 
 ### Claim 9: Model selection rests on vendor-reported benchmarks, not measurements from this setup
 - **Evidence**: Table from Qwen's model card: LiveCodeBench v6 / BFCL-V4: Qwen3.5 4B 55.8 / 50.3; 9B 65.6 / 66.1; gpt-oss-20b 74.6 / not reported.
 - **Confidence**: anecdotal (vendor-reported; author labels it so)
-- **Quote**: "The above table scores reported in Qwen's model card, not measurements from this laptop."
+- **Quote**: "The above table scores reported in Qwen’s model card, not measurements from this laptop."
 - **Our assessment**: Do not cite these numbers as evidence of offline agent performance. The author's rationale (stronger tool-calling score than the 4B) is a reasonable heuristic only.
 
 ### Claim 10: One toy fix does not show the setup handles large repos or unfamiliar frameworks; further exercises are untested
 - **Evidence**: Author's explicit limitations; CSV-report and log-analyzer exercises are published but not yet run offline.
 - **Confidence**: settled (as a statement of what was and was not tested)
-- **Quote**: "This one-line fix doesn't tell me how well the model would handle a large repository or an unfamiliar framework."
+- **Quote**: "This one-line fix doesn’t tell me how well the model would handle a large repository or an unfamiliar framework."
 - **Our assessment**: Honest and important. Anything beyond "a small local fix works" is unsupported by this source.
 
 ### Claim 11: Agent scaffold token usage differs sharply, but those results come from cloud models and do not transfer
@@ -92,7 +92,7 @@ issue: "#4607"
 ### Claim 12: Small, self-contained tasks are the right starting point when offline; record failed attempts too
 - **Evidence**: Author's recommendation based on the one run.
 - **Confidence**: anecdotal
-- **Quote**: "I'd start with small, self-contained tasks when using this setup during an outage or a journey."
+- **Quote**: "I’d start with small, self-contained tasks when using this setup during an outage or a journey."
 - **Our assessment**: Consistent with Fowler/Böckeler's finding that task choice dominates local-model viability (their Claim 9).
 
 ## Concrete Artifacts
