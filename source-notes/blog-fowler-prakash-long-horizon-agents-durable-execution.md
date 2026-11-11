@@ -192,7 +192,7 @@ Primitive mapping (article recap table): step = `execute_activity` / `step.do`; 
 ## Extraction Notes
 
 - Read the full article (HTML fetched and stripped to text, including the sidebars, prior-art boxes and footnotes). The interactive run timelines are embedded iframes and were not extracted; claims about "the run below" rely on the surrounding prose and code only.
-- The Prospector comments listed overlapping items inconsistently (e.g. a "five-row" table; the table has nine rows, five of which are re-examined in the "Durable is not the same as correct" section). This note follows the article text. the article states retries with idempotency keys address only part of the problem.
+- The Prospector comments listed overlapping items inconsistently (e.g. a "five-row" table; the table has nine rows, five of which are re-examined in the "Durable is not the same as correct" section). This note follows the article text.
 - Temporal-specific code and timings are the author's worked example and are attributed as such, not as general benchmarks.
 - Quotes verified verbatim against the fetched text (whitespace-normalized across source line wraps).
 - Other Fowler-hosted pages linked (Patterns of Distributed Systems, Agentic AI and Security) were not followed; the article's references to them are as stated.
