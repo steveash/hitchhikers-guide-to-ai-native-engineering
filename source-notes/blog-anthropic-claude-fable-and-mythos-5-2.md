@@ -98,8 +98,8 @@ issue: "#4640"
 ### Claim 13: Enterprise Frontier Safeguards monitor usage windows and are compatible with ZDR
 - **Evidence**: Private beta (Bridgewater, Salesforce, Stripe named).
 - **Confidence**: emerging
-- **Quote**: "automated safety monitoring is run on prompts and responses that are stored in a customer's infrastructure, making it compatible with zero data retention (ZDR)."
-- **Our assessment**: Others get "30-day retention for safety monitoring" — a data-handling constraint for enterprise adoption. (The source uses a typographic apostrophe in "customer's".)
+- **Quote**: "automated safety monitoring is run on prompts and responses that are stored in a customer’s infrastructure, making it compatible with zero data retention (ZDR)."
+- **Our assessment**: Others get "30-day retention for safety monitoring" — a data-handling constraint for enterprise adoption.
 
 ## Concrete Artifacts
 
