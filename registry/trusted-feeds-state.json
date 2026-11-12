@@ -454,8 +454,11 @@
         "https://simonwillison.net/2026/May/9/luke-curley/#atom-everything",
         "https://simonwillison.net/2026/Nov/1/delete-uv-lock-first/",
         "https://simonwillison.net/2026/Nov/1/kyle-kingsbury/",
+        "https://simonwillison.net/2026/Nov/10/llm-gemini/",
+        "https://simonwillison.net/2026/Nov/10/muse-ember/",
         "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
         "https://simonwillison.net/2026/Nov/10/yonkers-rises/",
+        "https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/",
         "https://simonwillison.net/2026/Nov/2/census-bureau-super-intelligence/",
         "https://simonwillison.net/2026/Nov/2/llm/",
         "https://simonwillison.net/2026/Nov/3/a-sound-that-leaks-your-exact-location/",
@@ -655,7 +658,7 @@
         "https://simonwillison.net/2026/Sep/9/terence-tao/",
         "https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything"
       ],
-      "last_scan": "2026-11-11T06:05:03.925221+00:00"
+      "last_scan": "2026-11-12T06:05:22.867356+00:00"
     },
     "armin-ronacher": {
       "seen": [
@@ -695,7 +698,7 @@
         "https://lucumr.pocoo.org/2026/9/5/latent-powers/",
         "https://lucumr.pocoo.org/2026/9/7/astra-why/"
       ],
-      "last_scan": "2026-11-11T06:05:06.084906+00:00"
+      "last_scan": "2026-11-12T06:05:24.961838+00:00"
     },
     "github-changelog": {
       "seen": [
@@ -732,7 +735,7 @@
         "69d7c7e5f4b5380001c805e3",
         "69da3347f4b5380001c807c4"
       ],
-      "last_scan": "2026-11-11T06:05:14.243499+00:00"
+      "last_scan": "2026-11-12T06:05:30.254288+00:00"
     },
     "github-copilot": {
       "seen": [
@@ -1043,7 +1046,7 @@
         "https://github.blog/changelog/2026-11-26-security-extension-for-the-github-copilot-app",
         "https://github.blog/changelog/2026-11-28-repository-plugin-defaults-and-enterprise-plugin-controls-generally-available"
       ],
-      "last_scan": "2026-11-11T06:05:11.892788+00:00"
+      "last_scan": "2026-11-12T06:05:27.804798+00:00"
     },
     "anthropic-engineering": {
       "seen": [
@@ -1076,7 +1079,7 @@
         "https://www.anthropic.com/research/components-of-agent-memory",
         "https://www.anthropic.com/research/confidential-inference-trusted-vms"
       ],
-      "last_scan": "2026-11-11T06:05:16.327389+00:00"
+      "last_scan": "2026-11-12T06:05:32.335861+00:00"
     },
     "claude-blog": {
       "seen": [
@@ -1250,6 +1253,7 @@
         "https://claude.com/blog/how-coderabbit-used-claude-to-build-an-agent-orchestration-system",
         "https://claude.com/blog/how-comcast-booz-allen-use-claude-mythos-to-secure-their-codebases",
         "https://claude.com/blog/how-cresta-turned-cx-expertise-into-an-agent-builder-on-the-claude-agent-sdk",
+        "https://claude.com/blog/how-curative-is-building-a-national-provider-network-with-agents-on-claude",
         "https://claude.com/blog/how-datadog-built-a-universal-machine-tool-for-claude-code",
         "https://claude.com/blog/how-enterprises-are-building-ai-agents-in-2026",
         "https://claude.com/blog/how-healthcare-organizations-use-claude-tag",
@@ -1272,6 +1276,7 @@
         "https://claude.com/blog/improving-skill-creator-test-measure-and-refine-agent-skills",
         "https://claude.com/blog/integrate-apis-seamlessly",
         "https://claude.com/blog/integrations",
+        "https://claude.com/blog/interactive-connectors-full-tool",
         "https://claude.com/blog/interactive-tools-in-claude",
         "https://claude.com/blog/introducing-artifacts-for-legal-work",
         "https://claude.com/blog/introducing-citations-api",
@@ -1294,6 +1299,7 @@
         "https://claude.com/blog/message-batches-api",
         "https://claude.com/blog/message-threads",
         "https://claude.com/blog/millennium-and-anthropic-are-building-a-digital-risk-analyst-with-claude",
+        "https://claude.com/blog/more-ways-to-work-with-claude-sheets-whiteboards-and-interactive-connectors",
         "https://claude.com/blog/multi-agent-coordination-patterns",
         "https://claude.com/blog/new-agents-and-products-claude-marketplace",
         "https://claude.com/blog/new-guide-deploying-claude-across-the-enterprise-with-claude-cowork",
@@ -1395,7 +1401,7 @@
         "https://www.anthropic.com/research/components-of-agent-memory",
         "https://www.anthropic.com/research/formal-verification"
       ],
-      "last_scan": "2026-11-11T06:05:21.327609+00:00"
+      "last_scan": "2026-11-12T06:05:38.121263+00:00"
     },
     "cursor-blog": {
       "seen": [
@@ -1473,7 +1479,7 @@
         "https://cursor.com/blog/warp-decode",
         "https://cursor.com/blog/wayfair"
       ],
-      "last_scan": "2026-11-11T06:05:24.521900+00:00"
+      "last_scan": "2026-11-12T06:05:40.226264+00:00"
     },
     "the-batch": {
       "seen": [
@@ -2236,7 +2242,7 @@
         "https://www.deeplearning.ai/the-batch/issue-xvi",
         "https://www.deeplearning.ai/the-batch/issue-xvi/"
       ],
-      "last_scan": "2026-11-11T06:05:26.626967+00:00"
+      "last_scan": "2026-11-12T06:05:42.344986+00:00"
     },
     "github-agentic-workflows": {
       "seen": [
@@ -2352,7 +2358,7 @@
         "https://github.github.com/gh-aw/blog/2026-11-09-weekly-update/",
         "https://github.github.com/gh-aw/blog/2026-11-10-ecosystem-spotlight/"
       ],
-      "last_scan": "2026-11-11T06:05:29.694277+00:00"
+      "last_scan": "2026-11-12T06:05:44.526046+00:00"
     },
     "sourcegraph": {
       "seen": [
@@ -2432,7 +2438,7 @@
         "https://sourcegraph.com/blog/why-coding-agents-fail-large-codebases",
         "https://sourcegraph.com/blog/why-your-migration-tools-are-failing-your-engineers"
       ],
-      "last_scan": "2026-11-11T06:05:31.956990+00:00"
+      "last_scan": "2026-11-12T06:05:46.904241+00:00"
     },
     "martin-fowler": {
       "seen": [
@@ -2510,9 +2516,10 @@
         "tag:martinfowler.com,2026-10-14:Build-your-slide-template",
         "tag:martinfowler.com,2026-10-15:When-Software-Meets-Hardware",
         "tag:martinfowler.com,2026-11-05:The-Data-Product-Platform-Navigator",
-        "tag:martinfowler.com,2026-11-10:Long-horizon-agents-and-durable-execution"
+        "tag:martinfowler.com,2026-11-10:Long-horizon-agents-and-durable-execution",
+        "tag:martinfowler.com,2026-11-11:Tests-as-data--ensuring-AI-generated-code-does-what-we-want"
       ],
-      "last_scan": "2026-11-11T06:05:36.475909+00:00"
+      "last_scan": "2026-11-12T06:05:50.677816+00:00"
     },
     "openai-news": {
       "seen": [
@@ -2753,6 +2760,7 @@
         "https://openai.com/index/building-codex-windows-sandbox",
         "https://openai.com/index/building-more-helpful-chatgpt-experiences-for-everyone",
         "https://openai.com/index/building-openai-with-openai",
+        "https://openai.com/index/building-scientific-understanding-with-academic-communities",
         "https://openai.com/index/building-self-improving-tax-agents-with-codex",
         "https://openai.com/index/building-standards-next-phase-ai",
         "https://openai.com/index/building-the-compute-infrastructure-for-the-intelligence-age",
@@ -3093,6 +3101,7 @@
         "https://openai.com/index/gpt-5-system-card-addendum-gpt-5-codex",
         "https://openai.com/index/gpt-5-system-card-sensitive-conversations",
         "https://openai.com/index/gpt-5-system-card-update-gpt-5-2",
+        "https://openai.com/index/gpt-6-1-sol-coderabbit-code-security",
         "https://openai.com/index/gpt-6-astra",
         "https://openai.com/index/gpt-6-astra-next-generation-work",
         "https://openai.com/index/gpt-6-for-everyone",
@@ -3862,7 +3871,7 @@
         "https://openai.com/openai-o1-contributions",
         "https://openai.com/signals/research/2026q1-update"
       ],
-      "last_scan": "2026-11-11T06:05:40.482989+00:00"
+      "last_scan": "2026-11-12T06:05:54.770787+00:00"
     },
     "pragmatic-engineer": {
       "seen": [
@@ -3937,7 +3946,7 @@
         "https://newsletter.pragmaticengineer.com/p/why-rust-is-different-with-alice",
         "https://newsletter.pragmaticengineer.com/p/windows-and-ai"
       ],
-      "last_scan": "2026-11-11T06:05:43.551767+00:00"
+      "last_scan": "2026-11-12T06:05:56.951850+00:00"
     },
     "jetbrains-ai": {
       "seen": [
@@ -3963,6 +3972,7 @@
         "https://blog.jetbrains.com/?post_type=ai&p=748941",
         "https://blog.jetbrains.com/?post_type=ai&p=750355",
         "https://blog.jetbrains.com/?post_type=ai&p=753313",
+        "https://blog.jetbrains.com/?post_type=ai&p=753369",
         "https://blog.jetbrains.com/?post_type=air&p=717399",
         "https://blog.jetbrains.com/?post_type=air&p=724830",
         "https://blog.jetbrains.com/?post_type=air&p=732481",
@@ -3974,12 +3984,13 @@
         "https://blog.jetbrains.com/?post_type=kotlin&p=720155",
         "https://blog.jetbrains.com/?post_type=platform&p=749238"
       ],
-      "last_scan": "2026-11-11T06:05:45.702645+00:00"
+      "last_scan": "2026-11-12T06:06:00.121254+00:00"
     },
     "google-developers": {
       "seen": [
         "https://developers.googleblog.com/4-engineering-patterns-behind-the-strongest-ai-agents-challenge-submissions/",
         "https://developers.googleblog.com/a-unified-api-for-ai-model-routing/",
+        "https://developers.googleblog.com/a2ui-10-build-delightful-fast-reliable-agentic-experiences/",
         "https://developers.googleblog.com/a2ui-and-mcp-apps/",
         "https://developers.googleblog.com/accelerating-spatio-temporal-attention-for-video-diffusion-on-tpus/",
         "https://developers.googleblog.com/adk-kotlin-android-building-ai-agents/",
@@ -4076,7 +4087,7 @@
         "https://developers.googleblog.com/why-go-is-an-ideal-language-for-ai-assisted-software-engineering/",
         "https://developers.googleblog.com/why-we-built-adk-20/"
       ],
-      "last_scan": "2026-11-11T06:05:50.795892+00:00"
+      "last_scan": "2026-11-12T06:06:03.578971+00:00"
     },
     "kent-beck": {
       "seen": [
@@ -4122,7 +4133,7 @@
         "https://newsletter.kentbeck.com/p/why-so-literal",
         "https://newsletter.kentbeck.com/p/you-dont-get-to-create-anything-6cb"
       ],
-      "last_scan": "2026-11-11T06:05:53.026375+00:00"
+      "last_scan": "2026-11-12T06:06:05.748295+00:00"
     },
     "geoffrey-huntley": {
       "seen": [
@@ -4156,9 +4167,10 @@
         "6ad1e2b4d763450001a748a9",
         "6ad20989d763450001a78daa",
         "6ad31ce6d763450001a7e33d",
-        "6ad79654a73fdb0001256743"
+        "6ad79654a73fdb0001256743",
+        "6af4bee4749278000157e09c"
       ],
-      "last_scan": "2026-11-11T06:05:55.121712+00:00"
+      "last_scan": "2026-11-12T06:06:09.464982+00:00"
     },
     "hamel-husain": {
       "seen": [
@@ -4180,7 +4192,7 @@
         "https://hamel.dev/blog/posts/prompt/",
         "https://hamel.dev/blog/posts/revenge/"
       ],
-      "last_scan": "2026-11-11T06:05:57.308247+00:00"
+      "last_scan": "2026-11-12T06:06:11.627055+00:00"
     },
     "thoughtworks": {
       "seen": [
@@ -5692,6 +5704,7 @@
         "https://www.thoughtworks.com/insights/blog/generative-ai/unlocking-infrastructure-as-code-potential-through-ai",
         "https://www.thoughtworks.com/insights/blog/generative-ai/using-ai-requirements-analysis-case-study",
         "https://www.thoughtworks.com/insights/blog/generative-ai/using-ai-to-build-genai-bot-for-logistics-teams-major-retailer",
+        "https://www.thoughtworks.com/insights/blog/generative-ai/we-built-ai-control-plane-reduce-LLM-expenses-prevent-data-leaks",
         "https://www.thoughtworks.com/insights/blog/generative-ai/we-need-to-treat-AI-hallucinations-as-a-feature-not-a-bug",
         "https://www.thoughtworks.com/insights/blog/generative-ai/what-is-context-rot",
         "https://www.thoughtworks.com/insights/blog/generative-ai/when-chatbots-mislead-tree-traps-and-fixes-for-ai-customer-service",
@@ -6982,7 +6995,7 @@
         "https://www.thoughtworks.com/insights/blog/youre-invited-discuss-future-internet",
         "https://www.thoughtworks.com/insights/blog/zhong-tai-radical-approach-enterprise-it"
       ],
-      "last_scan": "2026-11-11T06:05:59.538956+00:00"
+      "last_scan": "2026-11-12T06:06:14.830055+00:00"
     },
     "addy-osmani": {
       "seen": [
@@ -7008,7 +7021,7 @@
         "https://addyosmani.com/blog/practical-loop-engineering/",
         "https://addyosmani.com/blog/software-factories/"
       ],
-      "last_scan": "2026-11-11T06:06:01.672742+00:00"
+      "last_scan": "2026-11-12T06:06:16.976787+00:00"
     },
     "latent-space": {
       "seen": [
@@ -7147,9 +7160,10 @@
         "urn:latent-space:post:post_211d308e-4494-4480-adc1-9d69c85efd19",
         "urn:latent-space:post:post_3049d28e-7e21-4f4e-9f4b-ff63b89ebd0d",
         "urn:latent-space:post:post_54774b7d-42cc-4a8a-bb27-dee05866ddf0",
-        "urn:latent-space:post:post_afb68ac1-73fd-4861-b60f-254f59d5c2b4"
+        "urn:latent-space:post:post_afb68ac1-73fd-4861-b60f-254f59d5c2b4",
+        "urn:latent-space:post:post_da09d759-cdcb-4e0e-8da3-a546632e0a0f"
       ],
-      "last_scan": "2026-11-11T06:06:05.330618+00:00"
+      "last_scan": "2026-11-12T06:06:20.385556+00:00"
     },
     "vercel": {
       "seen": [
@@ -8071,6 +8085,7 @@
         "https://vercel.com/changelog/deploy-node-servers-with-zero-configuration",
         "https://vercel.com/changelog/deploy-steps-are-now-up-to-21-faster",
         "https://vercel.com/changelog/deploy-to-vercel-from-terraform",
+        "https://vercel.com/changelog/deploy-with-vercel-drop-without-an-account",
         "https://vercel.com/changelog/deploy-xmcp-servers-with-zero-configuration",
         "https://vercel.com/changelog/deployment-environment-filtering-now-available",
         "https://vercel.com/changelog/deployment-filters-for-project-dashboard",
@@ -9174,7 +9189,7 @@
         "https://vercel.com/changelog/zero-configuration-support-for-nitro",
         "https://vercel.com/changelog/zero-data-retention-no-prompt-training-on-ai-gateway"
       ],
-      "last_scan": "2026-11-11T06:06:09.313613+00:00"
+      "last_scan": "2026-11-12T06:06:23.779027+00:00"
     },
     "mattwood": {
       "seen": [
@@ -9221,8 +9236,8 @@
         "https://mattwood.blog/essays/2026/08/the-unit-of-return/",
         "https://mattwood.blog/essays/2026/08/the-wicked-frontier/"
       ],
-      "last_scan": "2026-11-11T06:06:11.841253+00:00"
+      "last_scan": "2026-11-12T06:06:25.963252+00:00"
     }
   },
-  "last_scan": "2026-11-11T06:06:11.841267+00:00"
+  "last_scan": "2026-11-12T06:06:25.963268+00:00"
 }

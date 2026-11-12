@@ -1420,9 +1420,19 @@
       "https://github.github.com/gh-aw/specs/token-broker-specification": {
         "status": "rejected",
         "screened_at": "2026-10-31T06:07:27.431283+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/connectors": {
+        "status": "rejected",
+        "screened_at": "2026-11-12T06:08:36.916470+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/connector-specification": {
+        "status": "filed",
+        "screened_at": "2026-11-12T06:08:36.916486+00:00",
+        "issue": 4681,
+        "filed_at": "2026-11-12T06:08:41.756880+00:00"
       }
     },
-    "last_scan": "2026-11-11T06:07:05.718247+00:00"
+    "last_scan": "2026-11-12T06:08:36.916490+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1569,7 +1579,7 @@
         "screened_at": "2026-11-05T06:08:22.420631+00:00"
       }
     },
-    "last_scan": "2026-11-11T06:07:07.272615+00:00"
+    "last_scan": "2026-11-12T06:08:38.588583+00:00"
   },
   "cognition": {
     "urls": {
@@ -2354,6 +2364,6 @@
         "filed_at": "2026-11-05T06:08:26.270455+00:00"
       }
     },
-    "last_scan": "2026-11-11T06:07:08.475630+00:00"
+    "last_scan": "2026-11-12T06:08:39.771338+00:00"
   }
 }
