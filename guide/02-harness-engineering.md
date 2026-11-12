@@ -246,6 +246,38 @@ a one-line rule for each. Skip everything your linter already catches.
 [source: practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories] [emerging]
 
+#### Who owns the code is a one-sentence lever
+
+Anthropic's prompting guidance for Fable 5.2 reports that the model "responds
+closely to what the prompt says about who owns the code it works on." Without
+an ownership statement, it tends to add to existing structure "even when that
+repeated existing code" and to "report nearby problems instead of fixing them."
+[source: blog-simonwillison-prompting-fable-52-code-ownership, Claims 1, 2] [emerging]
+
+The documented sentence:
+
+```text
+This codebase is yours: what it's for and how it's built are your call, and you'll keep building on it.
+```
+*[source: blog-simonwillison-prompting-fable-52-code-ownership, Concrete Artifacts]*
+
+On Anthropic's small coding tasks, the model "merged repeated code in about
+half of the tries with this sentence, and in under a tenth of the tries
+without it," and the effect held inside a long system prompt. The cost: about
+1.5x output tokens and changes nobody asked for (often new tests and docs).
+Its closing summary also "often left out small ones" of those changes. Adding
+"No drive-by refactors, renames or cleanups" elsewhere in the prompt did not
+cancel the sentence; merging still happened in about a third of tries. No
+sample sizes or task list are published.
+[source: blog-simonwillison-prompting-fable-52-code-ownership, Claims 3, 4, 5, 6, 7] [emerging]
+
+**Rule**: Use the ownership sentence in agent-owned repos where you want
+consolidation, and leave it out where a human owns the code and wants minimal
+diffs. Do not pair it with a no-refactor rule, and review the diff rather than
+the summary. (Measured by Anthropic on Fable 5.2 only; whether other models
+react the same way is not documented.)
+[source: blog-simonwillison-prompting-fable-52-code-ownership, Claims 6, 7, 8] [emerging]
+
 ### 3. Stack Context (for non-obvious architectures)
 
 Tell the agent what your project IS when the answer is not obvious from
@@ -1852,6 +1884,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
-practitioner-mikelane-pytest-test-categories*
+practitioner-mikelane-pytest-test-categories,
+blog-simonwillison-prompting-fable-52-code-ownership*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-12*

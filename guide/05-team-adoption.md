@@ -795,6 +795,44 @@ contradicting the review-is-the-bottleneck finding. Treat it as a hypothesis
 about where the trust/verify line is heading — not as license to drop review
 depth today, which the rest of this section argues against. [editorial]
 
+**Route each PR to an explicit review path.** Sourcegraph found that one
+required approval forced routine and discussion-worthy changes through the same
+gate, which led to a "stamp group" for small PRs: "We had different
+expectations for review, but we were fitting them into one approval
+requirement." Their experiment routes each PR to Ship, Show, or Ask. An agent
+reads the diff, the surrounding code, and the author's history, and returns
+findings with evidence. Deterministic application code applies the rules and
+posts the path on the PR.
+[source: blog-sourcegraph-ship-show-ask-pr-routing, Claims 1, 2, 3] [emerging]
+
+```
+Ship: no additional review is needed under policy
+Show: someone should see the change, but review can happen after merge
+Ask:  someone needs to review before it merges
+
+Familiarity (per component): two merged PRs reviewed by another person
+  + a relevant code, test, or doc contribution in the past 30 days
+Override: auth checks or sensitive-data exposure -> always Ask
+```
+*Paraphrased from the post's policy. The 2-PR / 30-day thresholds are one
+team's starting point, with no stated rationale.*
+[source: blog-sourcegraph-ship-show-ask-pr-routing, Concrete Artifacts; Claim 4] [anecdotal]
+[source: blog-sourcegraph-ship-show-ask-pr-routing, Claim 5] [emerging]
+
+Rollout started recommendations-only, with human review unchanged.
+[source: blog-sourcegraph-ship-show-ask-pr-routing, Claim 6] [emerging]
+The authors report no quality outcome: "Fewer stamp requests tell us little
+about review quality," and Show depends on someone returning after merge.
+[source: blog-sourcegraph-ship-show-ask-pr-routing, Claim 11] [settled]
+This does not conflict with holding per-PR review depth. Routing chooses
+*which* PRs get pre-merge review, and the security override keeps the riskiest
+ones on Ask. [editorial]
+
+**Rule**: If you automate review routing, let the agent supply evidence and
+let code make the decision. Hard-code an always-review list for security-sensitive
+changes, and run it recommendations-only before it can approve anything.
+[source: blog-sourcegraph-ship-show-ask-pr-routing, Claims 3, 5, 6] [emerging]
+
 ### Anti-pattern: trust the merge gate to catch quality
 
 Some teams respond to the review bottleneck by leaning harder on CI as the
@@ -1744,6 +1782,7 @@ practitioner-getsentry-sentry,
 practitioner-nikolays-postgres-dba,
 practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
-failure-hooks-enforcement-2k*
+failure-hooks-enforcement-2k,
+blog-sourcegraph-ship-show-ask-pr-routing*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-12*

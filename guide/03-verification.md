@@ -975,6 +975,23 @@ or treat every user-submitted field as untrusted and apply explicit format
 gates.
 [source: docs-ghaw-chatops, Claim 7] [settled]
 
+#### The PR under review must not be able to edit the reviewer's rules
+
+An AI reviewer that reads `AGENTS.md` or a principles file from the PR head
+gives the PR author a way to rewrite the criteria the PR is judged by. The
+"review council" project for GitHub Agentic Workflows closes this by reading
+the rules from the base commit: the council "reads the repository's
+principles.md and AGENTS.md from the PR's base commit, so a PR cannot rewrite
+the rules it is judged by." It also runs only on non-draft, same-repo PRs, with
+read-only permissions and bounded turns (`max-turns: 100`) and time
+(`timeout-minutes: 40`). The base-commit behavior is attributed to the project's
+`AGENTS.md`, not verified against its code.
+[source: blog-ghaw-ecosystem-spotlight-review-council, Claims 4, 5] [emerging]
+
+**Rule**: When an AI review gate reads in-repo instruction files, load them
+from the PR's base ref, not its head.
+[source: blog-ghaw-ecosystem-spotlight-review-council, Claim 4] [emerging]
+
 ### Secrets in agent memory stores
 
 Prompt injection is the input-side risk for an automated workflow; the
@@ -1286,6 +1303,7 @@ practitioner-frankray78-netpace,
 practitioner-nikolays-postgres-dba,
 practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
-practitioner-dadlerj-tin*
+practitioner-dadlerj-tin,
+blog-ghaw-ecosystem-spotlight-review-council*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-12*

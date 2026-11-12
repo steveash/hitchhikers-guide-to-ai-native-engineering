@@ -759,6 +759,14 @@ gets a handoff message; the parent keeps its cache.
 [source: blog-cursor-continual-harness-improvement, Claim 11;
 blog-anthropic-prompt-caching-everything, Claim 6] [emerging]
 
+A downgrade costs reasoning as well as cache. Thinking blocks are bound to the
+model that wrote them: "A move down a tier loses the earlier reasoning, because
+a model never reads the blocks of a model above it." The loss is silent,
+because the API drops the blocks and the request still succeeds. Anthropic's
+model-selection playbook recommends switching at natural breaks: after `/compact`, or in a
+fresh session that starts from a short written plan.
+[source: blog-claude-dev-osmani-which-claude-model-to-build-with, Claims 9, 10] [settled]
+
 **Rule**: Past ~50% context fill, do not switch models mid-conversation
 to save cost. Either continue on the current model or spawn a subagent
 on the cheaper one.
@@ -1415,6 +1423,7 @@ research-wasnotwas-context-compaction (Claims 1-8),
 practitioner-supabase-supabase-js (counter-evidence),
 practitioner-getsentry-sentry (cross-reference),
 failure-claudemd-ignored-compaction (cross-reference),
-blog-simonwillison-fable-judgement (Claim 5)*
+blog-simonwillison-fable-judgement (Claim 5),
+blog-claude-dev-osmani-which-claude-model-to-build-with (Claims 9, 10)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-12*
