@@ -336,6 +336,157 @@ because first-use trust is unvetted, gate which servers can be added with a
 registry allowlist rather than relying on change-detection alone.
 [source: docs-github-copilot-vs-june-2026, Claims 3, 4] [settled]
 
+### Behavior monitors are a detective layer, and they need warm-up time
+
+Google ran its Agent Anomaly Detection monitor against four public benchmarks
+it did not write. The headline result is conditional: "Of the ones that were
+executed, Agent Anomaly Detection flagged 87% for post-execution review"
+[source: blog-google-agent-anomaly-detection-benchmarks, Claim 1] [emerging].
+The same study shows where a behavior monitor goes blind:
+
+```
+Gap                          Evidence (vendor-run, gemini-2.5-flash, simulated apps)
+New agent, little history    33% of carried-out attacks flagged at ~220 benign
+                             sessions per agent vs 99% at 360          (Claim 6)
+Low-footprint actions        a single page visit "looks like normal browsing";
+                             lowest app 63%                            (Claim 7)
+High-impact everyday tools   false alarms 2-4% on office tasks, 16% on AgentHarm
+                                                                       (Claim 5)
+```
+[source: blog-google-agent-anomaly-detection-benchmarks, Claims 5, 6, 7]
+[emerging]
+
+Poisoned long-term memory was the largest gap. The monitor "caught 4 of 18"
+sessions where planted memory made the agent act
+[source: blog-google-agent-anomaly-detection-benchmarks, Claim 4]
+[anecdotal]. Google's own recommended posture puts the monitor behind
+preventive controls: "Use controls that stop harmful actions before they
+run, and Agent Anomaly Detection to find what gets through"
+[source: blog-google-agent-anomaly-detection-benchmarks, Claim 10] [settled].
+
+**Rule**: Treat an agent behavior monitor as detection layered behind
+preventive controls such as least-privilege tools, egress allowlists, and
+human approval for high-impact actions. Expect it to be close to blind on a
+newly deployed or re-scoped agent until it has a few hundred benign sessions
+of history.
+[source: blog-google-agent-anomaly-detection-benchmarks, Claims 6, 7, 10]
+[emerging]
+
+---
+
+## The AI Toolchain Is the Target: Keys, Traces, and Extensions
+
+Two vendors published post-mortems of unrelated incidents in November 2026.
+Both trace attacks through systems that hold credentials for AI tools. A
+Thoughtworks analysis published the same week states the general point:
+"Coding assistants, editors, MCP servers and their extensions are part of
+your software supply chain, and attackers have noticed"
+[source: blog-thoughtworks-attackers-targeting-ai-tools, Claim 1] [emerging].
+
+### AI-provider keys are a named target
+
+Railway's forensics show the attacker went after AI keys on purpose:
+"Database logs show that the attacker was specifically prioritizing AI
+provider keys in their queries by selecting rows where the variable name
+matched attacker-provided regular expressions"
+[source: failure-railway-october-build-escape-to-kms-decrypt, Claim 5]
+[emerging]. Each step of the chain was a credential-scope failure:
+
+```
+Railway, Oct 20-21 2026 (condensed from the incident timeline)
+1. Partial filesystem escape from a multi-tenant build VM -> build credential
+   (intended scope: registry pushes)
+2. Internal Temporal cluster accepted that credential as a trusted client
+   -> 353 build histories (env vars, secrets) + cached monorepo snapshots
+3. Erroneous OIDC binding in CI/CD -> short-lived cloud credential
+   -> internal credentials + SSH key -> host with a long-lived decrypt
+      credential on disk
+4. Regex-targeted DB reads of AI-key variables -> KMS decrypt
+```
+*Condensed from [source: failure-railway-october-build-escape-to-kms-decrypt,
+Concrete Artifacts].*
+
+Step 2 is the transferable lesson: "The credential the attacker gained access
+to was intended to authorize only work needed to complete builds, such as
+registry pushes, and nothing else. However, our internal Temporal instance
+used for builds accepted it as a trusted client"
+[source: failure-railway-october-build-escape-to-kms-decrypt, Claim 2]
+[emerging]. Step 3 shows that short-lived credentials do not help when the
+trust binding that mints them is wrong
+[source: failure-railway-october-build-escape-to-kms-decrypt, Claim 4]
+[emerging]. Railway's replacement design: "Each build now gets a dedicated
+ephemeral virtual machine, on top of the existing original isolation, with a
+credential that only has permission to push a specific OCI image to the image
+registry managed by Railway"
+[source: failure-railway-october-build-escape-to-kms-decrypt, Claim 10]
+[emerging].
+
+**Rule**: Every service that accepts a credential should enforce its scope,
+instead of relying on what the issuer intended. Audit the OIDC and
+federation bindings that mint short-lived credentials, because one bad
+binding turned a copied repo into KMS decryption.
+[source: failure-railway-october-build-escape-to-kms-decrypt, Claims 2, 4, 10]
+[emerging]
+
+### Agent traces are a credential store
+
+Cursor's incident began with a vendor key: "An attacker obtained an access
+key we had issued to Fireworks"
+[source: blog-cursor-security-incident-update, Claim 1] [emerging]. That key
+opened a bucket of historical coding-agent traces kept for model training,
+and "A small number of those traces contained credentials that had not been
+redacted; less than 0.01% of customers had API credentials exposed"
+[source: blog-cursor-security-incident-update, Claim 2] [emerging]. Those
+credentials gave access to SaaS tools. Later a stolen internal credential was
+used to write a malicious build of the Claude Code extension into Cursor's
+marketplace cache, and "At most 5,000 users who requested specific cached
+versions of the extension on October 29 potentially received the malicious
+build" [source: blog-cursor-security-incident-update, Claims 4, 5]
+[emerging]. Privacy Mode users, whose sessions were not retained, were not
+exposed [source: blog-cursor-security-incident-update, Claim 3] [emerging].
+
+**Rule**: Treat stored agent sessions and traces as data that contains
+secrets. Redact credentials before traces are stored or shared, and find out
+whether your tool vendor retains sessions for training. Restrict issued
+credentials by network origin so "compromised credentials can't be used
+outside their intended location."
+[source: blog-cursor-security-incident-update, Claims 2, 3, 8] [emerging]
+
+### Put editor and agent tooling under update control
+
+Thoughtworks turns these incidents into a checklist. It is the authors'
+advice and has not been measured:
+
+```
+Controls for tools with access to code and credentials (Thoughtworks, Nov 2026)
+Update   pin; stage or add a short review window; verify signatures and
+         provenance; keep a fast-track lane for urgent, verified security patches
+Contain  no unnecessary admin rights; separate dev from prod access;
+         short-lived, narrowly scoped credentials; sandbox the editor AND
+         agent-executed commands
+Respond  plan for a full workstation wipe plus repo/cloud audit, not an
+         uninstall; rehearse with tabletops
+Detect   alert on SSH key changes, new startup mechanisms, unusual credential
+         file access, editor processes opening tunnels; correlate with
+         identity, repo and cloud logs
+```
+[source: blog-thoughtworks-attackers-targeting-ai-tools, Claims 8, 9, 10, 11;
+Concrete Artifacts] [emerging]
+
+The "wipe, not uninstall" line rests on the Cursor incident: "Simply
+uninstalling a malicious extension often leaves persistence mechanisms behind
+as seen in the Cursor incident"
+[source: blog-thoughtworks-attackers-targeting-ai-tools, Claim 10] [emerging].
+Cursor's own follow-up says customers were sent the specific keys to rotate
+[source: blog-cursor-security-incident-update, Claim 10] [emerging].
+
+**Rule**: Manage AI coding tools and their extensions like production
+dependencies: pin them, stage updates, and check provenance. Write the
+incident playbook around reimaging the workstation, not uninstalling the
+extension.
+[source: blog-thoughtworks-attackers-targeting-ai-tools, Claims 8, 10]
+[emerging]
+
 ---
 
 ## The Sandbox Is the Control — Even When Someone Else Runs It
@@ -601,6 +752,8 @@ blog-anthropic-cowork-chrome-side-panel (Claims 4, 5, 6, 7, 8, 9; Concrete Artif
 blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 5, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
+blog-cursor-security-incident-update (Claims 1, 2, 3, 4, 5, 8, 10),
+blog-google-agent-anomaly-detection-benchmarks (Claims 1, 4, 5, 6, 7, 10),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
 blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
@@ -609,6 +762,8 @@ blog-simonwillison-bobby-holley (Claims 1, 7),
 blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
 blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
-docs-github-copilot-vs-june-2026 (Claims 3, 4)*
+blog-thoughtworks-attackers-targeting-ai-tools (Claims 1, 8, 9, 10, 11; Concrete Artifacts),
+docs-github-copilot-vs-june-2026 (Claims 3, 4),
+failure-railway-october-build-escape-to-kms-decrypt (Claims 2, 4, 5, 10; Concrete Artifacts)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-14*

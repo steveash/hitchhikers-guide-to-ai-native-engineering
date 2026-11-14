@@ -850,6 +850,81 @@ agent performed red-green).
 [source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 11;
 blog-simonwillison-condense-json-1-1, Claim 10] [emerging]
 
+### Protect the test contract from the agent that writes the code
+
+Mutation testing checks that a suite catches faults. It does not stop the
+agent from rewriting the suite on the next feature. In Vaccari's interviews
+with 26 Thoughtworks developers, high-autonomy users had stopped trusting
+their tests for exactly that reason: "even if I review the tests when they
+are initially generated, as new features get added, the AI refactors both
+existing code and existing tests, so I’m no longer confident that the tests
+are still ensuring the right behaviour"
+[source: blog-fowler-vaccari-tests-as-data, Claim 1] [anecdotal].
+
+Vaccari's fix moves the contract out of test code and into data (input,
+expected output, setup) because "when the tests are written in text files,
+it's easier to spot when AI is changing them"
+[source: blog-fowler-vaccari-tests-as-data, Claim 6] [emerging]:
+
+```yaml
+suite: greetings
+tests:
+  - name: "personalised greeting"
+    request:
+      resource: "/hello"
+      name: "Joe"
+    greeting: "Hello, Joe!"
+```
+
+The runner is much smaller than the test code it replaces, so the data
+files can be write-protected based on the task type. You can enforce this
+with read-only files, a CI check on which paths changed, or harness hooks.
+Vaccari warns that hooks are fast feedback but "not bullet-proof"
+[source: blog-fowler-vaccari-tests-as-data, Claim 7] [emerging]:
+
+```
+When                         Prod code?  Test data?  Test runner?
+Implementing new function    Yes         Yes         No
+Refactoring production code  Yes         No          No
+Improving test coverage      No          Yes         No
+Improving test DSL           No          Yes         Yes
+```
+*Reconstructed from Vaccari's table. See
+[source: blog-fowler-vaccari-tests-as-data, Concrete Artifacts].*
+
+An external DSL with a parser goes further, because the grammar makes the
+assertion mandatory and the agent cannot fake coverage with an empty or
+weak test [source: blog-fowler-vaccari-tests-as-data, Claim 8] [emerging].
+
+A protected contract can still specify the wrong thing: "Mutation testing
+proves that the tests are effective in detecting faults, but it does not
+protect us against the risk that the tests themselves are specifying
+something that is not correct"
+[source: blog-fowler-vaccari-tests-as-data, Claim 12] [emerging]. The fix
+is an oracle. AWS built its local emulator by having agents write each
+fidelity test against the real service first: "The agents correct each test
+until it passes against real AWS, so the test records how AWS behaves."
+Only then did agents build the emulator to pass the same test
+[source: blog-simonwillison-aws-emulator, Claim 2] [emerging]. The failure
+case without an oracle comes from the same post: "I supervised the agent
+for four nights before I saw that it had no way to check its results"
+[source: blog-simonwillison-aws-emulator, Claim 7] [anecdotal].
+
+**Counter-evidence**: Max Kanat-Alexander, as reported by Vaccari, usually
+prefers agents to write tests as code so that static-analysis rules can
+constrain them [source: blog-fowler-vaccari-tests-as-data, Claim 15]
+[anecdotal]. Both approaches constrain the agent, so they are alternatives
+rather than a contradiction. Vaccari also scopes the technique to
+production systems, not prototypes
+[source: blog-fowler-vaccari-tests-as-data, Claim 13] [emerging].
+
+**Rule**: Make the tests an agent must pass hard for it to edit silently:
+use data files or a constrained DSL, write-protected per task type. Check
+their expected values against an oracle such as the real system, the
+official spec, or a reference implementation.
+[source: blog-fowler-vaccari-tests-as-data, Claims 7, 12;
+blog-simonwillison-aws-emulator, Claim 2] [emerging]
+
 ### The author who never read the diff ("meat proxy")
 
 Niklas Gruhn names the general failure — relaying a model's output to
@@ -1268,7 +1343,9 @@ blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
+blog-fowler-vaccari-tests-as-data (Claims 1, 6, 7, 8, 12, 13, 15; Concrete Artifacts),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
+blog-simonwillison-aws-emulator (Claims 2, 7),
 blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
 blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
@@ -1288,4 +1365,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-14*
