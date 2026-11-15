@@ -7,7 +7,7 @@ author: hardwellvibe
 date_published: 2026-02-10
 date_extracted: 2026-04-15
 last_checked: 2026-04-15
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#58"
 ---

@@ -114,7 +114,7 @@ All guidance lives in `AGENTS.md` files (root + subdirectories), and an
 agents = ["claude", "cursor"]
 ```
 
-[source: practitioner-getsentry-sentry] [emerging]
+[source: practitioner-getsentry-sentry] [stale]
 
 This is the architectural posture the multi-tool reality demands. Putting
 guidance in a tool-agnostic file means the file remains useful when your team
@@ -192,7 +192,7 @@ exactly the rate the AI lets them ship faster. A CLAUDE.md that omits lint,
 test, and typecheck commands is a CLAUDE.md that will let your team's
 cognitive complexity drift up by 41.6% -- which is what Miller et al.
 measured, *persistently*, across 806 adopting projects.
-[source: paper-miller-speed-cost-quality, Claim 2] [emerging]
+[source: paper-miller-speed-cost-quality, Claim 2] [stale]
 
 **Rule**: Before rolling out AI tools to a team, audit the harness to
 guarantee it can run lint, format, typecheck, and tests as documented commands
@@ -257,7 +257,7 @@ long-tail of complexity-driven slowdowns → those slowdowns wash out the
 original velocity gains. The treated repositories still have the Cursor
 config files and presumably still use the tool. The decay is not "people
 stopped using it." The decay is "the quality cost caught up."
-[source: paper-miller-speed-cost-quality, Claims 1, 2, 4, 5] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 1, 2, 4, 5] [stale]
 
 **Rule**: A team rolling out AI tools must invest in quality automation
 *before* the velocity gains decay, not after. By the time the productivity
@@ -679,7 +679,7 @@ adoption.
 **Source 1 (peer-reviewed)**: Miller et al. find a persistent 41.6% increase
 in cognitive complexity post-Cursor adoption, alongside a 30.3% increase in
 static analysis warnings (reliability + maintainability + security).
-[source: paper-miller-speed-cost-quality, Claims 2, 3] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 2, 3] [stale]
 
 **Source 2 (vendor analytics)**: Faros AI's example customer comparison shows
 Team A (5% Claude Code adoption) vs. Team B (60% adoption): "Team B... merging
@@ -718,7 +718,7 @@ same eight hours and the same attention budget.
 finding of a 41.6% persistent cognitive complexity increase means reviewers
 are not just looking at more PRs -- they are looking at PRs that take 41.6%
 more cognitive load to understand per line.
-[source: paper-miller-speed-cost-quality, Claim 2] [emerging]
+[source: paper-miller-speed-cost-quality, Claim 2] [stale]
 
 **3. The trust problem**: The reviewer often does not know what was AI-generated
 and what was human-authored. AI-written code has different failure modes from
@@ -900,7 +900,7 @@ pull_requests.median_minutes_to_merge_copilot_reviewed
   → Does NOT measure: cycle time for non-Copilot-reviewed PRs.
 ```
 
-[source: docs-github-copilot-pr-review-metrics, Claims 2, 3] [settled]
+[source: docs-github-copilot-pr-review-metrics, Claims 2, 3] [emerging]
 
 The first field is an **adoption metric** — it tells you whether Copilot
 review touched a PR, not whether the review helped. The second field is a
@@ -1114,7 +1114,7 @@ the typical vendor narrative.
 - **Miller et al.** show that the early velocity spike (281% in month 1)
   decays to zero by month 3 -- meaning any measurement window shorter than
   three months will systematically overstate the durable gain.
-  [source: paper-miller-speed-cost-quality, Claims 1, 4] [emerging]
+  [source: paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 
 The realistic ceiling for organizational productivity gains in a large
 company appears to be in the 10-30% range, with the upper bound requiring
@@ -1254,7 +1254,7 @@ strongest peer-reviewed evidence in our corpus.
 Miller et al. measured a 281% velocity spike in month 1 that decayed to *zero*
 by month 3. That decay alone disproves any vendor claim that 30-day pilot
 numbers represent durable productivity gains.
-[source: paper-miller-speed-cost-quality, Claims 1, 4] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 
 Self-reported productivity estimates are consistently higher than instrumented
 measurements. Anthropic engineers self-report 50% gains, but the same report
@@ -1297,7 +1297,7 @@ cohort design.
 found a persistent 41.6% increase in cognitive complexity and 30.3% increase
 in static analysis warnings post-Cursor adoption. These are large effects,
 peer-reviewed, and survive matching.
-[source: paper-miller-speed-cost-quality, Claims 2, 3] [emerging]
+[source: paper-miller-speed-cost-quality, Claims 2, 3] [stale]
 
 But the *mechanism* matters. The same paper finds that AI tools amplify
 existing velocity-quality dynamics rather than introducing new bug categories
@@ -1411,7 +1411,7 @@ security partner, not a security guarantor.
 The Miller paper's 30.3% increase in static analysis warnings includes a
 security-warning subcategory, which is evidence in the *opposite* direction:
 AI-generated code triggers more security warnings, not fewer.
-[source: paper-miller-speed-cost-quality, Claim 3] [emerging]
+[source: paper-miller-speed-cost-quality, Claim 3] [stale]
 
 The honest framing: the security-improvement claim should be treated as
 "possibly true on average for some narrow categories of vulnerability,
@@ -1660,7 +1660,7 @@ timeline the evidence actually supports.
   [source: blog-faros-claude-code-roi, Claims 1, 2, 4] [stale]
 - Watch for the velocity-decay pattern (281% → 48% → 0%). If month-3 velocity
   has not been sustained by month 6, the harness is the prime suspect.
-  [source: paper-miller-speed-cost-quality, Claims 1, 4] [emerging]
+  [source: paper-miller-speed-cost-quality, Claims 1, 4] [stale]
 - Stage harness expansion from Phase 1 (refactoring) into Phase 2 (feature
   implementation) per the Anthropic usage trajectory.
   [source: research-anthropic-ai-transforming-work, Claim 6] [stale]

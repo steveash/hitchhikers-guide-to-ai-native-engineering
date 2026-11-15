@@ -6,7 +6,7 @@ author: ronbenton (OP); substantive comments by jackyli02, hackermailman, mattma
 date_published: 2026-03-09
 date_extracted: 2026-04-14
 last_checked: 2026-04-14
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#43"
 ---

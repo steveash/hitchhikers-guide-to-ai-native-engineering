@@ -6,7 +6,7 @@ author: Pieter Maes (pmaze)
 date_published: 2026-01-10
 date_extracted: 2026-04-14
 last_checked: 2026-04-14
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#78"
 ---
