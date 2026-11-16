@@ -1434,9 +1434,19 @@
       "https://github.github.com/gh-aw/cracktro": {
         "status": "rejected",
         "screened_at": "2026-11-14T06:07:17.059040+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/experiments": {
+        "status": "rejected",
+        "screened_at": "2026-11-16T06:10:53.396688+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/experiments-specification": {
+        "status": "filed",
+        "screened_at": "2026-11-16T06:10:53.396704+00:00",
+        "issue": 4762,
+        "filed_at": "2026-11-16T06:10:58.348587+00:00"
       }
     },
-    "last_scan": "2026-11-15T06:08:13.542355+00:00"
+    "last_scan": "2026-11-16T06:10:53.396707+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1583,7 +1593,7 @@
         "screened_at": "2026-11-05T06:08:22.420631+00:00"
       }
     },
-    "last_scan": "2026-11-15T06:08:15.021939+00:00"
+    "last_scan": "2026-11-16T06:10:55.077600+00:00"
   },
   "cognition": {
     "urls": {
@@ -2368,6 +2378,6 @@
         "filed_at": "2026-11-05T06:08:26.270455+00:00"
       }
     },
-    "last_scan": "2026-11-15T06:08:16.131139+00:00"
+    "last_scan": "2026-11-16T06:10:56.249272+00:00"
   }
 }
