@@ -668,6 +668,49 @@ is a config switch rather than an emergency migration. Resilience that isn't bui
 before the outage cannot be improvised during it.
 [source: blog-thoughtworks-kamelman-sovereign-ai-dependency, Claims 1, 4] [emerging]
 
+### What to own so the switch stays cheap
+
+A second provider is only a config switch if the assets your workflows depend
+on are not tied to the first. [editorial] A hyperscaler CEO and two Thoughtworks authors
+name the same assets. Microsoft's CEO advises keeping "the harness, memory, and
+model" decoupled "so that they can be changed with ease," and building private
+evals to choose and upgrade models.
+[source: blog-pragmaticengineer-orosz-nadella-software-engineering-after-cheap-code, Claim 6] [emerging]
+A Thoughtworks framework names evaluations, behavioral data and policies, and
+the routing layer as what must be owned and portable, with models, compute and
+serving rentable.
+[source: blog-thoughtworks-moore-kramer-squeo-model-sovereignty-not-owning, Claim 7] [emerging]
+A second Thoughtworks practitioner puts the portable layer in the "enterprise
+harness" — reusable skills, integrations, guardrails and evaluations.
+[source: blog-thoughtworks-shangqi-sovereign-ai-practical-approach, Claim 4] [emerging]
+
+Fine-tuned weights are the asset *not* to over-invest in: a fine-tune lives
+only as long as its base model, and in one dated case a provider gave 92 days'
+notice of retiring two model families against a stated six-month
+minimum.
+[source: blog-thoughtworks-moore-kramer-squeo-model-sovereignty-not-owning, Claim 4] [emerging]
+
+The minimum practice is two steps: map each AI dependency and who controls it,
+then test one fallback to confirm it works.
+[source: blog-thoughtworks-shangqi-sovereign-ai-practical-approach, Claim 8] [emerging]
+
+```
+Own (portable across providers)        Rent (swappable)
+-------------------------------        ----------------
+evals on your own tasks                models
+skills, integrations, guardrails       compute
+behavioral data and policies           serving
+routing / gateway layer
+```
+*Synthesized from the three sources above; no single source gives this table.* [editorial]
+
+**Rule**: Keep evals, skills, guardrails, and the routing layer
+model-independent and in your own repositories, treat fine-tunes as
+disposable, and prove the arrangement by running one real fallback.
+[source: blog-pragmaticengineer-orosz-nadella-software-engineering-after-cheap-code, Claim 6;
+blog-thoughtworks-moore-kramer-squeo-model-sovereignty-not-owning, Claims 4, 7;
+blog-thoughtworks-shangqi-sovereign-ai-practical-approach, Claims 4, 8] [emerging]
+
 ---
 
 ## Code Review When AI Wrote It
@@ -1044,11 +1087,39 @@ Per-item spans carry `changed_files`, `additions`, `deletions`, and
 rejected more often than small ones" is a query rather than a study.
 [source: docs-ghaw-open-telemetry-attributes, Claim 7] [settled]
 
+The numerator needs evidence rules of its own, or the acceptance rate counts
+things no human accepted. [editorial] gh-aw's delivery-and-adoption ledger records
+*delivery* (an effect was applied) and *adoption* (a decision about it) as
+separate facts, and applies three evidence rules worth copying:
+[source: docs-ghaw-delivery-adoption, Claim 1] [emerging]
+
+- **Automated acceptance is not human acceptance.** Some output types may be
+  accepted at delivery time, but those records carry
+  `acceptance_kind: "fallback_delivery"` and `human_verified: false`:
+  "Summaries separate accepted_human from accepted_delivery_fallback."
+  [source: docs-ghaw-delivery-adoption, Claim 6] [emerging]
+- **The publisher cannot be the verifier.** A human-verified decision needs an
+  actor who is neither a known bot nor the publishing identity and who has
+  current repository authorization; anything unverifiable stays `unknown`.
+  [source: docs-ghaw-delivery-adoption, Claim 5] [emerging]
+- **Missing is not zero.** Missing or malformed evidence means "unavailable or
+  partial coverage, not a verified count of zero." Likewise, a 404 "does not
+  prove that an object was deleted."
+  [source: docs-ghaw-delivery-adoption, Claims 3, 7] [emerging]
+
+The same page suppresses cost per adopted output when cost or episode evidence
+is incomplete or adopted items are zero, rather than showing a misleading
+ratio — and calls it "an efficiency ratio, not a value score."
+[source: docs-ghaw-delivery-adoption, Claim 13] [emerging]
+
 **Rule**: Before adding another metric, define the accepted result your
 agents produce, then report value per accepted result and full cost per
 accepted result — full cost including retries, self-checks, handoffs to a
 person, and the build and maintenance the token bill omits.
 [source: blog-mattwood-unit-of-return, Claims 5, 8] [anecdotal]
+Count only human-verified acceptances by someone other than the publishing
+identity, and report missing evidence as unknown rather than zero.
+[source: docs-ghaw-delivery-adoption, Claims 3, 5, 6] [emerging]
 
 ### The 27% finding: measure new categories of work
 
@@ -1732,6 +1803,10 @@ blog-faros-claude-code-roi (Claims 1-7),
 blog-simonwillison-directly-responsible-individuals (Claims 1, 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 4),
 blog-thoughtworks-kamelman-sovereign-ai-dependency (Claims 1, 4),
+blog-thoughtworks-moore-kramer-squeo-model-sovereignty-not-owning (Claims 4, 7),
+blog-thoughtworks-shangqi-sovereign-ai-practical-approach (Claims 4, 8),
+blog-pragmaticengineer-orosz-nadella-software-engineering-after-cheap-code (Claim 6),
+docs-ghaw-delivery-adoption (Claims 1, 3, 5, 6, 7, 13),
 docs-ghaw-multi-repo-ops (Claims 3, 4, 5, 6, 9),
 docs-ghaw-sharing-workflows (Claims 1, 2, 3, 4, 5, 8),
 docs-github-copilot-claude-sonnet4-deprecation (Claims 2, 3, 8),
@@ -1746,4 +1821,4 @@ practitioner-mikelane-pytest-test-categories,
 failure-claudemd-ignored-compaction,
 failure-hooks-enforcement-2k*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-19*

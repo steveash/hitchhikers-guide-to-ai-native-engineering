@@ -1627,6 +1627,63 @@ actually needs.
 
 ---
 
+## Always-On Agents Are Event-Driven Runs, Not a Resident Process
+
+Anthropic's reference architecture for proactive agents starts from a
+reframe: "An always-on agent is not actually “always on.” This is just a
+description of the user experience." The agent sleeps and wakes into discrete
+runs inside saved sessions.
+[source: blog-anthropic-building-always-on-agents, Claim 1] [emerging]
+Everything that can wake it goes through one durable queue:
+
+```
+event source -> handler (ack fast) -> INBOX (durable table, dedupe by source id)
+timer store (follow-ups, schedules) -> scheduler (polls) -> INBOX
+INBOX -> single worker (batches pending) -> run in new or resumed session
+run: load memory -> act under permissions -> update memory
+     -> outcome: send | send nothing | deferred call
+user reply / approval -> INBOX (resumes saved session)
+```
+*Abridged from the source note's paraphrase of the article's architecture; the
+article itself ships no code.*
+[source: blog-anthropic-building-always-on-agents, Concrete Artifacts] [emerging]
+
+The design choices that matter, each stated as a failure it prevents:
+
+- **No direct calls.** If event sources invoke the agent, "two events arriving
+  at the same time can start competing runs, and a crash can lose an event
+  entirely." Write to the inbox, dedupe by source ID, and let a replacement
+  worker retry the same event.
+  [source: blog-anthropic-building-always-on-agents, Claims 2, 3] [emerging]
+- **One worker per inbox.** For events that arrive mid-run, pick one policy
+  explicitly: push to the next run, fold into the current run, or interrupt and
+  restart. The article lists all three without recommending one.
+  [source: blog-anthropic-building-always-on-agents, Claim 4] [emerging]
+- **Timers enqueue; they never run.** "A timer doesn’t initiate a run on its
+  own," so timer-driven work still respects the single-worker rule.
+  [source: blog-anthropic-building-always-on-agents, Claim 6] [emerging]
+- **Human approval is just another event.** "When a call is deferred, the run
+  ends and the session is saved mid-call"; the user's answer arrives as an
+  inbox event and resumes it, so no process blocks waiting.
+  [source: blog-anthropic-building-always-on-agents, Claim 13] [emerging]
+
+Two gaps to fill yourself. A retried event means at-least-once execution, and
+the article does not address idempotency of the side effects a half-finished
+run already performed. [editorial] Deferral is also only cheap when the
+question is one a human can answer: in one report, a long `/goal` run went
+"blocked" two hours in to ask which of two filenames a reviewer subagent had
+written its clips to.
+[source: blog-simonwillison-gpt62-astra-and-sol, Claims 6, 7] [anecdotal]
+
+**Rule**: Route every trigger for an unattended agent — webhook, timer, human
+reply — through one durable inbox drained by one worker, choose the mid-run
+event policy deliberately, and reserve deferred calls for decisions the user
+can actually make.
+[source: blog-anthropic-building-always-on-agents, Claims 2, 4, 6, 13] [emerging]
+[source: blog-simonwillison-gpt62-astra-and-sol, Claims 6, 7] [anecdotal]
+
+---
+
 ## How Much Does the Harness Actually Move?
 
 This chapter asserts that the harness is the highest-leverage surface you
@@ -1764,6 +1821,40 @@ degraded state rather than continuing to retry. The autoCompact case is the
 only measured production cost of omitting one in our corpus.
 [source: failure-alex000kim-claudecode-source-leak, Lesson 1] [emerging]
 
+When the loop spans agent *runs* — a builder and a reviewer sending work back
+and forth — the counter has to live outside the model too. The
+svennijhuis/agentic-workflows catalog caps its send-back loop in each
+workflow's `if:` trigger condition "so the runner decides whether a run
+starts, not prompt text." The reviewer counts rounds from its own prior
+reviews "so a wrong input cannot reset the count."
+[source: blog-ghaw-ecosystem-spotlight-svennijhuis-agentic-workflows, Claims 1, 2] [anecdotal]
+The tripped state is a human handoff rather than silent abandonment:
+
+```
+issue-builder   runs only for: a new build, fix rounds 1–2
+pr-reviewer     runs only for: review rounds 1–3
+                round = count of its own "Reviewer: changes needed" reviews
+round 3 with findings left → add label `needs-help`, post one summary, start nothing
+```
+*Paraphrased from the post's description; the actual `if:` expressions are not shown.*
+[source: blog-ghaw-ecosystem-spotlight-svennijhuis-agentic-workflows, Claim 9; Concrete Artifacts] [anecdotal]
+
+githubnext/evergreen applies the same idea to a repair agent: quota is
+counted per PR across runs, and every run ends in one of five named stop
+states such as `quota-exhausted`.
+[source: blog-ghaw-ecosystem-spotlight-evergreen, Claim 7] [anecdotal]
+Both are secondhand design descriptions with no outcome data, and a round
+count derived from PR reviews is only as tamper-proof as those reviews, which
+anyone with write access can delete. [editorial]
+
+**Rule**: For a retry loop that spans agent runs, enforce the cap in the
+trigger condition, derive the count from a record the run's inputs cannot
+reset, and end at the cap in a named human handoff (currently described for
+gh-aw workflows only; whether other agent platforms expose an equivalent
+pre-run gate is not documented).
+[source: blog-ghaw-ecosystem-spotlight-svennijhuis-agentic-workflows, Claims 1, 2, 9;
+blog-ghaw-ecosystem-spotlight-evergreen, Claim 7] [anecdotal]
+
 ### 7. No Dollar Ceiling on Unsupervised Agent Spend
 
 A consecutive-failure circuit breaker (anti-pattern #6) bounds a retry loop
@@ -1827,6 +1918,10 @@ blog-thoughtworks-kamelman-token-crisis, Claim 13] [anecdotal]
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 4, 7, 11; Linked Sources 1, 4),
 blog-anthropic-multi-agent-coordination-patterns (Claims 1-3, 5-7, 12, 13),
+blog-anthropic-building-always-on-agents (Claims 1, 2, 3, 4, 6, 13; Concrete Artifacts),
+blog-ghaw-ecosystem-spotlight-evergreen (Claim 7),
+blog-ghaw-ecosystem-spotlight-svennijhuis-agentic-workflows (Claims 1, 2, 9; Concrete Artifacts),
+blog-simonwillison-gpt62-astra-and-sol (Claims 6, 7),
 blog-anthropic-warp-self-improving-skills (Claims 2, 3, 5, 7, 9; Concrete Artifacts),
 blog-anthropic-seeing-like-an-agent (Claims 1-5, 7, 12),
 blog-ccunpacked-claude-code-architecture (Claim 14),
@@ -1854,4 +1949,4 @@ practitioner-supabase-supabase-js,
 practitioner-dadlerj-tin,
 practitioner-mikelane-pytest-test-categories*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-19*
