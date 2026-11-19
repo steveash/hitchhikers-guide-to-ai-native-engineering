@@ -1450,9 +1450,21 @@
         "screened_at": "2026-11-18T06:08:27.529388+00:00",
         "issue": 4805,
         "filed_at": "2026-11-18T06:08:32.661891+00:00"
+      },
+      "https://github.github.com/gh-aw/reference/value": {
+        "status": "rejected",
+        "screened_at": "2026-11-19T06:07:23.006450+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/operational-value-specification": {
+        "status": "pending",
+        "screened_at": "2026-11-19T06:07:23.006493+00:00"
+      },
+      "https://github.github.com/gh-aw/specs/update-upgrade-jsonl-specification": {
+        "status": "rejected",
+        "screened_at": "2026-11-19T06:07:23.006497+00:00"
       }
     },
-    "last_scan": "2026-11-18T06:08:27.529403+00:00"
+    "last_scan": "2026-11-19T06:07:23.006499+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1599,7 +1611,7 @@
         "screened_at": "2026-11-05T06:08:22.420631+00:00"
       }
     },
-    "last_scan": "2026-11-18T06:08:29.324625+00:00"
+    "last_scan": "2026-11-19T06:07:24.496722+00:00"
   },
   "cognition": {
     "urls": {
@@ -2384,6 +2396,6 @@
         "filed_at": "2026-11-05T06:08:26.270455+00:00"
       }
     },
-    "last_scan": "2026-11-18T06:08:30.538309+00:00"
+    "last_scan": "2026-11-19T06:07:25.609041+00:00"
   }
 }
