@@ -1456,15 +1456,21 @@
         "screened_at": "2026-11-19T06:07:23.006450+00:00"
       },
       "https://github.github.com/gh-aw/specs/operational-value-specification": {
-        "status": "pending",
-        "screened_at": "2026-11-19T06:07:23.006493+00:00"
+        "status": "filed",
+        "screened_at": "2026-11-19T06:07:23.006493+00:00",
+        "issue": 4863,
+        "filed_at": "2026-11-20T06:08:21.969125+00:00"
       },
       "https://github.github.com/gh-aw/specs/update-upgrade-jsonl-specification": {
         "status": "rejected",
         "screened_at": "2026-11-19T06:07:23.006497+00:00"
+      },
+      "https://github.github.com/gh-aw/experimental/token-broker": {
+        "status": "rejected",
+        "screened_at": "2026-11-20T06:08:17.548753+00:00"
       }
     },
-    "last_scan": "2026-11-19T06:07:23.006499+00:00"
+    "last_scan": "2026-11-20T06:08:17.548769+00:00"
   },
   "humanlayer": {
     "urls": {
@@ -1611,7 +1617,7 @@
         "screened_at": "2026-11-05T06:08:22.420631+00:00"
       }
     },
-    "last_scan": "2026-11-19T06:07:24.496722+00:00"
+    "last_scan": "2026-11-20T06:08:19.121924+00:00"
   },
   "cognition": {
     "urls": {
@@ -2396,6 +2402,6 @@
         "filed_at": "2026-11-05T06:08:26.270455+00:00"
       }
     },
-    "last_scan": "2026-11-19T06:07:25.609041+00:00"
+    "last_scan": "2026-11-20T06:08:20.312578+00:00"
   }
 }
