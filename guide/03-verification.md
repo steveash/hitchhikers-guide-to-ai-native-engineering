@@ -382,6 +382,73 @@ agent discover this by reading the code? If yes, delete it from AGENTS.md.
 Keep only what requires human knowledge.
 [source: blog-addyosmani-code-agent-orchestra, Linked Source 1 (AGENTS.md post)] [stale]
 
+### Gate 4: A change must not be able to edit its own judge
+
+An agent optimizing for green will take any path to green, including
+editing the check. The Claude Code team states the principle flatly — "If
+a change can modify the check that judges it, the check is broken." — and
+implements it by having Code Review read REVIEW.md from the base or default
+branch, not from the PR, and by pinning reviews to commits: "A passing
+review on an out-of-date commit means nothing."
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 12] [emerging]
+
+The same team rolls out a commit gate in three modes, and stamps every
+commit with how it was verified — including "none" — so unverified
+commits stay queryable:
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 13] [anecdotal]
+
+```
+off      no gate
+observe  log what would have been blocked; review the false positives
+enforce  block the commit unless the session ran /code-review or /verify
+         (the commit message may carry an explanation)
+         escape hatch: after two blocks in a session, the next commit passes
+```
+
+*From [source: blog-claude-dev-claude-code-team-thinks-about-verification,
+Concrete Artifacts].*
+
+The escape hatch is deliberate — "If commits have been blocked twice in the
+session, the next one will be allowed through so Claude doesn't get stuck"
+— which makes enforce a bounded control, with the stamp recording each
+commit that went through it unverified.
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 13] [anecdotal]
+Observe-then-enforce is the same sequence as the shadow → inform → gate
+rollout in ch06 §Gradual trust rollout, applied to the agent's own commits
+rather than a security reviewer.
+[editorial]
+
+**Rule**: Load gating rules (review instructions, CI config, hook scripts)
+from the base branch so the PR under test cannot rewrite them, and start
+any new commit gate in observe mode before enforcing it.
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claims 12, 13] [anecdotal]
+
+### Gate 5: Incident memory as a diff-triggered checklist
+
+Past outages are the checks most worth running and the ones nobody
+remembers. The Claude Code team keeps a 39-item reliability checklist in
+which each entry has a trigger readable from a diff, a check, and the
+incidents or PRs behind it; "Claude reads the diff and checks only the
+items whose trigger matches–usually 3 to 10–so nobody has to memorize past
+outages."
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 10] [emerging]
+
+```
+Item:     "--resume loads old transcripts"
+Trigger:  session storage or message types change
+Check:    does a new field load safely, since older transcripts won't have it?
+Behind:   the incidents / PRs that motivated the item
+```
+
+*The source describes this structure and one example item; the list itself
+is not published. See [source: blog-claude-dev-claude-code-team-thinks-about-verification,
+Concrete Artifacts].*
+
+**Rule**: When an incident post-mortem produces a "check for this next
+time," write it as a trigger + check + provenance entry the agent matches
+against the diff, rather than a line in always-loaded instructions.
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 10] [emerging]
+
 ---
 
 ## Kill Criteria: When to Stop the Agent
@@ -429,10 +496,19 @@ definition. The agent does not decide when to give up -- the command
 tells it.
 [source: practitioner-frankray78-netpace] [anecdotal]
 
-**Rule**: Set explicit attempt limits in your agent instructions. Do
-not rely on the agent to recognize when it is stuck. An agent in a
-failure loop will burn tokens indefinitely unless told to stop.
+The Claude Code team applies the same number to every check, and the
+limit ends in a handoff rather than a bare stop: "If a check is still
+failing after three rounds, Claude stops and brings in a human."
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 8] [anecdotal]
+Three independent sources, each anecdotal on its own, settle on the same
+three-attempt cap; none explains why three.
 [editorial]
+
+**Rule**: Write a three-attempt cap into the command or check definition,
+and make hitting it escalate to a human instead of just ending the run.
+[source: blog-addyosmani-code-agent-orchestra, Claim 12;
+practitioner-frankray78-netpace;
+blog-claude-dev-claude-code-team-thinks-about-verification, Claim 8] [emerging]
 
 ---
 
@@ -850,6 +926,54 @@ agent performed red-green).
 [source: blog-fowler-boeckeler-tdd-in-the-agent-loop, Claim 11;
 blog-simonwillison-condense-json-1-1, Claim 10] [emerging]
 
+### Pick test types whose inputs the agent didn't choose
+
+Unit tests written by the agent that wrote the code share its blind spots:
+they can pass while the feature is broken because both the agent and the
+test misread the task. The Claude Code team's answer is to rank test types
+by how hard they are to fool: "If you have to focus on one test type, pick
+end-to-end."
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 4] [emerging]
+Their E2E rubric is a feature map — each feature described from the user's
+side, with its path, shortcut, selector, and expected result — so "done"
+is checked against the map, not the agent's say-so.
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 4] [emerging]
+
+Property tests come second, because "Property libraries are a great way to
+keep agents honest by using edge cases that aren't created with the same
+bias as the agent that created the original code."
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 5] [emerging]
+Differential tests are for migrations and rewrites, where the old system is
+the oracle:
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 6] [emerging]
+
+```
+E2E           drive the running app (CDP, simulator, API harness);
+              grade against the feature map; returns screenshots, not timeouts
+Property      round-trip encoding | invariants | idempotency |
+              equivalence (optimized vs naive)
+              fast-check (JS/TS), Hypothesis (Python), proptest (Rust)
+Differential  feed random or sampled production inputs to old and new;
+              normalize irrelevant differences (e.g. whitespace);
+              keep an approved-changes list for intended divergences
+```
+
+*Structure from [source: blog-claude-dev-claude-code-team-thinks-about-verification,
+Concrete Artifacts and Claims 4–6].*
+
+The approved-changes list is what makes a differential test usable: every
+diff is either a bug or an entry someone signed off on. "You'll also want
+to normalize irrelevant factors like whitespace and keep a list of
+approved changes for situations where the new environment should differ
+from the old."
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claim 6] [emerging]
+
+**Rule**: For agent-written code, put an E2E test graded against a
+feature map first, property tests second, and — for any port or
+migration — a differential test against the old system with an
+approved-changes list.
+[source: blog-claude-dev-claude-code-team-thinks-about-verification, Claims 4, 5, 6] [emerging]
+
 ### The author who never read the diff ("meat proxy")
 
 Niklas Gruhn names the general failure — relaying a model's output to
@@ -1260,6 +1384,7 @@ pricing-tier level.
 *Sources for this chapter:
 blog-addyosmani-code-agent-orchestra (Claims 5, 7, 11, 12; Linked Sources 1, 2, 3, 4, 5, 6),
 blog-anthropic-claudecode-quality-postmortem (Claims 7, 9, 10, 13),
+blog-claude-dev-claude-code-team-thinks-about-verification (Claims 4, 5, 6, 8, 10, 12, 13; Concrete Artifacts),
 blog-anthropic-jetbrains-fable5-evaluation-deployment (Claims 1, 2, 3, 4),
 blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
@@ -1288,4 +1413,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-21*

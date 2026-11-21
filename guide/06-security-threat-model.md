@@ -450,6 +450,28 @@ LLM than handing it a pile of OpenAPI JSON definitions."
 [source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10]
 [emerging]
 
+Where you are stuck with a credential-swapping proxy, its known hole is the
+allowed host itself: "An allowed host could still echo a credential back in
+its response, so only use credential rules with services you trust, and
+keep their methods and paths narrow."
+[source: blog-primeradiant-external-sandboxes-coding-agents, Claim 6] [settled]
+Prime Radiant's prototype config scopes each swap to one origin and method,
+on top of default-deny egress:
+[source: blog-primeradiant-external-sandboxes-coding-agents, Claims 4, 5] [emerging]
+
+```json
+{ "origin": "https://api.github.com",
+  "methods": ["GET"],
+  "credential": {
+    "header": "authorization",
+    "placeholder": "Bearer placeholder-github-token",
+    "secretEnv": "GITHUB_TOKEN",
+    "prefix": "Bearer " } }
+```
+
+*Excerpt from `proxy.json`; see [source: blog-primeradiant-external-sandboxes-coding-agents,
+Concrete Artifacts]. The prototypes are self-described as unaudited.*
+
 **No single component grants egress.** OpenAI's post-incident rebuild states
 this as a design requirement rather than a lesson learned: it has "designed
 these controls so that a single compromise of a workload or supporting
@@ -483,6 +505,26 @@ lock down the API that provisions the sandbox as a control distinct from the
 sandbox itself.
 [source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10;
 blog-simonwillison-smolmachines-untrusted-sandbox, Claims 5, 6] [emerging]
+
+### A sandbox covers only the tools routed into it
+
+Prime Radiant's external-sandbox prototype runs the agent on the host and
+sends executed commands to a separate sandbox, so coverage depends on which
+tools each harness lets you redirect. Claude Code's
+`CLAUDE_CODE_SHELL_PREFIX` hook wraps Bash only: "Unlike the other agents, Claude Code's read and edit
+tools do not run via the sandbox. The mount rules limit what Claude's Bash
+commands can touch, but Claude can still read and edit files on your Mac
+directly." In the same post, Codex (via its exec-server) and Pi (via an
+extension that replaces every built-in tool) route file operations through
+the sandbox too, and Pi fails closed — "If the sandbox cannot be reached,
+the tools return an error rather than falling back to those defaults."
+[source: blog-primeradiant-external-sandboxes-coding-agents, Claims 7, 8, 9] [emerging]
+
+**Rule**: Before calling an agent sandboxed, list every tool the harness
+exposes and confirm each one executes inside the boundary and errors when
+the sandbox is unreachable (for Claude Code's shell-prefix hook, confirmed
+as of November 2026 to cover Bash only; Read and Edit still touch the host).
+[source: blog-primeradiant-external-sandboxes-coding-agents, Claims 7, 9] [emerging]
 
 ### Volume, not cleverness, is what breaks the defender
 
@@ -604,6 +646,7 @@ blog-cursor-security-agents (Claims 1, 4, 5, 9),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
 blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
+blog-primeradiant-external-sandboxes-coding-agents (Claims 4, 5, 6, 7, 8, 9; Concrete Artifacts),
 blog-simonwillison-aisi-gpt55-cyber (Claims 1, 2, 3),
 blog-simonwillison-bobby-holley (Claims 1, 7),
 blog-simonwillison-jeremy-morrell-extensible-software (Claims 9, 10),
@@ -611,4 +654,4 @@ blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-21*
