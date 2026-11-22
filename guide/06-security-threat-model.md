@@ -207,7 +207,7 @@ Progression criteria (per Cursor):
   PR comments → blocking: confidence continues to build (no specific gate)
 ```
 
-[source: blog-cursor-security-agents, Claim 4] [emerging]
+[source: blog-cursor-security-agents, Claim 4] [stale]
 
 The pattern catches the "agent cried wolf" failure mode that causes engineers
 to dismiss legitimate findings. Skipping shadow mode lands you with a CI gate
@@ -217,7 +217,7 @@ findings train the team to ignore the agent.
 **Rule**: Never deploy a security agent in blocking mode before it has run
 in shadow mode long enough to produce a stable signal. Shadow → inform →
 gate is the only deployment sequence with corroborating production evidence.
-[source: blog-cursor-security-agents, Claim 4] [emerging]
+[source: blog-cursor-security-agents, Claim 4] [stale]
 
 ### Three-axis attribution when the agent gets it wrong
 

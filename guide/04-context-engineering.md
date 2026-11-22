@@ -92,7 +92,7 @@ The dollar number ($0.40) is illustrative; the structural finding is
 solid. Compaction destroys the prompt cache. Cached prefix reads
 cost 0.1x base input pricing; after compaction, the next turn pays full
 1.0x for the entire summarized prefix.
-[source: blog-bswen-mcp-token-cost, Claim 8] [emerging]
+[source: blog-bswen-mcp-token-cost, Claim 8] [stale]
 
 **Rule**: Treat compaction as a budget item. Plan to handoff *before* it
 fires, not to be rescued by it. Your harness's auto-compactor is the
@@ -168,7 +168,7 @@ Sankalp confirms the user-side observation:
 
 > "Plan and todo lists are stored as markdown file and they are persisted
 > during compaction."
-> [source: blog-sankalp-claude-code-20, Claim 6] [emerging]
+> [source: blog-sankalp-claude-code-20, Claim 6] [stale]
 
 In Claude Code, **the active plan file survives compaction by name**.
 That makes the plan-as-file pattern the storage layout the harness was designed to preserve, not just a
@@ -408,7 +408,7 @@ Sankalp uses Claude Code's built-in command:
 
 > [paraphrased] Author uses `/context` to check usage levels before
 > taking handoff actions.
-> [source: blog-sankalp-claude-code-20, Claim 7] [emerging]
+> [source: blog-sankalp-claude-code-20, Claim 7] [stale]
 
 The same `/context` command is what Cowrie used to discover the 96%
 boilerplate problem. It is the one diagnostic every Claude Code user
@@ -471,7 +471,7 @@ persistent customization:
 | `~/.claude/commands`              | Global slash commands         |
 | `.claude/agents/<name>.md`        | Custom sub-agents             |
 
-[source: blog-sankalp-claude-code-20, Claim 4] [emerging]
+[source: blog-sankalp-claude-code-20, Claim 4] [stale]
 
 These are first-class persistence layers: they are loaded on every
 session, they cost only the tokens of the file content, and they survive
@@ -556,7 +556,7 @@ the agent queries it on demand for the specific class APIs it needs,
 rather than injecting the full corpus upfront. Injecting all 850 classes
 would overflow the context budget alongside the actual code being
 generated.
-[source: failure-htdt-godogen-game-generation, Lesson 2] [emerging]
+[source: failure-htdt-godogen-game-generation, Lesson 2] [stale]
 
 ```
 Architecture: "godot-api" runs as an isolated skill context
@@ -578,7 +578,7 @@ the target language or framework is adequately represented in the model's
 training corpus. If not, plan for a reference injection layer. Lazy-load
 via a dedicated skill context to preserve budget — do not inject the full
 corpus upfront.
-[source: failure-htdt-godogen-game-generation, Lessons 1, 2] [emerging]
+[source: failure-htdt-godogen-game-generation, Lessons 1, 2] [stale]
 
 ---
 
@@ -660,7 +660,7 @@ backup and resume with `claude --resume <session-id>` to bring back the
 exact context. It is a workaround for the symptom, not a fix for the
 root cause -- but it costs nothing and works on any Claude Code
 installation.
-[source: failure-decker-4hr-session-loss, Recovery Path] [emerging]
+[source: failure-decker-4hr-session-loss, Recovery Path] [stale]
 
 **Rule**: Run the backup script on a cron or `chronic` schedule. The
 combined cost is one `cp -r` per interval; the upside is that any
@@ -872,14 +872,14 @@ Cowrie's central finding:
 > "Every MCP server you connect loads all its tool definitions into
 > Claude's system prompt. Not when you use them -- **before you even
 > start working**."
-> [source: blog-bswen-mcp-token-cost, Claim 1] [emerging]
+> [source: blog-bswen-mcp-token-cost, Claim 1] [stale]
 
 MCP is not pay-per-use. It is pay-per-installed. The cost of an unused
 MCP server is exactly the cost of a heavily used one. This is the
 mechanism behind the 96% boilerplate problem above: every server you
 add is paid for on every session, indefinitely, regardless of whether
 you call any of its tools.
-[source: blog-bswen-mcp-token-cost, Claim 1] [emerging]
+[source: blog-bswen-mcp-token-cost, Claim 1] [stale]
 
 ### Server count maps roughly linearly to tokens
 
@@ -906,7 +906,7 @@ The brutal arithmetic, in Cowrie's words:
 
 > "If you have a 200k context window and burn 100k on tool definitions,
 > you've already lost half your capacity."
-> [source: blog-bswen-mcp-token-cost, Claim 3] [emerging]
+> [source: blog-bswen-mcp-token-cost, Claim 3] [stale]
 
 Pair this with the smart-half rule and the conclusion is unavoidable:
 **a 15-MCP-server user has burned their entire usable context window on
@@ -1075,7 +1075,7 @@ DANGEROUS_uncachedSystemPromptSection()
 **Pattern**: Prefix any harness function that invalidates the prompt cache
 with `DANGEROUS_` so callers know to pause — in Claude Code, the harness
 (not Anthropic) controls when cache-busting fires.
-[source: failure-alex000kim-claudecode-source-leak, Lesson 2] [emerging]
+[source: failure-alex000kim-claudecode-source-leak, Lesson 2] [stale]
 [per SN-04-002]
 
 ### Injecting mid-session updates without busting the cache

@@ -6,7 +6,7 @@ author: Naman Jain (Cursor / Anysphere)
 date_published: 2026-03-11
 date_extracted: 2026-04-19
 last_checked: 2026-04-19
-status: current
+status: stale
 confidence_overall: emerging
 issue: "#160"
 ---

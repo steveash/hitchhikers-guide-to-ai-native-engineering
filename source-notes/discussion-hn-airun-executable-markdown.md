@@ -6,7 +6,7 @@ author: jedwhite (Jed White, CTO of Andi AI Search)
 date_published: 2026-01-09
 date_extracted: 2026-04-15
 last_checked: 2026-04-15
-status: current
+status: stale
 confidence_overall: anecdotal
 issue: "#60"
 ---
