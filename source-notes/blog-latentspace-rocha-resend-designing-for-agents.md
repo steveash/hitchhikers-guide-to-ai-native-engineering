@@ -38,8 +38,8 @@ issue: "#4927"
 ### Claim 3: A pricing page with a slider is hard for an agent to read, and appending `.md` gives it a table in one request
 - **Evidence**: A single example from Resend's pricing page, described by the host. It isn't a spec, and no test of agent accuracy is reported.
 - **Confidence**: anecdotal
-- **Quote**: "Add \n.md\n to the URL and the agent gets a table it can read in one request."
-- **Our assessment**: A cheap, concrete practice: give interactive or visual pages a plain-markdown variant. It matches the content-negotiation idea in `blog-simonwillison-mcp-constrained-agent-value.md` (Claim 12). The page itself says nothing about how well agents read the result. (Quote text collapses the page's inline-code formatting around `.md`; the passage reads "Add `.md` to the URL and the agent gets a table it can read in one request.")
+- **Quote**: "the agent gets a table it can read in one request."
+- **Our assessment**: A cheap, concrete practice: give interactive or visual pages a plain-markdown variant. It matches the content-negotiation idea in `blog-simonwillison-mcp-constrained-agent-value.md` (Claim 12). The page itself says nothing about how well agents read the result.
 
 ### Claim 4: Check whether a model knows your product, and whether it can answer a customer's question from your pricing table
 - **Evidence**: The host's suggestion, tied to a mention of a previous Supabase interview. No procedure or data.
@@ -68,7 +68,7 @@ issue: "#4927"
 ### Claim 8: Cloudflare's Code Mode exposes a whole API through two tools, `search()` and `execute()`, as a contrast to an 80-tool design
 - **Evidence**: A host reference to Cloudflare's Code Mode server; not analysed on the page.
 - **Confidence**: emerging (the pattern is documented elsewhere in the corpus; this page only mentions it)
-- **Quote**: "The design looks especially interesting alongside \nCloudflare’s Code Mode server\n, which exposes its API through two tools, \nsearch()\n and \nexecute()\n."
+- **Quote**: "which exposes its API through two tools"
 - **Our assessment**: A pointer only. The substance lives in `blog-ronacher-what-is-codemode.md`. The page doesn't say which design Rocha prefers.
 
 ### Claim 9: Shared click-tracking domains let one tenant's abuse (phishing, blocklisting) harm other tenants' legitimate email, so Resend introduced custom tracking domains
@@ -115,5 +115,5 @@ Artifacts available on the page (no code, config or schema is shown):
 ## Extraction Notes
 
 - The page is show notes (about 900 words) plus a chapter list. The full transcript is a separate attachment (`Resend - Zeno Rocha - Transcript.txt`), and I could not fetch it: the host's transcript link returned a Cloudflare challenge. The chapters "Designing the MCP" (37:55), "Writing for machines" (58:28) and "Winning recommendations" (1:06:00) likely hold more detail and are not covered here. A re-mine with transcript access would be worthwhile.
-- Claims describe what the host wrote about Rocha, not Rocha's own words, so the quotes are the host's text. Two quotes (Claims 3 and 8) cross inline-code or link markup in the page, which is why the text is split across lines; the plain-text meaning is as stated.
+- Claims describe what the host wrote about Rocha, not Rocha's own words, so the quotes are the host's text. Quotes for Claims 3 and 8 are short contiguous fragments chosen to avoid inline-code and link markup.
 - The Prospector flagged the AEO figures as vendor-sourced and unverified; I kept them as anecdotal.
