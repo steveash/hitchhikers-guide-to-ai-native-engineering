@@ -1,6 +1,6 @@
 # Guide Dashboard
 
-_Generated 2026-11-25 (UTC) by `scripts/generate_dashboard.py`._
+_Generated 2026-11-26 (UTC) by `scripts/generate_dashboard.py`._
 
 Content-derived metrics for the living guide. Refreshed daily by
 `.github/workflows/daily-scan.yml`. For workflow status (PRs, issues,
@@ -14,7 +14,7 @@ scanner queues) see the GitHub Project linked from README.md.
 | `guide/03-verification.md` | 29/30 | 2025-09-17 (`failure-claudemd-ignored-compaction`) | 96% | 1291 (n/a) |
 | `guide/04-context-engineering.md` | 18/30 | 2025-12-27 (`blog-sankalp-claude-code-20`) | 94% | 1420 (n/a) |
 | `guide/05-team-adoption.md` | 26/30 | 2025-11-06 (`paper-miller-speed-cost-quality`) | 88% | 1749 (n/a) |
-| `guide/06-security-threat-model.md` | 16/30 | 2026-03-16 (`blog-cursor-security-agents`) | 81% | 614 (n/a) |
+| `guide/06-security-threat-model.md` | 16/30 | 2026-03-16 (`blog-cursor-security-agents`) | 93% | 614 (n/a) |
 
 **Source cap**: 30 per chapter (see `hitchhiker.config.json`). 
 Chapters at the cap are marked ⚠ and block new Smith additions until 
