@@ -873,6 +873,24 @@ does and why — Gruhn's "certificate" that they read, understood, and
 validated it. If they can't, the review hasn't started.
 [source: blog-simonwillison-gruhn-meat-proxy, Claim 4] [anecdotal]
 
+A personal "read it before you ship it" norm may not hold once review is
+optional. [editorial] A HoneyBook EM describes a backend repo where review
+was optional:
+"Slowly, it became more and more tempting to just not ask for reviews. It’s
+addicting to just develop a feature and immediately have it in production."
+The team went from two reviewers per PR to none: "in the span of a couple
+of months, we dropped from two people reviewing and understanding the code,
+to zero!" By the EM's own account, the result was a
+buggy codebase full of duplicated code.
+[source: blog-pragmaticengineer-orosz-essay-challenge-category-winners-part1, Claims 1, 2] [anecdotal]
+The EM concludes that review's hidden job was making authors understand their
+code: "the code review stage contains a lot of peer pressure."
+[source: blog-pragmaticengineer-orosz-essay-challenge-category-winners-part1, Claim 3] [anecdotal]
+
+**Rule**: For any change class where you want the author to understand the
+code, make review a required check rather than an option.
+[source: blog-pragmaticengineer-orosz-essay-challenge-category-winners-part1, Claims 1, 2] [anecdotal]
+
 ### Shell execution attack surface
 
 If your harness allows shell execution, your allowlist matching will
@@ -1035,6 +1053,40 @@ external record (issue search, git log, an API listing) on a fixed cadence,
 and treat any count that lands exactly on a round API page limit as
 unconfirmed rather than complete.
 [source: blog-ghaw-agent-of-the-day-2026-08-28, Claims 5, 6] [settled]
+
+### A run's status is not proof that it delivered
+
+Two gh-aw audits from consecutive days show the run's status and the actual
+output disagreeing in both directions. In the first, a scheduled workflow
+failed five days in a row after doing its analysis: "The agent did its
+analysis and then never recorded an outcome." Each failed run still spent
+between 49,117 and 412,148 tokens. The audit showed no issue or PR being
+filed, so "the run links above are the only evidence."
+[source: blog-ghaw-agent-of-the-day-2026-11-23, Claims 1, 3, 7] [anecdotal]
+The audit's own error list labelled the agent's success output as
+`agent_failure`. The author points to the `incomplete` field instead as "the
+more reliable signal".
+[source: blog-ghaw-agent-of-the-day-2026-11-23, Claim 6] [anecdotal]
+
+In the second, a run finished green with zero safe-output items. Its noop
+message said a lint rule had been added, registered, documented and tested,
+but the authors found no such rule in the checkout and no open PR. They
+report the message "as the run’s own statement, not as a verified result."
+That run used 4.09M tokens.
+[source: blog-ghaw-agent-of-the-day-2026-11-24, Claims 2, 3, 6] [anecdotal]
+Their fix: "A noop message that describes a change should point to a pull
+request, an artifact, or a commit that a reviewer can inspect."
+[source: blog-ghaw-agent-of-the-day-2026-11-24, Claim 4] [anecdotal]
+
+The output nobody receives is the only symptom in both cases, so an alert
+on expected output that didn't arrive catches both. Neither post proposes
+that alert. [editorial]
+
+**Rule**: For a scheduled agent, check what it delivered, not the run's
+status. Read the structured run-state field rather than free-text error
+labels. Treat any completion message that claims a change without linking a
+PR, commit or artifact as unverified.
+[source: blog-ghaw-agent-of-the-day-2026-11-23, Claim 6; blog-ghaw-agent-of-the-day-2026-11-24, Claims 2, 4] [anecdotal]
 
 ---
 
@@ -1265,10 +1317,13 @@ blog-anthropic-kepler-verifiable-ai-financial (Claims 3, 9),
 blog-cursor-bugbot-effort-billing (Claims 4, 6),
 blog-cursor-continual-harness-improvement (Claims 1, 2),
 blog-ghaw-agent-of-the-day-2026-08-28 (Claims 5, 6),
+blog-ghaw-agent-of-the-day-2026-11-23 (Claims 1, 3, 6, 7),
+blog-ghaw-agent-of-the-day-2026-11-24 (Claims 2, 3, 4, 6),
 blog-cursor-reward-hacking-benchmarks (Claims 1, 2, 3, 4, 5, 6, 8, 9, 10, 11),
 blog-fowler-boeckeler-tdd-in-the-agent-loop (Claims 1, 3, 6, 9, 10, 11; Source Context),
 blog-fowler-malykhin-archaeologist-copilot (Claims 3, 8),
 blog-jetbrains-caveman-token-savings-test (Claims 1, 2, 3, 6, 7),
+blog-pragmaticengineer-orosz-essay-challenge-category-winners-part1 (Claims 1, 2, 3),
 blog-simonwillison-condense-json-1-1 (Claim 10; Concrete Artifacts),
 blog-simonwillison-gruhn-meat-proxy (Claims 2, 4, 5),
 blog-thebatch-gpt55-hallucination-kimi-k26 (Claim 3),
@@ -1288,4 +1343,4 @@ practitioner-supabase-supabase-js,
 practitioner-mikelane-pytest-test-categories,
 practitioner-dadlerj-tin*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-26*

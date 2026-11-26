@@ -484,6 +484,46 @@ sandbox itself.
 [source: blog-simonwillison-jeremy-morrell-extensible-software, Claim 10;
 blog-simonwillison-smolmachines-untrusted-sandbox, Claims 5, 6] [emerging]
 
+### Boundary controls that fail open by default
+
+Anthropic's enterprise guide splits agent defenses into a probabilistic
+judgment layer (alignment training, injection probes, the auto-mode
+classifier) and a deterministic layer: "The fixed boundary layer can be made
+deterministic and sets an agent’s blast radius."
+[source: blog-anthropic-enterprise-guide-securing-coding-agents, Claim 2] [emerging]
+In Claude Code, three parts of that deterministic layer let work through
+when they break, unless you configure them otherwise:
+
+| Control | Default when it breaks | Fail-closed setting |
+|---|---|---|
+| Hook | "By default, a hook that fails or times out lets the call through." | `onFailure: "block"` |
+| Sandbox | "Without it, a sandbox that can’t start leaves commands running uncontained instead of refusing to run them." | `failIfUnavailable` |
+| Managed settings | "By default, Claude Code applies only the highest-ranked source and ignores the others, in that order, with no warning." | `managedSourcesBehavior: "merge"`, then check with `/status` |
+
+[source: blog-anthropic-enterprise-guide-securing-coding-agents, Claims 10, 11, 15] [settled]
+
+The managed-settings case shows how this goes wrong. If MDM turns the
+sandbox on and a managed file holds the egress allowlist, the lower-ranked
+file is dropped and the allowlist never takes effect. Nothing reports an
+error.
+[source: blog-anthropic-enterprise-guide-securing-coding-agents, Claim 15] [editorial]
+
+An allowlist that does take effect is still checked only by domain: "The
+challenge is a domain allowlist can't tell your account from an attacker's
+account." If `github.com` is allowed, the agent can push to a repo the
+attacker owns. DNS lookups are a second way out that the allowlist does not
+cover. The guide's fixes are to scope destinations "down to the organization
+or path where it can," and to send DNS through a filtered resolver that logs
+queries.
+[source: blog-anthropic-enterprise-guide-securing-coding-agents, Claim 12] [emerging]
+
+**Rule**: For each deterministic control, test what happens when it fails:
+crash the hook, run where the sandbox can't start, and read the effective
+settings in `/status`. Set any control that lets work through on failure to
+fail closed. Key names come from Anthropic's Claude Code guide and apply to
+Claude Code only, so check them against current docs.
+[source: blog-anthropic-enterprise-guide-securing-coding-agents, Claims 10, 11, 15] [settled]
+
 ### Volume, not cleverness, is what breaks the defender
 
 Hugging Face's July 2026 retrospective on the OpenAI-agent intrusion into its
@@ -548,6 +588,31 @@ check asks "is this action in service of what was actually requested?" — the
 only one of the three that catches an injection steering the agent toward an
 action that is individually innocuous and was never asked for. [editorial]
 
+Google has now measured this kind of check outside the browser. On AgentDojo
+(one model, a fixed `important_instructions` attack, six full runs), an
+intent check that treats tool results as data and the user's request as the
+only source of intent cut attack success from 48.7% to 0.9%, "at a cost of
+2.6 percentage points of utility on benign tasks."
+[source: blog-google-semantic-governance-intent-hijacking-agentdojo, Claims 1, 5] [emerging]
+"None of the 929 attacks that needed a tool call succeeded in any of the six
+runs". The attacks that still worked were text-only, such as a reply
+recommending the attacker's hotel. A gate on actions never sees those.
+[source: blog-google-semantic-governance-intent-hijacking-agentdojo, Claim 4] [emerging]
+The vendor sets its own limit on the result: the separation "is enforced by
+how the judge is instructed, not by a hard technical boundary," and the check
+was not tested against attacks adapted to it.
+[source: blog-google-semantic-governance-intent-hijacking-agentdojo, Claim 8] [settled]
+A denied action also usually stops the agent instead of letting it finish the
+user's task. The post therefore also reports how many tasks finished
+safely under attack, not just the attack success rate.
+[source: blog-google-semantic-governance-intent-hijacking-agentdojo, Claim 6] [emerging]
+
+**Rule**: Put an intent-consistency check in front of consequential tool
+calls. Run it in dry-run mode and review its verdicts before you enforce it.
+Add response filtering for text-only manipulation, which the check cannot
+see. Treat its numbers as non-adaptive upper bounds.
+[source: blog-google-semantic-governance-intent-hijacking-agentdojo, Claims 4, 8, 11] [emerging]
+
 Two further layers ignore the permission mode entirely. Some actions always
 stop for a human: "Claude still asks before certain irreversible or costly
 actions, like making a purchase or sharing personal data."
@@ -598,9 +663,11 @@ blog-anthropic-ai-accelerated-offense (Claims 1, 2, 6, 7),
 blog-anthropic-bow-cybersecurity-clue (Claims 2, 4, 5),
 blog-anthropic-ciso-guide-agentic-ai (Claims 1, 2, 3, 4, 7, 8, 10),
 blog-anthropic-cowork-chrome-side-panel (Claims 4, 5, 6, 7, 8, 9; Concrete Artifacts),
+blog-anthropic-enterprise-guide-securing-coding-agents (Claims 2, 10, 11, 12, 15),
 blog-anthropic-llms-secure-source-code (Claims 1, 2, 3, 5, 6, 7, 12),
 blog-anthropic-carta-healthcare-context-engineering (Claims 5, 6),
 blog-cursor-security-agents (Claims 1, 4, 5, 9),
+blog-google-semantic-governance-intent-hijacking-agentdojo (Claims 1, 4, 5, 6, 8, 11),
 blog-latentspace-ainews-fearing-rsi-pace-letter (Claims 5, 6),
 blog-openai-pacing-model-development-cyber-capabilities (Claims 4, 8),
 blog-openai-patch-the-planet (Claims 2, 11),
@@ -611,4 +678,4 @@ blog-simonwillison-smolmachines-untrusted-sandbox (Claims 2, 3, 5, 6, 8),
 blog-simonwillison-meta-muse-spark-cyberattack (Claims 2, 3, 4, 5, 6),
 docs-github-copilot-vs-june-2026 (Claims 3, 4)*
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-11-26*
