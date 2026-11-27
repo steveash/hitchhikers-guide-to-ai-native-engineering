@@ -62,7 +62,7 @@ issue: "#4985"
 ### Claim 7: Near-equal scores can come at very different cost per task
 - **Evidence**: Open-source: Claude Code with Fable 5.1 86.2% (cost not stated in the quoted text); Claude Code with Opus 5.5 84.8% and Junie with Opus 5.5 and GPT 6 Luna 79.5% at $0.68 and $0.33 versus $2.38.
 - **Confidence**: emerging
-- **Quote**: "However, the latter configurations offer a comparable score at lower average costs per task ($0.68 and \$0.33, respectively, versus $2.38)."
+- **Quote**: "However, the latter configurations offer a comparable score at lower average costs per task ($0.68 and $0.33, respectively, versus $2.38)."
 - **Our assessment**: The $2.38 figure is presumably the top (Fable 5.1) configuration, but the post does not label it explicitly; treat that attribution as inferred. Supports reporting cost as a second axis.
 
 ### Claim 8: Cheaper open-weight models are competitive on closed-source tasks
@@ -81,7 +81,7 @@ issue: "#4985"
 - **Evidence**: Stated methodology.
 - **Confidence**: settled (design fact)
 - **Quote**: "Every configuration runs the full suite three times"
-- **Our assessment**: Three runs is a small sample for stochastic agents; no variance or confidence intervals are given in the post. The 30-minute cap is stated as "a 30-minute-per-task resolution time limit for each configuration" (the source text has a double space and no article: "We also set  30-minute-per-task resolution time limit"). It may penalize slow-but-capable configurations.
+- **Our assessment**: Three runs is a small sample for stochastic agents; no variance or confidence intervals are given in the post. The post states a 30-minute per-task resolution limit. It may penalize slow-but-capable configurations.
 
 ### Claim 11: Scores are not comparable across benchmark versions and are a shortlisting signal only
 - **Evidence**: v2 uses a different, harder suite (multi-file, medium/high complexity; single-file edits filtered out). A task counts as solved only when the patch passes required tests.
