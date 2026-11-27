@@ -69,7 +69,7 @@ issue: "#4983"
 - **Evidence**: July 2026 GPT-5.6 Sol run: 166 unique LPEs for $513,690. October newer cyber model: 948 for $1,213,430, scanning the latest master each time. Authors state >5x more novel LPEs "despite three months of hardening between the scans".
 - **Confidence**: emerging (two runs, different harness maturity; 948/166 ≈ 5.7x; harness was also evolving so model attribution is not clean — though the post says "even when using the same research harness")
 - **Quote**: "Rescan previously audited code as model capabilities improve."
-- **Our assessment**: Supports a recurring-scan practice. Cost per LPE rose-fell: $513,690/166 ≈ $3,094 vs $1,279, i.e. ~2.4x cheaper per exploit (our arithmetic, not stated in the post).
+- **Our assessment**: Supports a recurring-scan practice. Cost per LPE fell: $513,690/166 ≈ $3,094 vs $1,279, i.e. ~2.4x cheaper per exploit (our arithmetic, not stated in the post).
 
 ### Claim 9: Reported costs are an upper bound; harness engineering should lower them
 - **Evidence**: Authors state they optimized for measuring capability, not cost. No experiment backs the reduction claim.
